@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:ehcache="http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+						http://www.springframework.org/schema/context
+            			http://www.springframework.org/schema/context/spring-context-4.0.xsd
+						http://www.springframework.org/schema/util
+						http://www.springframework.org/schema/util/spring-util-4.0.xsd
+						http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring   
+  						http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd">
+
+	<!-- Add this line to enable @Autowired. -->
+	<context:annotation-config />
+
+	<!-- Do not use this line to load hibernateProperties. It doesn't work! -->
+	<!-- util:properties id="hibernateProperties" location="${file_path.context.local_external}hibernate.properties" 
+		/ -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"
+		p:dataSource-ref="dataSource" p:packagesToScan="com.djs.test.spring_sample.db">
+		<property name="hibernateProperties">
+			<bean
+				class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+				<property name="locations"
+					value="${file_path.context.local_external}hibernate.properties" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate"
+		p:sessionFactory-ref="sessionFactory" />
+	<!-- Not use Hibernate cache, use ehcache-spring-annotations. -->
+	<!-- p:cacheQueries="true" -->
+
+	<!-- ehcache-spring-annotations to enable Ehcache for itemDao0, itemDao1 
+		and itemDao3. -->
+	<ehcache:annotation-driven cache-manager="ehCacheManager" />
+	<bean id="ehCacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
+		p:configLocation="${file_path.context.shared_internal}ehcache.xml" />
+
+	<!-- component-scan to enable itemDao1. Also implicitly enable @Autowired. -->
+	<context:component-scan base-package="com.djs.test.spring_sample.hibernate" />
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+
+	<!-- This method is 2nd recommended. -->
+	<bean id="itemDao0"
+		class="com.djs.test.spring_sample.hibernate.ItemDaoHibernateImplA" />
+	<!-- hibernateTemplate-ref is @Autowired in code. -->
+	<!-- p:hibernateTemplate-ref="hibernateTemplate" / -->
+
+
+	<!-- This method itemDao1 is 1st recommended. -->
+	<!-- itemDao1 is @Repository in code. -->
+	<!-- hibernateTemplate-ref is @Autowired in code. -->
+
+
+	<!-- This method is not recommended, because SpringModules framework is 
+		discontinued. -->
+	<bean id="itemDao2"
+		class="com.djs.test.spring_sample.hibernate.ItemDaoSpringHibernateImplA"
+		p:sessionFactory-ref="sessionFactory" />
+
+
+	<!-- This method is 3rd recommended. -->
+	<bean id="itemDao3"
+		class="com.djs.test.spring_sample.hibernate.ItemDaoSpringHibernateImplB"
+		p:sessionFactory-ref="sessionFactory" />
+
+</beans>

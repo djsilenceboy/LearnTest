@@ -1,0 +1,13 @@
+<project name="build_properties">
+	<property name="dir.build" value="bin"/>
+	<property name="dir.dist" value="dist"/>
+	<property name="dir.src" value="appClientModule"/>
+	<property name="dir.j2ee.home" value="C:/Program Files/Java/jee_sdk_5_06"/>
+	<property name="dir.common.lib" value="../Common/Lib"/>
+	<property name="javac.debug" value="false"/>
+    <property name="javac.debuglevel" value="lines,vars,source"/>
+	<property name="jar.name" value="JndiTreeClient.jar"/>
+	<property name="main.class.name" value="JndiTree"/>
+	<property name="compress.jar.flag" value="true"/>
+	<property name="manifest.user.name" value="Du Jiang/SilenceBoy"/>
+</project>

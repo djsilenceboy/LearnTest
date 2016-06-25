@@ -1,0 +1,133 @@
+
+package com.bea.wsdl.wlcp.wlng.session_manager.service;
+
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlElementDecl;
+import javax.xml.bind.annotation.XmlRegistry;
+import javax.xml.namespace.QName;
+
+
+/**
+ * This object contains factory methods for each 
+ * Java content interface and Java element interface 
+ * generated in the com.bea.wsdl.wlcp.wlng.session_manager.service package. 
+ * <p>An ObjectFactory allows you to programatically 
+ * construct new instances of the Java representation 
+ * for XML content. The Java representation of XML 
+ * content can consist of schema derived interfaces 
+ * and classes representing the binding of schema 
+ * type definitions, element declarations and model 
+ * groups.  Factory methods for each of these are 
+ * provided in this class.
+ * 
+ */
+@XmlRegistry
+public class ObjectFactory {
+
+    private final static QName _Fault_QNAME = new QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", "fault");
+
+    /**
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.bea.wsdl.wlcp.wlng.session_manager.service
+     * 
+     */
+    public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link RefreshSession }
+     * 
+     */
+    public RefreshSession createRefreshSession() {
+        return new RefreshSession();
+    }
+
+    /**
+     * Create an instance of {@link GetSessionRemainingLifeTimeResponse }
+     * 
+     */
+    public GetSessionRemainingLifeTimeResponse createGetSessionRemainingLifeTimeResponse() {
+        return new GetSessionRemainingLifeTimeResponse();
+    }
+
+    /**
+     * Create an instance of {@link ChangeApplicationPasswordResponse }
+     * 
+     */
+    public ChangeApplicationPasswordResponse createChangeApplicationPasswordResponse() {
+        return new ChangeApplicationPasswordResponse();
+    }
+
+    /**
+     * Create an instance of {@link DestroySessionResponse }
+     * 
+     */
+    public DestroySessionResponse createDestroySessionResponse() {
+        return new DestroySessionResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetSessionResponse }
+     * 
+     */
+    public GetSessionResponse createGetSessionResponse() {
+        return new GetSessionResponse();
+    }
+
+    /**
+     * Create an instance of {@link GeneralException }
+     * 
+     */
+    public GeneralException createGeneralException() {
+        return new GeneralException();
+    }
+
+    /**
+     * Create an instance of {@link GetSession }
+     * 
+     */
+    public GetSession createGetSession() {
+        return new GetSession();
+    }
+
+    /**
+     * Create an instance of {@link DestroySession }
+     * 
+     */
+    public DestroySession createDestroySession() {
+        return new DestroySession();
+    }
+
+    /**
+     * Create an instance of {@link ChangeApplicationPassword }
+     * 
+     */
+    public ChangeApplicationPassword createChangeApplicationPassword() {
+        return new ChangeApplicationPassword();
+    }
+
+    /**
+     * Create an instance of {@link RefreshSessionResponse }
+     * 
+     */
+    public RefreshSessionResponse createRefreshSessionResponse() {
+        return new RefreshSessionResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetSessionRemainingLifeTime }
+     * 
+     */
+    public GetSessionRemainingLifeTime createGetSessionRemainingLifeTime() {
+        return new GetSessionRemainingLifeTime();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GeneralException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", name = "fault")
+    public JAXBElement<GeneralException> createFault(GeneralException value) {
+        return new JAXBElement<GeneralException>(_Fault_QNAME, GeneralException.class, null, value);
+    }
+
+}

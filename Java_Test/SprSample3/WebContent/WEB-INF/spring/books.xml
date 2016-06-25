@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="myFirstSpringBook" class="com.djs.test.mvc.dto.Book">
+		<property name="isbn">
+			<value>1</value>
+		</property>
+		<property name="author">
+			<value>${myFirstSpringBook.author}</value>
+		</property>
+		<property name="title">
+			<ref bean="bookTitle" />
+		</property>
+		<property name="chapters">
+			<list>
+				<ref bean="chapter1" />
+				<ref bean="chapter2" />
+				<ref bean="chapter3" />
+			</list>
+		</property>
+	</bean>
+
+</beans>

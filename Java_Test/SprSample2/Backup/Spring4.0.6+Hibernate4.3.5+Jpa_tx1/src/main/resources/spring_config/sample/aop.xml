@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<bean id="airMailA" class="com.djs.test.spring_sample.aop.AirMail" scope="prototype">
+		<property name="name" value="Tom" />
+		<property name="address" value="NewYork" />
+		<property name="transactionId" value="#{ new java.util.Date().getTime() }" />
+	</bean>
+
+	<bean id="airMailB" class="com.djs.test.spring_sample.aop.AirMail" scope="prototype">
+		<property name="name" value="Jerry" />
+		<property name="address" value="Mexico" />
+	</bean>
+
+	<bean id="deliver" class="com.djs.test.spring_sample.aop.DeliverImpl" scope="prototype">
+		<property name="airMail" ref="airMailB" />
+	</bean>
+
+	<bean id="log4jHelper" class="com.djs.test.spring_sample.aop.MethodInvokeLog4jHelper" />
+
+	<aop:config>
+		<aop:aspect id="log4jHelperAop" ref="log4jHelper">
+			<!-- Please note the position of around(). -->
+			<!-- If around() is before before(), it will be called before before(). -->
+			<!-- If around() is after before(), it will be called after before(). -->
+			<!-- If around() is before after(), it will be called before after(). -->
+			<!-- If around() is after after(), it will be called after after(). -->
+
+			<aop:pointcut id="afterInvokeForLog4j" expression="execution(* *..aop.*.deliver(..)) and target(bean)" />
+			<aop:after-returning method="afterReturningInvoke" pointcut-ref="afterInvokeForLog4j" returning="response" arg-names="response,bean" />
+			<aop:after-throwing method="afterThrowingInvoke" pointcut-ref="afterInvokeForLog4j" throwing="e" arg-names="e,bean" />
+			<aop:after method="afterFinallyInvoke" pointcut-ref="afterInvokeForLog4j" arg-names="bean" />
+
+			<aop:pointcut id="aroundInvokeForLog4j" expression="execution(* *..aop.*.deliver(..)) and args(request,..) and target(bean)" />
+			<aop:around method="aroundInvoke" pointcut-ref="aroundInvokeForLog4j" arg-names="request,bean" />
+
+			<aop:pointcut id="aroundInvokeForLog4j2" expression="execution(* *..aop.*.deliver()) and target(bean)" />
+			<aop:around method="aroundInvoke2" pointcut-ref="aroundInvokeForLog4j2" arg-names="bean" />
+
+			<aop:pointcut id="beforeInvokeForLog4j" expression="execution(* *..aop.*.deliver(..)) and args(request,..) and target(bean)" />
+			<aop:before method="beforeInvoke" pointcut-ref="beforeInvokeForLog4j" arg-names="request,bean" />
+
+			<aop:pointcut id="beforeInvokeForLog4j2" expression="execution(* *..aop.*.deliver()) and target(bean)" />
+			<aop:before method="beforeInvoke2" pointcut-ref="beforeInvokeForLog4j2" arg-names="bean" />
+
+			<!-- Use "this()" instead of "target()", so no need to declare "arg-names". -->
+			<aop:pointcut id="beforeInvokeForLog4j3" expression="execution(* *..aop.*.deliver()) and this(bean)" />
+			<aop:before method="beforeInvoke2" pointcut-ref="beforeInvokeForLog4j3" />
+		</aop:aspect>
+	</aop:config>
+
+	<aop:config>
+		<aop:aspect id="log4jHelperAop2" ref="log4jHelper">
+
+		</aop:aspect>
+	</aop:config>
+
+	<!-- This to enable AspectJ. -->
+	<aop:aspectj-autoproxy />
+	<bean id="log4jHelper2" class="com.djs.test.spring_sample.aop.AspectJMethodInvokeLog4jHelper" />
+
+</beans>

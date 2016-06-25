@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<bean id="quest" class="com.djs.test.spring_sample.knight.HolyGrailQuest" />
+
+	<bean id="knightA" class="com.djs.test.spring_sample.knight.KnightOfTheRoundTable">
+		<constructor-arg value="Bedivere" />
+		<property name="quest" ref="quest" />
+	</bean>
+
+	<bean id="knightB" class="com.djs.test.spring_sample.knight.KnightOfTheRoundTable">
+		<constructor-arg value="Superman" />
+		<property name="quest">
+			<bean class="com.djs.test.spring_sample.knight.GoldenWoolQuest" />
+		</property>
+	</bean>
+
+	<bean id="minstrel" class="com.djs.test.spring_sample.knight.Minstrel" />
+
+	<aop:config>
+		<aop:aspect ref="minstrel">
+			<aop:pointcut id="questPointcut"
+				expression="execution(* *..knight.*.embarkOnQuest(..)) and target(bean)" />
+
+			<aop:before method="singBefore" pointcut-ref="questPointcut"
+				arg-names="bean" />
+
+			<aop:after-returning method="singAfter"
+				pointcut-ref="questPointcut" arg-names="bean" />
+		</aop:aspect>
+	</aop:config>
+  
+	<bean id="minstrel2" class="com.djs.test.spring_sample.knight.Minstrel2" />
+
+	<aop:config>
+		<aop:aspect ref="minstrel2">
+			<aop:pointcut id="questPointcut2"
+				expression="execution(* *..knight.*.embarkOnQuest(..)) and target(bean)" />
+
+			<aop:before method="singBefore" pointcut-ref="questPointcut2"
+				arg-names="bean" />
+
+			<aop:after-returning method="singAfter"
+				pointcut-ref="questPointcut2" arg-names="bean" />
+		</aop:aspect>
+	</aop:config>
+
+</beans>

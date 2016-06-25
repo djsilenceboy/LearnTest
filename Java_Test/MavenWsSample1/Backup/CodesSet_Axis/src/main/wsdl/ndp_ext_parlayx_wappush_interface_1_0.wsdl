@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- August 13, 2004 -->
+<wsdl:definitions
+    name="ndp_ext_parlayx_wappush_interface"
+    targetNamespace="http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/interface"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"    
+    xmlns:ndp_ext_parlayx_wappush="http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/interface"
+    xmlns:ndp_ext_parlayx_wappush_local_xsd="http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local"
+    xmlns:ndp_ext_parlayx_wappush_xsd="http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0"
+    xmlns:parlayx_common_faults="http://www.csapi.org/wsdl/parlayx/common/v2_0/faults">
+
+    <wsdl:import namespace="http://www.csapi.org/wsdl/parlayx/common/v2_0/faults" location="parlayx_common_faults_2_0.wsdl"/>
+
+    <wsdl:types>
+        <xsd:schema elementFormDefault="qualified" targetNamespace="http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local">       
+            <xsd:import namespace="http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0" schemaLocation="ndp_ext_parlayx_wappush_types_1_0.xsd"/>
+
+            <xsd:element name="sendWapPush" type="ndp_ext_parlayx_wappush_local_xsd:sendWapPush"/>
+            <xsd:complexType name="sendWapPush">
+                <xsd:sequence>
+                   <xsd:element name="wapPushRequest" type="ndp_ext_parlayx_wappush_xsd:WapPushReqData"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:element name="sendWapPushResponse" type="ndp_ext_parlayx_wappush_local_xsd:sendWapPushResponse"/>
+            <xsd:complexType name="sendWapPushResponse">
+                <xsd:sequence>
+                   <xsd:element name="wapPushResponse" type="ndp_ext_parlayx_wappush_xsd:WapPushRespData"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="extWapPush_sendWapPushRequest">
+        <wsdl:part name="parameters" element="ndp_ext_parlayx_wappush_local_xsd:sendWapPush"/>
+    </wsdl:message>
+
+    <wsdl:message name="extWapPush_sendWapPushResponse">
+        <wsdl:part name="result" element="ndp_ext_parlayx_wappush_local_xsd:sendWapPushResponse"/>
+    </wsdl:message>
+
+    <wsdl:portType name="ExtWapPush">
+        <wsdl:operation name="sendWapPush">
+            <wsdl:input message="ndp_ext_parlayx_wappush:extWapPush_sendWapPushRequest"/>
+            <wsdl:output message="ndp_ext_parlayx_wappush:extWapPush_sendWapPushResponse"/>
+            <wsdl:fault name="ServiceException" message="parlayx_common_faults:ServiceException"/>
+            <wsdl:fault name="PolicyException" message="parlayx_common_faults:PolicyException"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

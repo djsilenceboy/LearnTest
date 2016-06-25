@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2007 by BEA Systems, Inc. All Rights Reserved. -->
+<wsdl:definitions
+  name="ndp_ext_example_test_interface"
+  targetNamespace="http://singtel.com/ndp/ext/example_test/v1_0/interface"
+  xmlns="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:ndp_ext_example_test="http://singtel.com/ndp/ext/example_test/v1_0/interface"
+  xmlns:parlayx_common_faults="http://www.csapi.org/wsdl/parlayx/common/v2_0/faults"
+  xmlns:ndp_ext_example_test_local_xsd="http://singtel.com/schema/example_test/local">
+
+  <wsdl:import namespace="http://www.csapi.org/wsdl/parlayx/common/v2_0/faults" location="parlayx_common_faults_2_0.wsdl"/>
+
+
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                targetNamespace="http://singtel.com/schema/example_test/local">
+
+      <xsd:element name="sendDataRequest" type="ndp_ext_example_test_local_xsd:sendDataRequest"/>
+      <xsd:complexType name="sendDataRequest">
+        <xsd:sequence>
+          <xsd:element name="data" type="xsd:string"/>
+          <xsd:element name="address" type="xsd:anyURI"/>
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:element name="sendDataResponse"
+                   type="ndp_ext_example_test_local_xsd:sendDataResponse"/>
+      <xsd:complexType name="sendDataResponse">
+        <xsd:sequence/>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+
+  <wsdl:message name="SendData_sendDataRequest">
+    <wsdl:part name="parameters" element="ndp_ext_example_test_local_xsd:sendDataRequest"/>
+  </wsdl:message>
+
+  <wsdl:message name="SendData_sendDataResponse">
+    <wsdl:part name="result" element="ndp_ext_example_test_local_xsd:sendDataResponse"/>
+  </wsdl:message>
+
+  <wsdl:portType name="SendDataPort">
+
+    <wsdl:operation name="sendData">
+      <wsdl:input message="ndp_ext_example_test:SendData_sendDataRequest"/>
+      <wsdl:output message="ndp_ext_example_test:SendData_sendDataResponse"/>
+      <wsdl:fault name="ServiceException" message="parlayx_common_faults:ServiceException"/>
+      <wsdl:fault name="PolicyException" message="parlayx_common_faults:PolicyException"/>
+    </wsdl:operation>
+
+  </wsdl:portType>
+</wsdl:definitions>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+            			http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+	default-init-method="tuneInstrument">
+
+	<bean id="saxophone" class="com.djs.test.spring_sample.music.Saxophone"
+		scope="prototype" />
+	<bean id="piano" class="com.djs.test.spring_sample.music.Piano" />
+
+	<bean id="performerA" class="com.djs.test.spring_sample.music.Instrumentalist"
+		destroy-method="cleanInstrument">
+		<constructor-arg value="Jack" />
+		<property name="song" value="Jingle Bells" />
+		<property name="instrument" ref="saxophone" />
+	</bean>
+
+	<bean id="performerB" class="com.djs.test.spring_sample.music.Instrumentalist">
+		<constructor-arg value="Mary" />
+		<property name="song" value="I love tian an men" />
+		<property name="instrument">
+			<bean class="com.djs.test.spring_sample.music.Piano" />
+		</property>
+	</bean>
+
+	<bean id="performerC" class="com.djs.test.spring_sample.music.OneManBand"
+		destroy-method="cleanInstrument">
+		<constructor-arg value="Hank" />
+		<property name="song" value="Wolf" />
+		<property name="instruments">
+			<list>
+				<ref bean="saxophone" />
+				<ref bean="piano" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="performerDBase" class="com.djs.test.spring_sample.music.Instrumentalist"
+		destroy-method="cleanInstrument" abstract="true">
+		<property name="song" value="Good Dog" />
+		<property name="instrument" ref="saxophone" />
+	</bean>
+
+	<bean id="performerD1" parent="performerDBase">
+		<constructor-arg value="Jerry" />
+	</bean>
+
+	<bean id="performerD2" parent="performerDBase">
+		<constructor-arg value="Tom" />
+	</bean>
+
+
+	<bean id="stageA" class="com.djs.test.spring_sample.music.Stage"
+		factory-method="getInstance" />
+
+
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" />
+
+	<bean id="audienceA" class="com.djs.test.spring_sample.music.Audience" />
+
+	<bean id="audienceAdviceA" class="com.djs.test.spring_sample.music.AudienceAdvice">
+		<property name="audience" ref="audienceA" />
+	</bean>
+
+	<bean id="audienceAdvisorA"
+		class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="advice" ref="audienceAdviceA" />
+		<property name="pattern" value=".*perform" />
+	</bean>
+
+	<!--
+	<bean id="audienceAdvisorB"
+		class="org.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor">
+		<property name="advice" ref="audienceAdviceA" />
+		<property name="expression" value="execution(* *.perform(..))" />
+	</bean>
+
+	<bean id="performerProxyBase" class="org.springframework.aop.framework.ProxyFactoryBean" abstract="true">
+		<property name="interceptorNames" value="audienceAdvisorA" />
+		<property name="proxyInterfaces" value="com.djs.test.spring_sample.music.Performer" />
+	</bean>
+
+	<bean id="performerD1" parent="performerProxyBase">
+		<property name="target" ref="performerD1t" />
+	</bean>
+
+	<bean id="performerD2" parent="performerProxyBase">
+		<property name="target" ref="performerD2t" />
+	</bean>
+    -->
+
+</beans>

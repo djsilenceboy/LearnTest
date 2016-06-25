@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	<bean id="itemLogDao0"
+		class="com.djs.test.spring_sample.hibernate.ItemLogDaoSpringHibernateImplA">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="itemLoggingHelper0" class="com.djs.test.spring_sample.logging.ItemLoggingHelper">
+		<property name="itemLogDao" ref="itemLogDao0" />
+	</bean>
+
+	<aop:config>
+		<aop:aspect ref="itemLoggingHelper0">
+			<aop:pointcut id="queryAction"
+				expression="execution(* *.query(..)) and target(bean)" />
+
+			<aop:before method="beforeQuery" pointcut-ref="queryAction"
+				arg-names="bean" />
+
+			<aop:after-returning method="afterQuery"
+				pointcut-ref="queryAction" arg-names="bean" />
+
+			<aop:after-throwing method="throwingQuery"
+				pointcut-ref="queryAction" arg-names="bean" />
+
+			<aop:pointcut id="saveAction"
+				expression="execution(* *.save(..)) and target(bean)" />
+
+			<aop:before method="beforeSave" pointcut-ref="saveAction"
+				arg-names="bean" />
+
+			<aop:after-returning method="afterSave"
+				pointcut-ref="saveAction" arg-names="bean" />
+
+			<aop:after-throwing method="throwingSave"
+				pointcut-ref="saveAction" arg-names="bean" />
+		</aop:aspect>
+	</aop:config>
+
+</beans>

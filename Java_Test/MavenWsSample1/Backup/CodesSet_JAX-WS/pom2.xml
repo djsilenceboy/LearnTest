@@ -1,0 +1,132 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.djs.test</groupId>
+	<artifactId>maven_sample</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>maven_sample</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java-api.version>1.6</java-api.version>
+		<junit.version>4.10</junit.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxws-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>action1</id>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+						<configuration>
+							<staleFile>${project.build.directory}/jaxws/stale/.staleFlag1</staleFile>
+							<wsdlDirectory>${basedir}/src/main/wsdl</wsdlDirectory>
+							<wsdlFiles>
+								<wsdlFile>session_manager_service.wsdl</wsdlFile>
+							</wsdlFiles>
+							<!-- For this wsdl, it is ok to either set or not set <packageName> here. -->
+							<!-- packageName>com.djs.test.wsclient.session_manager</packageName -->
+							<sourceDestDir>${project.build.directory}/generated-sources/src</sourceDestDir>
+						</configuration>
+					</execution>
+					<execution>
+						<id>action2</id>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+						<configuration>
+							<staleFile>${project.build.directory}/jaxws/stale/.staleFlag2</staleFile>
+							<wsdlDirectory>${basedir}/src/main/wsdl</wsdlDirectory>
+							<wsdlFiles>
+								<wsdlFile>ndp_ext_example_test_service.wsdl</wsdlFile>
+							</wsdlFiles>
+							<bindingDirectory>${basedir}/src/main/wsdl</bindingDirectory>
+							<bindingFiles>
+								<bindingFile>bindings.xjb</bindingFile>
+							</bindingFiles>
+							<!-- Do not set <packageName> here, otherwise it will not generate standalone pacakge for "parlayx_common_types_2_1.xsd". -->
+							<!-- packageName>com.djs.test.wsclient.example_test</packageName -->
+							<sourceDestDir>${project.build.directory}/generated-sources/src</sourceDestDir>
+						</configuration>
+					</execution>
+					<execution>
+						<id>action3</id>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+						<configuration>
+							<staleFile>${project.build.directory}/jaxws/stale/.staleFlag3</staleFile>
+							<wsdlDirectory>${basedir}/src/main/wsdl</wsdlDirectory>
+							<wsdlFiles>
+								<wsdlFile>ndp_ext_parlayx_wappush_service_1_0.wsdl</wsdlFile>
+							</wsdlFiles>
+							<bindingDirectory>${basedir}/src/main/wsdl</bindingDirectory>
+							<bindingFiles>
+								<bindingFile>bindings.xjb</bindingFile>
+							</bindingFiles>
+							<!-- Do not set <packageName> here, otherwise it will not generate standalone pacakge for "parlayx_common_types_2_1.xsd". -->
+							<!-- packageName>com.djs.test.wsclient.wap_push</packageName -->
+							<sourceDestDir>${project.build.directory}/generated-sources/src</sourceDestDir>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java-api.version}</source>
+					<target>${java-api.version}</target>
+				</configuration>
+			</plugin>
+			<!-- To generate "target\dependencies" with needed jars. -->
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeScope>runtime</includeScope>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- To specify log4j properties file for testing. -->
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<systemPropertyVariables>
+						<!-- This file should be put under classpath or use "file:path_to_file" 
+							(path can be relative and absolute.). -->
+						<log4j.configuration>log4j.properties</log4j.configuration>
+					</systemPropertyVariables>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+		</dependency>
+	</dependencies>
+</project>

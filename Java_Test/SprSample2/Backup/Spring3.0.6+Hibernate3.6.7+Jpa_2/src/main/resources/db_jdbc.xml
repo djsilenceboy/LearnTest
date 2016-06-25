@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+            			http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!-- All these methods are not recommended. Better to use Spring DAO. -->
+
+	<bean id="jdbcTemplate0" class="org.springframework.jdbc.core.JdbcTemplate"
+		p:dataSource-ref="dataSource" />
+
+	<bean id="itemDao0" class="com.djs.test.spring_sample.jdbc.ItemDaoImplA"
+		p:jdbcTemplate-ref="jdbcTemplate0" />
+
+
+	<bean id="jdbcTemplate1"
+		class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="dataSource" />
+	</bean>
+
+	<bean id="itemDao1" class="com.djs.test.spring_sample.jdbc.ItemDaoImplB"
+		p:jdbcTemplate-ref="jdbcTemplate1" />
+
+
+	<bean id="jdbcTemplate2" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
+		<constructor-arg ref="dataSource" />
+	</bean>
+
+	<bean id="itemDao2" class="com.djs.test.spring_sample.jdbc.ItemDaoImplC"
+		p:jdbcTemplate-ref="jdbcTemplate2" />
+
+
+	<bean id="itemDao3" class="com.djs.test.spring_sample.jdbc.ItemDaoSpringImplA"
+		p:dataSource-ref="dataSource" />
+
+
+	<bean id="itemDao4" class="com.djs.test.spring_sample.jdbc.ItemDaoSpringImplB"
+		p:dataSource-ref="dataSource" />
+
+
+	<bean id="itemDao5" class="com.djs.test.spring_sample.jdbc.ItemDaoSpringImplC"
+		p:dataSource-ref="dataSource" />
+
+</beans>

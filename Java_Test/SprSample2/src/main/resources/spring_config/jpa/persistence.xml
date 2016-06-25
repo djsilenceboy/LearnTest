@@ -1,0 +1,12 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+
+	<persistence-unit name="spring_sample">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>com.djs.test.spring_sample.db.Item</class>
+		<class>com.djs.test.spring_sample.db.ItemLog</class>
+	</persistence-unit>
+
+</persistence>

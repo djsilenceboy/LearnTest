@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                        http://cxf.apache.org/transports/http/configuration
+                        http://cxf.apache.org/schemas/configuration/http-conf.xsd
+                        http://cxf.apache.org/jaxws 
+                        http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<!-- Enabling multiple PropertyPlaceholderConfigurer. -->
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="location"
+			value="${file_path.context.shared_external}web_servers.properties" />
+	</bean>
+
+	<!-- Add this line to enable @Autowired. -->
+	<context:annotation-config />
+
+	<http-conf:conduit name="*.http-conduit">
+		<http-conf:client ConnectionTimeout="${ocsg.connection.timeout}"
+			ReceiveTimeout="${ocsg.receive.timeout}" />
+	</http-conf:conduit>
+
+	<!-- SOAP handlers. -->
+
+	<bean id="abstractLoginSoapHandler" class="com.djs.test.maven_sample.LoginSoapHandler"
+		abstract="true">
+		<property name="userName" value="${ocsg.login.userName}" />
+		<property name="password" value="${ocsg.login.password}" />
+	</bean>
+
+	<bean id="loginSoapHandler" parent="abstractLoginSoapHandler"
+		p:addSessionId="false" />
+
+	<bean id="loginWithSessionSoapHandler" parent="abstractLoginSoapHandler"
+		p:addSessionId="true" />
+
+	<!-- Web Service clients. -->
+
+	<jaxws:client id="sessionManager"
+		serviceClass="com.djs.test.wsclient.session_manager.SessionManager"
+		address="${ocsg.cs.SessionManager.url}">
+		<jaxws:handlers>
+			<ref bean="loginSoapHandler" />
+		</jaxws:handlers>
+	</jaxws:client>
+
+	<jaxws:client id="exampleTest"
+		serviceClass="com.djs.test.wsclient.example_test.SendDataPort"
+		address="${ocsg.cs.ExampleTest.url}">
+		<jaxws:handlers>
+			<ref bean="loginWithSessionSoapHandler" />
+		</jaxws:handlers>
+	</jaxws:client>
+
+	<jaxws:client id="wapPush"
+		serviceClass="com.djs.test.wsclient.wap_push.ExtWapPush" address="${ocsg.cs.WapPush.url}">
+		<jaxws:handlers>
+			<ref bean="loginWithSessionSoapHandler" />
+		</jaxws:handlers>
+	</jaxws:client>
+
+</beans>

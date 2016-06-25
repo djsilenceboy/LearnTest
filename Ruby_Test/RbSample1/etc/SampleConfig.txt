@@ -1,0 +1,10 @@
+[english]
+greeting=Hello
+
+[french]
+greeting=Bonjour
+
+[file]
+home = /usr/local
+# Sample
+bin = %(home)/bin

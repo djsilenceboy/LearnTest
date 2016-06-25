@@ -1,0 +1,84 @@
+<project name="jndi_tree_client" default="dist">
+
+	<import file="base.xml" />
+
+	<!-- =================================================================== -->
+	<!-- Classpath setup -->
+	<!-- =================================================================== -->
+
+	<path id="classpath.build">
+		<fileset dir="${dir.j2ee.home}/lib">
+			<include name="j2ee.jar" />
+			<include name="appserv-rt.jar" />
+			<include name="mail.jar" />
+			<include name="jaxrpc-impl.jar" />
+			<include name="saaj-impl.jar" />
+			<include name="endorsed/xercesImpl.jar" />
+			<include name="endorsed/dom.jar" />
+		</fileset>
+	</path>
+	<property name="classpath.j2ee" refid="classpath.build" />
+
+	<!-- =================================================================== -->
+	<!-- Init -->
+	<!-- =================================================================== -->
+
+	<target name="init">
+		<mkdir dir="${dir.build}"/>
+		<mkdir dir="${dir.dist}"/>
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- Compilation targets -->
+	<!-- =================================================================== -->
+
+	<target name="compile">
+		<javac srcdir="${dir.src}" destdir="${dir.build}" deprecation="off" debug="${javac.debug}" debuglevel="${javac.debuglevel}">
+			<include name="**/*.java"/>
+			<classpath refid="classpath.build" />
+		</javac>
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- Jar targets -->
+	<!-- =================================================================== -->
+
+	<target name="jar" depends="compile">
+		<jar destfile="${dir.dist}/${jar.name}" compress="${compress.jar.flag}">
+			<fileset dir="${dir.build}">
+				<include name="**" />
+			</fileset>
+			<manifest>
+				<attribute name="Created-By" value="${manifest.user.name}" />
+				<attribute name="Main-Class" value="${main.class.name}"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- Distribution targets -->
+	<!-- =================================================================== -->
+
+	<target name="dist" depends="clean, init, compile, jar">
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- Clean handling targets -->
+	<!-- =================================================================== -->
+
+	<target name="clean">
+		<delete dir="${dir.build}"/>
+		<delete dir="${dir.dist}"/>
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- Run targets -->
+	<!-- =================================================================== -->
+
+	<target name="run">
+		<exec executable="appclient" failonerror="true" vmlauncher="false" >
+			<arg line="-client ${dir.dist}/${jar.name}"/>
+		</exec>
+	</target>
+
+</project>

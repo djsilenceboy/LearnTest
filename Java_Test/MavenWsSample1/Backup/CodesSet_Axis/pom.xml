@@ -1,0 +1,122 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.djs.test</groupId>
+	<artifactId>maven_sample</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>maven_sample</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java-api.version>1.6</java-api.version>
+		<junit.version>4.10</junit.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>axistools-maven-plugin</artifactId>
+				<configuration>
+					<!-- Default <sourceDirectory> for wsdl is "${basedir}/src/main/wsdl". -->
+					<!-- Specify entry wsdl file name, otherwise it will also generate codes 
+						for imported wsdl files. -->
+					<wsdlFiles>
+						<wsdlFile>session_manager_service.wsdl</wsdlFile>
+						<wsdlFile>ndp_ext_example_test_service.wsdl</wsdlFile>
+						<wsdlFile>ndp_ext_parlayx_wappush_service_1_0.wsdl</wsdlFile>
+					</wsdlFiles>
+					<!-- Not use <packageSpace> and <subPackageByFileName>, because they 
+						generate codes in one same folder, and use wsdl file name as folder name. -->
+					<!-- Use <mappings> to specify detailed package name. -->
+					<!-- Note to match each <namespace> with each <wsdlFile>. -->
+					<mappings>
+						<mapping>
+							<namespace>http://www.bea.com/wsdl/wlcp/wlng/session_manager/service</namespace>
+							<targetPackage>com.djs.test.wsclient.sessionmanager</targetPackage>
+						</mapping>
+						<mapping>
+							<namespace>http://singtel.com/ndp/ext/example_test/v1_0/service</namespace>
+							<targetPackage>com.djs.test.wsclient.example_test</targetPackage>
+						</mapping>
+						<mapping>
+							<namespace>http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/service</namespace>
+							<targetPackage>com.djs.test.wsclient.wap_push</targetPackage>
+						</mapping>
+					</mappings>
+					<outputDirectory>${project.build.directory}/generated-sources/src</outputDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>wsdl2java</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java-api.version}</source>
+					<target>${java-api.version}</target>
+				</configuration>
+			</plugin>
+			<!-- To generate "target\dependencies" with needed jars. -->
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeScope>runtime</includeScope>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- To specify log4j properties file for testing. -->
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<systemPropertyVariables>
+						<!-- This file should be put under classpath or use "file:path_to_file" 
+							(path can be relative and absolute.). -->
+						<log4j.configuration>log4j.properties</log4j.configuration>
+					</systemPropertyVariables>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+		</dependency>
+
+		<dependency>
+			<groupId>axis</groupId>
+			<artifactId>axis</artifactId>
+			<version>1.4</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>wsdl4j</groupId>
+			<artifactId>wsdl4j</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+	</dependencies>
+</project>

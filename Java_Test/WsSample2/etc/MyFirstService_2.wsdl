@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://www.example.org/MyServices/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="MyFirstService"
+	targetNamespace="http://www.example.org/MyServices/">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://www.example.org/MyServices/">
+			<xsd:element name="NewOperation">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="in" type="xsd:string" />
+						<xsd:element name="in2" type="xsd:string" />
+					</xsd:sequence>
+					<xsd:attribute name="NewAttribute" type="xsd:string" />
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="NewOperationResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>			<xsd:element name="MyOperation">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="in" type="xsd:string" />
+						<xsd:element name="in2" type="xsd:string" />
+					</xsd:sequence>
+					<xsd:attribute name="NewAttribute" type="xsd:string" />
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="MyOperationResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="xsd:string" />
+						<xsd:element name="out2" type="xsd:string" />
+					</xsd:sequence>
+					<xsd:attribute name="NewAttribute" type="xsd:string" />
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="YouOperation">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="in" type="xsd:string" />
+						<xsd:element name="in2" type="xsd:string" />
+					</xsd:sequence>
+					<xsd:attribute name="NewAttribute" type="xsd:string" />
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="YouOperationResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="xsd:string" />
+						<xsd:element name="out2" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="YouOperationFault">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="YouOperationFault" type="xsd:string">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="NewOperation2">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="in" type="xsd:string">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="NewOperationResponse2">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="NewOperationRequest">
+		<wsdl:part name="parameters" element="tns:NewOperation" />
+	</wsdl:message>
+	<wsdl:message name="NewOperationResponse">
+		<wsdl:part name="parameters" element="tns:NewOperationResponse" />
+	</wsdl:message>
+	<wsdl:message name="MyOperationRequest">
+		<wsdl:part name="parameters" element="tns:MyOperation" />
+	</wsdl:message>
+	<wsdl:message name="MyOperationResponse">
+		<wsdl:part name="parameters" element="tns:MyOperationResponse" />
+	</wsdl:message>
+	<wsdl:message name="YouOperationRequest">
+		<wsdl:part name="parameters" element="tns:YouOperation" />
+	</wsdl:message>
+	<wsdl:message name="YouOperationResponse">
+		<wsdl:part name="parameters" element="tns:YouOperationResponse" />
+	</wsdl:message>
+	<wsdl:message name="YouOperationFault">
+		<wsdl:part name="parameters" element="tns:YouOperationFault" />
+	</wsdl:message>
+	<wsdl:message name="NewOperationRequest2">
+		<wsdl:part name="parameters" element="tns:NewOperation2" />
+	</wsdl:message>
+	<wsdl:message name="NewOperationResponse2">
+		<wsdl:part name="parameters" element="tns:NewOperationResponse2" />
+	</wsdl:message>
+	<wsdl:portType name="MyFirstService">
+		<wsdl:operation name="NewOperation">
+			<wsdl:input message="tns:NewOperationRequest" />
+			<wsdl:output message="tns:NewOperationResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="MyOperation">
+			<wsdl:input message="tns:MyOperationRequest" />
+			<wsdl:output message="tns:MyOperationResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="YouOperation">
+			<wsdl:input message="tns:YouOperationRequest" />
+			<wsdl:output message="tns:YouOperationResponse" />			<wsdl:fault name="fault" message="tns:YouOperationFault" />
+		</wsdl:operation>
+	</wsdl:portType>	<wsdl:portType name="MyFirstService2">		<wsdl:operation name="NewOperation">			<wsdl:input message="tns:NewOperationRequest2" />			<wsdl:output message="tns:NewOperationResponse2" />		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:portType name="MySecondService">
+		<wsdl:operation name="NewOperation">
+			<wsdl:input message="tns:NewOperationRequest" />
+			<wsdl:output message="tns:NewOperationResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="MyFirstServiceSOAP" type="tns:MyFirstService">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="NewOperation">
+			<soap:operation soapAction="http://www.example.org/MyFirstService/NewOperation" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="MyOperation">
+			<soap:operation soapAction="http://www.example.org/MyFirstService/MyOperation" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="YouOperation">
+			<soap:operation soapAction="http://www.example.org/MyFirstService/YouOperation" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="MyFirstService2SOAP" type="tns:MyFirstService2">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="NewOperation">
+			<soap:operation soapAction="http://www.example.org/MyFirstService2/NewOperation" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="MySecondServiceSOAP" type="tns:MySecondService">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="NewOperation">
+			<soap:operation soapAction="http://www.example.org/MySecondService/NewOperation" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="MyFirstService">
+		<wsdl:port name="MyFirstServiceSOAP" binding="tns:MyFirstServiceSOAP">
+			<soap:address location="http://www.example.org/MyFirstService" />
+		</wsdl:port>
+		<wsdl:port name="MyFirstService2SOAP" binding="tns:MyFirstService2SOAP">
+			<soap:address location="http://www.example.org/MyFirstService2" />
+		</wsdl:port>
+	</wsdl:service>
+	<wsdl:service name="MySecondService">
+		<wsdl:port name="MySecondServiceSOAP" binding="tns:MySecondServiceSOAP">
+			<soap:address location="http://www.example.org/MySecondService" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+            			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- All these methods are not recommended. Becasue they don't work with 
+		Spring 2.5.x. -->
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="spring_sample" />
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="true" />
+				<property name="generateDdl" value="true" />
+				<property name="database" value="ORACLE" />
+			</bean>
+		</property>
+		<property name="loadTimeWeaver">
+			<bean
+				class="org.springframework.instrument.classloading.SimpleLoadTimeWeaver" />
+		</property>
+	</bean>
+
+
+	<bean id="jpaTemplate" class="org.springframework.orm.jpa.JpaTemplate">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<bean id="itemDao0" class="com.djs.test.spring_sample.jpa.ItemDaoJpaImplA">
+		<property name="jpaTemplate" ref="jpaTemplate" />
+	</bean>
+
+
+	<bean id="itemDao1" class="com.djs.test.spring_sample.jpa.ItemDaoSpringJpaImplA">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+</beans>

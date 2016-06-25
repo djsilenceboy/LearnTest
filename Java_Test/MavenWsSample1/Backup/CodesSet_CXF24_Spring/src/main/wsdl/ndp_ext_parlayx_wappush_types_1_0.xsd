@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- August 13, 2004 -->
+<xsd:schema
+    targetNamespace="http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0"
+    xmlns:ndp_ext_parlayx_wappush_xsd="http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:complexType name="WapPushReqData">
+        <xsd:sequence>
+            <xsd:element name="addresses" type="xsd:anyURI" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="pushType" type="xsd:integer"/>
+            <xsd:element name="url" type="xsd:string"/>
+            <xsd:element name="message" type="xsd:string" nillable="true"/>
+            <xsd:element name="deliveryTimestamp" type="xsd:dateTime" nillable="true"/>
+        </xsd:sequence>
+    </xsd:complexType>  
+
+    <xsd:complexType name="WapPushRespData">
+        <xsd:sequence>
+            <xsd:element name="requestIdentifier" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>  
+</xsd:schema>

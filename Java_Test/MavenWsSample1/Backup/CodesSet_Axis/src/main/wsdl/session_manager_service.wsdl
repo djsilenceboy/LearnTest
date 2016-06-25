@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://www.bea.com/wsdl/wlcp/wlng/session_manager/service" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://www.bea.com/wsdl/wlcp/wlng/session_manager/service" xmlns:intf="http://www.bea.com/wsdl/wlcp/wlng/session_manager/service" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Aug 10, 2006 (05:30:51 GMT+00:00)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://www.bea.com/wsdl/wlcp/wlng/session_manager/service" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="getSession">
+    <complexType/>
+   </element>
+   <element name="getSessionResponse">
+    <complexType>
+     <sequence>
+      <element name="getSessionReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="GeneralException">
+    <sequence>
+     <element name="exceptionMessage" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <element name="fault" type="impl:GeneralException"/>
+   <element name="changeApplicationPassword">
+    <complexType>
+     <sequence>
+      <element name="sessionId" type="xsd:string"/>
+      <element name="oldPassword" type="xsd:string"/>
+      <element name="newPassword" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="changeApplicationPasswordResponse">
+    <complexType/>
+   </element>
+   <element name="getSessionRemainingLifeTime">
+    <complexType>
+     <sequence>
+      <element name="sessionId" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getSessionRemainingLifeTimeResponse">
+    <complexType>
+     <sequence>
+      <element name="getSessionRemainingLifeTimeReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="refreshSession">
+    <complexType>
+     <sequence>
+      <element name="sessionId" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="refreshSessionResponse">
+    <complexType>
+     <sequence>
+      <element name="refreshSessionReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="destroySession">
+    <complexType>
+     <sequence>
+      <element name="sessionId" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="destroySessionResponse">
+    <complexType>
+     <sequence>
+      <element name="destroySessionReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="GeneralException">
+
+      <wsdl:part element="impl:fault" name="fault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getSessionRemainingLifeTimeResponse">
+
+      <wsdl:part element="impl:getSessionRemainingLifeTimeResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getSessionRequest">
+
+      <wsdl:part element="impl:getSession" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="destroySessionRequest">
+
+      <wsdl:part element="impl:destroySession" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="changeApplicationPasswordResponse">
+
+      <wsdl:part element="impl:changeApplicationPasswordResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="destroySessionResponse">
+
+      <wsdl:part element="impl:destroySessionResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="refreshSessionResponse">
+
+      <wsdl:part element="impl:refreshSessionResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getSessionRemainingLifeTimeRequest">
+
+      <wsdl:part element="impl:getSessionRemainingLifeTime" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="changeApplicationPasswordRequest">
+
+      <wsdl:part element="impl:changeApplicationPassword" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="refreshSessionRequest">
+
+      <wsdl:part element="impl:refreshSession" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getSessionResponse">
+
+      <wsdl:part element="impl:getSessionResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="SessionManager">
+
+      <wsdl:operation name="getSession">
+
+         <wsdl:input message="impl:getSessionRequest" name="getSessionRequest"/>
+
+         <wsdl:output message="impl:getSessionResponse" name="getSessionResponse"/>
+
+         <wsdl:fault message="impl:GeneralException" name="GeneralException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="changeApplicationPassword">
+
+         <wsdl:input message="impl:changeApplicationPasswordRequest" name="changeApplicationPasswordRequest"/>
+
+         <wsdl:output message="impl:changeApplicationPasswordResponse" name="changeApplicationPasswordResponse"/>
+
+         <wsdl:fault message="impl:GeneralException" name="GeneralException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getSessionRemainingLifeTime">
+
+         <wsdl:input message="impl:getSessionRemainingLifeTimeRequest" name="getSessionRemainingLifeTimeRequest"/>
+
+         <wsdl:output message="impl:getSessionRemainingLifeTimeResponse" name="getSessionRemainingLifeTimeResponse"/>
+
+         <wsdl:fault message="impl:GeneralException" name="GeneralException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="refreshSession">
+
+         <wsdl:input message="impl:refreshSessionRequest" name="refreshSessionRequest"/>
+
+         <wsdl:output message="impl:refreshSessionResponse" name="refreshSessionResponse"/>
+
+         <wsdl:fault message="impl:GeneralException" name="GeneralException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="destroySession">
+
+         <wsdl:input message="impl:destroySessionRequest" name="destroySessionRequest"/>
+
+         <wsdl:output message="impl:destroySessionResponse" name="destroySessionResponse"/>
+
+         <wsdl:fault message="impl:GeneralException" name="GeneralException"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="SessionManagerSoapBinding" type="impl:SessionManager">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getSession">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getSessionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getSessionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="GeneralException">
+
+            <wsdlsoap:fault name="GeneralException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="changeApplicationPassword">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="changeApplicationPasswordRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="changeApplicationPasswordResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="GeneralException">
+
+            <wsdlsoap:fault name="GeneralException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getSessionRemainingLifeTime">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getSessionRemainingLifeTimeRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getSessionRemainingLifeTimeResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="GeneralException">
+
+            <wsdlsoap:fault name="GeneralException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="refreshSession">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="refreshSessionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="refreshSessionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="GeneralException">
+
+            <wsdlsoap:fault name="GeneralException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="destroySession">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="destroySessionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="destroySessionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="GeneralException">
+
+            <wsdlsoap:fault name="GeneralException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="SessionManagerService">
+
+      <wsdl:port binding="impl:SessionManagerSoapBinding" name="SessionManager">
+
+         <wsdlsoap:address location="http://localhost:6001/session_manager/SessionManager"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

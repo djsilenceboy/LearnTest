@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- August 13, 2004 -->
+<wsdl:definitions
+    name="ndp_ext_parlayx_wappush_service"    
+    targetNamespace="http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/service"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"    
+    xmlns:tns="http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/service"
+    xmlns:interface="http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/interface">
+
+    <wsdl:import namespace="http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/interface" location="ndp_ext_parlayx_wappush_interface_1_0.wsdl"/>
+
+    <wsdl:binding name="SendWapPushBinding" type="interface:ExtWapPush">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+        <wsdl:operation name="sendWapPush">
+            <soap:operation soapAction="" style="document"/>
+                <wsdl:input>
+                    <soap:body use="literal"/>
+                </wsdl:input>
+                <wsdl:output>
+                    <soap:body use="literal"/>
+                </wsdl:output>
+                <wsdl:fault name="ServiceException">
+                    <soap:fault name="ServiceException" use="literal"/>
+                </wsdl:fault>
+                <wsdl:fault name="PolicyException">
+                    <soap:fault name="PolicyException" use="literal"/>
+                </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="WapPushService">
+        <wsdl:port name="ExtWapPush" binding="tns:SendWapPushBinding">
+            <soap:address location="http://localhost:9080/WapPushService/services/wappush"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

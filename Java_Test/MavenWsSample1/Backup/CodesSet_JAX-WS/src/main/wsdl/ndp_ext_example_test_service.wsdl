@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2007 by BEA Systems, Inc. All Rights Reserved. -->
+<wsdl:definitions
+   name="ndp_ext_example_test_service"
+   targetNamespace="http://singtel.com/ndp/ext/example_test/v1_0/service"
+   xmlns="http://schemas.xmlsoap.org/wsdl/"
+   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   xmlns:tns="http://singtel.com/ndp/ext/example_test/v1_0/service"
+   xmlns:interface="http://singtel.com/ndp/ext/example_test/v1_0/interface">
+
+   <wsdl:import namespace="http://singtel.com/ndp/ext/example_test/v1_0/interface" location="ndp_ext_example_test_interface.wsdl"/>
+
+   <wsdl:binding name="SendDataBinding" type="interface:SendDataPort">
+      <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="sendData">
+         <soap:operation soapAction="" style="document"/>
+            <wsdl:input>
+               <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+               <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="ServiceException">
+               <soap:fault name="ServiceException" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="PolicyException">
+               <soap:fault name="PolicyException" use="literal"/>
+            </wsdl:fault>
+      </wsdl:operation>
+   </wsdl:binding>
+
+   <wsdl:service name="SendDataService">
+      <wsdl:port name="SendDataPort" binding="tns:SendDataBinding">
+         <soap:address location="http://localhost:7001/example_test/services/SendData"/>
+      </wsdl:port>
+   </wsdl:service>
+
+</wsdl:definitions>

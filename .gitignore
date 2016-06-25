@@ -1,12 +1,35 @@
-*.class
+# For Eclipse.
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+/**/.checkstyle
+/**/.pmd
+/**/*.epf
+/**/*.userlibraries
 
-# Package Files #
-*.jar
-*.war
-*.ear
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+# For Eclipse, Java.
+
+/**/.metadata/
+/**/bin/
+/**/build/
+/**/dist/
+/**/gen/
+/**/target/
+/**/temp/
+
+/**/*.class
+
+
+# For Eclipse, Cpp.
+/**/Debug/
+
+
+# For Python.
+
+/**/__pycache__/
+/**/*.py[cod]
+/**/*$py.class
+
+
+# General purpose.
+/**/test/
+/**/tests/

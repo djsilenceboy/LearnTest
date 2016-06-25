@@ -1,0 +1,81 @@
+INFO:root:Start running...
+ERROR:root:Got an exception.
+INFO:root:Stop running.
+INFO:MyTest:Start running...
+ERROR:MyTest:Got an exception.
+INFO:MyTest:Stop running.
+INFO:MyTest.Apple:Start running...
+ERROR:MyTest.Apple:Got an exception.
+INFO:MyTest.Apple:Stop running.
+INFO:root:Start running...
+DEBUG:root:This is a cat.
+ERROR:root:Got an exception.
+INFO:root:Stop running.
+INFO:MyTest:Start running...
+DEBUG:MyTest:This is a cat.
+ERROR:MyTest:Got an exception.
+INFO:MyTest:Stop running.
+INFO:MyTest.Apple:Start running...
+DEBUG:MyTest.Apple:This is a cat.
+ERROR:MyTest.Apple:Got an exception.
+INFO:MyTest.Apple:Stop running.
+<2016-04-08 11:53:15,652>[INFO](TestLogging:<module>){15} Start running...
+<2016-04-08 11:53:15,652>[DEBUG](TestLogging:<module>){16} This is a cat.
+<2016-04-08 11:53:15,652>[ERROR](TestLogging:<module>){17} Got an exception.
+<2016-04-08 11:53:15,652>[INFO](TestLogging:<module>){18} Stop running.
+<2016-04-08 11:53:15,652>[INFO](TestLogging:<module>){24} Start running...
+<2016-04-08 11:53:15,652>[DEBUG](TestLogging:<module>){25} This is a cat.
+<2016-04-08 11:53:15,652>[ERROR](TestLogging:<module>){26} Got an exception.
+<2016-04-08 11:53:15,652>[INFO](TestLogging:<module>){27} Stop running.
+<2016-04-08 11:53:15,652>[INFO](TestLogging:<module>){33} Start running...
+<2016-04-08 11:53:15,652>[DEBUG](TestLogging:<module>){34} This is a cat.
+<2016-04-08 11:53:15,652>[ERROR](TestLogging:<module>){35} Got an exception.
+<2016-04-08 11:53:15,652>[INFO](TestLogging:<module>){36} Stop running.
+<2016-04-08 11:55:13,791>[INFO](TestLogging:<module>){15} Start running...
+<2016-04-08 11:55:13,791>[DEBUG](TestLogging:<module>){16} This is a cat.
+<2016-04-08 11:55:13,791>[ERROR](TestLogging:<module>){17} Got an exception.
+<2016-04-08 11:55:13,791>[INFO](TestLogging:<module>){18} Stop running.
+<2016-04-08 11:55:13,791>[INFO](TestLogging:<module>){24} Start running...
+<2016-04-08 11:55:13,791>[DEBUG](TestLogging:<module>){25} This is a cat.
+<2016-04-08 11:55:13,791>[ERROR](TestLogging:<module>){26} Got an exception.
+<2016-04-08 11:55:13,791>[INFO](TestLogging:<module>){27} Stop running.
+<2016-04-08 11:55:13,791>[INFO](TestLogging:someLogging){33} Start running...
+<2016-04-08 11:55:13,791>[DEBUG](TestLogging:someLogging){34} This is a cat.
+<2016-04-08 11:55:13,791>[ERROR](TestLogging:someLogging){35} Got an exception.
+<2016-04-08 11:55:13,791>[INFO](TestLogging:someLogging){36} Stop running.
+<2016-04-08 11:57:05,191>[INFO](TestLogging:<module>){15}<6320:MainThread> Start running...
+<2016-04-08 11:57:05,191>[DEBUG](TestLogging:<module>){16}<6320:MainThread> This is a cat.
+<2016-04-08 11:57:05,191>[ERROR](TestLogging:<module>){17}<6320:MainThread> Got an exception.
+<2016-04-08 11:57:05,191>[INFO](TestLogging:<module>){18}<6320:MainThread> Stop running.
+<2016-04-08 11:57:05,191>[INFO](TestLogging:<module>){24}<6320:MainThread> Start running...
+<2016-04-08 11:57:05,191>[DEBUG](TestLogging:<module>){25}<6320:MainThread> This is a cat.
+<2016-04-08 11:57:05,191>[ERROR](TestLogging:<module>){26}<6320:MainThread> Got an exception.
+<2016-04-08 11:57:05,191>[INFO](TestLogging:<module>){27}<6320:MainThread> Stop running.
+<2016-04-08 11:57:05,191>[INFO](TestLogging:someLogging){33}<6320:MainThread> Start running...
+<2016-04-08 11:57:05,191>[DEBUG](TestLogging:someLogging){34}<6320:MainThread> This is a cat.
+<2016-04-08 11:57:05,191>[ERROR](TestLogging:someLogging){35}<6320:MainThread> Got an exception.
+<2016-04-08 11:57:05,191>[INFO](TestLogging:someLogging){36}<6320:MainThread> Stop running.
+<2016-04-08 11:58:27,575>[INFO](TestLogging:<module>:15){MainThread:9184} Start running...
+<2016-04-08 11:58:27,575>[DEBUG](TestLogging:<module>:16){MainThread:9184} This is a cat.
+<2016-04-08 11:58:27,575>[ERROR](TestLogging:<module>:17){MainThread:9184} Got an exception.
+<2016-04-08 11:58:27,575>[INFO](TestLogging:<module>:18){MainThread:9184} Stop running.
+<2016-04-08 11:58:27,575>[INFO](TestLogging:<module>:24){MainThread:9184} Start running...
+<2016-04-08 11:58:27,575>[DEBUG](TestLogging:<module>:25){MainThread:9184} This is a cat.
+<2016-04-08 11:58:27,575>[ERROR](TestLogging:<module>:26){MainThread:9184} Got an exception.
+<2016-04-08 11:58:27,575>[INFO](TestLogging:<module>:27){MainThread:9184} Stop running.
+<2016-04-08 11:58:27,575>[INFO](TestLogging:someLogging:33){MainThread:9184} Start running...
+<2016-04-08 11:58:27,575>[DEBUG](TestLogging:someLogging:34){MainThread:9184} This is a cat.
+<2016-04-08 11:58:27,575>[ERROR](TestLogging:someLogging:35){MainThread:9184} Got an exception.
+<2016-04-08 11:58:27,575>[INFO](TestLogging:someLogging:36){MainThread:9184} Stop running.
+<2016-05-05 11:51:42,549>[INFO](TestLogging:<module>:15){MainThread:12000} Start running...
+<2016-05-05 11:51:42,549>[DEBUG](TestLogging:<module>:16){MainThread:12000} This is a cat.
+<2016-05-05 11:51:42,549>[ERROR](TestLogging:<module>:17){MainThread:12000} Got an exception.
+<2016-05-05 11:51:42,549>[INFO](TestLogging:<module>:18){MainThread:12000} Stop running.
+<2016-05-05 11:51:42,551>[INFO](TestLogging:<module>:25){MainThread:12000} Start running...
+<2016-05-05 11:51:42,551>[DEBUG](TestLogging:<module>:26){MainThread:12000} This is a cat.
+<2016-05-05 11:51:42,551>[ERROR](TestLogging:<module>:27){MainThread:12000} Got an exception.
+<2016-05-05 11:51:42,551>[INFO](TestLogging:<module>:28){MainThread:12000} Stop running.
+<2016-05-05 11:51:42,551>[INFO](TestLogging:some_logging:34){MainThread:12000} Start running...
+<2016-05-05 11:51:42,551>[DEBUG](TestLogging:some_logging:35){MainThread:12000} This is a cat.
+<2016-05-05 11:51:42,551>[ERROR](TestLogging:some_logging:36){MainThread:12000} Got an exception.
+<2016-05-05 11:51:42,551>[INFO](TestLogging:some_logging:37){MainThread:12000} Stop running.

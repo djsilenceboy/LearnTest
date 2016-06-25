@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:ejb="http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"
+	version="3.0">
+	<display-name>EjbStockSample</display-name>
+	<enterprise-beans>
+		<session>
+		    <display-name>StockQuery</display-name>
+			<ejb-name>StockQuery</ejb-name>
+			<business-remote>com.djs.ejb.stock_sample.StockQueryRemote</business-remote>
+			<ejb-class>com.djs.ejb.stock_sample.StockQuery</ejb-class>
+			<session-type>Stateless</session-type>
+			<transaction-type>Container</transaction-type>
+		</session>
+		<entity>
+		    <display-name>StockInfo</display-name>
+			<ejb-name>StockInfo</ejb-name>
+			<ejb-class>com.djs.ejb.stock_sample.StockInfo</ejb-class>
+			<persistence-type>Container</persistence-type>
+			<prim-key-class>java.lang.String</prim-key-class>
+			<reentrant>false</reentrant>
+			<cmp-field>
+				<field-name>tickerSymbol</field-name>
+			</cmp-field>
+			<cmp-field>
+				<field-name>name</field-name>
+			</cmp-field>
+			<primkey-field>tickerSymbol</primkey-field>
+		</entity>
+	</enterprise-beans>
+</ejb-jar>

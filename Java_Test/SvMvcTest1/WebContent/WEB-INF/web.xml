@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<display-name>SvMvcTest1</display-name>
+
+	<servlet>
+		<display-name>AnalystForm</display-name>
+		<servlet-name>AnalystForm</servlet-name>
+		<jsp-file>/AnalystForm.jsp</jsp-file>
+	</servlet>
+	<servlet>
+		<display-name>ProcessAnalyst</display-name>
+		<servlet-name>ProcessAnalyst</servlet-name>
+		<jsp-file>/ProcessAnalyst.jsp</jsp-file>
+	</servlet>
+	<servlet>
+		<display-name>RatingsForm</display-name>
+		<servlet-name>RatingsForm</servlet-name>
+		<jsp-file>/RatingsForm.jsp</jsp-file>
+	</servlet>
+	<servlet>
+		<display-name>AddRating</display-name>
+		<servlet-name>AddRating</servlet-name>
+		<servlet-class>com.djs.test.stocklist.AddRating</servlet-class>
+	</servlet>
+	<servlet>
+		<display-name>StockListServlet</display-name>
+		<servlet-name>StockListServlet</servlet-name>
+		<servlet-class>com.djs.test.stocklist.StockListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProcessAnalyst</servlet-name>
+		<url-pattern>/ProcessAnalyst</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>StockListServlet</servlet-name>
+		<url-pattern>/StockList/*</url-pattern>
+	</servlet-mapping>
+</web-app>

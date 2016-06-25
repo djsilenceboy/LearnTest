@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="myHandlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/welcome.htm">welcomeController</prop>
+				<prop key="/listBooks.htm">listBooksController</prop>
+				<prop key="/displayBookTOC.htm">displayBookTOCController</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean name="welcomeController" class="com.djs.test.mvc.controller.WelcomeController" />
+
+	<bean name="listBooksController" class="com.djs.test.mvc.controller.ListBooksController">
+		<property name="books">
+			<list>
+				<ref bean="myFirstSpringBook" />
+			</list>
+		</property>
+	</bean>
+
+	<bean name="displayBookTOCController" class="com.djs.test.mvc.controller.DisplayBookTOCController">
+		<property name="books">
+			<list>
+				<ref bean="myFirstSpringBook" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+</beans>
