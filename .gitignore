@@ -28,8 +28,3 @@
 /**/__pycache__/
 /**/*.py[cod]
 /**/*$py.class
-
-
-# General purpose.
-/**/test/
-/**/tests/
