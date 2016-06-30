@@ -179,7 +179,7 @@ public class TestMain
 	}
 
 	public void testCommand(){
-		System.out.println("Test pattern: Behavioral / Command (Text Editor)\n");
+		System.out.println("Test pattern: Behavioral / Command (Text Editor,Action,Transaction)\n");
 
 		CommandDocument commandDocument = new CommandDocument();
 
@@ -300,7 +300,7 @@ public class TestMain
 	}
 
 	public void testStrategy(){
-		System.out.println("Test pattern: Behavioral / Strategy\n");
+		System.out.println("Test pattern: Behavioral / Strategy (Policy)\n");
 
 		StrategyContext strategyContext = new StrategyContext("Cat", "Dog");
 
@@ -314,7 +314,7 @@ public class TestMain
 	}
 
 	public void testTemplate(){
-		System.out.println("Test pattern: Behavioral / Template (Extended class)\n");
+		System.out.println("Test pattern: Behavioral / Template (Extend abstract class)\n");
 
 		SampleTemplate[] templates = new SampleTemplate[]{new ConcreteA(), new ConcreteB()};
 
@@ -324,7 +324,7 @@ public class TestMain
 	}
 
 	public void testVisitor(){
-		System.out.println("Test pattern: Behavioral / Visitor (IOC)\n");
+		System.out.println("Test pattern: Behavioral / Visitor (Inverse Of Control)\n");
 
 		VisitorInterface visitor = new Visitor("Dog");
 		ElementInterface[] elements = new ElementInterface[]{new Element("Cat"), new Element("Bird")};
@@ -335,7 +335,7 @@ public class TestMain
 	}
 
 	public void testAdapter(){
-		System.out.println("Test pattern: Structural / Adapter (Wrapper)\n");
+		System.out.println("Test pattern: Structural / Adapter (Wrapper different interface)\n");
 
 		AdapterInterface adapter = new Adapter(new Adaptee());
 
@@ -345,7 +345,7 @@ public class TestMain
 	}
 
 	public void testBridge(){
-		System.out.println("Test pattern: Structural / Bridge (Convertor)\n");
+		System.out.println("Test pattern: Structural / Bridge (Handle/Body,Same interface with different implementaion)\n");
 
 		BridgeInterface bridge = new Bridge();
 
@@ -356,7 +356,7 @@ public class TestMain
 	}
 
 	public void testComposite(){
-		System.out.println("Test pattern: Structural / Composite (Whole/Parts)\n");
+		System.out.println("Test pattern: Structural / Composite (Whole and Parts with same interface)\n");
 
 		BigToy bigToy = new BigToy("Elephant");
 
@@ -366,7 +366,7 @@ public class TestMain
 	}
 
 	public void testDecorator(){
-		System.out.println("Test pattern: Structural / Decorator (Extended same interface and Wrapper)\n");
+		System.out.println("Test pattern: Structural / Decorator (Extend same interface and Wrapper original one)\n");
 
 		SimpleControl simpleControl = new SimpleControl("Simple");
 		simpleControl.process();
@@ -379,7 +379,7 @@ public class TestMain
 	}
 
 	public void testFacade(){
-		System.out.println("Test pattern: Structural / Facade (Interface)\n");
+		System.out.println("Test pattern: Structural / Facade (Simple/Single interface for grouped sub-systems' interfaces)\n");
 
 		FacadeFactory facadeFactory = new FacadeFactory();
 
@@ -391,7 +391,7 @@ public class TestMain
 	}
 
 	public void testFlyweight(){
-		System.out.println("Test pattern: Structural / Flyweight (Cache)\n");
+		System.out.println("Test pattern: Structural / Flyweight (Cache/Reuse)\n");
 
 		ObjectCache objectCache = new ObjectCache();
 
@@ -402,7 +402,7 @@ public class TestMain
 	}
 
 	public void testProxy(){
-		System.out.println("Test pattern: Structural / Proxy (Remote Wrapper)\n");
+		System.out.println("Test pattern: Structural / Proxy (Surrogate,Wrapper same interface,Remote service)\n");
 
 		SubjectInterface subject = new ProxySubject();
 
