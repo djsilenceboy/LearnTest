@@ -1,25 +1,23 @@
 
 package dj.test.javalang.collections;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
-import java.util.TreeMap;
-import java.util.TreeSet;
-import java.util.Vector;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.LinkedBlockingQueue;
 
-public class TestMain
+public class TestMainConcurrent
 {
 	public void testList(){
 		// For List:
@@ -27,7 +25,7 @@ public class TestMain
 
 		{
 			// Raw type. Default is Object type.
-			List list = new ArrayList();
+			List list = new CopyOnWriteArrayList();
 
 			list.add(null);
 			list.add("Cat");
@@ -39,48 +37,7 @@ public class TestMain
 		}
 
 		{
-			List<String> list = new ArrayList<String>();
-
-			list.add(null);
-			list.add("Cat");
-			list.add(null);
-			list.add("Dog");
-
-			System.out.println(list.getClass().getName() + " = " + list);
-		}
-
-		{
-			List<String> list = new LinkedList<String>();
-
-			list.add(null);
-			list.add("Cat");
-			list.add(null);
-			list.add("Dog");
-
-			System.out.println(list.getClass().getName() + " = " + list);
-		}
-
-		{
-			// Old.
-			// For Vector:
-			// It is synchronized.
-
-			List<String> list = new Vector<String>();
-
-			list.add(null);
-			list.add("Cat");
-			list.add(null);
-			list.add("Dog");
-
-			System.out.println(list.getClass().getName() + " = " + list);
-		}
-
-		{
-			// Old.
-			// For Stack:
-			// It is extended Vector.
-
-			List<String> list = new Stack<String>();
+			List<String> list = new CopyOnWriteArrayList<String>();
 
 			list.add(null);
 			list.add("Cat");
@@ -93,11 +50,7 @@ public class TestMain
 
 	public void testSet(){
 		{
-			// For HashSet:
-			// Only one null is permitted.
-			// Adding more null will only keep one.
-
-			Set<String> set = new HashSet<String>();
+			Set<String> set = new CopyOnWriteArraySet<String>();
 
 			set.add(null);
 			set.add("Cat");
@@ -108,28 +61,13 @@ public class TestMain
 		}
 
 		{
-			// For LinkedHashSet:
-			// Only one null is permitted.
-			// Adding more null will only keep one.
-
-			Set<String> set = new LinkedHashSet<String>();
-
-			set.add(null);
-			set.add("Cat");
-			set.add(null);
-			set.add("Dog");
-
-			System.out.println(set.getClass().getName() + " = " + set);
-		}
-
-		{
-			// For TreeSet:
+			// For SortedSet:
 			// Cannot add null, it requires to compare value to sort.
 
-			Set<String> set = new TreeSet<String>();
+			Set<String> set = new ConcurrentSkipListSet<String>();
 
-			set.add("Dog");
 			set.add("Cat");
+			set.add("Dog");
 
 			System.out.println(set.getClass().getName() + " = " + set);
 		}
@@ -140,16 +78,10 @@ public class TestMain
 		// Value can be null.
 
 		{
-			// For HashMap:
-			// Only one null key is permitted.
-			// Adding more null key will only keep one.
-			// It treats null's hash code as 0.
+			// Cannot add null key.
 
-			Map<String, String> map = new HashMap<String, String>();
+			Map<String, String> map = new ConcurrentHashMap<String, String>();
 
-			map.put(null, "Cat");
-			map.put(null, null);
-			map.put(null, null);
 			map.put("Vehicle", "Car");
 			map.put("Animal", "Dog");
 
@@ -157,38 +89,10 @@ public class TestMain
 		}
 
 		{
-			// For LinkedHashMap:
-			// Only one null key is permitted.
-			// Adding more null key will only keep one.
-			// It treats null's hash code as 0.
+			// For SortedMap:
+			// Cannot add null key and null value.
 
-			Map<String, String> map = new LinkedHashMap<String, String>();
-
-			map.put(null, "Cat");
-			map.put(null, null);
-			map.put(null, null);
-			map.put("Animal", "Dog");
-
-			System.out.println(map.getClass().getName() + " = " + map);
-		}
-
-		{
-			// For TreeMap:
-			// Cannot add null key, it requires to compare key to sort.
-
-			Map<String, String> map = new TreeMap<String, String>();
-
-			map.put("Animal", "Dog");
-
-			System.out.println(map.getClass().getName() + " = " + map);
-		}
-
-		{
-			// Old.
-			// For Hashtable:
-			// Cannot add null key, it requires to check key's hash code.
-
-			Map<String, String> map = new Hashtable<String, String>();
+			Map<String, String> map = new ConcurrentSkipListMap<String, String>();
 
 			map.put("Animal", "Dog");
 
@@ -198,7 +102,7 @@ public class TestMain
 
 	public void testQueue(){
 		{
-			Queue<String> queue = new ArrayDeque<String>();
+			Queue<String> queue = new ConcurrentLinkedQueue<String>();
 
 			queue.offer("Cat1");
 			queue.offer("Dog2");
@@ -212,10 +116,24 @@ public class TestMain
 		}
 
 		{
-			Queue<String> queue = new LinkedList<String>();
+			Queue<String> queue = new ConcurrentLinkedDeque<String>();
 
 			queue.offer("Cat");
 			queue.offer("Dog");
+
+			System.out.println(queue.getClass().getName() + " = " + queue);
+
+			queue.peek();
+			queue.poll();
+
+			System.out.println(queue.getClass().getName() + " = " + queue);
+		}
+
+		{
+			Queue<String> queue = new LinkedBlockingQueue<String>();
+
+			queue.offer("Cat2");
+			queue.offer("Dog2");
 
 			System.out.println(queue.getClass().getName() + " = " + queue);
 
@@ -228,7 +146,25 @@ public class TestMain
 
 	public void testDeque(){
 		{
-			Deque<String> queue = new ArrayDeque<String>();
+			Deque<String> queue = new ConcurrentLinkedDeque<String>();
+
+			queue.offer("Cat");
+			queue.offer("Dog");
+
+			System.out.println(queue.getClass().getName() + " = " + queue);
+
+			queue.peek();
+			queue.poll();
+
+			System.out.println(queue.getClass().getName() + " = " + queue);
+
+			queue.push("Mice");
+
+			System.out.println(queue.getClass().getName() + " = " + queue);
+		}
+
+		{
+			Deque<String> queue = new LinkedBlockingDeque<String>();
 
 			queue.offer("Cat1");
 			queue.offer("Dog2");
@@ -245,24 +181,6 @@ public class TestMain
 			System.out.println(queue.getClass().getName() + " = " + queue);
 
 			queue.pop();
-
-			System.out.println(queue.getClass().getName() + " = " + queue);
-		}
-
-		{
-			Deque<String> queue = new LinkedList<String>();
-
-			queue.offer("Cat");
-			queue.offer("Dog");
-
-			System.out.println(queue.getClass().getName() + " = " + queue);
-
-			queue.peek();
-			queue.poll();
-
-			System.out.println(queue.getClass().getName() + " = " + queue);
-
-			queue.push("Mice");
 
 			System.out.println(queue.getClass().getName() + " = " + queue);
 		}
@@ -283,7 +201,7 @@ public class TestMain
 	}
 
 	public static void main(String[] args){
-		TestMain testMain = new TestMain();
+		TestMainConcurrent testMain = new TestMainConcurrent();
 
 		testMain.testList();
 		System.out.println("============================================================");

@@ -66,7 +66,7 @@ import dj.test.structural.proxy.SubjectInterface;
 public class TestMain
 {
 	public void testFacotry(){
-		System.out.println("Test pattern: Creational / Facotry\n");
+		System.out.println("Test pattern: Creational / Facotry (Virtual Constructor)\n");
 
 		Factory factory = new Factory();
 		ProductType[] productTypes = new ProductType[]{ProductType.ProductTypeA, ProductType.ProductTypeB};
@@ -78,7 +78,7 @@ public class TestMain
 	}
 
 	public void testAbstractedFacotry(){
-		System.out.println("Test pattern: Creational / Abstracted Facotry\n");
+		System.out.println("Test pattern: Creational / Abstracted Facotry (Kit)\n");
 
 		FactoryInterface[] factories = new FactoryInterface[]{new ProductTypeAFactory(), new ProductTypeBFactory()};
 
@@ -136,7 +136,7 @@ public class TestMain
 	}
 
 	public void testChainOfResponsibility(){
-		System.out.println("Test pattern: Behavioral / Chain of Responsibility (Filter / Intercepter)\n");
+		System.out.println("Test pattern: Behavioral / Chain of Responsibility (Filter, Intercepter)\n");
 
 		HandlerTypeA handlerTypeA1 = new HandlerTypeA("HandlerTypeA1");
 		HandlerTypeA handlerTypeA2 = new HandlerTypeA("HandlerTypeA2");
@@ -179,7 +179,7 @@ public class TestMain
 	}
 
 	public void testCommand(){
-		System.out.println("Test pattern: Behavioral / Command (Text Editor,Action,Transaction)\n");
+		System.out.println("Test pattern: Behavioral / Command (Action, Transaction)\n");
 
 		CommandDocument commandDocument = new CommandDocument();
 
@@ -212,7 +212,7 @@ public class TestMain
 	}
 
 	public void testIterator(){
-		System.out.println("Test pattern: Behavioral / Iterator\n");
+		System.out.println("Test pattern: Behavioral / Iterator (Cursor)\n");
 
 		SampleAggregate aggregate = new SampleAggregate();
 		aggregate.add("CatA");
@@ -255,7 +255,7 @@ public class TestMain
 	}
 
 	public void testMemento(){
-		System.out.println("Test pattern: Behavioral / Memento (Snapshot)\n");
+		System.out.println("Test pattern: Behavioral / Memento (Token, Snapshot)\n");
 
 		MementoKeeper mementoKeeper = new MementoKeeper();
 		Machine machine = new Machine();
@@ -277,7 +277,7 @@ public class TestMain
 	}
 
 	public void testObserver(){
-		System.out.println("Test pattern: Behavioral / Observer (Publisher/Subscriber)\n");
+		System.out.println("Test pattern: Behavioral / Observer (Publishe-Subscribe, Dependents)\n");
 
 		Subject subject = new Subject();
 
@@ -335,7 +335,7 @@ public class TestMain
 	}
 
 	public void testAdapter(){
-		System.out.println("Test pattern: Structural / Adapter (Wrapper different interface)\n");
+		System.out.println("Test pattern: Structural / Adapter (Wrapper, Wrapper incompatible interfaces, Reuse existing interfaces)\n");
 
 		AdapterInterface adapter = new Adapter(new Adaptee());
 
@@ -345,7 +345,8 @@ public class TestMain
 	}
 
 	public void testBridge(){
-		System.out.println("Test pattern: Structural / Bridge (Handle/Body,Same interface with different implementaion)\n");
+		System.out
+		        .println("Test pattern: Structural / Bridge (Handle/Body, Unified interface with different implementaion, Separate interface and implementaion)\n");
 
 		BridgeInterface bridge = new Bridge();
 
@@ -356,7 +357,7 @@ public class TestMain
 	}
 
 	public void testComposite(){
-		System.out.println("Test pattern: Structural / Composite (Whole and Parts with same interface)\n");
+		System.out.println("Test pattern: Structural / Composite (Whole/Parts with same interface, Unified interface for complexity)\n");
 
 		BigToy bigToy = new BigToy("Elephant");
 
@@ -366,7 +367,7 @@ public class TestMain
 	}
 
 	public void testDecorator(){
-		System.out.println("Test pattern: Structural / Decorator (Extend same interface and Wrapper original one)\n");
+		System.out.println("Test pattern: Structural / Decorator (Wrapper, Wrapper existing one by extending same interface)\n");
 
 		SimpleControl simpleControl = new SimpleControl("Simple");
 		simpleControl.process();
@@ -379,7 +380,7 @@ public class TestMain
 	}
 
 	public void testFacade(){
-		System.out.println("Test pattern: Structural / Facade (Simple/Single interface for grouped sub-systems' interfaces)\n");
+		System.out.println("Test pattern: Structural / Facade (Simple unified interface for group of sub-systems/interfaces)\n");
 
 		FacadeFactory facadeFactory = new FacadeFactory();
 
@@ -391,7 +392,7 @@ public class TestMain
 	}
 
 	public void testFlyweight(){
-		System.out.println("Test pattern: Structural / Flyweight (Cache/Reuse)\n");
+		System.out.println("Test pattern: Structural / Flyweight (Cache, Reuse)\n");
 
 		ObjectCache objectCache = new ObjectCache();
 
@@ -402,7 +403,7 @@ public class TestMain
 	}
 
 	public void testProxy(){
-		System.out.println("Test pattern: Structural / Proxy (Surrogate,Wrapper same interface,Remote service)\n");
+		System.out.println("Test pattern: Structural / Proxy (Surrogate, Place-holder for remote service, Same interface binding different implementation)\n");
 
 		SubjectInterface subject = new ProxySubject();
 

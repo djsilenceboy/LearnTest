@@ -12,13 +12,6 @@ import java.util.stream.Stream;
 
 public class TestMainStreamV8
 {
-	public void testSample1(){
-		List<Integer> list = Arrays.asList(8, 18, 28, 38);
-
-		list.stream().filter(item -> item > 20).forEach(item -> System.out.println(item));
-		list.parallelStream().filter(item -> item < 20).forEach(item -> System.out.println(item));
-	}
-
 	public void testCreate(){
 		Stream<String> empty = Stream.empty();
 		Stream<Integer> singleElement = Stream.of(1);
@@ -291,11 +284,64 @@ public class TestMainStreamV8
 		}
 	}
 
+	public void testUnorder(){
+		List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+
+		list.stream().unordered().parallel().forEach(item -> System.out.println(item));
+	}
+
+	public void testReduce(){
+		{
+			List<String> list = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9");
+			System.out.println("Reduce = " + list.stream().reduce("", (c, s1) -> c + s1));
+		}
+
+		System.out.println("--------------------");
+
+		{
+			List<String> list = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9");
+			System.out.println("Reduce = " + list.stream().reduce("", (c, s1) -> c + s1, (s2, s3) -> s2 + s3));
+		}
+
+		System.out.println("--------------------");
+
+		{
+			List<String> list = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9");
+			System.out.println("Reduce = " + list.parallelStream().reduce("", (c, s1) -> c + s1));
+		}
+
+		System.out.println("--------------------");
+
+		{
+			List<String> list = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9");
+			System.out.println("Reduce = " + list.parallelStream().reduce("", (c, s1) -> c + s1, (s2, s3) -> s2 + s3));
+		}
+	}
+
+	public void testParallel(){
+		{
+			List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+			list.parallelStream().forEach(item -> System.out.println(item));
+		}
+
+		System.out.println("--------------------");
+
+		{
+			List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+			System.out.println("FindAny = " + list.parallelStream().findAny().get());
+		}
+	}
+
+	public void testSample1(){
+		List<Integer> list = Arrays.asList(8, 18, 28, 38);
+
+		list.stream().filter(item -> item > 20).forEach(item -> System.out.println(item));
+		System.out.println("--------------------");
+		list.parallelStream().filter(item -> item < 20).forEach(item -> System.out.println(item));
+	}
+
 	public static void main(String[] args){
 		TestMainStreamV8 testMain = new TestMainStreamV8();
-
-		testMain.testSample1();
-		System.out.println("============================================================");
 
 		testMain.testCreate();
 		System.out.println("============================================================");
@@ -313,6 +359,18 @@ public class TestMainStreamV8
 		System.out.println("============================================================");
 
 		testMain.testCollectors2();
+		System.out.println("============================================================");
+
+		testMain.testUnorder();
+		System.out.println("============================================================");
+
+		testMain.testReduce();
+		System.out.println("============================================================");
+
+		testMain.testParallel();
+		System.out.println("============================================================");
+
+		testMain.testSample1();
 		System.out.println("============================================================");
 	}
 }
