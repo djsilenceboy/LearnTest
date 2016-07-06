@@ -17,19 +17,35 @@ import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.List;
 
-public class TestMainNewIo
+public class TestMainNioV7
 {
 	String fileNameRelative = "etc/data/SampleWords_ANSI_Eng.txt";
-	String fileNameAbosolute = "F:\\WorkDJS\\Project_Learn\\Java_Test\\JavaLangTest\\etc\\data\\SampleWords_ANSI_Eng.txt";
 	String directoryNameRelative = "etc/data";
-	String directoryAbosolute = "F:\\WorkDJS\\Project_Learn\\Java_Test\\JavaLangTest\\etc\\data";
 
 	String directoryName = "etc/data";
 
-	String[] fileNames = {fileNameRelative, fileNameAbosolute, directoryNameRelative, directoryAbosolute};
 	String[] pathNames = {fileNameRelative, directoryNameRelative};
 
 	String[] rawFileNames = {"etc/../data/SampleWords.txt", "etc/./data/SampleWords.txt"};
+
+	String[] srcFileNames = {"target/data/src/", "SampleToMove2.txt"};
+	String[] dstFileNames = {"target/data/dst/", "SampleMoved2.txt", "SampleLines_readAllBytes.txt", "Sample_readAllLines.txt", "Sample_newBuffered.txt",
+	                         "Sample_newStream.txt"};
+
+	public void testFileSystems1(){
+		System.out.println("Test = FileSystems");
+		System.out.println("--------------------");
+
+		try {
+			Path path = FileSystems.getDefault().getPath(".");
+			System.out.println("Default = " + path);
+			System.out.println("toRealPath = " + path.toRealPath());
+		} catch (Exception e) {
+			System.err.println("Exception = " + e);
+		}
+
+		System.out.println("--------------------");
+	}
 
 	public void testFileStore1(){
 		System.out.println("Test = File store");
@@ -75,22 +91,35 @@ public class TestMainNewIo
 		}
 	}
 
-	public void testCopyMoveFile(){
-		System.out.println("Test = Copy/Move file");
+	public void testCopyFile(){
+		System.out.println("Test = Copy file");
 		System.out.println("--------------------");
 
-		String srcFileName = "etc/data/src/sample.txt";
-		String dstFileName = "bin/sample2.txt";
-
 		try {
-			Path path1 = Paths.get(srcFileName);
-			Path path2 = Paths.get(dstFileName);
+			Path path1 = Paths.get(fileNameRelative);
+			Path path2 = Paths.get(srcFileNames[0], srcFileNames[1]);
 
 			System.out.println("Source file = " + path1);
 			System.out.println("Destination file = " + path2);
 
 			Files.copy(path1, path2, StandardCopyOption.REPLACE_EXISTING);
-			// Files.move(path1, path2, StandardCopyOption.REPLACE_EXISTING);
+		} catch (Exception e) {
+			System.err.println("Exception = " + e);
+		}
+	}
+
+	public void testMoveFile(){
+		System.out.println("Test = Move file");
+		System.out.println("--------------------");
+
+		try {
+			Path path1 = Paths.get(srcFileNames[0], srcFileNames[1]);
+			Path path2 = Paths.get(dstFileNames[0], dstFileNames[1]);
+
+			System.out.println("Source file = " + path1);
+			System.out.println("Destination file = " + path2);
+
+			Files.move(path1, path2, StandardCopyOption.REPLACE_EXISTING);
 		} catch (Exception e) {
 			System.err.println("Exception = " + e);
 		}
@@ -100,16 +129,14 @@ public class TestMainNewIo
 		System.out.println("Test = File IO");
 
 		Charset charset = Charset.forName("US-ASCII");
-		String srcFileName = "etc/data/src/sample.txt";
-		Path path1 = Paths.get(srcFileName);
+		Path path1 = Paths.get(fileNameRelative);
 		System.out.println("Source file = " + path1);
 		System.out.println("--------------------");
 
 		try {
 			System.out.println("Test = readAllBytes / write bytes");
-			String dstFileName = "bin/sample_AllBytes.txt";
 
-			Path path2 = Paths.get(dstFileName);
+			Path path2 = Paths.get(dstFileNames[0], dstFileNames[2]);
 			System.out.println("Destination file = " + path2);
 
 			byte[] buffer = Files.readAllBytes(path1);
@@ -123,9 +150,8 @@ public class TestMainNewIo
 
 		try {
 			System.out.println("Test = readAllLines / write lines");
-			String dstFileName = "bin/sample_AllLines.txt";
 
-			Path path2 = Paths.get(dstFileName);
+			Path path2 = Paths.get(dstFileNames[0], dstFileNames[3]);
 			System.out.println("Destination file = " + path2);
 
 			List<String> buffer = Files.readAllLines(path1, charset);
@@ -139,9 +165,8 @@ public class TestMainNewIo
 
 		try {
 			System.out.println("Test = newBufferedReader / newBufferedWriter");
-			String dstFileName = "bin/sample_newBuffered.txt";
 
-			Path path2 = Paths.get(dstFileName);
+			Path path2 = Paths.get(dstFileNames[0], dstFileNames[4]);
 			System.out.println("Destination file = " + path2);
 
 			try (BufferedReader reader = Files.newBufferedReader(path1, charset); BufferedWriter writer = Files.newBufferedWriter(path2, charset)) {
@@ -162,9 +187,8 @@ public class TestMainNewIo
 
 		try {
 			System.out.println("Test = newInputStream / newOutputStream");
-			String dstFileName = "bin/sample_newStream.txt";
 
-			Path path2 = Paths.get(dstFileName);
+			Path path2 = Paths.get(dstFileNames[0], dstFileNames[5]);
 			System.out.println("Destination file = " + path2);
 
 			try (InputStream in = Files.newInputStream(path1);
@@ -198,7 +222,7 @@ public class TestMainNewIo
 		System.out.println("Test = Create temp file");
 		System.out.println("--------------------");
 
-		String tempFileFolder = "bin/";
+		String tempFileFolder = "target/data/";
 		String tempFilePrefix = "zzz_";
 		String tempFilePostfix = ".tmp";
 
@@ -217,7 +241,11 @@ public class TestMainNewIo
 	}
 
 	public static void main(String[] args){
-		TestMainNewIo test = new TestMainNewIo();
+		TestMainNioV7 test = new TestMainNioV7();
+
+		System.out.println("========================================");
+
+		test.testFileSystems1();
 
 		System.out.println("========================================");
 
@@ -229,7 +257,11 @@ public class TestMainNewIo
 
 		System.out.println("========================================");
 
-		test.testCopyMoveFile();
+		test.testCopyFile();
+
+		System.out.println("========================================");
+
+		test.testMoveFile();
 
 		System.out.println("========================================");
 

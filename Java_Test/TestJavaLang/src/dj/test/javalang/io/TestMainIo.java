@@ -3,14 +3,19 @@ package dj.test.javalang.io;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Formatter;
 
@@ -28,15 +33,58 @@ public class TestMainIo
 
 	String[] fileNames = {fileNameAnsi_Eng, fileNameUtf8_Eng, fileNameUtf16_Eng, fileNameAnsi_Chs, fileNameUtf8_Chs, fileNameUtf16_Chs};
 
-	public void moveFile(){
-		String[] srcFileNames = new String[2];
-		String[] dstFileNames = new String[2];
+	String[] srcFileNames = {"target/data/src/", "SampleToMove.txt", "SampleWords1.txt", "SampleBytes1.txt"};
+	String[] dstFileNames = {"target/data/dst/", "SampleMoved.txt"};
 
-		srcFileNames[0] = "/etc/data/src/";
-		srcFileNames[1] = "sample.txt";
-		dstFileNames[0] = "/etc/data/dst/";
-		dstFileNames[1] = "sample.txt";
+	public void testFileWriter1(){
+		System.out.println("Test = FileWriter");
+		System.out.println("--------------------");
 
+		File file = new File(srcFileNames[0], srcFileNames[1]);
+
+		System.out.println("File name = " + file.getPath());
+
+		try (FileWriter fw = new FileWriter(file)) {
+			fw.write("Hello, world!");
+			fw.flush();
+		} catch (Exception e) {
+			System.err.println("Exception = " + e);
+		}
+	}
+
+	public void testFileWriter2(){
+		System.out.println("Test = BufferedWriter(FileWriter)");
+		System.out.println("--------------------");
+
+		File file = new File(srcFileNames[0], srcFileNames[2]);
+
+		System.out.println("File name = " + file.getPath());
+
+		try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
+			fw.write("Hello, world!");
+			fw.flush();
+		} catch (Exception e) {
+			System.err.println("Exception = " + e);
+		}
+	}
+
+	public void testFileOutputStream1(){
+		System.out.println("Test = FileOutputStream");
+		System.out.println("--------------------");
+
+		File file = new File(srcFileNames[0], srcFileNames[3]);
+
+		System.out.println("File name = " + file.getPath());
+
+		try (FileOutputStream fos = new FileOutputStream(file)) {
+			fos.write("Hello, world!".getBytes());
+			fos.flush();
+		} catch (Exception e) {
+			System.err.println("Exception = " + e);
+		}
+	}
+
+	public void testMoveFile(){
 		File srcFile = new File(srcFileNames[0], srcFileNames[1]);
 		File dstFile = new File(dstFileNames[0], dstFileNames[1]);
 
@@ -232,6 +280,38 @@ public class TestMainIo
 		}
 	}
 
+	public void testPrintStream(){
+		System.out.println("Test = PrintStream");
+		System.out.println("--------------------");
+
+		PrintStream pw = System.out;
+		try {
+			pw.print("Hello");
+			pw.append('W');
+			pw.println();
+			pw.flush();
+		} catch (Exception e) {
+			System.err.println("Exception = " + e);
+		}
+	}
+
+	public void testPrintWriter(){
+		System.out.println("Test = PrintWriter");
+		System.out.println("--------------------");
+
+		// Do not close it, as it will further close "System.out". Thus, no output for following methods.
+		PrintWriter pr = new PrintWriter(System.out);
+
+		try {
+			pr.print("Hello");
+			pr.append('W');
+			pr.println();
+			pr.flush();
+		} catch (Exception e) {
+			System.err.println("Exception = " + e);
+		}
+	}
+
 	public void testFormatter(){
 		System.out.println("Test = Formatter");
 		System.out.println("--------------------");
@@ -249,7 +329,19 @@ public class TestMainIo
 
 		System.out.println("========================================");
 
-		// test.moveFile();
+		test.testFileWriter1();
+
+		System.out.println("========================================");
+
+		test.testMoveFile();
+
+		System.out.println("========================================");
+
+		test.testFileWriter2();
+
+		System.out.println("========================================");
+
+		test.testFileOutputStream1();
 
 		System.out.println("========================================");
 
@@ -278,6 +370,14 @@ public class TestMainIo
 		System.out.println("========================================");
 
 		test.testOutputStream1();
+
+		System.out.println("========================================");
+
+		test.testPrintStream();
+
+		System.out.println("========================================");
+
+		test.testPrintWriter();
 
 		System.out.println("========================================");
 

@@ -4,16 +4,17 @@ package dj.test.javalang.io;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributeView;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.DosFileAttributes;
 import java.nio.file.attribute.PosixFileAttributes;
 
-public class TestMainPath
+public class TestMainPathV7
 {
 	String fileNameRelative = "etc/data/SampleWords_ANSI_Eng.txt";
-	String fileNameAbosolute = "F:\\WorkDJS\\Project_Learn\\Java_Test\\JavaLangTest\\etc\\data\\SampleWords_ANSI_Eng.txt";
+	String fileNameAbosolute = "X:\\TestJavaLang\\etc\\data\\SampleWords_ANSI_Eng.txt";
 	String directoryNameRelative = "etc/data";
-	String directoryAbosolute = "F:\\WorkDJS\\Project_Learn\\Java_Test\\JavaLangTest\\etc\\data";
+	String directoryAbosolute = "X:\\Java_Test\\TestJavaLang\\etc\\data";
 
 	String directoryName = "etc/data";
 
@@ -40,14 +41,19 @@ public class TestMainPath
 				System.out.println("getName(0) = " + path.getName(0));
 				System.out.println("subpath(0, 2) = " + path.subpath(0, 2));
 				System.out.println("toAbsolutePath = " + path.toAbsolutePath());
-				System.out.println("toRealPath = " + path.toRealPath());
 				System.out.println("isDirectory = " + Files.isDirectory(path));
 				System.out.println("isExecutable = " + Files.isExecutable(path));
-				System.out.println("isHidden = " + Files.isHidden(path));
 				System.out.println("isReadable = " + Files.isReadable(path));
 				System.out.println("isRegularFile = " + Files.isRegularFile(path));
 				System.out.println("isSymbolicLink = " + Files.isSymbolicLink(path));
 				System.out.println("isWritable = " + Files.isWritable(path));
+
+				if (Files.exists(path)) {
+					System.out.println("isHidden = " + Files.isHidden(path));
+					System.out.println("toRealPath = " + path.toRealPath());
+					System.out.println("getLastModifiedTime = " + Files.getLastModifiedTime(path));
+					System.out.println("getOwner = " + Files.getOwner(path));
+				}
 			} catch (Exception e) {
 				System.err.println("Exception = " + e);
 			}
@@ -56,8 +62,8 @@ public class TestMainPath
 		}
 	}
 
-	public void testPathInfo2(){
-		System.out.println("Test = Path attributes");
+	public void testFileAttributes(){
+		System.out.println("Test = File Attributes");
 		System.out.println("--------------------");
 
 		for (String fileName : pathNames) {
@@ -77,6 +83,7 @@ public class TestMainPath
 					System.out.println("Basic: isSymbolicLink = " + attributes.isSymbolicLink());
 					System.out.println("Basic: lastAccessTime = " + attributes.lastAccessTime());
 					System.out.println("Basic: lastModifiedTime = " + attributes.lastModifiedTime());
+					System.out.println("Basic: size = " + attributes.size());
 				}
 
 				{
@@ -103,6 +110,38 @@ public class TestMainPath
 		}
 	}
 
+	public void testFileAttributeView(){
+		System.out.println("Test = FileAttributeView");
+		System.out.println("--------------------");
+
+		for (String fileName : pathNames) {
+			System.out.println("File name = " + fileName);
+
+			try {
+				Path path = Paths.get(fileName);
+				BasicFileAttributeView view = Files.getFileAttributeView(path, BasicFileAttributeView.class);
+
+				System.out.println("Basic View: name = " + view.name());
+
+				BasicFileAttributes attributes = view.readAttributes();
+
+				System.out.println("Basic: creationTime = " + attributes.creationTime());
+				System.out.println("Basic: fileKey = " + attributes.fileKey());
+				System.out.println("Basic: isDirectory = " + attributes.isDirectory());
+				System.out.println("Basic: isOther = " + attributes.isOther());
+				System.out.println("Basic: isRegularFile = " + attributes.isRegularFile());
+				System.out.println("Basic: isSymbolicLink = " + attributes.isSymbolicLink());
+				System.out.println("Basic: lastAccessTime = " + attributes.lastAccessTime());
+				System.out.println("Basic: lastModifiedTime = " + attributes.lastModifiedTime());
+				System.out.println("Basic: size = " + attributes.size());
+			} catch (Exception e) {
+				System.err.println("Exception = " + e);
+			}
+
+			System.out.println("--------------------");
+		}
+	}
+
 	public void testNormalize1(){
 		System.out.println("Test = Normalize");
 		System.out.println("--------------------");
@@ -114,7 +153,6 @@ public class TestMainPath
 				Path path = Paths.get(fileName);
 
 				System.out.println("normalize = " + path.normalize());
-				System.out.println("resolve(TestSubPath) = " + path.resolve("TestSubPath"));
 			} catch (Exception e) {
 				System.err.println("Exception = " + e);
 			}
@@ -123,13 +161,28 @@ public class TestMainPath
 		}
 	}
 
+	public void testResolve1(){
+		System.out.println("Test = Resolve");
+		System.out.println("--------------------");
+
+		try {
+			Path path = Paths.get(directoryName);
+
+			System.out.println("resolve(TestSubPath) = " + path.resolve("../TestSubPath"));
+		} catch (Exception e) {
+			System.err.println("Exception = " + e);
+		}
+
+		System.out.println("--------------------");
+	}
+
 	public void testCompare(){
 		System.out.println("Test = Compare");
 		System.out.println("--------------------");
 
 		try {
 			Path path1 = Paths.get(fileNameRelative);
-			Path path2 = Paths.get(fileNameAbosolute);
+			Path path2 = Paths.get(fileNameRelative);
 
 			System.out.println("Source file = " + path1);
 			System.out.println("Destination file = " + path2);
@@ -141,7 +194,7 @@ public class TestMainPath
 	}
 
 	public static void main(String[] args){
-		TestMainPath test = new TestMainPath();
+		TestMainPathV7 test = new TestMainPathV7();
 
 		System.out.println("========================================");
 
@@ -149,11 +202,19 @@ public class TestMainPath
 
 		System.out.println("========================================");
 
-		test.testPathInfo2();
+		test.testFileAttributes();
+
+		System.out.println("========================================");
+
+		test.testFileAttributeView();
 
 		System.out.println("========================================");
 
 		test.testNormalize1();
+
+		System.out.println("========================================");
+
+		test.testResolve1();
 
 		System.out.println("========================================");
 

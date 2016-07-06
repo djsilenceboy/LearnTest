@@ -13,9 +13,9 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Iterator;
 
-public class TestMainVisit
+public class TestMainVisitV7
 {
-	String directoryName = "etc/data";
+	String directoryName = "etc";
 
 	public void testDirectory(){
 		System.out.println("Test = Directory");
@@ -79,7 +79,7 @@ public class TestMainVisit
 	}
 
 	public static void main(String[] args){
-		TestMainVisit test = new TestMainVisit();
+		TestMainVisitV7 test = new TestMainVisitV7();
 
 		System.out.println("========================================");
 
@@ -132,7 +132,7 @@ class PathLogger implements FileVisitor<Path>
 	@Override
 	public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException{
 		System.out.println("--------------------");
-		System.out.println("visitFile = " + file);
+		System.out.println("visitFileFailed = " + file);
 
 		return FileVisitResult.CONTINUE;
 	}

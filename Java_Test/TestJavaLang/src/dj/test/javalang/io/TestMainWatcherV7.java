@@ -11,7 +11,7 @@ import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 
-public class TestMainWatcher
+public class TestMainWatcherV7
 {
 	String directoryName = "etc/data";
 
@@ -88,7 +88,7 @@ public class TestMainWatcher
 	}
 
 	public static void main(String[] args){
-		TestMainWatcher test = new TestMainWatcher();
+		TestMainWatcherV7 test = new TestMainWatcherV7();
 
 		System.out.println("========================================");
 
