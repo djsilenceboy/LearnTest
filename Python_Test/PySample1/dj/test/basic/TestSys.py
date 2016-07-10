@@ -25,7 +25,7 @@ print("-" * 40)
 
 print("sys.stdout =")
 
-message2 = "This is my message.\n"
+message2 = "This is my message: {0}.\n".format(message.rstrip())
 
 sys.stdout.writelines(message2)
 

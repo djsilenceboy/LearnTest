@@ -20,7 +20,7 @@ def echo(thing):
     print("message =", message)
     return message
 
-run(HOST='localhost', PORT=8002)
+run(host='localhost', port=8002)
 
 if __name__ == '__main__':
     pass
