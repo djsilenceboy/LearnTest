@@ -1,0 +1,30 @@
+Filename: TestProfile2.py
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+    16   14.832 MiB    0.000 MiB   @profile
+    17                             def calculate(x_array, y_array):
+    18  118.688 MiB  103.855 MiB       matrix = [[0 for x in range(max_size)] for y in range(max_size)]
+    19  503.191 MiB  384.504 MiB       for y in range(max_size):
+    20  503.191 MiB    0.000 MiB           for x in range(max_size):
+    21  503.191 MiB    0.000 MiB               matrix[y][x] = y_array[y] * x_array[x]
+    22  503.191 MiB    0.000 MiB       return matrix
+
+
+Filename: TestProfile2.py
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+    25   14.656 MiB    0.000 MiB   @profile
+    26                             def do_test():
+    27   14.734 MiB    0.078 MiB       x_array = [randint(-max_size, max_size) for _ in range(max_size)]
+    28   14.832 MiB    0.098 MiB       y_array = [randint(-max_size, max_size) for _ in range(max_size)]
+    29
+    30  503.191 MiB  488.359 MiB       matrix = calculate(x_array, y_array)
+    31
+    32                                 '''
+    33                                 for y in range(max_size):
+    34                                     for x in range(max_size):
+    35                                         print("{0:-10}".format(matrix[y][x]), end="")
+    36                                     print("")
+    37  503.191 MiB    0.000 MiB       '''

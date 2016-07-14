@@ -43,7 +43,6 @@ print("stats =", stats)
 
 stats.strip_dirs()
 stats.sort_stats("cumulative")
-
 stats.print_stats()
 stats.print_callees()
 
@@ -60,7 +59,6 @@ print("stats2 =", stats2)
 
 stats2.strip_dirs()
 stats2.sort_stats("cumulative")
-
 stats2.print_stats()
 stats2.print_callees()
 
