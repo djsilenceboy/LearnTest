@@ -6,7 +6,7 @@ Created on Apr 8, 2016
 
 from datetime import datetime, timezone
 from time import time, localtime, strftime, strptime, mktime
-from timeit import timeit
+from timeit import timeit, repeat
 
 
 def make_list1():
@@ -19,6 +19,15 @@ def make_list1():
 def make_list2():
     result = [value for value in range(1000)]
     return result
+
+counter = 0
+
+
+def count1():
+    global counter
+    counter += 1
+    print("Count = {}".format(counter))
+
 
 t1 = time()
 make_list1()
@@ -39,6 +48,17 @@ print("-" * 40)
 
 print("make_list1(2000) time =", timeit(make_list1, number=2000), "seconds")
 print("make_list2(2000) time =", timeit(make_list2, number=2000), "seconds")
+
+print("-" * 40)
+
+print("count1(3, 2) time =", repeat(count1, repeat=3, number=2), "seconds")
+
+print("-" * 40)
+
+print("timeit(2) time =", timeit(
+    'print("123")', setup='print("abc")', number=2), "seconds")
+print("timeit(2) time =", timeit(
+    'sum += 1; print("Sum =", sum)', setup='sum = 0; print("Start sum =", sum)', number=2), "seconds")
 
 print("-" * 40)
 
