@@ -3,24 +3,24 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xsi:schemaLocation="http://www.springframework.org/schema/beans 
             			http://www.springframework.org/schema/beans/spring-beans-4.0.xsd" default-init-method="tuneInstrument">
 
-	<bean id="saxophone" class="com.djs.test.spring_sample.music.Saxophone" scope="prototype" />
-	<bean id="piano" class="com.djs.test.spring_sample.music.Piano" />
+	<bean id="saxophone" class="com.djs.learn.spring_sample.music.Saxophone" scope="prototype" />
+	<bean id="piano" class="com.djs.learn.spring_sample.music.Piano" />
 
-	<bean id="performerA" class="com.djs.test.spring_sample.music.Instrumentalist" destroy-method="cleanInstrument">
+	<bean id="performerA" class="com.djs.learn.spring_sample.music.Instrumentalist" destroy-method="cleanInstrument">
 		<constructor-arg value="Jack" />
 		<property name="song" value="Jingle Bells" />
 		<property name="instrument" ref="saxophone" />
 	</bean>
 
-	<bean id="performerB" class="com.djs.test.spring_sample.music.Instrumentalist">
+	<bean id="performerB" class="com.djs.learn.spring_sample.music.Instrumentalist">
 		<constructor-arg value="Mary" />
 		<property name="song" value="I love tian an men" />
 		<property name="instrument">
-			<bean class="com.djs.test.spring_sample.music.Piano" />
+			<bean class="com.djs.learn.spring_sample.music.Piano" />
 		</property>
 	</bean>
 
-	<bean id="performerC" class="com.djs.test.spring_sample.music.OneManBand" destroy-method="cleanInstrument">
+	<bean id="performerC" class="com.djs.learn.spring_sample.music.OneManBand" destroy-method="cleanInstrument">
 		<constructor-arg value="Hank" />
 		<property name="song" value="Wolf" />
 		<property name="instruments">
@@ -31,7 +31,7 @@
 		</property>
 	</bean>
 
-	<bean id="performerD" class="com.djs.test.spring_sample.music.Instrumentalist" destroy-method="cleanInstrument" scope="prototype" abstract="true">
+	<bean id="performerD" class="com.djs.learn.spring_sample.music.Instrumentalist" destroy-method="cleanInstrument" scope="prototype" abstract="true">
 		<property name="song" value="Good Dog" />
 		<property name="instrument" ref="saxophone" />
 	</bean>
@@ -44,7 +44,7 @@
 		<constructor-arg value="Tom" />
 	</bean>
 
-	<bean id="performerDSingle" class="com.djs.test.spring_sample.music.Instrumentalist" destroy-method="cleanInstrument" abstract="true">
+	<bean id="performerDSingle" class="com.djs.learn.spring_sample.music.Instrumentalist" destroy-method="cleanInstrument" abstract="true">
 		<property name="song" value="Good Dog" />
 		<property name="instrument" ref="saxophone" />
 	</bean>
@@ -53,14 +53,14 @@
 		<constructor-arg value="John" />
 	</bean>
 
-	<bean id="stageA" class="com.djs.test.spring_sample.music.Stage" factory-method="getInstance" />
+	<bean id="stageA" class="com.djs.learn.spring_sample.music.Stage" factory-method="getInstance" />
 
 
 	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" />
 
-	<bean id="audienceA" class="com.djs.test.spring_sample.music.Audience" />
+	<bean id="audienceA" class="com.djs.learn.spring_sample.music.Audience" />
 
-	<bean id="audienceAdviceA" class="com.djs.test.spring_sample.music.AudienceAdvice">
+	<bean id="audienceAdviceA" class="com.djs.learn.spring_sample.music.AudienceAdvice">
 		<property name="audience" ref="audienceA" />
 	</bean>
 

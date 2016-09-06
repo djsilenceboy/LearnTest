@@ -2,7 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="chapter1" class="com.djs.test.mvc.dto.Chapter">
+	<bean id="chapter1" class="com.djs.learn.mvc.dto.Chapter">
 		<property name="number">
 			<value>1</value>
 		</property>
@@ -15,7 +15,7 @@
 	</bean>
 
 	<!-- injecting the dependencies of chapter 2 using constructor by index -->
-	<bean id="chapter2" class="com.djs.test.mvc.dto.Chapter">
+	<bean id="chapter2" class="com.djs.learn.mvc.dto.Chapter">
 		<constructor-arg index="0">
 			<value>2</value>
 		</constructor-arg>
@@ -28,11 +28,11 @@
 	</bean>
 
 	<!-- injecting the dependencies of chapter 3 using constructor by type -->
-	<bean id="chapter3" class="com.djs.test.mvc.dto.Chapter">
+	<bean id="chapter3" class="com.djs.learn.mvc.dto.Chapter">
 		<constructor-arg type="int">
 			<value>3</value>
 		</constructor-arg>
-		<constructor-arg type="com.djs.test.mvc.dto.Title">
+		<constructor-arg type="com.djs.learn.mvc.dto.Title">
 			<ref bean="chapter3Title" />
 		</constructor-arg>
 		<constructor-arg type="String">

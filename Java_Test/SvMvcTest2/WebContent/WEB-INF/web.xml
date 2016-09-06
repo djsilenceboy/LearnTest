@@ -6,7 +6,7 @@
 
 	<servlet>
 		<servlet-name>DispatcherServlet</servlet-name>
-		<servlet-class>dj.com.test.product_sample.servlet.DispatcherServlet</servlet-class>
+		<servlet-class>com.djs.learn.product_sample.servlet.DispatcherServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>

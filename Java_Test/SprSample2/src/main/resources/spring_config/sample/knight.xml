@@ -7,21 +7,21 @@
 						http://www.springframework.org/schema/aop 
 						http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
-	<bean id="quest" class="com.djs.test.spring_sample.knight.HolyGrailQuest" />
+	<bean id="quest" class="com.djs.learn.spring_sample.knight.HolyGrailQuest" />
 
-	<bean id="knightA" class="com.djs.test.spring_sample.knight.KnightOfTheRoundTable">
+	<bean id="knightA" class="com.djs.learn.spring_sample.knight.KnightOfTheRoundTable">
 		<constructor-arg value="Bedivere" />
 		<property name="quest" ref="quest" />
 	</bean>
 
-	<bean id="knightB" class="com.djs.test.spring_sample.knight.KnightOfTheRoundTable">
+	<bean id="knightB" class="com.djs.learn.spring_sample.knight.KnightOfTheRoundTable">
 		<constructor-arg value="Superman" />
 		<property name="quest">
-			<bean class="com.djs.test.spring_sample.knight.GoldenWoolQuest" />
+			<bean class="com.djs.learn.spring_sample.knight.GoldenWoolQuest" />
 		</property>
 	</bean>
 
-	<bean id="minstrel" class="com.djs.test.spring_sample.knight.Minstrel" />
+	<bean id="minstrel" class="com.djs.learn.spring_sample.knight.Minstrel" />
 
 	<aop:config>
 		<aop:aspect ref="minstrel">
@@ -36,7 +36,7 @@
 		</aop:aspect>
 	</aop:config>
   
-	<bean id="minstrel2" class="com.djs.test.spring_sample.knight.Minstrel2" />
+	<bean id="minstrel2" class="com.djs.learn.spring_sample.knight.Minstrel2" />
 
 	<aop:config>
 		<aop:aspect ref="minstrel2">

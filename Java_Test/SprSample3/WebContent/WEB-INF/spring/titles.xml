@@ -2,25 +2,25 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="bookTitle" class="com.djs.test.mvc.dto.Title">
+	<bean id="bookTitle" class="com.djs.learn.mvc.dto.Title">
 		<property name="titleValue">
 			<value>${myFirstSpringBook.title}</value>
 		</property>
 	</bean>
 
-	<bean id="chapter1Title" class="com.djs.test.mvc.dto.Title">
+	<bean id="chapter1Title" class="com.djs.learn.mvc.dto.Title">
 		<constructor-arg>
 			<value>${myFirstSpringBook.chapter1.title}</value>
 		</constructor-arg>
 	</bean>
 
-	<bean id="chapter2Title" class="com.djs.test.mvc.dto.Title">
+	<bean id="chapter2Title" class="com.djs.learn.mvc.dto.Title">
 		<constructor-arg>
 			<value>${myFirstSpringBook.chapter2.title}</value>
 		</constructor-arg>
 	</bean>
 
-	<bean id="chapter3Title" class="com.djs.test.mvc.dto.Title">
+	<bean id="chapter3Title" class="com.djs.learn.mvc.dto.Title">
 		<property name="titleValue">
 			<value>${myFirstSpringBook.chapter3.title}</value>
 		</property>
