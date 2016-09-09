@@ -14,13 +14,7 @@ echo $#
 # Notice the difference of "$@" and "$*"!
 
 # Use "$*", do not forget double quotes.
-for i in "$*"
-do
-	echo $i
-done
+printf "%s\n" "$*"
 
 # Use "$@", do not forget double quotes.
-for i in "$@"
-do
-	echo $i
-done
+printf "%s\n" "$@"
