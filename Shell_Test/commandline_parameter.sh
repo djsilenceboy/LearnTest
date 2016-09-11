@@ -32,3 +32,9 @@ echo $?
 
 # $_: The previous command.
 echo $_
+
+# ${0##*/}: The base name (without path) of this script.
+echo ${0##*/}
+
+# The base name (without path) of this script.
+echo `basename $0`
