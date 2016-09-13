@@ -22,3 +22,13 @@ do
 	echo $1
 	shift
 done
+
+set 1 2 3 4 5 6 7 8 9 a b c
+
+# Left shift all parameters.
+# So, $1 will take values from $2, $3, ...
+while (( $# ))
+do
+	echo $1
+	shift
+done

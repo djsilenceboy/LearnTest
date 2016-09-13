@@ -55,19 +55,19 @@ do
 	N=$(($N + 1))
 done
 
-for VAR in This is a Hello World
+for Var in This is a Hello World
 do
-	echo $VAR
+	echo $Var
 done
 
-for VAR in 1 2 3
+for Var in 1 2 3
 do
-	echo $VAR
+	echo $Var
 done
 
-for VAR in {1..3}
+for Var in {1..3}
 do
-	echo $VAR
+	echo $Var
 done
 
 for ((N=1; N<4; N++))

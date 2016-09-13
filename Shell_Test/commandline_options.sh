@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # "Tom Jerry" is non-option parameters.
-# set -ab Book -c Cake -d Dog -e Tom Jerry
+# -ab Book -c Cake -d Dog -e Tom Jerry
 
 # "-d Dog -e" will be non-option parameters due to after "Tom".
-# set -ab Book -c Cake Tom -d Dog -e
+# -ab Book -c Cake Tom -d Dog -e
 
 # "-d Dog -e" will be non-option parameters due to "--".
-# set -ab Book -c Cake -- -d Dog -e
+# -ab Book -c Cake -- -d Dog -e
 
 set -v
 

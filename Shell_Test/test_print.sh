@@ -11,8 +11,8 @@ echo 'This is "Hello World".'
 # Single quote cannot in single quote.
 # echo 'This is \'Hello World\'.'
 
-VAR=abc
-echo ${VAR}_2
+Var=abc
+echo ${Var}_2
 echo $VAR_2
 
 echo $':'

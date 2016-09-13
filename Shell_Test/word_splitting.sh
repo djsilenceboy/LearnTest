@@ -4,24 +4,24 @@ set -v
 
 # Default delimiter = " \t\n".
 
-VAR="This is  
+Var="This is  
   Hello World."
 
-printf "<%s>\n" $VAR
+printf "<%s>\n" $Var
 
-VAR="a : b : :: c"
+Var="a : b : :: c"
 
 # Delimiter = ":" plus any white space before and after.
 IFS=' :'
 
-printf "<%s>\n" $VAR
+printf "<%s>\n" $Var
 
 # Delimiter = ":" plus any white space before and after.
 IFS=': '
 
-printf "<%s>\n" $VAR
+printf "<%s>\n" $Var
 
 # Delimiter = ":".
 IFS=:
 
-printf "<%s>\n" $VAR
+printf "<%s>\n" $Var
