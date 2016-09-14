@@ -5,6 +5,10 @@ set -v
 LogFile=$TMP/temp.log
 ErrorLogFile=$TMP/temp_error.log
 
+# FD0 equals to file "/dev/fd/0".
+# FD1 equals to file "/dev/fd/1".
+# FD2 equals to file "/dev/fd/2".
+
 echo > $LogFile
 echo > $ErrorLogFile
 

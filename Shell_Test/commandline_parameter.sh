@@ -33,6 +33,9 @@ echo $?
 # $_: The previous command.
 echo $_
 
+# ${Var##PATTERN}
+# Remove longest match from beginning.
+# But not change variable.
 # ${0##*/}: The base name (without path) of this script.
 echo ${0##*/}
 

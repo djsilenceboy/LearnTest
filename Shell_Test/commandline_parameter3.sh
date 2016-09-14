@@ -18,3 +18,16 @@ printf "%s\n" "$*"
 
 # Use "$@", do not forget double quotes.
 printf "%s\n" "$@"
+
+
+set 192.168.10.25
+echo $#
+echo $1
+
+# By changing IFS to ".", and reset again.
+# "192.168.10.25" will become 4 parameters.
+IFS=.
+
+set $1
+echo $#
+echo $1

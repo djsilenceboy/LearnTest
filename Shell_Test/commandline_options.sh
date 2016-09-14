@@ -7,6 +7,7 @@
 # -ab Book -c Cake Tom -d Dog -e
 
 # "-d Dog -e" will be non-option parameters due to "--".
+# "--" means the end of options part.
 # -ab Book -c Cake -- -d Dog -e
 
 set -v
