@@ -74,3 +74,12 @@ echo ${#VarArr2[@]}
 
 echo ${VarArr2["a"]}
 echo ${VarArr2["b"]}
+
+
+# Auto create array in first time, then increase size in following times.
+for v in {a..e}
+do
+	VarArr3[${#VarArr3[@]}]=$v
+done
+echo ${VarArr3[@]}
+echo ${!VarArr3[@]}

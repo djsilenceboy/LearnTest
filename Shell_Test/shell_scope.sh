@@ -67,3 +67,29 @@ echo "VarD = "$VarD
  VarE=Thomas)
 
 echo "VarE = "$VarE
+
+
+echo "IFS = "$IFS
+# "IFS" only visible in "while" line scope.
+while IFS=. read A B C D
+do
+	echo "IFS = "$IFS
+	echo $A $B $C $D
+done <<< "192.168.10.25"
+echo "IFS = "$IFS
+
+
+# Pipeline is in sub-shell.
+# "IFS" only visible in "while" line scope of sub-shell.
+# "VarF" only visible in sub-shell scope.
+# No need "local" identifier.
+echo "192.168.10.25" | while IFS=. read A B C D
+do
+	echo "BASHPID = "$BASHPID;
+	echo "IFS = "$IFS
+	echo $A $B $C $D
+	VarF=Clinton
+done <<< "192.168.10.25"
+echo
+echo "IFS = "$IFS
+echo "VarF = "$VarF
