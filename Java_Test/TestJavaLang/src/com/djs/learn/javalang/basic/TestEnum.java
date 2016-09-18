@@ -1,6 +1,8 @@
 
 package com.djs.learn.javalang.basic;
 
+import java.util.Arrays;
+
 public class TestEnum
 {
 	enum Animal
@@ -32,6 +34,8 @@ public class TestEnum
 
 		System.out.println("============================================================");
 
+		System.out.println("Animal = " + Animal.values());
+		System.out.println("Animal = " + Arrays.toString(Animal.values()));
 		System.out.println("Cat = " + Animal.Cat);
 		System.out.println("Cat = " + Animal.Cat.ordinal());
 		System.out.println("Dog = " + TestEnum.Animal.Dog.ordinal());
