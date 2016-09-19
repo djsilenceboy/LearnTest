@@ -21,5 +21,16 @@ echo $d
 
 # Default variable is "$REPLY"
 read <<< "This is a Hello World"
-
 echo $REPLY
+
+# With prompt.
+read -p "Please enter Y/N: " Var
+echo $Var
+
+# With timeout.
+read -p "There is timeout: " -t 2 Var
+echo $Var
+
+# With initial text.
+read -p "Change this: " -ei "Hello" Var
+echo $Var
