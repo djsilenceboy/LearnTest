@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -v
+set -v -x
 
 # ":="
 # Return default value, when unset or set but empty.

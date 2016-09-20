@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -v
+set -v -x
 
 Var="a b c d e"
 

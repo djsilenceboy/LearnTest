@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -v
+set -v -x
 
 if [ 1 = 1 ]; then
 	echo "Step 1"

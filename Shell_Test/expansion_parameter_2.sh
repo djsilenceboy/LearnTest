@@ -7,7 +7,7 @@
 # x ''
 # x x
 
-set -v
+set -v -x
 
 # "?"
 # Return error message and exit, when unset.

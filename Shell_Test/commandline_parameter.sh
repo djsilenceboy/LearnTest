@@ -1,7 +1,7 @@
 #!/bin/bash
 # Test parameter: Hello World Good Bye
 
-set -v
+set -v -x
 
 # $*: All command line parameters.
 echo $*

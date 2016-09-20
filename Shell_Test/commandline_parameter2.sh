@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -v
+set -v -x
 
 # This is similar to input from command line.
 set Hello World Good Bye

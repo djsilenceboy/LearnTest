@@ -10,7 +10,7 @@
 # "--" means the end of options part.
 # -ab Book -c Cake -- -d Dog -e
 
-set -v
+set -v -x
 
 # The number of all command line parameters.
 echo "$#"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -v
+set -v -x
 
 time echo {1..30000} > /dev/null
 

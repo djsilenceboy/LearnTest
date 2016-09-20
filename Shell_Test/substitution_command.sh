@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -v
+set -v -x
 
 # Use "$$" to get process ID for current shell.
 # Use "$BASHPID" to get process ID for sub shell. If not a sub shell, then for current shell.

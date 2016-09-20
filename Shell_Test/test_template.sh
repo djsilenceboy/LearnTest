@@ -1,3 +1,3 @@
 #!/bin/bash
 
-set -v
+set -v -x

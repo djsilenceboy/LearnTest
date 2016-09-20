@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -v
+set -v -x
 
 printf "%04d" 12
 

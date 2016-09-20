@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -v
+set -v -x
 
 test 1 -eq 1
 echo $?

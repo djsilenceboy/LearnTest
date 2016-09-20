@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -v
+set -v -x
 
 ((1 > 0))
 echo $?

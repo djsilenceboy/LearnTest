@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -v
+set -v -x
 
 ls | cut -c 1-4,8-9
 

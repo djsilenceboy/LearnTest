@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -v
+set -v -x
 
 # Without double quotes, [*] equals to [@].
 # With double quotes, "[*]" does not equal to "[@]".

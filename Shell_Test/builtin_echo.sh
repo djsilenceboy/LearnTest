@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -v
+set -v -x
 
 echo "This is 'Hello World'."
 

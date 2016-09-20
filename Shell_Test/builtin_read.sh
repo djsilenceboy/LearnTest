@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -v
+set -v -x
 
 read a b c d <<< "This is a Hello World"
 
@@ -23,14 +23,26 @@ echo $d
 read <<< "This is a Hello World"
 echo $REPLY
 
-# With prompt.
-read -p "Please enter Y/N: " Var
+# With prompt, only read one character.
+read -p "Please enter Y/N: " -n1 Var
+echo $Var
+
+# With prompt, only read one character, no echo input.
+read -p "Press any key..." -sn1 Var
 echo $Var
 
 # With timeout.
-read -p "There is timeout: " -t 2 Var
+read -p "There is timeout." -t2 Var
 echo $Var
 
 # With initial text.
 read -p "Change this: " -ei "Hello" Var
 echo $Var
+
+Spinner="\|/-"
+until read -sn1 -t0.1 -p "Press any key..." Var
+do
+	printf "%.1s\r" $Spinner
+	temp=${Spinner#?}
+	Spinner=$temp${Spinner%"$temp"}
+done

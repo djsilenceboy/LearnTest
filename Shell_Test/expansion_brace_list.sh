@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -v
+set -v -x
 
 # No space between elements of the list in {}!
 

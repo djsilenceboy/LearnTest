@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -v
+set -v -x
 
 LogFile=$TMP/temp.log
 ErrorLogFile=$TMP/temp_error.log

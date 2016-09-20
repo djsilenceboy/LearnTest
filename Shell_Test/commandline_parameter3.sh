@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -v
+set -v -x
 
 # This is similar to input from command line.
 set 1 '2 3' 4\ 5 "6 7"

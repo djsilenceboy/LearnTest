@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -v
+set -v -x
 
 Var=a1b1c2d2e
 
