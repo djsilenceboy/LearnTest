@@ -9,7 +9,12 @@ cd()
 
 cd temp
 
+builtin cd -
+
+dirs
 
 pwd
 
 pwd -P
+
+menu who date "ls:ls -l"

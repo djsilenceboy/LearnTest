@@ -12,6 +12,11 @@ ErrorLogFile=$TMP/temp_error.log
 echo > $LogFile
 echo > $ErrorLogFile
 
+{
+	echo "Step 0.1"
+	echo "Step 0.2"
+} > $LogFile
+
 # FD1 to file by default.
 # FD2 not to file by default.
 echo "Step 1" >> $LogFile
