@@ -1,0 +1,13 @@
+# This is sample.
+
+## Good morning.
+
+Country=Singapore
+Name=Jerry
+
+Age=12
+HomeWork=
+
+FruitList=Apple,Orange,Grape,Banana
+
+# End of sample.

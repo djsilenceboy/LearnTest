@@ -19,3 +19,13 @@ echo $Var3
 Var='Hello " echo World"'
 eval "Var4=\"$Var\""
 echo $Var4
+
+
+# Split by ":", and assign to each variable by indirect reference.
+Var="Alert:Chris:Jack:Lily"
+for v in ChildA ChildB ChildC ChildD
+do
+	eval "$v=\${Var%%:*}"
+	Var=${Var#*:}
+done
+echo $ChildA $ChildB $ChildC $ChildD

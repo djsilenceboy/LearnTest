@@ -13,3 +13,15 @@ echo $NUM
 printf "%-6s:%4d\n" Tom 8 Jerry 16 Marry 128
 
 printf "%-6s:%4d\n" Tom 8 Jerry 16 Marry
+
+
+Fmt="
+   |   |
+ %1s | %1s | %1s
+---+---+---
+ %1s | %1s | %1s
+---+---+---
+   |   |
+"
+ttt=("" X "" "" O "" "" X "")
+printf "$Fmt" "${ttt[@]}"

@@ -89,7 +89,7 @@ do
 	echo "IFS = "$IFS
 	echo $A $B $C $D
 	VarF=Clinton
-done <<< "192.168.10.25"
+done
 echo
 echo "IFS = "$IFS
 echo "VarF = "$VarF

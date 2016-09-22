@@ -35,8 +35,9 @@ echo $Var
 read -p "There is timeout." -t2 Var
 echo $Var
 
-# With initial text.
-read -p "Change this: " -ei "Hello" Var
+# With changeable initial text.
+# "-i" must and only be used together with "-e".
+read -p "Change initial text: " -ei "Hello" Var
 echo $Var
 
 Spinner="\|/-"

@@ -15,12 +15,15 @@ echo ${VarArr[@]}
 echo ${!VarArr[@]}
 echo ${#VarArr[@]}
 
+# "+=" to add more elements.
+# "[index]=" to define element with certain index.
 VarArr+=(Tom [5]=Jerry)
 
 echo ${VarArr[@]}
 echo ${!VarArr[@]}
 echo ${#VarArr[@]}
 
+# "[index]=" to define element with certain index.
 VarArr[10]="Mary Cury"
 VarArr[20]="Apple Pie"
 
@@ -28,6 +31,7 @@ echo ${VarArr[@]}
 echo ${!VarArr[@]}
 echo ${#VarArr[@]}
 
+# Add one more element.
 VarArr[${#VarArr[@]}]="Cat"
 
 echo ${VarArr[@]}
@@ -62,6 +66,7 @@ do
 done
 
 
+# Declare a associative array.
 declare -A VarArr2
 
 VarArr2["a"]=1
@@ -83,3 +88,9 @@ do
 done
 echo ${VarArr3[@]}
 echo ${!VarArr3[@]}
+
+
+# Split by ":", then save as array.
+Var="Alert:Chris:Jack:Lily"
+IFS=: Names=($Var)
+echo "${Names[@]}"

@@ -24,3 +24,8 @@ case "A747" in
 	A[0-9]*) echo "Step 5.1";;
 	*) echo "Step 5.2";;
 esac
+
+
+[ ${Var:-0} -gt 0 ] && echo "Display me."
+
+[ ${Var:-1} -gt 0 ] && echo "Display me."
