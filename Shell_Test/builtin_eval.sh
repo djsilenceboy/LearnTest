@@ -29,3 +29,12 @@ do
 	Var=${Var#*:}
 done
 echo $ChildA $ChildB $ChildC $ChildD
+
+
+# Sanity checking is required for eval.
+# For example, this is a sample of dangerous case.
+# VarX=ls -l;VarZ
+# VarY=Anything
+# eval "$VarX=\$VarY"
+# The expanded:
+# eval "ls -l;VarZ=Anything"
