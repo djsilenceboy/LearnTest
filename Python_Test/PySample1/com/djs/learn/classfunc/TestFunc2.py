@@ -37,40 +37,6 @@ def test_cloure(a, b):
     return test_inner
 
 
-def test_decorator(func):
-    @wraps(func)
-    def decorator(*args, **kwargs):
-        print("Enter decorator.")
-        result = func(*args, **kwargs)
-        print("Leave decorator.")
-        return result
-    return decorator
-
-
-def test_decorator2(func):
-    @wraps(func)
-    def decorator(*args, **kwargs):
-        print("Enter decorator2.")
-        result = func(*args, **kwargs)
-        print("Leave decorator2.")
-        return result
-    return decorator
-
-
-@test_decorator
-@test_decorator2
-def test_decorator_sum(a, b):
-    print(a, "+", b)
-    return a + b
-
-
-@test_decorator2
-@test_decorator
-def test_decorator_multiple(a, b):
-    print(a, "*", b)
-    return a * b
-
-
 def main():
     test_default_list(1)
     test_default_list(3)
@@ -98,24 +64,6 @@ def main():
 
     result = cloureFunc(20)
     print("test_cloure(2, 4)(20) =", result)
-
-    print("-" * 40)
-
-    decoratorFunc = test_decorator(test_sum)
-    result = decoratorFunc(2, 4)
-    print("decoratorFunc(2, 4) =", result)
-
-    print("-" * 40)
-
-    result = test_decorator_sum(2, 4)
-    print("test_decorator_sum(2, 4) =", result)
-    print("test_decorator_sum = ", test_decorator_sum)
-
-    print("-" * 40)
-
-    result = test_decorator_multiple(2, 4)
-    print("test_decorator_multiple(2, 4) =", result)
-    print("test_decorator_multiple = ", test_decorator_sum)
 
     print("-" * 40)
 
