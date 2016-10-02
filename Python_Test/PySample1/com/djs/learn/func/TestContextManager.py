@@ -27,6 +27,7 @@ class ContextManager(object):
 class ExceptionHandler(object):
 
     def __init__(self, error_message=None):
+        '''Define different error message.'''
         self.error_message = error_message
         print("ExceptionHandler.enter.error_message =", self.error_message)
 
