@@ -20,7 +20,24 @@ def gen_odds(start=1):
         start += 2
 
 
+def gen_stopiteration():
+    yield 1
+    # Equal to raise StopIteration(12)
+    return 12
+
+
 def main():
+    print("-" * 40)
+
+    gn = gen_number()
+    print("gn =", gn)
+
+    print("next(gn) =", next(gn))
+    print("next(gn) =", next(gn))
+    print("next(gn) =", next(gn))
+
+    print("-" * 40)
+
     list1 = list(gen_number())
     print("list1 =", list1)
     list2 = list(gen_number())
@@ -64,6 +81,48 @@ def main():
     print("gen_num3 =", gen_num3)
     for number in gen_num3:
         print(number)
+
+    print("-" * 40)
+
+    gn = gen_stopiteration()
+
+    print("next(gn) =", next(gn))
+    try:
+        print("next(gn) =", next(gn))
+    except Exception as e:
+        print("next(gn).exception =", e)
+
+    print("-" * 40)
+
+    # r is iterable with __iter__.
+    r = range(0, 5)
+    print("r =", r)
+    # g is iterator with __next__.
+    g = iter(r)
+    print("g =", g)
+    print("next(g) =", next(g))
+
+    print("-" * 40)
+
+    dict = {'Cat': 'Tom', 'Mouse': 'Jerry'}
+    # items is iterator with __next__.
+    items = iter(dict.items())
+    print("items =", items)
+    print("next(dict) =", next(items))
+    print("next(dict) =", next(items))
+
+    print("-" * 40)
+
+    z = zip(['x', 'y', 'z'], ['a', 'b', 'c', 'd'])
+    print("z =", z)
+
+    print("next(z) =", next(z))
+    print("next(z) =", next(z))
+    print("next(z) =", next(z))
+    try:
+        print("next(z) =", next(z))
+    except:
+        print("next(z) = No more")
 
     print("-" * 40)
 
