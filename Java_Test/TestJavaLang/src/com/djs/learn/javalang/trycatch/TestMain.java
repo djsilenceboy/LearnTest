@@ -76,6 +76,21 @@ public class TestMain
 		}
 	}
 
+	public void testHiddenThrow() throws Exception{
+		System.out.println("Hidden Throw");
+
+		try {
+			System.out.println("In try");
+			System.out.println("Before throw");
+
+			// This exception will be suppressed.
+			throw new Exception("ToBeHidden");
+		} finally {
+			System.out.println("In finally");
+			throw new Exception("ToHide");
+		}
+	}
+
 	public static void main(String[] args){
 		TestMain test = new TestMain();
 
@@ -92,6 +107,14 @@ public class TestMain
 
 		try {
 			test.testThrowInCatch();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("========================================");
+
+		try {
+			test.testHiddenThrow();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
