@@ -33,16 +33,17 @@ public class OuterParentC
 
 		class LocalParentC
 		{
-			// If name as "count", it will hide the one in outer class.
-			int count2 = 10;
+			int count = 10;
+			int count2 = 20;
 
 			// Illegal. No static for inner class.
 			// static int age = 0;
 
 			void printCount(){
 				System.out.println("OuterParentC.LocalParentC:printCount");
-				System.out.println("Param out = " + count);
-				System.out.println("Param Local = " + count2);
+				System.out.println("Param out = " + OuterParentC.this.count);
+				System.out.println("Param local = " + count);
+				System.out.println("Param local = " + count2);
 				System.out.println("Param method input = " + age);
 				System.out.println("Param method = " + score);
 				// Illegal. Cannot see non-final method param.
