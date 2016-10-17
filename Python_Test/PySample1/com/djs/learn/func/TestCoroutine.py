@@ -38,17 +38,27 @@ def main():
     print("-" * 40)
 
     it = coroutine_a()
-    next(it)
-    it.send("First")
-    it.send("Second")
+    # Skip first yield.
+    print("A1:", next(it))
+    print("-" * 20)
+    # Send to generator, then get next yield.
+    print("A2:", it.send("First"))
+    print("-" * 20)
+    # Send to generator, then get next yield.
+    print("A3:", it.send("Second"))
 
     print("-" * 40)
 
     it = minimize()
+    # Skip first yield.
     next(it)
+    print("-" * 20)
     print("it:1 =", it.send(22))
+    print("-" * 20)
     print("it:2 =", it.send(10))
+    print("-" * 20)
     print("it:3 =", it.send(15))
+    print("-" * 20)
     print("it:4 =", it.send(6))
 
     print("-" * 40)

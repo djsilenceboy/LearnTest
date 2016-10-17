@@ -37,5 +37,25 @@ def main():
 
     print("-" * 40)
 
+    # fib2 is a new copy of fibonacci.
+    fib2 = fibonacci()
+
+    print("fib2 =", fib2)
+    print("next(fib2) =", next(fib2))
+    print("next(fib2) =", next(fib2))
+    print("next(fib2) =", next(fib2))
+
+    print("-" * 40)
+
+    # Normally, a generator's __iter__ return self.
+    # fib3 is same copy as fib.
+    fib3 = iter(fib)
+
+    print("fib3 =", fib3)
+    print("next(fib3) =", next(fib3))
+    print("next(fib3) =", next(fib3))
+
+    print("-" * 40)
+
 if __name__ == '__main__':
     main()
