@@ -55,13 +55,31 @@ class Word(object):
         return self.text
 
     def __eq__(self, other):
+        # For ==
         return self.text == other.text
 
     def __ne__(self, other):
+        # For !=
         return self.text != other.text
 
     def __add__(self, other):
+        # For +
         return self.text + "|" + other.text
+
+    def __format__(self, spec_str):
+        # For format
+        if not spec_str:
+            spec_str = "->"
+        print("Word::format = ", spec_str)
+        return spec_str + self.text
+
+    def __invert__(self):
+        # For ~
+        return self.text[::-1]
+
+    def __contains__(self, keyword):
+        # For in
+        return self.text.find(keyword)
 
 
 def main():
@@ -99,6 +117,20 @@ def main():
     print(wordA, "!=", wordC, "is", wordA != wordC)
 
     print(wordA, "+", wordC, "=", wordA + wordC)
+
+    print("-" * 40)
+
+    print("{0}".format(wordA))
+    print("{0:<-}".format(wordA))
+
+    print("-" * 40)
+
+    print("~WordA =", ~wordA)
+
+    print("-" * 40)
+
+    print("He in wordA =", ("He" in wordA))
+    print("he in wordA =", ("he" in wordA))
 
     print("-" * 40)
 

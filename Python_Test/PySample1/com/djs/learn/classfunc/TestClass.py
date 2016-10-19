@@ -12,6 +12,10 @@ class MyClass(object):
 
     count = 0
 
+    def __new__(self, *args, **kwargs):
+        print("{0} instance created.".format(self.__class__))
+        return object.__new__(self)
+
     def __init__(self, params):
         '''
         Constructor
@@ -27,6 +31,8 @@ class MyClass(object):
             self.__class__.__name__, self.__value))
 
     def __del__(self):
+        print("{0} instance {1} deleted.".format(
+            self.__class__.__name__, self.count))
         MyClass.count -= 1
 
 
