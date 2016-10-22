@@ -4,14 +4,20 @@ Created on Mar 7, 2016
 @author: djs
 '''
 
-from dj.test.classfunc import TestScopeA as inner
+from com.djs.learn.scope import TestScopeA as inner
+
+# Inner can only access its own space's "_city".
+# Inner will not "use" this space's "_city".
 
 _city = "London"
 
 
 def set_city(value):
+    # This "_city" is local one, not that global one!
     _city = value
-    print("vars() =", vars())
+    print("vars() =", vars().get('_city'))
+    print("locals() =", locals().get('_city'))
+    print("globals() =", globals().get('_city'))
 
 
 def get_city():

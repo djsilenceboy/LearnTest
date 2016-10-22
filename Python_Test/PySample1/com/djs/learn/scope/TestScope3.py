@@ -4,6 +4,9 @@ Created on Mar 2, 2016
 @author: jiangdu
 '''
 
+# In class, the member with double underscore prefix, such as "__value",
+# is private. It will not be overrided.
+
 
 class TestA(object):
 
@@ -26,23 +29,34 @@ class TestB(TestA):
         print("TestB:_value =", self._value)
         print("TestB:__value =", self.__value)
 
-    def get_value2(self):
+    def get_valueB(self):
         return self._value, self.__value
 
 
-obj1 = TestB()
+objB = TestB()
 
 print("-" * 40)
 
-print("obj1.get_value() =", obj1.get_value())
-print("obj1.get_value2() =", obj1.get_value2())
+print("objB.get_value() =", objB.get_value())
+print("objB.get_valueB() =", objB.get_valueB())
 
 print("-" * 40)
 
-print("obj1._value =", obj1._value)
+print("objB._value =", objB._value)
 
-print("obj1._TestA__value =", obj1._TestA__value)
-print("obj1._TestB__value =", obj1._TestB__value)
+# This line will cause error:
+# AttributeError: 'TestB' object has no attribute '__value'
+# Because "__value" is private.
+try:
+    print("objB.__value =", objB.__value)
+except Exception as e:
+    print("Exception: {}".format(e))
+
+print("-" * 40)
+
+# This is the way to access private member.
+print("objB._TestA__value =", objB._TestA__value)
+print("objB._TestB__value =", objB._TestB__value)
 
 print("-" * 40)
 

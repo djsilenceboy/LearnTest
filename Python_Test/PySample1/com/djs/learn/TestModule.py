@@ -6,8 +6,8 @@ Created on Feb 23, 2016
 
 from random import random
 
-from dj.test.bitwise import Bits as Bits
-from dj.test.bitwise.Bitmask import BitMask
+from com.djs.learn.bitwise import Bits as Bits
+from com.djs.learn.bitwise.Bitmask import BitMask
 
 
 print("Hello World")

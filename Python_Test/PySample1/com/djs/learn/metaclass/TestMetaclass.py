@@ -56,12 +56,12 @@ print("type(Product2) =", type(Product2))
 
 print("-" * 40)
 
-ProductA = Meta1("ProductA", (object,), {})
+Product = Meta1("Product", (object,), {})
 ProductB = Meta2("ProductB", (object,), {"price": 10})
 
 print("-" * 40)
 
-print("type(ProductA) =", type(ProductA))
+print("type(Product) =", type(Product))
 print("type(ProductB) =", type(ProductB))
 
 print("-" * 40)
@@ -75,7 +75,7 @@ class Product3(Product1, Product2):
     pass
 
 
-class ProductC(ProductA, ProductB):
+class ProductC(Product, ProductB):
     pass
 
 print("-" * 40)

@@ -12,7 +12,7 @@ def init(self, name):
 def make(self):
     print("Make a", self.name)
 
-ProductA = type("ProductA", (object,), {
+Product = type("Product", (object,), {
     "__doc__": "Just a simple product.", "__init__": init, "make": make})
 
 ProductB = type("ProductB", (object,), {
@@ -20,12 +20,12 @@ ProductB = type("ProductB", (object,), {
 
 print("-" * 40)
 
-print("type(ProductA) =", type(ProductA))
-print("ProductA = ", ProductA)
+print("type(Product) =", type(Product))
+print("Product = ", Product)
 
 print("-" * 40)
 
-prodA = ProductA("Phone")
+prodA = Product("Phone")
 print("type(prodA) =", type(prodA))
 print("prodA = ", prodA)
 
@@ -34,7 +34,7 @@ prodA.make()
 print("-" * 40)
 
 
-class ProductC(ProductA, ProductB):
+class ProductC(Product, ProductB):
     pass
 
 print("type(ProductC) =", type(ProductC))

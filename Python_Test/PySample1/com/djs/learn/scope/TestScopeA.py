@@ -12,7 +12,9 @@ def set_city(value):
     global _city
     _city = value
     _street = "Ok"
-    print("vars() =", vars())
+    print("vars() =", vars().get('_city'))
+    print("locals() =", locals().get('_city'))
+    print("globals() =", globals().get('_city'))
 
 
 def get_city():

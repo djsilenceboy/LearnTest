@@ -5,7 +5,7 @@ Created on Apr 8, 2016
 '''
 
 from nose.tools import eq_
-from dj.test.unit import TestSample as cap
+from com.djs.learn.unit import TestSample as cap
 
 
 MULTIPLE_WORDS_SOURCE = "this is a good day"
