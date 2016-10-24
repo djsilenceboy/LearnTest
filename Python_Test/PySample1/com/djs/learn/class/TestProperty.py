@@ -81,8 +81,9 @@ def main():
 
     print("-" * 40)
 
-    c3 = Circle2(0)
+    c3 = Circle3(0)
     c3.radius = 24
+    print("c3.radius3 =", c3.radius)
     print("c3.area =", c3.area)
 
 
