@@ -23,7 +23,7 @@ print("len =", len(u_text_str))
 
 print("-" * 40)
 
-# r means "raw".
+# r means "raw", and will not escape special characters.
 r_text_str = r'This \/ is a good day. 月球'
 print("r_text_str =", r_text_str)
 print("type =", type(r_text_str))
@@ -31,6 +31,7 @@ print("len =", len(r_text_str))
 
 print("-" * 40)
 
+# "\" will be "\\".
 byte_str = b'This \/ is a good day.'
 print("byte_str =", byte_str)
 print("type =", type(byte_str))
@@ -38,6 +39,7 @@ print("len =", len(byte_str))
 
 print("-" * 40)
 
+# "\" will be "\\".
 # Same as (encoding='utf_8', errors='strict')
 text_str2 = text_str.encode("utf_8")
 print("text_str2 =", text_str2)

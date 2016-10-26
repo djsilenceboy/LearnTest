@@ -65,9 +65,20 @@ echo $Var
 echo ${Var,,[AE]}
 echo $Var
 
-# ${Var~PATTERN} equals to ${Var,PATTERN}
-# Convert first matching character to lower-case.
+# ${Var~PATTERN}
+# Convert first matching character to reverted case.
 # But not change variable.
+
+Var="abcabcefgefg"
+
+echo ${Var~}
+echo $Var
+
+echo ${Var~A}
+echo $Var
+
+echo ${Var~E}
+echo $Var
 
 Var="ABCABCEFGEFG"
 
@@ -80,9 +91,11 @@ echo $Var
 echo ${Var~E}
 echo $Var
 
-# ${Var~~PATTERN} equals to ${Var,,PATTERN}
-# Convert all matching characters to lower-case.
+# ${Var~~PATTERN}
+# Convert all matching characters to reverted case.
 # But not change variable.
+
+Var="AbCAbCEfGEfG"
 
 echo ${Var~~}
 echo $Var
