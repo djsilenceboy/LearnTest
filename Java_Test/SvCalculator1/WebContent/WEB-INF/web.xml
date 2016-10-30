@@ -14,16 +14,16 @@
 	</welcome-file-list>
 
 	<listener>
-		<listener-class>com.djs.test.sv.calculator.ServletRequestListenerTest</listener-class>
+		<listener-class>com.djs.learn.sv.calculator.ServletRequestListenerTest</listener-class>
 	</listener>
 
 	<listener>
-		<listener-class>com.djs.test.sv.calculator.ServletContextListenerTest</listener-class>
+		<listener-class>com.djs.learn.sv.calculator.ServletContextListenerTest</listener-class>
 	</listener>
 
 	<filter>
 		<filter-name>FilterTest</filter-name>
-		<filter-class>com.djs.test.sv.calculator.FilterTest</filter-class>
+		<filter-class>com.djs.learn.sv.calculator.FilterTest</filter-class>
 	</filter>
 
 	<filter-mapping>
@@ -35,7 +35,7 @@
 		<description>Calculator</description>
 		<display-name>Calculator</display-name>
 		<servlet-name>Calculator</servlet-name>
-		<servlet-class>com.djs.test.sv.calculator.Calculator</servlet-class>
+		<servlet-class>com.djs.learn.sv.calculator.Calculator</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Calculator</servlet-name>

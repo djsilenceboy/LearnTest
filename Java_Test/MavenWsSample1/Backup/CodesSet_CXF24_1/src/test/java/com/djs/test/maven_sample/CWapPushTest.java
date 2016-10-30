@@ -1,5 +1,5 @@
 
-package com.djs.test.maven_sample;
+package com.djs.learn.maven_sample;
 
 import java.math.BigInteger;
 import java.net.URL;
@@ -16,12 +16,12 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.djs.test.wsclient.wap_push.ExtWapPush;
-import com.djs.test.wsclient.wap_push.PolicyException;
-import com.djs.test.wsclient.wap_push.ServiceException;
-import com.djs.test.wsclient.wap_push.WapPushReqData;
-import com.djs.test.wsclient.wap_push.WapPushRespData;
-import com.djs.test.wsclient.wap_push.WapPushService;
+import com.djs.learn.wsclient.wap_push.ExtWapPush;
+import com.djs.learn.wsclient.wap_push.PolicyException;
+import com.djs.learn.wsclient.wap_push.ServiceException;
+import com.djs.learn.wsclient.wap_push.WapPushReqData;
+import com.djs.learn.wsclient.wap_push.WapPushRespData;
+import com.djs.learn.wsclient.wap_push.WapPushService;
 
 public class CWapPushTest
 {

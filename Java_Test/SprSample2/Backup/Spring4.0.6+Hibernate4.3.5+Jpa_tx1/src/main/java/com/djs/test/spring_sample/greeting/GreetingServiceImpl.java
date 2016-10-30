@@ -1,5 +1,5 @@
 
-package com.djs.test.spring_sample.greeting;
+package com.djs.learn.spring_sample.greeting;
 
 import java.util.Locale;
 

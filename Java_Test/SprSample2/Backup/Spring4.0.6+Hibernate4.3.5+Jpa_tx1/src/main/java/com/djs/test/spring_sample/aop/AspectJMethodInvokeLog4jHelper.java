@@ -1,5 +1,5 @@
 
-package com.djs.test.spring_sample.aop;
+package com.djs.learn.spring_sample.aop;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;

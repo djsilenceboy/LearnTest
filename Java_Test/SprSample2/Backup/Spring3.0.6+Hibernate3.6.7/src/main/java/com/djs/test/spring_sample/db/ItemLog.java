@@ -1,5 +1,5 @@
 
-package com.djs.test.spring_sample.db;
+package com.djs.learn.spring_sample.db;
 
 import java.util.Date;
 

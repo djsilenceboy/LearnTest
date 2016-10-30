@@ -1,5 +1,5 @@
 
-package com.djs.test.maven_sample;
+package com.djs.learn.maven_sample;
 
 import java.math.BigInteger;
 import java.util.Calendar;
@@ -14,13 +14,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.ws.client.core.WebServiceTemplate;
 
-import com.djs.test.wsclient.example_test.SendDataRequest;
-import com.djs.test.wsclient.example_test.SendDataResponse;
-import com.djs.test.wsclient.session_manager.GetSession;
-import com.djs.test.wsclient.session_manager.GetSessionResponse;
-import com.djs.test.wsclient.wap_push.SendWapPush;
-import com.djs.test.wsclient.wap_push.SendWapPushResponse;
-import com.djs.test.wsclient.wap_push.WapPushReqData;
+import com.djs.learn.wsclient.example_test.SendDataRequest;
+import com.djs.learn.wsclient.example_test.SendDataResponse;
+import com.djs.learn.wsclient.session_manager.GetSession;
+import com.djs.learn.wsclient.session_manager.GetSessionResponse;
+import com.djs.learn.wsclient.wap_push.SendWapPush;
+import com.djs.learn.wsclient.wap_push.SendWapPushResponse;
+import com.djs.learn.wsclient.wap_push.WapPushReqData;
 
 public class AppTest
 {

@@ -1,5 +1,5 @@
 
-package com.djs.test.maven_sample;
+package com.djs.learn.maven_sample;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -12,12 +12,12 @@ import javax.xml.ws.handler.PortInfo;
 
 import org.apache.log4j.Logger;
 
-import com.djs.test.wsclient.example_test.PolicyException;
-import com.djs.test.wsclient.example_test.SendDataPort;
-import com.djs.test.wsclient.example_test.SendDataRequest;
-import com.djs.test.wsclient.example_test.SendDataResponse;
-import com.djs.test.wsclient.example_test.SendDataService;
-import com.djs.test.wsclient.example_test.ServiceException;
+import com.djs.learn.wsclient.example_test.PolicyException;
+import com.djs.learn.wsclient.example_test.SendDataPort;
+import com.djs.learn.wsclient.example_test.SendDataRequest;
+import com.djs.learn.wsclient.example_test.SendDataResponse;
+import com.djs.learn.wsclient.example_test.SendDataService;
+import com.djs.learn.wsclient.example_test.ServiceException;
 
 public class BExampleTestTest
 {

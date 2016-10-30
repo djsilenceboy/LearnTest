@@ -1,5 +1,5 @@
 
-package com.djs.test.maven_sample;
+package com.djs.learn.maven_sample;
 
 import java.util.Iterator;
 
@@ -50,12 +50,12 @@ public class InfoHelper
 			if (items != null)
 			{
 				/*
-				<2011.11.08 16:42:02.249>{ERROR}[com.djs.test.maven_sample.AppTest:showException] failed: fault details: [0]: {http://www.csapi.org/schema/parlayx/common/v2_1}ServiceException
-				<2011.11.08 16:42:02.249>{ERROR}[com.djs.test.maven_sample.AppTest:showException] failed: fault details: [0]: result: ServiceException
-				<2011.11.08 16:42:02.249>{ERROR}[com.djs.test.maven_sample.AppTest:showException] failed: fault details: [0]: Node [0]: messageId/SVC0003
-				<2011.11.08 16:42:02.249>{ERROR}[com.djs.test.maven_sample.AppTest:showException] failed: fault details: [0]: Node [1]: text/Invalid input value for message part %1, valid values are %2.
-				<2011.11.08 16:42:02.249>{ERROR}[com.djs.test.maven_sample.AppTest:showException] failed: fault details: [0]: Node [2]: variables/Push Type
-				<2011.11.08 16:42:02.249>{ERROR}[com.djs.test.maven_sample.AppTest:showException] failed: fault details: [0]: Node [3]: variables/[1 (SI), 2 (SL)] 
+				<2011.11.08 16:42:02.249>{ERROR}[com.djs.learn.maven_sample.AppTest:showException] failed: fault details: [0]: {http://www.csapi.org/schema/parlayx/common/v2_1}ServiceException
+				<2011.11.08 16:42:02.249>{ERROR}[com.djs.learn.maven_sample.AppTest:showException] failed: fault details: [0]: result: ServiceException
+				<2011.11.08 16:42:02.249>{ERROR}[com.djs.learn.maven_sample.AppTest:showException] failed: fault details: [0]: Node [0]: messageId/SVC0003
+				<2011.11.08 16:42:02.249>{ERROR}[com.djs.learn.maven_sample.AppTest:showException] failed: fault details: [0]: Node [1]: text/Invalid input value for message part %1, valid values are %2.
+				<2011.11.08 16:42:02.249>{ERROR}[com.djs.learn.maven_sample.AppTest:showException] failed: fault details: [0]: Node [2]: variables/Push Type
+				<2011.11.08 16:42:02.249>{ERROR}[com.djs.learn.maven_sample.AppTest:showException] failed: fault details: [0]: Node [3]: variables/[1 (SI), 2 (SL)] 
 				*/
 
 				i = 0;
@@ -86,24 +86,24 @@ public class InfoHelper
 			if ((wsm != null) && (wsm instanceof SaajSoapMessage))
 			{
 				/*
-				<2011.11.08 16:46:08.161>{ERROR}[com.djs.test.maven_sample.AppTest:showException] failed: mime header: [0]: Date: Tue
-				<2011.11.08 16:46:08.161>{ERROR}[com.djs.test.maven_sample.AppTest:showException] failed: mime header: [1]: Date: 08 Nov 2011 08:46:08 GMT
-				<2011.11.08 16:46:08.161>{ERROR}[com.djs.test.maven_sample.AppTest:showException] failed: mime header: [2]: Transfer-Encoding: chunked
-				<2011.11.08 16:46:08.161>{ERROR}[com.djs.test.maven_sample.AppTest:showException] failed: mime header: [3]: Content-Type: text/xml; charset=utf-8
-				<2011.11.08 16:46:08.161>{ERROR}[com.djs.test.maven_sample.AppTest:showException] failed: mime header: [4]: X-Powered-By: Servlet/2.5 JSP/2.1
-				<2011.11.08 16:46:08.161>{ERROR}[com.djs.test.maven_sample.AppTest:showException] failed: mime header: [5]: SOAPAction: ""
-				<2011.11.08 16:46:08.161>{ERROR}[com.djs.test.maven_sample.AppTest:showException] failed: mime header: [6]: Accept: text/xml
-				<2011.11.08 16:46:08.161>{ERROR}[com.djs.test.maven_sample.AppTest:showException] failed: mime header: [7]: Content-Length: 481
-				<2011.11.08 16:46:08.161>{DEBUG}[com.djs.test.maven_sample.AppTest:showSoapElement]  <env:Body> = null
-				<2011.11.08 16:46:08.161>{DEBUG}[com.djs.test.maven_sample.AppTest:showSoapElement] - <env:Fault> = null
-				<2011.11.08 16:46:08.161>{DEBUG}[com.djs.test.maven_sample.AppTest:showSoapElement] -- <faultcode> = env:Server
-				<2011.11.08 16:46:08.176>{DEBUG}[com.djs.test.maven_sample.AppTest:showSoapElement] -- <faultstring> = null
-				<2011.11.08 16:46:08.176>{DEBUG}[com.djs.test.maven_sample.AppTest:showSoapElement] -- <detail> = null
-				<2011.11.08 16:46:08.176>{DEBUG}[com.djs.test.maven_sample.AppTest:showSoapElement] --- <v2:ServiceException> = null
-				<2011.11.08 16:46:08.176>{DEBUG}[com.djs.test.maven_sample.AppTest:showSoapElement] ---- <messageId> = SVC0003
-				<2011.11.08 16:46:08.176>{DEBUG}[com.djs.test.maven_sample.AppTest:showSoapElement] ---- <text> = Invalid input value for message part %1, valid values are %2.
-				<2011.11.08 16:46:08.176>{DEBUG}[com.djs.test.maven_sample.AppTest:showSoapElement] ---- <variables> = Push Type
-				<2011.11.08 16:46:08.176>{DEBUG}[com.djs.test.maven_sample.AppTest:showSoapElement] ---- <variables> = [1 (SI), 2 (SL)] 
+				<2011.11.08 16:46:08.161>{ERROR}[com.djs.learn.maven_sample.AppTest:showException] failed: mime header: [0]: Date: Tue
+				<2011.11.08 16:46:08.161>{ERROR}[com.djs.learn.maven_sample.AppTest:showException] failed: mime header: [1]: Date: 08 Nov 2011 08:46:08 GMT
+				<2011.11.08 16:46:08.161>{ERROR}[com.djs.learn.maven_sample.AppTest:showException] failed: mime header: [2]: Transfer-Encoding: chunked
+				<2011.11.08 16:46:08.161>{ERROR}[com.djs.learn.maven_sample.AppTest:showException] failed: mime header: [3]: Content-Type: text/xml; charset=utf-8
+				<2011.11.08 16:46:08.161>{ERROR}[com.djs.learn.maven_sample.AppTest:showException] failed: mime header: [4]: X-Powered-By: Servlet/2.5 JSP/2.1
+				<2011.11.08 16:46:08.161>{ERROR}[com.djs.learn.maven_sample.AppTest:showException] failed: mime header: [5]: SOAPAction: ""
+				<2011.11.08 16:46:08.161>{ERROR}[com.djs.learn.maven_sample.AppTest:showException] failed: mime header: [6]: Accept: text/xml
+				<2011.11.08 16:46:08.161>{ERROR}[com.djs.learn.maven_sample.AppTest:showException] failed: mime header: [7]: Content-Length: 481
+				<2011.11.08 16:46:08.161>{DEBUG}[com.djs.learn.maven_sample.AppTest:showSoapElement]  <env:Body> = null
+				<2011.11.08 16:46:08.161>{DEBUG}[com.djs.learn.maven_sample.AppTest:showSoapElement] - <env:Fault> = null
+				<2011.11.08 16:46:08.161>{DEBUG}[com.djs.learn.maven_sample.AppTest:showSoapElement] -- <faultcode> = env:Server
+				<2011.11.08 16:46:08.176>{DEBUG}[com.djs.learn.maven_sample.AppTest:showSoapElement] -- <faultstring> = null
+				<2011.11.08 16:46:08.176>{DEBUG}[com.djs.learn.maven_sample.AppTest:showSoapElement] -- <detail> = null
+				<2011.11.08 16:46:08.176>{DEBUG}[com.djs.learn.maven_sample.AppTest:showSoapElement] --- <v2:ServiceException> = null
+				<2011.11.08 16:46:08.176>{DEBUG}[com.djs.learn.maven_sample.AppTest:showSoapElement] ---- <messageId> = SVC0003
+				<2011.11.08 16:46:08.176>{DEBUG}[com.djs.learn.maven_sample.AppTest:showSoapElement] ---- <text> = Invalid input value for message part %1, valid values are %2.
+				<2011.11.08 16:46:08.176>{DEBUG}[com.djs.learn.maven_sample.AppTest:showSoapElement] ---- <variables> = Push Type
+				<2011.11.08 16:46:08.176>{DEBUG}[com.djs.learn.maven_sample.AppTest:showSoapElement] ---- <variables> = [1 (SI), 2 (SL)] 
 				*/
 
 				Iterator items = ((SaajSoapMessage)wsm).getSaajMessage().getMimeHeaders().getAllHeaders();

@@ -3,7 +3,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans 
 						http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
-	<bean id="emailService" class="com.djs.test.spring_sample.event.EmailService">
+	<bean id="emailService" class="com.djs.learn.spring_sample.event.EmailService">
 		<property name="blackList">
 			<list>
 				<value>black@list.org</value>
@@ -13,7 +13,7 @@
 		</property>
 	</bean>
 
-	<bean id="blackListNotifier" class="com.djs.test.spring_sample.event.BlackListNotifier">
+	<bean id="blackListNotifier" class="com.djs.learn.spring_sample.event.BlackListNotifier">
 		<property name="notificationAddress" value="spam@list.org" />
 	</bean>
 

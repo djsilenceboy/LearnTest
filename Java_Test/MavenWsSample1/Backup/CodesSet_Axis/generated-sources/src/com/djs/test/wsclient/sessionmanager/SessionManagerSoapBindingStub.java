@@ -5,9 +5,9 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package com.djs.test.wsclient.sessionmanager;
+package com.djs.learn.wsclient.sessionmanager;
 
-public class SessionManagerSoapBindingStub extends org.apache.axis.client.Stub implements com.djs.test.wsclient.sessionmanager.SessionManager {
+public class SessionManagerSoapBindingStub extends org.apache.axis.client.Stub implements com.djs.learn.wsclient.sessionmanager.SessionManager {
     private java.util.Vector cachedSerClasses = new java.util.Vector();
     private java.util.Vector cachedSerQNames = new java.util.Vector();
     private java.util.Vector cachedSerFactories = new java.util.Vector();
@@ -32,7 +32,7 @@ public class SessionManagerSoapBindingStub extends org.apache.axis.client.Stub i
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", "fault"),
-                      "com.djs.test.wsclient.sessionmanager.GeneralException",
+                      "com.djs.learn.wsclient.sessionmanager.GeneralException",
                       new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", "GeneralException"), 
                       true
                      ));
@@ -51,7 +51,7 @@ public class SessionManagerSoapBindingStub extends org.apache.axis.client.Stub i
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", "fault"),
-                      "com.djs.test.wsclient.sessionmanager.GeneralException",
+                      "com.djs.learn.wsclient.sessionmanager.GeneralException",
                       new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", "GeneralException"), 
                       true
                      ));
@@ -68,7 +68,7 @@ public class SessionManagerSoapBindingStub extends org.apache.axis.client.Stub i
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", "fault"),
-                      "com.djs.test.wsclient.sessionmanager.GeneralException",
+                      "com.djs.learn.wsclient.sessionmanager.GeneralException",
                       new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", "GeneralException"), 
                       true
                      ));
@@ -85,7 +85,7 @@ public class SessionManagerSoapBindingStub extends org.apache.axis.client.Stub i
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", "fault"),
-                      "com.djs.test.wsclient.sessionmanager.GeneralException",
+                      "com.djs.learn.wsclient.sessionmanager.GeneralException",
                       new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", "GeneralException"), 
                       true
                      ));
@@ -102,7 +102,7 @@ public class SessionManagerSoapBindingStub extends org.apache.axis.client.Stub i
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", "fault"),
-                      "com.djs.test.wsclient.sessionmanager.GeneralException",
+                      "com.djs.learn.wsclient.sessionmanager.GeneralException",
                       new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", "GeneralException"), 
                       true
                      ));
@@ -141,7 +141,7 @@ public class SessionManagerSoapBindingStub extends org.apache.axis.client.Stub i
             java.lang.Class simplelistdf = org.apache.axis.encoding.ser.SimpleListDeserializerFactory.class;
             qName = new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", "GeneralException");
             cachedSerQNames.add(qName);
-            cls = com.djs.test.wsclient.sessionmanager.GeneralException.class;
+            cls = com.djs.learn.wsclient.sessionmanager.GeneralException.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
@@ -212,7 +212,7 @@ public class SessionManagerSoapBindingStub extends org.apache.axis.client.Stub i
         }
     }
 
-    public java.lang.String getSession() throws java.rmi.RemoteException, com.djs.test.wsclient.sessionmanager.GeneralException {
+    public java.lang.String getSession() throws java.rmi.RemoteException, com.djs.learn.wsclient.sessionmanager.GeneralException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -246,15 +246,15 @@ public class SessionManagerSoapBindingStub extends org.apache.axis.client.Stub i
         if (axisFaultException.detail instanceof java.rmi.RemoteException) {
               throw (java.rmi.RemoteException) axisFaultException.detail;
          }
-        if (axisFaultException.detail instanceof com.djs.test.wsclient.sessionmanager.GeneralException) {
-              throw (com.djs.test.wsclient.sessionmanager.GeneralException) axisFaultException.detail;
+        if (axisFaultException.detail instanceof com.djs.learn.wsclient.sessionmanager.GeneralException) {
+              throw (com.djs.learn.wsclient.sessionmanager.GeneralException) axisFaultException.detail;
          }
    }
   throw axisFaultException;
 }
     }
 
-    public void changeApplicationPassword(java.lang.String sessionId, java.lang.String oldPassword, java.lang.String newPassword) throws java.rmi.RemoteException, com.djs.test.wsclient.sessionmanager.GeneralException {
+    public void changeApplicationPassword(java.lang.String sessionId, java.lang.String oldPassword, java.lang.String newPassword) throws java.rmi.RemoteException, com.djs.learn.wsclient.sessionmanager.GeneralException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -281,15 +281,15 @@ public class SessionManagerSoapBindingStub extends org.apache.axis.client.Stub i
         if (axisFaultException.detail instanceof java.rmi.RemoteException) {
               throw (java.rmi.RemoteException) axisFaultException.detail;
          }
-        if (axisFaultException.detail instanceof com.djs.test.wsclient.sessionmanager.GeneralException) {
-              throw (com.djs.test.wsclient.sessionmanager.GeneralException) axisFaultException.detail;
+        if (axisFaultException.detail instanceof com.djs.learn.wsclient.sessionmanager.GeneralException) {
+              throw (com.djs.learn.wsclient.sessionmanager.GeneralException) axisFaultException.detail;
          }
    }
   throw axisFaultException;
 }
     }
 
-    public int getSessionRemainingLifeTime(java.lang.String sessionId) throws java.rmi.RemoteException, com.djs.test.wsclient.sessionmanager.GeneralException {
+    public int getSessionRemainingLifeTime(java.lang.String sessionId) throws java.rmi.RemoteException, com.djs.learn.wsclient.sessionmanager.GeneralException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -323,15 +323,15 @@ public class SessionManagerSoapBindingStub extends org.apache.axis.client.Stub i
         if (axisFaultException.detail instanceof java.rmi.RemoteException) {
               throw (java.rmi.RemoteException) axisFaultException.detail;
          }
-        if (axisFaultException.detail instanceof com.djs.test.wsclient.sessionmanager.GeneralException) {
-              throw (com.djs.test.wsclient.sessionmanager.GeneralException) axisFaultException.detail;
+        if (axisFaultException.detail instanceof com.djs.learn.wsclient.sessionmanager.GeneralException) {
+              throw (com.djs.learn.wsclient.sessionmanager.GeneralException) axisFaultException.detail;
          }
    }
   throw axisFaultException;
 }
     }
 
-    public java.lang.String refreshSession(java.lang.String sessionId) throws java.rmi.RemoteException, com.djs.test.wsclient.sessionmanager.GeneralException {
+    public java.lang.String refreshSession(java.lang.String sessionId) throws java.rmi.RemoteException, com.djs.learn.wsclient.sessionmanager.GeneralException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -365,15 +365,15 @@ public class SessionManagerSoapBindingStub extends org.apache.axis.client.Stub i
         if (axisFaultException.detail instanceof java.rmi.RemoteException) {
               throw (java.rmi.RemoteException) axisFaultException.detail;
          }
-        if (axisFaultException.detail instanceof com.djs.test.wsclient.sessionmanager.GeneralException) {
-              throw (com.djs.test.wsclient.sessionmanager.GeneralException) axisFaultException.detail;
+        if (axisFaultException.detail instanceof com.djs.learn.wsclient.sessionmanager.GeneralException) {
+              throw (com.djs.learn.wsclient.sessionmanager.GeneralException) axisFaultException.detail;
          }
    }
   throw axisFaultException;
 }
     }
 
-    public boolean destroySession(java.lang.String sessionId) throws java.rmi.RemoteException, com.djs.test.wsclient.sessionmanager.GeneralException {
+    public boolean destroySession(java.lang.String sessionId) throws java.rmi.RemoteException, com.djs.learn.wsclient.sessionmanager.GeneralException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -407,8 +407,8 @@ public class SessionManagerSoapBindingStub extends org.apache.axis.client.Stub i
         if (axisFaultException.detail instanceof java.rmi.RemoteException) {
               throw (java.rmi.RemoteException) axisFaultException.detail;
          }
-        if (axisFaultException.detail instanceof com.djs.test.wsclient.sessionmanager.GeneralException) {
-              throw (com.djs.test.wsclient.sessionmanager.GeneralException) axisFaultException.detail;
+        if (axisFaultException.detail instanceof com.djs.learn.wsclient.sessionmanager.GeneralException) {
+              throw (com.djs.learn.wsclient.sessionmanager.GeneralException) axisFaultException.detail;
          }
    }
   throw axisFaultException;

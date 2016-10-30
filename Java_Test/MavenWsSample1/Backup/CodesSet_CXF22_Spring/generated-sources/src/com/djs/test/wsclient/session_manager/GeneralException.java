@@ -1,5 +1,5 @@
 
-package com.djs.test.wsclient.session_manager;
+package com.djs.learn.wsclient.session_manager;
 
 import javax.xml.ws.WebFault;
 
@@ -15,7 +15,7 @@ import javax.xml.ws.WebFault;
 public class GeneralException extends Exception {
     public static final long serialVersionUID = 20120130174127L;
     
-    private com.djs.test.wsclient.session_manager.Fault fault;
+    private com.djs.learn.wsclient.session_manager.Fault fault;
 
     public GeneralException() {
         super();
@@ -29,17 +29,17 @@ public class GeneralException extends Exception {
         super(message, cause);
     }
 
-    public GeneralException(String message, com.djs.test.wsclient.session_manager.Fault fault) {
+    public GeneralException(String message, com.djs.learn.wsclient.session_manager.Fault fault) {
         super(message);
         this.fault = fault;
     }
 
-    public GeneralException(String message, com.djs.test.wsclient.session_manager.Fault fault, Throwable cause) {
+    public GeneralException(String message, com.djs.learn.wsclient.session_manager.Fault fault, Throwable cause) {
         super(message, cause);
         this.fault = fault;
     }
 
-    public com.djs.test.wsclient.session_manager.Fault getFaultInfo() {
+    public com.djs.learn.wsclient.session_manager.Fault getFaultInfo() {
         return this.fault;
     }
 }

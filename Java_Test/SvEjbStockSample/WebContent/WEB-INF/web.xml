@@ -17,7 +17,7 @@
 		<description></description>
 		<display-name>StockSampleTest</display-name>
 		<servlet-name>StockSampleTest</servlet-name>
-		<servlet-class>com.djs.test.sv.stock_sample.StockSampleTest</servlet-class>
+		<servlet-class>com.djs.learn.sv.stock_sample.StockSampleTest</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>StockSampleTest</servlet-name>

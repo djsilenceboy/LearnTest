@@ -1,5 +1,5 @@
 
-package com.djs.test.wsclient.session_manager;
+package com.djs.learn.wsclient.session_manager;
 
 import java.util.Calendar;
 import javax.xml.bind.annotation.adapters.XmlAdapter;

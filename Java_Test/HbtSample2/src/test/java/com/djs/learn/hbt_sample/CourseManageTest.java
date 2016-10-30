@@ -10,10 +10,10 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.djs.learn.hbt_sample.CourseManage;
-import com.djs.test.hbt_sample.ClassRoom;
-import com.djs.test.hbt_sample.Course;
-import com.djs.test.hbt_sample.Student;
-import com.djs.test.hbt_sample.Teacher;
+import com.djs.learn.hbt_sample.ClassRoom;
+import com.djs.learn.hbt_sample.Course;
+import com.djs.learn.hbt_sample.Student;
+import com.djs.learn.hbt_sample.Teacher;
 
 public class CourseManageTest
 {

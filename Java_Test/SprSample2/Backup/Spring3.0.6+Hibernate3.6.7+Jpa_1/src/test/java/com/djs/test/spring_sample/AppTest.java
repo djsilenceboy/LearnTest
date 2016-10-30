@@ -1,5 +1,5 @@
 
-package com.djs.test.spring_sample;
+package com.djs.learn.spring_sample;
 
 import java.util.Date;
 
@@ -10,12 +10,12 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.djs.test.spring_sample.db.Item;
-import com.djs.test.spring_sample.db.ItemDao;
-import com.djs.test.spring_sample.greeting.GreetingService;
-import com.djs.test.spring_sample.knight.Knight;
-import com.djs.test.spring_sample.music.Performer;
-import com.djs.test.spring_sample.music.Stage;
+import com.djs.learn.spring_sample.db.Item;
+import com.djs.learn.spring_sample.db.ItemDao;
+import com.djs.learn.spring_sample.greeting.GreetingService;
+import com.djs.learn.spring_sample.knight.Knight;
+import com.djs.learn.spring_sample.music.Performer;
+import com.djs.learn.spring_sample.music.Stage;
 
 public class AppTest
 {

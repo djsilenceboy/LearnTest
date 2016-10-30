@@ -11,7 +11,7 @@
 		</property>
 	</bean>
 
-	<bean id="greetingService" class="com.djs.test.spring_sample.greeting.GreetingServiceImpl">
+	<bean id="greetingService" class="com.djs.learn.spring_sample.greeting.GreetingServiceImpl">
 		<property name="greeting" value="Hello, friend!" />
 		<property name="messageSource" ref="messageSource" />
 	</bean>

@@ -1,5 +1,5 @@
 
-package com.djs.test.wsclient.wap_push;
+package com.djs.learn.wsclient.wap_push;
 
 import java.math.BigInteger;
 import java.util.ArrayList;

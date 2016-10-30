@@ -3,12 +3,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans 
 						http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
-	<bean id="person" class="com.djs.test.spring_sample.validation.Person">
+	<bean id="person" class="com.djs.learn.spring_sample.validation.Person">
 		<property name="name" value="" />
 		<property name="age" value="-1" />
 	</bean>
 
-	<bean id="personValidator" class="com.djs.test.spring_sample.validation.PersonValidator">
+	<bean id="personValidator" class="com.djs.learn.spring_sample.validation.PersonValidator">
 	</bean>
 
 </beans>

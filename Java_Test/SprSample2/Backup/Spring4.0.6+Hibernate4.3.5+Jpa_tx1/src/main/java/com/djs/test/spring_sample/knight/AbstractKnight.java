@@ -1,9 +1,9 @@
 
-package com.djs.test.spring_sample.knight;
+package com.djs.learn.spring_sample.knight;
 
 import org.apache.log4j.Logger;
 
-import com.djs.test.spring_sample.knightI.Talk;
+import com.djs.learn.spring_sample.knightI.Talk;
 
 public abstract class AbstractKnight implements Talk
 {

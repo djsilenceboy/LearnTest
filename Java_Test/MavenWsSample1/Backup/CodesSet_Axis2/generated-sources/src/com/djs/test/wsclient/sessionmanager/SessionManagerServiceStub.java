@@ -5,7 +5,7 @@
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.1  Built on : Aug 31, 2011 (12:22:40 CEST)
  */
-        package com.djs.test.wsclient.sessionmanager;
+        package com.djs.learn.wsclient.sessionmanager;
 
         
 
@@ -111,25 +111,25 @@
     //populates the faults
     private void populateFaults(){
          
-              faultExceptionNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "changeApplicationPassword"),"com.djs.test.wsclient.sessionmanager.GeneralException");
-              faultExceptionClassNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "changeApplicationPassword"),"com.djs.test.wsclient.sessionmanager.GeneralException");
-              faultMessageMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "changeApplicationPassword"),"com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub$Fault");
+              faultExceptionNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "changeApplicationPassword"),"com.djs.learn.wsclient.sessionmanager.GeneralException");
+              faultExceptionClassNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "changeApplicationPassword"),"com.djs.learn.wsclient.sessionmanager.GeneralException");
+              faultMessageMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "changeApplicationPassword"),"com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub$Fault");
            
-              faultExceptionNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "getSession"),"com.djs.test.wsclient.sessionmanager.GeneralException");
-              faultExceptionClassNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "getSession"),"com.djs.test.wsclient.sessionmanager.GeneralException");
-              faultMessageMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "getSession"),"com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub$Fault");
+              faultExceptionNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "getSession"),"com.djs.learn.wsclient.sessionmanager.GeneralException");
+              faultExceptionClassNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "getSession"),"com.djs.learn.wsclient.sessionmanager.GeneralException");
+              faultMessageMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "getSession"),"com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub$Fault");
            
-              faultExceptionNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "refreshSession"),"com.djs.test.wsclient.sessionmanager.GeneralException");
-              faultExceptionClassNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "refreshSession"),"com.djs.test.wsclient.sessionmanager.GeneralException");
-              faultMessageMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "refreshSession"),"com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub$Fault");
+              faultExceptionNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "refreshSession"),"com.djs.learn.wsclient.sessionmanager.GeneralException");
+              faultExceptionClassNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "refreshSession"),"com.djs.learn.wsclient.sessionmanager.GeneralException");
+              faultMessageMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "refreshSession"),"com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub$Fault");
            
-              faultExceptionNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "getSessionRemainingLifeTime"),"com.djs.test.wsclient.sessionmanager.GeneralException");
-              faultExceptionClassNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "getSessionRemainingLifeTime"),"com.djs.test.wsclient.sessionmanager.GeneralException");
-              faultMessageMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "getSessionRemainingLifeTime"),"com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub$Fault");
+              faultExceptionNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "getSessionRemainingLifeTime"),"com.djs.learn.wsclient.sessionmanager.GeneralException");
+              faultExceptionClassNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "getSessionRemainingLifeTime"),"com.djs.learn.wsclient.sessionmanager.GeneralException");
+              faultMessageMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "getSessionRemainingLifeTime"),"com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub$Fault");
            
-              faultExceptionNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "destroySession"),"com.djs.test.wsclient.sessionmanager.GeneralException");
-              faultExceptionClassNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "destroySession"),"com.djs.test.wsclient.sessionmanager.GeneralException");
-              faultMessageMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "destroySession"),"com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub$Fault");
+              faultExceptionNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "destroySession"),"com.djs.learn.wsclient.sessionmanager.GeneralException");
+              faultExceptionClassNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "destroySession"),"com.djs.learn.wsclient.sessionmanager.GeneralException");
+              faultMessageMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service","fault"), "destroySession"),"com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub$Fault");
            
 
 
@@ -197,10 +197,10 @@
                     /**
                      * Auto generated method signature
                      * 
-                     * @see com.djs.test.wsclient.sessionmanager.SessionManagerService#changeApplicationPassword
+                     * @see com.djs.learn.wsclient.sessionmanager.SessionManagerService#changeApplicationPassword
                      * @param changeApplicationPassword
                     
-                     * @throws com.djs.test.wsclient.sessionmanager.GeneralException : 
+                     * @throws com.djs.learn.wsclient.sessionmanager.GeneralException : 
                      */
 
                     
@@ -213,7 +213,7 @@
                     throws java.rmi.RemoteException
                     
                     
-                        ,com.djs.test.wsclient.sessionmanager.GeneralException{
+                        ,com.djs.learn.wsclient.sessionmanager.GeneralException{
               org.apache.axis2.context.MessageContext _messageContext = null;
               try{
                org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[0].getName());
@@ -232,7 +232,7 @@
 
               // create SOAP envelope with that payload
               org.apache.axiom.soap.SOAPEnvelope env = null;
-                    com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPassword dummyWrappedType = null;
+                    com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPassword dummyWrappedType = null;
                                                     env = toEnvelope(getFactory(_operationClient.getOptions().getSoapVersionURI()),
                                                     sessionId,
                                                     oldPassword,
@@ -260,7 +260,7 @@
                 
                                 java.lang.Object object = fromOM(
                                              _returnEnv.getBody().getFirstElement() ,
-                                             com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPasswordResponse.class,
+                                             com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPasswordResponse.class,
                                               getEnvelopeNamespaces(_returnEnv));
 
                                
@@ -284,8 +284,8 @@
                                    new java.lang.Class[]{messageClass});
                         m.invoke(ex,new java.lang.Object[]{messageObject});
                         
-                        if (ex instanceof com.djs.test.wsclient.sessionmanager.GeneralException){
-                          throw (com.djs.test.wsclient.sessionmanager.GeneralException)ex;
+                        if (ex instanceof com.djs.learn.wsclient.sessionmanager.GeneralException){
+                          throw (com.djs.learn.wsclient.sessionmanager.GeneralException)ex;
                         }
                         
 
@@ -325,10 +325,10 @@
                     /**
                      * Auto generated method signature
                      * 
-                     * @see com.djs.test.wsclient.sessionmanager.SessionManagerService#getSession
+                     * @see com.djs.learn.wsclient.sessionmanager.SessionManagerService#getSession
                      * @param getSession
                     
-                     * @throws com.djs.test.wsclient.sessionmanager.GeneralException : 
+                     * @throws com.djs.learn.wsclient.sessionmanager.GeneralException : 
                      */
 
                     
@@ -341,7 +341,7 @@
                     throws java.rmi.RemoteException
                     
                     
-                        ,com.djs.test.wsclient.sessionmanager.GeneralException{
+                        ,com.djs.learn.wsclient.sessionmanager.GeneralException{
               org.apache.axis2.context.MessageContext _messageContext = null;
               try{
                org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[1].getName());
@@ -360,7 +360,7 @@
 
               // create SOAP envelope with that payload
               org.apache.axiom.soap.SOAPEnvelope env = null;
-                    com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSession dummyWrappedType = null;
+                    com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSession dummyWrappedType = null;
                                                     env = toEnvelope(getFactory(_operationClient.getOptions().getSoapVersionURI()),
                                                     dummyWrappedType,
                                                     optimizeContent(new javax.xml.namespace.QName("http://www.bea.com/wsdl/wlcp/wlng/session_manager/service",
@@ -385,11 +385,11 @@
                 
                                 java.lang.Object object = fromOM(
                                              _returnEnv.getBody().getFirstElement() ,
-                                             com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionResponse.class,
+                                             com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionResponse.class,
                                               getEnvelopeNamespaces(_returnEnv));
 
                                
-                                        return getGetSessionResponseGetSessionReturn((com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionResponse)object);
+                                        return getGetSessionResponseGetSessionReturn((com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionResponse)object);
                                    
          }catch(org.apache.axis2.AxisFault f){
 
@@ -409,8 +409,8 @@
                                    new java.lang.Class[]{messageClass});
                         m.invoke(ex,new java.lang.Object[]{messageObject});
                         
-                        if (ex instanceof com.djs.test.wsclient.sessionmanager.GeneralException){
-                          throw (com.djs.test.wsclient.sessionmanager.GeneralException)ex;
+                        if (ex instanceof com.djs.learn.wsclient.sessionmanager.GeneralException){
+                          throw (com.djs.learn.wsclient.sessionmanager.GeneralException)ex;
                         }
                         
 
@@ -450,10 +450,10 @@
                     /**
                      * Auto generated method signature
                      * 
-                     * @see com.djs.test.wsclient.sessionmanager.SessionManagerService#refreshSession
+                     * @see com.djs.learn.wsclient.sessionmanager.SessionManagerService#refreshSession
                      * @param refreshSession
                     
-                     * @throws com.djs.test.wsclient.sessionmanager.GeneralException : 
+                     * @throws com.djs.learn.wsclient.sessionmanager.GeneralException : 
                      */
 
                     
@@ -466,7 +466,7 @@
                     throws java.rmi.RemoteException
                     
                     
-                        ,com.djs.test.wsclient.sessionmanager.GeneralException{
+                        ,com.djs.learn.wsclient.sessionmanager.GeneralException{
               org.apache.axis2.context.MessageContext _messageContext = null;
               try{
                org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[2].getName());
@@ -485,7 +485,7 @@
 
               // create SOAP envelope with that payload
               org.apache.axiom.soap.SOAPEnvelope env = null;
-                    com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSession dummyWrappedType = null;
+                    com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSession dummyWrappedType = null;
                                                     env = toEnvelope(getFactory(_operationClient.getOptions().getSoapVersionURI()),
                                                     sessionId0,
                                                     dummyWrappedType,
@@ -511,11 +511,11 @@
                 
                                 java.lang.Object object = fromOM(
                                              _returnEnv.getBody().getFirstElement() ,
-                                             com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSessionResponse.class,
+                                             com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSessionResponse.class,
                                               getEnvelopeNamespaces(_returnEnv));
 
                                
-                                        return getRefreshSessionResponseRefreshSessionReturn((com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSessionResponse)object);
+                                        return getRefreshSessionResponseRefreshSessionReturn((com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSessionResponse)object);
                                    
          }catch(org.apache.axis2.AxisFault f){
 
@@ -535,8 +535,8 @@
                                    new java.lang.Class[]{messageClass});
                         m.invoke(ex,new java.lang.Object[]{messageObject});
                         
-                        if (ex instanceof com.djs.test.wsclient.sessionmanager.GeneralException){
-                          throw (com.djs.test.wsclient.sessionmanager.GeneralException)ex;
+                        if (ex instanceof com.djs.learn.wsclient.sessionmanager.GeneralException){
+                          throw (com.djs.learn.wsclient.sessionmanager.GeneralException)ex;
                         }
                         
 
@@ -576,10 +576,10 @@
                     /**
                      * Auto generated method signature
                      * 
-                     * @see com.djs.test.wsclient.sessionmanager.SessionManagerService#getSessionRemainingLifeTime
+                     * @see com.djs.learn.wsclient.sessionmanager.SessionManagerService#getSessionRemainingLifeTime
                      * @param getSessionRemainingLifeTime
                     
-                     * @throws com.djs.test.wsclient.sessionmanager.GeneralException : 
+                     * @throws com.djs.learn.wsclient.sessionmanager.GeneralException : 
                      */
 
                     
@@ -592,7 +592,7 @@
                     throws java.rmi.RemoteException
                     
                     
-                        ,com.djs.test.wsclient.sessionmanager.GeneralException{
+                        ,com.djs.learn.wsclient.sessionmanager.GeneralException{
               org.apache.axis2.context.MessageContext _messageContext = null;
               try{
                org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[3].getName());
@@ -611,7 +611,7 @@
 
               // create SOAP envelope with that payload
               org.apache.axiom.soap.SOAPEnvelope env = null;
-                    com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTime dummyWrappedType = null;
+                    com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTime dummyWrappedType = null;
                                                     env = toEnvelope(getFactory(_operationClient.getOptions().getSoapVersionURI()),
                                                     sessionId1,
                                                     dummyWrappedType,
@@ -637,11 +637,11 @@
                 
                                 java.lang.Object object = fromOM(
                                              _returnEnv.getBody().getFirstElement() ,
-                                             com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTimeResponse.class,
+                                             com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTimeResponse.class,
                                               getEnvelopeNamespaces(_returnEnv));
 
                                
-                                        return getGetSessionRemainingLifeTimeResponseGetSessionRemainingLifeTimeReturn((com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTimeResponse)object);
+                                        return getGetSessionRemainingLifeTimeResponseGetSessionRemainingLifeTimeReturn((com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTimeResponse)object);
                                    
          }catch(org.apache.axis2.AxisFault f){
 
@@ -661,8 +661,8 @@
                                    new java.lang.Class[]{messageClass});
                         m.invoke(ex,new java.lang.Object[]{messageObject});
                         
-                        if (ex instanceof com.djs.test.wsclient.sessionmanager.GeneralException){
-                          throw (com.djs.test.wsclient.sessionmanager.GeneralException)ex;
+                        if (ex instanceof com.djs.learn.wsclient.sessionmanager.GeneralException){
+                          throw (com.djs.learn.wsclient.sessionmanager.GeneralException)ex;
                         }
                         
 
@@ -702,10 +702,10 @@
                     /**
                      * Auto generated method signature
                      * 
-                     * @see com.djs.test.wsclient.sessionmanager.SessionManagerService#destroySession
+                     * @see com.djs.learn.wsclient.sessionmanager.SessionManagerService#destroySession
                      * @param destroySession
                     
-                     * @throws com.djs.test.wsclient.sessionmanager.GeneralException : 
+                     * @throws com.djs.learn.wsclient.sessionmanager.GeneralException : 
                      */
 
                     
@@ -718,7 +718,7 @@
                     throws java.rmi.RemoteException
                     
                     
-                        ,com.djs.test.wsclient.sessionmanager.GeneralException{
+                        ,com.djs.learn.wsclient.sessionmanager.GeneralException{
               org.apache.axis2.context.MessageContext _messageContext = null;
               try{
                org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[4].getName());
@@ -737,7 +737,7 @@
 
               // create SOAP envelope with that payload
               org.apache.axiom.soap.SOAPEnvelope env = null;
-                    com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.DestroySession dummyWrappedType = null;
+                    com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.DestroySession dummyWrappedType = null;
                                                     env = toEnvelope(getFactory(_operationClient.getOptions().getSoapVersionURI()),
                                                     sessionId2,
                                                     dummyWrappedType,
@@ -763,11 +763,11 @@
                 
                                 java.lang.Object object = fromOM(
                                              _returnEnv.getBody().getFirstElement() ,
-                                             com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.DestroySessionResponse.class,
+                                             com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.DestroySessionResponse.class,
                                               getEnvelopeNamespaces(_returnEnv));
 
                                
-                                        return getDestroySessionResponseDestroySessionReturn((com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.DestroySessionResponse)object);
+                                        return getDestroySessionResponseDestroySessionReturn((com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.DestroySessionResponse)object);
                                    
          }catch(org.apache.axis2.AxisFault f){
 
@@ -787,8 +787,8 @@
                                    new java.lang.Class[]{messageClass});
                         m.invoke(ex,new java.lang.Object[]{messageObject});
                         
-                        if (ex instanceof com.djs.test.wsclient.sessionmanager.GeneralException){
-                          throw (com.djs.test.wsclient.sessionmanager.GeneralException)ex;
+                        if (ex instanceof com.djs.learn.wsclient.sessionmanager.GeneralException){
+                          throw (com.djs.learn.wsclient.sessionmanager.GeneralException)ex;
                         }
                         
 
@@ -5912,12 +5912,12 @@
         }
            
     
-            private  org.apache.axiom.om.OMElement  toOM(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPassword param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPassword param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPassword.MY_QNAME,
+                             return param.getOMElement(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPassword.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -5926,12 +5926,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPasswordResponse param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPasswordResponse param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPasswordResponse.MY_QNAME,
+                             return param.getOMElement(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPasswordResponse.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -5940,12 +5940,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.Fault param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.Fault param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.Fault.MY_QNAME,
+                             return param.getOMElement(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.Fault.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -5954,12 +5954,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSession param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSession param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSession.MY_QNAME,
+                             return param.getOMElement(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSession.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -5968,12 +5968,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionResponse param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionResponse param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionResponse.MY_QNAME,
+                             return param.getOMElement(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionResponse.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -5982,12 +5982,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSession param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSession param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSession.MY_QNAME,
+                             return param.getOMElement(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSession.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -5996,12 +5996,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSessionResponse param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSessionResponse param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSessionResponse.MY_QNAME,
+                             return param.getOMElement(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSessionResponse.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -6010,12 +6010,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTime param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTime param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTime.MY_QNAME,
+                             return param.getOMElement(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTime.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -6024,12 +6024,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTimeResponse param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTimeResponse param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTimeResponse.MY_QNAME,
+                             return param.getOMElement(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTimeResponse.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -6038,12 +6038,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.DestroySession param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.DestroySession param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.DestroySession.MY_QNAME,
+                             return param.getOMElement(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.DestroySession.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -6052,12 +6052,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.DestroySessionResponse param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.DestroySessionResponse param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.DestroySessionResponse.MY_QNAME,
+                             return param.getOMElement(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.DestroySessionResponse.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -6071,11 +6071,11 @@
                                     java.lang.String param1,
                                     java.lang.String param2,
                                     java.lang.String param3,
-                                    com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPassword dummyWrappedType,
+                                    com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPassword dummyWrappedType,
                                  boolean optimizeContent) throws org.apache.axis2.AxisFault{
 
                                 try{
-                                com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPassword wrappedType = new com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPassword();
+                                com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPassword wrappedType = new com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPassword();
 
                                  
                                               wrappedType.setSessionId(param1);
@@ -6087,7 +6087,7 @@
 
                                org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
                                   
-                                        emptyEnvelope.getBody().addChild(wrappedType.getOMElement(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPassword.MY_QNAME,factory));
+                                        emptyEnvelope.getBody().addChild(wrappedType.getOMElement(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPassword.MY_QNAME,factory));
                                     
 
                                 return emptyEnvelope;
@@ -6105,17 +6105,17 @@
                              
                                     
                                 private  org.apache.axiom.soap.SOAPEnvelope toEnvelope(org.apache.axiom.soap.SOAPFactory factory,
-                                    com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSession dummyWrappedType,
+                                    com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSession dummyWrappedType,
                                  boolean optimizeContent) throws org.apache.axis2.AxisFault{
 
                                 try{
-                                com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSession wrappedType = new com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSession();
+                                com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSession wrappedType = new com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSession();
 
                                  
 
                                org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
                                   
-                                        emptyEnvelope.getBody().addChild(wrappedType.getOMElement(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSession.MY_QNAME,factory));
+                                        emptyEnvelope.getBody().addChild(wrappedType.getOMElement(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSession.MY_QNAME,factory));
                                     
 
                                 return emptyEnvelope;
@@ -6134,7 +6134,7 @@
 
                                 
                                 private java.lang.String getGetSessionResponseGetSessionReturn(
-                                com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionResponse wrappedType){
+                                com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionResponse wrappedType){
                                 
                                         return wrappedType.getGetSessionReturn();
                                     
@@ -6143,11 +6143,11 @@
                                     
                                 private  org.apache.axiom.soap.SOAPEnvelope toEnvelope(org.apache.axiom.soap.SOAPFactory factory,
                                     java.lang.String param1,
-                                    com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSession dummyWrappedType,
+                                    com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSession dummyWrappedType,
                                  boolean optimizeContent) throws org.apache.axis2.AxisFault{
 
                                 try{
-                                com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSession wrappedType = new com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSession();
+                                com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSession wrappedType = new com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSession();
 
                                  
                                               wrappedType.setSessionId(param1);
@@ -6155,7 +6155,7 @@
 
                                org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
                                   
-                                        emptyEnvelope.getBody().addChild(wrappedType.getOMElement(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSession.MY_QNAME,factory));
+                                        emptyEnvelope.getBody().addChild(wrappedType.getOMElement(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSession.MY_QNAME,factory));
                                     
 
                                 return emptyEnvelope;
@@ -6174,7 +6174,7 @@
 
                                 
                                 private java.lang.String getRefreshSessionResponseRefreshSessionReturn(
-                                com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSessionResponse wrappedType){
+                                com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSessionResponse wrappedType){
                                 
                                         return wrappedType.getRefreshSessionReturn();
                                     
@@ -6183,11 +6183,11 @@
                                     
                                 private  org.apache.axiom.soap.SOAPEnvelope toEnvelope(org.apache.axiom.soap.SOAPFactory factory,
                                     java.lang.String param1,
-                                    com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTime dummyWrappedType,
+                                    com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTime dummyWrappedType,
                                  boolean optimizeContent) throws org.apache.axis2.AxisFault{
 
                                 try{
-                                com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTime wrappedType = new com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTime();
+                                com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTime wrappedType = new com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTime();
 
                                  
                                               wrappedType.setSessionId(param1);
@@ -6195,7 +6195,7 @@
 
                                org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
                                   
-                                        emptyEnvelope.getBody().addChild(wrappedType.getOMElement(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTime.MY_QNAME,factory));
+                                        emptyEnvelope.getBody().addChild(wrappedType.getOMElement(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTime.MY_QNAME,factory));
                                     
 
                                 return emptyEnvelope;
@@ -6214,7 +6214,7 @@
 
                                 
                                 private int getGetSessionRemainingLifeTimeResponseGetSessionRemainingLifeTimeReturn(
-                                com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTimeResponse wrappedType){
+                                com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTimeResponse wrappedType){
                                 
                                         return wrappedType.getGetSessionRemainingLifeTimeReturn();
                                     
@@ -6223,11 +6223,11 @@
                                     
                                 private  org.apache.axiom.soap.SOAPEnvelope toEnvelope(org.apache.axiom.soap.SOAPFactory factory,
                                     java.lang.String param1,
-                                    com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.DestroySession dummyWrappedType,
+                                    com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.DestroySession dummyWrappedType,
                                  boolean optimizeContent) throws org.apache.axis2.AxisFault{
 
                                 try{
-                                com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.DestroySession wrappedType = new com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.DestroySession();
+                                com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.DestroySession wrappedType = new com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.DestroySession();
 
                                  
                                               wrappedType.setSessionId(param1);
@@ -6235,7 +6235,7 @@
 
                                org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
                                   
-                                        emptyEnvelope.getBody().addChild(wrappedType.getOMElement(com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.DestroySession.MY_QNAME,factory));
+                                        emptyEnvelope.getBody().addChild(wrappedType.getOMElement(com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.DestroySession.MY_QNAME,factory));
                                     
 
                                 return emptyEnvelope;
@@ -6254,7 +6254,7 @@
 
                                 
                                 private boolean getDestroySessionResponseDestroySessionReturn(
-                                com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.DestroySessionResponse wrappedType){
+                                com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.DestroySessionResponse wrappedType){
                                 
                                         return wrappedType.getDestroySessionReturn();
                                     
@@ -6277,107 +6277,107 @@
 
         try {
         
-                if (com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPassword.class.equals(type)){
+                if (com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPassword.class.equals(type)){
                 
-                           return com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPassword.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPassword.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPasswordResponse.class.equals(type)){
+                if (com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPasswordResponse.class.equals(type)){
                 
-                           return com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPasswordResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.ChangeApplicationPasswordResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.Fault.class.equals(type)){
+                if (com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.Fault.class.equals(type)){
                 
-                           return com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.Fault.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.Fault.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSession.class.equals(type)){
+                if (com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSession.class.equals(type)){
                 
-                           return com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSession.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSession.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionResponse.class.equals(type)){
+                if (com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionResponse.class.equals(type)){
                 
-                           return com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.Fault.class.equals(type)){
+                if (com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.Fault.class.equals(type)){
                 
-                           return com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.Fault.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.Fault.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSession.class.equals(type)){
+                if (com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSession.class.equals(type)){
                 
-                           return com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSession.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSession.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSessionResponse.class.equals(type)){
+                if (com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSessionResponse.class.equals(type)){
                 
-                           return com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSessionResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.RefreshSessionResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.Fault.class.equals(type)){
+                if (com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.Fault.class.equals(type)){
                 
-                           return com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.Fault.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.Fault.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTime.class.equals(type)){
+                if (com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTime.class.equals(type)){
                 
-                           return com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTime.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTime.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTimeResponse.class.equals(type)){
+                if (com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTimeResponse.class.equals(type)){
                 
-                           return com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTimeResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.GetSessionRemainingLifeTimeResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.Fault.class.equals(type)){
+                if (com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.Fault.class.equals(type)){
                 
-                           return com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.Fault.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.Fault.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.DestroySession.class.equals(type)){
+                if (com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.DestroySession.class.equals(type)){
                 
-                           return com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.DestroySession.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.DestroySession.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.DestroySessionResponse.class.equals(type)){
+                if (com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.DestroySessionResponse.class.equals(type)){
                 
-                           return com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.DestroySessionResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.DestroySessionResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.Fault.class.equals(type)){
+                if (com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.Fault.class.equals(type)){
                 
-                           return com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub.Fault.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub.Fault.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }

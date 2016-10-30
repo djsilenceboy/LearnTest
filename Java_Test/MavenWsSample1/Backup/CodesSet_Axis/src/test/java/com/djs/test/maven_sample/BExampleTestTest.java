@@ -1,5 +1,5 @@
 
-package com.djs.test.maven_sample;
+package com.djs.learn.maven_sample;
 
 import java.net.URL;
 
@@ -9,8 +9,8 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.djs.test.wsclient.example_test.SendDataService;
-import com.djs.test.wsclient.example_test.SendDataServiceLocator;
+import com.djs.learn.wsclient.example_test.SendDataService;
+import com.djs.learn.wsclient.example_test.SendDataServiceLocator;
 import com.singtel.ndp.ext.example_test.v1_0._interface.SendDataPort;
 import com.singtel.schema.example_test.local.SendDataRequest;
 import com.singtel.schema.example_test.local.SendDataResponse;

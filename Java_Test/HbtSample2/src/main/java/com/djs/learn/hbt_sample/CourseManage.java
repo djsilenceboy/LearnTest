@@ -9,10 +9,10 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.stat.Statistics;
 
-import com.djs.test.hbt_sample.ClassRoom;
-import com.djs.test.hbt_sample.Course;
-import com.djs.test.hbt_sample.Student;
-import com.djs.test.hbt_sample.Teacher;
+import com.djs.learn.hbt_sample.ClassRoom;
+import com.djs.learn.hbt_sample.Course;
+import com.djs.learn.hbt_sample.Student;
+import com.djs.learn.hbt_sample.Teacher;
 
 public class CourseManage
 {

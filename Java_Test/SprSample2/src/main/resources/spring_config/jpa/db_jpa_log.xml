@@ -9,7 +9,7 @@
 
 	<import resource="${file_path.context.shared_internal}db_log.xml" />
 
-	<context:component-scan base-package="com.djs.test.spring_sample.logging" />
+	<context:component-scan base-package="com.djs.learn.spring_sample.logging" />
 	<bean
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 

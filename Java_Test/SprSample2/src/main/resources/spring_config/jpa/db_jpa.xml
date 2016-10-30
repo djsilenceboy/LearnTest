@@ -53,12 +53,12 @@
 		p:entityManagerFactory-ref="entityManagerFactory" />
 
 
-	<bean id="itemDao0" class="com.djs.test.spring_sample.jpa.ItemDaoJpaImplA" />
+	<bean id="itemDao0" class="com.djs.learn.spring_sample.jpa.ItemDaoJpaImplA" />
 	<!-- jpaTemplate-ref is @Autowired in code. -->
 	<!-- p:jpaTemplate-ref="jpaTemplate" / -->
 
 
-	<bean id="itemDao1" class="com.djs.test.spring_sample.jpa.ItemDaoSpringJpaImplA"
+	<bean id="itemDao1" class="com.djs.learn.spring_sample.jpa.ItemDaoSpringJpaImplA"
 		p:entityManagerFactory-ref="entityManagerFactory" />
 
 </beans>

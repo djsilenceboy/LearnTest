@@ -6,13 +6,13 @@
  * by the Apache Axis2 version: 1.6.1  Built on : Aug 31, 2011 (12:22:40 CEST)
  */
 
-package com.djs.test.wsclient.wap_push;
+package com.djs.learn.wsclient.wap_push;
 
 public class ServiceException extends java.lang.Exception{
 
     private static final long serialVersionUID = 1320118242120L;
     
-    private com.djs.test.wsclient.wap_push.WapPushServiceStub.ServiceExceptionE faultMessage;
+    private com.djs.learn.wsclient.wap_push.WapPushServiceStub.ServiceExceptionE faultMessage;
 
     
         public ServiceException() {
@@ -32,11 +32,11 @@ public class ServiceException extends java.lang.Exception{
         }
     
 
-    public void setFaultMessage(com.djs.test.wsclient.wap_push.WapPushServiceStub.ServiceExceptionE msg){
+    public void setFaultMessage(com.djs.learn.wsclient.wap_push.WapPushServiceStub.ServiceExceptionE msg){
        faultMessage = msg;
     }
     
-    public com.djs.test.wsclient.wap_push.WapPushServiceStub.ServiceExceptionE getFaultMessage(){
+    public com.djs.learn.wsclient.wap_push.WapPushServiceStub.ServiceExceptionE getFaultMessage(){
        return faultMessage;
     }
 }

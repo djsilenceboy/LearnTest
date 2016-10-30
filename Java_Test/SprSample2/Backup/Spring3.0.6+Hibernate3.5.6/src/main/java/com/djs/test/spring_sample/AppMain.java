@@ -1,11 +1,11 @@
 
-package com.djs.test.spring_sample;
+package com.djs.learn.spring_sample;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.djs.test.spring_sample.greeting.GreetingService;
-import com.djs.test.spring_sample.knight.Knight;
+import com.djs.learn.spring_sample.greeting.GreetingService;
+import com.djs.learn.spring_sample.knight.Knight;
 
 public class AppMain
 {

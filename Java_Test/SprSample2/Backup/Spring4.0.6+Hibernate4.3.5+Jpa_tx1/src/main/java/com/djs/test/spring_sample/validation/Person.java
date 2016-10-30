@@ -1,5 +1,5 @@
 
-package com.djs.test.spring_sample.validation;
+package com.djs.learn.spring_sample.validation;
 
 
 public class Person

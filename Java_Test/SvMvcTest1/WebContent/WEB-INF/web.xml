@@ -23,12 +23,12 @@
 	<servlet>
 		<display-name>AddRating</display-name>
 		<servlet-name>AddRating</servlet-name>
-		<servlet-class>com.djs.test.stocklist.AddRating</servlet-class>
+		<servlet-class>com.djs.learn.stocklist.AddRating</servlet-class>
 	</servlet>
 	<servlet>
 		<display-name>StockListServlet</display-name>
 		<servlet-name>StockListServlet</servlet-name>
-		<servlet-class>com.djs.test.stocklist.StockListServlet</servlet-class>
+		<servlet-class>com.djs.learn.stocklist.StockListServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ProcessAnalyst</servlet-name>

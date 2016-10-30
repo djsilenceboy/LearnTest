@@ -108,7 +108,7 @@ import com.djs.learn.spring_sample.db.ItemDao;
 	</ehcache:annotations>
 
 	<bean id="itemDao2"
-		class="com.djs.test.spring_sample.hibernate.ItemDaoSpringHibernateImplA">
+		class="com.djs.learn.spring_sample.hibernate.ItemDaoSpringHibernateImplA">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 

@@ -1,4 +1,4 @@
-package com.djs.test.wsclient.session_manager;
+package com.djs.learn.wsclient.session_manager;
 
 import java.net.MalformedURLException;
 import java.net.URL;

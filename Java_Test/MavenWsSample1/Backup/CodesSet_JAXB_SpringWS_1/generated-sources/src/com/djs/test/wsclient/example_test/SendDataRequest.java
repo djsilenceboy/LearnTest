@@ -6,7 +6,7 @@
 //
 
 
-package com.djs.test.wsclient.example_test;
+package com.djs.learn.wsclient.example_test;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

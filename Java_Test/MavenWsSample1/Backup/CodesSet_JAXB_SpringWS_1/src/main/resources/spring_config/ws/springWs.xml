@@ -27,7 +27,7 @@
 	<bean id="messageFactory" class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory" />
 
 	<oxm:jaxb2-marshaller id="marshaller"
-		contextPath="com.djs.test.wsclient.session_manager:com.djs.test.wsclient.example_test:com.djs.test.wsclient.wap_push" />
+		contextPath="com.djs.learn.wsclient.session_manager:com.djs.learn.wsclient.example_test:com.djs.learn.wsclient.wap_push" />
 
 	<!-- "org.springframework.ws.client.core.WebServiceTemplate" -->
 	<!-- "org.springframework.ws.client.core.support.WebServiceGatewaySupport" -->
@@ -47,7 +47,7 @@
 		<property name="unmarshaller" ref="marshaller" />
 	</bean>
 
-	<bean id="abstractLoginSoapHandler" class="com.djs.test.maven_sample.LoginSoapHandler"
+	<bean id="abstractLoginSoapHandler" class="com.djs.learn.maven_sample.LoginSoapHandler"
 		abstract="true">
 		<property name="userName" value="${ocsg.login.userName}" />
 		<property name="password" value="${ocsg.login.password}" />

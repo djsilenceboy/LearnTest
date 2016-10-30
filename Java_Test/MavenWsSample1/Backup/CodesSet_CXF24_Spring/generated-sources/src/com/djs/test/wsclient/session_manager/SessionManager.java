@@ -1,4 +1,4 @@
-package com.djs.test.wsclient.session_manager;
+package com.djs.learn.wsclient.session_manager;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -18,9 +18,9 @@ import javax.xml.ws.ResponseWrapper;
 @XmlSeeAlso({ObjectFactory.class})
 public interface SessionManager {
 
-    @RequestWrapper(localName = "changeApplicationPassword", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", className = "com.djs.test.wsclient.session_manager.ChangeApplicationPassword")
+    @RequestWrapper(localName = "changeApplicationPassword", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", className = "com.djs.learn.wsclient.session_manager.ChangeApplicationPassword")
     @WebMethod
-    @ResponseWrapper(localName = "changeApplicationPasswordResponse", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", className = "com.djs.test.wsclient.session_manager.ChangeApplicationPasswordResponse")
+    @ResponseWrapper(localName = "changeApplicationPasswordResponse", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", className = "com.djs.learn.wsclient.session_manager.ChangeApplicationPasswordResponse")
     public void changeApplicationPassword(
         @WebParam(name = "sessionId", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service")
         java.lang.String sessionId,
@@ -31,33 +31,33 @@ public interface SessionManager {
     ) throws GeneralException;
 
     @WebResult(name = "getSessionReturn", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service")
-    @RequestWrapper(localName = "getSession", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", className = "com.djs.test.wsclient.session_manager.GetSession")
+    @RequestWrapper(localName = "getSession", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", className = "com.djs.learn.wsclient.session_manager.GetSession")
     @WebMethod
-    @ResponseWrapper(localName = "getSessionResponse", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", className = "com.djs.test.wsclient.session_manager.GetSessionResponse")
+    @ResponseWrapper(localName = "getSessionResponse", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", className = "com.djs.learn.wsclient.session_manager.GetSessionResponse")
     public java.lang.String getSession() throws GeneralException;
 
     @WebResult(name = "refreshSessionReturn", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service")
-    @RequestWrapper(localName = "refreshSession", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", className = "com.djs.test.wsclient.session_manager.RefreshSession")
+    @RequestWrapper(localName = "refreshSession", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", className = "com.djs.learn.wsclient.session_manager.RefreshSession")
     @WebMethod
-    @ResponseWrapper(localName = "refreshSessionResponse", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", className = "com.djs.test.wsclient.session_manager.RefreshSessionResponse")
+    @ResponseWrapper(localName = "refreshSessionResponse", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", className = "com.djs.learn.wsclient.session_manager.RefreshSessionResponse")
     public java.lang.String refreshSession(
         @WebParam(name = "sessionId", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service")
         java.lang.String sessionId
     ) throws GeneralException;
 
     @WebResult(name = "getSessionRemainingLifeTimeReturn", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service")
-    @RequestWrapper(localName = "getSessionRemainingLifeTime", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", className = "com.djs.test.wsclient.session_manager.GetSessionRemainingLifeTime")
+    @RequestWrapper(localName = "getSessionRemainingLifeTime", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", className = "com.djs.learn.wsclient.session_manager.GetSessionRemainingLifeTime")
     @WebMethod
-    @ResponseWrapper(localName = "getSessionRemainingLifeTimeResponse", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", className = "com.djs.test.wsclient.session_manager.GetSessionRemainingLifeTimeResponse")
+    @ResponseWrapper(localName = "getSessionRemainingLifeTimeResponse", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", className = "com.djs.learn.wsclient.session_manager.GetSessionRemainingLifeTimeResponse")
     public int getSessionRemainingLifeTime(
         @WebParam(name = "sessionId", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service")
         java.lang.String sessionId
     ) throws GeneralException;
 
     @WebResult(name = "destroySessionReturn", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service")
-    @RequestWrapper(localName = "destroySession", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", className = "com.djs.test.wsclient.session_manager.DestroySession")
+    @RequestWrapper(localName = "destroySession", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", className = "com.djs.learn.wsclient.session_manager.DestroySession")
     @WebMethod
-    @ResponseWrapper(localName = "destroySessionResponse", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", className = "com.djs.test.wsclient.session_manager.DestroySessionResponse")
+    @ResponseWrapper(localName = "destroySessionResponse", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service", className = "com.djs.learn.wsclient.session_manager.DestroySessionResponse")
     public boolean destroySession(
         @WebParam(name = "sessionId", targetNamespace = "http://www.bea.com/wsdl/wlcp/wlng/session_manager/service")
         java.lang.String sessionId

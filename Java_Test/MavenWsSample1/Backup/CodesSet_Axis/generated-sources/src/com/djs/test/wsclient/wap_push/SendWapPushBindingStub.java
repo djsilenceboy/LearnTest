@@ -5,7 +5,7 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package com.djs.test.wsclient.wap_push;
+package com.djs.learn.wsclient.wap_push;
 
 public class SendWapPushBindingStub extends org.apache.axis.client.Stub implements org.csapi.www.wsdl.parlayx.singtel.ndp.ext.wappush.v1_0._interface.ExtWapPush {
     private java.util.Vector cachedSerClasses = new java.util.Vector();

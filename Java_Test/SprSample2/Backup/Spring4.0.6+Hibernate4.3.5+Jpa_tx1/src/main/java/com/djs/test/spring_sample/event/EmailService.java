@@ -1,5 +1,5 @@
 
-package com.djs.test.spring_sample.event;
+package com.djs.learn.spring_sample.event;
 
 import java.util.List;
 

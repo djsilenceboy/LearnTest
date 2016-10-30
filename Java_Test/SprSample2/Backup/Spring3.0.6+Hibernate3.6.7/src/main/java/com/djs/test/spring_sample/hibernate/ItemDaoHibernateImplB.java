@@ -1,5 +1,5 @@
 
-package com.djs.test.spring_sample.hibernate;
+package com.djs.learn.spring_sample.hibernate;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.djs.test.spring_sample.db.Item;
-import com.djs.test.spring_sample.db.ItemDao;
+import com.djs.learn.spring_sample.db.Item;
+import com.djs.learn.spring_sample.db.ItemDao;
 
 // This class does not work yet. Need further studying.
 @Repository

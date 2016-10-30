@@ -1,5 +1,5 @@
 
-package com.djs.test.spring_sample;
+package com.djs.learn.spring_sample;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -22,23 +22,23 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ValidationUtils;
 
-import com.djs.test.spring_sample.aop.AirMail;
-import com.djs.test.spring_sample.aop.DeliverInterface;
-import com.djs.test.spring_sample.db.Item;
-import com.djs.test.spring_sample.db.ItemDao;
-import com.djs.test.spring_sample.event.EmailService;
-import com.djs.test.spring_sample.expression.ACompany;
-import com.djs.test.spring_sample.expression.AEmployee;
-import com.djs.test.spring_sample.greeting.GreetingService;
-import com.djs.test.spring_sample.knightI.Knight;
-import com.djs.test.spring_sample.music.Performer;
-import com.djs.test.spring_sample.property.Company;
-import com.djs.test.spring_sample.property.Employee;
-import com.djs.test.spring_sample.property.PropertyResource;
-import com.djs.test.spring_sample.tx.TransactionalServiceA;
-import com.djs.test.spring_sample.tx.TransactionalServiceB;
-import com.djs.test.spring_sample.validation.Person;
-import com.djs.test.spring_sample.validation.PersonValidator;
+import com.djs.learn.spring_sample.aop.AirMail;
+import com.djs.learn.spring_sample.aop.DeliverInterface;
+import com.djs.learn.spring_sample.db.Item;
+import com.djs.learn.spring_sample.db.ItemDao;
+import com.djs.learn.spring_sample.event.EmailService;
+import com.djs.learn.spring_sample.expression.ACompany;
+import com.djs.learn.spring_sample.expression.AEmployee;
+import com.djs.learn.spring_sample.greeting.GreetingService;
+import com.djs.learn.spring_sample.knightI.Knight;
+import com.djs.learn.spring_sample.music.Performer;
+import com.djs.learn.spring_sample.property.Company;
+import com.djs.learn.spring_sample.property.Employee;
+import com.djs.learn.spring_sample.property.PropertyResource;
+import com.djs.learn.spring_sample.tx.TransactionalServiceA;
+import com.djs.learn.spring_sample.tx.TransactionalServiceB;
+import com.djs.learn.spring_sample.validation.Person;
+import com.djs.learn.spring_sample.validation.PersonValidator;
 
 public class AppTest
 {
@@ -202,7 +202,7 @@ public class AppTest
 			GreetingService greetingService = (GreetingService)appContext.getBean( "greetingService" );
 			greetingService.sayGreeting();
 
-			// Got error: org.springframework.beans.factory.BeanIsNotAFactoryException: Bean named 'greetingService' must be of type [org.springframework.beans.factory.FactoryBean], but was actually of type [com.djs.test.spring_sample.greeting.GreetingServiceImpl]
+			// Got error: org.springframework.beans.factory.BeanIsNotAFactoryException: Bean named 'greetingService' must be of type [org.springframework.beans.factory.FactoryBean], but was actually of type [com.djs.learn.spring_sample.greeting.GreetingServiceImpl]
 			// log.trace( "GreetingService BeanFactory = " + appContext.getBean( "&greetingService" ) );
 		}
 		catch (Exception e)

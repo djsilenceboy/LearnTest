@@ -1,13 +1,13 @@
 
-package com.djs.test.spring_sample.logging;
+package com.djs.learn.spring_sample.logging;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.JpaTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.djs.test.spring_sample.db.ItemLog;
-import com.djs.test.spring_sample.db.ItemLogDao;
+import com.djs.learn.spring_sample.db.ItemLog;
+import com.djs.learn.spring_sample.db.ItemLogDao;
 import com.googlecode.ehcache.annotations.KeyGenerator;
 import com.googlecode.ehcache.annotations.Property;
 import com.googlecode.ehcache.annotations.TriggersRemove;

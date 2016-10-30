@@ -5,22 +5,22 @@
 						http://www.springframework.org/schema/aop 
 						http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-	<bean id="airMailA" class="com.djs.test.spring_sample.aop.AirMail" scope="prototype">
+	<bean id="airMailA" class="com.djs.learn.spring_sample.aop.AirMail" scope="prototype">
 		<property name="name" value="Tom" />
 		<property name="address" value="NewYork" />
 		<property name="transactionId" value="#{ new java.util.Date().getTime() }" />
 	</bean>
 
-	<bean id="airMailB" class="com.djs.test.spring_sample.aop.AirMail" scope="prototype">
+	<bean id="airMailB" class="com.djs.learn.spring_sample.aop.AirMail" scope="prototype">
 		<property name="name" value="Jerry" />
 		<property name="address" value="Mexico" />
 	</bean>
 
-	<bean id="deliver" class="com.djs.test.spring_sample.aop.DeliverImpl" scope="prototype">
+	<bean id="deliver" class="com.djs.learn.spring_sample.aop.DeliverImpl" scope="prototype">
 		<property name="airMail" ref="airMailB" />
 	</bean>
 
-	<bean id="log4jHelper" class="com.djs.test.spring_sample.aop.MethodInvokeLog4jHelper" />
+	<bean id="log4jHelper" class="com.djs.learn.spring_sample.aop.MethodInvokeLog4jHelper" />
 
 	<aop:config>
 		<aop:aspect id="log4jHelperAop" ref="log4jHelper">
@@ -61,6 +61,6 @@
 
 	<!-- This to enable AspectJ. -->
 	<aop:aspectj-autoproxy />
-	<bean id="log4jHelper2" class="com.djs.test.spring_sample.aop.AspectJMethodInvokeLog4jHelper" />
+	<bean id="log4jHelper2" class="com.djs.learn.spring_sample.aop.AspectJMethodInvokeLog4jHelper" />
 
 </beans>

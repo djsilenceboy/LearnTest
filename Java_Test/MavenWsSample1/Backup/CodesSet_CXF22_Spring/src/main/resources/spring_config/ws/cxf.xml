@@ -30,7 +30,7 @@
 
 	<!-- SOAP handlers. -->
 
-	<bean id="abstractLoginSoapHandler" class="com.djs.test.maven_sample.LoginSoapHandler"
+	<bean id="abstractLoginSoapHandler" class="com.djs.learn.maven_sample.LoginSoapHandler"
 		abstract="true">
 		<property name="userName" value="${ocsg.login.userName}" />
 		<property name="password" value="${ocsg.login.password}" />
@@ -45,7 +45,7 @@
 	<!-- Web Service clients. -->
 
 	<jaxws:client id="sessionManager"
-		serviceClass="com.djs.test.wsclient.session_manager.SessionManager"
+		serviceClass="com.djs.learn.wsclient.session_manager.SessionManager"
 		address="${ocsg.cs.SessionManager.url}">
 		<jaxws:handlers>
 			<ref bean="loginSoapHandler" />
@@ -53,7 +53,7 @@
 	</jaxws:client>
 
 	<jaxws:client id="exampleTest"
-		serviceClass="com.djs.test.wsclient.example_test.SendDataPort"
+		serviceClass="com.djs.learn.wsclient.example_test.SendDataPort"
 		address="${ocsg.cs.ExampleTest.url}">
 		<jaxws:handlers>
 			<ref bean="loginWithSessionSoapHandler" />
@@ -61,7 +61,7 @@
 	</jaxws:client>
 
 	<jaxws:client id="wapPush"
-		serviceClass="com.djs.test.wsclient.wap_push.ExtWapPush" address="${ocsg.cs.WapPush.url}">
+		serviceClass="com.djs.learn.wsclient.wap_push.ExtWapPush" address="${ocsg.cs.WapPush.url}">
 		<jaxws:handlers>
 			<ref bean="loginWithSessionSoapHandler" />
 		</jaxws:handlers>

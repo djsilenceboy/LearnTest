@@ -1,5 +1,5 @@
 
-package com.djs.test.spring_sample.jdbc;
+package com.djs.learn.spring_sample.jdbc;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,8 +10,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
-import com.djs.test.spring_sample.db.Item;
-import com.djs.test.spring_sample.db.ItemDao;
+import com.djs.learn.spring_sample.db.Item;
+import com.djs.learn.spring_sample.db.ItemDao;
 
 public class ItemDaoSpringImplA extends JdbcDaoSupport implements ItemDao
 {

@@ -5,9 +5,9 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package com.djs.test.wsclient.wap_push;
+package com.djs.learn.wsclient.wap_push;
 
-public class WapPushServiceLocator extends org.apache.axis.client.Service implements com.djs.test.wsclient.wap_push.WapPushService {
+public class WapPushServiceLocator extends org.apache.axis.client.Service implements com.djs.learn.wsclient.wap_push.WapPushService {
 
     public WapPushServiceLocator() {
     }
@@ -52,7 +52,7 @@ public class WapPushServiceLocator extends org.apache.axis.client.Service implem
 
     public org.csapi.www.wsdl.parlayx.singtel.ndp.ext.wappush.v1_0._interface.ExtWapPush getExtWapPush(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
         try {
-            com.djs.test.wsclient.wap_push.SendWapPushBindingStub _stub = new com.djs.test.wsclient.wap_push.SendWapPushBindingStub(portAddress, this);
+            com.djs.learn.wsclient.wap_push.SendWapPushBindingStub _stub = new com.djs.learn.wsclient.wap_push.SendWapPushBindingStub(portAddress, this);
             _stub.setPortName(getExtWapPushWSDDServiceName());
             return _stub;
         }
@@ -73,7 +73,7 @@ public class WapPushServiceLocator extends org.apache.axis.client.Service implem
     public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         try {
             if (org.csapi.www.wsdl.parlayx.singtel.ndp.ext.wappush.v1_0._interface.ExtWapPush.class.isAssignableFrom(serviceEndpointInterface)) {
-                com.djs.test.wsclient.wap_push.SendWapPushBindingStub _stub = new com.djs.test.wsclient.wap_push.SendWapPushBindingStub(new java.net.URL(ExtWapPush_address), this);
+                com.djs.learn.wsclient.wap_push.SendWapPushBindingStub _stub = new com.djs.learn.wsclient.wap_push.SendWapPushBindingStub(new java.net.URL(ExtWapPush_address), this);
                 _stub.setPortName(getExtWapPushWSDDServiceName());
                 return _stub;
             }

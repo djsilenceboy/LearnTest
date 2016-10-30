@@ -5,9 +5,9 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package com.djs.test.wsclient.sessionmanager;
+package com.djs.learn.wsclient.sessionmanager;
 
-public class SessionManagerServiceLocator extends org.apache.axis.client.Service implements com.djs.test.wsclient.sessionmanager.SessionManagerService {
+public class SessionManagerServiceLocator extends org.apache.axis.client.Service implements com.djs.learn.wsclient.sessionmanager.SessionManagerService {
 
     public SessionManagerServiceLocator() {
     }
@@ -39,7 +39,7 @@ public class SessionManagerServiceLocator extends org.apache.axis.client.Service
         SessionManagerWSDDServiceName = name;
     }
 
-    public com.djs.test.wsclient.sessionmanager.SessionManager getSessionManager() throws javax.xml.rpc.ServiceException {
+    public com.djs.learn.wsclient.sessionmanager.SessionManager getSessionManager() throws javax.xml.rpc.ServiceException {
        java.net.URL endpoint;
         try {
             endpoint = new java.net.URL(SessionManager_address);
@@ -50,9 +50,9 @@ public class SessionManagerServiceLocator extends org.apache.axis.client.Service
         return getSessionManager(endpoint);
     }
 
-    public com.djs.test.wsclient.sessionmanager.SessionManager getSessionManager(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
+    public com.djs.learn.wsclient.sessionmanager.SessionManager getSessionManager(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
         try {
-            com.djs.test.wsclient.sessionmanager.SessionManagerSoapBindingStub _stub = new com.djs.test.wsclient.sessionmanager.SessionManagerSoapBindingStub(portAddress, this);
+            com.djs.learn.wsclient.sessionmanager.SessionManagerSoapBindingStub _stub = new com.djs.learn.wsclient.sessionmanager.SessionManagerSoapBindingStub(portAddress, this);
             _stub.setPortName(getSessionManagerWSDDServiceName());
             return _stub;
         }
@@ -72,8 +72,8 @@ public class SessionManagerServiceLocator extends org.apache.axis.client.Service
      */
     public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         try {
-            if (com.djs.test.wsclient.sessionmanager.SessionManager.class.isAssignableFrom(serviceEndpointInterface)) {
-                com.djs.test.wsclient.sessionmanager.SessionManagerSoapBindingStub _stub = new com.djs.test.wsclient.sessionmanager.SessionManagerSoapBindingStub(new java.net.URL(SessionManager_address), this);
+            if (com.djs.learn.wsclient.sessionmanager.SessionManager.class.isAssignableFrom(serviceEndpointInterface)) {
+                com.djs.learn.wsclient.sessionmanager.SessionManagerSoapBindingStub _stub = new com.djs.learn.wsclient.sessionmanager.SessionManagerSoapBindingStub(new java.net.URL(SessionManager_address), this);
                 _stub.setPortName(getSessionManagerWSDDServiceName());
                 return _stub;
             }

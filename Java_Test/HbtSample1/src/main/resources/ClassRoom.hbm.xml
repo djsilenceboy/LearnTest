@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="com.djs.test.hbt_sample.ClassRoom" table="classroom"
+	<class name="com.djs.learn.hbt_sample.ClassRoom" table="classroom"
 		catalog="hibernate">
 		<id name="id" column="ID" type="java.lang.Integer">
 			<generator class="native" />
@@ -12,7 +12,7 @@
 			length="45" not-null="true" />
 		<set name="courses" cascade="all-delete-orphan" inverse="true">
 			<key column="ClassRoomId" not-null="true" />
-			<one-to-many class="com.djs.test.hbt_sample.Course" />
+			<one-to-many class="com.djs.learn.hbt_sample.Course" />
 		</set>
 	</class>
 </hibernate-mapping>

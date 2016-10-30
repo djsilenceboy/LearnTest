@@ -23,7 +23,7 @@
 		<qualifier value="account" />
 	</bean>
 
-	<bean id="transactionalServiceA" class="com.djs.test.spring_sample.tx.TransactionalServiceA" />
-	<bean id="transactionalServiceB" class="com.djs.test.spring_sample.tx.TransactionalServiceB" />
+	<bean id="transactionalServiceA" class="com.djs.learn.spring_sample.tx.TransactionalServiceA" />
+	<bean id="transactionalServiceB" class="com.djs.learn.spring_sample.tx.TransactionalServiceB" />
 
 </beans>

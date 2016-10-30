@@ -1,13 +1,13 @@
 
-package com.djs.test.spring_sample.hibernate;
+package com.djs.learn.spring_sample.hibernate;
 
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-import com.djs.test.spring_sample.db.Item;
-import com.djs.test.spring_sample.db.ItemDao;
+import com.djs.learn.spring_sample.db.Item;
+import com.djs.learn.spring_sample.db.ItemDao;
 
 /*
  This class use spring-modules-cache. But it is discontinued.
@@ -108,7 +108,7 @@ import com.djs.test.spring_sample.db.ItemDao;
 	</ehcache:annotations>
 
 	<bean id="itemDao2"
-		class="com.djs.test.spring_sample.hibernate.ItemDaoSpringHibernateImplA">
+		class="com.djs.learn.spring_sample.hibernate.ItemDaoSpringHibernateImplA">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 

@@ -1,11 +1,11 @@
 
-package com.djs.test.maven_sample;
+package com.djs.learn.maven_sample;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.djs.test.wsclient.sessionmanager.SessionManagerServiceStub;
+import com.djs.learn.wsclient.sessionmanager.SessionManagerServiceStub;
 
 public class ASessionManagerTest
 {

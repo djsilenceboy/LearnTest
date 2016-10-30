@@ -1,5 +1,5 @@
 
-package com.djs.test.spring_sample.knight;
+package com.djs.learn.spring_sample.knight;
 
 public interface Knight
 {

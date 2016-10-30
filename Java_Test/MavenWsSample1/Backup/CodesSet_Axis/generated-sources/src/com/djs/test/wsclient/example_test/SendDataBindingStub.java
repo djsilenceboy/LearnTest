@@ -5,7 +5,7 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package com.djs.test.wsclient.example_test;
+package com.djs.learn.wsclient.example_test;
 
 public class SendDataBindingStub extends org.apache.axis.client.Stub implements com.singtel.ndp.ext.example_test.v1_0._interface.SendDataPort {
     private java.util.Vector cachedSerClasses = new java.util.Vector();

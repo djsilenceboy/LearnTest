@@ -1,5 +1,5 @@
 
-package com.djs.test.spring_sample.knightI;
+package com.djs.learn.spring_sample.knightI;
 
 public interface Talk
 {

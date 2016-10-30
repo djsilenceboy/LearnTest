@@ -8,11 +8,11 @@
 						http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
 
 	<bean id="itemLogDao0"
-		class="com.djs.test.spring_sample.hibernate.ItemLogDaoSpringHibernateImplA">
+		class="com.djs.learn.spring_sample.hibernate.ItemLogDaoSpringHibernateImplA">
 		<property name="hibernateTemplate" ref="hibernateTemplate" />
 	</bean>
 
-	<bean id="itemLoggingHelper0" class="com.djs.test.spring_sample.logging.ItemLoggingHelper">
+	<bean id="itemLoggingHelper0" class="com.djs.learn.spring_sample.logging.ItemLoggingHelper">
 		<property name="itemLogDao" ref="itemLogDao0" />
 	</bean>
 

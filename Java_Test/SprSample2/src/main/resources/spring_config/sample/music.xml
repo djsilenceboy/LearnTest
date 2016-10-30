@@ -78,7 +78,7 @@
 
 	<bean id="performerProxyBase" class="org.springframework.aop.framework.ProxyFactoryBean" abstract="true">
 		<property name="interceptorNames" value="audienceAdvisorA" />
-		<property name="proxyInterfaces" value="com.djs.test.spring_sample.music.Performer" />
+		<property name="proxyInterfaces" value="com.djs.learn.spring_sample.music.Performer" />
 	</bean>
 
 	<bean id="performerD1" parent="performerProxyBase">

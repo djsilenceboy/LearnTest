@@ -6,7 +6,7 @@
 //
 
 
-package com.djs.test.wsclient.wap_push;
+package com.djs.learn.wsclient.wap_push;
 
 import java.util.Calendar;
 import javax.xml.bind.annotation.adapters.XmlAdapter;

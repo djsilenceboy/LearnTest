@@ -25,12 +25,12 @@
 	</bean>
 
 
-	<bean id="itemDao0" class="com.djs.test.spring_sample.jpa.ItemDaoJpaImplA">
+	<bean id="itemDao0" class="com.djs.learn.spring_sample.jpa.ItemDaoJpaImplA">
 		<property name="jpaTemplate" ref="jpaTemplate" />
 	</bean>
 
 
-	<bean id="itemDao1" class="com.djs.test.spring_sample.jpa.ItemDaoSpringJpaImplA">
+	<bean id="itemDao1" class="com.djs.learn.spring_sample.jpa.ItemDaoSpringJpaImplA">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 

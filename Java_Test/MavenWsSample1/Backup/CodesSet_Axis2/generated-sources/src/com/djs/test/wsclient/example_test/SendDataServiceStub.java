@@ -5,7 +5,7 @@
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.1  Built on : Aug 31, 2011 (12:22:40 CEST)
  */
-        package com.djs.test.wsclient.example_test;
+        package com.djs.learn.wsclient.example_test;
 
         
 
@@ -63,13 +63,13 @@
     //populates the faults
     private void populateFaults(){
          
-              faultExceptionNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","PolicyException"), "sendData"),"com.djs.test.wsclient.example_test.PolicyException");
-              faultExceptionClassNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","PolicyException"), "sendData"),"com.djs.test.wsclient.example_test.PolicyException");
-              faultMessageMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","PolicyException"), "sendData"),"com.djs.test.wsclient.example_test.SendDataServiceStub$PolicyExceptionE");
+              faultExceptionNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","PolicyException"), "sendData"),"com.djs.learn.wsclient.example_test.PolicyException");
+              faultExceptionClassNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","PolicyException"), "sendData"),"com.djs.learn.wsclient.example_test.PolicyException");
+              faultMessageMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","PolicyException"), "sendData"),"com.djs.learn.wsclient.example_test.SendDataServiceStub$PolicyExceptionE");
            
-              faultExceptionNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","ServiceException"), "sendData"),"com.djs.test.wsclient.example_test.ServiceException");
-              faultExceptionClassNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","ServiceException"), "sendData"),"com.djs.test.wsclient.example_test.ServiceException");
-              faultMessageMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","ServiceException"), "sendData"),"com.djs.test.wsclient.example_test.SendDataServiceStub$ServiceExceptionE");
+              faultExceptionNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","ServiceException"), "sendData"),"com.djs.learn.wsclient.example_test.ServiceException");
+              faultExceptionClassNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","ServiceException"), "sendData"),"com.djs.learn.wsclient.example_test.ServiceException");
+              faultMessageMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","ServiceException"), "sendData"),"com.djs.learn.wsclient.example_test.SendDataServiceStub$ServiceExceptionE");
            
 
 
@@ -137,11 +137,11 @@
                     /**
                      * Auto generated method signature
                      * 
-                     * @see com.djs.test.wsclient.example_test.SendDataService#sendData
+                     * @see com.djs.learn.wsclient.example_test.SendDataService#sendData
                      * @param sendDataRequest
                     
-                     * @throws com.djs.test.wsclient.example_test.PolicyException : 
-                     * @throws com.djs.test.wsclient.example_test.ServiceException : 
+                     * @throws com.djs.learn.wsclient.example_test.PolicyException : 
+                     * @throws com.djs.learn.wsclient.example_test.ServiceException : 
                      */
 
                     
@@ -154,8 +154,8 @@
                     throws java.rmi.RemoteException
                     
                     
-                        ,com.djs.test.wsclient.example_test.PolicyException
-                        ,com.djs.test.wsclient.example_test.ServiceException{
+                        ,com.djs.learn.wsclient.example_test.PolicyException
+                        ,com.djs.learn.wsclient.example_test.ServiceException{
               org.apache.axis2.context.MessageContext _messageContext = null;
               try{
                org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[0].getName());
@@ -174,7 +174,7 @@
 
               // create SOAP envelope with that payload
               org.apache.axiom.soap.SOAPEnvelope env = null;
-                    com.djs.test.wsclient.example_test.SendDataServiceStub.SendDataRequestE dummyWrappedType = null;
+                    com.djs.learn.wsclient.example_test.SendDataServiceStub.SendDataRequestE dummyWrappedType = null;
                                                     env = toEnvelope(getFactory(_operationClient.getOptions().getSoapVersionURI()),
                                                     data,
                                                     address,
@@ -201,11 +201,11 @@
                 
                                 java.lang.Object object = fromOM(
                                              _returnEnv.getBody().getFirstElement() ,
-                                             com.djs.test.wsclient.example_test.SendDataServiceStub.SendDataResponseE.class,
+                                             com.djs.learn.wsclient.example_test.SendDataServiceStub.SendDataResponseE.class,
                                               getEnvelopeNamespaces(_returnEnv));
 
                                
-                                        return getsendData((com.djs.test.wsclient.example_test.SendDataServiceStub.SendDataResponseE)object);
+                                        return getsendData((com.djs.learn.wsclient.example_test.SendDataServiceStub.SendDataResponseE)object);
                                    
          }catch(org.apache.axis2.AxisFault f){
 
@@ -225,12 +225,12 @@
                                    new java.lang.Class[]{messageClass});
                         m.invoke(ex,new java.lang.Object[]{messageObject});
                         
-                        if (ex instanceof com.djs.test.wsclient.example_test.PolicyException){
-                          throw (com.djs.test.wsclient.example_test.PolicyException)ex;
+                        if (ex instanceof com.djs.learn.wsclient.example_test.PolicyException){
+                          throw (com.djs.learn.wsclient.example_test.PolicyException)ex;
                         }
                         
-                        if (ex instanceof com.djs.test.wsclient.example_test.ServiceException){
-                          throw (com.djs.test.wsclient.example_test.ServiceException)ex;
+                        if (ex instanceof com.djs.learn.wsclient.example_test.ServiceException){
+                          throw (com.djs.learn.wsclient.example_test.ServiceException)ex;
                         }
                         
 
@@ -3925,12 +3925,12 @@
         }
            
     
-            private  org.apache.axiom.om.OMElement  toOM(com.djs.test.wsclient.example_test.SendDataServiceStub.SendDataRequestE param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.djs.learn.wsclient.example_test.SendDataServiceStub.SendDataRequestE param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.djs.test.wsclient.example_test.SendDataServiceStub.SendDataRequestE.MY_QNAME,
+                             return param.getOMElement(com.djs.learn.wsclient.example_test.SendDataServiceStub.SendDataRequestE.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3939,12 +3939,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.djs.test.wsclient.example_test.SendDataServiceStub.SendDataResponseE param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.djs.learn.wsclient.example_test.SendDataServiceStub.SendDataResponseE param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.djs.test.wsclient.example_test.SendDataServiceStub.SendDataResponseE.MY_QNAME,
+                             return param.getOMElement(com.djs.learn.wsclient.example_test.SendDataServiceStub.SendDataResponseE.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3953,12 +3953,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.djs.test.wsclient.example_test.SendDataServiceStub.PolicyExceptionE param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.djs.learn.wsclient.example_test.SendDataServiceStub.PolicyExceptionE param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.djs.test.wsclient.example_test.SendDataServiceStub.PolicyExceptionE.MY_QNAME,
+                             return param.getOMElement(com.djs.learn.wsclient.example_test.SendDataServiceStub.PolicyExceptionE.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3967,12 +3967,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.djs.test.wsclient.example_test.SendDataServiceStub.ServiceExceptionE param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.djs.learn.wsclient.example_test.SendDataServiceStub.ServiceExceptionE param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.djs.test.wsclient.example_test.SendDataServiceStub.ServiceExceptionE.MY_QNAME,
+                             return param.getOMElement(com.djs.learn.wsclient.example_test.SendDataServiceStub.ServiceExceptionE.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3985,11 +3985,11 @@
                                 private  org.apache.axiom.soap.SOAPEnvelope toEnvelope(org.apache.axiom.soap.SOAPFactory factory,
                                     java.lang.String param1,
                                     org.apache.axis2.databinding.types.URI param2,
-                                    com.djs.test.wsclient.example_test.SendDataServiceStub.SendDataRequestE dummyWrappedType,
+                                    com.djs.learn.wsclient.example_test.SendDataServiceStub.SendDataRequestE dummyWrappedType,
                                  boolean optimizeContent) throws org.apache.axis2.AxisFault{
 
                                 try{
-                                com.djs.test.wsclient.example_test.SendDataServiceStub.SendDataRequestE wrappedType = new com.djs.test.wsclient.example_test.SendDataServiceStub.SendDataRequestE();
+                                com.djs.learn.wsclient.example_test.SendDataServiceStub.SendDataRequestE wrappedType = new com.djs.learn.wsclient.example_test.SendDataServiceStub.SendDataRequestE();
 
                                  SendDataRequest wrappedComplexType = new SendDataRequest();
                                           
@@ -4002,7 +4002,7 @@
 
                                org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
                                   
-                                        emptyEnvelope.getBody().addChild(wrappedType.getOMElement(com.djs.test.wsclient.example_test.SendDataServiceStub.SendDataRequestE.MY_QNAME,factory));
+                                        emptyEnvelope.getBody().addChild(wrappedType.getOMElement(com.djs.learn.wsclient.example_test.SendDataServiceStub.SendDataRequestE.MY_QNAME,factory));
                                     
 
                                 return emptyEnvelope;
@@ -4019,20 +4019,20 @@
 
                              
                                 private SendDataRequest getsendData(
-                                com.djs.test.wsclient.example_test.SendDataServiceStub.SendDataRequestE wrappedType){
+                                com.djs.learn.wsclient.example_test.SendDataServiceStub.SendDataRequestE wrappedType){
                                     return wrappedType.getSendDataRequest();
                                 }
 
-                                private com.djs.test.wsclient.example_test.SendDataServiceStub.SendDataRequestE wrapsendData(
+                                private com.djs.learn.wsclient.example_test.SendDataServiceStub.SendDataRequestE wrapsendData(
                                 SendDataRequest innerType){
-                                    com.djs.test.wsclient.example_test.SendDataServiceStub.SendDataRequestE wrappedElement = new com.djs.test.wsclient.example_test.SendDataServiceStub.SendDataRequestE();
+                                    com.djs.learn.wsclient.example_test.SendDataServiceStub.SendDataRequestE wrappedElement = new com.djs.learn.wsclient.example_test.SendDataServiceStub.SendDataRequestE();
                                     wrappedElement.setSendDataRequest(innerType);
                                     return wrappedElement;
                                 }
                             
 
                                 private SendDataResponse getsendData(
-                                com.djs.test.wsclient.example_test.SendDataServiceStub.SendDataResponseE wrappedType){
+                                com.djs.learn.wsclient.example_test.SendDataServiceStub.SendDataResponseE wrappedType){
                                     return wrappedType.getSendDataResponse();
                                 }
 
@@ -4056,30 +4056,30 @@
 
         try {
         
-                if (com.djs.test.wsclient.example_test.SendDataServiceStub.SendDataRequestE.class.equals(type)){
+                if (com.djs.learn.wsclient.example_test.SendDataServiceStub.SendDataRequestE.class.equals(type)){
                 
-                           return com.djs.test.wsclient.example_test.SendDataServiceStub.SendDataRequestE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return com.djs.learn.wsclient.example_test.SendDataServiceStub.SendDataRequestE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (com.djs.test.wsclient.example_test.SendDataServiceStub.SendDataResponseE.class.equals(type)){
+                if (com.djs.learn.wsclient.example_test.SendDataServiceStub.SendDataResponseE.class.equals(type)){
                 
-                           return com.djs.test.wsclient.example_test.SendDataServiceStub.SendDataResponseE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return com.djs.learn.wsclient.example_test.SendDataServiceStub.SendDataResponseE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (com.djs.test.wsclient.example_test.SendDataServiceStub.PolicyExceptionE.class.equals(type)){
+                if (com.djs.learn.wsclient.example_test.SendDataServiceStub.PolicyExceptionE.class.equals(type)){
                 
-                           return com.djs.test.wsclient.example_test.SendDataServiceStub.PolicyExceptionE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return com.djs.learn.wsclient.example_test.SendDataServiceStub.PolicyExceptionE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (com.djs.test.wsclient.example_test.SendDataServiceStub.ServiceExceptionE.class.equals(type)){
+                if (com.djs.learn.wsclient.example_test.SendDataServiceStub.ServiceExceptionE.class.equals(type)){
                 
-                           return com.djs.test.wsclient.example_test.SendDataServiceStub.ServiceExceptionE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return com.djs.learn.wsclient.example_test.SendDataServiceStub.ServiceExceptionE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }

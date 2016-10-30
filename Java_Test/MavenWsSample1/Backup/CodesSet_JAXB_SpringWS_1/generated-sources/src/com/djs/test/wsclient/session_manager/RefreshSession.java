@@ -6,7 +6,7 @@
 //
 
 
-package com.djs.test.wsclient.session_manager;
+package com.djs.learn.wsclient.session_manager;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

@@ -202,7 +202,7 @@ public class AppTest
 			GreetingService greetingService = (GreetingService)appContext.getBean( "greetingService" );
 			greetingService.sayGreeting();
 
-			// Got error: org.springframework.beans.factory.BeanIsNotAFactoryException: Bean named 'greetingService' must be of type [org.springframework.beans.factory.FactoryBean], but was actually of type [com.djs.test.spring_sample.greeting.GreetingServiceImpl]
+			// Got error: org.springframework.beans.factory.BeanIsNotAFactoryException: Bean named 'greetingService' must be of type [org.springframework.beans.factory.FactoryBean], but was actually of type [com.djs.learn.spring_sample.greeting.GreetingServiceImpl]
 			// log.trace( "GreetingService BeanFactory = " + appContext.getBean( "&greetingService" ) );
 		}
 		catch (Exception e)

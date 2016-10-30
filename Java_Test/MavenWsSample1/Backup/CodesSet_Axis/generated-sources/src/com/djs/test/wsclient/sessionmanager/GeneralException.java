@@ -5,7 +5,7 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package com.djs.test.wsclient.sessionmanager;
+package com.djs.learn.wsclient.sessionmanager;
 
 public class GeneralException  extends org.apache.axis.AxisFault  implements java.io.Serializable {
     private java.lang.String exceptionMessage;

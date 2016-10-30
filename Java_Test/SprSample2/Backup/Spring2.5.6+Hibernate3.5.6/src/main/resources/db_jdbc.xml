@@ -11,7 +11,7 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<bean id="itemDao0" class="com.djs.test.spring_sample.jdbc.ItemDaoImplA">
+	<bean id="itemDao0" class="com.djs.learn.spring_sample.jdbc.ItemDaoImplA">
 		<property name="jdbcTemplate" ref="jdbcTemplate0" />
 	</bean>
 
@@ -21,7 +21,7 @@
 		<constructor-arg ref="dataSource" />
 	</bean>
 
-	<bean id="itemDao1" class="com.djs.test.spring_sample.jdbc.ItemDaoImplB">
+	<bean id="itemDao1" class="com.djs.learn.spring_sample.jdbc.ItemDaoImplB">
 		<property name="jdbcTemplate" ref="jdbcTemplate1" />
 	</bean>
 
@@ -30,22 +30,22 @@
 		<constructor-arg ref="dataSource" />
 	</bean>
 
-	<bean id="itemDao2" class="com.djs.test.spring_sample.jdbc.ItemDaoImplC">
+	<bean id="itemDao2" class="com.djs.learn.spring_sample.jdbc.ItemDaoImplC">
 		<property name="jdbcTemplate" ref="jdbcTemplate2" />
 	</bean>
 
 
-	<bean id="itemDao3" class="com.djs.test.spring_sample.jdbc.ItemDaoSpringImplA">
+	<bean id="itemDao3" class="com.djs.learn.spring_sample.jdbc.ItemDaoSpringImplA">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
 	
-	<bean id="itemDao4" class="com.djs.test.spring_sample.jdbc.ItemDaoSpringImplB">
+	<bean id="itemDao4" class="com.djs.learn.spring_sample.jdbc.ItemDaoSpringImplB">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
 	
-	<bean id="itemDao5" class="com.djs.test.spring_sample.jdbc.ItemDaoSpringImplC">
+	<bean id="itemDao5" class="com.djs.learn.spring_sample.jdbc.ItemDaoSpringImplC">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 

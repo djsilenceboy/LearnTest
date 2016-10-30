@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
-<hibernate-mapping package="com.djs.test.hbt_sample_test">
+<hibernate-mapping package="com.djs.learn.hbt_sample_test">
 	<class name="BillingDetails2" table="BILLING_DETAILS_2">
 		<id name="id" column="ID" type="long">
 			<generator class="native" />

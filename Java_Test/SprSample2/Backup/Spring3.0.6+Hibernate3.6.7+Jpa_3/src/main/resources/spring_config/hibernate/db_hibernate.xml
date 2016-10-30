@@ -18,7 +18,7 @@
 		/ -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"
-		p:dataSource-ref="dataSource" p:packagesToScan="com.djs.test.spring_sample.db">
+		p:dataSource-ref="dataSource" p:packagesToScan="com.djs.learn.spring_sample.db">
 		<property name="hibernateProperties">
 			<bean
 				class="org.springframework.beans.factory.config.PropertiesFactoryBean">
@@ -40,14 +40,14 @@
 		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
 		p:configLocation="${file_path.context.shared_internal}ehcache.xml" />
 
-	<context:component-scan base-package="com.djs.test.spring_sample.hibernate" />
+	<context:component-scan base-package="com.djs.learn.spring_sample.hibernate" />
 	<bean
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
 
 	<!-- This method is 3rd recommended. -->
 	<bean id="itemDao0"
-		class="com.djs.test.spring_sample.hibernate.ItemDaoHibernateImplA" />
+		class="com.djs.learn.spring_sample.hibernate.ItemDaoHibernateImplA" />
 	<!-- hibernateTemplate-ref is @Autowired in code. -->
 	<!-- p:hibernateTemplate-ref="hibernateTemplate" / -->
 
@@ -60,13 +60,13 @@
 	<!-- This method is not recommended, because SpringModules framework is 
 		discontinued. -->
 	<bean id="itemDao2"
-		class="com.djs.test.spring_sample.hibernate.ItemDaoSpringHibernateImplA"
+		class="com.djs.learn.spring_sample.hibernate.ItemDaoSpringHibernateImplA"
 		p:sessionFactory-ref="sessionFactory" />
 
 
 	<!-- This method is 2nd recommended. -->
 	<bean id="itemDao3"
-		class="com.djs.test.spring_sample.hibernate.ItemDaoSpringHibernateImplB"
+		class="com.djs.learn.spring_sample.hibernate.ItemDaoSpringHibernateImplB"
 		p:sessionFactory-ref="sessionFactory" />
 
 </beans>

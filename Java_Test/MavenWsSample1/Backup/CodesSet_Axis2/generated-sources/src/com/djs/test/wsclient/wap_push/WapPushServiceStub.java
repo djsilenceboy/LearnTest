@@ -5,7 +5,7 @@
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.1  Built on : Aug 31, 2011 (12:22:40 CEST)
  */
-        package com.djs.test.wsclient.wap_push;
+        package com.djs.learn.wsclient.wap_push;
 
         
 
@@ -63,13 +63,13 @@
     //populates the faults
     private void populateFaults(){
          
-              faultExceptionNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","PolicyException"), "sendWapPush"),"com.djs.test.wsclient.wap_push.PolicyException");
-              faultExceptionClassNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","PolicyException"), "sendWapPush"),"com.djs.test.wsclient.wap_push.PolicyException");
-              faultMessageMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","PolicyException"), "sendWapPush"),"com.djs.test.wsclient.wap_push.WapPushServiceStub$PolicyExceptionE");
+              faultExceptionNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","PolicyException"), "sendWapPush"),"com.djs.learn.wsclient.wap_push.PolicyException");
+              faultExceptionClassNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","PolicyException"), "sendWapPush"),"com.djs.learn.wsclient.wap_push.PolicyException");
+              faultMessageMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","PolicyException"), "sendWapPush"),"com.djs.learn.wsclient.wap_push.WapPushServiceStub$PolicyExceptionE");
            
-              faultExceptionNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","ServiceException"), "sendWapPush"),"com.djs.test.wsclient.wap_push.ServiceException");
-              faultExceptionClassNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","ServiceException"), "sendWapPush"),"com.djs.test.wsclient.wap_push.ServiceException");
-              faultMessageMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","ServiceException"), "sendWapPush"),"com.djs.test.wsclient.wap_push.WapPushServiceStub$ServiceExceptionE");
+              faultExceptionNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","ServiceException"), "sendWapPush"),"com.djs.learn.wsclient.wap_push.ServiceException");
+              faultExceptionClassNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","ServiceException"), "sendWapPush"),"com.djs.learn.wsclient.wap_push.ServiceException");
+              faultMessageMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/common/v2_1","ServiceException"), "sendWapPush"),"com.djs.learn.wsclient.wap_push.WapPushServiceStub$ServiceExceptionE");
            
 
 
@@ -137,25 +137,25 @@
                     /**
                      * Auto generated method signature
                      * 
-                     * @see com.djs.test.wsclient.wap_push.WapPushService#sendWapPush
+                     * @see com.djs.learn.wsclient.wap_push.WapPushService#sendWapPush
                      * @param sendWapPush
                     
-                     * @throws com.djs.test.wsclient.wap_push.PolicyException : 
-                     * @throws com.djs.test.wsclient.wap_push.ServiceException : 
+                     * @throws com.djs.learn.wsclient.wap_push.PolicyException : 
+                     * @throws com.djs.learn.wsclient.wap_push.ServiceException : 
                      */
 
                     
 
-                            public  com.djs.test.wsclient.wap_push.WapPushServiceStub.WapPushRespData sendWapPush(
+                            public  com.djs.learn.wsclient.wap_push.WapPushServiceStub.WapPushRespData sendWapPush(
 
-                            com.djs.test.wsclient.wap_push.WapPushServiceStub.WapPushReqData wapPushRequest)
+                            com.djs.learn.wsclient.wap_push.WapPushServiceStub.WapPushReqData wapPushRequest)
                         
 
                     throws java.rmi.RemoteException
                     
                     
-                        ,com.djs.test.wsclient.wap_push.PolicyException
-                        ,com.djs.test.wsclient.wap_push.ServiceException{
+                        ,com.djs.learn.wsclient.wap_push.PolicyException
+                        ,com.djs.learn.wsclient.wap_push.ServiceException{
               org.apache.axis2.context.MessageContext _messageContext = null;
               try{
                org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[0].getName());
@@ -174,7 +174,7 @@
 
               // create SOAP envelope with that payload
               org.apache.axiom.soap.SOAPEnvelope env = null;
-                    com.djs.test.wsclient.wap_push.WapPushServiceStub.SendWapPushE dummyWrappedType = null;
+                    com.djs.learn.wsclient.wap_push.WapPushServiceStub.SendWapPushE dummyWrappedType = null;
                                                     env = toEnvelope(getFactory(_operationClient.getOptions().getSoapVersionURI()),
                                                     wapPushRequest,
                                                     dummyWrappedType,
@@ -200,11 +200,11 @@
                 
                                 java.lang.Object object = fromOM(
                                              _returnEnv.getBody().getFirstElement() ,
-                                             com.djs.test.wsclient.wap_push.WapPushServiceStub.SendWapPushResponseE.class,
+                                             com.djs.learn.wsclient.wap_push.WapPushServiceStub.SendWapPushResponseE.class,
                                               getEnvelopeNamespaces(_returnEnv));
 
                                
-                                        return getSendWapPushResponseWapPushResponse((com.djs.test.wsclient.wap_push.WapPushServiceStub.SendWapPushResponseE)object);
+                                        return getSendWapPushResponseWapPushResponse((com.djs.learn.wsclient.wap_push.WapPushServiceStub.SendWapPushResponseE)object);
                                    
          }catch(org.apache.axis2.AxisFault f){
 
@@ -224,12 +224,12 @@
                                    new java.lang.Class[]{messageClass});
                         m.invoke(ex,new java.lang.Object[]{messageObject});
                         
-                        if (ex instanceof com.djs.test.wsclient.wap_push.PolicyException){
-                          throw (com.djs.test.wsclient.wap_push.PolicyException)ex;
+                        if (ex instanceof com.djs.learn.wsclient.wap_push.PolicyException){
+                          throw (com.djs.learn.wsclient.wap_push.PolicyException)ex;
                         }
                         
-                        if (ex instanceof com.djs.test.wsclient.wap_push.ServiceException){
-                          throw (com.djs.test.wsclient.wap_push.ServiceException)ex;
+                        if (ex instanceof com.djs.learn.wsclient.wap_push.ServiceException){
+                          throw (com.djs.learn.wsclient.wap_push.ServiceException)ex;
                         }
                         
 
@@ -5188,12 +5188,12 @@
         }
            
     
-            private  org.apache.axiom.om.OMElement  toOM(com.djs.test.wsclient.wap_push.WapPushServiceStub.SendWapPushE param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.djs.learn.wsclient.wap_push.WapPushServiceStub.SendWapPushE param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.djs.test.wsclient.wap_push.WapPushServiceStub.SendWapPushE.MY_QNAME,
+                             return param.getOMElement(com.djs.learn.wsclient.wap_push.WapPushServiceStub.SendWapPushE.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -5202,12 +5202,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.djs.test.wsclient.wap_push.WapPushServiceStub.SendWapPushResponseE param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.djs.learn.wsclient.wap_push.WapPushServiceStub.SendWapPushResponseE param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.djs.test.wsclient.wap_push.WapPushServiceStub.SendWapPushResponseE.MY_QNAME,
+                             return param.getOMElement(com.djs.learn.wsclient.wap_push.WapPushServiceStub.SendWapPushResponseE.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -5216,12 +5216,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.djs.test.wsclient.wap_push.WapPushServiceStub.PolicyExceptionE param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.djs.learn.wsclient.wap_push.WapPushServiceStub.PolicyExceptionE param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.djs.test.wsclient.wap_push.WapPushServiceStub.PolicyExceptionE.MY_QNAME,
+                             return param.getOMElement(com.djs.learn.wsclient.wap_push.WapPushServiceStub.PolicyExceptionE.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -5230,12 +5230,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(com.djs.test.wsclient.wap_push.WapPushServiceStub.ServiceExceptionE param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(com.djs.learn.wsclient.wap_push.WapPushServiceStub.ServiceExceptionE param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(com.djs.test.wsclient.wap_push.WapPushServiceStub.ServiceExceptionE.MY_QNAME,
+                             return param.getOMElement(com.djs.learn.wsclient.wap_push.WapPushServiceStub.ServiceExceptionE.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -5246,12 +5246,12 @@
         
                                     
                                 private  org.apache.axiom.soap.SOAPEnvelope toEnvelope(org.apache.axiom.soap.SOAPFactory factory,
-                                    com.djs.test.wsclient.wap_push.WapPushServiceStub.WapPushReqData param1,
-                                    com.djs.test.wsclient.wap_push.WapPushServiceStub.SendWapPushE dummyWrappedType,
+                                    com.djs.learn.wsclient.wap_push.WapPushServiceStub.WapPushReqData param1,
+                                    com.djs.learn.wsclient.wap_push.WapPushServiceStub.SendWapPushE dummyWrappedType,
                                  boolean optimizeContent) throws org.apache.axis2.AxisFault{
 
                                 try{
-                                com.djs.test.wsclient.wap_push.WapPushServiceStub.SendWapPushE wrappedType = new com.djs.test.wsclient.wap_push.WapPushServiceStub.SendWapPushE();
+                                com.djs.learn.wsclient.wap_push.WapPushServiceStub.SendWapPushE wrappedType = new com.djs.learn.wsclient.wap_push.WapPushServiceStub.SendWapPushE();
 
                                  SendWapPush wrappedComplexType = new SendWapPush();
                                           
@@ -5262,7 +5262,7 @@
 
                                org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
                                   
-                                        emptyEnvelope.getBody().addChild(wrappedType.getOMElement(com.djs.test.wsclient.wap_push.WapPushServiceStub.SendWapPushE.MY_QNAME,factory));
+                                        emptyEnvelope.getBody().addChild(wrappedType.getOMElement(com.djs.learn.wsclient.wap_push.WapPushServiceStub.SendWapPushE.MY_QNAME,factory));
                                     
 
                                 return emptyEnvelope;
@@ -5279,21 +5279,21 @@
 
                              
                                 private SendWapPush getsendWapPush(
-                                com.djs.test.wsclient.wap_push.WapPushServiceStub.SendWapPushE wrappedType){
+                                com.djs.learn.wsclient.wap_push.WapPushServiceStub.SendWapPushE wrappedType){
                                     return wrappedType.getSendWapPush();
                                 }
 
-                                private com.djs.test.wsclient.wap_push.WapPushServiceStub.SendWapPushE wrapsendWapPush(
+                                private com.djs.learn.wsclient.wap_push.WapPushServiceStub.SendWapPushE wrapsendWapPush(
                                 SendWapPush innerType){
-                                    com.djs.test.wsclient.wap_push.WapPushServiceStub.SendWapPushE wrappedElement = new com.djs.test.wsclient.wap_push.WapPushServiceStub.SendWapPushE();
+                                    com.djs.learn.wsclient.wap_push.WapPushServiceStub.SendWapPushE wrappedElement = new com.djs.learn.wsclient.wap_push.WapPushServiceStub.SendWapPushE();
                                     wrappedElement.setSendWapPush(innerType);
                                     return wrappedElement;
                                 }
                             
 
                                 
-                                private com.djs.test.wsclient.wap_push.WapPushServiceStub.WapPushRespData getSendWapPushResponseWapPushResponse(
-                                com.djs.test.wsclient.wap_push.WapPushServiceStub.SendWapPushResponseE wrappedType){
+                                private com.djs.learn.wsclient.wap_push.WapPushServiceStub.WapPushRespData getSendWapPushResponseWapPushResponse(
+                                com.djs.learn.wsclient.wap_push.WapPushServiceStub.SendWapPushResponseE wrappedType){
                                 
                                         return wrappedType.getSendWapPushResponse().getWapPushResponse();
                                     
@@ -5301,7 +5301,7 @@
                              
 
                                 private SendWapPushResponse getsendWapPush(
-                                com.djs.test.wsclient.wap_push.WapPushServiceStub.SendWapPushResponseE wrappedType){
+                                com.djs.learn.wsclient.wap_push.WapPushServiceStub.SendWapPushResponseE wrappedType){
                                     return wrappedType.getSendWapPushResponse();
                                 }
 
@@ -5325,30 +5325,30 @@
 
         try {
         
-                if (com.djs.test.wsclient.wap_push.WapPushServiceStub.SendWapPushE.class.equals(type)){
+                if (com.djs.learn.wsclient.wap_push.WapPushServiceStub.SendWapPushE.class.equals(type)){
                 
-                           return com.djs.test.wsclient.wap_push.WapPushServiceStub.SendWapPushE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return com.djs.learn.wsclient.wap_push.WapPushServiceStub.SendWapPushE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (com.djs.test.wsclient.wap_push.WapPushServiceStub.SendWapPushResponseE.class.equals(type)){
+                if (com.djs.learn.wsclient.wap_push.WapPushServiceStub.SendWapPushResponseE.class.equals(type)){
                 
-                           return com.djs.test.wsclient.wap_push.WapPushServiceStub.SendWapPushResponseE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return com.djs.learn.wsclient.wap_push.WapPushServiceStub.SendWapPushResponseE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (com.djs.test.wsclient.wap_push.WapPushServiceStub.PolicyExceptionE.class.equals(type)){
+                if (com.djs.learn.wsclient.wap_push.WapPushServiceStub.PolicyExceptionE.class.equals(type)){
                 
-                           return com.djs.test.wsclient.wap_push.WapPushServiceStub.PolicyExceptionE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return com.djs.learn.wsclient.wap_push.WapPushServiceStub.PolicyExceptionE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (com.djs.test.wsclient.wap_push.WapPushServiceStub.ServiceExceptionE.class.equals(type)){
+                if (com.djs.learn.wsclient.wap_push.WapPushServiceStub.ServiceExceptionE.class.equals(type)){
                 
-                           return com.djs.test.wsclient.wap_push.WapPushServiceStub.ServiceExceptionE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return com.djs.learn.wsclient.wap_push.WapPushServiceStub.ServiceExceptionE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }

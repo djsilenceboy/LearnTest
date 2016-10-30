@@ -23,7 +23,7 @@
 		<description></description>
 		<display-name>StudentTest</display-name>
 		<servlet-name>StudentTest</servlet-name>
-		<servlet-class>com.djs.test.sv.student.StudentTest</servlet-class>
+		<servlet-class>com.djs.learn.sv.student.StudentTest</servlet-class>
 	</servlet>
 	<servlet>
 		<display-name>ShowStudentList</display-name>

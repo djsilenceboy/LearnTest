@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.djs.test</groupId>
+	<groupId>com.djs.learn</groupId>
 	<artifactId>maven_sample</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
@@ -39,7 +39,7 @@
 									<wsdl>${basedir}/src/main/wsdl/session_manager_service.wsdl</wsdl>
 									<extraargs>
 										<extraarg>-p</extraarg>
-										<extraarg>com.djs.test.wsclient.session_manager</extraarg>
+										<extraarg>com.djs.learn.wsclient.session_manager</extraarg>
 									</extraargs>
 								</wsdlOption>
 								<wsdlOption>
@@ -49,7 +49,7 @@
 									</bindingFiles>
 									<extraargs>
 										<extraarg>-p</extraarg>
-										<extraarg>com.djs.test.wsclient.example_test</extraarg>
+										<extraarg>com.djs.learn.wsclient.example_test</extraarg>
 									</extraargs>
 								</wsdlOption>
 								<wsdlOption>
@@ -59,7 +59,7 @@
 									</bindingFiles>
 									<extraargs>
 										<extraarg>-p</extraarg>
-										<extraarg>com.djs.test.wsclient.wap_push</extraarg>
+										<extraarg>com.djs.learn.wsclient.wap_push</extraarg>
 									</extraargs>
 								</wsdlOption>
 							</wsdlOptions>

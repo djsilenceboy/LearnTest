@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.djs.test</groupId>
+	<groupId>com.djs.learn</groupId>
 	<artifactId>maven_sample</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
@@ -26,7 +26,7 @@
 							<goal>wsdl2code</goal>
 						</goals>
 						<configuration>
-							<packageName>com.djs.test.wsclient.sessionmanager</packageName>
+							<packageName>com.djs.learn.wsclient.sessionmanager</packageName>
 							<wsdlFile>${basedir}/src/main/wsdl/session_manager_service.wsdl</wsdlFile>
 							<outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
 							<unwrap>true</unwrap>
@@ -39,7 +39,7 @@
 							<goal>wsdl2code</goal>
 						</goals>
 						<configuration>
-							<packageName>com.djs.test.wsclient.example_test</packageName>
+							<packageName>com.djs.learn.wsclient.example_test</packageName>
 							<wsdlFile>${basedir}/src/main/wsdl/ndp_ext_example_test_service.wsdl</wsdlFile>
 							<outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
 							<!-- databindingName>xmlbeans</databindingName -->
@@ -53,7 +53,7 @@
 							<goal>wsdl2code</goal>
 						</goals>
 						<configuration>
-							<packageName>com.djs.test.wsclient.wap_push</packageName>
+							<packageName>com.djs.learn.wsclient.wap_push</packageName>
 							<wsdlFile>${basedir}/src/main/wsdl/ndp_ext_parlayx_wappush_service_1_0.wsdl</wsdlFile>
 							<outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
 							<!-- databindingName>adb</databindingName-->

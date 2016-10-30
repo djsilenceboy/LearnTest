@@ -5,9 +5,9 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package com.djs.test.wsclient.example_test;
+package com.djs.learn.wsclient.example_test;
 
-public class SendDataServiceLocator extends org.apache.axis.client.Service implements com.djs.test.wsclient.example_test.SendDataService {
+public class SendDataServiceLocator extends org.apache.axis.client.Service implements com.djs.learn.wsclient.example_test.SendDataService {
 
     public SendDataServiceLocator() {
     }
@@ -52,7 +52,7 @@ public class SendDataServiceLocator extends org.apache.axis.client.Service imple
 
     public com.singtel.ndp.ext.example_test.v1_0._interface.SendDataPort getSendDataPort(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
         try {
-            com.djs.test.wsclient.example_test.SendDataBindingStub _stub = new com.djs.test.wsclient.example_test.SendDataBindingStub(portAddress, this);
+            com.djs.learn.wsclient.example_test.SendDataBindingStub _stub = new com.djs.learn.wsclient.example_test.SendDataBindingStub(portAddress, this);
             _stub.setPortName(getSendDataPortWSDDServiceName());
             return _stub;
         }
@@ -73,7 +73,7 @@ public class SendDataServiceLocator extends org.apache.axis.client.Service imple
     public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         try {
             if (com.singtel.ndp.ext.example_test.v1_0._interface.SendDataPort.class.isAssignableFrom(serviceEndpointInterface)) {
-                com.djs.test.wsclient.example_test.SendDataBindingStub _stub = new com.djs.test.wsclient.example_test.SendDataBindingStub(new java.net.URL(SendDataPort_address), this);
+                com.djs.learn.wsclient.example_test.SendDataBindingStub _stub = new com.djs.learn.wsclient.example_test.SendDataBindingStub(new java.net.URL(SendDataPort_address), this);
                 _stub.setPortName(getSendDataPortWSDDServiceName());
                 return _stub;
             }

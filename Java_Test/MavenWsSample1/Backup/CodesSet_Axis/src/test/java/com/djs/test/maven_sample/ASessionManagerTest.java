@@ -1,5 +1,5 @@
 
-package com.djs.test.maven_sample;
+package com.djs.learn.maven_sample;
 
 import java.net.URL;
 
@@ -9,9 +9,9 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.djs.test.wsclient.sessionmanager.SessionManager;
-import com.djs.test.wsclient.sessionmanager.SessionManagerService;
-import com.djs.test.wsclient.sessionmanager.SessionManagerServiceLocator;
+import com.djs.learn.wsclient.sessionmanager.SessionManager;
+import com.djs.learn.wsclient.sessionmanager.SessionManagerService;
+import com.djs.learn.wsclient.sessionmanager.SessionManagerServiceLocator;
 
 public class ASessionManagerTest
 {

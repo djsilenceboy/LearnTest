@@ -1,4 +1,4 @@
-package com.djs.test.maven_sample;
+package com.djs.learn.maven_sample;
 
 /**
  * Hello world!

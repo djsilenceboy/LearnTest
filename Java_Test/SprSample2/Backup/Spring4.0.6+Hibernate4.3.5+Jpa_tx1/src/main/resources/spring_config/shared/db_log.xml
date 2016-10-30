@@ -8,7 +8,7 @@
 						http://www.springframework.org/schema/aop 
 						http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-	<bean id="itemLoggingHelper" class="com.djs.test.spring_sample.logging.ItemLoggingHelper"
+	<bean id="itemLoggingHelper" class="com.djs.learn.spring_sample.logging.ItemLoggingHelper"
 		p:itemLogDao-ref="itemLogDao" />
 
 	<aop:config>

@@ -58,6 +58,8 @@ def collect_args_kwargs(a, b, *args, **kwargs):
 
 
 def main():
+    print("-" * 40)
+
     roll1(4, 1)
     roll1(4, 2)
 
@@ -104,6 +106,12 @@ def main():
     print("-" * 40)
 
     collect_args_kwargs(1, 2, 'apple', 'carrots', Cat=1, Dog=2, Chicken=3)
+
+    print("-" * 40)
+
+    # Show default input parameters, if any.
+    print("roll2 =", roll2.__defaults__)
+    print("default_args1 =", default_args1.__defaults__)
 
     print("-" * 40)
 

@@ -5,7 +5,7 @@ Created on Apr 8, 2016
 '''
 
 import unittest
-from com.djs.learn.unit import TestSample as cap
+from com.djs.learn.unittest import TestSample as cap
 
 
 MULTIPLE_WORDS_SOURCE = "this is a good day"
@@ -61,6 +61,22 @@ class TestCap(unittest.TestCase):
     def test_error_2(self):
         print("test_error_2")
         self.assertRaises(TypeError, cap.some_error)
+
+    @unittest.skipIf(True, "Let's pass it.")
+    def test_skipIf_1(self):
+        print("test_skipIf_1")
+
+    @unittest.skipIf(False, "Let's do it.")
+    def test_skipIf_2(self):
+        print("test_skipIf_2")
+
+    @unittest.skipUnless(False, "Let's pass it too.")
+    def test_skipUnless_1(self):
+        print("test_skipUnless_1")
+
+    @unittest.skipUnless(True, "Let's do it too.")
+    def test_skipUnless_2(self):
+        print("test_skipUnless_2")
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'TestCap.test_one_word']

@@ -47,7 +47,7 @@
 		<property name="unmarshaller" ref="marshaller" />
 	</bean>
 
-	<bean id="abstractLoginSoapHandler" class="com.djs.test.maven_sample.LoginSoapHandler"
+	<bean id="abstractLoginSoapHandler" class="com.djs.learn.maven_sample.LoginSoapHandler"
 		abstract="true">
 		<property name="userName" value="${ocsg.login.userName}" />
 		<property name="password" value="${ocsg.login.password}" />

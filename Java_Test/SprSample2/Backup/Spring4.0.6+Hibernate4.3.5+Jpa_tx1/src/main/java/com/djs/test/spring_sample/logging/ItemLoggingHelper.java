@@ -1,13 +1,13 @@
 
-package com.djs.test.spring_sample.logging;
+package com.djs.learn.spring_sample.logging;
 
 import java.util.Date;
 
 import org.apache.log4j.Logger;
 
-import com.djs.test.spring_sample.db.ItemDao;
-import com.djs.test.spring_sample.db.ItemLog;
-import com.djs.test.spring_sample.db.ItemLogDao;
+import com.djs.learn.spring_sample.db.ItemDao;
+import com.djs.learn.spring_sample.db.ItemLog;
+import com.djs.learn.spring_sample.db.ItemLogDao;
 
 public class ItemLoggingHelper
 {

@@ -7,6 +7,6 @@
 
 	<import resource="${file_path.context.shared_internal}db_log.xml" />
 
-	<bean id="itemLogDao" class="com.djs.test.spring_sample.logging.ItemLogDaoImplA" />
+	<bean id="itemLogDao" class="com.djs.learn.spring_sample.logging.ItemLogDaoImplA" />
 
 </beans>

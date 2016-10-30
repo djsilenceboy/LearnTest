@@ -1,5 +1,5 @@
 
-package com.djs.test.spring_sample.tx;
+package com.djs.learn.spring_sample.tx;
 
 import org.apache.log4j.Logger;
 import org.springframework.transaction.annotation.Transactional;

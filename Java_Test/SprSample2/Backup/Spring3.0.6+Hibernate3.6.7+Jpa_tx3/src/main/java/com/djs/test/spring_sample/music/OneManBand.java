@@ -1,5 +1,5 @@
 
-package com.djs.test.spring_sample.music;
+package com.djs.learn.spring_sample.music;
 
 import java.util.List;
 

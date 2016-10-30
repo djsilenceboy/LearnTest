@@ -3,7 +3,7 @@
  * 
  */
 
-package com.djs.test.wsclient.example_test;
+package com.djs.learn.wsclient.example_test;
 
 import java.net.MalformedURLException;
 import java.net.URL;

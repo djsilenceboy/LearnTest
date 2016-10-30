@@ -1,5 +1,5 @@
 
-package com.djs.test.spring_sample.aop;
+package com.djs.learn.spring_sample.aop;
 
 public class AirMail
 {

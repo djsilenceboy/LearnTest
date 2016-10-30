@@ -13,8 +13,8 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
-				<value>com.djs.test.spring_sample.db.Item</value>
-				<value>com.djs.test.spring_sample.db.ItemLog</value>
+				<value>com.djs.learn.spring_sample.db.Item</value>
+				<value>com.djs.learn.spring_sample.db.ItemLog</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -41,14 +41,14 @@
 
 	<!-- This method is 2nd recommended. -->
 	<bean id="itemDao0"
-		class="com.djs.test.spring_sample.hibernate.ItemDaoHibernateImplA">
+		class="com.djs.learn.spring_sample.hibernate.ItemDaoHibernateImplA">
 		<property name="hibernateTemplate" ref="hibernateTemplate" />
 	</bean>
 
 
 	<!-- This method does not work yet. -->
 	<bean id="itemDao1"
-		class="com.djs.test.spring_sample.hibernate.ItemDaoHibernateImplB">
+		class="com.djs.learn.spring_sample.hibernate.ItemDaoHibernateImplB">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
@@ -56,14 +56,14 @@
 	<!-- This method is not recommended, because SpringModules framework is 
 		discontinued. -->
 	<bean id="itemDao2"
-		class="com.djs.test.spring_sample.hibernate.ItemDaoSpringHibernateImplA">
+		class="com.djs.learn.spring_sample.hibernate.ItemDaoSpringHibernateImplA">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
 
 	<!-- This method is 1st recommended. -->
 	<bean id="itemDao3"
-		class="com.djs.test.spring_sample.hibernate.ItemDaoSpringHibernateImplB">
+		class="com.djs.learn.spring_sample.hibernate.ItemDaoSpringHibernateImplB">
 		<property name="hibernateTemplate" ref="hibernateTemplate" />
 	</bean>
 

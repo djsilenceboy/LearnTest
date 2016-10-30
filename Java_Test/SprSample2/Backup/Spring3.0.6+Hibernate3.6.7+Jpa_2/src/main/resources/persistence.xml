@@ -3,8 +3,8 @@
 
 	<persistence-unit name="spring_sample">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>com.djs.test.spring_sample.db.Item</class>
-		<class>com.djs.test.spring_sample.db.ItemLog</class>
+		<class>com.djs.learn.spring_sample.db.Item</class>
+		<class>com.djs.learn.spring_sample.db.ItemLog</class>
 	</persistence-unit>
 
 </persistence>

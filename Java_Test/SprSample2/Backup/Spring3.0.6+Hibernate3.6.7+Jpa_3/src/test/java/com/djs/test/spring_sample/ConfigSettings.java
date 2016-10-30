@@ -1,5 +1,5 @@
 
-package com.djs.test.spring_sample;
+package com.djs.learn.spring_sample;
 
 import java.io.InputStream;
 import java.util.Properties;

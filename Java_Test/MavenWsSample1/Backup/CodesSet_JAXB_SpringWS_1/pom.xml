@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.djs.test</groupId>
+	<groupId>com.djs.learn</groupId>
 	<artifactId>maven_sample</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
@@ -36,7 +36,7 @@
 								<include>session_manager_service.wsdl</include>
 							</schemaIncludes>
 							<generateDirectory>${project.build.directory}/generated-sources/src</generateDirectory>
-							<generatePackage>com.djs.test.wsclient.session_manager</generatePackage>
+							<generatePackage>com.djs.learn.wsclient.session_manager</generatePackage>
 							<episodeFile>${project.build.directory}/generated-sources/src/META-INF/session_manager.episode</episodeFile>
 							<forceRegenerate>true</forceRegenerate>
 							<extension>true</extension>
@@ -55,7 +55,7 @@
 								<include>ndp_ext_example_test_interface.wsdl</include>
 							</schemaIncludes>
 							<generateDirectory>${project.build.directory}/generated-sources/src</generateDirectory>
-							<generatePackage>com.djs.test.wsclient.example_test</generatePackage>
+							<generatePackage>com.djs.learn.wsclient.example_test</generatePackage>
 							<episodeFile>${project.build.directory}/generated-sources/src/META-INF/example_test.episode</episodeFile>
 							<forceRegenerate>true</forceRegenerate>
 							<extension>true</extension>
@@ -74,7 +74,7 @@
 								<include>ndp_ext_parlayx_wappush_interface_1_0.wsdl</include>
 							</schemaIncludes>
 							<generateDirectory>${project.build.directory}/generated-sources/src</generateDirectory>
-							<generatePackage>com.djs.test.wsclient.wap_push</generatePackage>
+							<generatePackage>com.djs.learn.wsclient.wap_push</generatePackage>
 							<episodeFile>${project.build.directory}/generated-sources/src/META-INF/wap_push.episode</episodeFile>
 							<forceRegenerate>true</forceRegenerate>
 							<extension>true</extension>

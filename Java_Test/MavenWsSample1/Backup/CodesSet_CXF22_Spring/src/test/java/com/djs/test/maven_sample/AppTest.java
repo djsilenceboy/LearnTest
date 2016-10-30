@@ -1,5 +1,5 @@
 
-package com.djs.test.maven_sample;
+package com.djs.learn.maven_sample;
 
 import java.math.BigInteger;
 import java.util.Calendar;
@@ -13,13 +13,13 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.djs.test.wsclient.example_test.SendDataPort;
-import com.djs.test.wsclient.example_test.SendDataRequest;
-import com.djs.test.wsclient.example_test.SendDataResponse;
-import com.djs.test.wsclient.session_manager.SessionManager;
-import com.djs.test.wsclient.wap_push.ExtWapPush;
-import com.djs.test.wsclient.wap_push.WapPushReqData;
-import com.djs.test.wsclient.wap_push.WapPushRespData;
+import com.djs.learn.wsclient.example_test.SendDataPort;
+import com.djs.learn.wsclient.example_test.SendDataRequest;
+import com.djs.learn.wsclient.example_test.SendDataResponse;
+import com.djs.learn.wsclient.session_manager.SessionManager;
+import com.djs.learn.wsclient.wap_push.ExtWapPush;
+import com.djs.learn.wsclient.wap_push.WapPushReqData;
+import com.djs.learn.wsclient.wap_push.WapPushRespData;
 
 public class AppTest
 {
@@ -103,13 +103,13 @@ public class AppTest
 		}
 		catch (Exception e)
 		{
-			if (e instanceof com.djs.test.wsclient.example_test.ServiceException)
+			if (e instanceof com.djs.learn.wsclient.example_test.ServiceException)
 			{
-				InfoHelper.showException( log, "", ((com.djs.test.wsclient.example_test.ServiceException)e).getFaultInfo() );
+				InfoHelper.showException( log, "", ((com.djs.learn.wsclient.example_test.ServiceException)e).getFaultInfo() );
 			}
-			else if (e instanceof com.djs.test.wsclient.example_test.PolicyException)
+			else if (e instanceof com.djs.learn.wsclient.example_test.PolicyException)
 			{
-				InfoHelper.showException( log, "", ((com.djs.test.wsclient.example_test.PolicyException)e).getFaultInfo() );
+				InfoHelper.showException( log, "", ((com.djs.learn.wsclient.example_test.PolicyException)e).getFaultInfo() );
 			}
 			else
 			{
@@ -158,13 +158,13 @@ public class AppTest
 		}
 		catch (Exception e)
 		{
-			if (e instanceof com.djs.test.wsclient.wap_push.ServiceException)
+			if (e instanceof com.djs.learn.wsclient.wap_push.ServiceException)
 			{
-				InfoHelper.showException( log, "", ((com.djs.test.wsclient.wap_push.ServiceException)e).getFaultInfo() );
+				InfoHelper.showException( log, "", ((com.djs.learn.wsclient.wap_push.ServiceException)e).getFaultInfo() );
 			}
-			else if (e instanceof com.djs.test.wsclient.wap_push.PolicyException)
+			else if (e instanceof com.djs.learn.wsclient.wap_push.PolicyException)
 			{
-				InfoHelper.showException( log, "", ((com.djs.test.wsclient.wap_push.PolicyException)e).getFaultInfo() );
+				InfoHelper.showException( log, "", ((com.djs.learn.wsclient.wap_push.PolicyException)e).getFaultInfo() );
 			}
 			else
 			{

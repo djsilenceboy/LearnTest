@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.djs.test</groupId>
+	<groupId>com.djs.learn</groupId>
 	<artifactId>maven_sample</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
@@ -35,15 +35,15 @@
 					<mappings>
 						<mapping>
 							<namespace>http://www.bea.com/wsdl/wlcp/wlng/session_manager/service</namespace>
-							<targetPackage>com.djs.test.wsclient.sessionmanager</targetPackage>
+							<targetPackage>com.djs.learn.wsclient.sessionmanager</targetPackage>
 						</mapping>
 						<mapping>
 							<namespace>http://singtel.com/ndp/ext/example_test/v1_0/service</namespace>
-							<targetPackage>com.djs.test.wsclient.example_test</targetPackage>
+							<targetPackage>com.djs.learn.wsclient.example_test</targetPackage>
 						</mapping>
 						<mapping>
 							<namespace>http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/service</namespace>
-							<targetPackage>com.djs.test.wsclient.wap_push</targetPackage>
+							<targetPackage>com.djs.learn.wsclient.wap_push</targetPackage>
 						</mapping>
 					</mappings>
 					<outputDirectory>${project.build.directory}/generated-sources/src</outputDirectory>

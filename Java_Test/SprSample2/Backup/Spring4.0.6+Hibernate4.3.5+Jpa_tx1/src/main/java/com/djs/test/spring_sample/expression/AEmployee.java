@@ -1,5 +1,5 @@
 
-package com.djs.test.spring_sample.expression;
+package com.djs.learn.spring_sample.expression;
 
 public class AEmployee
 {

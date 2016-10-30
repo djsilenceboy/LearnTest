@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.djs.test</groupId>
+	<groupId>com.djs.learn</groupId>
 	<artifactId>maven_sample</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
@@ -37,7 +37,7 @@
 								<bindingFile>bindings.xjb</bindingFile>
 							</bindingFiles>
 							<!-- Do not set <packageName> here, otherwise it will not generate standalone pacakge for "parlayx_common_types_2_1.xsd". -->
-							<!-- packageName>com.djs.test.wsclient.xxx</packageName -->
+							<!-- packageName>com.djs.learn.wsclient.xxx</packageName -->
 							<sourceDestDir>${project.build.directory}/generated-sources/src</sourceDestDir>
 						</configuration>
 					</execution>

@@ -1,5 +1,5 @@
 
-package com.djs.test.spring_sample.property;
+package com.djs.learn.spring_sample.property;
 
 public class Company
 {

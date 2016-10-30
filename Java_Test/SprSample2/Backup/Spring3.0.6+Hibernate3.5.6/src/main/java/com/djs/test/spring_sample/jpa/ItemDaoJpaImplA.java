@@ -1,13 +1,13 @@
 
-package com.djs.test.spring_sample.jpa;
+package com.djs.learn.spring_sample.jpa;
 
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.orm.jpa.JpaTemplate;
 
-import com.djs.test.spring_sample.db.Item;
-import com.djs.test.spring_sample.db.ItemDao;
+import com.djs.learn.spring_sample.db.Item;
+import com.djs.learn.spring_sample.db.ItemDao;
 
 public class ItemDaoJpaImplA implements ItemDao
 {
