@@ -15,7 +15,7 @@
 /**/gen/
 /**/target/
 /**/temp/
-
+/**/ztest/log/
 /**/*.class
 
 
