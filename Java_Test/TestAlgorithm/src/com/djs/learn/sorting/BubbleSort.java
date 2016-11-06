@@ -18,13 +18,18 @@ public class BubbleSort extends AbstractSorting
 			printData(data);
 		}
 
+		// 1. In first sub-list, from the bottom, swap the largest element up to the top position.
+		// 2. Decrease the sub-list.
+		// 3. In second sub-list, from the bottom, swap the largest element up to the next top position.
+		// 4. Repeat 2 and 3.
+
 		// From last element to 1 (not 0).
 		for (i = data.length - 1; i > 0; i--) {
 			haveSwap = 0;
 
 			// From 1 (not 0) to i.
 			for (j = 1; j <= i; j++) {
-				if (data[j] < data[j - 1]) {
+				if (data[j - 1] > data[j]) {
 					// Swap.
 					data[j - 1] = (Integer)swap(data[j], data[j] = data[j - 1]);
 

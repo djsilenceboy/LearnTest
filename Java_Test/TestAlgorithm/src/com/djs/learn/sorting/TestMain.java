@@ -13,8 +13,9 @@ public class TestMain
 		                          {88, 88, 88, 88, 88, 88, 88, 88, 88}};
 
 		SortingInterface[] sortingMethods = new SortingInterface[]{new BubbleSort(), new BucketSort(), new HeapSort(), new HeapSort2(), new InsertionSort(),
-		                                                           new MergeSort(), new QuickSort(), new QuickSort2(), new SelectionSort(), new ShellSort()};
-		boolean output = true;
+		                                                           new MergeSort(), new QuickSort(), new QuickSort2(), new SelectionSort(), new ShellSort(),
+		                                                           new ShellSort2()};
+		boolean output = false;
 
 		// SortingInterface[] sortingMethods = new SortingInterface[]{new QuickSort(), new QuickSort2()};
 		// boolean output = true;
@@ -47,7 +48,7 @@ public class TestMain
 			Set<Double> keys = result.keySet();
 
 			for (Double key : keys) {
-				System.out.printf("%20s: %10.6f\n", result.get(key), key);
+				System.out.printf("%25s: %10.6f\n", result.get(key), key);
 			}
 		}
 	}

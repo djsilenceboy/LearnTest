@@ -1,16 +1,16 @@
 
 package com.djs.learn.sorting;
 
-public class ShellSort extends AbstractSorting
+public class ShellSort2 extends AbstractSorting
 {
 	public String getMethodName(){
-		return "Shell Sort (Insertion)";
+		return "Shell Sort (Selection)";
 	}
 
 	@Override
 	public Integer[] sort(Integer[] data, boolean output){
 		int i, j, increment;
-		int temp;
+		int smallestPosition;
 
 		if (output) {
 			System.out.printf("%2c, %2c: ", 'k', 'i');
@@ -24,20 +24,22 @@ public class ShellSort extends AbstractSorting
 		// 5. Repeat 3 and 4.
 
 		for (increment = data.length / 2; increment > 0; increment /= 2) {
-			// Insertion Sort is used for internal sorting.
+			// Selection Sort is used for internal sorting.
 			for (i = increment; i < data.length; i += increment) {
-				temp = data[i];
+				smallestPosition = i;
 
-				for (j = i; (j - increment > 0) && (data[j - increment] > temp); j -= increment) {
-					data[j] = data[j - increment];
-
-					if (output) {
-						System.out.printf("      : %2d->%2d\n", j - increment, j);
+				for (j = i + increment; j < data.length; j += increment) {
+					if (data[j] < data[smallestPosition]) {
+						smallestPosition = j;
 					}
 				}
 
-				if (j != i) {
-					data[j] = temp;
+				if (smallestPosition != i) {
+					data[i] = (Integer)swap(data[smallestPosition], data[smallestPosition] = data[i]);
+
+					if (output) {
+						System.out.printf("      : %2d->%2d\n", smallestPosition, i);
+					}
 				}
 
 				if (output) {
