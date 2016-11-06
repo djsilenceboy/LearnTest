@@ -22,6 +22,11 @@ public class HeapSort extends AbstractSorting
 		}
 
 		// Following is sorting for MinHeap.
+		// 1. Swap the largest element to the last position.
+		// 2. Re-build heap.
+		// 3. Swap the next largest element to the next last position.
+		// 4. Re-build heap.
+		// 5. Repeat 3 and 4.
 
 		// From last element to 1 (not 0).
 		for (i = data.length - 1; i > 0; i--) {
@@ -39,6 +44,10 @@ public class HeapSort extends AbstractSorting
 		return data;
 	}
 
+	/**
+	 * Move the small elements down to the bottom positions.
+	 * Move the large elements up to the top positions.
+	 */
 	public void buildHeap(Integer[] data, boolean output){
 		int i;
 
@@ -63,6 +72,10 @@ public class HeapSort extends AbstractSorting
 		}
 	}
 
+	/**
+	 * Move the smallest element down to the bottom position.
+	 * Move the largest element up to the top position.
+	 */
 	public void percolateDown(Integer[] data, int size, int position, boolean output){
 		int i = position;
 		int child = i * 2 + 1;
@@ -74,7 +87,7 @@ public class HeapSort extends AbstractSorting
 				child++;
 			}
 
-			// If current is larger than child, swap.
+			// If current is smaller than child, swap.
 			if (data[i] < data[child]) {
 				if (output) {
 					System.out.printf("   : %2d->%2d\n", i, child);

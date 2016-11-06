@@ -58,15 +58,15 @@ public class QuickSort extends AbstractSorting
 			printData(data, leftPosition, size);
 		}
 
-		// If small array, better use other sorting method.
+		// For smaller array (the length is less than CUTOFF in this case), better use other sorting method.
 		if (size <= CUTOFF) {
 			InsertionSort insertionSort = new InsertionSort();
 			return insertionSort.sort(data, leftPosition, size, output);
 		} else {
 			int rightPosition = leftPosition + size - 1;
-			// Get pivot pos.
+			// Get pivot position.
 			int pivotPosition = selectPivot(data, leftPosition, size, output);
-			// After selection, data[left] <= data[center/pivotPos] <= data[size - 1].
+			// After selection, data[left] <= data[center=pivotPosition] <= data[size - 1].
 			int pivot = data[pivotPosition];
 
 			// Exchange pivot with the (right - 1) element.

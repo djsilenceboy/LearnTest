@@ -9,7 +9,7 @@ public class SelectionSort extends AbstractSorting
 
 	@Override
 	public Integer[] sort(Integer[] data, boolean output){
-		int i, j, k;
+		int i, j, smallestPosition;
 
 		if (output) {
 			System.out.printf("%2c, %2c: ", 'i', 'j');
@@ -17,20 +17,21 @@ public class SelectionSort extends AbstractSorting
 		}
 
 		for (i = 0; i < data.length; i++) {
-			k = i;
+			// Keep current position, suppose the element is the smallest.
+			smallestPosition = i;
 
 			for (j = i + 1; j < data.length; j++) {
-				if (data[j] < data[k]) {
-					k = j;
+				if (data[j] < data[smallestPosition]) {
+					smallestPosition = j;
 				}
 			}
 
 			// If there is any shift.
-			if (k != i) {
-				data[i] = (Integer)swap(data[k], data[k] = data[i]);
+			if (smallestPosition != i) {
+				data[i] = (Integer)swap(data[smallestPosition], data[smallestPosition] = data[i]);
 
 				if (output) {
-					System.out.printf("      : %2d->%2d\n", k, i);
+					System.out.printf("      : %2d->%2d\n", smallestPosition, i);
 				}
 			}
 

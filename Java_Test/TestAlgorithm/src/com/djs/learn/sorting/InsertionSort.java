@@ -18,10 +18,13 @@ public class InsertionSort extends AbstractSorting
 		}
 
 		// From 1 (not 0) to last element.
+		// Insert each new element into already sorted sub-list.
 		for (i = 1; i < data.length; i++) {
+			// Temporarily keep the top/new element in sub-list, which will be inserted into proper position.
 			temp = data[i];
 
 			// From i to 1 (not 0).
+			// Move all elements larger than temp one up.
 			for (j = i; (j > 0) && (data[j - 1] > temp); j--) {
 				data[j] = data[j - 1];
 
@@ -30,10 +33,13 @@ public class InsertionSort extends AbstractSorting
 				}
 			}
 
-			// If there is any shift.
+			// If there is any movement,
+			// put temp one to new position.
 			if (j != i) {
 				data[j] = temp;
 			}
+
+			// The sub-list is always sorted already.
 
 			if (output) {
 				System.out.printf("%2d, %2d: ", i, j);
@@ -41,9 +47,12 @@ public class InsertionSort extends AbstractSorting
 			}
 		}
 
-		return sort(data, 0, data.length, output);
+		return data;
 	}
 
+	/**
+	 * This version is used by Quick Sort, to sort sub list.
+	 */
 	public Integer[] sort(Integer[] data, int leftPosition, int size, boolean output){
 		int i, j;
 		int temp;

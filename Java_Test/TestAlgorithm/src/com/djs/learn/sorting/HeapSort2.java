@@ -12,35 +12,41 @@ public class HeapSort2 extends AbstractSorting
 	 */
 	@Override
 	public Integer[] sort(Integer data[], boolean output){
-		int i, j, p;
+		int position, child, parent;
 
 		if (output) {
 			System.out.printf("%2c, %2c: ", 'i', 'j');
 			printData(data);
 		}
 
-		for (i = 0; i < data.length; i++) {
-			// Push the smallest element to i position.
-			j = data.length - 1;
+		// Push the smallest element to top position.
+		for (position = 0; position < data.length; position++) {
+			// From the bottom position.
+			child = data.length - 1;
 
-			while (j > i) {
-				p = i + (int)(((float)j - i - 0.5) / 2.0);
+			// Compare each node with its parent,
+			// Swap value if child is smaller than parent.
+			while (child > position) {
+				// Get parent position.
+				parent = position + (int)(((float)child - position - 0.5) / 2.0);
 
-				if (data[p] > data[j]) {
+				// Compare parent and child.
+				if (data[parent] > data[child]) {
 					// Swap.
-					data[j] = (Integer)swap(data[p], data[p] = data[j]);
+					data[child] = (Integer)swap(data[parent], data[parent] = data[child]);
 
 					if (output) {
-						System.out.printf("      : %2d<=>%2d\n", p, j);
+						System.out.printf("      : %2d<=>%2d\n", parent, child);
 					}
 				}
 
 				if (output) {
-					System.out.printf("%2d, %2d: ", i, j);
+					System.out.printf("%2d, %2d: ", position, child);
 					printData(data);
 				}
 
-				j--;
+				// move up one node.
+				child--;
 			}
 		}
 
