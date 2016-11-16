@@ -13,6 +13,7 @@ import com.djs.learn.classtag.inherited2.ChildB3;
 import com.djs.learn.classtag.interfacetag.ImplementChildA;
 import com.djs.learn.classtag.interfacetag.ImplementParentA;
 import com.djs.learn.classtag.interfacetag.InterfaceParentA;
+import com.djs.learn.classtag.mix.MixChildA;
 import com.djs.learn.classtag.nestedtag.OuterParentA;
 import com.djs.learn.classtag.nestedtag.OuterParentB;
 import com.djs.learn.classtag.nestedtag.OuterParentC;
@@ -526,6 +527,19 @@ public class TestMain
 		}
 	}
 
+	public void testMixTag(){
+		System.out.println("---------- Test: Mix ----------");
+
+		int i;
+
+		try {
+			MixChildA mixChildA = new MixChildA();
+			System.out.println("Namge = " + mixChildA.getName());
+		} catch (Exception e) {
+			System.err.println("Exception = " + e);
+		}
+	}
+
 	public static void main(String[] args){
 		TestMain theClass = new TestMain();
 
@@ -556,6 +570,10 @@ public class TestMain
 		System.out.println("============================================================");
 
 		theClass.testStaticTag();
+
+		System.out.println("============================================================");
+
+		theClass.testMixTag();
 
 		System.out.println("============================================================");
 	}
