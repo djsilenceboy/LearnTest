@@ -5,12 +5,14 @@
 > python -m pip install --upgrade pip
 ------------------------------------------------------------
 > pip install line_profiler
+  (Need vcvarsall.bat)
+> pip install guppy
+  (for heapy)
+  (Need vcvarsall.bat)
+
 > pip install memory_profiler
   (depend on psutil for non-Unix platform)
 > pip install psutil
-
-> pip install guppy
-  (for heapy)
 ------------------------------------------------------------
 > pip install numpy
 > pip install sqlalchemy
@@ -37,8 +39,9 @@
 > pip install matplotlib
 ------------------------------------------------------------
 > pip install scrapy
-
+  (Need vcvarsall.bat)
 > pip install twisted
+  (Need vcvarsall.bat)
 
 > pip install redis
 > pip install python-memcached
