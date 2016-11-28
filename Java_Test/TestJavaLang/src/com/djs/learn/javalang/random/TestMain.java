@@ -38,9 +38,9 @@ public class TestMain
 	}
 
 	public static void main(String[] args){
-		TestMain rit = new TestMain();
+		TestMain test = new TestMain();
 
-		rit.testLong();
-		rit.testInt();
+		test.testLong();
+		test.testInt();
 	}
 }

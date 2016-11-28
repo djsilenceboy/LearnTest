@@ -18,6 +18,7 @@ import com.djs.learn.classtag.nestedtag.OuterParentA;
 import com.djs.learn.classtag.nestedtag.OuterParentB;
 import com.djs.learn.classtag.nestedtag.OuterParentC;
 import com.djs.learn.classtag.nestedtag.OuterParentD;
+import com.djs.learn.classtag.nestedtag.OuterParentE;
 import com.djs.learn.classtag.nestedtag.WrapperParentA;
 import com.djs.learn.classtag.nestedtag.WrapperParentB;
 import com.djs.learn.classtag.overridetag.OverrideChildA;
@@ -383,7 +384,7 @@ public class TestMain
 			System.err.println("Exception = " + e);
 		}
 
-		System.out.println("--------------------");
+		System.out.println("----------------------------------------");
 
 		try {
 			OuterParentC outerParentC = new OuterParentC();
@@ -399,7 +400,7 @@ public class TestMain
 			System.err.println("Exception = " + e);
 		}
 
-		System.out.println("--------------------");
+		System.out.println("----------------------------------------");
 
 		try {
 			OuterParentD outerParentD = new OuterParentD();
@@ -421,6 +422,14 @@ public class TestMain
 					return 0;
 				}
 			});
+		} catch (Exception e) {
+			System.err.println("Exception = " + e);
+		}
+
+		System.out.println("----------------------------------------");
+
+		try {
+			OuterParentE.StaticInnerA staticInnerA = new OuterParentE.StaticInnerA();
 		} catch (Exception e) {
 			System.err.println("Exception = " + e);
 		}

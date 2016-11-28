@@ -76,6 +76,13 @@ public class TestDataType
 		System.out.println("int A (hex) = " + Integer.toHexString(numA).toUpperCase());
 		System.out.println("int B (dec) = " + numB);
 		System.out.println("int B (hex) = " + Integer.toHexString(numB).toUpperCase());
+
+		// The string object in heap is same.
+		String strA = new String("MyHome");
+		String strB = new String("MyHome");
+
+		System.out.println("strA == strB = " + (strA == strB));
+		System.out.println("strA.intern() == strB.intern() = " + (strA.intern() == strB.intern()));
 	}
 
 	private String padString(String str, int size, char padChar, boolean padLeft){
