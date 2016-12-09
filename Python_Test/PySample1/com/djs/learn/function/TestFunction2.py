@@ -13,6 +13,14 @@ def test_default_list(my_item, my_list=[]):
     print("my_list =", my_list)
 
 
+def test_default_list_2(my_item, my_list=None):
+    if my_list is None:
+        my_list = []
+    print("my_item =", my_item)
+    my_list.append(my_item)
+    print("my_list =", my_list)
+
+
 def test_sum(a, b):
     return a + b
 
@@ -41,6 +49,12 @@ def main():
     test_default_list(1)
     test_default_list(3)
     test_default_list(5)
+
+    print("-" * 40)
+
+    test_default_list_2(1)
+    test_default_list_2(3)
+    test_default_list_2(5)
 
     print("-" * 40)
 

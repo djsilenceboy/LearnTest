@@ -1,6 +1,7 @@
 
 package com.djs.learn.javalang.basic;
 
+// The enum is "static final" by default.
 public enum SampleWeek
 {
 	Monday(10) {
