@@ -1,4 +1,27 @@
-http://www.epochconverter.com/
+
+* Convert Java time (in millisecond since 1970 Jan 1 00:00:00) to Oracle Timestamp
+
+  Suppose Java time = 1304870183336 ms
+  tempTimestamp TIMESTAMP;
+  tempTimestamp := TIMESTAMP'1970-01-01 00:00:00 GMT' + NUMTODSINTERVAL(1304870183336/1000, 'SECOND');
+
+* Convert Oracle Timestamp to Java time (in millisecond since 1970 Jan 1 00:00:00)
+
+  tempTimestamp TIMESTAMP or INTERVAL
+  tempTimeInMs NUMBER(20);
+  tempTimeInMs := (TO_NUMBER(EXTRACT(SECOND FROM tempTimestamp)) +
+                   TO_NUMBER(EXTRACT(MINUTE from tempTimestamp)) * 60 + 
+                   TO_NUMBER(EXTRACT(HOUR from tempTimestamp)) * 60 * 60 + 
+                   TO_NUMBER(EXTRACT(DAY from tempTimestamp)) * 24 * 60 * 60) * 1000;
+
+* Add/minus time interval to/from a Timestamp
+
+  tempTimeInterval INTERVAL DAY (6) TO SECOND (3);
+  tempTimeInterval := SYSTIMESTAMP - TIMESTAMP'2011-01-01 00:00:00 GMT';
+
+  tempTimestamp TIMESTAMP;
+  tempTimestamp := SYSTIMESTAMP - NUMTODSINTERVAL(10, 'DAY');
+
 
 select
   (TO_DATE('2008-07-15', 'YYYY-MM-DD') - NEW_TIME(TO_DATE('1970-01-01', 'YYYY-MM-DD'), 'GMT', 'CST'))

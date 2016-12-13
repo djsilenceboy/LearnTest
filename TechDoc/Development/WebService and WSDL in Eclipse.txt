@@ -1,0 +1,68 @@
+WebService and WSDL in Eclipse
+2008.12.01 - 2008.12.02
+
+
+Types:
+
+* To create a class, create a new complex type, and add sequence, then add elements (members of class).
+
+
+Messages:
+
+* A message can have more than one part. For input message, that means more parameters separated by comma.
+
+	public void goodbye( java.lang.String goodbyeRequest, com.djs.wsdl.IpControlRecord goodbyeRequest2 )
+
+  For output message, that means special input parameters separated by comma, extending "javax.xml.rpc.holders" to wrapper each one.
+
+	public void hello( javax.xml.rpc.holders.StringHolder helloResponse, com.djs.wsdl.holders.IpControlRecordHolder helloResponse2 )
+
+
+Port types:
+
+* Operation can omit output message. That means to return void.
+
+	public void goodbye( java.lang.String goodbyeRequest )
+
+* Operation must have input message. If do not need input, set it to a message with an empty complex type.
+
+	public class HelloRequest implements java.io.Serializable {
+	}
+
+	public java.lang.String hello( com.djs.wsdl.HelloRequest helloRequest )
+
+* It is possible for output message with more than one parts. In that case, the parts of output message will be moved to input section, and use "javax.xml.rpc.holders" to wrapper each one.
+
+	public void hello( com.djs.wsdl.HelloRequest helloRequest, javax.xml.rpc.holders.StringHolder helloResponse, com.djs.wsdl.holders.IpControlRecordHolder helloResponse2 )
+
+* When design, multiple operations can share same type of messages. No need to create different message types with same contents.
+
+
+Bindings:
+
+* After design port types, right click on service SOAP name, and select "Generate Binding Content..." to refresh it.
+
+
+Web Service, Control and WSDL:
+
+* Generate sequence:
+  Create a "Web Service Project" with wizard first.
+
+  1. From Web Service and Control to WSDL:
+     1) Create a "WebLogic Web Service" with wizard. It will generate Web Service class.
+     2) Write needed methods in Web Service class.
+     3) Create a "Custom Control" with wizard. It will generate Control interface and implemented class.
+     4) Write needed methods in Control implemented class. Then use "Ctrl+1" to "Create in Supertype...".
+     5) Right click Web Service class, select "Open With/WebService Design View", right click in editor space and select "New Control Reference...", then select control generated in 4). It will add control into view.
+     6) In "WebService Design View", right click on method of control added in 5) and select "Generate Delegate Method". It will generate related method in Web Service class.
+     7) Implement Web Service class.
+     8) Right click Web Service class, and select "Web Services/Generate WSDL". It will generate a WSDL file.
+
+  2. From WSDL and Control to Web Service:
+     1) Write WSDL with WSDL editor.
+     2) Right click on WSDL file, and select "Web Services/Generate Web Service..." to generate Web Service interface and implemented class.
+     3) Create a "Custom Control" with wizard. It will generate Control interface and implemented class.
+     4) Write needed methods in Control implemented class. Then use "Ctrl+1" to "Create in Supertype...".
+     5) Right click Web Service implemented class, select "Open With/WebService Design View", right click in editor space and select "New Control Reference...", then select control generated in 3). It will add control into view.
+     6) Implement Web Service implemented class.
+     7) Optional, right click Web Service class, and select "Web Services/Generate WSDL". It will generate a WSDL file.

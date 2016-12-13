@@ -1,0 +1,35 @@
+Integrate Oracle SQL developer with SQL Plus from XE
+2011.09.20
+
+* Install Oracle XE and Oracle SQL developer.
+
+* Suppose you want to use SQL*Plus from XE to connect other DB;
+  other DB connection string is "192.168.0.1:1521:mytest";
+  you want connection id as "testdb".
+
+* Edit "tnsnames.ora" in "<OracleXE_folder>\app\oracle\product\10.2.0\server\NETWORK\ADMIN\".
+  Add section:
+
+  testdb =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.0.1)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = mytest)
+    )
+  )
+
+* Run SQL*Plus from command line:
+
+  > sqlplus "your_username/your_password@testdb"
+
+  It should work.
+
+* Open Oracle SQL developer, from "Tools / External Tools", add new entry, and fill at least following properties:
+  Program Executable: cmd
+  Arguments: /c start sqlplus.exe "your_username/your_password@testdb"
+  (Notes: you can specify "your_username@testdb", then need to enter password; or "/@testdb", then need to enter both user name and password.)
+  Run Directory: <OracleXE_folder>\app\oracle\product\10.2.0\server\BIN
+  Log Output to Messages Log: uncheck box
+
+* In Oracle SQL developer, run SQL*Plus from tool menu or toolbar.

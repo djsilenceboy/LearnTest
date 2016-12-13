@@ -1,0 +1,109 @@
+Install Apache HTTP server, Tomcat, PHP, MariaDB on CentOS x64
+2014.12.07 - 2014.12.07
+
+
+Here only shows main steps and tips. For details and "how to", please google.
+
+
+* Installation from CentOS CD
+
+  CentOS CD includes installation of Apache HTTP server, Apache Tomcat, PHP and MariaDB.
+  Just select them during installation or later install them from menu "Application / System Tools / Software".
+
+
+* Apache HTTP server 2.2.x and PHP 5.4.x
+
+  PHP installation will setup for HTTP server:
+
+  1. Copy "libphp5.so" into "/etc/httpd/modules" (link to such as "/usr/lib64/httpd/modules/").
+
+  2. Create "/etc/httpd/conf.d/php.conf".
+
+  3. Create "/etc/httpd/conf.modules.d/10-php.conf".
+
+     <IfModule prefork.c>
+       LoadModule php5_module modules/libphp5.so
+     </IfModule>
+
+
+* Apache HTTP server 2.2.x and Apache Tomcat 7.x
+
+  Tomcat installation will not setup for HTTP server, must do it manually.
+
+  1. Install Tomcat connector.
+     Require to install development tools for gcc.
+     Require to install httpd-devel for apxs (Apache eXtension tool).
+     Download Tomcat connector source file zip.
+     Refer to BUILDING.txt in source zip file.
+     (and https://www.centos.org/forums/viewtopic.php?t=5055)
+     Run such as:
+
+     ]$ ./configure --with-apxs=/usr/bin/apxs
+     ]$  make
+     ]# cp ./apache-2.0/mod_jk.so /etc/httpd/modules/
+
+  2. Create "/etc/httpd/conf/workers.properties".
+
+     worker.list=ajp13
+     worker.ajp13.port=8009
+     worker.ajp13.host=localhost
+     worker.ajp13.type=ajp13
+     worker.ajp13.lbfactor=1
+
+  3. Create "/etc/httpd/conf.d/mod_jk.conf".
+
+     JkWorkersFile /etc/httpd/conf/workers.properties
+     JkLogFile /etc/httpd/logs/mod_jk.log
+
+     # Serve all requests and jsp with ajp13 by default.
+     JkMount / ajp13
+     JkMount /*.jsp ajp13
+
+     # Serve static page and image with httpd.
+     JkUnMount /*.html ajp13
+     JkUnMount /*.htm ajp13
+     JkUnMount /*.bmp ajp13
+     JkUnMount /*.gif ajp13
+     JkUnMount /*.jpg ajp13
+     JkUnMount /*.js ajp13
+     JkUnMount /*.php ajp13
+
+  4. Create "/etc/httpd/conf.modules.d/10-mod_jk.conf".
+
+     <IfModule prefork.c>
+       LoadModule jk_module modules/mod_jk.so
+     </IfModule>
+
+
+* Apache Tomcat 7.x and MariaDB 5.5
+
+  Suppose a schema "test" with user "test" and password "test" in MariaDB.
+
+  1. Download "mariadb-java-client-1.1.7.jar" from MariaDB website.
+     Copy into "/usr/share/java/tomcat".
+
+  2. Modify "/etc/tomcat/server.xml", add following lines in "<GlobalNamingResources>" section:
+
+     <GlobalNamingResources>
+       <Resource name="jdbc/LocalTest"
+         auth="Container"
+         type="javax.sql.DataSource"
+         driverClassName="org.mariadb.jdbc.Driver"
+         url="jdbc:mariadb://localhost:3306/test"
+         username="test"
+         password="test"
+         maxActive="30"
+         maxIdle="20000"
+         maxWait="120"/>
+     </GlobalNamingResources>
+
+
+* Apache Tomcat 7.x
+
+  1. Modify "/etc/tomcat/tomcat-users.xml", add following lines in "<tomcat-users>" section:
+
+     <tomcat-users>
+       <user name="admin" password="admin" roles="manager-gui" />
+     </tomcat-users>
+
+     So, you can login with user "admin" from WebUI.

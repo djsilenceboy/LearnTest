@@ -1,0 +1,38 @@
+================================================================================
+https://atlas.hashicorp.com/ubuntu
+https://atlas.hashicorp.com/hashicorp
+------------------------------------------------------------
+Bento/Chef
+https://atlas.hashicorp.com/bento/
+================================================================================
+bento/centos-7.2
+ubuntu/precise64
+================================================================================
+Init
+> vagrant init
+------------------------------------------------------------
+Start
+> vagrant up
+
+Stop
+> vagrant halt
+
+Hibernate
+> vagrant suspend
+
+Resume
+> vagrant resume
+
+Delete
+> vagrant destroy
+------------------------------------------------------------
+> vagrant box list
+
+Remove
+> vagrant box remove <id>
+------------------------------------------------------------
+> vagrant status
+> vagrant ssh
+> vagrant ssh-config
+> vagrant reload
+================================================================================

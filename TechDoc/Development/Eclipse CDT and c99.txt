@@ -1,0 +1,10 @@
+Setup "c99" mode for Eclipse CDT
+2010.06.30 - 2012.02.13
+
+
+  For Eclipse and CDT,
+    open "Project" / "Properties" from toolbar,
+    under tree "C/C++ Build" / "Settings",
+    in tab "Tool Settings",
+    under tree "GCC C Compiler" / "Miscellaneous",
+    add "-std=c99" in "Other flags" field in left panel.

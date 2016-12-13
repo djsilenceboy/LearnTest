@@ -1,0 +1,64 @@
+Spring Framework and Hibernate tips
+2011.09.27 - 2011.10.25
+
+Both:
+
+* In pom.xml, for Hibernate 3.5/3.6, use log4j with version <= 1.2.14, otherwise cause error.
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+		</dependency>
+   Or not define, it will automatically download log4j 1.2.14.
+   While in runtime, it is ok to use version >= 1.2.15 in classpath.
+
+Spring Framework:
+
+* AOP definition in appliaction-context.xml doesn't work while using XmlBeanFactory to load!
+  Instead, use ApplicationContext to load.
+
+* ApplicationContext use Proxy AOP.
+  "Methods marked as final cannot be advised. Remember, Spring generates a subclass to your target class. Any method that needs to be advised is overridden and advice is woven in. This is not possible with final methods."
+  Spring only supports method joinpoints.
+
+Hibernate:
+
+* In compilation, "Hibernate 3.5" uses "slf4j-api-1.5.8.jar". But the api conficts with "slf4j-*-1.6.x.jar". So, better use "slf4j-nop-1.5.8.jar". In runtimes, it is ok to use "1.6.x".
+
+* In compilation, "Hibernate 3.5" seems only matches "mysql-connector-java" version "5.1.13"!
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.13</version>
+		</dependency>
+
+* For second cache, if set "EhCache":
+    hibernate.cache.use_second_level_cache=true
+    hibernate.cache.use_query_cache=true
+    hibernate.cache.provider_class=net.sf.ehcache.hibernate.EhCacheProvider
+  it requires extra jar and EhCache xml.
+
+* No "hibernate-commons-annotations 3.3.0.ga", use "3.2.0.Final", because "3.3.0.ga" is an invalid version as stated in the README.TXT in the maven repository folder:
+    "Version '3.3.0.ga' was a mistake during the release process, please disregard. There is not such version 3.3.0.ga."
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-commons-annotations</artifactId>
+			<version>3.2.0.Final</version>
+		</dependency>
+
+* If defined "@GeneratedValue" for "@Id" in java class, but get "Hibernate: select hibernate_sequence.nextval from dual cannot found" error, set "hibernate.hbm2ddl.auto=update" in Spring xml to auto create "hibernate_sequence" sequence or manually create it.
+
+* If use own sequence, and not set allocationSize, the default value is 50.
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ")
+	@SequenceGenerator(name = "SEQ", sequenceName = "SEQ_TEST_ITEM", allocationSize = 1)
+
+* HibernateTemplate does not use default value in Java codes for field which has set default value in SQL definition.
+
+* For WebLogic 10.3, the JPA method doesn't work, because Hibernate 3.6 use JPA 2.0, while there is an old version "javax.persistence_1.0.0.0_1-0.jar" of JPA 1.0 on the classpath of WebLogic 10.3.
+   To solve, replace it with "javax.persistence_1.0.0.0_2-0-0.jar;com.oracle.jpa2support_1.0.0.0_2-0.jar" on classpath!
+   "set PRE_CLASSPATH=%BEA_HOME%\modules\javax.persistence_1.0.0.0_2-0-0.jar;%BEA_HOME%\modules\com.oracle.jpa2support_1.0.0.0_2-0.jar"
+
+* For WebLogic 10.3, if include "antlr-2.7.x.jar" (2.7.6 / 2.7.7) in ear, it will get "ClassNotFoundException: org.hibernate.hql.ast.HqlToken". Because WebLogic 9/10 has its old version of antlr, while Hibernate 3.5/3.6 use new version. So, to solve:
+  1. either set this line in "hibernate.properties":
+       hibernate.query.factory_class=org.hibernate.hql.classic.ClassicQueryTranslatorFactory
+  2. or copy new version antlr to WebLogic classpath.

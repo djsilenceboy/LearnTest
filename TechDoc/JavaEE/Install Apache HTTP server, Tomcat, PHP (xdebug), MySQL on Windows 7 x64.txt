@@ -1,0 +1,155 @@
+Install Apache HTTP server, Tomcat, PHP (xdebug), MySQL on Windows 7 x64
+2011.05.04 - 2014.03.16
+
+
+Here only shows main steps and tips. For details and "how to", please google.
+
+
+* Installation on Windows 7
+
+  Due to UAC, the quick, simple and very important "First step" (before installing anything) is:
+  1. Your user account should be in administrators group;
+  2. Change "Owner" of "C:\Program Files\", "C:\Program Files (x86)\", "C:\ProgramData\" and "C:\User\<Your account>" to administrators group;
+  3. Give full permissions to administrators for above folders too.
+
+  If you have installed following software before "First step", you have to uninstall them, delete anything relative in above folders and maybe in Registry. And then "First step". After "First step", following next steps.
+
+
+* Installation packages
+
+  The required files:
+    Visual Studio C++ 2012 x64 runtimes (http://www.microsoft.com/en-us/download/details.aspx?id=30679)
+    httpd-2.4.7-win64-VC11.zip (http://www.apachelounge.com/download/win64/)
+    apache-tomcat-7.0.52.exe (http://tomcat.apache.org/, 32-bit/64-bit Windows Service Installer)
+    php-5.5.10-Win32-VC11-x64.zip (http://www.apachelounge.com/download/additional/)
+    modules-2.4-win64-VC11.zip (http://www.apachelounge.com/download/win64/)
+    mysql-installer-community-5.6.16.0.msi (http://www.mysql.com/downloads/installer/, MySQL Installer is 32 bit, but will install both 32 bit and 64 bit binaries.)
+    mysql-workbench-community-6.0.9-win32.msi (http://www.mysql.com/downloads/, "mysql-installer-community" includes an older version.)
+	mysql-connector-java-gpl-5.1.29.msi (http://www.mysql.com/downloads/, "mysql-installer-community" includes an older version.)
+
+   Note that Tomcat requires JRE 6 or 7; MySQL Workbench requires .NET Framework 4 runtimes.
+
+
+* Installation orders
+
+  Install them in following order:
+
+    Apache HTTP server (Default: "C:\Program Files\Apache Software Foundation\Apache24")
+    Apache Tomcat (Default: "C:\Program Files\Apache Software Foundation\Tomcat 7.0")
+    PHP (Default: "C:\Program Files\PHP")
+    MySQL (Default: "C:\Program Files\MySQL\MySQL Server 5.6")
+    MySQL Workbench
+
+  After installation or unzip, do not run them. If any one has been started automatically, stop it first.
+  Set up configuration based on tips. In tips, "<Apache>", "<Tomcat>" and "<PHP>", etc. are their full path for short.
+
+
+* Tips for setting up Apache HTTP server
+
+  Modify following lines in "<Apache>\conf\httpd.conf" as:
+    ServerRoot "C:\Program Files\Apache Software Foundation\Apache24"
+    DocumentRoot "<Your website location>"
+    <Directory "<Your website location>">
+	ScriptAlias /cgi-bin/ "C:\Program Files\Apache Software Foundation\Apache24\cgi-bin\"
+	<Directory "C:\Program Files\Apache Software Foundation\Apache24\cgi-bin">
+  Note that, there is "\" in the end for ScriptAlias.
+	
+  Change to "C:\Program Files\Apache Software Foundation\Apache24\bin", open command line as administrator.
+  Install it as a service by running "httpd.exe -k install".
+
+  Unzip "mod_jk.so" from "modules-2.4-win64-VC11.zip" to "<Apache>\modules".
+
+
+* Tips for setting up Apache Tomcat
+
+  Modify following line in "<Tomcat>\conf\server.xml":
+    <Host name="localhost"  appBase="webapps"
+  If you want to change "appBase" to other location. Then remember to copy those subfolders "host-manager", "manager" and "ROOT" from "<Tomcat>\webapps" to the new location.
+  The new location can be same or different from the HTTP website location.
+
+  To integrate with Apache HTTP server, create "<Apache>\conf\workers.properties" file.
+  You can find sample from Tomcat website (http://tomcat.apache.org/connectors-doc/reference/workers.html). Then modify "<Apache>\conf\httpd.conf" to add following lines according to (http://tomcat.apache.org/connectors-doc/webserver_howto/apache.html).
+
+    worker.list=ajp13
+    worker.ajp13.port=8009
+    worker.ajp13.host=localhost
+    worker.ajp13.type=ajp13
+    worker.ajp13.lbfactor=1
+
+  Create "<Apache>\conf\mod_jk.conf" file.
+
+    JkWorkersFile conf/workers.properties
+    JkLogFile logs/mod_jk.log
+
+    # Serve all requests and jsp with ajp13 by default.
+    JkMount / ajp13
+    JkMount /*.jsp ajp13
+
+    # Serve static page and image with httpd.
+    JkUnMount /*.html ajp13
+    JkUnMount /*.htm ajp13
+    JkUnMount /*.bmp ajp13
+    JkUnMount /*.gif ajp13
+    JkUnMount /*.jpg ajp13
+    JkUnMount /*.js ajp13
+    JkUnMount /*.php ajp13
+
+  Then add following section in "<Apache>\conf\httpd.conf":
+
+    # Tomcat connector.
+    LoadModule jk_module modules/mod_jk.so
+    <IfModule jk_module>
+    Include conf/mod_jk.conf
+    </IfModule>
+
+	
+* Tips for setting up Apache Tomcat with MySQL
+
+  Create a schema "tomcat" and an user "tomcat" (password "tomcat") in MySQL.
+
+  Install "mysql-connector-java-gpl-5.1.29.msi", and copy "mysql-connector-java-5.1.29-bin.jar" into "<Tomcat>\lib".
+
+  Modify "<Tomcat>\conf\server.xml", add following lines in "<GlobalNamingResources>" section:
+
+    <GlobalNamingResources>
+      <Resource name="jdbc/GlobalMySQL"
+        auth="Container"
+        type="javax.sql.DataSource"
+        driverClassName="com.mysql.jdbc.Driver"
+        url="jdbc:mysql://localhost:3306/tomcat"
+        sername="tomcat"
+        password="tomcat"
+        maxActive="30"
+        maxIdle="20000"
+        maxWait="120"/>
+    </GlobalNamingResources>
+
+  You can adjust the values.
+
+
+* Tips for setting up PHP
+
+  Modify "<Apache>\conf\httpd.conf", add following lines:
+    # PHP
+    PHPIniDir "<PHP>"
+    LoadModule php5_module "<PHP>\php5apache2_4.dll"
+
+  Modify "<Apache>\conf\mime.types", add following lines:
+    application/x-httpd-php	php
+    application/x-httpd-php-source	phps
+
+  Copy "<PHP>\php.ini-development" to "<PHP>\php.ini", add following lines:
+    extension_dir="ext"
+    extension=php_mysql.dll
+
+
+* Tips for setting up PHP xdebug with Eclipse
+
+  You can download the package of "Eclipse for PHP Developers", or "Eclipse IDE for Java EE Developers" with PDT plugin installed from "Install New Software...".
+
+  Then refer to document "http://www.eclipse.org/pdt/articles/debugger/os-php-eclipse-pdt-debug-pdf.pdf" for how to setup PHP and debuggers.
+
+  From Eclipse "Windows/Preferences", in page "PHP/Debug", Check "Enable CLI debug".
+
+  If the Eclipse project is a subfolder of WebSite, when first time running, open toolbar "Run/Debug Configurations.../PHP Web Page", uncheck "URL/Auto Generate", and manually input full relative path. For example, the project path is "<WebSite>/Web_Test/PhpSample1", the page file is "test.php".
+  If check the "URL/Auto Generate", the generated path is "http://localhost" + "/PhpSample1/test.php". So, uncheck option, and manually change "/PhpSample1/test.php" to "/Web_Test/PhpSample1/test.php".

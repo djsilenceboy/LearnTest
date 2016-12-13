@@ -1,0 +1,65 @@
+Setup PHP, Xdebug and Eclipse PDT
+2011.05.11 - 2012.06.08 (Obsolete)
+
+
+* Installation packages
+
+  Download packages from "http://windows.php.net/download/", "www.xdebug.org" and "www.eclipse.org":
+    php-5.4.3-Win32-VC9-x86.zip (Thread-Safe version)
+    php_xdebug-2.2.0-5.4-vc9.dll (Thread-Safe version)
+    eclipse-jee-helios-SR1-win32.zip
+    Visual C++ 2010 SP1 Runtimes (Download from Microsoft)
+
+    (If you prefer Non-Thread-Safe version, download copies with "nts" in file name).
+
+
+* Must install Visual C++ 2010 SP1 Runtimes first.
+
+
+* Tips for setting up PHP
+
+  Unzip php to a folder, such as "C:\Program Files\PHP".
+  Copy "php.ini-development" to "php.ini".
+
+  Open Command Prompt, and go to "<PHP>\", run
+    >php -m
+  There is "[Zend Modules]" with no item now.
+
+
+* Tips for setting up Xdebug
+
+  Copy "php_xdebug-2.2.0-5.4-vc9.dll" to "<PHP>\ext".
+
+  check "<PHP>\php.ini", add following lines:
+    extension_dir="C:\Program Files\PHP\ext"
+    ...
+
+    [Xdebug]
+    zend_extension="C:\Program Files\PHP\ext\php_xdebug-2.2.0-5.4-vc9.dll"
+    xdebug.remote_enable=true
+    xdebug.remote_host=127.0.0.1
+
+  Open Command Prompt, and go to "<PHP>\", run
+    >php -m
+  There is
+    [PHP]
+    ...
+    xdebug
+    ...
+    [Zend Modules]
+    Xdebug
+
+
+* Tips for setting up Eclipse
+
+  You can download the package of "Eclipse for PHP Developers", but I installed the package of "Eclipse IDE for Java EE Developers", then installed PDT plugin from "Install New Software..." from "http://download.eclipse.org/releases/helios/".
+
+  Then refer to document "http://www.eclipse.org/pdt/articles/debugger/os-php-eclipse-pdt-debug-pdf.pdf" for how to setup PHP and debuggers.
+
+
+* Tip for running Eclipse PHP debug
+
+  If the Eclipse project is a subfolder of WebSite, when first time running, open toolbar "Run/Debug Configurations.../PHP Web Page", uncheck "URL/Auto Generate", and manually input full relative path.
+
+  For example, the project path is "<WebSite>/Web_Test/PhpSample1", the page file is "test.php".
+  If check the "URL/Auto Generate", the generated path is "http://localhost" + "/PhpSample1/test.php". So, uncheck option, and manually change "/PhpSample1/test.php" to "/Web_Test/PhpSample1/test.php".

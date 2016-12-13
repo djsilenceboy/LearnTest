@@ -1,0 +1,12 @@
+Maven tips
+2011.10.27 - 2011.10.27
+
+* Maven 2 "maven-surefire-plugin" plugin doesn't support JUnit 4:
+    @RunWith(Suite.class)
+    @Suite.SuiteClasses(
+      { ...
+      })
+
+* To run test in order, either use "<runOrder>" for "maven-surefire-plugin"
+    <runOrder>alphabetical</runOrder>
+  or name test java file in alphabetical order.

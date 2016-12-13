@@ -1,0 +1,56 @@
+================================================================================
+Google console
+------------------------------------------------------------
+Google Cloud console
+
+https://console.cloud.google.com/
+------------------------------------------------------------
+Google Cloud IAM & Admin
+
+https://console.cloud.google.com/iam-admin
+https://console.developers.google.com/iam-admin
+------------------------------------------------------------
+Google Cloud App Engine
+
+https://console.cloud.google.com/appengine
+https://console.developers.google.com/appengine
+------------------------------------------------------------
+Google Cloud APIs Manager
+
+https://console.cloud.google.com/apis
+https://console.developers.google.com/apis
+================================================================================
+Eclipse
+------------------------------------------------------------
+Start "Web Application"
+----------------------------------------
+Development console (Read-only)
+
+http://localhost:8888/_ah/admin
+----------------------------------------
+WAR portal
+
+http://localhost:8888
+================================================================================
+Non-Eclipse
+------------------------------------------------------------
+Development console (Read-only)
+
+http://localhost:8080/_ah/admin
+----------------------------------------
+WAR portal
+
+http://localhost:8080
+================================================================================
+Public URL
+------------------------------------------------------------
+Default
+
+http://djs-gaesample1.appspot.com/
+https://djs-gaesample1.appspot.com/
+------------------------------------------------------------
+Version
+
+http://1-dot-djs-gaesample1.appspot.com/
+https://1-dot-djs-gaesample1.appspot.com/
+================================================================================

@@ -104,3 +104,14 @@ mysql> SET PASSWORD FOR 'root'@'localhost' = PASSWORD('admin');
 mysql> SET PASSWORD FOR 'root'@'127.0.0.1' = PASSWORD('admin');
 mysql> SET PASSWORD FOR 'root'@'%' = PASSWORD('admin');
 ================================================================================
+Check "root" user's privileges and host from WorkBench
+------------------------------------------------------------
+Start server and login with "root" user.
+Under "Users and Privileges" page, make sure there are:
+    User    From Host
+    root    %
+    root    127.0.0.1
+    root    ::1
+If there is "root  localhost", but no "root  %", please change it to "root  %".
+Otherwise, "root" user cannot change other users' privileges.
+================================================================================

@@ -1,0 +1,40 @@
+WebLogic, OCSG, interceptors and shared lib folder
+2012.11.26
+
+* For OCSG standalone, there is a folder "./lib" under its Admin server main folder.
+  Such as "/usr/local/bea/wlng41/user_projects/domains/Admin/lib".
+
+  For OCSG cluster, there is a folder "./lib" under its AT/NT server main folder.
+  Such as "/usr/local/bea/wlng41/user_projects/domains/WLNGNT/lib".
+
+* For Communication Service, normally it contains some domain classes.
+  Such as for "wlng_nt_sms_px21.ear", there is "SendSms.class" and "ServiceException.class", etc.
+
+* For own OCSG interceptor, normally it will process related domain classes.
+  Such as for interceptor of SendSms, it will process input request "SendSms.class", and maybe throw "ServiceException.class", etc.
+
+* The issue:
+1. Communication Service includes one AN and one NT ears, all deployed as "Application", which includes the domain classes.
+2. Interceptors is an ear, deployed as "Application", which does not include the domain classes.
+3. When interceptor requires to process the domain classes, it cannot refer to Communication Service ears.
+
+* The solution:
+1. Extract domain classes from Communication Service ears.
+2. Pack them into a jar or several jars, such "px21_common_define.jar", "px21_sms_define.jar", "px21_mms_define.jar", etc.
+3. Copy those domain lib jars to "<NT>/lib" for cluster, or "<Admin>/lib" for standalone.
+4. Restart related server.
+
+* The observation:
+  With above solution, the Communication Service will not refer to the domain classes inside its own ear, but the jars inside "<NT>/lib" instead.
+
+
+* The failed try:
+1. Extract domain classes from Communication Service ears.
+2. Pack them into a jar or several jars, such "px21_common_define.jar", "px21_sms_define.jar", "px21_mms_define.jar", etc.
+3. Pack those domain lib jars into a lib ear, such "px21_domain_libs.ear". and Deploy it as "Library".
+4. Set interceptor ear to refer to domain lib ear.
+
+   This will not work!
+   Because it will cause class cast excetion, while trying to cast the "same" object sent from NT side to Interceptor side.
+   Because the reference copy of "same" object for NT side and Interceptor side are different.
+   NT side refers the copy inside its own ear, while Interceptor side refers the copy from domain lib ear.
