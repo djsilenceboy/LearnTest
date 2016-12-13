@@ -8,19 +8,24 @@ Oracle XE
 ------------------------------------------------------------
 Service name: oracle-xe
 ================================================================================
-Install DB.
-
+Install DB
+------------------------------------------------------------
 Check /etc/hosts, set correct host for local PC.
 If not set host for local PC, "oracle-xe configure" will fail later.
-
-]# rpm -ivh oracle-xe-11.2.0-1.0.x86_64.rpm
-
-You must run '/etc/init.d/oracle-xe configure' as the root user to configure the database.
 ------------------------------------------------------------
-To change ports, set SYS/SYSTEM password.
+]# rpm -ivh oracle-xe-11.2.0-1.0.x86_64.rpm
+----------------------------------------
+You must run '/etc/init.d/oracle-xe configure' as the root user to configure the database.
+================================================================================
+Initiate DB
 
+Change ports and set SYS/SYSTEM password.
+
+Note that, the initial password MUST set as "system"!!!
+Otherwise, it will not work while first login.
+------------------------------------------------------------
 ]# /etc/init.d/oracle-xe configure
-
+----------------------------------------
 Oracle Database 11g Express Edition Configuration
 
 This will configure on-boot properties of Oracle Database 11g Express 
@@ -49,45 +54,26 @@ Installation completed successfully.
 Configuring database...
 Database Configuration failed.  Look into /u01/app/oracle/product/11.2.0/xe/config/log for details
 ================================================================================
-]# service oracle-xe status
+]# systemctl status oracle-xe
 
-LSNRCTL for Linux: Version 11.2.0.2.0 - Production on 14-OCT-2015 23:24:27
+● oracle-xe.service - SYSV: This is a program that is responsible for taking care of
+   Loaded: loaded (/etc/rc.d/init.d/oracle-xe)
+   Active: active (exited) since Wed 2016-12-14 00:32:47 SGT; 4min 56s ago
+     Docs: man:systemd-sysv-generator(8)
+  Process: 1060 ExecStart=/etc/rc.d/init.d/oracle-xe start (code=exited, status=0/SUCCESS)
 
-Copyright (c) 1991, 2011, Oracle.  All rights reserved.
-
-Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=IPC)(KEY=EXTPROC_FOR_XE)))
-STATUS of the LISTENER
-------------------------
-Alias                     LISTENER
-Version                   TNSLSNR for Linux: Version 11.2.0.2.0 - Production
-Start Date                14-OCT-2015 23:19:02
-Uptime                    0 days 0 hr. 5 min. 25 sec
-Trace Level               off
-Security                  ON: Local OS Authentication
-SNMP                      OFF
-Default Service           XE
-Listener Parameter File   /u01/app/oracle/product/11.2.0/xe/network/admin/listener.ora
-Listener Log File         /u01/app/oracle/diag/tnslsnr/db/listener/alert/log.xml
-Listening Endpoints Summary...
-  (DESCRIPTION=(ADDRESS=(PROTOCOL=ipc)(KEY=EXTPROC_FOR_XE)))
-  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=db.djsilenceboy.com)(PORT=1521)))
-  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=db.djsilenceboy.com)(PORT=8080))(Presentation=HTTP)(Session=RAW))
-Services Summary...
-Service "PLSExtProc" has 1 instance(s).
-  Instance "PLSExtProc", status UNKNOWN, has 1 handler(s) for this service...
-Service "XE" has 1 instance(s).
-  Instance "XE", status READY, has 1 handler(s) for this service...
-Service "XEXDB" has 1 instance(s).
-  Instance "XE", status READY, has 1 handler(s) for this service...
-The command completed successfully
+Dec 14 00:32:02 db.djsilenceboy.com systemd[1]: Starting SYSV: This is a program that is responsible for taking care of...
+Dec 14 00:32:04 db.djsilenceboy.com oracle-xe[1060]: Starting Oracle Net Listener.
+Dec 14 00:32:07 db.djsilenceboy.com su[1592]: (to oracle) root on none
+Dec 14 00:32:25 db.djsilenceboy.com oracle-xe[1060]: Starting Oracle Database 11g Express Edition instance.
+Dec 14 00:32:25 db.djsilenceboy.com su[2594]: (to oracle) root on none
+Dec 14 00:32:47 db.djsilenceboy.com systemd[1]: Started SYSV: This is a program that is responsible for taking care of.
 ================================================================================
-Web console:
-http://localhost:8080/apex/apex_admin
-http://localhost:8080/apex/
-
-Default workspace: INTERNAL
-Default web user: admin / admin
-Default DB user: sys, system
+From Desktop, run "oraclexe-gettingstarted.desktop"
+Then follow "https://docs.oracle.com/cd/E17781_01/doc.112/e18644/setup_env.htm#TDPAX02004"
+to create workspace.
+================================================================================
+Web console: http://localhost:8080/apex/
 ------------------------------------------------------------
 To set the environment for your current session run '. ./oracle_env.sh':
 
