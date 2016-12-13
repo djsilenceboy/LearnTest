@@ -1,0 +1,147 @@
+================================================================================
+https://docs.mongodb.com/master/tutorial/install-mongodb-on-red-hat/
+================================================================================
+Install DB.
+------------------------------------------------------------
+Add yum repo.
+
+]# vi /etc/yum.repos.d/mongodb-org-3.4.repo
+----------------------------------------
+[mongodb-org-3.4]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/testing/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc
+------------------------------------------------------------
+Install by yum.
+
+]# yum install -y mongodb-org
+------------------------------------------------------------
+Uninstall.
+
+]# yum erase $(rpm -qa | grep mongodb-org)
+
+Delete databases and log files.
+
+]# rm -r /var/log/mongodb
+]# rm -r /var/lib/mongo
+================================================================================
+Service
+
+]# systemctl enable mongod
+]# systemctl status mongod
+]# systemctl start mongod
+]# systemctl stop mongod
+------------------------------------------------------------
+Config
+
+]# vi /etc/mongod.conf
+----------------------------------------
+Comment line to enable remote access.
+
+#  bindIp: 127.0.0.1
+
+Note that, it requires to restart service.
+------------------------------------------------------------
+Log
+
+]# tail -F -n100 /var/log/mongodb/mongod.log
+================================================================================
+Create user in admin db.
+------------------------------------------------------------
+From console.
+----------------------------------------
+>
+use admin
+db.createUser(
+	{
+		user: "root",
+		pwd: "admin",
+		roles: [{role: "root", db: "admin"}]
+	}
+)
+db.createUser(
+	{
+		user: "admin",
+		pwd: "admin",
+		roles: [{role: "userAdminAnyDatabase", db: "admin"}]
+  }
+)
+------------------------------------------------------------
+From .js.
+----------------------------------------
+mongo = new Mongo("localhost")
+db = mongo.getDB("admin")
+db.createUser(
+	{
+		user: "root",
+		pwd: "admin",
+		roles: [{role: "root", db: "admin"}]
+	}
+)
+db.createUser(
+	{
+		user: "admin",
+		pwd: "admin",
+		roles: [{role: "userAdminAnyDatabase", db: "admin"}]
+  }
+)
+================================================================================
+Create user in test db.
+------------------------------------------------------------
+mongo = new Mongo("localhost")
+db = mongo.getDB("test")
+db.createUser(
+	{
+		user: "test",
+		pwd: "test",
+		roles: [{role: "dbOwner", db: "test"}]
+   }
+)
+================================================================================
+Login admin db.
+----------------------------------------
+>
+use admin
+db.auth("admin", "admin")
+------------------------------------------------------------
+Login and start with admin db from command line.
+----------------------------------------
+]# mongo -u "root" -p "admin" admin
+]# mongo -u "admin" -p "admin" admin
+------------------------------------------------------------
+Login admin db but start with default test db from command line.
+----------------------------------------
+]# mongo -u "root" -p "admin" --authenticationDatabase admin
+]# mongo -u "admin" -p "admin" --authenticationDatabase admin
+================================================================================
+Login test db.
+----------------------------------------
+>
+use admin
+db.auth("test", "test")
+------------------------------------------------------------
+Login and start with test db from command line.
+----------------------------------------
+]# mongo -u "test" -p "test" test
+================================================================================
+Show DB list.
+It must use root user.
+
+> show dbs
+------------------------------------------------------------
+Show users.
+
+> show users
+------------------------------------------------------------
+Show current DB.
+
+> db
+or
+> db.getName()
+------------------------------------------------------------
+Show last error.
+
+> db.getLastError()
+================================================================================

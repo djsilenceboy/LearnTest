@@ -1,0 +1,80 @@
+================================================================================
+https://www.ibm.com/support/knowledgecenter/SSAW57_8.5.5/com.ibm.websphere.installation.nd.doc/ae/tins_WASv85_sample_response.html?cp=SSAW57_8.5.5&lang=en
+
+http://www.ibm.com/support/knowledgecenter/SSFPJS_8.5.6/com.ibm.wbpm.imuc.ebpm.doc/topics/inst_sil_resp_lin.html
+
+http://www.ibm.com/support/knowledgecenter/SSDV2W_1.8.3/com.ibm.silentinstall12.doc/topics/t_silent_response_file_install.html
+================================================================================
+Use Installation Manager tool to encript password.
+(If want to modfiy reponse file manually.)
+
+]# cd /opt/IBM/InstallationManager/eclipse/tools
+]# ./imutilsc encryptString password
+================================================================================
+Use Installation Manager silent mode to generate response file.
+
+]# cd /opt/IBM/InstallationManager/eclipse
+]# ./IBMIM -record <responseFile> -skipInstall <agentDataLocation>
+----------------------------------------
+Sample:
+
+]# ./IBMIM -record /tmp/BPM_SilentInstallResponse.xml -skipInstall /tmp/test_install_bpm
+
+]# ./IBMIM -record /tmp/ODM_SilentInstallResponse.xml -skipInstall /tmp/test_install_odm
+------------------------------------------------------------
+Repository (WAS)
+
+/media/sf_Download/Installer/WAS_v8.5.5_ND/repository.config
+/media/sf_Download/Installer/WAS_v8.5.5_FP5/repository.config
+----------------------------------------
+Repository (BPM)
+
+/media/sf_Download/Installer/BPM_v8.5/BPM_Adv_V85_Linux_x86/repository/repos_64bit/repository.config
+/media/sf_Download/Installer/WAS_v8.5.5_FP5/repository.config
+/media/sf_Download/Installer/BPM_v8.5_FP6/repository.config
+
+Optional:
+
+/media/sf_Download/Installer/BPM_v8.5_FP6_CF2/repository.config
+/media/sf_Download/Installer/BPM_v8.5_FP6_CF2_IFJR55597/repository.config
+----------------------------------------
+BPM users
+
+User / Password: bpmadm / password
+User / Password: bpmadmin / password
+----------------------------------------
+DB users
+
+User / password: db2inst1 / password
+User / password: db2fenc1 / password
+User / password: dasusr1 / password
+================================================================================
+Use Installation Manager silent mode to install with response file.
+
+]# cd /opt/IBM/InstallationManager/eclipse/tools
+]# ./imcl input <responseFile> -log <logFile>
+----------------------------------------
+Smape:
+
+]# ./imcl input /tmp/BPM_SilentInstallResponse.xml -acceptLicense -log /tmp/BPM_SilentInstall.log
+----------------------------------------
+Output:
+
+Installed com.ibm.websphere.ND.v85_8.5.5005.20150220_0158 to the /opt/IBM/WebSphere/AppServer directory.
+Installed com.ibm.bpm.ADV.v85_8.5.6000.20150304_1832 to the /opt/IBM/WebSphere/AppServer directory.
+Installed com.ibm.ws.DB2EXP.linuxia64_10.1.1.20130519_1933 to the /opt/IBM/WebSphere/AppServer directory.
+================================================================================
+* soft fsize 6291453
+* hard fsize 6291453
+* soft nofile 65536
+* hard nofile 65536
+* soft stack 32768
+* hard stack 32768
+* soft nproc 16384
+* hard nproc 16384
+
+]# ulimit -f 6291453
+]# ulimit -n 65536
+]# ulimit -s 32768
+]# ulimit -u 16384
+================================================================================

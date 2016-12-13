@@ -1,0 +1,41 @@
+================================================================================
+Auto start/stop servers
+
+http://www-01.ibm.com/support/knowledgecenter/SSKNJU_6.0.0/com.ibm.websphere.wvs.doc/wvs/install_restart.html
+https://www.ibm.com/developerworks/aix/tutorials/au-wasonlinux/
+
+http://www-01.ibm.com/support/knowledgecenter/SSAW57_8.5.5/com.ibm.websphere.nd.multiplatform.doc/ae/trun_processrestart.html?lang=en
+http://www-01.ibm.com/support/knowledgecenter/SSAW57_8.5.5/com.ibm.websphere.nd.multiplatform.doc/ae/rins_wasservice.html
+http://charity.planetlotus.org/profiles/dave-hay_125916
+http://scripting101.org/installing-configuring/autostart-ibm-websphere-application-server/register-service-linux/
+------------------------------------------------------------
+]# cd /opt/IBM/WebSphere/AppServer/bin
+
+]# ./wasservice.sh -add Dmgr -serverName dmgr -profilePath /opt/IBM/WebSphere/AppServer/profiles/Dmgr01 -stopArgs '-username wasadm -password wasadm'
+CWSFU0013I: Service [Dmgr] added successfully.
+
+]# service Dmgr_was.init status
+WebSphere Application Server - dmgr is running.
+
+
+]# ./wasservice.sh -add Node -serverName nodeagent -profilePath /opt/IBM/WebSphere/AppServer/profiles/AppSrv01 -stopArgs '-username wasadm -password wasadm -stopservers'
+CWSFU0013I: Service [Node] added successfully.
+
+]# service Node_was.init status
+WebSphere Application Server - nodeagent is running.
+
+]# ./wasservice.sh -add Server1 -serverName server1 -profilePath /opt/IBM/WebSphere/AppServer/profiles/AppSrv01 -stopArgs '-username wasadm -password wasadm'
+CWSFU0013I: Service [Server1] added successfully.
+
+]# service Server1_was.init status
+WebSphere Application Server - server1 is running.
+
+]$ chkconfig --list
+Dmgr_was.init   0:off   1:off   2:on    3:on    4:on    5:on    6:off
+Node_was.init   0:off   1:off   2:on    3:on    4:on    5:on    6:off
+Server1_was.init   0:off   1:off   2:on    3:on    4:on    5:on    6:off
+================================================================================
+Check versions
+
+]# /opt/IBM/WebSphere/AppServer/bin/versionInfo.sh -fixpacks -ifixes
+================================================================================

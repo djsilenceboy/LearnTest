@@ -1,0 +1,39 @@
+================================================================================
+Notes:
+
+"]#" means root user.
+"]$" means normal user.
+================================================================================
+------------------------------------------------------------
+Can ping with domain.
+
+[root@yyy ~]# ping xxx.company.com
+PING xxx.company.com (10.168.0.1) 56(84) bytes of data.
+64 bytes from xxx.company.com (10.168.0.1): icmp_seq=1 ttl=238 time=224 ms
+64 bytes from xxx.company.com (10.168.0.1): icmp_seq=2 ttl=238 time=223 ms
+
+But cannot echo to port. Got error as:
+
+[root@yyy ~]# echo > /dev/tcp/xxx.company.com/443
+-bash: xxx.company.com: Name or service not known
+-bash: /dev/tcp/xxx.company.com/443: Invalid argument
+
+or
+
+[root@hc-st-was-2 ~]# echo > /dev/tcp/xxx.company.com/9443
+-bash: xxx.company.com: Temporary failure in name resolution
+-bash: /dev/tcp/xxx.company.com/9443: Invalid argument
+----------------------------------------
+Add hosts in "/etc/hosts".
+
+Such as:
+
+]# vim /etc/hosts
+10.168.0.1	xxx.company.com
+------------------------------------------------------------
+File format.
+
+For Shell scripts and data text files, try to use UNIX EOL (End of line).
+That means only "LF" not "CRLF".
+------------------------------------------------------------
+================================================================================

@@ -1,0 +1,99 @@
+================================================================================
+Test
+------------------------------------------------------------
+There must have space between "["/"]" and condition.
+
+Correct:
+if [ $a -eq 0 ]
+
+Wrong:
+if [$a -eq 0]
+================================================================================
+case
+------------------------------------------------------------
+To ignore comment line, empty line.
+
+# Sample:
+case $Line in
+	"" | " "* | \#*) ;;
+================================================================================
+while
+------------------------------------------------------------
+Read from file. For each line, field separated by such as ",".
+
+# Sample:
+TEMP_IFS=$IFS
+IFS=,
+
+while read Address Port
+do
+	echo "$Address / $Port"
+done < $listFile
+
+IFS=$TEMP_IFS
+------------------------------------------------------------
+Read from local string. For each line, field separated by such as ",".
+
+# Sample:
+Line="192.168.0.10,22"
+TEMP_IFS=$IFS
+IFS=,
+
+while read Address Port
+do
+	echo "$Address / $Port"
+done <<< "$Line"
+
+IFS=$TEMP_IFS
+------------------------------------------------------------
+Read from pipe from file.
+
+cat $File | while read Line
+do
+	#...
+done
+================================================================================
+SSH
+------------------------------------------------------------
+When run "ssh" in scripts, it will consume following stdin.
+
+Use "< /dev/null" to provide input for it.
+Such as:
+	ssh $User@$Address "echo > /dev/null" < /dev/null
+
+Or use pipe to provide provide input for it.
+Such as:
+	cat fileName | ssh $User@$Address
+================================================================================
+Set
+------------------------------------------------------------
+Use "set" to test input parameters.
+Add input parameters in Shell script instead from command line.
+
+]$ TestShell param1 param2 param3 ...
+
+equal:
+
+#!/bin/bash
+set param1 param2 param3
+------------------------------------------------------------
+Use "set -x" "set -v" to enable more debug info.
+Use "set +x" "set +v" to disable later.
+"-x" show expanded command.
+"-v" print each line in script.
+"-v" is prior to "-x".
+
+#!/bin/bash
+set -x
+# or "set -v" or "set -x -v".
+...
+set +x
+# or "set +v" or "set +x +v".
+================================================================================
+Redirect output within script
+
+Add following command in the beginning of script:
+
+#!/bin/bash
+exec &> some.log
+================================================================================

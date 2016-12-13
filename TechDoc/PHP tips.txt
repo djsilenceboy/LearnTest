@@ -1,0 +1,25 @@
+================================================================================
+"===" VS "=="
+------------------------------------------------------------
+== compares the values of variables for equality, type casting as necessary.
+=== checks if the two variables are of the same type AND have the same value.
+
+A full explanation of the differences are available in the PHP manual.
+
+Here's a table I put together showing how some variables compare to each other.
+
+// "===" means that they are identical
+// "==" means that they are equal
+// "!=" means that they aren't equal.
+
+         false   null    array()  0      "0"     0x0     "0x0"   "000"    "0000"
+false    ===     ==      ==       ==      ==     ==      !=      !=       !=
+null     ==      ===     ==       ==      !=     ==      !=      !=       !=
+array()  ==      ==      ===      !=      !=     !=      !=      !=       !=
+0        ==      ==      !=       ===     ==     ===     ==      ==       ==
+"0"      ==      !=      !=       ==      ===    ==      ==      ==       ==
+0x0      ==      ==      !=       ===     ==     ===     ==      ==       ==
+"0x0"    !=      !=      !=       ==      ==     ==      ===     ==       ==
+"000"    !=      !=      !=       ==      ==     ==      ==      ===      ==
+"0000"   !=      !=      !=       ==      ==     ==      ==      ==       ===
+================================================================================

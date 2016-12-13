@@ -1,0 +1,96 @@
+================================================================================
+Install PostgreSQL
+
+https://wiki.postgresql.org/wiki/YUM_Installation
+http://yum.postgresql.org/9.5/redhat/rhel-7-x86_64
+------------------------------------------------------------
+Create yum repo file.
+
+]# yum install -y http://yum.postgresql.org/9.5/redhat/rhel-7-x86_64/pgdg-centos95-9.5-3.noarch.rpm
+------------------------------------------------------------
+Install.
+
+]# yum install -y postgresql95-server postgresql95-contrib
+or
+]# yum groupinstall -y "PostgreSQL Database Server 9.5 PGDG"
+------------------------------------------------------------
+Init DB.
+
+]# /usr/pgsql-9.5/bin/postgresql95-setup initdb
+------------------------------------------------------------
+Config service.
+
+]# systemctl status postgresql-9.5
+]# systemctl enable postgresql-9.5
+]# systemctl start postgresql-9.5
+------------------------------------------------------------
+Check port.
+
+]# ss -ntpl | grep postgres
+]# ss -ntpl | grep 5432
+------------------------------------------------------------
+Uninstall.
+
+]# yum erase -y postgresql95*
+================================================================================
+Enable remote access DB.
+
+]# su - postgres
+$ cd /var/lib/pgsql/9.5/data
+----------------------------------------
+Modify config.
+
+$ vi postgresql.conf
+
+Add line:
+
+listen_addresses = '*'
+----------------------------------------
+Modify config.
+
+$ vi pg_hba.conf
+
+Add/update line:
+
+local   all             all                                     trust
+host    all             all             192.168.0.1/24          md5
+----------------------------------------
+Reload config.
+
+]# systemctl restart postgresql-9.5
+================================================================================
+Create user/role and DB.
+
+$ psql
+=# CREATE ROLE tester WITH LOGIN CREATEDB PASSWORD 'Te$tC0se';
+
+If modify after created:
+=# ALTER ROLE tester WITH LOGIN CREATEDB PASSWORD 'Te$tC0se';
+
+=# CREATE DATABASE test OWNER tester;
+=# GRANT ALL PRIVILEGES ON DATABASE test TO tester;
+================================================================================
+Login DB "test" with trusted user "tester".
+
+$ psql -U tester test
+----------------------------------------
+Login DB "test" with user "tester" by password.
+
+$ psql -U tester test -W
+================================================================================
+Connect DB.
+
+=# \connect tester;
+------------------------------------------------------------
+Show all tables.
+
+=# \dt
+------------------------------------------------------------
+Check granted access.
+
+=# \z
+------------------------------------------------------------
+Exit DB.
+
+=# \q
+================================================================================

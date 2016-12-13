@@ -1,0 +1,72 @@
+================================================================================
+Install DB2 client or DB2.
+------------------------------------------------------------
+Check version.
+Must > 3.5 or 4.2.
+
+]$ java -cp "/home/db2inst1/sqllib/java/db2jcc.jar" com.ibm.db2.jcc.DB2Jcc -version
+
+> java -cp "C:\Program Files\IBM\SQLLIB\java\db2jcc.jar" com.ibm.db2.jcc.DB2Jcc -version
+------------------------------------------------------------
+Connect to DB without ACR.
+
+> java -cp "/home/db2inst1/sqllib/java/db2jcc.jar" com.ibm.db2.jcc.DB2Jcc -url jdbc:db2://192.168.0.21:50000/SUPPORTA -user db2inst1 -password db2p@ssw0rd
+------------------------------------------------------------
+Connect to DB with ACR.
+
+]$ java -cp "/home/db2inst1/sqllib/java/db2jcc.jar" com.ibm.db2.jcc.DB2Jcc -url jdbc:db2://192.168.0.21:50000/SUPPORTA:clientRerouteAlternateServerName=192.168.0.22;clientRerouteAlternatePortNumber=50000; -user db2inst1 -password db2p@ssw0rd
+
+> java -cp "C:\Program Files\IBM\SQLLIB\java\db2jcc.jar" com.ibm.db2.jcc.DB2Jcc -url jdbc:db2://192.168.0.21:50000/SUPPORTA:clientRerouteAlternateServerName=192.168.0.22;clientRerouteAlternatePortNumber=50000; -user db2inst1 -password db2p@ssw0rd
+================================================================================
+Connect to DB with ACR (On Windows).
+----------------------------------------
+When Primary up, connect to Primary.
+
+[jcc][10521][13706]Command : java com.ibm.db2.jcc.DB2Jcc -url jdbc:db2://192.168.0.21:50000/SUPPORTA:clientRerouteAlternateServerName=192.168.0.22;clientRerouteAlternatePortNumber=50000; -user db2inst1 -password ********
+
+[jcc][10516][13709]Test Connection Successful.
+
+DB product version = SQL10051
+DB product name = DB2/LINUXX8664
+DB URL = jdbc:db2://192.168.0.21:50000/SUPPORTA
+DB Drivername = IBM DB2 JDBC Universal Driver Architecture
+DB OS Name = Windows 7
+----------------------------------------
+When Primary down, connect to Secondary.
+
+[jcc][10521][13706]Command : java com.ibm.db2.jcc.DB2Jcc -url jdbc:db2://192.168.0.21:50000/SUPPORTA:clientRerouteAlternateServerName=192.168.0.22;clientRerouteAlternatePortNumber=50000; -user db2inst1 -password ********
+
+[jcc][10516][13709]Test Connection Successful.
+
+DB product version = SQL10051
+DB product name = DB2/LINUXX8664
+DB URL = jdbc:db2://192.168.0.22:50000/SUPPORTA
+DB Drivername = IBM DB2 JDBC Universal Driver Architecture
+DB OS Name = Windows 7
+================================================================================
+Connect to DB with ACR (On Linux).
+----------------------------------------
+When Primary up, connect to Primary.
+
+[jcc][10521][13706]Command : java com.ibm.db2.jcc.DB2Jcc -url jdbc:db2://192.168.0.21:50000/SUPPORTA -user db2inst1 -password ********
+
+[jcc][10516][13709]Test Connection Successful.
+
+DB product version = SQL10051
+DB product name = DB2/LINUXX8664
+DB URL = jdbc:db2://hc-prod-db2-1.sdad.sl.edst.ibm.com:50000/SUPPORTA
+DB Drivername = IBM DB2 JDBC Universal Driver Architecture
+DB OS Name = Linux
+----------------------------------------
+When Primary down, connect to Secondary.
+
+[jcc][10521][13706]Command : java com.ibm.db2.jcc.DB2Jcc -url jdbc:db2://192.168.0.21:50000/SUPPORTA -user db2inst1 -password ********
+
+[jcc][10516][13709]Test Connection Successful.
+
+DB product version = SQL10051
+DB product name = DB2/LINUXX8664
+DB URL = jdbc:db2://hc-prod-db2-2.sdad.sl.edst.ibm.com:50000/SUPPORTA
+DB Drivername = IBM DB2 JDBC Universal Driver Architecture
+DB OS Name = Linux
+================================================================================

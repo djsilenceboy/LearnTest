@@ -1,0 +1,346 @@
+================================================================================
+Docker Engine
+------------------------------------------------------------
+Install from Docker repository
+
+CentOS/RHEL 7
+
+]# vi /etc/yum.repos.d/docker.repo
+----------------------------------------
+[dockerrepo]
+name=Docker Repository
+baseurl=https://yum.dockerproject.org/repo/main/centos/7
+enabled=1
+gpgcheck=1
+gpgkey=https://yum.dockerproject.org/gpg
+------------------------------------------------------------
+]# yum install -y docker-engine
+================================================================================
+Docker service.
+
+CentOS/RHEL 7
+
+]# systemctl enable docker
+]# systemctl disable docker
+
+]# systemctl start docker
+]# systemctl stop docker
+------------------------------------------------------------
+Manually start/stop Docker.
+
+Start
+
+]# docker daemon &
+
+Stop
+
+]# killall docker
+------------------------------------------------------------
+If some network connection not working inside container,
+try restart docker service.
+================================================================================
+Docker Compose
+------------------------------------------------------------
+Install from Docker repository
+
+]# curl -L https://github.com/docker/compose/releases/download/1.8.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+
+]# chmod +x /usr/local/bin/docker-compose
+================================================================================
+Check version
+Must start service first.
+------------------------------------------------------------
+]# docker version
+
+]# docker-compose version
+================================================================================
+Load Docker image.
+
+]# docker load -i Image.tar
+
+]# docker load < Image.tar
+------------------------------------------------------------
+Check loaded images.
+
+]# docker images
+------------------------------------------------------------
+Delete loaded images (REPOSITORY).
+
+]# docker rmi <Repository>
+
+]# docker rmi -f <Repository>
+
+Delete all.
+
+]# docker rmi `docker images -q`
+------------------------------------------------------------
+Create and start container
+
+]# docker run -d --restart=always --name <ShortName> <Repository>:<Tag>
+
+option:
+-P : Map all internal opened ports to random host ports [32768, 61000].
+-p <InternalPort> : Map a internal opened port to a random host port [32768, 61000].
+-p <HostPort>:<InternalPort> : Map a internal opened port to a specified host port.
+------------------------------------------------------------
+Start Docker container (Existing).
+
+]# docker start <ContainerNameOrId>
+------------------------------------------------------------
+Check running Docker container.
+
+]# docker ps
+
+Check all Docker container.
+
+]# docker ps -a
+
+Check last started Docker container.
+
+]# docker ps -l
+------------------------------------------------------------
+Stop Docker container.
+
+]# docker stop <ContainerNameOrId>
+
+Stop all Docker containers.
+
+]# docker stop `docker ps -q`
+------------------------------------------------------------
+Delete container.
+
+]# docker rm <ContainerNameOrId>
+================================================================================
+Create/re-create and first running Docker container by "docker-compose.yml".
+
+]# docker-compose up -d
+------------------------------------------------------------
+Start Docker container.
+
+]# docker-compose start
+------------------------------------------------------------
+Check started Docker container (and ID).
+
+]# docker ps
+]# docker-compose ps
+------------------------------------------------------------
+Stop Docker container.
+
+]# docker-compose stop
+
+Kill (force stop) Docker container.
+
+]# docker-compose kill -s SIGINT
+
+The containers are stopped, but not removed/deleted.
+
+If docker-compose cannot stop certain container, use docker to stop.
+------------------------------------------------------------
+Remove Docker container.
+
+Before removing, stop it first.
+
+]# docker-compose stop <ContainerNameOrId>
+]# docker-compose rm <ContainerNameOrId>
+
+Delete all stopped containers.
+
+]# docker rm `docker ps -qa`
+------------------------------------------------------------
+To recreate Docker container.
+
+]# docker-compose up -d
+================================================================================
+Docker logs
+------------------------------------------------------------
+]# docker logs <ContainerNameOrId>
+
+]# docker logs -f <ContainerNameOrId>
+
+Option "-f" works like "tail -f".
+
+]# docker-compose logs
+================================================================================
+Login Docker container with Shell
+
+Use ps to find container ID and name.
+
+]# docker ps
+
+Login in by ID or name.
+
+]# docker exec -it <ContainerNameOrId> "/bin/bash"
+]# docker exec -it <ContainerNameOrId> bash -l
+]# docker exec -it <ContainerNameOrId> bash -l -c "<Command>"
+
+By default, login as root. Use "-u <User>" to login as specified user.
+
+]# docker exec -it -u <User> <ContainerNameOrId> bash -l
+------------------------------------------------------------
+Login Docker container with Shell by Compose
+
+Use ps to find container name.
+
+]# docker-compose ps
+
+Login in by name.
+
+]# docker-compose run <ComposeContainerNameOrId> bash -l
+]# docker-compose run <ComposeContainerNameOrId> bash -l -c "<Some commands>"
+
+Sample:
+
+]# docker-compose run xeng bash -l
+]# docker-compose run xeng bash -l -c "/bin/bash"
+================================================================================
+Tag image
+------------------------------------------------------------
+Use default tag: latest
+
+]# docker tag <Image> <Host>:<Port>/<Image>
+
+For localhost
+
+]# docker tag <Image> <ImagePath>/<Image>
+------------------------------------------------------------
+Use sepecified tag
+
+]# docker tag <Image>:<Tag> <Host>:<Port>/<Image>:<Tag>
+]# docker tag <Image> <Host>:<Port>/<Image>:<Tag>
+
+For localhost
+
+]# docker tag <Image> <ImagePath>/<Image>:<Tag>
+]# docker tag <Image>:<Tag> <ImagePath>/<Image>:<Tag>
+================================================================================
+Docker registry
+
+Install Docker registry
+------------------------------------------------------------
+Create folder.
+
+]# mkdir -p /docker/registry
+]# mkdir -p /docker/registry/certs
+]# mkdir -p /docker/registry/repo
+------------------------------------------------------------
+Generate certificate.
+
+]# cd /docker/registry/certs
+
+]# openssl req -x509 -nodes -days 365 -sha256 -newkey rsa:2048 -keyout docker_registry.key -out docker_registry.crt -subj "/C=SG/ST=Singapore/L=Singapore/O=djsilenceboy/CN=`hostname`"
+------------------------------------------------------------
+Load image and create container by Docker Engine.
+
+]# docker run -d -p 5000:5000 --restart=always --name registry -v /docker/registry/certs:/certs -v /docker/registry/repo:/var/lib/registry -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/docker_registry.crt -e REGISTRY_HTTP_TLS_KEY=/certs/docker_registry.key registry:2
+------------------------------------------------------------
+Load image and create container by Docker Compose.
+
+Generate yml.
+
+]# cd /docker/registry
+]# vi docker-compose.yml
+----------------------------------------
+registry:
+  restart: always
+  image: registry:2
+  ports:
+    - 5000:5000
+  environment:
+    REGISTRY_HTTP_TLS_CERTIFICATE: /certs/docker_registry.crt
+    REGISTRY_HTTP_TLS_KEY: /certs/docker_registry.key
+  volumes:
+    - /docker/registry/certs:/certs
+    - /docker/registry/repo:/var/lib/registry
+----------------------------------------
+]# docker-compose up -d
+================================================================================
+Pull or load an image first (not from registry).
+
+]# docker pull <Image>
+
+Or
+
+]# docker load < <Image>
+------------------------------------------------------------
+Push the image to registry.
+
+]# docker push <Host>:<Port>/<Image>
+
+]# docker push localhost:5000/<Image>
+
+Or
+
+]# docker push <Host>:<Port>/<Image>:<Tag>
+
+]# docker push localhost:5000/<Image>:<Tag>
+------------------------------------------------------------
+Search image from registry.
+
+]# docker search <Host>:<Port>/<Image>
+
+Or
+
+]# docker search <Host>:<Port>/<Image>:<Tag>
+------------------------------------------------------------
+Pull the image from registry.
+
+]# docker pull <Host>:<Port>/<Image>
+
+Or
+
+]# docker pull <Host>:<Port>/<Image>:<Tag>
+================================================================================
+Check container config in JSON format
+
+]# docker inspect <ContainerNameOrId>
+
+]# docker inspect -f 'Keyword' <ContainerNameOrId>
+
+Option "-f" is filter for keyword.
+------------------------------------------------------------
+Check opened port of container
+
+]# docker port <ContainerNameOrId> [<ContainerPort>]
+------------------------------------------------------------
+Check top inside container
+
+]# docker top <ContainerNameOrId>
+================================================================================
+Copy folder/file from container to host
+
+]# docker cp <ContainerNameOrId>:<ContainerFolder_Or_File> <HostFolder_Or_File>
+------------------------------------------------------------
+Copy folder/file from host to container
+
+]# docker cp <HostFolder_Or_File> <ContainerNameOrId>:<ContainerFolder_Or_File>
+================================================================================
+Check network
+------------------------------------------------------------
+]# docker network ls
+
+NETWORK ID          NAME                DRIVER              SCOPE
+d96c8b7c6017        bridge              bridge              local               
+ec9bebe55777        host                host                local               
+c09b728419ce        none                null                local        
+
+]# docker network inspect bridge
+------------------------------------------------------------
+Remove a container from a network by disconnecting the container.
+
+]# docker network disconnect bridge <ContainerNameOrId>
+------------------------------------------------------------
+Create a new network
+(Default is "bridge" driver)
+
+]# docker network create <NetworkName>
+
+]# docker network create -d bridge <NetworkName>
+------------------------------------------------------------
+Create container with new network
+
+]# docker run -d --network=<NetworkName> --name <ContainerName> <ImageName>
+------------------------------------------------------------
+Connect existing container to another network
+
+]# docker network connect <NetworkName> <ContainerNameOrId>
+================================================================================

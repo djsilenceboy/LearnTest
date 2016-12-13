@@ -1,0 +1,239 @@
+================================================================================
+Chef
+================================================================================
+Install.
+
+]# yum install -y chef-server-core-12.1.2-1.el7.x86_64.rpm
+
+]# chef-server-ctl reconfigure
+------------------------------------------------------------
+Uninstall.
+(Before this, do stop, cleanup, cleanse, uninstall.)
+
+]# yum remove -y chef-server-core.x86_64
+================================================================================
+Start / Stop service.
+
+]# chef-server-ctl start
+]# chef-server-ctl stop
+
+Check status.
+
+]# chef-server-ctl status
+------------------------------------------------------------
+Cleanup.
+
+]# chef-server-ctl cleanup
+
+]# chef-server-ctl cleanse
+------------------------------------------------------------
+Uninstall process supervisor.
+(Before this, do stop, cleanup, cleanse.)
+
+]# chef-server-ctl uninstall
+================================================================================
+Chef admin server
+------------------------------------------------------------
+get SSH key from Chef server
+
+$ knife ssl fetch
+================================================================================
+Chef admin server
+------------------------------------------------------------
+Get data bags.
+
+$ knife data bag list
+
+ssh_passphrases
+------------------------------------------------------------
+Check data bag content.
+
+$ knife data bag show ssh_passphrases
+
+execution_engine_docker
+execution_engine_docker_keys
+================================================================================
+Chef admin server
+------------------------------------------------------------
+Get roles.
+
+$ knife role list
+
+linux_compliant_server
+------------------------------------------------------------
+Get role content.
+
+$ knife role show <Role>
+
+$ knife role show linux_compliant_server
+----------------------------------------
+chef_type:           role
+default_attributes:
+description:         ITCS104 compliance for Linux Server.
+env_run_lists:
+json_class:          Chef::Role
+name:                linux_compliant_server
+override_attributes:
+run_list:
+  recipe[policy_linux_directory_perms]
+  ......
+------------------------------------------------------------
+To modify.
+
+$ EDITOR=vi
+$ export EDITOR
+$ knife role edit <Role>
+
+$ knife role edit linux_compliant_server
+================================================================================
+Chef admin server
+------------------------------------------------------------
+Get environment.
+
+$ knife environment list
+
+_default
+test_env_1
+------------------------------------------------------------
+Get environment content.
+
+$ knife environment show <Environment>
+
+$ knife environment show _default
+----------------------------------------
+knife environment show _default
+chef_type:           environment
+cookbook_versions:
+default_attributes:
+description:         The default Chef environment
+json_class:          Chef::Environment
+name:                _default
+override_attributes:
+------------------------------------------------------------
+Get environment content, export to file.
+
+$ knife environment show <Environment> -f json > <FileName>.json
+
+$ knife environment show _default -f json > default_environment.json
+------------------------------------------------------------
+Delete environment.
+
+Do not delete the "_default" one.
+
+$ knife environment delete <Environment>
+================================================================================
+Chef admin server
+------------------------------------------------------------
+Get registered Node.
+
+$ knife node list
+
+sla-test6-asb-dal09.sdad.ibm.com
+------------------------------------------------------------
+Get node information.
+
+$ knife node show <Node>
+
+$ knife node show sla-test6-asb-dal09.sdad.ibm.com
+----------------------------------------
+Node Name:   sla-test6-asb-dal09.sdad.ibm.com
+Environment: test_env
+FQDN:        sla-test6-asb-dal09.sdad.ibm.com
+IP:          10.120.22.16
+Run List:    recipe[sentinel_ingredients], recipe[cc_formatter], recipe[cobalt_ohai], role[linux_compliant_server]
+Roles:       linux_compliant_server
+Recipes:
+Platform:    redhat 7.2
+Tags:
+------------------------------------------------------------
+Delete registered node.
+
+$ knife node delete <Node>
+$ knife client delete <Node>
+
+$ knife node delete sla-test6-asb-dal09.sdad.ibm.com
+$ knife client delete sla-test6-asb-dal09.sdad.ibm.com
+================================================================================
+Chef admin server
+------------------------------------------------------------
+Set environment to node.
+
+$ knife node environment_set <Node> <Environment>
+
+$ knife node environment_set sla-test6-asb-dal09.sdad.ibm.com test_env
+------------------------------------------------------------
+Check node again.
+
+$ knife node show <Node>
+================================================================================
+Chef admin server
+------------------------------------------------------------
+Add role to node.
+
+$ knife node run_list add <Node> "role[<Role>]"
+
+$ knife node run_list add sla-test6-asb-dal09.sdad.ibm.com "role[linux_compliant_server]"
+------------------------------------------------------------
+Check node again.
+
+$ knife node show <Node>
+================================================================================
+Chef admin server
+------------------------------------------------------------
+Get cookbook list.
+
+$ knife cookbook list
+------------------------------------------------------------
+Get version list of cookbook.
+
+$ knife cookbook show <Cookbook>
+------------------------------------------------------------
+Get cookbook content.
+
+$ knife cookbook show <Cookbook> <Version>
+------------------------------------------------------------
+Download cookbook (full folder) to current folder.
+The download folder name is "<Cookbook>-<Version>".
+----------------------------------------
+Download latest version.
+
+$ knife cookbook download <Cookbook>
+----------------------------------------
+Download specified version.
+
+$ knife cookbook download <Cookbook> <Version>
+------------------------------------------------------------
+Upload cookbook (full folder) to Chef server.
+----------------------------------------
+Upload cookbook from default repo.
+(Normally "~/chef-repo/".)
+
+$ knife cookbook upload <Cookbook>
+----------------------------------------
+Upload cookbook from specified path.
+(The path is the parent folder of cookbook.)
+
+$ knife cookbook upload <Cookbook> -o <PathToCookbook>
+
+Sample:
+
+/tmp/MyCookBook
+
+$ knife cookbook upload MyCookBook -o /tmp/
+================================================================================
+Chef Node
+------------------------------------------------------------
+Run recipes. Try Why-run mode first!!!
+------------------------------------------------------------
+Real run mode.
+
+]# chef-client 2>&1 | tee /tmp/chef-client_`date +"%F_%H%M%S"`.log
+
+]# chef-client 2>&1 | tee /mnt/CCNas/Operation/TempLogs/chef-client_`hostname`_`date +"%F_%H%M%S"`.log
+------------------------------------------------------------
+Why-run mode.
+
+]# chef-client -W 2>&1 | tee /tmp/chef-client_whyrun_`date +"%F_%H%M%S"`.log
+
+]# chef-client -W 2>&1 | tee /mnt/CCNas/Operation/TempLogs/chef-client_`hostname`_whyrun_`date +"%F_%H%M%S"`.log
+================================================================================

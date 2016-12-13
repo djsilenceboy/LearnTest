@@ -1,0 +1,359 @@
+================================================================================
+https://git-scm.com/book/en/v2
+
+https://progit2.s3.amazonaws.com/en/2016-03-22-f3531/progit-en.1084.pdf
+
+https://training.github.com/kit/downloads/github-git-cheat-sheet.pdf
+================================================================================
+Local Git repository
+------------------------------------------------------------
+Create a new local repository
+
+The default branch is "master".
+
+> git init
+================================================================================
+Repository
+------------------------------------------------------------
+Clone local repository
+
+To current folder.
+
+> git clone /path/to/repository
+
+To specified folder.
+
+> git clone /path/to/repository /path/to/another_repository
+------------------------------------------------------------
+Clone remote repository
+
+The default remote name/branch is "origin/master".
+
+> git clone username@host:/path/to/repository
+
+With new alias remote name.
+The remote name/branch will be "<NewRemoteName>/master".
+
+> git clone username@host:/path/to/repository <NewRemoteName>
+------------------------------------------------------------
+Add remote repository to local
+(Especially, local repository is not clone from remote one.)
+
+> git remote add <NewRemoteName> git://host.xz[:port]/path/to/repo.git/
+
+The normal <NewRemoteName> is "origin".
+It can add several <NewRemoteName> for same repository.
+
+> git remote add origin "Repo1"
+> git remote add tom "Repo1"
+------------------------------------------------------------
+Remove remote repository from local
+
+> git remote rm <ExistingRemoteName>
+------------------------------------------------------------
+Check repository
+
+Show remote name list.
+
+> git remote
+> git remote show
+
+Show remote name and URL list.
+
+> git remote -v
+
+Show details of remote repository.
+
+> git remote show <RemoteName>
+================================================================================
+Branch
+------------------------------------------------------------
+Create new branch
+
+> git branch <NewBranchName>
+------------------------------------------------------------
+Switch to branch
+
+> git checkout <BranchName>
+------------------------------------------------------------
+Create new branch and switch to it
+
+> git checkout -b <BranchName>
+
+Create new branch for remote "origin" branch and switch to it
+
+> git checkout -b <BranchName> <RemoteBranchName>
+
+Create new branch for remote branch and switch to it
+
+> git checkout -b <BranchName> <RemoteName>/<BranchName>
+------------------------------------------------------------
+Check branch
+
+Check current checked-out branches.
+
+> git branch
+
+With more details.
+
+> git branch -v
+
+With more details and tracking branch info.
+
+> git branch -vv
+
+Check all available branches.
+
+> git branch -a
+
+Check already merged branch.
+
+> git branch -v --merged
+
+Check not merged branch.
+
+> git branch -v --merged
+------------------------------------------------------------
+Change tracking remote branch for current checked-out branch
+
+For remote "origin" branch.
+
+> git branch -u <BranchName>
+
+For remote branch.
+
+> git branch -u <RemoteName>/<BranchName>
+------------------------------------------------------------
+Delete branch locally
+
+> git branch -d <BranchName>
+================================================================================
+Rebase
+
+(ONLY rebase branch, which is managed locally!!!)
+(DO NOT rebase branch, which had already pushed/shared to remote!!!)
+------------------------------------------------------------
+Rebase current checked-out branch to target branch.
+
+> git rebase <TargetBranchName>
+
+Rebase source checked-out branch to target branch.
+
+> git rebase <TargetBranchName> <SourceBranchName>
+------------------------------------------------------------
+Rebase from source checked-out branch to target branch by referring related branch.
+
+> git rebase --onto <TargetBranchName> <RelatedBranchName> <SourceBranchName>
+================================================================================
+Pull from remote to local
+------------------------------------------------------------
+Get info only.
+
+From "origin" remote repository.
+
+> git fetch
+
+From specified remote repository.
+
+> git fetch <RemoteName>
+------------------------------------------------------------
+Merge.
+
+Merge remote branch "origin/master" into current checked-out branch.
+
+> git merge
+
+Merge specified remote "origin" branch into current checked-out branch.
+
+> git merge <SourceBranchName>
+
+Merge specified remote branch into current checked-out branch.
+
+> git merge <RemoteName>/<SourceBranchName>
+------------------------------------------------------------
+Get and merge together.
+
+Get and merge remote branch "origin/master" into current checked-out branch.
+
+> git pull
+
+Get and merge specified remote "origin" branch into current checked-out branch.
+
+> git pull <BranchName>
+
+Get and merge specified remote branch into current checked-out branch.
+
+> git pull <RemoteName>/<BranchName>
+================================================================================
+Push from local to remote
+------------------------------------------------------------
+Push changes from local branch to remote repository
+
+Push current checked-out branch to remote "origin/master".
+
+> git push
+
+Push current checked-out branch to specified remote.
+
+> git push <RemoteName>
+
+Push newly created checked-out branch to specified remote.
+(It will create copy of branc in repository.)
+
+> git push --set-upstream <RemoteName> <BranchName>
+
+Push specified checked-out branch to specified remote.
+
+> git push <RemoteName> <BranchName>
+
+Push specified checked-out branch to specified remote and branch.
+
+> git push <RemoteName> <BranchName>:<RemoteBranchName>
+------------------------------------------------------------
+Delete branch on remote repository
+
+> git push <RemoteName> :<RemoteBranchName>
+
+> git push <RemoteName> --delete <RemoteBranchName>
+================================================================================
+Staging and Commit
+------------------------------------------------------------
+Add files to be tracked (if not tracked yet) and to staging
+
+> git add <FileName>
+
+> git add *
+------------------------------------------------------------
+Delete files from staging and to be untracked
+
+Also delete files from disk.
+
+> git rm <FileName>
+
+Still keep files on disk.
+
+> git rm --cached <FileName>
+------------------------------------------------------------
+Remove files from staging, but preserve its content
+
+> git reset HEAD <FileName>
+------------------------------------------------------------
+Reset modified and unstaged files to origin content
+
+> git checkout -- <FileName>
+------------------------------------------------------------
+Move/Rename files
+
+> git mv <FileName> <NewFileName>
+------------------------------------------------------------
+Commit files from staging to branch
+
+> git commit -m "<Comments>"
+------------------------------------------------------------
+Commit tracked files to staging first, then to branch
+(New files should "git add" first.)
+
+> git commit -a -m "<Comments>"
+------------------------------------------------------------
+Add more changes to same commit
+(Do it after "git commit -m".)
+
+> git add <FileName>
+> git commit --amend
+------------------------------------------------------------
+Check status of staging and commit
+
+> git status
+================================================================================
+Stash
+(Save tracked but unstaged files temporarily.)
+------------------------------------------------------------
+Save files in current branch
+
+> git stash
+------------------------------------------------------------
+Check saved files.
+
+> git stash list
+------------------------------------------------------------
+Restore saved files to current branch.
+
+> git stash pop
+------------------------------------------------------------
+Discard saved files.
+
+> git stash drop
+================================================================================
+Tag
+------------------------------------------------------------
+Add lightweight tag
+
+> git tag <TagName>
+------------------------------------------------------------
+Add annotated tag
+
+> git tag -a <TagName> -m "<Comments>"
+------------------------------------------------------------
+Check tag list
+
+> git tag
+
+Find certain tag(s).
+
+> git tag -l <TagPattern>
+------------------------------------------------------------
+Show details of tag
+
+> git show <TagName>
+------------------------------------------------------------
+Push tags to remote repository
+
+Push a new tag to specified remote repository.
+
+> git push <RemoteName> <TagName>
+
+Push all new tags to default remote repository.
+
+> git push --tags
+
+Push all new tags to specified remote repository.
+
+> git push <RemoteName> --tags
+================================================================================
+Log
+------------------------------------------------------------
+Check log
+
+Full log.
+
+> git log
+> git log -<NumberOfRecentLog>
+
+Full log with diff.
+
+> git log -p
+
+One line with short SHA-1.
+
+> git log --oneline
+
+One line with short SHA-1 and branch headers.
+
+> git log --oneline --decorate
+
+One line with short SHA-1 and graph.
+
+> git log --oneline --graph
+
+One line with full SHA-1.
+
+> git log --pretty=oneline
+
+One line with format.
+
+> git log --pretty=format:"%h - %an, %ar : %s"
+------------------------------------------------------------
+Check reflog
+
+> git reflog
+================================================================================

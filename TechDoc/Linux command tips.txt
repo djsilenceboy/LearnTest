@@ -1,0 +1,244 @@
+================================================================================
+Notes:
+
+"]#" means root user.
+"]$" means normal user.
+================================================================================
+grep
+------------------------------------------------------------
+Igore line start with "#".
+
+]$ grep -v "^#" <File>
+------------------------------------------------------------
+Igore empty line.
+
+]$ grep -v "^$" <File>
+------------------------------------------------------------
+Multiple keyword.
+
+]$ grep "Key1\|Key2\|Key3"
+------------------------------------------------------------
+Find files with pattern.
+
+]$ grep -rnw <FilePath> -e <Keyword>
+
+   -r or -R is recursive,
+   -n is line number, and
+   -w stands match the whole word.
+   -l (lower-case L) can be added to just give the file name of matching files.
+      stands for "show the file name, not the result itself".
+   -i stands for ignore case (optional in your case).
+
+Sample output format:
+
+/path/to/file:<LineNumber>:<LineWihtKeyword>
+================================================================================
+SSH / SCP /SFTP
+------------------------------------------------------------
+Use private key to login.
+
+]$ ssh -i $keyFile $User@$Address
+------------------------------------------------------------
+Batch mode, non-interactive.
+
+]$ ssh -o "BatchMode yes" -o "StrictHostKeyChecking no" $User@$Address
+]$ scp -B file $User@$Address:PATH
+]$ sftp -b file $User@$Address:PATH
+
+If server require password or deny connection, then ssh just exit with non-zone.
+If server prompt to save key in "know_hosts", just save.
+Use -o "UserKnownHostsFile /dev/null" to ignore saving key in "know_hosts".
+------------------------------------------------------------
+Run a local script on remote host.
+
+]$ cat Local.sh | ssh $loginUser@$Address
+------------------------------------------------------------
+Run a local script on remote host with key and batch mode.
+
+]$ cat Local.sh | ssh -o "BatchMode yes" -i $keyFile $User@$Address
+================================================================================
+Redirect
+------------------------------------------------------------
+Output stderr to file.
+
+2> fileName
+
+Note that no space between "2>".
+
+Correct:
+2>
+
+Wrong:
+2 >
+------------------------------------------------------------
+Output stderr to stdout.
+
+2>&1
+
+Note that no space between "2>&1".
+
+Correct:
+2>&1
+
+Wrong:
+2> &1
+------------------------------------------------------------
+Output to stderr.
+
+> &2
+------------------------------------------------------------
+Output to a file with date in file name.
+
+> LogSample_`date +"%F"`.log
+> LogSample_`date +"%F_%H%M%S"`.log
+------------------------------------------------------------
+Input from stdin until reach special delimter string.
+
+<< DELIMITER
+
+"DELIMITER" can be other string.
+------------------------------------------------------------
+Tee output.
+
+]$ Some.sh 2>&1 | tee Some.log
+================================================================================
+Cron job
+------------------------------------------------------------
+List cron job.
+
+]$ crontab -l
+]# crontab -u <User> -l
+------------------------------------------------------------
+Edit cron job.
+
+]$ crontab -e
+]# crontab -u <User> -e
+------------------------------------------------------------
+Export cron job file.
+
+]$ crontab -l > <File>
+------------------------------------------------------------
+Export cron job file.
+
+]$ crontab <File>
+]# crontab -u <User> <File>
+------------------------------------------------------------
+Cron job file location
+
+/var/spool/cron
+
+After run "crontab -e", a cron file will be created with user's name.
+Normally, do not modify it directly.
+------------------------------------------------------------
+Cron job log
+
+/var/log/cron
+
+It requires "root" privilege.
+================================================================================
+Check network TCP listening port
+------------------------------------------------------------
+]# netstat -ntl
+]# netstat -ntl | grep :9080
+
+]# ss -ntl
+]# ss -ntl | grep :9080
+------------------------------------------------------------
+Show linked process
+
+]# netstat -ntlp
+]# netstat -ntlp | grep :9080
+================================================================================
+Copy file and keep timestamps.
+
+]$ cp --preserve=timestamps <Source> <Destination>
+================================================================================
+Check all file in folder
+
+]$ ls -a
+]$ ll -a
+
+Check file name length
+
+]$ ls | awk '$(NF+1)=length'
+
+Display non-printable character in file name
+
+]$ ls | cat -v
+]$ ls | od -c
+================================================================================
+Change password
+
+]# echo UserName:NewPassword | chpasswd
+================================================================================
+Use openssl to generate key.
+
+]# openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout some.key -out some.crt -subj "/C=US/ST=Texas/L=Dallas/O=IBM/CN=`hostname`"
+
+Check and verify.
+
+]# openssl x509 -text -noout -in some.crt
+]# openssl rsa -check -in some.key
+================================================================================
+Delete user with home directory
+
+]# userdel -r <User>
+------------------------------------------------------------
+Delete group
+
+]# groupdel <Group>
+================================================================================
+Find
+
+Find file/folder.
+
+]$ find . -name <Keyword>
+
+Find file/folder and exec command.
+
+]$ find . -name <Keyword> -exec grep <Keyword> {} \;
+
+Find file/folder and exec command, and print file name.
+
+]$ find . -name <Keyword> -exec grep -H <Keyword> {} \;
+
+Find file only.
+
+]$ find . -type f -name <Keyword>
+]$ find . -type f -perm 0644 -name <Keyword>
+
+Find text file only.
+
+]$ find . -type f -name <Keyword> -exec grep -HIg . {} \;
+
+Find folder only.
+
+]$ find . -type d -name <Keyword>
+]$ find . -type d -perm 0644 -name <Keyword>
+
+Find file with size.
+
+]$ find . -size 50M
+
+Find file within size range.
+
+]$ find . -size +50M -size -100M
+
+Find empty file.
+
+]$ find . -type f -empty
+================================================================================
+rsync
+------------------------------------------------------------
+]$ rsync -ahvn --delete --exclude "VMImage" --exclude "System Volume Information" DiskD/ WorkIBM/
+================================================================================
+Upload/Download file
+------------------------------------------------------------
+Upload
+
+]$ sshpass -p <Password> scp -p -P <Port> <LocalPath_Or_File> <UserName>@<HostName/IP>:<Path_Or_File>
+
+Download
+
+]$ sshpass -p <Password> scp -p -P <Port> <UserName>@<HostName/IP>:<Path_Or_File> <LocalPath_Or_File>
+================================================================================

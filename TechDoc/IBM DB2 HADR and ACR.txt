@@ -1,0 +1,388 @@
+================================================================================
+Prepare hosts and database.
+------------------------------------------------------------
+DB2_Node1
+----------------------------------------
+]# vim /etc/hosts
+192.168.0.21    hc-prod-db2-1.comany.com
+192.168.0.22    hc-prod-db2-2.comany.com
+
+Must use exact IP, not 127.0.0.1 for local!
+----------------------------------------
+]# vim /etc/services
+DB2_HADR_1      50011/tcp
+DB2_HADR_2      50012/tcp
+----------------------------------------
+]# su db2inst1
+]$ db2
+db2 => CREATE DATABASE SUPPORTA
+----------------------------------------
+]$ cd /home/db2inst1/db2backup
+]$ ./Enable_HADR_ArchiveLogging.sh SUPPORTA
+----------------------------------------
+]$ mkdir /home/db2inst1/db2backup/SUPPORTA
+]$ ./Backup_HADR_Offline.sh SUPPORTA /home/db2inst1/db2backup/SUPPORTA
+------------------------------------------------------------
+Copy DB backup from DB2_Node1 to DB2_Node2, in folder "/home/db2inst1/db2backup/SUPPORTA".
+------------------------------------------------------------
+DB2_Node2
+----------------------------------------
+]# vim /etc/hosts
+192.168.0.22    hc-prod-db2-2.comany.com
+192.168.0.21    hc-prod-db2-1.comany.com
+
+Must use exact IP, not 127.0.0.1 for local!
+----------------------------------------
+]# vim /etc/services
+DB2_HADR_1      50011/tcp
+DB2_HADR_2      50012/tcp
+----------------------------------------
+]# su db2inst1
+]$ cd /home/db2inst1/db2backup
+]$ ./Restore_HADR_Offline.sh SUPPORTA /home/db2inst1/db2backup/SUPPORTA 20150305xxx
+
+## After RESTORE DATABASE, the db remains in "ROLL-FORWARD PENDING" status.
+================================================================================
+Prepare HADR.
+------------------------------------------------------------
+DB2_Node1
+----------------------------------------
+]$ db2 UPDATE DB CFG FOR SUPPORTA USING HADR_LOCAL_HOST hc-prod-db2-1.comany.com
+]$ db2 UPDATE DB CFG FOR SUPPORTA USING HADR_LOCAL_SVC DB2_HADR_1
+# Default HADR_SYNCMODE is NEARSYNC. Only if in LAN, use SYNC
+]$ db2 UPDATE DB CFG FOR SUPPORTA USING HADR_SYNCMODE NEARSYNC
+
+]$ db2 UPDATE DB CFG FOR SUPPORTA USING HADR_REMOTE_HOST hc-prod-db2-2.comany.com
+]$ db2 UPDATE DB CFG FOR SUPPORTA USING HADR_REMOTE_SVC DB2_HADR_2
+]$ db2 UPDATE DB CFG FOR SUPPORTA USING HADR_REMOTE_INST db2inst1
+]$ db2 UPDATE DB CFG FOR SUPPORTA USING HADR_TARGET_LIST hc-prod-db2-2.comany.com:DB2_HADR_2
+
+# Default HADR_TIMEOUT is 120.
+]$ db2 UPDATE DB CFG FOR SUPPORTA USING HADR_TIMEOUT 120
+]$ db2 UPDATE DB CFG FOR SUPPORTA USING HADR_PEER_WINDOW 120
+----------------------------------------
+Check.
+
+]$ db2 GET DB CFG FOR SUPPORTA | grep HADR
+------------------------------------------------------------
+DB2_Node2
+----------------------------------------
+]$ db2 UPDATE DB CFG FOR SUPPORTA USING HADR_LOCAL_HOST hc-prod-db2-2.comany.com
+]$ db2 UPDATE DB CFG FOR SUPPORTA USING HADR_LOCAL_SVC DB2_HADR_2
+# Default HADR_SYNCMODE is NEARSYNC. Only if in LAN, use SYNC
+]$ db2 UPDATE DB CFG FOR SUPPORTA USING HADR_SYNCMODE NEARSYNC
+
+]$ db2 UPDATE DB CFG FOR SUPPORTA USING HADR_REMOTE_HOST hc-prod-db2-1.comany.com
+]$ db2 UPDATE DB CFG FOR SUPPORTA USING HADR_REMOTE_SVC DB2_HADR_1
+]$ db2 UPDATE DB CFG FOR SUPPORTA USING HADR_REMOTE_INST db2inst1
+]$ db2 UPDATE DB CFG FOR SUPPORTA USING HADR_TARGET_LIST hc-prod-db2-1.comany.com:DB2_HADR_1
+
+# Default HADR_TIMEOUT is 120.
+]$ db2 UPDATE DB CFG FOR SUPPORTA USING HADR_TIMEOUT 120
+]$ db2 UPDATE DB CFG FOR SUPPORTA USING HADR_PEER_WINDOW 120
+----------------------------------------
+Check.
+
+]$ db2 GET DB CFG FOR SUPPORTA | grep HADR
+================================================================================
+Prepare reads on Standby.
+------------------------------------------------------------
+DB2_Node1
+----------------------------------------
+Set for Primary, in case its role will be changed from Primary to Standby.
+(It requires to restart DB to take into effect.)
+
+]$ db2set DB2_HADR_ROS=ON
+]$ db2set DB2_STANDBY_ISO=UR
+----------------------------------------
+Check.
+
+]$ db2set -all
+------------------------------------------------------------
+DB2_Node2
+----------------------------------------
+Set for Standby.
+(It requires to restart DB to take into effect.)
+
+]$ db2set DB2_HADR_ROS=ON
+]$ db2set DB2_STANDBY_ISO=UR
+----------------------------------------
+Check.
+
+]$ db2set -all
+================================================================================
+Start HADR.
+Must start Standby before Primary!
+------------------------------------------------------------
+DB2_Node2
+
+]$ db2 START HADR ON DB SUPPORTA AS STANDBY
+----------------------------------------
+DB2_Node1
+
+]$ db2 START HADR ON DB SUPPORTA AS PRIMARY
+------------------------------------------------------------
+Check listening port on both nodes.
+
+]# netstat -ntlp | grep :500
+------------------------------------------------------------
+Check HADR status on both nodes.
+
+]$ db2pd -hadr -db SUPPORTA
+================================================================================
+Prepare ACR.
+------------------------------------------------------------
+DB2_Node1
+----------------------------------------
+]$ db2 UPDATE ALTERNATE SERVER FOR DATABASE SUPPORTA USING HOSTNAME hc-prod-db2-2.comany.com PORT 50000
+------------------------------------------------------------
+DB2_Node2
+----------------------------------------
+]$ db2 UPDATE ALTERNATE SERVER FOR DATABASE SUPPORTA USING HOSTNAME hc-prod-db2-1.comany.com PORT 50000
+------------------------------------------------------------
+Check ACR status on both nodes.
+
+]$ db2 list db directory
+================================================================================
+Start servers.
+Must start Standby before Primary!
+------------------------------------------------------------
+DB2_Node2
+----------------------------------------
+]$ db2start
+]$ db2 START HADR ON DB SUPPORTA AS STANDBY
+------------------------------------------------------------
+DB2_Node1
+----------------------------------------
+]$ db2start
+]$ db2 START HADR ON DB SUPPORTA AS PRIMARY
+================================================================================
+Stop server
+Must stop Primary before Standby!
+------------------------------------------------------------
+DB2_Node1
+----------------------------------------
+]$ db2 DEACTIVATE DATABASE SUPPORTA
+]$ db2stop
+------------------------------------------------------------
+DB2_Node2
+----------------------------------------
+]$ db2 DEACTIVATE DATABASE SUPPORTA
+]$ db2stop
+================================================================================
+Take over server
+Only run on Standby.
+------------------------------------------------------------
+DB2_Node2
+----------------------------------------
+]$ db2 TAKEOVER HADR ON DB SUPPORTA
+================================================================================
+Sample HADR setting.
+------------------------------------------------------------
+DB2_Node1
+
+ HADR database role                                      = PRIMARY
+ HADR local host name                  (HADR_LOCAL_HOST) = hc-prod-db2-1.comany.com
+ HADR local service name                (HADR_LOCAL_SVC) = DB2_HADR_1
+ HADR remote host name                (HADR_REMOTE_HOST) = hc-prod-db2-2.comany.com
+ HADR remote service name              (HADR_REMOTE_SVC) = DB2_HADR_2
+ HADR instance name of remote server  (HADR_REMOTE_INST) = db2inst1
+ HADR timeout value                       (HADR_TIMEOUT) = 120
+ HADR target list                     (HADR_TARGET_LIST) = hc-prod-db2-2.comany.com:DB2_HADR_2
+ HADR log write synchronization mode     (HADR_SYNCMODE) = NEARSYNC
+ HADR spool log data limit (4KB)      (HADR_SPOOL_LIMIT) = AUTOMATIC(25600)
+ HADR log replay delay (seconds)     (HADR_REPLAY_DELAY) = 0
+ HADR peer window duration (seconds)  (HADR_PEER_WINDOW) = 120
+------------------------------------------------------------
+DB2_Node2
+
+ HADR database role                                      = STANDBY
+ HADR local host name                  (HADR_LOCAL_HOST) = hc-prod-db2-2.comany.com
+ HADR local service name                (HADR_LOCAL_SVC) = DB2_HADR_2
+ HADR remote host name                (HADR_REMOTE_HOST) = hc-prod-db2-1.comany.com
+ HADR remote service name              (HADR_REMOTE_SVC) = DB2_HADR_1
+ HADR instance name of remote server  (HADR_REMOTE_INST) = db2inst1
+ HADR timeout value                       (HADR_TIMEOUT) = 120
+ HADR target list                     (HADR_TARGET_LIST) = hc-prod-db2-1.comany.com:DB2_HADR_1
+ HADR log write synchronization mode     (HADR_SYNCMODE) = NEARSYNC
+ HADR spool log data limit (4KB)      (HADR_SPOOL_LIMIT) = AUTOMATIC(25600)
+ HADR log replay delay (seconds)     (HADR_REPLAY_DELAY) = 0
+ HADR peer window duration (seconds)  (HADR_PEER_WINDOW) = 120
+================================================================================
+Sample HADR status.
+------------------------------------------------------------
+DB2_Node1
+
+Database Member 0 -- Database SUPPORTA -- Active -- Up 0 days 00:02:51 -- Date 2015-03-05-23.05.14.276271
+
+                            HADR_ROLE = PRIMARY
+                          REPLAY_TYPE = PHYSICAL
+                        HADR_SYNCMODE = NEARSYNC
+                           STANDBY_ID = 1
+                        LOG_STREAM_ID = 0
+                           HADR_STATE = PEER
+                           HADR_FLAGS = 
+                  PRIMARY_MEMBER_HOST = hc-prod-db2-1.comany.com
+                     PRIMARY_INSTANCE = db2inst1
+                       PRIMARY_MEMBER = 0
+                  STANDBY_MEMBER_HOST = hc-prod-db2-2.comany.com
+                     STANDBY_INSTANCE = db2inst1
+                       STANDBY_MEMBER = 0
+                  HADR_CONNECT_STATUS = CONNECTED
+             HADR_CONNECT_STATUS_TIME = 03/05/2015 23:02:27.112931 (1425567747)
+          HEARTBEAT_INTERVAL(seconds) = 30
+                HADR_TIMEOUT(seconds) = 120
+        TIME_SINCE_LAST_RECV(seconds) = 18
+             PEER_WAIT_LIMIT(seconds) = 0
+           LOG_HADR_WAIT_CUR(seconds) = 0.000
+    LOG_HADR_WAIT_RECENT_AVG(seconds) = 0.000000
+   LOG_HADR_WAIT_ACCUMULATED(seconds) = 0.000
+                  LOG_HADR_WAIT_COUNT = 0
+SOCK_SEND_BUF_REQUESTED,ACTUAL(bytes) = 0, 19800
+SOCK_RECV_BUF_REQUESTED,ACTUAL(bytes) = 0, 87380
+            PRIMARY_LOG_FILE,PAGE,POS = S0000000.LOG, 0, 49107649
+            STANDBY_LOG_FILE,PAGE,POS = S0000000.LOG, 0, 49107649
+                  HADR_LOG_GAP(bytes) = 0
+     STANDBY_REPLAY_LOG_FILE,PAGE,POS = S0000000.LOG, 0, 49107649
+       STANDBY_RECV_REPLAY_GAP(bytes) = 3351886
+                     PRIMARY_LOG_TIME = 03/05/2015 18:59:59.000000 (1425553199)
+                     STANDBY_LOG_TIME = 03/05/2015 18:59:59.000000 (1425553199)
+              STANDBY_REPLAY_LOG_TIME = 03/05/2015 18:59:59.000000 (1425553199)
+         STANDBY_RECV_BUF_SIZE(pages) = 4298
+             STANDBY_RECV_BUF_PERCENT = 0
+           STANDBY_SPOOL_LIMIT(pages) = 25600
+                STANDBY_SPOOL_PERCENT = 0
+                 PEER_WINDOW(seconds) = 120
+                      PEER_WINDOW_END = 03/05/2015 23:06:57.000000 (1425568017)
+             READS_ON_STANDBY_ENABLED = Y
+    STANDBY_REPLAY_ONLY_WINDOW_ACTIVE = N
+------------------------------------------------------------
+DB2_Node2
+
+Database Member 0 -- Database SUPPORTA -- Active Standby -- Up 0 days 00:10:07 -- Date 2015-03-05-23.10.49.133484
+
+                            HADR_ROLE = STANDBY
+                          REPLAY_TYPE = PHYSICAL
+                        HADR_SYNCMODE = NEARSYNC
+                           STANDBY_ID = 0
+                        LOG_STREAM_ID = 0
+                           HADR_STATE = PEER
+                           HADR_FLAGS = 
+                  PRIMARY_MEMBER_HOST = hc-prod-db2-1.comany.com
+                     PRIMARY_INSTANCE = db2inst1
+                       PRIMARY_MEMBER = 0
+                  STANDBY_MEMBER_HOST = hc-prod-db2-2.comany.com
+                     STANDBY_INSTANCE = db2inst1
+                       STANDBY_MEMBER = 0
+                  HADR_CONNECT_STATUS = CONNECTED
+             HADR_CONNECT_STATUS_TIME = 03/05/2015 23:02:26.643344 (1425567746)
+          HEARTBEAT_INTERVAL(seconds) = 30
+                HADR_TIMEOUT(seconds) = 120
+        TIME_SINCE_LAST_RECV(seconds) = 20
+             PEER_WAIT_LIMIT(seconds) = 0
+           LOG_HADR_WAIT_CUR(seconds) = 0.000
+    LOG_HADR_WAIT_RECENT_AVG(seconds) = 0.000511
+   LOG_HADR_WAIT_ACCUMULATED(seconds) = 0.002
+                  LOG_HADR_WAIT_COUNT = 3
+SOCK_SEND_BUF_REQUESTED,ACTUAL(bytes) = 0, 19800
+SOCK_RECV_BUF_REQUESTED,ACTUAL(bytes) = 0, 87380
+            PRIMARY_LOG_FILE,PAGE,POS = S0000000.LOG, 1, 49115708
+            STANDBY_LOG_FILE,PAGE,POS = S0000000.LOG, 1, 49115708
+                  HADR_LOG_GAP(bytes) = 0
+     STANDBY_REPLAY_LOG_FILE,PAGE,POS = S0000000.LOG, 1, 49115708
+       STANDBY_RECV_REPLAY_GAP(bytes) = 1676390
+                     PRIMARY_LOG_TIME = 03/05/2015 23:06:28.000000 (1425567988)
+                     STANDBY_LOG_TIME = 03/05/2015 23:06:28.000000 (1425567988)
+              STANDBY_REPLAY_LOG_TIME = 03/05/2015 23:06:28.000000 (1425567988)
+         STANDBY_RECV_BUF_SIZE(pages) = 4298
+             STANDBY_RECV_BUF_PERCENT = 0
+           STANDBY_SPOOL_LIMIT(pages) = 25600
+                STANDBY_SPOOL_PERCENT = 0
+                 PEER_WINDOW(seconds) = 120
+                      PEER_WINDOW_END = 03/05/2015 23:12:29.000000 (1425568349)
+             READS_ON_STANDBY_ENABLED = Y
+    STANDBY_REPLAY_ONLY_WINDOW_ACTIVE = N
+------------------------------------------------------------
+DB2_Node2 (After take over)
+
+Database Member 0 -- Database SUPPORTA -- Active -- Up 0 days 03:13:06 -- Date 2015-03-09-13.38.43.606763
+
+                            HADR_ROLE = PRIMARY
+                          REPLAY_TYPE = PHYSICAL
+                        HADR_SYNCMODE = NEARSYNC
+                           STANDBY_ID = 1
+                        LOG_STREAM_ID = 0
+                           HADR_STATE = PEER
+                           HADR_FLAGS = 
+                  PRIMARY_MEMBER_HOST = hc-prod-db2-2.comany.com
+                     PRIMARY_INSTANCE = db2inst1
+                       PRIMARY_MEMBER = 0
+                  STANDBY_MEMBER_HOST = hc-prod-db2-1.comany.com
+                     STANDBY_INSTANCE = db2inst1
+                       STANDBY_MEMBER = 0
+                  HADR_CONNECT_STATUS = CONNECTED
+             HADR_CONNECT_STATUS_TIME = 03/09/2015 13:33:33.460486 (1425879213)
+          HEARTBEAT_INTERVAL(seconds) = 30
+                HADR_TIMEOUT(seconds) = 120
+        TIME_SINCE_LAST_RECV(seconds) = 6
+             PEER_WAIT_LIMIT(seconds) = 0
+           LOG_HADR_WAIT_CUR(seconds) = 0.000
+    LOG_HADR_WAIT_RECENT_AVG(seconds) = 0.000000
+   LOG_HADR_WAIT_ACCUMULATED(seconds) = 0.000
+                  LOG_HADR_WAIT_COUNT = 0
+SOCK_SEND_BUF_REQUESTED,ACTUAL(bytes) = 0, 16384
+SOCK_RECV_BUF_REQUESTED,ACTUAL(bytes) = 0, 87380
+            PRIMARY_LOG_FILE,PAGE,POS = S0000007.LOG, 411, 80000215
+            STANDBY_LOG_FILE,PAGE,POS = S0000007.LOG, 411, 80000215
+                  HADR_LOG_GAP(bytes) = 0
+     STANDBY_REPLAY_LOG_FILE,PAGE,POS = S0000007.LOG, 411, 80000215
+       STANDBY_RECV_REPLAY_GAP(bytes) = 0
+                     PRIMARY_LOG_TIME = 03/09/2015 11:58:42.000000 (1425873522)
+                     STANDBY_LOG_TIME = 03/09/2015 11:58:42.000000 (1425873522)
+              STANDBY_REPLAY_LOG_TIME = 03/09/2015 11:58:42.000000 (1425873522)
+         STANDBY_RECV_BUF_SIZE(pages) = 16
+             STANDBY_RECV_BUF_PERCENT = 0
+           STANDBY_SPOOL_LIMIT(pages) = 25600
+                STANDBY_SPOOL_PERCENT = 0
+                 PEER_WINDOW(seconds) = 120
+                      PEER_WINDOW_END = 03/09/2015 13:40:37.000000 (1425879637)
+             READS_ON_STANDBY_ENABLED = N
+================================================================================
+Sample ACR status.
+------------------------------------------------------------
+DB2_Node1
+
+ System Database Directory
+
+ Number of entries in the directory = 1
+
+Database 1 entry:
+
+ Database alias                       = SUPPORTA
+ Database name                        = SUPPORTA
+ Local database directory             = /home/db2inst1
+ Database release level               = 10.00
+ Comment                              =
+ Directory entry type                 = Indirect
+ Catalog database partition number    = 0
+ Alternate server hostname            = hc-prod-db2-1.comany.com
+ Alternate server port number         = 50000
+------------------------------------------------------------
+DB2_Node2
+
+ System Database Directory
+
+ Number of entries in the directory = 1
+
+Database 1 entry:
+
+ Database alias                       = SUPPORTA
+ Database name                        = SUPPORTA
+ Local database directory             = /home/db2inst1
+ Database release level               = 10.00
+ Comment                              =
+ Directory entry type                 = Indirect
+ Catalog database partition number    = 0
+ Alternate server hostname            = hc-prod-db2-2.comany.com
+ Alternate server port number         = 50000
+================================================================================

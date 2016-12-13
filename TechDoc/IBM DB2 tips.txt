@@ -1,0 +1,474 @@
+================================================================================
+Related Unix services
+
+]$ cat /etc/services | grep db2
+]$ cat /etc/services | grep DB2
+
+db2         523/tcp                 # IBM-DB2
+db2         523/udp                 # IBM-DB2
+questdb2-lnchr  5677/tcp                # Quest Central ]$ db2 Launchr
+questdb2-lnchr  5677/udp                # Quest Central ]$ db2 Launchr
+qdb2service     45825/tcp               # Qpuncture Data Access Service
+qdb2service     45825/udp               # Qpuncture Data Access Service
+DB2_db2inst1	60000/tcp
+DB2_db2inst1_1	60001/tcp
+DB2_db2inst1_2	60002/tcp
+DB2_db2inst1_END	60003/tcp
+db2c_db2inst1	50000/tcp
+------------------------------------------------------------
+DB2 auto start config (RHEL 6)
+
+]# cat /etc/init/db2fmcd.conf
+================================================================================
+Check DB2 instance info
+
+]$ db2greg -getinstrec instancename='db2inst1'
+
+Retrieved record:
+   Service      = |DB2|
+   Version      = |10.5.0.1|
+   InstanceName = |db2inst1|
+   InstancePath = |/home/db2inst1/sqllib|
+   Usage        = |N/A|
+   StartAtBoot  = 1
+   Maintenance  = 0
+   InstallPath  = |/opt/ibm/db2/V10.5|
+   RemoteProf   = |N/A|
+   Comment      = |N/A|
+------------------------------------------------------------
+Start/Stop DB
+
+]$ db2start
+]$ db2stop
+------------------------------------------------------------
+Check DB2 instance up
+
+For all instance.
+
+]# ps -ef | grep db2sysc | grep -v grep
+]$ ps -ef | grep db2sysc | grep -v grep
+
+For current instance.
+
+]# ps -ef | grep db2inst1 | grep db2sysc | grep -v grep
+]$ ps -ef | grep $DB2INSTANCE | grep db2sysc | grep -v grep
+================================================================================
+Check and change listening port
+
+]$ db2 update dbm cfg using SVCENAME 50000
+----------------------------------------
+]$ db2 get dbm cfg | grep SVCE
+ TCP/IP Service name                          (SVCENAME) = 50000
+ SSL service name                         (SSL_SVCENAME) = 
+----------------------------------------
+]$ grep db2c_db2inst1 /etc/services
+db2c_db2inst1	50000/tcp
+----------------------------------------
+]# netstat -ntlp | grep 50000
+tcp        0      0 0.0.0.0:50000               0.0.0.0:*                   LISTEN      
+------------------------------------------------------------
+Check settings
+
+]$ db2set -all
+
+DB2COMM=TCPIP
+DB2AUTOSTART=YES
+------------------------------------------------------------
+Show table space details
+
+]$ db2 list tablespaces show detail
+------------------------------------------------------------
+Show DB instance
+
+]$ db2 get instance
+------------------------------------------------------------
+Show all DBs
+
+]$ db2 list db directory
+------------------------------------------------------------
+Show all active DBs
+
+]$ db2 list active databases
+------------------------------------------------------------
+Show connected DB info
+
+]$ db2 list utilities show detail
+
+ID                               = 1
+Type                             = RESTORE
+Database Name                    = DERDB
+Member Number                    = 0
+Description                      = db
+Start Time                       = 09/26/2014 12:04:35.494958
+State                            = Executing
+Invocation Type                  = User
+Progress Monitoring:
+      Completed Work             = 33619968 bytes
+      Start Time                 = 09/26/2014 12:04:35.494966
+------------------------------------------------------------
+Show configuration for connected DB
+
+db2 => connect to <DbName>
+db2 => get db cfg for <DbName> show detail
+
+There are two columns "Current Value" and "Delayed Value". If any of the pairs is different, it requires to restart DB.
+
+For some database manager configuration parameters, the database manager must be stopped (db2stop) and then restarted (db2start) for the new parameter values to take effect.
+
+For some database parameters, changes will only take effect when the database is reactivated, or switched from offline to online. In these cases, all applications must first disconnect from the database. (If the database was activated, or switched from offline to online, then it must be deactivated and reactivated.) Then, at the first new connect to the database, the changes will take effect.
+------------------------------------------------------------
+Show all schema
+
+Connect to one DB first.
+
+db2 => select schemaname from syscat.schemata
+------------------------------------------------------------
+Show all tables
+
+Connect to one DB first.
+
+db2 => list tables for all
+db2 => list tables for schema <SchemaName>
+------------------------------------------------------------
+Check history info
+
+]$ db2diag -g "DB=<DbName>"
+------------------------------------------------------------
+Show all connection to DB
+
+db2 => list applications for database <DbName>
+------------------------------------------------------------
+Disconnect connection
+
+db2 => force application all
+
+or
+
+db2 => force application (<Application_Id_List>)
+================================================================================
+Interactive mode
+------------------------------------------------------------
+Show history commands.
+
+db2 => history
+----------------------------------------
+Run certain command in history.
+
+db2 => runcmd <no>
+
+no is a number assigned to history command.
+================================================================================
+Privileges
+------------------------------------------------------------
+Grant/Revoke default privileges for PUBLIC group.
+
+db2 => grant CONNECT, CREATETAB, BINDADD, IMPLICIT_SCHEMA on database to PUBLIC
+
+db2 => revoke CONNECT, CREATETAB, BINDADD, IMPLICIT_SCHEMA on database from PUBLIC
+------------------------------------------------------------
+Grant/Revoke database privileges to certain user/group.
+
+db2 => grant CONNECT on database to group <GroupName>
+db2 => grant CONNECT on database to user <UserName>
+
+db2 => revoke CONNECT on database from group <GroupName>
+db2 => revoke CONNECT on database from user <UserName>
+------------------------------------------------------------
+Grant/Revoke schema privileges to certain user/group.
+
+db2 => grant CREATEIN,ALTERIN,DROPIN on schema <SchemaName> to group <GroupName>
+db2 => grant CREATEIN,ALTERIN,DROPIN on schema <SchemaName> to user <UserName>
+
+db2 => revoke CREATEIN,ALTERIN,DROPIN on schema <SchemaName> from group <GroupName>
+db2 => revoke CREATEIN,ALTERIN,DROPIN on schema <SchemaName> from user <UserName>
+------------------------------------------------------------
+Grant/Revoke table privileges to certain user/group.
+
+db2 => grant SELECT,INSERT,UPDATE,DELETE on table <SchemaName.TableName> to group <GroupName>
+db2 => grant SELECT,INSERT,UPDATE,DELETE on table <SchemaName.TableName> to user <UserName>
+
+db2 => revoke SELECT,INSERT,UPDATE,DELETE on table <SchemaName.TableName> from group <GroupName>
+db2 => revoke SELECT,INSERT,UPDATE,DELETE on table <SchemaName.TableName> from user <UserName>
+------------------------------------------------------------
+Generate sql to Grant/Revoke table privileges for all tables.
+
+db2 => SELECT DISTINCT 'GRANT ALL ON TABLE ' || RTRIM(TABSCHEMA) || '.' || RTRIM(TABNAME) || ' TO USER SampleUser;' from SYSCAT.TABLES WHERE TABSCHEMA = 'SampleSchema'
+
+db2 => SELECT DISTINCT 'REVOKE ALL ON TABLE ' || RTRIM(TABSCHEMA) || '.' || RTRIM(TABNAME) || ' FROM USER SampleUser;' from SYSCAT.TABLES WHERE TABSCHEMA = 'SampleSchema'
+================================================================================
+Check logging type
+
+]$ db2 get db cfg for <DbName> | grep -E "LOGARCHMETH1|LOGPRIMARY|LOGSECOND|LOGFILSIZ|LOGINDEXBUILD"
+
+ Log file size (4KB)                         (LOGFILSIZ) = 16384
+ Number of primary log files                (LOGPRIMARY) = 13
+ Number of secondary log files               (LOGSECOND) = 12
+ First log archive method                 (LOGARCHMETH1) = LOGRETAIN
+ Log pages during index build            (LOGINDEXBUILD) = OFF
+------------------------------------------------------------
+Enable archiving logging
+
+CONNECT TO DERDB;
+QUIESCE DATABASE IMMEDIATE FORCE CONNECTIONS;
+UNQUIESCE DATABASE;
+CONNECT RESET;
+CONNECT TO DERDB;
+UPDATE DATABASE CONFIGURATION USING LOGARCHMETH1 DISK:/home/db2inst1/db2backup/ARCHIVED_LOGS;
+UPDATE DATABASE CONFIGURATION USING LOGPRIMARY 13 LOGSECOND 12 LOGFILSIZ 1024;
+UPDATE DATABASE CONFIGURATION USING LOGINDEXBUILD ON;
+CONNECT RESET;
+DEACTIVATE DATABASE DERDB;
+------------------------------------------------------------
+Check archived log
+
+]# db2 list history archive log all for <DbName>
+================================================================================
+Check SQL error message detail
+
+]$ db2 ? <SQLxxxx>
+
+Sample:
+
+]$ db2 ? SQL10007N
+================================================================================
+Backup and Restore
+------------------------------------------------------------
+Backup
+
+]$ db2 backup db <DbName> to <path>
+]$ db2 backup db <DbName> online to <path>
+
+]$ db2 backup db <DbName> use snapshot
+]$ db2 backup db <DbName> online use snapshot
+------------------------------------------------------------
+Make OFFLINE backup 
+
+]$ db2 connect to <DbName>
+]$ db2 quiesce database immediate force connections
+]$ db2 connect reset
+]$ db2 backup database <DbName> to <path> compress without prompting
+
+after backup completes:
+
+]$ db2 connect to <DbName>
+]$ db2 unquiesce database
+]$ db2 connect reset
+------------------------------------------------------------
+Make ONLINE Backup
+
+]$ db2 backup db <DbName> online to <path> compress
+
+or use a background process on a linux/unix machine
+
+]$ nohup db2 backup db <DbName> to <path> online compress &
+------------------------------------------------------------
+List recent backups and where they are stored
+
+]$ db2 list history backup all for <DbName>
+
+]$ db2 list history backup all for <DbName> | grep "B  D"
+------------------------------------------------------------
+Check snapshot status
+
+]$ db2 get snapshot for all on <DbName>
+------------------------------------------------------------
+Allow delete history files
+
+]$ db2 update db cfg for <DbName> using AUTO_DEL_REC_OBJ ON
+------------------------------------------------------------
+Delete history files
+
+Connect to a DB first.
+
+<timestamp> format is "yyyyMMddHHmmss".
+
+]$ db2 prune history <timestamp> [with force option] and delete
+
+]$ db2 prune logfile prior to <logfile_name>
+----------------------------------------
+Check delete history info
+
+]$ db2diag -e ADM8504I
+]$ db2diag -g "DB=<DbName>" -e ADM8504I
+
+2015-04-19-03.15.21.932252-300 E149416029E584        LEVEL: Info
+PID     : 18007                TID : 140027329767168 PROC : db2sysc 0
+INSTANCE: db2inst1             NODE : 000            DB   : SCAADPDB
+APPHDL  : 0-16255              APPID: *LOCAL.db2inst1.150419081502
+AUTHID  : DB2INST1             HOSTNAME: hc-db2-1.sdad.sl.dst.ibm.com
+EDUID   : 164                  EDUNAME: db2agent (SCAADPDB) 0
+FUNCTION: DB2 UDB, database utilities, sqluhPruneHistoryDeleteFile, probe:1630
+MESSAGE : ADM8504I  Successfully deleted the backup image with timestamp
+          "20150320031502".
+------------------------------------------------------------
+Check the integrity of a backup image
+
+]$ db2ckbkp -h <backup_image_file>
+------------------------------------------------------------
+Enable Incremental Backup
+
+]$ db2 update db cfg for <DbName> using TRACKMOD on
+------------------------------------------------------------
+Restore from Incremental Backup Automatic
+
+]$ db2 restore db <DbName> incremental automatic taken at <timestamp>
+------------------------------------------------------------
+If you need to restore an incremental backup manually
+
+]$ db2ckrst -d <DbName> -t <timestamp of image>
+------------------------------------------------------------
+Incremental backup
+
+http://www.ibm.com/developerworks/data/library/techarticle/dm-0910db2incrementalbackup/
+https://amolnpujari.wordpress.com/2009/08/29/db2-9-5-backup-and-recovery-basics/
+
+Following is a sample weekly incremental backup strategy for a recoverable
+database. It includes a weekly full database backup operation, a daily
+non-cumulative (delta) backup operation, and a mid-week cumulative
+(incremental) backup operation:
+
+(Sun) db2 backup db kdr use tsm
+(Mon) db2 backup db kdr online incremental delta use tsm
+(Tue) db2 backup db kdr online incremental delta use tsm
+(Wed) db2 backup db kdr online incremental use tsm
+(Thu) db2 backup db kdr online incremental delta use tsm
+(Fri) db2 backup db kdr online incremental delta use tsm
+(Sat) db2 backup db kdr online incremental use tsm
+------------------------------------------------------------
+Two types of incremental backup are supported:
+
+v Incremental. An incremental backup image is a copy of all database data that has
+changed since the most recent, successful, full backup operation. This is also
+known as a cumulative backup image, because a series of incremental backups
+taken over time will each have the contents of the previous incremental backup
+image. The predecessor of an incremental backup image is always the most
+recent successful full backup of the same object.
+
+v Delta. A delta, or incremental delta, backup image is a copy of all database data
+that has changed since the last successful backup (full, incremental, or delta) of
+the table space in question. This is also known as a differential, or
+noncumulative, backup image. The predecessor of a delta backup image is the
+most recent successful backup containing a copy of each of the table spaces in
+the delta backup image.
+------------------------------------------------------------
+If using online backup, recognize that the backup image will be useless without the logs of all transactions that occurred while DB2 was backing up the database. 
+------------------------------------------------------------
+Issues
+
+db2 => BACKUP DATABASE DERDB ONLINE TO /home/db2inst1/db2backup COMPRESS INCLUDE LOGS WITHOUT PROMPTING
+
+Backup successful. The timestamp for this backup image is : 20141216173430
+
+db2 => BACKUP DATABASE DERDB ONLINE INCREMENTAL TO /home/db2inst1/db2backup COMPRESS INCLUDE LOGS WITHOUT PROMPTING
+SQL2426N  The database has not been configured to allow the incremental backup
+operation. Reason code = "2".
+db2 =>
+
+http://www-01.ibm.com/support/knowledgecenter/SSEPGG_9.5.0/com.ibm.db2.luw.messages.sql.doc/doc/msql02426n.html
+================================================================================
+DB2 "FROM SYSIBM.SYSDUMMY1" = Oracle "FROM DUAL"
+------------------------------------------------------------
+DB2 empty string is not null!!! Unlike Oracle.
+
+SQL:
+SELECT '' AS EMPTY_RESULT, CAST(NULL AS VARCHAR(1)) AS NULL_RESULT, NULL AS NULL2_RESULT
+FROM SYSIBM.SYSDUMMY1;
+
+'' is emptry, while NULL is "<NULL>".
+
+In order to enable this feature for DB2, VARCHAR2 data type support is enabled by setting bit position number 6 (0x20) of the DB2_COMPATIBILITY_VECTOR registry variable before creating a database.
+------------------------------------------------------------
+Find all schema.
+
+SQL:
+SELECT SCHEMANAME FROM syscat.schemata
+================================================================================
+Catalog/uncatalog DB
+------------------------------------------------------------
+STEP 1: Check first on system db directory >db2 list db directory.  if you find the SAMPLE here just uncatalog it through the command >db2 uncatalog db sample. This should solve the problem because the entry is removed from system db directory. Now you can freshly create a SAMPLE database and work with it.
+
+If you don't find SAMPLE in system db directory then go to STEP 2
+----------------------------------------
+STEP 2:  Check in local db directory >db2 list db directory on <directory path (or) drive name>
+
+if you find the entry SAMPLE here, then catalog the db SAMPLE first , using the command
+
+>db2 catalog db sample as sample , this will make an entry into system db directory. Now the SAMPLE is in both System directory and local directory. So it shouldn't give you "databe not found" error. you can connect and work with it.
+================================================================================
+Firewall settings for DB2
+
+To allow DB2 access through the iptables-based firewall (which is enabled by default), it was necessary to modify the iptables firewall ruleset, which is kept in the /etc/sysconfig/iptables file. If you have enabled your firewall (using the iptables service), and you want to enable external connectivity to your DB2 server, you must open up TCP and UDP access to ports 523 and TCP access to any DB2 service ports. To make this work, add these rules to the iptablesfile (anywhere amongst the -j ACCEPT rules): 
+
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 50000 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 523 -j ACCEPT
+-A INPUT -m state --state NEW -m udp -p udp --dport 523 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 60000 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 60001 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 60002 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 60003 -j ACCEPT
+================================================================================
+Change DB hostname
+
+]$ db2 get admin cfg
+Name of the db2 Server System               (DB2SYSTEM) = LOCALBPM
+SMTP Server                               (SMTP_SERVER) = localBPM
+
+]$ db2set -g DB2SYSTEM=<new hostname>
+]$ db2 update admin cfg using DB2SYSTEM <new hostname>
+]$ db2 update admin cfg using SMTP_SERVER <new hostname>
+
+#!/bin/sh
+echo -n "Discovering the new hostname "
+UNAME_CACHE=$(uname -n)
+
+echo -n "Adjusting hostname list for unconfigured database partitioning feature "
+# this may need to be changed if DPF preconfigured
+if [ -e /home/db2inst1/sqllib/db2nodes.cfg ]; then
+    chmod 666 /home/db2inst1/sqllib/db2nodes.cfg
+    su - db2inst1 -c "cp /home/db2inst1/sqllib/db2nodes.cfg /home/db2inst1/sqllib/db2nodes.cfg.old"
+    su - db2inst1 -c "echo 0 $UNAME_CACHE 0 > /home/db2inst1/sqllib/db2nodes.cfg"
+fi
+
+echo -n "Making registry writable "
+chmod 666 /var/db2/*
+
+echo -n "Adjusting the db2 hostname "
+UNAME_CACHE=$(uname -n)
+/opt/ibm/db2/V9.7/adm/db2set -g db2system=$UNAME_CACHE
+
+echo -n "Updating DAS configuration "
+# todo
+]$ db2 uncatalog node <old_hostname>
+]$ db2 catalog admin tcpip node $UNAME_CACHE remote $UNAME_CACHE system $UNAME_CACHE
+]$ db2 update admin cfg using DB2SYSTEM $UNAME_CACHE
+]$ db2 update admin cfg using SMTP_SERVER $UNAME_CACHE
+================================================================================
+Setup HADR from IBM Data Studio
+
+Sample SQLs
+------------------------------------------------------------
+--Primary Database Configuration Commands;
+-- Configure database for client reroute - IBM-R901LY8V(db2inst1) - DERDB;
+UPDATE ALTERNATE SERVER FOR DATABASE DERDB USING HOSTNAME 192.168.0.10 PORT 50001;
+-- Update HADR configuration parameters on database - IBM-R901LY8V(db2inst1) - DERDB;
+UPDATE DB CFG FOR DERDB USING HADR_LOCAL_HOST IBM-R901LY8V;
+UPDATE DB CFG FOR DERDB USING HADR_LOCAL_SVC ;
+UPDATE DB CFG FOR DERDB USING HADR_REMOTE_HOST null;
+UPDATE DB CFG FOR DERDB USING HADR_REMOTE_SVC null;
+UPDATE DB CFG FOR DERDB USING HADR_REMOTE_INST null;
+UPDATE DB CFG FOR DERDB USING HADR_TIMEOUT 120;
+UPDATE DB CFG FOR DERDB USING HADR_TARGET_LIST null:null;
+UPDATE DB CFG FOR DERDB USING HADR_SYNCMODE NEARSYNC;
+UPDATE DB CFG FOR DERDB USING HADR_PEER_WINDOW 0;
+UPDATE DB CFG FOR DERDB USING HADR_SPOOL_LIMIT 0;
+UPDATE DB CFG FOR DERDB USING HADR_REPLAY_DELAY 0;
+UPDATE DB CFG FOR DERDB USING BLOCKNONLOGGED NO;
+--Primary Database Quiesce Commands;
+CONNECT TO DERDB;
+QUIESCE DATABASE IMMEDIATE FORCE CONNECTIONS;
+UNQUIESCE DATABASE;
+CONNECT RESET;
+-- Start HADR on primary database - IBM-R901LY8V(db2inst1) - DERDB;
+DEACTIVATE DATABASE DERDB;
+START HADR ON DATABASE DERDB AS PRIMARY;
+================================================================================

@@ -1,0 +1,289 @@
+================================================================================
+Notes:
+
+"]#" means root user.
+"]$" means normal user.
+================================================================================
+Service
+----------------------------------------
+Enable service on boot.
+
+]# chkconfig <service> on
+
+RHEL/CentOS 7
+
+]# systemctl enable <service>
+]# systemctl enable <service>.service
+
+Sample:
+
+]# chkconfig httpd on
+
+]# systemctl enable httpd
+]# systemctl enable httpd.service
+----------------------------------------
+Disable service on boot.
+
+]# chkconfig <service> off
+
+RHEL/CentOS 7
+
+]# systemctl disable <service>
+]# systemctl disable <service>.service
+
+Sample:
+
+]# chkconfig httpd off
+
+]# systemctl disable httpd
+]# systemctl disable httpd.service
+----------------------------------------
+Start/stop/restart service.
+
+]# service <service> start
+]# service <service> stop
+]# service <service> restart
+
+RHEL/CentOS 7
+
+]# systemctl start <service>
+]# systemctl stop <service>
+]# systemctl restart <service>
+
+]# systemctl start <service>.service
+]# systemctl stop <service>.service
+]# systemctl restart <service>.service
+
+Sample:
+
+]# service httpd start
+]# service httpd stop
+]# service httpd restart
+
+]# systemctl start httpd
+]# systemctl stop httpd
+]# systemctl restart httpd
+
+]# systemctl start httpd.service
+]# systemctl stop httpd.service
+]# systemctl restart httpd.service
+----------------------------------------
+Check service status.
+
+]# service <service> status
+
+RHEL/CentOS 7
+
+]# systemctl statue <service>
+]# systemctl statue <service>.service
+
+Sample:
+
+]# chkconfig httpd status
+
+]# systemctl status httpd
+]# systemctl status httpd.service
+----------------------------------------
+Check all services status.
+
+]# service --status-all
+
+or
+
+]# chkconfig
+
+RHEL/CentOS 7
+
+]# systemctl
+------------------------------------------------------------
+If changed any service files and need to reload.
+
+]# systemctl daemon-reload
+------------------------------------------------------------
+Add service.
+
+]# vim /etc/rc.d/init.d/A_New_Service
+
+The script must include:
+
+# chkconfig: 2345 98 02
+# description: Starts and stops IBM HTTP Server 
+...
+case "$1" in
+  start)
+        ;;
+  stop)
+        ;;
+  restart)
+        ;;
+  status)
+       ;;
+  *)
+        echo $"Usage: $0 {start|stop|restart|status}"
+        exit 1
+esac
+
+Note:
+
+2345 - levels to configure
+98 - startup order
+02 - stop order
+
+]# chkconfig --add A_New_Service
+------------------------------------------------------------
+Remove service.
+
+]# chkconfig --del A_New_Service
+------------------------------------------------------------
+Common useful services
+
+iptables (Firewall), httpd, tomcat6, mysql, mariadb
+
+RHEL/CentOS 7
+
+firewalld (Firewall)
+================================================================================
+Host name
+------------------------------------------------------------
+Check host name
+
+]$ hostname
+------------------------------------------------------------
+Change host name.
+
+]# vi /etc/hosts
+
+Change all old host names with new ones, if any.
+
+]# vi /etc/sysconfig/network
+
+Modify "HOSTNAME=<new name>".
+----------------------------------------
+Restart network to take in effect.
+
+]# service network restart
+
+Or just restart server.
+================================================================================
+Check process
+
+To see every process on the system using standard syntax:
+
+]$ ps -ef
+
+To see every process on the system using BSD syntax:
+
+]$ ps aux
+
+Filter.
+
+]$ ps -o pid,%cpu,%mem,cmd -C <ProcessName>
+
+]$ ps -o %cpu,%mem,cmd -p <PID>
+------------------------------------------------------------
+Show top process
+
+]$ top -c -d 10
+
+To sort by size, in app, press F or O, then select "o" and press any key.
+
+]$ top -p <PID>
+------------------------------------------------------------
+Check memory size
+
+]$ cat /proc/meminfo
+
+Check Swap size
+
+]$ SwapTotal /proc/meminfo
+
+Check memory status
+
+]# free -h
+]$ free -m
+]$ free -k
+------------------------------------------------------------
+Check file system
+
+]$ cat /etc/fstab
+------------------------------------------------------------
+Check swap file system
+
+]$ cat /proc/swaps
+
+or
+
+]$ swapon -s
+================================================================================
+Run Level
+------------------------------------------------------------
+Check runlevel
+
+]$ runlevel
+
+or
+
+]$ who -r
+------------------------------------------------------------
+Shutdown:
+
+]# init 0
+
+or
+
+]# shutdown -h now
+
+or
+
+]# shutdown -a /etc/shutdown.allow
+
+or
+
+]# poweroff
+------------------------------------------------------------
+Cancel scheduled shutdown:
+
+]# shutdown -c
+------------------------------------------------------------
+Turn power off after shutdown.
+
+]# halt -p
+------------------------------------------------------------
+Reboot:
+
+]# init 6
+
+or
+
+]# shutdown -r now
+
+or
+
+]# reboot
+------------------------------------------------------------
+Enter single user mode:
+
+]# init 1
+================================================================================
+To send a short text message to a host/port
+
+Such as send text "DieHard".
+
+* To localhost with port 41234
+]$ echo DieHard > /dev/tcp/127.0.0.1/41234
+
+* To remote host with port 41234
+]$ echo DieHard > /dev/tcp/10.252.84.35/41234
+------------------------------------------------------------
+To send empty to a host/port
+
+]$ echo > /dev/tcp/10.252.84.35/41234
+================================================================================
+Check folder size
+
+]$ du -hs *
+
+]$ du -h --max-depth=1
+
+]$ du -h --max-depth=2
+================================================================================

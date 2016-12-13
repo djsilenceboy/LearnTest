@@ -1,0 +1,134 @@
+Bash Arrays
+
+Jun 19, 2008	 By Mitch Frazier
+ inHOW-TOs
+
+If you're used to a "standard" *NIX shell you may not be familiar with bash's array feature. Although not as powerful as similar constructs in the P languages (Perl, Python, and PHP) and others, they are often quite useful.
+
+Bash arrays have numbered indexes only, but they are sparse, ie you don't have to define all the indexes. An entire array can be assigned by enclosing the array items in parenthesis:
+
+  arr=(Hello World)
+Individual items can be assigned with the familiar array syntax (unless you're used to Basic or Fortran):
+  arr[0]=Hello
+  arr[1]=World
+But it gets a bit ugly when you want to refer to an array item:
+  echo ${arr[0]} ${arr[1]}
+To quote from the man page:
+The braces are required to avoid conflicts with pathname expansion.
+In addition the following funky constructs are available:
+
+  ${arr[*]}         # All of the items in the array
+  ${!arr[*]}        # All of the indexes in the array
+  ${#arr[*]}        # Number of items in the array
+  ${#arr[0]}        # Length of item zero
+
+  ${arr[@]}         # All of the items in the array
+  ${!arr[@]}        # All of the indexes in the array
+  ${#arr[@]}        # Number of items in the array
+
+The ${!arr[*]} is a relatively new addition to bash, it was not part of the original array implementation.
+The following example shows some simple array usage (note the "[index]=value" assignment to assign a specific index):
+
+#!/bin/bash
+
+array=(one two three four [5]=five)
+
+echo "Array size: ${#array[*]}"
+
+echo "Array items:"
+for item in ${array[*]}
+do
+    printf "   %s\n" $item
+done
+
+echo "Array indexes:"
+for index in ${!array[*]}
+do
+    printf "   %d\n" $index
+done
+
+echo "Array items and indexes:"
+for index in ${!array[*]}
+do
+    printf "%4d: %s\n" $index ${array[$index]}
+done
+Running it produces the following output:
+Array size: 5
+Array items:
+   one
+   two
+   three
+   four
+   five
+Array indexes:
+   0
+   1
+   2
+   3
+   5
+Array items and indexes:
+   0: one
+   1: two
+   2: three
+   3: four
+   5: five
+Note that the "@" sign can be used instead of the "*" in constructs such as ${arr[*]}, the result is the same except when expanding to the items of the array within a quoted string. In this case the behavior is the same as when expanding "$*" and "$@" within quoted strings: "${arr[*]}" returns all the items as a single word, whereas "${arr[@]}" returns each item as a separate word.
+
+The following example shows how unquoted, quoted "*", and quoted "@" affect the expansion (particularly important when the array items themselves contain spaces):
+
+#!/bin/bash
+
+array=("first item" "second item" "third" "item")
+
+echo "Number of items in original array: ${#array[*]}"
+for ix in ${!array[*]}
+do
+    printf "   %s\n" "${array[$ix]}"
+done
+echo
+
+arr=(${array[*]})
+echo "After unquoted expansion: ${#arr[*]}"
+for ix in ${!arr[*]}
+do
+    printf "   %s\n" "${arr[$ix]}"
+done
+echo
+
+arr=("${array[*]}")
+echo "After * quoted expansion: ${#arr[*]}"
+for ix in ${!arr[*]}
+do
+    printf "   %s\n" "${arr[$ix]}"
+done
+echo
+
+arr=("${array[@]}")
+echo "After @ quoted expansion: ${#arr[*]}"
+for ix in ${!arr[*]}
+do
+    printf "   %s\n" "${arr[$ix]}"
+done
+When run it outputs:
+Number of items in original array: 4
+   first item
+   second item
+   third
+   item
+
+After unquoted expansion: 6
+   first
+   item
+   second
+   item
+   third
+   item
+
+After * quoted expansion: 1
+   first item second item third item
+
+After @ quoted expansion: 4
+   first item
+   second item
+   third
+   item

@@ -1,0 +1,106 @@
+================================================================================
+Notes:
+
+"]#" means root user.
+"]$" means normal user.
+================================================================================
+Install MySQL
+
+http://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/
+http://dev.mysql.com/downloads/repo/yum/
+------------------------------------------------------------
+Create yum repo file.
+
+]# rpm -Uvh mysql57-community-release-el7-9.noarch.rpm
+----------------------------------------
+Find package.
+
+]# yum repolist all | grep mysql
+------------------------------------------------------------
+Install.
+
+]# yum install -y mysql-community-server
+------------------------------------------------------------
+Config service.
+
+]# systemctl status mysqld
+]# systemctl enable mysqld
+]# systemctl start mysqld
+------------------------------------------------------------
+Check port.
+
+]# ss -ntpl | grep mysqld
+]# ss -ntpl | grep 3306
+------------------------------------------------------------
+Find initial temp root password.
+
+]# grep 'temporary password' /var/log/mysqld.log
+------------------------------------------------------------
+Change password.
+
+]# mysql -u root -p
+Enter password: <Password>
+----------------------------------------
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'P@ssw0rd';
+------------------------------------------------------------
+Enable remote access DB.
+
+]# mysql -u root -p
+
+mysql> use mysql
+mysql> GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY 'P@ssw0rd' WITH GRANT OPTION;
+================================================================================
+MySQL / MariaDB
+------------------------------------------------------------
+Service name: mysql
+Service name: mariadb
+----------------------------------------
+Config files folder:
+
+/etc/my.cnf
+----------------------------------------
+Config files folder:
+
+/usr/share/mysql
+/usr/lib64/mysql
+/usr/share/java/tomcat (For connector lib)
+================================================================================
+Reset password, if forget.
+
+Reference:
+https://mariadb.com/blog/how-reset-root-password-mariadb-linux
+https://mariadb.com/kb/en/mariadb/documentation/sql-commands/account-management-sql-commands/grant/
+----------------------------------------
+Stop and restart service.
+
+]# systemctl stop mariadb
+]# /usr/bin/mysqld_safe --skip-grant-tables --skip-networking &
+----------------------------------------
+Reset password:
+
+]$ mysql -u root mysql
+mysql> UPDATE user SET Password = PASSWORD('admin') WHERE User = 'root';
+mysql> FLUSH PRIVILEGES;
+mysql> GRANT ALL ON *.* TO 'root'@'%' WITH GRANT OPTION;
+mysql> exit
+----------------------------------------
+Now test new password:
+
+]$ mysql -u root -p
+Enter password: 
+----------------------------------------
+Now show new privileges:
+
+mysql> show grants for root;
+------------------------------------------------------------
+Normal change password.
+
+$ mysqladmin -u root -p 'OldPassword' password 'NewPassword'
+
+or
+
+shell> mysql -u root
+mysql> SET PASSWORD FOR 'root'@'localhost' = PASSWORD('admin');
+mysql> SET PASSWORD FOR 'root'@'127.0.0.1' = PASSWORD('admin');
+mysql> SET PASSWORD FOR 'root'@'%' = PASSWORD('admin');
+================================================================================

@@ -1,0 +1,112 @@
+================================================================================
+Notes:
+
+"]#" means root user.
+"]$" means normal user.
+================================================================================
+Oracle XE
+------------------------------------------------------------
+Service name: oracle-xe
+================================================================================
+Install DB.
+
+Check /etc/hosts, set correct host for local PC.
+If not set host for local PC, "oracle-xe configure" will fail later.
+
+]# rpm -ivh oracle-xe-11.2.0-1.0.x86_64.rpm
+
+You must run '/etc/init.d/oracle-xe configure' as the root user to configure the database.
+------------------------------------------------------------
+To change ports, set SYS/SYSTEM password.
+
+]# /etc/init.d/oracle-xe configure
+
+Oracle Database 11g Express Edition Configuration
+
+This will configure on-boot properties of Oracle Database 11g Express 
+Edition.  The following questions will determine whether the database should 
+be starting upon system boot, the ports it will use, and the passwords that 
+will be used for database accounts.  Press <Enter> to accept the defaults. 
+Ctrl-C will abort.
+
+Specify the HTTP port that will be used for Oracle Application Express [8080]:
+
+Specify a port that will be used for the database listener [1521]:
+
+Specify a password to be used for database accounts.  Note that the same
+password will be used for SYS and SYSTEM.  Oracle recommends the use of 
+different passwords for each database account.  This can be done after 
+initial configuration:
+Confirm the password:
+
+Do you want Oracle Database 11g Express Edition to be started on boot (y/n) [y]:
+
+Starting Oracle Net Listener...Done
+Configuring database...Done
+Starting Oracle Database 11g Express Edition instance...Done
+Installation completed successfully.
+----------------------------------------
+Configuring database...
+Database Configuration failed.  Look into /u01/app/oracle/product/11.2.0/xe/config/log for details
+================================================================================
+]# service oracle-xe status
+
+LSNRCTL for Linux: Version 11.2.0.2.0 - Production on 14-OCT-2015 23:24:27
+
+Copyright (c) 1991, 2011, Oracle.  All rights reserved.
+
+Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=IPC)(KEY=EXTPROC_FOR_XE)))
+STATUS of the LISTENER
+------------------------
+Alias                     LISTENER
+Version                   TNSLSNR for Linux: Version 11.2.0.2.0 - Production
+Start Date                14-OCT-2015 23:19:02
+Uptime                    0 days 0 hr. 5 min. 25 sec
+Trace Level               off
+Security                  ON: Local OS Authentication
+SNMP                      OFF
+Default Service           XE
+Listener Parameter File   /u01/app/oracle/product/11.2.0/xe/network/admin/listener.ora
+Listener Log File         /u01/app/oracle/diag/tnslsnr/db/listener/alert/log.xml
+Listening Endpoints Summary...
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=ipc)(KEY=EXTPROC_FOR_XE)))
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=db.djsilenceboy.com)(PORT=1521)))
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=db.djsilenceboy.com)(PORT=8080))(Presentation=HTTP)(Session=RAW))
+Services Summary...
+Service "PLSExtProc" has 1 instance(s).
+  Instance "PLSExtProc", status UNKNOWN, has 1 handler(s) for this service...
+Service "XE" has 1 instance(s).
+  Instance "XE", status READY, has 1 handler(s) for this service...
+Service "XEXDB" has 1 instance(s).
+  Instance "XE", status READY, has 1 handler(s) for this service...
+The command completed successfully
+================================================================================
+Web console:
+http://localhost:8080/apex/apex_admin
+http://localhost:8080/apex/
+
+Default workspace: INTERNAL
+Default web user: admin / admin
+Default DB user: sys, system
+------------------------------------------------------------
+To set the environment for your current session run '. ./oracle_env.sh':
+
+]# cd /u01/app/oracle/product/11.2.0/xe/bin
+]# . ./oracle_env.sh
+]# sqlplus
+
+To set the environment permanently for users, add the following to the .bashrc or .bash_profile of the users you want to access the environment:
+
+. /u01/app/oracle/product/11.2.0/xe/bin/oracle_env.sh  
+================================================================================
+Oracle 11g XE Application Express - Retrieve or reset password.
+
+In folders where XE is installed try locate file apxchpwd.sql
+Change your working directory to that folder and start SQLplus as SYSDBA.
+Then run @apxchpwd
+------------------------------------------------------------
+Change listening port.
+
+SQL> select dbms_xdb.gethttpport from dual;
+SQL> begin dbms_xdb.sethttpport(8080); end; /
+================================================================================

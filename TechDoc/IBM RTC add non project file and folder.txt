@@ -1,0 +1,8 @@
+Adding files to the root and non project folders in scm
+
+In RTC, every version-controlled file has to belong to some component, just as in ClearCase, every version-controlled file has to belong to some VOB. So neither RTC nor ClearCase allows you to put version-controlled files in the root of the workspace (RTC) or view (ClearCase). 
+
+WRT Eclipse projects, RTC SCM doesn't care whether or not your files are in Eclipse projects. So in particular, if you use the RTC scm command line to import your files, the issue of Eclipse projects never comes up. But Eclipse does care (the various Eclipse navigators will only show you files in Eclipse projects). So if you want to import your files using the Eclipse, you will have to add a .project file at the root of the file tree you want to import (that causes it to show up in the Eclipse UI. You can then put the tree under source control. But before you complete or deliver the change set, right click over the .project file and select "undo". This takes that .project file out of the change set. 
+
+Cheers, 
+Geoff 

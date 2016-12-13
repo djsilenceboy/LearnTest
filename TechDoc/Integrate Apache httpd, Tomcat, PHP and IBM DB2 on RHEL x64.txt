@@ -1,0 +1,267 @@
+Integrate Apache httpd, Tomcat, PHP and IBM DB2 on RHEL 6 x64
+2015.01.05 - 2015.01.12
+
+
+* Apache httpd, Tomcat, PHP
+  Install Apache httpd, Tomcat, PHP from DVD or repository.
+  From "Package collections", select "PHP Support", "Web Server" and "Web Servlet Engine" to install.
+  Install "httpd-devel" for apxs (Apache eXtension tool) from DVD or repository.
+  It will also install dependent libs.
+
+
+* DB2
+
+  When install DB2, choose "Custom" Installation type, and check "Application Development Tools" / "Base Application Development Tools". It will install header/library files, which will be required by some external tools.
+
+
+* PHP and DB2
+
+  Install "php" package from repository.
+  Must install "php-devel" (for PHPize tool) from repository, and DB2 "Base Application Development Tools" first!
+
+** Install PHP "ibm_db2" extension from pecl.
+    ]# pecl install ibm_db2
+    (When ask directory, use "sqllib" path.)
+    DB2 Installation Directory? : /home/db2inst1/sqllib  (could use "/opt/ibm/db2/V10.5")
+
+  After completion. A "ibm_db2.so" is generated in PHP module folder, such as "/usr/lib64/php/modules".
+  Add config file.
+
+    ]# cd /etc/php.d
+    ]# vim ibm_db2.ini
+extension=ibm_db2.so
+ibm_db2.instance_name=db2inst1
+
+** Install PHP "pdo_ibm" extension from pecl.
+  (Seem this is not supported any more.)
+
+    ]# pecl install pdo_ibm
+    (When ask flavour,directory, use "V10.5" path.)
+    flavour,dir? : ibm-db2,/opt/ibm/db2/V10.5  (could use "/home/db2inst1/sqllib")
+
+  After completion. A "pdo_ibm.so" is generated in PHP module folder, such as "/usr/lib64/php/modules".
+  Add config file.
+
+    ]# cd /etc/php.d
+    ]# vim pdo_ibm.ini
+extension=pdo_ibm.so
+pdo_ibm.instance_name=db2inst1
+
+** Check installed modules from command line.
+
+    ]$ php -m
+    [PHP Modules]
+    ...
+    ibm_db2
+    ...
+    pdo_ibm
+    ...
+
+** Check installed modules from web.
+
+    ]$ cd /var/www/html
+    ]$vim phpinfo.php
+<?php
+phpinfo();
+?>
+
+  From web broswer, enter "http://localhost/phpinfo.php".
+  In "Additional .ini files parsed", there should be "/etc/php.d/ibm_db2.ini" and "/etc/php.d/pdo_ibm.ini" in list.
+
+
+** Install PHP "ibm_db2" and "pdo_ibm" extension from source code.
+
+  Download "php-5.3.3.tar.gz", unzip it into suppose "/root/Downloads/php-5.3.3/".
+  Download "ibm_db2-1.9.7.tgz", unzip it into suppose "/root/Downloads/php-5.3.3/ext/ibm_db2".
+  Download "PDO_IBM-1.3.3.tgz", unzip it into suppose "/root/Downloads/php-5.3.3/ext/pdo_ibm".
+
+  Refer to "http://www.sitepoint.com/install-php-extensions-source/".
+
+    ]# . /home/db2inst1/sqllib/db2profile
+    ]# export IBM_DB_HOME=/opt/ibm/db2/V10.5
+
+    ]# cd /root/Downloads/php-5.3.3/ext/ibm_db2
+    ]# phpize
+    ]# ./configure --with-IBM_DB2=/home/db2inst1/sqllib
+    ]# make clean # If make again.
+    ]# make
+    ]# make install # copy "ibm_db2.so" to "/usr/lib64/php/modules".
+
+    ]# cd /root/Downloads/php-5.3.3/ext/pdo_ibm
+    ]# phpize
+    ]# ./configure --with-pdo-ibm=/opt/ibm/db2/V10.5
+    ]# make clean # If make again.
+    ]# make
+    ]# make install # copy "pdo_ibm.so" to "/usr/lib64/php/modules".
+
+  Create "ibm_db2.ini" and "pdo_ibm.ini" as described in previous sections.
+  Check installed modules.
+
+
+* Apache httpd and PHP module including DB2
+
+  Must install "libxml2-devel" from repository.
+
+  Download "php-5.3.3.tar.gz", unzip it into suppose "/root/Downloads/php-5.3.3/".
+  Download "ibm_db2-1.9.7.tgz", unzip it into suppose "/root/Downloads/php-5.3.3/ext/ibm_db2".
+  Seems "PDO_IBM-1.3.3.tgz" cannot be integrated.
+
+  Refer to "http://www.phpinternalsbook.com/build_system/building_extensions.html",
+  "http://www-01.ibm.com/support/knowledgecenter/SSEPGG_10.1.0/com.ibm.swg.im.dbclient.php.doc/doc/t0011926.html".
+
+  Notice for options:
+    --with-IBM_DB2 (for ibm_db2 extension after adding ibm_db2 source codes into php ext folder.)
+    --with-ibm-db2 (for Unified ODBC extension)
+    --with-pdo-odbc (for PDO_ODBC extension.)
+
+    ]# cd /root/Downloads/php-5.3.3/
+    ]# . /home/db2inst1/sqllib/db2profile
+    ]# export IBM_DB_HOME=/opt/ibm/db2/V10.5
+    ]# mv configure configure.orig
+    ]# ./buildconf --force
+
+  Check supported IBM options.
+
+    ]# ./configure --help | grep IBM
+    ]# ./configure --help | grep ibm
+    ]# ./configure --help | grep pdo
+    ]# ./configure --help | grep PDO
+
+  Config and compile.
+
+    ]# ./configure --with-config-file-path=/etc --with-config-file-scan-dir=/etc/php.d --with-apxs2=/usr/sbin/apxs --with-IBM_DB2=/opt/ibm/db2/V10.5
+    (optional, --with-ibm-db2=/opt/ibm/db2/V10.5 --with-pdo-odbc=ibm-db2,/home/db2inst1/sqllib)
+
+    ]# make clean # If make again.
+    ]# make
+
+  Copy "so" file to httpd folder.
+
+    ]# cp ./libs/libphp5.so /etc/httpd/modules/
+
+  Modify "php.ini", add one line.
+
+    ]# vim /etc/php.ini
+    extension_dir = "/usr/lib64/php/modules/"
+
+
+* Apache httpd and PHP module issues
+
+  When start httpd,
+    ]# service httpd start
+
+**  If got this warning message:
+      Starting httpd: httpd: Could not reliably determine the server's fully qualified domain name, using <domain_name_xxx> for ServerName
+
+  Modify "/etc/httpd/conf", add one line.
+
+    ]# vim /etc/httpd/conf
+    ServerName <your domain name>:<http server port>
+
+
+**  If got such error:
+      Starting httpd: httpd: Syntax error on line 221 of /etc/httpd/conf/httpd.conf: Syntax error on line 6 of /etc/httpd/conf.d/php.conf: Cannot load /etc/httpd/modules/libphp5.so into server: libdb2.so.1: failed to map segment from shared object: Permission denied
+
+    Or got such warning in "/var/log/httpd/error_log".
+      PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/lib64/php/modules/pdo_ibm.so' - libdb2.so.1: failed to map segment from shared object: Permission denied in Unknown on line 0
+
+  Find out where is "libdb2.so.1" required by "libphp5.so".
+
+    ]# ldd /etc/httpd/modules/libphp5.so
+    libdb2.so.1 => /opt/ibm/db2/V10.5/lib64/libdb2.so.1
+
+  Reset security for one file.
+
+    ]# cd /opt/ibm/db2/V10.5/lib64
+    ]# restorecon -v libdb2.so.1
+    restorecon reset /opt/ibm/db2/V10.5/lib64/libdb2.so.1 context unconfined_u:object_r:usr_t:s0->unconfined_u:object_r:lib_t:s0
+
+  or reset security for all DB2 files.
+
+    ]# cd /opt/ibm/db2/V10.5/lib64
+    ]# restorecon -v *.so.1
+
+  Restart httpd service again.
+  If there is same error for other so file, repeat above steps until no more.
+
+
+* VirtualBox unknown issue
+
+  When testing PHP in command line to connect DB2 through ibm_db2/pdo_ibm extensions, no problem.
+  When testing PHP from apache httpd, it would get following error:
+
+    [IBM][CLI Driver] SQL10007N Message "0" could not be retrieved. Reason code: "3". SQLCODE=-1390.
+
+  Use following command to find descriptions.
+    ]# db2 ? SQL10007N
+
+  But it is not any of reason mentioned in descriptions!
+  When testing PHP-web on SoftLayer server with same versions of RadHat Enterprise Linux, DB2, Apache httpd and PHP, no such problem.
+
+
+* Apache Tomcat
+
+  1. Install Tomcat connector.
+     Require to install development tools for gcc from DVD or repository.
+     Require to install "httpd-devel" for apxs (Apache eXtension tool) from DVD or repository.
+     Download Tomcat connector source file "tomcat-connectors-1.2.40-src.tar.gz".
+     Refer to BUILDING.txt in source zip file.
+     (and https://www.centos.org/forums/viewtopic.php?t=5055)
+     Run such as:
+
+     ]$ cd native
+     ]$ ./configure --with-apxs=/usr/sbin/apxs
+     ]$ make
+     ]# make install  # Copy ./apache-2.0/mod_jk.so /etc/httpd/modules/
+
+  2. Create "/etc/httpd/conf/workers.properties".
+
+     worker.list=ajp13
+     worker.ajp13.port=8009
+     worker.ajp13.host=localhost
+     worker.ajp13.type=ajp13
+     worker.ajp13.lbfactor=1
+
+  3. Create "/etc/httpd/conf.d/mod_jk.conf".
+
+     <IfModule prefork.c>
+       LoadModule jk_module modules/mod_jk.so
+     </IfModule>
+
+     JkWorkersFile /etc/httpd/conf/workers.properties
+     JkLogFile /etc/httpd/logs/mod_jk.log
+
+     # Serve all requests and jsp with ajp13 by default.
+     JkMount / ajp13
+     JkMount /*.jsp ajp13
+
+     # Serve static page and image with httpd.
+     JkUnMount /*.html ajp13
+     JkUnMount /*.htm ajp13
+     JkUnMount /*.bmp ajp13
+     JkUnMount /*.gif ajp13
+     JkUnMount /*.jpg ajp13
+     JkUnMount /*.js ajp13
+     JkUnMount /*.php ajp13
+
+* Apache Tomcat and DB2
+
+  Suppose a database "TEST" with user "test" and password "test" in DB2.
+
+  1. Download "db2jcc4.jar" from IBM website, or find it from DB2 installation folder.
+     Copy into "/usr/share/java/tomcat6/" (also link from "/usr/share/tomcat6/lib/").
+
+  2. Modify "/etc/tomcat6/server.xml", add following lines in "<GlobalNamingResources>" section:
+
+     <GlobalNamingResources>
+       <Resource name="jdbc/LocalTest"
+         auth="Container"
+         type="javax.sql.DataSource"
+         driverClassName="com.ibm.db2.jcc.DB2Driver"
+         url="jdbc:db2://localhost:50000/TEST"
+         username="test"
+         password="test"
+         maxActive="50"
+         maxIdle="20"
+         maxWait="10000"/>
+     </GlobalNamingResources>

@@ -1,0 +1,89 @@
+================================================================================
+Prepare hosts.
+------------------------------------------------------------
+WAS_Node1
+----------------------------------------
+Turn of firewall
+
+]# chkconfig iptables off
+]# service iptables stop
+
+]# vim /etc/hosts
+192.168.0.21    hc-prod-db2-1.comany.com
+192.168.0.22    hc-prod-db2-2.comany.com
+192.168.0.23    hc-prod-was-1.comany.com
+192.168.0.24    hc-prod-was-2.comany.com
+
+Must use exact IP, not 127.0.0.1 for local!
+------------------------------------------------------------
+WAS_Node2
+----------------------------------------
+Turn of firewall
+
+]# chkconfig iptables off
+]# service iptables stop
+
+]# vim /etc/hosts
+192.168.0.21    hc-prod-db2-1.comany.com
+192.168.0.22    hc-prod-db2-2.comany.com
+192.168.0.23    hc-prod-was-1.comany.com
+192.168.0.24    hc-prod-was-2.comany.com
+
+Must use exact IP, not 127.0.0.1 for local!
+================================================================================
+WAS_Node1
+
+Refer to "GPO_SoftLayer Server Setup Guide - HTTP", section "Dependency packages" to install it.
+Refer to "GPO_SoftLayer Server Setup Guide - Main", section "IBM Installation Manager" to install it.
+Refer to "GPO_SoftLayer Server Setup Guide - WAS", chapter "Install WAS ND" to install it.
+
+Refer to "GPO_SoftLayer Server Setup Guide - WAS", chapter "Create profiles (Cell)" to create profile, and note that:
+1. Enter administrative user name and password. By default, we use "wasadm" as user name and "wasp@ssw0rd" as password.
+2. For "Expiration period in years", we may change it to a long period, such 10 years.
+3. For "HTTP transport port (Default 9080)", we could change it based on own requirement, such as "9081".
+4. For "Run...as...service", do not select it.
+
+Refer to "GPO_SoftLayer Server Setup Guide - WAS", section "Invoke automatically", install Linux service for "Dmgr" and "nodeagent".
+But do not do so for "server1"! We will use cluster to start application servers from console.
+------------------------------------------------------------
+WAS_Node2
+
+Refer to "GPO_SoftLayer Server Setup Guide - HTTP", section "Dependency packages" to install it.
+Refer to "GPO_SoftLayer Server Setup Guide - Main", section "IBM Installation Manager" to install it.
+Refer to "GPO_SoftLayer Server Setup Guide - WAS", chapter "Install WAS ND" to install it.
+
+Refer to "GPO_SoftLayer Server Setup Guide - WAS", chapter "Create profiles (Custom)" to create profile, and note that:
+1. Enter administrative user name and password. By default, we use "wasadm" as user name and "wasp@ssw0rd" as password.
+
+Refer to "GPO_SoftLayer Server Setup Guide - WAS", section "Invoke automatically", install Linux service for "nodeagent".
+================================================================================
+WAS_Node1
+
+How to configure DB2 HADR using Data Sources
+http://www-01.ibm.com/support/docview.wss?uid=swg21665033
+
+Refer to "GPO_SoftLayer Server Setup Guide - WAS", chapter "Setup JDBC" to setup.
+
+For section "Create JDBC providers",
+Path to jar: /opt/IBM/WebSphere/AppServer/deploytool/itp/plugins/com.ibm.datatools.db2_2.1.110.v20121008_1514/driver/
+
+For section "Create authentication alias",
+Alias: hc-prod-db2
+
+For section "Create data source for cluster",
+Data source name: SUPPORTA_DS
+JNDI name: jdbc/supporta
+
+Driver type: 4
+Database name: SUPPORTA
+Server name: hc-prod-db2-1.comany.com
+Port number: 50000
+
+For section "Set automatic client reroute"
+
+Retry interval for client reroute: 30 seconds
+Maximum retries for client reroute : 3 retries
+Alternate server names: hc-prod-db2-2.comany.com
+Alternate port numbers: 50000
+Client reroute server list JNDI name:
+================================================================================

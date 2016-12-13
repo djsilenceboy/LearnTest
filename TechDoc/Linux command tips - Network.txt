@@ -1,0 +1,242 @@
+================================================================================
+Enable HTTPD to bind other ports.
+
+]# vi /etc/selinux/config
+# SELINUX=enforcing
+SELINUX=disabled
+================================================================================
+/etc configuration file
+------------------------------------------------------------
+Default settings.
+
+/etc/login.defs
+/etc/default/useradd
+------------------------------------------------------------
+DNS
+----------------------------------------
+Add name server.
+
+]# vim /etc/resolv.conf
+nameserver  xxx.xxx.xxx.xxx
+nameserver  xxx.xxx.xxx.xxx
+
+or
+
+]# vim /etc/sysconfig/network-scripts/ifcfg-lo
+]# vim /etc/sysconfig/network-scripts/ifcfg-eth0
+]# vim /etc/sysconfig/network-scripts/ifcfg-eth1
+DNS1=xxx.xxx.xxx.xxx
+DNS2=xxx.xxx.xxx.xxx
+MTU=1300
+================================================================================
+Network interface
+------------------------------------------------------------
+Check network interface name first, such as "eth0".
+
+]# ifconfig
+
+]# ip addr show
+------------------------------------------------------------
+Check interface config file.
+
+]# cat /etc/sysconfig/network-scripts/ifcfg-eth0
+]# cat /etc/sysconfig/network-scripts/ifcfg-eth1
+]# cat /etc/sysconfig/network-scripts/ifcfg-lo
+================================================================================
+Host name
+------------------------------------------------------------
+Check host name
+
+]$ hostname
+
+RHEL/CentOS 7
+
+]$ hostnamectl status
+------------------------------------------------------------
+Change host name.
+
+]# vi /etc/hosts
+
+Change all old host names with new ones, if any.
+
+]# vi /etc/sysconfig/network
+
+Modify "HOSTNAME=<new name>".
+
+RHEL/CentOS 7
+
+]# hostnamectl set-hostname xxx.xxx.com
+----------------------------------------
+Restart network to take in effect.
+
+]# service network restart
+
+Or just restart server.
+================================================================================
+Route / Gateway
+------------------------------------------------------------
+Define global permanent default gateway.
+
+]# cat /etc/sysconfig/network
+GATEWAY=192.168.12.1
+----------------------------------------
+Define interface permanent default gateway.
+
+]# cat /etc/sysconfig/network-scripts/ifcfg-eth0
+GATEWAY=192.168.12.1
+------------------------------------------------------------
+Define static permanent gateway.
+
+]# cat /etc/sysconfig/network-scripts/route-eth0
+10.0.0.0/8 via 10.90.143.66
+0.0.0.0/0 via 10.90.143.66
+----------------------------------------
+If changed, restart network service to make it work.
+
+]# service network restart
+------------------------------------------------------------
+Check route.
+
+]# route
+]# route -n
+
+]# ip route
+]# ip route show
+----------------------------------------
+Sample:
+
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+10.64.68.64     0.0.0.0         255.255.255.192 U     0      0        0 eth0
+169.254.0.0     0.0.0.0         255.255.0.0     U     1002   0        0 eth0
+10.0.0.0        10.64.68.65     255.0.0.0       UG    0      0        0 eth0
+0.0.0.0         10.64.68.126    0.0.0.0         UG    0      0        0 eth0
+----------------------------------------
+Line for Destination "0.0.0.0" is default gateway.
+------------------------------------------------------------
+Set default temporary gateway.
+
+]# route add default gw <route_ip> <interface>
+
+]# ip route add to default via <route_ip> protocol static
+----------------------------------------
+Set static temporary gateway.
+
+]# ip route add <Host_IP> via <route_ip> protocol static
+]# ip route add <IP_Subnet/Mask> via <route_ip> protocol static
+----------------------------------------
+Sample:
+
+]# route add default gw 192.168.0.1 eth0
+
+]# ip route add 192.168.0.1 via 10.0.0.1
+]# ip route add 192.168.0.0/24 via 10.0.0.1
+================================================================================
+Network interface (MAC)
+------------------------------------------------------------
+Check original MAC address
+
+]# ethtool -P <interface>
+----------------------------------------
+Sample:
+
+]# ethtool -P eth0
+================================================================================
+DHCP client
+
+Check (and renew if necessary) IP.
+
+]# dhclient -v
+
+Release IP.
+
+]# dhclient -v -r
+================================================================================
+Check IP tables
+------------------------------------------------------------
+List the rules in a chain or all chains.
+
+]# iptables -L
+]# iptables -L -v
+----------------------------------------
+Print the rules in a chain or all chains.
+
+]# iptables -S
+]# iptables -S -v
+----------------------------------------
+Append to chain.
+
+]# iptables -A <ChainRule>
+----------------------------------------
+Delete matching rule from chain.
+
+]# iptables -D <ChainRule>
+----------------------------------------
+Saving rules to file "/etc/sysconfig/iptables".
+
+]# /sbin/service iptables save
+
+The existing "/etc/sysconfig/iptables" file is saved as "/etc/sysconfig/iptables.save".
+------------------------------------------------------------
+Check rules file.
+
+]# cat /etc/sysconfig/iptables
+------------------------------------------------------------
+Emport rules to file.
+
+]# iptables-save > <FilePath>
+------------------------------------------------------------
+Other options
+
+]# iptables -t nat -L -v -n
+================================================================================
+Check IP sets
+------------------------------------------------------------
+List the rules in a chain or all chains.
+
+]# ipset -L
+----------------------------------------
+Print the rules in a chain or all chains.
+
+]# ipset -S
+----------------------------------------
+List the entries of a named set or all sets
+
+]# ipset list
+]# ipset list <SETNAME>
+----------------------------------------
+Add entry to the named set.
+
+]# ipset add <SETNAME>
+----------------------------------------
+Delete entry from the named set.
+
+]# ipset del <SETNAME>
+----------------------------------------
+Test entry in the named set.
+
+]# ipset test <SETNAME>
+----------------------------------------
+Flush a named set or all sets.
+It mean removing all!!!
+
+]# ipset flush
+]# ipset flush <SETNAME>
+----------------------------------------
+Save the named set or all sets to stdout.
+
+]# ipset save
+]# ipset save <SETNAME>
+----------------------------------------
+Restore a saved state.
+
+]# ipset restore
+================================================================================
+Check DNS
+------------------------------------------------------------
+]$ dig <HostName>
+]$ dig -x <IP>
+------------------------------------------------------------
+]$ whois <HostName>
+]$ whois <IP>
+================================================================================
