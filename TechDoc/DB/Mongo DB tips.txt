@@ -28,7 +28,7 @@ Delete databases and log files.
 ]# rm -r /var/lib/mongo
 ================================================================================
 Service
-
+------------------------------------------------------------
 ]# systemctl enable mongod
 ]# systemctl status mongod
 ]# systemctl start mongod
@@ -51,20 +51,22 @@ Log
 Create user in admin db.
 ------------------------------------------------------------
 From console.
+
+]# mongo
 ----------------------------------------
 >
 use admin
 db.createUser(
 	{
 		user: "root",
-		pwd: "admin",
+		pwd: "password",
 		roles: [{role: "root", db: "admin"}]
 	}
 )
 db.createUser(
 	{
 		user: "admin",
-		pwd: "admin",
+		pwd: "password",
 		roles: [{role: "userAdminAnyDatabase", db: "admin"}]
   }
 )
@@ -76,14 +78,14 @@ db = mongo.getDB("admin")
 db.createUser(
 	{
 		user: "root",
-		pwd: "admin",
+		pwd: "password",
 		roles: [{role: "root", db: "admin"}]
 	}
 )
 db.createUser(
 	{
 		user: "admin",
-		pwd: "admin",
+		pwd: "password",
 		roles: [{role: "userAdminAnyDatabase", db: "admin"}]
   }
 )
@@ -95,7 +97,7 @@ db = mongo.getDB("test")
 db.createUser(
 	{
 		user: "test",
-		pwd: "test",
+		pwd: "password",
 		roles: [{role: "dbOwner", db: "test"}]
    }
 )
@@ -104,27 +106,27 @@ Login admin db.
 ----------------------------------------
 >
 use admin
-db.auth("admin", "admin")
+db.auth("admin", "password")
 ------------------------------------------------------------
 Login and start with admin db from command line.
 ----------------------------------------
-]# mongo -u "root" -p "admin" admin
-]# mongo -u "admin" -p "admin" admin
+]# mongo -u "root" -p "password" admin
+]# mongo -u "admin" -p "password" admin
 ------------------------------------------------------------
 Login admin db but start with default test db from command line.
 ----------------------------------------
-]# mongo -u "root" -p "admin" --authenticationDatabase admin
-]# mongo -u "admin" -p "admin" --authenticationDatabase admin
+]# mongo -u "root" -p "password" --authenticationDatabase admin
+]# mongo -u "admin" -p "password" --authenticationDatabase admin
 ================================================================================
 Login test db.
 ----------------------------------------
 >
 use admin
-db.auth("test", "test")
+db.auth("tester", "password")
 ------------------------------------------------------------
 Login and start with test db from command line.
 ----------------------------------------
-]# mongo -u "test" -p "test" test
+]# mongo -u "test" -p "password" test
 ================================================================================
 Show DB list.
 It must use root user.
