@@ -284,6 +284,50 @@ public class TestStreamV8
 		}
 	}
 
+	public void testOptional(){
+		{
+			Stream<String> s = Stream.of("monkey");
+			Optional<String> min = s.min((s1, s2) -> s1.length() - s2.length());
+			System.out.println(min);
+		}
+
+		System.out.println("--------------------");
+
+		{
+			Stream<String> s = Stream.of();
+			Optional<String> min = s.min((s1, s2) -> s1.length() - s2.length());
+			System.out.println(min);
+			// Optional.empty
+		}
+
+		System.out.println("--------------------");
+
+		{
+			Optional<String> min = Optional.empty();
+			System.out.println(min);
+			// Optional.empty
+		}
+
+		System.out.println("--------------------");
+
+		{
+			Optional<String> min = Optional.ofNullable(null);
+			System.out.println(min);
+			// Optional.empty
+		}
+
+		System.out.println("--------------------");
+
+		{
+			try {
+				Optional<String> min = Optional.of(null);
+				System.out.println(min);
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+	}
+
 	public void testUnorder(){
 		List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
 
@@ -340,6 +384,29 @@ public class TestStreamV8
 		list.parallelStream().filter(item -> item < 20).forEach(item -> System.out.println(item));
 	}
 
+	public void monitorFlow(){
+		{
+			List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+			list.stream().peek(item -> System.out.print("<" + item + "> ")).map(i -> i * i).forEach(item -> System.out.println(item));
+		}
+
+		System.out.println("--------------------");
+
+		{
+			// If no terminal, no data output.
+			List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+			list.stream().peek(item -> System.out.print("<" + item + "> ")).map(i -> i * i);
+		}
+
+		System.out.println("--------------------");
+
+		{
+			// Parallel, not in order.
+			List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+			list.parallelStream().peek(item -> System.out.print("<" + item + "> ")).map(i -> i * i).forEach(item -> System.out.println(item));
+		}
+	}
+
 	public static void main(String[] args){
 		TestStreamV8 testMain = new TestStreamV8();
 
@@ -361,6 +428,9 @@ public class TestStreamV8
 		testMain.testCollectors2();
 		System.out.println("============================================================");
 
+		testMain.testOptional();
+		System.out.println("============================================================");
+
 		testMain.testUnorder();
 		System.out.println("============================================================");
 
@@ -371,6 +441,9 @@ public class TestStreamV8
 		System.out.println("============================================================");
 
 		testMain.testSample1();
+		System.out.println("============================================================");
+
+		testMain.monitorFlow();
 		System.out.println("============================================================");
 	}
 }

@@ -39,7 +39,7 @@ The remote name/branch will be "<NewRemoteName>/master".
 Add remote repository to local
 (Especially, local repository is not clone from remote one.)
 
-> git remote add <NewRemoteName> git://host.xz[:port]/path/to/repo.git/
+> git remote add <NewRemoteName> git://host[:port]/path/to/repo.git/
 
 The normal <NewRemoteName> is "origin".
 It can add several <NewRemoteName> for same repository.
