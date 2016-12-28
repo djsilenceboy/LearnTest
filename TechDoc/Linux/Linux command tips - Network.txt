@@ -36,12 +36,23 @@ Check network interface name first, such as "eth0".
 ]# ifconfig
 
 ]# ip addr show
+
+]# ip addr show dev eth0
+]# ip -4 addr show dev eth0
+]# ip addr show dev eth0 scope global
+]# ip -4 addr show dev eth0 scope global
 ------------------------------------------------------------
 Check interface config file.
 
 ]# cat /etc/sysconfig/network-scripts/ifcfg-eth0
 ]# cat /etc/sysconfig/network-scripts/ifcfg-eth1
 ]# cat /etc/sysconfig/network-scripts/ifcfg-lo
+------------------------------------------------------------
+Get IP only.
+
+]# ip route get 8.8.8.8 | awk 'NR==1 {print $NF}'
+
+]# hostname -I | awk '{print $1}'
 ================================================================================
 Host name
 ------------------------------------------------------------
