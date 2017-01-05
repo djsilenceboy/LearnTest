@@ -8,6 +8,19 @@ import java.util.TreeMap;
 
 import org.junit.Test;
 
+/*
+ * Programming test: Mars Rover.
+ * <p>
+ * Requirement:<br>
+ * Develop an API that moves a rover around on a grid.
+ * <p>
+ * Rules:<br>
+ * You are given the initial starting point (x,y) of a rover and the direction (N,S,E,W) it is facing.
+ * The rover receives a character array of commands.
+ * Implement commands that move the rover forward/backward (F,B).
+ * Implement commands that turn the rover left/right (L,R).
+ * Implement wrapping from one edge of the grid to another. (planets are spheres after all)
+ */
 public class TestMain3a
 {
 	public static class Rover
@@ -59,36 +72,45 @@ public class TestMain3a
 
 	@Test
 	public void test(){
+		int gridXLength = 10;
+		int gridYLength = 10;
+
 		// Direction index = 0, 1, 2, 3 = "N", "E", "S", "W"
-		int gridXLength = 100;
-		int gridYLength = 100;
-		Map<Character, Integer> delta = new TreeMap<Character, Integer>();
-		delta.put('f', 1);
-		delta.put('b', -1);
-		delta.put('r', 1);
-		delta.put('l', -1);
+		// <Direction index, Factor>
+		Map<Integer, Integer> directionFactors = new TreeMap<Integer, Integer>();
+		directionFactors.put(0, 1);
+		directionFactors.put(1, 1);
+		directionFactors.put(2, -1);
+		directionFactors.put(3, -1);
+
+		// <Command symbol, Delta move>
+		Map<Character, Integer> deltaMove = new TreeMap<Character, Integer>();
+		deltaMove.put('f', 1);
+		deltaMove.put('b', -1);
+		deltaMove.put('r', 1);
+		deltaMove.put('l', -1);
 
 		Rover rover = new Rover(0, 0, 0);
 
-		Character[] actions = new Character[]{'f', 'f', 'r', 'f', 'f'};
+		Character[] commands = new Character[]{'f', 'f', 'r', 'f', 'f'};
 
-		for (Character action : actions) {
-			switch (action){
+		for (Character command : commands) {
+			switch (command){
 				case 'f':
 				case 'b':
 					if ((rover.getDirection() == 1) || (rover.getDirection() == 3)) {
-						int newX = checkRange(rover.getX() + delta.get(action), 0, gridXLength - 1);
+						int newX = checkRange(rover.getX() + directionFactors.get(rover.getDirection()) * deltaMove.get(command), 0, gridXLength - 1);
 
 						rover.setX(newX);
 					} else {
-						int newY = checkRange(rover.getY() + delta.get(action), 0, gridYLength - 1);
+						int newY = checkRange(rover.getY() + directionFactors.get(rover.getDirection()) * deltaMove.get(command), 0, gridYLength - 1);
 
 						rover.setY(newY);
 					}
 				break;
 				case 'r':
 				case 'l':
-					int newDirction = checkRange(rover.getDirection() + delta.get(action), 0, 3);
+					int newDirction = checkRange(rover.getDirection() + deltaMove.get(command), 0, 3);
 
 					rover.setDirection(newDirction);
 				break;
