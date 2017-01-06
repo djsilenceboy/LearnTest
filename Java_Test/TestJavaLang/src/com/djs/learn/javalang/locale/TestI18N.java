@@ -10,10 +10,20 @@ import java.util.Enumeration;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * ResourceBundle / I18N.
+ * <p>
+ * Resource file searching sequence:
+ * BundleName_language_country_variant
+ * BundleName_language_country
+ * BundleName_language
+ * BundleName_defaultlanguage_defaultcountry
+ * BundleName_defaultlanguage
+ */
 public class TestI18N
 {
 	private Locale getLocale(String language, String country){
-		System.out.println("Locale = " + language + ", " + country);
+		System.out.println("Request Locale = " + language + ", " + country);
 
 		Locale locale;
 
@@ -24,6 +34,8 @@ public class TestI18N
 		} else {
 			locale = new Locale(language, country);
 		}
+
+		System.out.println("Find Locale = " + locale);
 
 		return locale;
 	}
@@ -43,12 +55,14 @@ public class TestI18N
 			Locale locale = getLocale(language, country);
 			ResourceBundle messages = getMessageResourceBundle(locale);
 
+			System.out.println("ResourceBundle = " + messages);
+
 			Enumeration bundleKeys = messages.getKeys();
 
 			while (bundleKeys.hasMoreElements()) {
 				String key = (String)bundleKeys.nextElement();
 				String value = messages.getString(key);
-				System.out.println(key + " = " + value);
+				System.out.println("MessagesBundle: " + key + " = " + value);
 			}
 		} catch (Exception e) {
 		}
@@ -58,17 +72,19 @@ public class TestI18N
 		try {
 			Locale locale = getLocale(language, country);
 
-			// NOT WORKING!!!
-			// NumberBundle.properties
-			// NumberBundle*.properties
-			ResourceBundle numbers = ResourceBundle.getBundle("NumberBundle", locale);
+			// NumberBundle.java
+			// NumberBundle*.java
+			// It must specify full package name to the bundle java.
+			ResourceBundle numbers = ResourceBundle.getBundle(this.getClass().getPackage().getName() + ".NumberBundle", locale);
+
+			System.out.println("ResourceBundle = " + numbers);
 
 			Enumeration bundleKeys = numbers.getKeys();
 
 			while (bundleKeys.hasMoreElements()) {
 				String key = (String)bundleKeys.nextElement();
 				Object value = numbers.getObject(key);
-				System.out.println(key + " = " + value);
+				System.out.println("NumberBundle: " + key + " = " + value);
 			}
 		} catch (Exception e) {
 		}
@@ -82,8 +98,8 @@ public class TestI18N
 			Integer quantity = new Integer(123456);
 			Double amount = new Double(345987.246);
 
-			System.out.println("Quantity = " + numberFormatter.format(quantity));
-			System.out.println("Amount = " + numberFormatter.format(amount));
+			System.out.println("NumberFormat.Quantity = " + numberFormatter.format(quantity));
+			System.out.println("NumberFormat.Amount = " + numberFormatter.format(amount));
 		} catch (Exception e) {
 		}
 	}
@@ -117,7 +133,7 @@ public class TestI18N
 
 		System.out.println("========================================");
 
-		test.test1(null, null);
+		test.test2(null, null);
 
 		System.out.println("--------------------");
 
@@ -138,6 +154,7 @@ public class TestI18N
 		System.out.println("--------------------");
 
 		test.test2("fr", "FR");
+
 		System.out.println("========================================");
 
 		test.test3(null, null);

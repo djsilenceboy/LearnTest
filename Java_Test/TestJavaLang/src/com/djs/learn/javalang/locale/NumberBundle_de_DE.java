@@ -10,5 +10,5 @@ public class NumberBundle_de_DE extends ListResourceBundle
 		return contents;
 	}
 
-	private Object[][] contents = {{"A", new Integer(78900)}, {"B", new Float(0.789)}};
+	static final Object[][] contents = {{"A", new Integer(78900)}, {"B", new Float(0.789)}};
 }

@@ -5,8 +5,7 @@ import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.stream.Stream;
 
 public class TestMain
 {
@@ -26,7 +25,44 @@ public class TestMain
 		return locale;
 	}
 
-	public void testLocale(){
+	public void testLocale1(){
+		{
+			Locale[] locales = {Locale.JAPANESE, new Locale.Builder().setLanguage("ja").build(), new Locale("ja"), Locale.JAPAN,
+			                    new Locale.Builder().setLanguage("ja").setRegion("JP").build(), new Locale("ja", "JP"),
+			                    Locale.forLanguageTag("ja-JP-u-ca-japanese")};
+
+			Stream.of(locales).forEach(locale -> System.out.println(locale.toString() + " - " + locale.getDisplayName() + " -> " + locale.getLanguage() + " - "
+			        + locale.getCountry() + " - " + locale.getVariant() + " - " + locale.getScript() + " - " + locale.getExtensionKeys()));
+		}
+
+		System.out.println("--------------------");
+
+		{
+			Locale[] locales = DateFormat.getAvailableLocales();
+			Stream.of(locales).limit(5).forEach(locale -> System.out.println(locale.toString() + " - " + locale.getDisplayName() + " -> " + locale.getLanguage()
+			        + " - " + locale.getCountry() + " - " + locale.getVariant() + " - " + locale.getScript() + " - " + locale.getExtensionKeys()));
+		}
+
+		System.out.println("--------------------");
+
+		{
+			Locale[] locales = Locale.getAvailableLocales();
+			Stream.of(locales).limit(20)
+			        .forEach(locale -> System.out.println(locale.toString() + " - " + locale.getDisplayName() + " -> " + locale.getLanguage() + " - "
+			                + locale.getCountry() + " - " + locale.getVariant() + " - " + locale.getScript() + " - " + locale.getExtensionKeys()));
+		}
+
+		System.out.println("--------------------");
+
+		{
+			Locale[] locales = Locale.getAvailableLocales();
+			Stream.of(locales).filter(locale -> locale.getLanguage().equals("ja") || locale.getLanguage().equals("en"))
+			        .forEach(locale -> System.out.println(locale.toString() + " - " + locale.getDisplayName() + " -> " + locale.getLanguage() + " - "
+			                + locale.getCountry() + " - " + locale.getVariant() + " - " + locale.getScript() + " - " + locale.getExtensionKeys()));
+		}
+	}
+
+	public void testLocale2(){
 		{
 			System.out.println("Locale.getDefault = " + Locale.getDefault()); // DISPLAY
 			System.out.println("Locale.getDefault(DISPLAY) = " + Locale.getDefault(Locale.Category.DISPLAY));
@@ -36,53 +72,14 @@ public class TestMain
 		System.out.println("--------------------");
 
 		{
-			Locale[] locales = {Locale.JAPANESE, new Locale.Builder().setLanguage("ja").build(), new Locale("ja"), Locale.JAPAN,
-			                    new Locale.Builder().setLanguage("ja").setRegion("JP").build(), new Locale("ja", "JP"),
-			                    Locale.forLanguageTag("ja-JP-u-ca-japanese")};
+			Locale.setDefault(Locale.JAPANESE);
 
-			for (Locale locale : locales) {
-				System.out.println("-> " + locale);
-			}
+			System.out.println("Locale.getDefault = " + Locale.getDefault()); // DISPLAY
+			System.out.println("Locale.getDefault(DISPLAY) = " + Locale.getDefault(Locale.Category.DISPLAY));
+			System.out.println("Locale.getDefault(FORMAT) = " + Locale.getDefault(Locale.Category.FORMAT));
 		}
 
-		System.out.println("--------------------");
-
-		{
-			Locale[] locales = DateFormat.getAvailableLocales();
-			Set<String> localeNames = new TreeSet<String>();
-
-			for (Locale locale : locales) {
-				localeNames.add(locale.toString() + " - " + locale.getDisplayName());
-			}
-
-			for (String localeName : localeNames) {
-				System.out.println("-> " + localeName);
-			}
-		}
 	}
-
-	/* For JDK 1.8
-	public void testLocaleRange(){
-		List<Locale> locales = new ArrayList<>();
-	
-		locales.add(Locale.forLanguageTag("en-GB"));
-		locales.add(Locale.forLanguageTag("ja"));
-		locales.add(Locale.forLanguageTag("zh-cmn-Hans-CN"));
-		locales.add(Locale.forLanguageTag("en-US"));
-	
-		// Express the user's preferences with a Language Priority List
-		String ranges = "en-US;q=1.0,en-GB;q=0.5,fr-FR;q=0.0";
-		List<Locale.LanguageRange> languageRanges = Locale.LanguageRange.parse(ranges);
-	
-		// Now filter the Locale objects, returning any matches
-		List<Locale> results = Locale.filter(languageRanges, locales);
-	
-		// Print out the matches
-		for (Locale l : results) {
-			System.out.println(l.toString());
-		}
-	}
-	*/
 
 	public void testMessage(String language, String country){
 		try {
@@ -106,7 +103,11 @@ public class TestMain
 
 		System.out.println("========================================");
 
-		test.testLocale();
+		test.testLocale1();
+
+		System.out.println("========================================");
+
+		test.testLocale2();
 
 		System.out.println("========================================");
 

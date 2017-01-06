@@ -10,5 +10,5 @@ public class NumberBundle_en_US extends ListResourceBundle
 		return contents;
 	}
 
-	private Object[][] contents = {{"A", new Integer(12300)}, {"B", new Float(0.123)}};
+	static final Object[][] contents = {{"A", new Integer(12300)}, {"B", new Float(0.123)}};
 }
