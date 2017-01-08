@@ -16,6 +16,22 @@ import java.util.function.UnaryOperator;
 
 public class TestFunctionInterfaceV8
 {
+	// FunctionalInterface has one and only one method, which does not count in Object's 3 default methods.
+	@FunctionalInterface
+	interface SampleFunction1
+	{
+		public void process();
+
+		@Override
+		int hashCode();
+
+		@Override
+		boolean equals(Object obj);
+
+		@Override
+		String toString();
+	}
+
 	public void testSupplier(){
 		Supplier<LocalDate> s1 = LocalDate::now;
 		Supplier<LocalDate> s2 = () -> LocalDate.now();
@@ -118,6 +134,15 @@ public class TestFunctionInterfaceV8
 		System.out.println("bo2.apply() = " + bo2.apply("Hel", "Wor"));
 	}
 
+	public void testMix(){
+		Function<Integer, UnaryOperator<Integer>> fu1 = i -> j -> i * j;
+
+		System.out.println("fu1 = " + fu1);
+
+		System.out.println("fu1.apply().apply() = " + fu1.apply(100).apply(2));
+		System.out.println("fu1.apply().apply() = " + fu1.apply(10).apply(3));
+	}
+
 	public static void main(String[] args){
 		TestFunctionInterfaceV8 test = new TestFunctionInterfaceV8();
 
@@ -146,6 +171,9 @@ public class TestFunctionInterfaceV8
 		System.out.println("============================================================");
 
 		test.testBinaryOperator();
+		System.out.println("============================================================");
+
+		test.testMix();
 		System.out.println("============================================================");
 	}
 }

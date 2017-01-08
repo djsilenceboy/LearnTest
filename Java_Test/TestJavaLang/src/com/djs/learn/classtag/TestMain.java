@@ -14,6 +14,7 @@ import com.djs.learn.classtag.interfacetag.ImplementChildA;
 import com.djs.learn.classtag.interfacetag.ImplementParentA;
 import com.djs.learn.classtag.interfacetag.InterfaceParentA;
 import com.djs.learn.classtag.mix.MixChildA;
+import com.djs.learn.classtag.mix.MixCompleteParentA;
 import com.djs.learn.classtag.nestedtag.OuterParentA;
 import com.djs.learn.classtag.nestedtag.OuterParentB;
 import com.djs.learn.classtag.nestedtag.OuterParentC;
@@ -543,7 +544,22 @@ public class TestMain
 
 		try {
 			MixChildA mixChildA = new MixChildA();
-			System.out.println("Namge = " + mixChildA.getName());
+			System.out.println("Name = " + mixChildA.getName());
+		} catch (Exception e) {
+			System.err.println("Exception = " + e);
+		}
+
+		System.out.println("----------------------------------------");
+
+		try {
+			MixCompleteParentA mixCompleteParentA = new MixCompleteParentA();
+			i = mixCompleteParentA.getCountA();
+			System.out.println("i = " + i);
+
+			System.out.println("--------------------");
+
+			i = mixCompleteParentA.getCountB();
+			System.out.println("i = " + i);
 		} catch (Exception e) {
 			System.err.println("Exception = " + e);
 		}

@@ -12,7 +12,7 @@ public class TestDataTypeV8
 
 		List<String> list = new ArrayList<>();
 
-		// This will fail.
+		// This will fail for V6/V7.
 		list.addAll(new ArrayList<>());
 		list.addAll(Arrays.asList());
 	}

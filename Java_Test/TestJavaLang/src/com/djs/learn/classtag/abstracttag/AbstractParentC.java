@@ -10,4 +10,10 @@ public abstract class AbstractParentC
 	private void test1(){
 		System.out.println("AbstractParentC:test1");
 	}
+
+	public int getCountA(){
+		System.out.println("AbstractParentC:getCountA");
+
+		return 0;
+	}
 }

@@ -12,6 +12,9 @@ import java.util.stream.Stream;
 
 public class TestStreamV8
 {
+	// Stream cannot be reused after terminal operations.
+	// If Stream source is modified when the computation in the Stream is still under processing, the result may be unpredicted.
+
 	public void testCreate(){
 		Stream<String> empty = Stream.empty();
 		Stream<Integer> singleElement = Stream.of(1);
@@ -23,7 +26,6 @@ public class TestStreamV8
 	}
 
 	public void testTerminalOperations(){
-		// Cannot reuse stream, as these methods are terminal operations.
 		{
 			Stream<String> s = Stream.of("monkey", "gorilla", "bonobo");
 			System.out.println("Stream.count() = " + s.count());
@@ -172,6 +174,15 @@ public class TestStreamV8
 
 		{
 			Stream<String> s = Stream.of("monkey", "gorilla", "bonobo", "monkey", "gorilla");
+			Comparator<String> comparator = (s1, s2) -> s1.compareTo(s2);
+
+			s.sorted(comparator.reversed()).forEach(System.out::println);
+		}
+
+		System.out.println("--------------------");
+
+		{
+			Stream<String> s = Stream.of("monkey", "gorilla", "bonobo", "monkey", "gorilla");
 			s.peek(x -> System.out.print(x + "-")).forEach(x -> System.out.println(x.length()));
 		}
 	}
@@ -208,6 +219,13 @@ public class TestStreamV8
 		{
 			Stream<String> s = Stream.of("monkey", "gorilla", "bonobo");
 			System.out.println("Stream.collect(Collectors.joining()) = " + s.collect(Collectors.joining(",")));
+		}
+
+		System.out.println("--------------------");
+
+		{
+			Stream<String> s = Stream.of("monkey", "gorilla", "bonobo");
+			System.out.println("Stream.collect(Collectors.joining()) = " + s.collect(Collectors.joining(",", "<<", ">>")));
 		}
 
 		System.out.println("--------------------");
@@ -303,16 +321,19 @@ public class TestStreamV8
 		System.out.println("--------------------");
 
 		{
-			Optional<String> min = Optional.empty();
-			System.out.println(min);
+			Optional<String> opt = Optional.empty();
+			System.out.println(opt);
+			System.out.println(opt.isPresent());
+			System.out.println(opt.orElse("It is empty"));
+			opt.ifPresent(System.out::println);
 			// Optional.empty
 		}
 
 		System.out.println("--------------------");
 
 		{
-			Optional<String> min = Optional.ofNullable(null);
-			System.out.println(min);
+			Optional<String> opt = Optional.ofNullable(null);
+			System.out.println(opt);
 			// Optional.empty
 		}
 
@@ -320,8 +341,9 @@ public class TestStreamV8
 
 		{
 			try {
-				Optional<String> min = Optional.of(null);
-				System.out.println(min);
+				// Optional.of() cannot pass in null.
+				Optional<String> opt = Optional.of(null);
+				System.out.println(opt);
 			} catch (Exception e) {
 				System.out.println(e);
 			}
@@ -404,6 +426,19 @@ public class TestStreamV8
 			// Parallel, not in order.
 			List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
 			list.parallelStream().peek(item -> System.out.print("<" + item + "> ")).map(i -> i * i).forEach(item -> System.out.println(item));
+		}
+
+		System.out.println("--------------------");
+
+		{
+			// Parallel.
+			Stream<Integer> stream = Stream.of(1, 2, 3, 4, 5);
+
+			boolean parallel = stream.isParallel();
+			System.out.println("Parallel = " + parallel);
+
+			parallel = stream.parallel().isParallel();
+			System.out.println("Parallel = " + parallel);
 		}
 	}
 

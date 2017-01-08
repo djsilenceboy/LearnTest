@@ -6,6 +6,10 @@ import java.util.Arrays;
 public class TestEnum
 {
 	// The inner enum is "static final" by default.
+	// The constructor should be private, if any.
+	// Enum can have abstracted method.
+	// Enum can implement interface.
+	// Enum cannot extend class, because they are all extend "java.lang.Enum" by default.
 
 	public enum Animal
 	{
@@ -44,6 +48,20 @@ public class TestEnum
 		};
 
 		public abstract int eval(int a, int b);
+	}
+
+	interface Action
+	{
+		public void process();
+	}
+
+	enum Tasks implements Action
+	{
+		DEV, TEST;
+
+		public void process(){
+
+		}
 	}
 
 	public void test1(){
@@ -86,6 +104,12 @@ public class TestEnum
 		System.out.println("Operation Sub = " + Operation.SUB.eval(2, 3));
 	}
 
+	public void test5(){
+		System.out.println("Tasks.DEV instanceof Enum = " + (Tasks.DEV instanceof Enum));
+		System.out.println("Tasks.DEV instanceof Tasks = " + (Tasks.DEV instanceof Tasks));
+		System.out.println("Tasks.DEV instanceof Action = " + (Tasks.DEV instanceof Action));
+	}
+
 	public static void main(String[] args){
 		TestEnum testMain = new TestEnum();
 
@@ -104,6 +128,10 @@ public class TestEnum
 		System.out.println("============================================================");
 
 		testMain.test4();
+
+		System.out.println("============================================================");
+
+		testMain.test5();
 
 		System.out.println("============================================================");
 	}

@@ -7,6 +7,13 @@ public class CompleteParentB extends AbstractParentA
 		System.out.println("CompleteParentB:CompleteParentB");
 	}
 
+	// Compiling error: "Cannot reduce the visibility of the inherited method from AbstractParentA".
+	/*
+	protected int getCountA(){
+
+	}
+	*/
+
 	@Override
 	public int getCountA(){
 		System.out.println("CompleteParentB:getCountA");

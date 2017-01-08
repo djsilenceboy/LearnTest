@@ -11,7 +11,8 @@ public class ImplementChildA implements InterfaceChildA
 	public int getCountA(){
 		System.out.println("ImplementChildA:getCountA");
 
-		return count;
+		// Get hidden count.
+		return InterfaceParentA.count;
 	}
 
 	@Override
@@ -27,5 +28,4 @@ public class ImplementChildA implements InterfaceChildA
 
 		return count;
 	}
-
 }

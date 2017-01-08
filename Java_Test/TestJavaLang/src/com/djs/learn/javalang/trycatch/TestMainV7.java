@@ -1,6 +1,7 @@
 
 package com.djs.learn.javalang.trycatch;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -11,9 +12,27 @@ public class TestMainV7
 
 		} catch (NullPointerException | IllegalArgumentException e) {
 		}
+
+		// Compiling error: "The exception FileNotFoundException is already caught by the alternative IOException"
+		/*
+		try {
+
+		} catch (FileNotFoundException | IOException e) {
+		}
+		*/
 	}
 
 	public void testRethrow() throws IOException, SQLException{
+		// Compiling error: "Unreachable catch block for IOException. This exception is never thrown from the try statement body"
+		/*
+		try {
+		
+		} catch (IOException e) {
+			throw e;
+		}
+		*/
+
+		// Throw the common super class.
 		try {
 
 		} catch (Exception e) {
@@ -21,6 +40,9 @@ public class TestMainV7
 		}
 	}
 
+	/*
+	 * Try-Resource supports AutoCloseable and Closeable interfaces.
+	 */
 	public void testResource(){
 		try (ResourceA res1 = new ResourceA("1"); ResourceA res2 = new ResourceA("2")) {
 			throw new Exception("Self-Defined");
@@ -62,6 +84,14 @@ public class TestMainV7
 				System.err.println("ResourceC::Suppressed = " + e.getSuppressed()[0].getMessage());
 				System.err.println("ResourceC::Suppressed = " + e.getSuppressed()[1].getMessage());
 			}
+		}
+
+		System.out.println("----------------------------------------");
+
+		try (ResourceD res1 = new ResourceD("1"); ResourceE res2 = new ResourceE("2")) {
+
+		} catch (Exception e) {
+			System.err.println("ResourceD::catch = " + e);
 		}
 	}
 
@@ -109,6 +139,7 @@ class ResourceB implements AutoCloseable
 		this.id = id;
 	}
 
+	// "throws Exception" can be omitted.
 	@Override
 	public void close(){
 		System.out.println("ResourceB::Close(" + id + ")");
@@ -126,5 +157,31 @@ class ResourceC implements AutoCloseable
 	@Override
 	public void close() throws Exception{
 		throw new Exception("ResourceC(" + id + ")");
+	}
+}
+
+class ResourceD implements Closeable
+{
+	String id;
+
+	public ResourceD(String id){
+		this.id = id;
+	}
+
+	public void close() throws IOException{
+		throw new IOException("ResourceC(" + id + ")");
+	}
+}
+
+class ResourceE implements Closeable
+{
+	String id;
+
+	public ResourceE(String id){
+		this.id = id;
+	}
+
+	public void close(){
+		System.out.println("ResourceE::Close(" + id + ")");
 	}
 }

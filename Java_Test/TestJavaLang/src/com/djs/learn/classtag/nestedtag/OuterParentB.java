@@ -10,8 +10,14 @@ public class OuterParentB
 
 		int count = 0;
 
+		// Both works, but "Parent.this" is better.
+		int age1 = new OuterParentB().age;
+		int age2 = OuterParentB.this.age;
+
 		public InnerParentA(){
 			System.out.println("OuterParentB.InnerParentA:InnerParentA");
+			System.out.println("OuterParentB.InnerParentA:InnerParentA: age1 = " + age1);
+			System.out.println("OuterParentB.InnerParentA:InnerParentA: age2 = " + age2);
 		}
 
 		public int getCount(){
@@ -41,6 +47,7 @@ public class OuterParentB
 	}
 
 	int count = 0;
+	int age = 12;
 
 	public OuterParentB(){
 		System.out.println("OuterParentB:OuterParentB");
