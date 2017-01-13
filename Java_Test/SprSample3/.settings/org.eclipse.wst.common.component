@@ -6,6 +6,6 @@
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
         <property name="java-output-path" value="/SprSample3/build/classes"/>
-        <property name="context-root" value="test"/>
+        <property name="context-root" value="SprSample3"/>
     </wb-module>
 </project-modules>

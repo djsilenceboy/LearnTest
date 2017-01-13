@@ -245,4 +245,7 @@ Upload
 Download
 
 ]$ sshpass -p <Password> scp -p -P <Port> <UserName>@<HostName/IP>:<Path_Or_File> <LocalPath_Or_File>
+
+scp optional to add:
+-o StrictHostKeyChecking=no
 ================================================================================

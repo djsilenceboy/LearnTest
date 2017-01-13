@@ -14,7 +14,7 @@
 				/WEB-INF/spring/books.xml,
 				/WEB-INF/spring/chapters.xml,
 				/WEB-INF/spring/titles.xml,
-				/WEB-INF/spring/libraryAppContext.xml,
+				/WEB-INF/spring/libraryAppContext.xml
             </param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>

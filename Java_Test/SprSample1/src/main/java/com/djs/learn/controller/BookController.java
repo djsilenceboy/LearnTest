@@ -3,8 +3,7 @@ package com.djs.learn.controller;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +21,7 @@ public class BookController
 	@Autowired
 	private BookService bookService;
 
-	private static final Log logger = LogFactory.getLog(BookController.class);
+	private static final Logger logger = Logger.getLogger(BookController.class);
 
 	@RequestMapping(value = "/book_input")
 	public String inputBook(Model model){
