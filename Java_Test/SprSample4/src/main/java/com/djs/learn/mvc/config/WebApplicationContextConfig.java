@@ -29,7 +29,10 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter
 
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		resolver.setViewClass(JstlView.class);
+		// The path related to the root of WAR file.
+		// The path related to the root of webapp defined in Eclipse/Maven.
 		resolver.setPrefix("/WEB-INF/jsp/");
+		// Only jsp files.
 		resolver.setSuffix(".jsp");
 
 		return resolver;

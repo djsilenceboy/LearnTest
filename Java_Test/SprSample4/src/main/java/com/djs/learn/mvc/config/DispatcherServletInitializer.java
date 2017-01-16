@@ -26,6 +26,8 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 	@Override
 	protected String[] getServletMappings(){
 		logger.info(this.getClass().getName() + ":getServletMappings");
+		// This will append one more section to main context root.
+		// return new String[]{"/app/*"};
 		return new String[]{"/"};
 	}
 }
