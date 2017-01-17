@@ -5,6 +5,6 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <property name="java-output-path" value="/SprSample4/target/classes"/>
-        <property name="context-root" value="spr_sample_4"/>
+        <property name="context-root" value="SprSample4"/>
     </wb-module>
 </project-modules>

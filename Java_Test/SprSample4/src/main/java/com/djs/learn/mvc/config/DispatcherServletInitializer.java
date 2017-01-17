@@ -14,7 +14,7 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 	@Override
 	protected Class<?>[] getRootConfigClasses(){
 		logger.info(this.getClass().getName() + ":getRootConfigClasses");
-		return null;
+		return new Class[]{RootApplicationContextConfig.class};
 	}
 
 	@Override
