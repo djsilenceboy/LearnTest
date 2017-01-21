@@ -4,6 +4,15 @@ package com.djs.learn.mvc.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+// "@XmlRootElement" is for MarshallingView.
+@XmlRootElement
 public class Product implements Serializable
 {
 	private static final long serialVersionUID = 3678107792576131001L;
@@ -18,6 +27,9 @@ public class Product implements Serializable
 	private long unitsInOrder;
 	private boolean discontinued;
 	private String condition;
+	// "@JsonIgnore" is for MappingJackson2JsonView to exclude the field from JSON.
+	@JsonIgnore
+	private MultipartFile productImage;
 
 	public Product(){
 		super();
@@ -107,6 +119,16 @@ public class Product implements Serializable
 
 	public void setCondition(String condition){
 		this.condition = condition;
+	}
+
+	// "@XmlTransient" is for MarshallingView to exclude the field from xml.
+	@XmlTransient
+	public MultipartFile getProductImage(){
+		return productImage;
+	}
+
+	public void setProductImage(MultipartFile productImage){
+		this.productImage = productImage;
 	}
 
 	@Override

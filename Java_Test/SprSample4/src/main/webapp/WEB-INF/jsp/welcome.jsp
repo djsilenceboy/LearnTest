@@ -17,6 +17,9 @@
           <div class="jumbotron">
                   <h1> ${greeting} </h1>
                   <p> ${tagline} </p>
+                  <h2> ---------- </h2>
+                  <h2> ${greeting2} </h2>
+                  <p> ${tagline2} </p>
           </div>
      </body>
 </html>
