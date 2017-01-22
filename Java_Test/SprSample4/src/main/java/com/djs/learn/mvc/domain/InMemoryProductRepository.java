@@ -9,9 +9,12 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Repository;;
+import org.springframework.stereotype.Repository;
+
+import com.djs.learn.mvc.exception.ProductNotFoundException;;
 
 @Repository
 public class InMemoryProductRepository implements ProductRepository
@@ -24,6 +27,7 @@ public class InMemoryProductRepository implements ProductRepository
 	@Override
 	public List<Product> getAllProducts(){
 		logger.info(this.getClass().getName() + ":getAllProducts");
+
 		Map<String, Object> params = new HashMap<String, Object>();
 		List<Product> result = jdbcTemplate.query("SELECT * FROM products", params, new ProductMapper());
 
@@ -51,6 +55,7 @@ public class InMemoryProductRepository implements ProductRepository
 	@Override
 	public void updateStock(String productId, long noOfUnits){
 		logger.info(this.getClass().getName() + ":updateStock");
+
 		String SQL = "UPDATE PRODUCTS SET UNITS_IN_STOCK = :unitsInStock WHERE ID = :id";
 		Map<String, Object> params = new HashMap<>();
 		params.put("unitsInStock", noOfUnits);
@@ -62,6 +67,7 @@ public class InMemoryProductRepository implements ProductRepository
 	@Override
 	public List<Product> getProductsByCategory(String category){
 		logger.info(this.getClass().getName() + ":getProductsByCategory");
+
 		String SQL = "SELECT * FROM PRODUCTS WHERE CATEGORY = :category";
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("category", category);
@@ -72,6 +78,7 @@ public class InMemoryProductRepository implements ProductRepository
 	@Override
 	public List<Product> getProductsByFilter(Map<String, List<String>> filterParams){
 		logger.info(this.getClass().getName() + ":getProductsByFilter");
+
 		String SQL = "SELECT * FROM PRODUCTS WHERE CATEGORY IN ( :categories ) AND MANUFACTURER IN ( :brands)";
 
 		return jdbcTemplate.query(SQL, filterParams, new ProductMapper());
@@ -80,15 +87,22 @@ public class InMemoryProductRepository implements ProductRepository
 	@Override
 	public Product getProductById(String productID){
 		logger.info(this.getClass().getName() + ":getProductById");
+
 		String SQL = "SELECT * FROM PRODUCTS WHERE ID = :id";
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", productID);
 
-		return jdbcTemplate.queryForObject(SQL, params, new ProductMapper());
+		try {
+			return jdbcTemplate.queryForObject(SQL, params, new ProductMapper());
+		} catch (DataAccessException e) {
+			throw new ProductNotFoundException(productID);
+		}
 	}
 
 	@Override
 	public void addProduct(Product product){
+		logger.info(this.getClass().getName() + ":addProduct");
+
 		String SQL = "INSERT INTO PRODUCTS (ID, " + "NAME," + "DESCRIPTION," + "UNIT_PRICE," + "MANUFACTURER," + "CATEGORY," + "CONDITION," + "UNITS_IN_STOCK,"
 		        + "UNITS_IN_ORDER," + "DISCONTINUED) "
 		        + "VALUES (:id, :name, :desc, :price, :manufacturer, :category, :condition, :inStock, :inOrder, :discontinued)";

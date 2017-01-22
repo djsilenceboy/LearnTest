@@ -71,11 +71,15 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry){
+		logger.info(this.getClass().getName() + ":addResourceHandlers");
+
 		registry.addResourceHandler("/img/**").addResourceLocations("/resources/images/");
 	}
 
 	@Bean
 	public CommonsMultipartResolver multipartResolver(){
+		logger.info(this.getClass().getName() + ":multipartResolver");
+
 		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
 		resolver.setDefaultEncoding("utf-8");
 		return resolver;
@@ -85,6 +89,8 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter
 
 	@Bean
 	public MappingJackson2JsonView jsonView(){
+		logger.info(this.getClass().getName() + ":jsonView");
+
 		MappingJackson2JsonView jsonView = new MappingJackson2JsonView();
 		jsonView.setPrettyPrint(true);
 
@@ -95,6 +101,8 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter
 
 	@Bean
 	public MarshallingView xmlView(){
+		logger.info(this.getClass().getName() + ":xmlView");
+
 		Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
 		marshaller.setClassesToBeBound(Product.class);
 
@@ -104,6 +112,8 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter
 
 	@Bean
 	public ViewResolver contentNegotiatingViewResolver(ContentNegotiationManager manager){
+		logger.info(this.getClass().getName() + ":contentNegotiatingViewResolver");
+
 		ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
 		resolver.setContentNegotiationManager(manager);
 

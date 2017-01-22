@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.MatrixVariable;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,9 +23,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.djs.learn.mvc.domain.Product;
 import com.djs.learn.mvc.domain.ProductRepository;
+import com.djs.learn.mvc.exception.NoProductsFoundUnderCategoryException;
+import com.djs.learn.mvc.exception.ProductNotFoundException;
 import com.djs.learn.mvc.service.ProductService;
 
 // For class, "market" = "/market".
@@ -65,11 +69,20 @@ public class ProductController
 	// Test: http://localhost:8080/SprSample4/market/products/Tablet
 	// Test: http://localhost:8080/SprSample4/market/products/Laptop
 
+	// Test exception not captured by handler.
+	// Test: http://localhost:8080/SprSample4/market/products/Unknown
+
 	@RequestMapping("products/{category}")
 	public String getProductsByCategory(Model model, @PathVariable("category") String productCategory){
 		logger.info(this.getClass().getName() + ":getProductsByCategory");
 
-		model.addAttribute("products", productService.getProductsByCategory(productCategory));
+		List<Product> products = productService.getProductsByCategory(productCategory);
+
+		if (products == null || products.isEmpty()) {
+			throw new NoProductsFoundUnderCategoryException();
+		}
+
+		model.addAttribute("products", products);
 		return "products";
 	}
 
@@ -138,5 +151,24 @@ public class ProductController
 		logger.info(this.getClass().getName() + ":initialiseBinder");
 
 		binder.setAllowedFields("productId", "name", "unitPrice", "description", "manufacturer", "category", "unitsInStock", "condition", "productImage");
+	}
+
+	// Test: @ExceptionHandler
+	// Test: http://localhost:8080/SprSample4/market/product?id=P1000
+
+	// One ExceptionHandler for one certain exception.
+	@ExceptionHandler(ProductNotFoundException.class)
+	public ModelAndView handleError(HttpServletRequest request, ProductNotFoundException exception){
+		logger.info(this.getClass().getName() + ":handleError");
+
+		ModelAndView view = new ModelAndView();
+
+		view.addObject("invalidProductId", exception.getProductId());
+		view.addObject("exception", exception);
+		view.addObject("url", request.getRequestURL() + "?" + request.getQueryString());
+		// JSP file name.
+		view.setViewName("productNotFound");
+
+		return view;
 	}
 }

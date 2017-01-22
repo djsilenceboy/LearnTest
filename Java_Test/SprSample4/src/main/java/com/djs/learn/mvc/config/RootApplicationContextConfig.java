@@ -21,14 +21,17 @@ public class RootApplicationContextConfig
 	@Bean
 	public DataSource dataSource(){
 		logger.info(this.getClass().getName() + ":dataSource");
+
 		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
 		EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.HSQL).addScript("db/sql/create-table.sql").addScript("db/sql/insert-data.sql").build();
+
 		return db;
 	}
 
 	@Bean
 	public NamedParameterJdbcTemplate getJdbcTemplate(){
 		logger.info(this.getClass().getName() + ":getJdbcTemplate");
+
 		return new NamedParameterJdbcTemplate(dataSource());
 	}
 }
