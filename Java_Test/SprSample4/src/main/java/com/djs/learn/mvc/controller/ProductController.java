@@ -150,7 +150,8 @@ public class ProductController
 	public void initialiseBinder(WebDataBinder binder){
 		logger.info(this.getClass().getName() + ":initialiseBinder");
 
-		binder.setAllowedFields("productId", "name", "unitPrice", "description", "manufacturer", "category", "unitsInStock", "condition", "productImage");
+		binder.setAllowedFields("productId", "name", "unitPrice", "description", "manufacturer", "category", "unitsInStock", "condition", "productImage",
+		                        "language");
 	}
 
 	// Test: @ExceptionHandler
@@ -170,5 +171,12 @@ public class ProductController
 		view.setViewName("productNotFound");
 
 		return view;
+	}
+
+	@RequestMapping("/products/invalidPromoCode")
+	public String invalidPromoCode(){
+		logger.info(this.getClass().getName() + ":invalidPromoCode");
+
+		return "invalidPromoCode";
 	}
 }
