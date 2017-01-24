@@ -19,7 +19,7 @@ public class HomeController
 
 	@RequestMapping
 	public String mainroot(Model model){
-		logger.info(this.getClass().getName() + ":mainroot");
+		logger.info("[mainroot]");
 
 		model.addAttribute("greeting", "Welcome to Web Store!");
 		model.addAttribute("tagline", "The one and only amazing web store");
@@ -29,7 +29,7 @@ public class HomeController
 
 	@RequestMapping("welcome_f")
 	public String welcome_forward(Model model){
-		logger.info(this.getClass().getName() + ":welcome_forward");
+		logger.info("[welcome_forward]");
 
 		// These attributes will be available after forward.
 		model.addAttribute("greeting", "Welcome to Web Store! (forward)");
@@ -40,7 +40,7 @@ public class HomeController
 
 	@RequestMapping("welcome_r")
 	public String welcome_redirect(Model model, RedirectAttributes redirectAttributes){
-		logger.info(this.getClass().getName() + ":welcome_redirect");
+		logger.info("[welcome_redirect]");
 
 		// These attributes will be not available after redirect.
 		model.addAttribute("greeting", "Welcome to Web Store! (redirect 1)");
@@ -58,16 +58,16 @@ public class HomeController
 	@RequestMapping("/welcome")
 	// public String welcome(){
 	public String welcome(Model model){
-		logger.info(this.getClass().getName() + ":welcome");
+		logger.info("[welcome]");
 
 		// The input parameter model can be omitted.
 		// The model will not capture forward attributes.
 		// The model will capture redirect flash attributes.
 
-		logger.info(this.getClass().getName() + ":welcome" + ": greeting = " + model.containsAttribute("greeting"));
-		logger.info(this.getClass().getName() + ":welcome" + ": tagline = " + model.containsAttribute("tagline"));
-		logger.info(this.getClass().getName() + ":welcome" + ": greeting2 = " + model.containsAttribute("greeting2"));
-		logger.info(this.getClass().getName() + ":welcome" + ": tagline2 = " + model.containsAttribute("tagline2"));
+		logger.info("[welcome" + ": greeting = " + model.containsAttribute("greeting"));
+		logger.info("[welcome" + ": tagline = " + model.containsAttribute("tagline"));
+		logger.info("[welcome" + ": greeting2 = " + model.containsAttribute("greeting2"));
+		logger.info("[welcome" + ": tagline2 = " + model.containsAttribute("tagline2"));
 
 		return "welcome";
 	}

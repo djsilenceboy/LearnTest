@@ -26,7 +26,7 @@ public class InMemoryProductRepository implements ProductRepository
 
 	@Override
 	public List<Product> getAllProducts(){
-		logger.info(this.getClass().getName() + ":getAllProducts");
+		logger.info("[getAllProducts]");
 
 		Map<String, Object> params = new HashMap<String, Object>();
 		List<Product> result = jdbcTemplate.query("SELECT * FROM products", params, new ProductMapper());
@@ -54,7 +54,7 @@ public class InMemoryProductRepository implements ProductRepository
 
 	@Override
 	public void updateStock(String productId, long noOfUnits){
-		logger.info(this.getClass().getName() + ":updateStock");
+		logger.info("[updateStock]");
 
 		String SQL = "UPDATE PRODUCTS SET UNITS_IN_STOCK = :unitsInStock WHERE ID = :id";
 		Map<String, Object> params = new HashMap<>();
@@ -66,7 +66,7 @@ public class InMemoryProductRepository implements ProductRepository
 
 	@Override
 	public List<Product> getProductsByCategory(String category){
-		logger.info(this.getClass().getName() + ":getProductsByCategory");
+		logger.info("[getProductsByCategory]");
 
 		String SQL = "SELECT * FROM PRODUCTS WHERE CATEGORY = :category";
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -77,7 +77,7 @@ public class InMemoryProductRepository implements ProductRepository
 
 	@Override
 	public List<Product> getProductsByFilter(Map<String, List<String>> filterParams){
-		logger.info(this.getClass().getName() + ":getProductsByFilter");
+		logger.info("[getProductsByFilter]");
 
 		String SQL = "SELECT * FROM PRODUCTS WHERE CATEGORY IN ( :categories ) AND MANUFACTURER IN ( :brands)";
 
@@ -86,7 +86,7 @@ public class InMemoryProductRepository implements ProductRepository
 
 	@Override
 	public Product getProductById(String productID){
-		logger.info(this.getClass().getName() + ":getProductById");
+		logger.info("[getProductById]");
 
 		String SQL = "SELECT * FROM PRODUCTS WHERE ID = :id";
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -101,7 +101,7 @@ public class InMemoryProductRepository implements ProductRepository
 
 	@Override
 	public void addProduct(Product product){
-		logger.info(this.getClass().getName() + ":addProduct");
+		logger.info("[addProduct]");
 
 		String SQL = "INSERT INTO PRODUCTS (ID, " + "NAME," + "DESCRIPTION," + "UNIT_PRICE," + "MANUFACTURER," + "CATEGORY," + "CONDITION," + "UNITS_IN_STOCK,"
 		        + "UNITS_IN_ORDER," + "DISCONTINUED) "

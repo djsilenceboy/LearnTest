@@ -43,13 +43,14 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter
 
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer){
-		logger.info(this.getClass().getName() + ":configureDefaultServletHandling");
+		logger.info("[configureDefaultServletHandling]");
+		
 		configurer.enable();
 	}
 
 	@Bean
 	public InternalResourceViewResolver getInternalResourceViewResolver(){
-		logger.info(this.getClass().getName() + ":getInternalResourceViewResolver");
+		logger.info("[getInternalResourceViewResolver]");
 
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		resolver.setViewClass(JstlView.class);
@@ -67,7 +68,7 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter
 
 	@Bean
 	public MessageSource messageSource(){
-		logger.info(this.getClass().getName() + ":messageSource");
+		logger.info("[messageSource]");
 		ResourceBundleMessageSource resource = new ResourceBundleMessageSource();
 		resource.setBasename("messages");
 		return resource;
@@ -79,14 +80,14 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry){
-		logger.info(this.getClass().getName() + ":addResourceHandlers");
+		logger.info("[addResourceHandlers]");
 
 		registry.addResourceHandler("/img/**").addResourceLocations("/resources/images/");
 	}
 
 	@Bean
 	public CommonsMultipartResolver multipartResolver(){
-		logger.info(this.getClass().getName() + ":multipartResolver");
+		logger.info("[multipartResolver]");
 
 		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
 		resolver.setDefaultEncoding("utf-8");
@@ -97,7 +98,7 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter
 
 	@Bean
 	public MappingJackson2JsonView jsonView(){
-		logger.info(this.getClass().getName() + ":jsonView");
+		logger.info("[jsonView]");
 
 		MappingJackson2JsonView jsonView = new MappingJackson2JsonView();
 		jsonView.setPrettyPrint(true);
@@ -109,7 +110,7 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter
 
 	@Bean
 	public MarshallingView xmlView(){
-		logger.info(this.getClass().getName() + ":xmlView");
+		logger.info("[xmlView]");
 
 		Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
 		marshaller.setClassesToBeBound(Product.class);
@@ -120,7 +121,7 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter
 
 	@Bean
 	public ViewResolver contentNegotiatingViewResolver(ContentNegotiationManager manager){
-		logger.info(this.getClass().getName() + ":contentNegotiatingViewResolver");
+		logger.info("[contentNegotiatingViewResolver]");
 
 		ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
 		resolver.setContentNegotiationManager(manager);
@@ -139,7 +140,7 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter
 
 	@Bean
 	public LocaleResolver localeResolver(){
-		logger.info(this.getClass().getName() + ":localeResolver");
+		logger.info("[localeResolver]");
 
 		SessionLocaleResolver resolver = new SessionLocaleResolver();
 		resolver.setDefaultLocale(new Locale("en"));
@@ -153,7 +154,7 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter
 
 	@Bean
 	public HandlerInterceptor promoCodeInterceptor(){
-		logger.info(this.getClass().getName() + ":promoCodeInterceptor");
+		logger.info("[promoCodeInterceptor]");
 
 		PromoCodeInterceptor promoCodeInterceptor = new PromoCodeInterceptor();
 		promoCodeInterceptor.setPromoCode("OFF3R");
@@ -165,7 +166,7 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry){
-		logger.info(this.getClass().getName() + ":addInterceptors");
+		logger.info("[addInterceptors]");
 
 		// Add interceptor 1.
 		registry.addInterceptor(new ProcessingTimeLogInterceptor());

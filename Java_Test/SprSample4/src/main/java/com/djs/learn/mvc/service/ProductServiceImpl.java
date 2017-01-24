@@ -21,7 +21,7 @@ public class ProductServiceImpl implements ProductService
 
 	@Override
 	public void updateAllStock(){
-		logger.info(this.getClass().getName() + ":updateAllStock");
+		logger.info("[updateAllStock]");
 		List<Product> allProducts = productRepository.getAllProducts();
 
 		for (Product product : allProducts) {

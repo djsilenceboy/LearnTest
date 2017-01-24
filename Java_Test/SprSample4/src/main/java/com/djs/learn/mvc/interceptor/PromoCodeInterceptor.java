@@ -20,7 +20,7 @@ public class PromoCodeInterceptor extends HandlerInterceptorAdapter
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException{
-		logger.info(this.getClass().getName() + ":preHandle");
+		logger.info("[preHandle]");
 
 		String givenPromoCode = request.getParameter("promo");
 

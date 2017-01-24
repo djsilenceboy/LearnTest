@@ -13,7 +13,7 @@ public class ProcessingTimeLogInterceptor implements HandlerInterceptor
 	private static final Logger logger = Logger.getLogger(ProcessingTimeLogInterceptor.class);
 
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
-		logger.info(this.getClass().getName() + ":preHandle");
+		logger.info("[preHandle]");
 
 		long startTime = System.currentTimeMillis();
 		request.setAttribute("startTime", startTime);
@@ -22,7 +22,7 @@ public class ProcessingTimeLogInterceptor implements HandlerInterceptor
 	}
 
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView){
-		logger.info(this.getClass().getName() + ":postHandle");
+		logger.info("[postHandle]");
 
 		String queryString = request.getQueryString() == null ? "" : "?" + request.getQueryString();
 		String path = request.getRequestURL() + queryString;

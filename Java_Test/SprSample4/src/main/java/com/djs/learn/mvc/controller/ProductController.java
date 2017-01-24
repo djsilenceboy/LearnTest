@@ -51,7 +51,7 @@ public class ProductController
 
 	@RequestMapping("products")
 	public String list(Model model){
-		logger.info(this.getClass().getName() + ":list");
+		logger.info("[list]");
 
 		model.addAttribute("products", productService.getAllProducts());
 		return "products";
@@ -59,7 +59,7 @@ public class ProductController
 
 	@RequestMapping("update/stock")
 	public String updateStock(Model model){
-		logger.info(this.getClass().getName() + ":updateStock");
+		logger.info("[updateStock]");
 
 		productService.updateAllStock();
 		return "redirect:/market/products";
@@ -74,7 +74,7 @@ public class ProductController
 
 	@RequestMapping("products/{category}")
 	public String getProductsByCategory(Model model, @PathVariable("category") String productCategory){
-		logger.info(this.getClass().getName() + ":getProductsByCategory");
+		logger.info("[getProductsByCategory]");
 
 		List<Product> products = productService.getProductsByCategory(productCategory);
 
@@ -91,7 +91,7 @@ public class ProductController
 
 	@RequestMapping("products/filter/{params}")
 	public String getProductsByFilter(@MatrixVariable(pathVar = "params") Map<String, List<String>> filterParams, Model model){
-		logger.info(this.getClass().getName() + ":getProductsByFilter");
+		logger.info("[getProductsByFilter]");
 
 		model.addAttribute("products", productService.getProductsByFilter(filterParams));
 		return "products";
@@ -102,7 +102,7 @@ public class ProductController
 
 	@RequestMapping("product")
 	public String getProductById(@RequestParam("id") String productId, Model model){
-		logger.info(this.getClass().getName() + ":getProductById");
+		logger.info("[getProductById]");
 
 		model.addAttribute("product", productService.getProductById(productId));
 		return "product";
@@ -112,7 +112,7 @@ public class ProductController
 
 	@RequestMapping(value = "products/add", method = RequestMethod.GET)
 	public String getAddNewProductForm(Model model){
-		logger.info(this.getClass().getName() + ":getAddNewProductForm.GET");
+		logger.info("[getAddNewProductForm<GET>]");
 
 		Product newProduct = new Product();
 		model.addAttribute("newProduct", newProduct);
@@ -123,7 +123,7 @@ public class ProductController
 
 	@RequestMapping(value = "products/add", method = RequestMethod.POST)
 	public String processAddNewProductForm(@ModelAttribute("newProduct") Product newProduct, BindingResult result, HttpServletRequest request){
-		logger.info(this.getClass().getName() + ":getAddNewProductForm.POST");
+		logger.info("[getAddNewProductForm<POST>]");
 
 		String[] suppressedFields = result.getSuppressedFields();
 		if (suppressedFields.length > 0) {
@@ -148,7 +148,7 @@ public class ProductController
 
 	@InitBinder
 	public void initialiseBinder(WebDataBinder binder){
-		logger.info(this.getClass().getName() + ":initialiseBinder");
+		logger.info("[initialiseBinder]");
 
 		binder.setAllowedFields("productId", "name", "unitPrice", "description", "manufacturer", "category", "unitsInStock", "condition", "productImage",
 		                        "language");
@@ -160,7 +160,7 @@ public class ProductController
 	// One ExceptionHandler for one certain exception.
 	@ExceptionHandler(ProductNotFoundException.class)
 	public ModelAndView handleError(HttpServletRequest request, ProductNotFoundException exception){
-		logger.info(this.getClass().getName() + ":handleError");
+		logger.info("[handleError]");
 
 		ModelAndView view = new ModelAndView();
 
@@ -175,7 +175,7 @@ public class ProductController
 
 	@RequestMapping("/products/invalidPromoCode")
 	public String invalidPromoCode(){
-		logger.info(this.getClass().getName() + ":invalidPromoCode");
+		logger.info("[invalidPromoCode]");
 
 		return "invalidPromoCode";
 	}
