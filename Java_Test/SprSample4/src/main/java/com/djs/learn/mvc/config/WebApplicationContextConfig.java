@@ -2,7 +2,9 @@
 package com.djs.learn.mvc.config;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.MessageSource;
@@ -11,6 +13,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
+import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -33,6 +37,8 @@ import org.springframework.web.servlet.view.xml.MarshallingView;
 import com.djs.learn.mvc.domain.Product;
 import com.djs.learn.mvc.interceptor.ProcessingTimeLogInterceptor;
 import com.djs.learn.mvc.interceptor.PromoCodeInterceptor;
+import com.djs.learn.mvc.validator.ProductValidator;
+import com.djs.learn.mvc.validator.UnitsInStockValidator;
 
 @Configuration
 @EnableWebMvc
@@ -44,7 +50,7 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer){
 		logger.info("[configureDefaultServletHandling]");
-		
+
 		configurer.enable();
 	}
 
@@ -180,5 +186,38 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter
 		// Add interceptor 3.
 		// Add URL patterns to which the registered interceptor should apply to.
 		registry.addInterceptor(promoCodeInterceptor()).addPathPatterns("/**/market/products/specialOffer");
+	}
+
+	@Bean(name = "validator")
+	public LocalValidatorFactoryBean validator(){
+		logger.info("[validator]");
+
+		LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
+		bean.setValidationMessageSource(messageSource());
+
+		return bean;
+	}
+
+	// Return default validator.
+	@Override
+	public Validator getValidator(){
+		logger.info("[getValidator]");
+
+		return validator();
+	}
+
+	// Test: http://localhost:8080/SprSample4/market/products/add
+
+	@Bean
+	public ProductValidator productValidator(){
+		logger.info("[productValidator]");
+
+		Set<Validator> springValidators = new HashSet<>();
+		springValidators.add(new UnitsInStockValidator());
+
+		ProductValidator productValidator = new ProductValidator();
+		productValidator.setSpringValidators(springValidators);
+
+		return productValidator;
 	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +27,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.djs.learn.mvc.domain.Product;
-import com.djs.learn.mvc.domain.ProductRepository;
 import com.djs.learn.mvc.exception.NoProductsFoundUnderCategoryException;
 import com.djs.learn.mvc.exception.ProductNotFoundException;
 import com.djs.learn.mvc.service.ProductService;
+import com.djs.learn.mvc.validator.ProductValidator;
 
 // For class, "market" = "/market".
 // The full path is "/market".
@@ -44,10 +45,10 @@ public class ProductController
 	private static final Logger logger = Logger.getLogger(ProductController.class);
 
 	@Autowired
-	private ProductRepository productRepository;
+	private ProductService productService;
 
 	@Autowired
-	private ProductService productService;
+	private ProductValidator productValidator;
 
 	@RequestMapping("products")
 	public String list(Model model){
@@ -122,8 +123,12 @@ public class ProductController
 	// Test: Invoked from "addProduct.jsp" by POST submit.
 
 	@RequestMapping(value = "products/add", method = RequestMethod.POST)
-	public String processAddNewProductForm(@ModelAttribute("newProduct") Product newProduct, BindingResult result, HttpServletRequest request){
+	public String processAddNewProductForm(@ModelAttribute("newProduct") @Valid Product newProduct, BindingResult result, HttpServletRequest request){
 		logger.info("[getAddNewProductForm<POST>]");
+
+		if (result.hasErrors()) {
+			return "addProduct";
+		}
 
 		String[] suppressedFields = result.getSuppressedFields();
 		if (suppressedFields.length > 0) {
@@ -149,6 +154,8 @@ public class ProductController
 	@InitBinder
 	public void initialiseBinder(WebDataBinder binder){
 		logger.info("[initialiseBinder]");
+
+		binder.setValidator(productValidator);
 
 		binder.setAllowedFields("productId", "name", "unitPrice", "description", "manufacturer", "category", "unitsInStock", "condition", "productImage",
 		                        "language");

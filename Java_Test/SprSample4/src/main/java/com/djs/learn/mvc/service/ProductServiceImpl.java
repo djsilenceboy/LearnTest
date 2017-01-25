@@ -22,6 +22,7 @@ public class ProductServiceImpl implements ProductService
 	@Override
 	public void updateAllStock(){
 		logger.info("[updateAllStock]");
+
 		List<Product> allProducts = productRepository.getAllProducts();
 
 		for (Product product : allProducts) {
@@ -31,24 +32,34 @@ public class ProductServiceImpl implements ProductService
 
 	@Override
 	public List<Product> getAllProducts(){
+		logger.info("[getAllProducts]");
+
 		return productRepository.getAllProducts();
 	}
 
 	public List<Product> getProductsByCategory(String category){
+		logger.info("[getProductsByCategory]");
+
 		return productRepository.getProductsByCategory(category);
 	}
 
 	public List<Product> getProductsByFilter(Map<String, List<String>> filterParams){
+		logger.info("[getProductsByFilter]");
+
 		return productRepository.getProductsByFilter(filterParams);
 	}
 
 	@Override
 	public Product getProductById(String productID){
+		logger.info("[getProductById]");
+
 		return productRepository.getProductById(productID);
 	}
 
 	@Override
 	public void addProduct(Product product){
+		logger.info("[addProduct]");
+
 		productRepository.addProduct(product);
 	}
 }

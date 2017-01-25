@@ -9,10 +9,11 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java-api.version>1.7</java-api.version>
-		<junit.version>4.11</junit.version>
-		<spring.version>4.2.4.RELEASE</spring.version>
-		<hibernate.version>4.3.11.Final</hibernate.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<junit.version>4.12</junit.version>
+		<springframework-version>4.3.5.RELEASE</springframework-version>
+		<hibernate-version>5.3.4.Final</hibernate-version>
 	</properties>
 
 	<build>
@@ -37,13 +38,6 @@
 				</executions>
 				</plugin>
 			-->
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>${java-api.version}</source>
-					<target>${java-api.version}</target>
-				</configuration>
-			</plugin>
 			<!-- To generate "target\dependencies" with needed jars. -->
 			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>
@@ -148,65 +142,65 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>${spring.version}</version>
+			<version>${springframework-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
-			<version>${spring.version}</version>
+			<version>${springframework-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-expression</artifactId>
-			<version>${spring.version}</version>
+			<version>${springframework-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			<version>${spring.version}</version>
+			<version>${springframework-version}</version>
 		</dependency>
 
 		<!--
 			<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
-			<version>${spring.version}</version>
+			<version>${springframework-version}</version>
 			</dependency>
 			<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aspects</artifactId>
-			<version>${spring.version}</version>
+			<version>${springframework-version}</version>
 			</dependency>
 			<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
-			<version>${spring.version}</version>
+			<version>${springframework-version}</version>
 			</dependency>
 			<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>${spring.version}</version>
+			<version>${springframework-version}</version>
 			</dependency>
 			<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			<version>${spring.version}</version>
+			<version>${springframework-version}</version>
 			</dependency>
 			<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>${spring.version}</version>
+			<version>${springframework-version}</version>
 			<scope>test</scope>
 			</dependency>
 			<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
-			<version>${spring.version}</version>
+			<version>${springframework-version}</version>
 			</dependency>
 			<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>${spring.version}</version>
+			<version>${springframework-version}</version>
 			</dependency>
 		-->
 
@@ -228,7 +222,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>${hibernate.version}</version>
+			<version>${hibernate-version}</version>
 		</dependency>
 
 		<!-- Hibernate 3.5.x/3.6.x uses log4j <= 1.2.14, otherwise cause error. -->
