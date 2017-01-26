@@ -18,6 +18,8 @@ import com.djs.learn.mvc.validator.ProductId;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 // "@XmlRootElement" is for MarshallingView.
+// javax.validation.constraints classes, such as Pattern, Size, Min, is for JSR-303/Bean Validation.
+// ProductId annotation is for customized JSR-303/Bean Validation.
 @XmlRootElement
 public class Product implements Serializable
 {

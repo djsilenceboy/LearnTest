@@ -30,7 +30,7 @@ import com.djs.learn.mvc.domain.Product;
 import com.djs.learn.mvc.exception.NoProductsFoundUnderCategoryException;
 import com.djs.learn.mvc.exception.ProductNotFoundException;
 import com.djs.learn.mvc.service.ProductService;
-import com.djs.learn.mvc.validator.ProductValidator;
+import com.djs.learn.mvc.validator.ProductValidatorWrapper;
 
 // For class, "market" = "/market".
 // The full path is "/market".
@@ -48,7 +48,7 @@ public class ProductController
 	private ProductService productService;
 
 	@Autowired
-	private ProductValidator productValidator;
+	private ProductValidatorWrapper productValidatorWrapper;
 
 	@RequestMapping("products")
 	public String list(Model model){
@@ -121,11 +121,13 @@ public class ProductController
 	}
 
 	// Test: Invoked from "addProduct.jsp" by POST submit.
+	// javax.validation.Valid will invoke  javax.validation.constraints defined in Product class.
 
 	@RequestMapping(value = "products/add", method = RequestMethod.POST)
 	public String processAddNewProductForm(@ModelAttribute("newProduct") @Valid Product newProduct, BindingResult result, HttpServletRequest request){
 		logger.info("[getAddNewProductForm<POST>]");
 
+		// Validated errors by @Valid will also add in BindingResult.
 		if (result.hasErrors()) {
 			return "addProduct";
 		}
@@ -155,7 +157,12 @@ public class ProductController
 	public void initialiseBinder(WebDataBinder binder){
 		logger.info("[initialiseBinder]");
 
-		binder.setValidator(productValidator);
+		// If use Spring Validator, instead of Spring Validator wrapper,
+		// The JSR-303/Bean Validation annotations will be ignored by compiler!
+		// binder.setValidator(productValidator);
+
+		// It should use Spring Validator wrapper, to wrap both Spring Validator and JSR-303/Bean Validation.
+		binder.setValidator(productValidatorWrapper);
 
 		binder.setAllowedFields("productId", "name", "unitPrice", "description", "manufacturer", "category", "unitsInStock", "condition", "productImage",
 		                        "language");

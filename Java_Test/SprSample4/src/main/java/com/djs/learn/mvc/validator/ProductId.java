@@ -13,6 +13,9 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+// An annotation for customized JSR-303/Bean Validation.
+// Used for ProductId field of Product class.
+// The real validator class is ProductIdValidator.
 @Target({METHOD, FIELD, ANNOTATION_TYPE})
 @Retention(RUNTIME)
 @Constraint(validatedBy = ProductIdValidator.class)

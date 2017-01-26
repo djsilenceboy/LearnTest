@@ -38,7 +38,7 @@ import com.djs.learn.mvc.domain.Product;
 import com.djs.learn.mvc.interceptor.ProcessingTimeLogInterceptor;
 import com.djs.learn.mvc.interceptor.PromoCodeInterceptor;
 import com.djs.learn.mvc.validator.ProductValidator;
-import com.djs.learn.mvc.validator.UnitsInStockValidator;
+import com.djs.learn.mvc.validator.ProductValidatorWrapper;
 
 @Configuration
 @EnableWebMvc
@@ -192,13 +192,15 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter
 	public LocalValidatorFactoryBean validator(){
 		logger.info("[validator]");
 
+		// This LocalValidatorFactoryBean will initiate Hibernate Validator (JSR-303/Bean Validation).
 		LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
+		logger.info("[validator] bean = " + bean);
 		bean.setValidationMessageSource(messageSource());
 
 		return bean;
 	}
 
-	// Return default validator.
+	// Return new validator as default one.
 	@Override
 	public Validator getValidator(){
 		logger.info("[getValidator]");
@@ -206,18 +208,19 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter
 		return validator();
 	}
 
+	// Use Spring Validator wrapper, to wrap both Spring Validator and JSR-303/Bean Validation.
 	// Test: http://localhost:8080/SprSample4/market/products/add
 
 	@Bean
-	public ProductValidator productValidator(){
+	public ProductValidatorWrapper productValidatorWrapper(){
 		logger.info("[productValidator]");
 
 		Set<Validator> springValidators = new HashSet<>();
-		springValidators.add(new UnitsInStockValidator());
+		springValidators.add(new ProductValidator());
 
-		ProductValidator productValidator = new ProductValidator();
-		productValidator.setSpringValidators(springValidators);
+		ProductValidatorWrapper validatorWrapper = new ProductValidatorWrapper();
+		validatorWrapper.setSpringValidators(springValidators);
 
-		return productValidator;
+		return validatorWrapper;
 	}
 }

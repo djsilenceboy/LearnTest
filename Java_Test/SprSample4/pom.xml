@@ -1,18 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.dj.learn.mvc</groupId>
 	<artifactId>SprSample4</artifactId>
-	<version>0.0.1</version>
+	<version>1.0.0</version>
 	<packaging>war</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java-version>1.8</java-version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<springframework-version>4.3.5.RELEASE</springframework-version>
-		<springframework-security-version>4.2.1.RELEASE</springframework-security-version>
-		<hibernate-version>5.3.4.Final</hibernate-version>
+		<springframework.version>4.3.5.RELEASE</springframework.version>
+		<springframework-security.version>4.2.1.RELEASE</springframework-security.version>
+		<hibernate.version>5.3.4.Final</hibernate.version>
+		<junit.version>4.12</junit.version>
 	</properties>
 
 	<build>
@@ -33,34 +34,34 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>${springframework-version}</version>
+			<version>${springframework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			<version>${springframework-version}</version>
+			<version>${springframework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-oxm</artifactId>
-			<version>${springframework-version}</version>
+			<version>${springframework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-			<version>${springframework-security-version}</version>
+			<version>${springframework-security.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
-			<version>${springframework-security-version}</version>
+			<version>${springframework-security.version}</version>
 		</dependency>
 
 		<!-- Hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>${hibernate-version}</version>
+			<version>${hibernate.version}</version>
 		</dependency>
 
 		<!-- Servlet -->
@@ -138,7 +139,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

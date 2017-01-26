@@ -11,6 +11,8 @@ import com.djs.learn.mvc.domain.Product;
 import com.djs.learn.mvc.exception.ProductNotFoundException;
 import com.djs.learn.mvc.service.ProductService;
 
+// The real validator class for ProductId annotation for customized JSR-303/Bean Validation.
+// Used for ProductId field of Product class.
 // Test: http://localhost:8080/SprSample4/market/products/add
 
 public class ProductIdValidator implements ConstraintValidator<ProductId, String>

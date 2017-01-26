@@ -4,15 +4,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.djs.learn</groupId>
 	<artifactId>SprSample3</artifactId>
-	<name>SprSample3</name>
-	<packaging>war</packaging>
 	<version>1.0.0</version>
+	<packaging>war</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java-version>1.8</java-version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<springframework-version>4.3.5.RELEASE</springframework-version>
+		<springframework.version>4.3.5.RELEASE</springframework.version>
+		<junit.version>4.12</junit.version>
 	</properties>
 
 	<build>
@@ -37,7 +36,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>${springframework-version}</version>
+			<version>${springframework.version}</version>
 		</dependency>
 
 		<!-- Servlet -->
@@ -84,7 +83,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
