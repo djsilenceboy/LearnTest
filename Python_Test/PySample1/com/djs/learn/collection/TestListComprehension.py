@@ -39,6 +39,25 @@ filtered = [[item for item in row if item % 3 == 0]
             for row in matrix if sum(row) >= 10]
 print("filtered =", filtered)
 
+print("-" * 40)
+
+# [[v for y in range(Y)] for x in range(X)]
+matrix = [[y * 10 + x for x in range(10)] for y in range(10)]
+# print(matrix)
+
+for x in matrix:
+    for y in x:
+        print("{0:-4}".format(y), end="")
+    print("")
+
+print("-" * 40)
+
+for x in range(10):
+    for y in range(10):
+        print("{0:-4}".format(matrix[x][y]), end="")
+    print("")
+
+print("-" * 40)
 
 if __name__ == '__main__':
     pass

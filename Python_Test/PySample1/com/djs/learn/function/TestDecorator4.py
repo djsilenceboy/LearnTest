@@ -42,7 +42,9 @@ def main():
     print("-" * 40)
 
     # foo is an instance of class TaskEx.
-    print(foo)
+    print("foo instance = ", foo)
+
+    print("-" * 40)
 
     # Run __call__
     foo()

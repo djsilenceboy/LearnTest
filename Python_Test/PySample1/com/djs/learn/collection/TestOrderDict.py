@@ -6,17 +6,20 @@ Created on Apr 20, 2016
 
 from collections import OrderedDict
 
+# set and dict(key) saved order will be random.
 a = {}
 a["foo"] = 1
 a["bar"] = 3
+a["dog"] = 2
 
 print("a =", a)
 
+# OrderedDict saved order as created order.
 b = OrderedDict()
-b["foo"] = 2
-b["bar"] = 4
+b["foo"] = 1
+b["bar"] = 3
+b["dog"] = 2
 
-print("a =", a)
 print("b =", b)
 
 if __name__ == '__main__':

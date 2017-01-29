@@ -84,7 +84,7 @@ print("-" * 40)
 
 inventory = fruits.copy()
 inventory[::2] = ['carrots', 'potatoes', 'onions']
-print("inventory[::2] =", inventory)
+print("replace inventory[::2] =", inventory)
 
 inventory.append('apple')
 print("inventory.append() =", inventory)
@@ -157,28 +157,13 @@ for fruit, vegetable in zip(fruits, vegetables):
 print("-" * 40)
 
 print([fruit.upper() for fruit in fruits])
+# [(x, y) for x in range(X) for y in range(Y)]
 print([(fruit, vegetable) for fruit in fruits for vegetable in vegetables])
 print([(fruit, vegetable)
        for fruit in fruits for vegetable in vegetables if fruit is 'avacados'])
 
 print("-" * 40)
 
-matrix = [[y * 10 + x for x in range(10)] for y in range(10)]
-# print(matrix)
-
-for y in matrix:
-    for x in y:
-        print("{0:-4}".format(x), end="")
-    print("")
-
-print("-" * 40)
-
-for y in range(10):
-    for x in range(10):
-        print("{0:-4}".format(matrix[y][x]), end="")
-    print("")
-
-print("-" * 40)
 
 if __name__ == '__main__':
     pass

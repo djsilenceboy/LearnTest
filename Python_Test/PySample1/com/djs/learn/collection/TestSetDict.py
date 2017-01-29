@@ -128,9 +128,9 @@ print("sorted(characters.items() =", sorted(characters.items()))
 
 print("-" * 40)
 
-# letter_count = {letter : sentence.count(letter) for letter in sentence}
+# Better, as set(sentence) reduces the loop counter.
 letter_count = {letter: sentence.count(letter) for letter in set(sentence)}
-
+# letter_count = {letter: sentence.count(letter) for letter in sentence}
 print("letter_count =", letter_count)
 
 print("-" * 40)

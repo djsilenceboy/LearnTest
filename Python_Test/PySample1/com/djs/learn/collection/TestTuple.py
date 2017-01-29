@@ -15,12 +15,16 @@ print("-" * 40)
 
 single_wrong = ('Apple')
 print("single wrong =", single_wrong)
+print("single wrong =", type(single_wrong))
 
 single = ('Apple',)
 print("single =", single)
+print("single =", type(single))
 
 single2 = 'Apple',
 print("single2 =", single2)
+
+print("-" * 40)
 
 many = 'Apple', 'Orange', 'Bananas'
 print("many =", many)

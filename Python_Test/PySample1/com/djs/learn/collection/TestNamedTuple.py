@@ -27,11 +27,9 @@ print("Now, Tom is", tom2)
 
 print("-" * 40)
 
-Person2 = namedtuple("Person", ["name", "age", "gender"])
+Person2 = namedtuple("Person2", ["name", "age", "gender"])
 
-print("-" * 40)
-
-john = Person("John", 20, "M")
+john = Person2("John", 20, "M")
 print("John is", john)
 print("John's age is", john.age)
 print("John's gender is", john.gender)

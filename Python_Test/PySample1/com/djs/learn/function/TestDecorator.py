@@ -9,12 +9,15 @@ from functools import wraps
 
 method_list = []
 
+# Type A decorator does not modify original method.
+# Type B decorator modifies original method, replace it with a wrapper method.
+
 
 def decoratorTypeA(decorated):
     print("-" * 40)
-    print("Before: List = ", method_list)
+    print("TypeA Before: List = ", method_list)
     method_list.append(decorated)
-    print("After: List = ", method_list)
+    print("TypeA After: List = ", method_list)
     return decorated
 
 
@@ -119,7 +122,7 @@ def decoratorTypeC_sum4(a, b):
 
 
 def main():
-    print("-" * 40)
+    print("-" * 60)
 
     result = decoratorTypeB_sum(2, 4)
     print(decoratorTypeB_sum, "=", result)

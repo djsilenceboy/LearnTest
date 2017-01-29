@@ -39,13 +39,19 @@ def main():
     print("-" * 40)
 
     # foo becomes a class TaskEx.
-    print(foo)
+    print("foo = ", foo)
 
     # f is an instance of class TaskEx.
     f = foo()
 
-    print(f)
+    print("foo instance = ", f)
+
+    print("-" * 40)
+
     print(f.run())
+
+    print("-" * 40)
+
     print(f.identify())
 
     print("-" * 40)
