@@ -154,7 +154,7 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter
 		return resolver;
 	}
 
-	// When promoCodeInterceptor invoked, it will check "promo=XXX".
+	// When promoCodeInterceptor invoked, it will check "promo=?".
 	// Test: http://localhost:8080/SprSample4/market/products/specialOffer?promo=OFF3R
 	// Test: http://localhost:8080/SprSample4/market/products/specialOffer?promo=Unknown
 

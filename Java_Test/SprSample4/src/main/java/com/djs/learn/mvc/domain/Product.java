@@ -153,7 +153,7 @@ public class Product implements Serializable
 		if (obj instanceof Product) {
 			Product other = (Product)obj;
 
-			return productId.equals(other.productId);
+			if (productId != null) return productId.equals(other.productId);
 		}
 
 		return false;
