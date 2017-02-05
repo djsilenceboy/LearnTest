@@ -107,7 +107,7 @@ Add service.
 The script must include:
 
 # chkconfig: 2345 98 02
-# description: Starts and stops IBM HTTP Server 
+# description: Starts and stops IBM HTTP Server
 ...
 case "$1" in
   start)
@@ -265,19 +265,42 @@ Enter single user mode:
 
 ]# init 1
 ================================================================================
-To send a short text message to a host/port
-
-Such as send text "DieHard".
-
-* To localhost with port 41234
-]$ echo DieHard > /dev/tcp/127.0.0.1/41234
-
-* To remote host with port 41234
-]$ echo DieHard > /dev/tcp/10.252.84.35/41234
+Bootable kernels
 ------------------------------------------------------------
-To send empty to a host/port
+Check Linux release version.
 
-]$ echo > /dev/tcp/10.252.84.35/41234
+]# cat /etc/redhat-release
+------------------------------------------------------------
+Check current kernel version.
+
+]# uname -r
+]# uname -a
+------------------------------------------------------------
+Check /boot size.
+
+]# ll /boot
+------------------------------------------------------------
+Check installed kernels.
+
+]# rpm -q kernel
+------------------------------------------------------------
+Keep 2 recent versions of kernels, remove old ones if any.
+
+]# package-cleanup --oldkernels --count=2 -y
+------------------------------------------------------------
+Modify "yum.conf" for kernel update.
+
+]# vi /etc/yum.conf
+----------------------------------------
+Allow only 2 versions of kernels to be installed:
+
+installonly_limit=2
+
+(Default is 5!)
+------------------------------------------------------------
+Prevent kernel updates while “yum update”:
+
+exclude=kernel*
 ================================================================================
 Check folder size
 

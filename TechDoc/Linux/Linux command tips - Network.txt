@@ -1,5 +1,19 @@
 ================================================================================
-Enable HTTPD to bind other ports.
+To send a short text message to a host/port
+
+Such as send text "DieHard".
+
+* To localhost with port 41234
+]$ echo DieHard > /dev/tcp/127.0.0.1/41234
+
+* To remote host with port 41234
+]$ echo DieHard > /dev/tcp/10.252.84.35/41234
+------------------------------------------------------------
+To send empty to a host/port
+
+]$ echo > /dev/tcp/10.252.84.35/41234
+================================================================================
+Enable httpd to bind other ports.
 
 ]# vi /etc/selinux/config
 # SELINUX=enforcing
