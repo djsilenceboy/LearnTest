@@ -161,10 +161,7 @@ public class Product implements Serializable
 
 	@Override
 	public int hashCode(){
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((productId == null) ? 0 : productId.hashCode());
-		return result;
+		return (productId == null) ? 0 : productId.hashCode();
 	}
 
 	@Override

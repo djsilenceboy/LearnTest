@@ -50,6 +50,8 @@ public class ProductController
 	@Autowired
 	private ProductValidatorWrapper productValidatorWrapper;
 
+	// Test: http://localhost:8080/SprSample4/market/products
+
 	@RequestMapping("products")
 	public String list(Model model){
 		logger.info("[list]");

@@ -12,6 +12,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<springframework.version>4.3.5.RELEASE</springframework.version>
 		<springframework-security.version>4.2.1.RELEASE</springframework-security.version>
+		<springframework-webflow.version>2.4.4.RELEASE</springframework-webflow.version>
 		<hibernate.version>5.3.4.Final</hibernate.version>
 		<junit.version>4.12</junit.version>
 	</properties>
@@ -55,6 +56,11 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 			<version>${springframework-security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-webflow</artifactId>
+			<version>${springframework-webflow.version}</version>
 		</dependency>
 
 		<!-- Hibernate -->

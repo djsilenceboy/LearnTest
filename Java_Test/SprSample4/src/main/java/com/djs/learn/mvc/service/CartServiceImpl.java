@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.djs.learn.mvc.domain.Cart;
 import com.djs.learn.mvc.domain.CartRepository;
 import com.djs.learn.mvc.dto.CartDto;
+import com.djs.learn.mvc.exception.InvalidCartException;
 
 @Service
 public class CartServiceImpl implements CartService
@@ -56,5 +57,24 @@ public class CartServiceImpl implements CartService
 		logger.info("[removeItem]");
 
 		cartRepository.removeItem(cartId, productId);
+	}
+
+	@Override
+	public Cart validate(String cartId){
+		logger.info("[validate]");
+
+		Cart cart = cartRepository.read(cartId);
+		if (cart == null || cart.getCartItems().size() == 0) {
+			throw new InvalidCartException(cartId);
+		}
+
+		return cart;
+	}
+
+	@Override
+	public void clearCart(String cartId){
+		logger.info("[clearCart]");
+
+		cartRepository.clearCart(cartId);
 	}
 }
