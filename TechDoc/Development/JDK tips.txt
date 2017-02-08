@@ -1,0 +1,18 @@
+================================================================================
+JDK
+------------------------------------------------------------
+Download from Oracle Java website, such as "jre-8u60-linux-x64.rpm".
+----------------------------------------
+Install.
+
+]# yum install -y jre-8u60-linux-x64.rpm
+----------------------------------------
+Create profile for Java.
+
+]# vi /etc/profile.d/java.sh
+JAVA_HOME="/usr/java/jdk1.8.0_60"
+export JAVA_HOME
+
+PATH=$JAVA_HOME/bin:$PATH
+export PATH
+================================================================================

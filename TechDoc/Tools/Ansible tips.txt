@@ -1,0 +1,32 @@
+================================================================================
+Ansible
+------------------------------------------------------------
+]# yum install -y python-devel openssl-devel
+]# pip install ansible
+----------------------------------------
+Successfully installed MarkupSafe-0.23 PyYAML-3.12 ansible-2.2.1.0 cryptography-1.7.2 jinja2-2.8.1 paramiko-2.1.1 pycrypto-2.6.1
+================================================================================
+]# ansible --version
+ansible 2.2.1.0
+================================================================================
+Generate SSH key pair.
+
+]# mkdir -p ~/ansible
+]# ssh-keygen -t rsa -N "" -C "Ansible Server" -f ~/ansible/ansible_key | tee ~/ansible/ssh-keygen.log
+
+Copy/Add "~/ansible/ansible_key.pub" to remote host "~/.ssh/authorized_keys".
+------------------------------------------------------------
+Generate host file.
+
+]# vi endpoint_hosts
+----------------------------------------
+EndpointA ansible_ssh_host=192.168.0.xx ansible_ssh_port=22 ansible_ssh_user=root ansible_ssh_private_key_file=~/ansible/ansible_key
+------------------------------------------------------------
+Test ping.
+
+]# ansible EndpointA -i endpoint_hosts -m ping
+
+With debug info.
+
+]# ansible EndpointA -i endpoint_hosts -m ping -vvvv
+================================================================================

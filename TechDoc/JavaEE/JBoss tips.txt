@@ -1,0 +1,70 @@
+================================================================================
+Install JBoss for CentOS/RHEL 7
+------------------------------------------------------------
+]# java -jar jboss-eap-7.0.0-installer.jar
+
+Installation path: /opt/eap7
+------------------------------------------------------------
+Configuring JBoss EAP as a Service
+
+]# cp /opt/eap7/bin/init.d/jboss-eap.conf /etc/default
+]# cp /opt/eap7/bin/init.d/jboss-eap-rhel.sh /etc/init.d
+]# chmod +x /etc/init.d/jboss-eap-rhel.sh
+------------------------------------------------------------
+]# cd /etc/default
+]# vi jboss-eap.conf
+----------------------------------------
+JBOSS_HOME="/opt/eap7"
+JBOSS_USER=root
+------------------------------------------------------------
+]# chkconfig --add jboss-eap-rhel.sh
+]# chkconfig jboss-eap-rhel.sh on
+
+]# service jboss-eap-rhel start
+or
+]# systemctl start jboss-eap-rhel
+================================================================================
+Add JDBC drivers
+------------------------------------------------------------
+From Management console, under "Deployments" page, "Add":
+~/Downloads/jdbc_drivers/postgresql-9.4.1212.jar
+~/Downloads/jdbc_drivers/ojdbc6-11.2.0.4.jar
+------------------------------------------------------------
+or
+
+]# cd /opt/eap7/modules
+]# /opt/eap7/bin/jboss-cli.sh
+connect
+------------------------------------------------------------
+MySQL
+
+module add --name=com.mysql --slot=main --resources=~/Downloads/jdbc_drivers/mysql-connector-java-5.1.40-bin.jar --dependencies=javax.api,javax.transaction.api
+----------------------------------------
+PostgreSQL
+
+module add --name=org.postgresql --slot=main --resources=~/Downloads/jdbc_drivers/postgresql-9.4.1212.jar --dependencies=javax.api,javax.transaction.api
+================================================================================
+Remote access management console
+------------------------------------------------------------
+From Management console, under "Configuration" page, "Interfaces" page, change:
+
+Name: management
+Inet Address: ${jboss.bind.address.management:0.0.0.0}
+
+Name: public
+Inet Address: ${jboss.bind.address:0.0.0.0}
+------------------------------------------------------------
+or
+
+]# cd /opt/eap7/standalone/configuration
+]# vi standalone.xml
+----------------------------------------
+    <interfaces>
+        <interface name="management">
+            <inet-address value="${jboss.bind.address.management:0.0.0.0}"/>
+        </interface>
+        <interface name="public">
+            <inet-address value="${jboss.bind.address:0.0.0.0}"/>
+        </interface>
+    </interfaces>
+================================================================================

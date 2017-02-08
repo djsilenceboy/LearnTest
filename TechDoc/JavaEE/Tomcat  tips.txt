@@ -1,0 +1,139 @@
+================================================================================
+Install Tomcat for CentOS/RHEL 7
+------------------------------------------------------------
+https://tomcat.apache.org/index.html
+------------------------------------------------------------
+]# groupadd tomcat
+]# useradd -M -s /bin/nologin -g tomcat -d /opt/tomcat tomcat
+]# usermod -a -G tomcat root
+------------------------------------------------------------
+]# cd /media/sf_Download/Shared
+]# unzip apache-tomcat-8.0.39.zip -d /opt
+]# cd /opt
+]# mv apache-tomcat-8.0.39 tomcat
+------------------------------------------------------------
+]# cd /media/sf_Download/Shared
+]# cp catalina-jmx-remote.jar catalina-ws.jar /opt/tomcat/lib
+------------------------------------------------------------
+]# chgrp -R tomcat tomcat
+]# chown -R tomcat tomcat
+]# chmod -R ug+rwx tomcat
+]# chmod -R o+rx tomcat
+------------------------------------------------------------
+]# ln -s /opt/tomcat/conf /etc/tomcat
+]# ln -s /opt/tomcat/logs /var/log/tomcat
+------------------------------------------------------------
+]# vi /etc/tomcat/tomcat-users.xml
+----------------------------------------
+<tomcat-users>
+  <user name="admin" password="P@ssw0rd" roles="admin-gui,manager-gui"/>
+</tomcat-users>
+------------------------------------------------------------
+]# vi /etc/systemd/system/tomcat.service
+----------------------------------------
+# Systemd unit file for tomcat
+[Unit]
+Description=Apache Tomcat Web Application Container
+After=syslog.target network.target
+
+[Service]
+Type=forking
+
+Environment=JAVA_HOME=/usr/lib/jvm/jre
+Environment=CATALINA_PID=/opt/tomcat/temp/tomcat.pid
+Environment=CATALINA_HOME=/opt/tomcat/
+Environment=CATALINA_BASE=/opt/tomcat/
+Environment='CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC'
+Environment='JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom'
+
+ExecStart=/opt/tomcat/bin/startup.sh
+ExecStop=/bin/kill -15 $MAINPID
+
+User=tomcat
+Group=tomcat
+
+[Install]
+WantedBy=multi-user.target
+------------------------------------------------------------
+]# systemctl daemon-reload
+]# systemctl enable tomcat
+]# systemctl start tomcat
+
+]# systemctl status tomcat
+]# ss -ntpl | grep java
+------------------------------------------------------------
+]# cd
+]# vi .bashrc
+----------------------------------------
+alias tailtc='tail -n 200 -f /opt/tomcat/logs/catalina.out'
+================================================================================
+
+================================================================================
+Install Tomcat for CentOS/RHEL 6
+------------------------------------------------------------
+]# cd /media/sf_Download/Shared/
+]# cp -R apache-tomcat-8.0.28 /usr/share/tomcat
+
+]# cd /etc/
+]# ln -s /usr/share/tomcat/conf/ tomcat
+
+]# cd /var/log
+]# ln -s /usr/share/tomcat/logs/ tomcat
+
+]# cd /etc/init.d
+]# gedit tomcat &
+]# chmod a+x tomcat
+
+]# chkconfig tomcat on
+================================================================================
+
+================================================================================
+Service name: tomcat6 (For Tomcat 6.x)
+Service name: tomcat (For Tomcat 7.x)
+----------------------------------------
+Config files folder:
+
+/etc/tomcat6
+/etc/tomcat
+----------------------------------------
+Lib files folder:
+
+/usr/share/java/tomcat6/
+/usr/share/tomcat6/lib/
+
+/usr/share/java/tomcat/
+/usr/share/tomcat/lib/
+----------------------------------------
+Content files folder:
+
+/usr/share/tomcat6/
+/usr/share/tomcat/
+================================================================================
+Install Tomcat connector
+
+Require to install development tools for gcc.
+Require to install httpd-devel for apxs (Apache eXtension tool).
+----------------------------------------
+Download Tomcat connector source file zip.
+Refer to BUILDING.txt in source zip file.
+(and https://www.centos.org/forums/viewtopic.php?t=5055)
+
+  Build for the Apache HTTP Server
+  ================================
+
+  If you want to build mod_jk for the Apache HTTP Server
+  you need to locate the apxs tool coming with the Apache
+  HTTP server. If apxs is located in /usr/sbin/apxs, run:
+
+  ./configure --with-apxs=/usr/sbin/apxs
+  make
+----------------------------------------
+Compile.
+
+RHEL: /usr/sbin/apxs
+CentOS: /usr/bin/apxs
+
+]$ ./configure --with-apxs=/usr/bin/apxs
+]$ make
+]# cp ./apache-2.0/mod_jk.so /etc/httpd/modules/
+================================================================================

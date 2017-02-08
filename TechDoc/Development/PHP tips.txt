@@ -1,4 +1,82 @@
 ================================================================================
+PHP
+------------------------------------------------------------
+Config files folder:
+
+/etc/php.d
+----------------------------------------
+Lib files folder:
+
+/usr/lib64/php
+----------------------------------------
+Content files folder (same as HTTPD):
+
+/var/www/html/phpinfo.php
+
+<?php
+phpinfo();
+?>
+================================================================================
+Install PHP-devel for PHPize tool.
+----------------------------------------
+PHPize will be used to compile extension lib.
+----------------------------------------
+Find out the version of installed PHP.
+
+]# yum list installed | grep php
+php.x86_64	5.3.3-26.el6
+----------------------------------------
+Google and find related "php-devel-5.3.3-26.el6.x86_64.rpm".
+Download into linux and install it locally.
+
+]# yum install php-devel-5.3.3-26.el6.x86_64.rpm
+----------------------------------------
+Check installed modules
+
+]$ php -m
+================================================================================
+Upgrade PHP 5 on RedHat
+------------------------------------------------------------
+From Webtatic.
+
+https://webtatic.com/packages/php55/
+----------------------------------------
+Add repository and key.
+
+]# rpm -Uvh https://mirror.webtatic.com/yum/el6/latest.rpm
+]# rpm --import https://mirror.webtatic.com/yum/RPM-GPG-KEY-webtatic-andy
+----------------------------------------
+Remove any local repository such as "dvd" from "/etc/yum.repos.d/".
+----------------------------------------
+Install "yum-plugin-replace".
+
+]# yum install yum-plugin-replace
+----------------------------------------
+Upgrade php55w or php56w.
+
+]# yum replace php-common --replace-with=php55w-common
+
+or with "--skip-broken", if got dependency error.
+
+]# yum replace php-common --replace-with=php55w-common --skip-broken
+------------------------------------------------------------
+From REMI.
+----------------------------------------
+Add repository and key.
+
+]# rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+]# rpm --import http://rpms.famillecollet.com/RPM-GPG-KEY-remi
+----------------------------------------
+Check repo id for "remi".
+
+]# yum repolist all
+----------------------------------------
+Enable remi and remi php.
+
+}# yum-config-manager --enable remi
+}# yum-config-manager --enable remi-php55
+}# yum-config-manager --enable remi-php56
+================================================================================
 "===" VS "=="
 ------------------------------------------------------------
 == compares the values of variables for equality, type casting as necessary.

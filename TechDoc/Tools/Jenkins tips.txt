@@ -1,0 +1,49 @@
+================================================================================
+Install Jenkins for CentOS/RHEL 7
+------------------------------------------------------------
+https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins
+https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions
+https://wiki.jenkins-ci.org/display/JENKINS/Tomcat
+http://www.whiteboardcoder.com/2014/01/installing-jenkins-on-tomcat-8.html
+
+Install war file to Tomcat or standalone copy by rpm.
+
+Followin steps is for war file.
+------------------------------------------------------------
+]# mkdir -p /opt/jenkins
+
+]# chgrp tomcat /opt/jenkins
+]# chown tomcat /opt/jenkins
+]# chmod ug+rwx /opt/jenkins
+]# chmod o+rx /opt/jenkins
+
+]# vi /etc/systemd/system/tomcat.service
+----------------------------------------
+[Service]
+......
+Environment=JENKINS_HOME=/opt/jenkins
+------------------------------------------------------------
+]# cd /media/sf_Download/Shared/
+]# cp jenkins.war /opt/tomcat/webapps
+
+]# cd /opt/tomcat/webapps
+]# chgrp tomcat jenkins.war
+]# chown tomcat jenkins.war
+]# chmod ug+rwx jenkins.war
+]# chmod o+rx jenkins.war
+------------------------------------------------------------
+]# systemctl daemon-reload
+]# systemctl restart tomcat
+------------------------------------------------------------
+Open "http://<IP>:8080/jenkins" for first time.
+
+Unlock Jenkins
+To ensure Jenkins is securely set up by the administrator, a password has been written to the log (not sure where to find it?) and this file on the server:
+
+/opt/jenkins/secrets/initialAdminPassword
+
+Please copy the password from either location and paste it below.
+------------------------------------------------------------
+Customize Jenkins
+Create First Admin User
+================================================================================

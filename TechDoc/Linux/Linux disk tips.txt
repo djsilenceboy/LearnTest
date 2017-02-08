@@ -32,3 +32,24 @@ Activate
 
 ]# lvchange -a y <LogicalVolume>
 ================================================================================
+Mount a NTFS Drive on CentOS / RHEL
+------------------------------------------------------------
+Enable the EPEL repository
+
+]# yum install epel-release
+------------------------------------------------------------
+Install ntfs-3g
+
+]# yum install ntfs-3g
+------------------------------------------------------------
+Mount NTFS disk
+
+]# mkdir /mnt/win
+]# mount -t ntfs-3g /dev/sdb1 /mnt/win
+------------------------------------------------------------
+Modify FS table
+
+]# vi /etc/fstab
+
+/dev/sdb1 /mnt/win ntfs-3g defaults 0 0
+================================================================================

@@ -1,9 +1,31 @@
 ================================================================================
+Python
+------------------------------------------------------------
+Install Python with other development tools.
+
+]# yum groupinstall "Development Tools"
+------------------------------------------------------------
+Install pip.
+
+For RHEL/CentOS 7
+
+]# yum install epel-release
+]# yum install -y python-pip
+------------------------------------------------------------
+Upgrade pip.
+
+]# pip install --upgrade pip
+
+or
+
+]# python -m pip install --upgrade pip
+------------------------------------------------------------
+Install devel for compiling module.
+
+]# yum install -y python-devel openssl-devel
+================================================================================
 > pip list
-------------------------------------------------------------
-> pip install --upgrade pip
-> python -m pip install --upgrade pip
-------------------------------------------------------------
+================================================================================
 > pip install line_profiler
   (Need vcvarsall.bat)
 > pip install guppy
@@ -21,11 +43,8 @@
 > pip install bottle
 > pip install flask
   (depend on itsdangerous, Jinja2, MarkupSafe, Werkzeug)
-
 > pip install beautifulsoup4
-
 > pip install pyzmq
-
 > pip install nose
 ------------------------------------------------------------
 > pip install paramiko

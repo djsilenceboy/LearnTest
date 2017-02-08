@@ -1,0 +1,96 @@
+================================================================================
+Install httpd for CentOS/RHEL 7 (default version in repo)
+------------------------------------------------------------
+]# yum install -y httpd
+------------------------------------------------------------
+]# vi /etc/httpd/conf/httpd.conf
+----------------------------------------
+ServerName  www.xxx.com
+------------------------------------------------------------
+]# systemctl enable httpd
+]# systemctl start httpd
+
+]# systemctl status httpd
+]# ss -ntpl | grep httpd
+================================================================================
+Install httpd for CentOS/RHEL 7 (new version)
+------------------------------------------------------------
+https://httpd.apache.org/
+
+Must use bz2 package to build rpm.
+------------------------------------------------------------
+]# cd /media/sf_Download/Shared
+
+]# yum install -y zlib-devel libselinux-devel libuuid-devel apr-devel apr-util-devel pcre-devel openldap-devel lua-devel libxml2-devel openssl-devel
+------------------------------------------------------------
+Install distcache
+
+Download rpm
+http://rpm.pbone.net/index.php3/stat/4/idpl/19761587/dir/fedora_17/com/distcache-1.4.5-23.x86_64.rpm.html
+http://rpm.pbone.net/index.php3/stat/4/idpl/19617497/dir/fedora_18/com/distcache-devel-1.4.5-23.x86_64.rpm.html
+
+]# yum localinstall -y distcache-1.4.5-23.x86_64.rpm distcache-devel-1.4.5-23.x86_64.rpm
+------------------------------------------------------------
+Install apr
+(version >= v1.5.0)
+
+Download source
+https://apr.apache.org/
+
+]# rpmbuild -tb apr-1.5.2.tar.bz2
+]# cd ~/rpmbuild/RPMS/x86_64/
+]# yum localinstall -y apr-1.5.2-1.x86_64.rpm apr-devel-1.5.2-1.x86_64.rpm
+------------------------------------------------------------
+]# rpmbuild -tb httpd-2.4.25.tar.bz2
+================================================================================
+
+================================================================================
+Install httpd for CentOS/RHEL 6
+------------------------------------------------------------
+]# yum install -y zlib-devel libselinux-devel libuuid-devel apr-devel apr-util-devel pcre-devel openldap-devel libxml2-devel openssl-devel distcache-devel lua-devel
+------------------------------------------------------------
+]# rpmbuild -tb httpd-2.4.17.tar.bz2
+------------------------------------------------------------
+If not install dependency lib.
+
+error: Failed build dependencies:
+	zlib-devel is needed by httpd-2.4.17-1.x86_64
+	libselinux-devel is needed by httpd-2.4.17-1.x86_64
+	libuuid-devel is needed by httpd-2.4.17-1.x86_64
+	apr-devel >= 1.4.0 is needed by httpd-2.4.17-1.x86_64
+	apr-util-devel >= 1.4.0 is needed by httpd-2.4.17-1.x86_64
+	pcre-devel >= 5.0 is needed by httpd-2.4.17-1.x86_64
+	openldap-devel is needed by httpd-2.4.17-1.x86_64
+	lua-devel is needed by httpd-2.4.17-1.x86_64
+	libxml2-devel is needed by httpd-2.4.17-1.x86_64
+	distcache-devel is needed by httpd-2.4.17-1.x86_64
+	openssl-devel is needed by httpd-2.4.17-1.x86_64
+================================================================================
+
+================================================================================
+Service name: httpd
+----------------------------------------
+Config files folder:
+
+/etc/httpd/
+/etc/httpd/conf/httpd.conf
+----------------------------------------
+Lib files folder:
+
+/etc/httpd/modules
+----------------------------------------
+Content files folder:
+
+/var/www/
+/var/www/html/
+----------------------------------------
+Disable list directory contents
+
+]# vi /etc/httpd/conf/httpd.conf
+
+<Directory /var/www/html>
+  Options -Indexes
+</Directory>
+
+]# service httpd restart
+================================================================================
