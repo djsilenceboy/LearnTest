@@ -1,38 +1,104 @@
 ================================================================================
+Repo
+
+https://atlas.hashicorp.com/bento/
 https://atlas.hashicorp.com/ubuntu
 https://atlas.hashicorp.com/hashicorp
 ------------------------------------------------------------
-Bento/Chef
-https://atlas.hashicorp.com/bento/
-================================================================================
-bento/centos-7.2
+Image
+
+bento/centos-7.3
 ubuntu/precise64
 ================================================================================
-Init
+Images.
+------------------------------------------------------------
+List images.
+
+> vagrant box list
+------------------------------------------------------------
+Delete image.
+
+> vagrant box remove <ImageId>
+================================================================================
+Init empty project and Vagrantfile.
+
 > vagrant init
 ------------------------------------------------------------
-Start
+Create containers from image and start containers defined in Vagrantfile.
+If already created, just start containers.
+
 > vagrant up
+> vagrant up <ContainerNameOrID>
+------------------------------------------------------------
+Stop containers.
 
-Stop
 > vagrant halt
+> vagrant halt <ContainerNameOrID>
+------------------------------------------------------------
+Hibernate containers.
 
-Hibernate
 > vagrant suspend
+> vagrant suspend <ContainerNameOrID>
+------------------------------------------------------------
+Resume containers.
 
-Resume
 > vagrant resume
+> vagrant resume <ContainerNameOrID>
+------------------------------------------------------------
+Delete containers.
 
-Delete
 > vagrant destroy
+> vagrant destroy <ContainerNameOrID>
+================================================================================
+Vagrant SSH key
 ------------------------------------------------------------
-> vagrant box list
+Location
 
-Remove
-> vagrant box remove <id>
-------------------------------------------------------------
+~/.vagrant.d/insecure_private_key
+%USERPROFILE%\.vagrant.d\insecure_private_key
+================================================================================
+Check containers status.
+
 > vagrant status
-> vagrant ssh
+> vagrant status <ContainerNameOrID>
+------------------------------------------------------------
+Check container SSH config.
+
 > vagrant ssh-config
-> vagrant reload
+> vagrant ssh-config <ContainerNameOrID>
+------------------------------------------------------------
+SSH login container.
+
+> vagrant ssh
+> vagrant ssh <ContainerNameOrID>
+------------------------------------------------------------
+Reload container.
+
+> vagrant reload <ContainerName>
+================================================================================
+Default user
+------------------------------------------------------------
+User name / Password: vagrant / vagrant
+User name / Password: root / vagrant
+
+"vagrant" user has SSH key and is sudoer without password.
+================================================================================
+Use bridge network
+------------------------------------------------------------
+Use DHCP.
+
+  # Use DHCP gateway.
+  config.vm.network "public_network", use_dhcp_assigned_default_route: true
+  # Will get DHCP IP.
+------------------------------------------------------------
+Assign IP.
+
+Use DHCP first, to find out the actually interface name. Because it may not be "eth1".
+----------------------------------------
+  # Use DHCP gateway.
+  config.vm.network "public_network", use_dhcp_assigned_default_route: true
+  # Not use DHCP IP, will configure IP manually.
+  config.vm.network "public_network", auto_config: false
+  # Configure IP manually.
+  config.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.10 netmask 255.255.255.0 up"
 ================================================================================

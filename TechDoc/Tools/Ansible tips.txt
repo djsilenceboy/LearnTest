@@ -15,18 +15,76 @@ Generate SSH key pair.
 ]# ssh-keygen -t rsa -N "" -C "Ansible Server" -f ~/ansible/ansible_key | tee ~/ansible/ssh-keygen.log
 
 Copy/Add "~/ansible/ansible_key.pub" to remote host "~/.ssh/authorized_keys".
+================================================================================
+Ansible will search config file in order:
+./ansible.cfg
+~/ansible.cfg
+/etc/ansible/ansible.cfg
+------------------------------------------------------------
+Generate config file.
+
+]# vi ansible.cfg
+----------------------------------------
+[defaults]
+hostfile=endpoint_hosts
+remote_user=root
+private_key_file=~/ansible/ansible_key
+host_key_checing=False
 ------------------------------------------------------------
 Generate host file.
 
 ]# vi endpoint_hosts
 ----------------------------------------
+Optional to add:
+
+[endpoint_group]
+----------------------------------------
+If use cfg file with "[defaults]":
+
+EndpointA ansible_ssh_host=192.168.0.xx ansible_ssh_port=22
+----------------------------------------
+If not use cfg file:
+
 EndpointA ansible_ssh_host=192.168.0.xx ansible_ssh_port=22 ansible_ssh_user=root ansible_ssh_private_key_file=~/ansible/ansible_key
-------------------------------------------------------------
+================================================================================
 Test ping.
+------------------------------------------------------------
+If use cfg file with "[defaults]":
+
+]# ansible EndpointA -m ping
+
+With debug info.
+
+]# ansible EndpointA -m ping -vvvv
+------------------------------------------------------------
+If not use cfg file:
 
 ]# ansible EndpointA -i endpoint_hosts -m ping
 
 With debug info.
 
 ]# ansible EndpointA -i endpoint_hosts -m ping -vvvv
+------------------------------------------------------------
+Also can use group to reference.
+
+]# ansible endpoint_group -m ping
+================================================================================
+Check uptime
+
+]# ansible EndpointA -m command -a uptime
+
+"-m command" is default, can be omitted.
+
+]# ansible EndpointA -a uptime
+================================================================================
+"sudo" Flag
+
+Add "-s" if want to run "sudo" command.
+The client user should be set as sudoer.
+
+]# ansible EndpointA -s -a uptime
+================================================================================
+Running Playbook
+
+]# ansible-playbook <BookName>.yml
 ================================================================================
