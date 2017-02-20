@@ -6,6 +6,20 @@ Ansible
 ----------------------------------------
 Successfully installed MarkupSafe-0.23 PyYAML-3.12 ansible-2.2.1.0 cryptography-1.7.2 jinja2-2.8.1 paramiko-2.1.1 pycrypto-2.6.1
 ================================================================================
+Install Ansible for Cygwin, with at least the following packages selected
+------------------------------------------------------------
+curl
+python (2.7.x)
+python-jinja
+python-crypto
+python-openssl
+python-setuptools
+git (1.7.x)
+vim
+openssh
+openssl
+openssl-devel
+================================================================================
 ]# ansible --version
 ansible 2.2.1.0
 ================================================================================
