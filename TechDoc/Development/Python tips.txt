@@ -1,6 +1,6 @@
 ================================================================================
 Python
-------------------------------------------------------------
+================================================================================
 Install Python with other development tools.
 
 ]# yum groupinstall "Development Tools"
@@ -28,7 +28,49 @@ Install devel for compiling module.
 
 ]# yum install -y python-devel openssl-devel
 ================================================================================
+List installed module
+
 > pip list
+------------------------------------------------------------
+Upgrade all installed modules
+
+> pip install pip-review
+> pip-review --local --interactive
+------------------------------------------------------------
+Upgrade all installed modules
+
+> pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+================================================================================
+If having following error, while installing/upgrading:
+
+    /usr/include/python2.7/pyconfig.h:1221:0: warning: "__BSD_VISIBLE" redefined
+     #define __BSD_VISIBLE 1
+     ^
+    In file included from /usr/include/sys/config.h:5:0,
+                     from /usr/include/_ansi.h:16,
+                     from /usr/include/string.h:10,
+                     from src/MD2.c:30:
+    /usr/include/sys/features.h:250:0: note: this is the location of the previous definition
+     #define __BSD_VISIBLE  0
+     ^
+------------------------------------------------------------
+To fix:
+
+]# vi /usr/include/python2.7/pyconfig.h
+
+/* #define __BSD_VISIBLE 1 */
+================================================================================
+If having following error, while installing/upgrading:
+
+error: Unable to find vcvarsall.bat
+------------------------------------------------------------
+To fix:
+
+Download VC compiler from: https://blogs.msdn.microsoft.com/pythonengineering/2016/04/11/unable-to-find-vcvarsall-bat/
+
+For Python 3.5 and later: Visual C++ Build Tools 2015 or Visual Studio 2015
+For Python 3.3 and 3.4: Windows SDK for Windows 7 and .NET 4.0
+For Python 2.6 to 3.2: Microsoft Visual C++ Compiler for Python 2.7
 ================================================================================
 > pip install line_profiler
   (Need vcvarsall.bat)
@@ -70,6 +112,16 @@ Install devel for compiling module.
 > pip install python-memcached
   (depend on six)
 ================================================================================
+https://pypi.python.org/pypi/wheel
+
+> pip install wheel-0.30.0a0-py2.py3-none-any.whl
+------------------------------------------------------------
+http://www.lfd.uci.edu/~gohlke/pythonlibs/
+------------------------------------------------------------
+http://www.lfd.uci.edu/~gohlke/pythonlibs/#line_profiler
+
+> pip install line_profiler-1.0-cp35-none-win32.whl
+================================================================================
 > python -m http.server
 Serving HTTP on 0.0.0.0 port 8000 ...
 
@@ -86,12 +138,6 @@ Serving HTTP on 0.0.0.0 port 8008 ...
 > pip freeze > requirements.txt
 
 > pip install -r requirements.txt
-================================================================================
-http://www.lfd.uci.edu/~gohlke/pythonlibs/
-------------------------------------------------------------
-http://www.lfd.uci.edu/~gohlke/pythonlibs/#line_profiler
-
-> pip install line_profiler-1.0-cp35-none-win32.whl
 ================================================================================
 > python -m cProfile -s cumulative TestProfile1.py
 

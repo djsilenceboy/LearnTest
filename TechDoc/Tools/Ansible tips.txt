@@ -1,24 +1,33 @@
 ================================================================================
 Ansible
+================================================================================
+Install for RHEL/CentOS
 ------------------------------------------------------------
 ]# yum install -y python-devel openssl-devel
 ]# pip install ansible
 ----------------------------------------
 Successfully installed MarkupSafe-0.23 PyYAML-3.12 ansible-2.2.1.0 cryptography-1.7.2 jinja2-2.8.1 paramiko-2.1.1 pycrypto-2.6.1
 ================================================================================
-Install Ansible for Cygwin, with at least the following packages selected
+Install for Cygwin, with at least the following packages installed first.
 ------------------------------------------------------------
-curl
-python (2.7.x)
+python
 python-jinja
 python-crypto
 python-openssl
 python-setuptools
-git (1.7.x)
-vim
+libffi-devel
 openssh
 openssl
 openssl-devel
+----------------------------------------
+]# pip install ansible
+================================================================================
+Install for Windows 10
+------------------------------------------------------------
+Download VC compiler from: https://blogs.msdn.microsoft.com/pythonengineering/2016/04/11/unable-to-find-vcvarsall-bat/
+And install.
+----------------------------------------
+]# pip install ansible
 ================================================================================
 ]# ansible --version
 ansible 2.2.1.0
@@ -31,6 +40,7 @@ Generate SSH key pair.
 Copy/Add "~/ansible/ansible_key.pub" to remote host "~/.ssh/authorized_keys".
 ================================================================================
 Ansible will search config file in order:
+
 ./ansible.cfg
 ~/ansible.cfg
 /etc/ansible/ansible.cfg
