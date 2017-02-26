@@ -47,17 +47,21 @@ Ansible will search config file in order:
 ------------------------------------------------------------
 Generate config file.
 
-]# vi ansible.cfg
+]$ vi ansible.cfg
 ----------------------------------------
 [defaults]
 hostfile=endpoint_hosts
 remote_user=root
 private_key_file=~/ansible/ansible_key
-host_key_checing=False
+host_key_checking=False
+
+[ssh_connection]
+# For Cygwin.
+ssh_args = -o ControlMaster=no
 ------------------------------------------------------------
 Generate host file.
 
-]# vi endpoint_hosts
+]$ vi endpoint_hosts
 ----------------------------------------
 Optional to add:
 
@@ -75,40 +79,108 @@ Test ping.
 ------------------------------------------------------------
 If use cfg file with "[defaults]":
 
-]# ansible EndpointA -m ping
+]$ ansible EndpointA -m ping
 
 With debug info.
 
-]# ansible EndpointA -m ping -vvvv
+]$ ansible EndpointA -m ping -vvvv
 ------------------------------------------------------------
 If not use cfg file:
 
-]# ansible EndpointA -i endpoint_hosts -m ping
+]$ ansible EndpointA -i endpoint_hosts -m ping
 
 With debug info.
 
-]# ansible EndpointA -i endpoint_hosts -m ping -vvvv
+]$ ansible EndpointA -i endpoint_hosts -m ping -vvvv
 ------------------------------------------------------------
-Also can use group to reference.
+Use group name to reference.
 
-]# ansible endpoint_group -m ping
+]$ ansible endpoint_group -m ping
+------------------------------------------------------------
+Use for all hosts.
+
+]$ ansible all -m ping
+
+or
+
+]$ ansible '*' -m ping
 ================================================================================
 Check uptime
 
-]# ansible EndpointA -m command -a uptime
+]$ ansible EndpointA -m command -a uptime
 
 "-m command" is default, can be omitted.
 
-]# ansible EndpointA -a uptime
+]$ ansible EndpointA -a uptime
 ================================================================================
 "sudo" Flag
 
 Add "-s" if want to run "sudo" command.
 The client user should be set as sudoer.
 
-]# ansible EndpointA -s -a uptime
+]$ ansible EndpointA -s -a uptime
 ================================================================================
-Running Playbook
+Check playbook syntax
 
-]# ansible-playbook <BookName>.yml
+]$ ansible-playbook --syntax-check <PlayBookName>.yml
+------------------------------------------------------------
+List hosts involved in playbook
+
+]$ ansible-playbook --list-hosts <PlayBookName>.yml
+------------------------------------------------------------
+List tasks defined in playbook
+
+]$ ansible-playbook --list-tasks <PlayBookName>.yml
+================================================================================
+Run playbook
+
+]$ ansible-playbook <PlayBookName>.yml
+------------------------------------------------------------
+Sample:
+
+]$ ansible-playbook greet.yml
+
+With debug info.
+
+]$ ansible-playbook greet.yml -vvvv
+
+Overwrite defined variables in command line.
+(To include space, use double quotation to include string first.
+Then use single quotation to include variable definition.)
+
+]$ ansible-playbook greet.yml -e greeting=Hello
+]$ ansible-playbook greet.yml -e 'greeting="Hello Friend!"'
+
+Overwrite defined variables by file.
+
+]$ ansible-playbook greet.yml -e @greetvars.yml
+================================================================================
+Run in check mode (Dry run)
+
+]$ ansible-playbook -C <PlayBookName>.yml
+]$ ansible-playbook --check <PlayBookName>.yml
+------------------------------------------------------------
+Run in check mode (Dry run) and show file diff
+
+]$ ansible-playbook -C -D <PlayBookName>.yml
+]$ ansible-playbook --check --diff <PlayBookName>.yml
+------------------------------------------------------------
+Prompt for each task while running playbook
+
+]$ ansible-playbook --step <PlayBookName>.yml
+------------------------------------------------------------
+Start at certain task
+
+]$ ansible-playbook --start-at-task <TaskName> <PlayBookName>.yml
+------------------------------------------------------------
+Execute tasks with certain tags
+
+]$ ansible-playbook -t <TagNameList> <PlayBookName>.yml
+]$ ansible-playbook --tags=<TagNameList> <PlayBookName>.yml
+
+Execute tasks without certain tags
+
+]$ ansible-playbook --skip-tags=<TagNameList> <PlayBookName>.yml
+
+TagNameList is separated by comma.
 ================================================================================
