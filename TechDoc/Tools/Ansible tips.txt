@@ -135,6 +135,11 @@ List tasks defined in playbook
 Run playbook
 
 ]$ ansible-playbook <PlayBookName>.yml
+
+For certain host or group.
+
+]$ ansible-playbook -l <Host_Or_Group> <PlayBookName>.yml
+]$ ansible-playbook --limit <Host_Or_Group> <PlayBookName>.yml
 ------------------------------------------------------------
 Sample:
 
@@ -183,4 +188,24 @@ Execute tasks without certain tags
 ]$ ansible-playbook --skip-tags=<TagNameList> <PlayBookName>.yml
 
 TagNameList is separated by comma.
+================================================================================
+Role
+------------------------------------------------------------
+Init role
+
+]$ ansible-galaxy --start-at-task <TaskName> <PlayBookName>.yml
+------------------------------------------------------------
+List installed role
+
+Role file in default "/etc/ansible/roles".
+
+]$ ansible-galaxy list
+
+In specified paht.
+
+]$ ansible-galaxy list -p <RolePath>
+------------------------------------------------------------
+Init role path structure
+
+]$ ansible-galaxy init -p <RolePath> <Role>
 ================================================================================

@@ -60,6 +60,35 @@ Run a local script on remote host.
 Run a local script on remote host with key and batch mode.
 
 ]$ cat Local.sh | ssh -o "BatchMode yes" -i $keyFile $User@$Address
+------------------------------------------------------------
+Get public key of SSL WebSite.
+
+]$ ssh-keyscan <WebSite>
+
+Encrypt WebSite name in output.
+
+]$ ssh-keyscan -H <WebSite>
+
+The retrieved public key will be used in "~/.ssh/known_hosts".
+------------------------------------------------------------
+Get public key's fingerprint.
+
+]$ ssh-keygen -lf ~/.ssh/known_hosts
+------------------------------------------------------------
+Start SSH agent.
+
+]$ ssh-agent
+------------------------------------------------------------
+Manage private keys.
+"ssh-agent" must be running.
+
+Add a private key.
+
+]# ssh-add <PrivateKeyFile>
+
+List added private keys.
+
+]# ssh-add -L
 ================================================================================
 Redirect
 ------------------------------------------------------------

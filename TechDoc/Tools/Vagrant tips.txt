@@ -102,3 +102,5 @@ Use DHCP first, to find out the actually interface name. Because it may not be "
   # Configure IP manually.
   config.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.10 netmask 255.255.255.0 up"
 ================================================================================
+Auto mount local current path to "/vagrant" inside container.
+================================================================================
