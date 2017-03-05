@@ -31,8 +31,8 @@ public class MethodInvokeLog4jHelper
 
 	public void afterThrowingInvoke(Exception e, Object bean) throws Exception{
 		if (log.isEnabledFor(Level.ERROR)) {
-			log.error("Bean = " + bean);
-			log.error("Exception = " + e, e);
+			log.debug("Bean = " + bean);
+			log.debug("Exception = " + e, e);
 		}
 	}
 
@@ -44,7 +44,7 @@ public class MethodInvokeLog4jHelper
 
 	public Object aroundInvoke1(ProceedingJoinPoint pjp, Object bean) throws Throwable{
 		if (log.isDebugEnabled()) {
-			log.error("Bean = " + bean);
+			log.debug("Bean = " + bean);
 		}
 
 		Object response = pjp.proceed();
@@ -61,7 +61,7 @@ public class MethodInvokeLog4jHelper
 	 */
 	public Object aroundInvoke2(ProceedingJoinPoint pjp, Object request, Object bean) throws Throwable{
 		if (log.isDebugEnabled()) {
-			log.error("Bean = " + bean);
+			log.debug("Bean = " + bean);
 			log.debug("Request = " + request);
 		}
 

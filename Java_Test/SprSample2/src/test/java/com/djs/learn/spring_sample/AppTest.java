@@ -24,6 +24,7 @@ import org.springframework.validation.ValidationUtils;
 
 import com.djs.learn.spring_sample.aop.AirMail;
 import com.djs.learn.spring_sample.aop.DeliverInterface;
+import com.djs.learn.spring_sample.aop_tx.TravelInterface;
 import com.djs.learn.spring_sample.db.Item;
 import com.djs.learn.spring_sample.db.ItemDao;
 import com.djs.learn.spring_sample.event.EmailService;
@@ -71,7 +72,7 @@ public class AppTest
 		appContext = new ClassPathXmlApplicationContext(System.getProperty("file_path.context.entry_xml"));
 	}
 
-	// @Ignore
+	@Ignore
 	@Test
 	public void testAop(){
 		log.trace("Enter...");
@@ -85,6 +86,32 @@ public class AppTest
 			deliver.deliver();
 
 			deliver.deliver(airMailB);
+		} catch (Exception e) {
+			log.error("Exception = " + e, e);
+		}
+	}
+
+	@Ignore
+	@Test
+	public void testAopTx(){
+		log.trace("Enter...");
+
+		try {
+			loadPropertiesAndContext("sample/test_aop_tx.properties");
+
+			{
+				TravelInterface travel = (TravelInterface)appContext.getBean("travel");
+
+				travel.setCity("NewYork");
+				travel.travel();
+			}
+
+			{
+				TravelInterface travel = (TravelInterface)appContext.getBean("travel");
+
+				travel.setCity("London");
+				travel.travel();
+			}
 		} catch (Exception e) {
 			log.error("Exception = " + e, e);
 		}

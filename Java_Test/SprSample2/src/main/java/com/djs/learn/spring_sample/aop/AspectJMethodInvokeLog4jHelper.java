@@ -49,8 +49,8 @@ public class AspectJMethodInvokeLog4jHelper
 	@AfterThrowing(pointcut = "execution(* *..aop.*.deliver(..)) and target(bean)", throwing = "e")
 	public void afterThrowingInvoke(Exception e, Object bean) throws Exception{
 		if (log.isEnabledFor(Level.ERROR)) {
-			log.error("Bean = " + bean);
-			log.error("Exception = " + e, e);
+			log.debug("Bean = " + bean);
+			log.debug("Exception = " + e, e);
 		}
 	}
 
@@ -64,7 +64,7 @@ public class AspectJMethodInvokeLog4jHelper
 	@Around("execution(* *..aop.*.deliver()) && target(bean)")
 	public Object aroundInvoke1(ProceedingJoinPoint pjp, Object bean) throws Throwable{
 		if (log.isDebugEnabled()) {
-			log.error("Bean = " + bean);
+			log.debug("Bean = " + bean);
 		}
 
 		Object response = pjp.proceed();
@@ -82,7 +82,7 @@ public class AspectJMethodInvokeLog4jHelper
 	@Around("execution(* *..aop.*.deliver(..)) && args(request,..) && target(bean)")
 	public Object aroundInvoke2(ProceedingJoinPoint pjp, Object request, Object bean) throws Throwable{
 		if (log.isDebugEnabled()) {
-			log.error("Bean = " + bean);
+			log.debug("Bean = " + bean);
 			log.debug("Request = " + request);
 		}
 

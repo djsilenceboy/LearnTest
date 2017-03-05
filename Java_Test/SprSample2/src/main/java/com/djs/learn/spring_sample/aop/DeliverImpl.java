@@ -28,34 +28,50 @@ public class DeliverImpl implements DeliverInterface
 
 	@Override
 	public String deliver() throws Exception{
-		log.debug("Enter 1...");
+		if (log.isDebugEnabled()) {
+			log.debug("Enter 1...");
+		}
 
 		String date;
 
-		log.trace("AirMail = " + airMail);
+		if (log.isTraceEnabled()) {
+			log.trace("AirMail = " + airMail);
+		}
 
 		date = new Date().getTime() + " / " + new Date().toString();
 
-		log.trace("Transaction date = " + date);
+		if (log.isTraceEnabled()) {
+			log.trace("Transaction date = " + date);
+		}
 
-		log.debug("Leave 1...");
+		if (log.isDebugEnabled()) {
+			log.debug("Leave 1...");
+		}
 
 		return date;
 	}
 
 	@Override
 	public String deliver(AirMail airMail) throws Exception{
-		log.debug("Enter 2...");
+		if (log.isDebugEnabled()) {
+			log.debug("Enter 2...");
+		}
 
 		String date;
 
-		log.trace("AirMail = " + airMail);
+		if (log.isTraceEnabled()) {
+			log.trace("AirMail = " + airMail);
+		}
 
 		date = new Date().getTime() + " / " + new Date().toString();
 
-		log.trace("Transaction date = " + date);
+		if (log.isTraceEnabled()) {
+			log.trace("Transaction date = " + date);
+		}
 
-		log.debug("Leave 2...");
+		if (log.isDebugEnabled()) {
+			log.debug("Leave 2...");
+		}
 
 		return date;
 	}

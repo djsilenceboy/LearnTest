@@ -5,6 +5,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 						http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<import resource="${file_path.context.local_internal}validation.xml"/>
+	<import resource="${file_path.context.local_internal}aop_tx.xml"/>
 
 </beans>
