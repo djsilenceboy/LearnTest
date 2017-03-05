@@ -17,7 +17,7 @@
 	</bean>
 
 	<bean id="deliver" class="com.djs.learn.spring_sample.aop.DeliverImpl" scope="prototype">
-		<property name="airMail" ref="airMailB" />
+		<property name="airMail" ref="airMailA" />
 	</bean>
 
 	<bean id="log4jHelper" class="com.djs.learn.spring_sample.aop.MethodInvokeLog4jHelper" />
@@ -25,31 +25,33 @@
 	<aop:config>
 		<aop:aspect id="log4jHelperAop" ref="log4jHelper">
 			<!-- Please note the position of around(). -->
-			<!-- If around() is before before(), it will be called before before(). -->
-			<!-- If around() is after before(), it will be called after before(). -->
-			<!-- If around() is before after(), it will be called before after(). -->
-			<!-- If around() is after after(), it will be called after after(). -->
+			<!-- If Around is placed before Before, it will be called before Before. -->
+			<!-- If Around is placed after Before, it will be called after Before. -->
+			<!-- Around is always placed after AfterXXX, it will be always called after AfterXXX. -->
 
 			<aop:pointcut id="afterInvokeForLog4j" expression="execution(* *..aop.*.deliver(..)) and target(bean)" />
 			<aop:after-returning method="afterReturningInvoke" pointcut-ref="afterInvokeForLog4j" returning="response" arg-names="response,bean" />
 			<aop:after-throwing method="afterThrowingInvoke" pointcut-ref="afterInvokeForLog4j" throwing="e" arg-names="e,bean" />
 			<aop:after method="afterFinallyInvoke" pointcut-ref="afterInvokeForLog4j" arg-names="bean" />
 
-			<aop:pointcut id="aroundInvokeForLog4j" expression="execution(* *..aop.*.deliver(..)) and args(request,..) and target(bean)" />
-			<aop:around method="aroundInvoke" pointcut-ref="aroundInvokeForLog4j" arg-names="request,bean" />
 
-			<aop:pointcut id="aroundInvokeForLog4j2" expression="execution(* *..aop.*.deliver()) and target(bean)" />
-			<aop:around method="aroundInvoke2" pointcut-ref="aroundInvokeForLog4j2" arg-names="bean" />
+			<aop:pointcut id="aroundInvokeForLog4j1" expression="execution(* *..aop.*.deliver()) and target(bean)" />
+			<aop:around method="aroundInvoke1" pointcut-ref="aroundInvokeForLog4j1" arg-names="bean" />
 
-			<aop:pointcut id="beforeInvokeForLog4j" expression="execution(* *..aop.*.deliver(..)) and args(request,..) and target(bean)" />
-			<aop:before method="beforeInvoke" pointcut-ref="beforeInvokeForLog4j" arg-names="request,bean" />
+			<aop:pointcut id="beforeInvokeForLog4j1" expression="execution(* *..aop.*.deliver()) and target(bean)" />
+			<aop:before method="beforeInvoke1" pointcut-ref="beforeInvokeForLog4j1" arg-names="bean" />
 
-			<aop:pointcut id="beforeInvokeForLog4j2" expression="execution(* *..aop.*.deliver()) and target(bean)" />
-			<aop:before method="beforeInvoke2" pointcut-ref="beforeInvokeForLog4j2" arg-names="bean" />
+
+			<aop:pointcut id="beforeInvokeForLog4j2" expression="execution(* *..aop.*.deliver(..)) and args(request,..) and target(bean)" />
+			<aop:before method="beforeInvoke2" pointcut-ref="beforeInvokeForLog4j2" arg-names="request,bean" />
+
+			<aop:pointcut id="aroundInvokeForLog4j2" expression="execution(* *..aop.*.deliver(..)) and args(request,..) and target(bean)" />
+			<aop:around method="aroundInvoke2" pointcut-ref="aroundInvokeForLog4j2" arg-names="request,bean" />
+
 
 			<!-- Use "this()" instead of "target()", so no need to declare "arg-names". -->
 			<aop:pointcut id="beforeInvokeForLog4j3" expression="execution(* *..aop.*.deliver()) and this(bean)" />
-			<aop:before method="beforeInvoke2" pointcut-ref="beforeInvokeForLog4j3" />
+			<aop:before method="beforeInvoke1" pointcut-ref="beforeInvokeForLog4j3" />
 		</aop:aspect>
 	</aop:config>
 
