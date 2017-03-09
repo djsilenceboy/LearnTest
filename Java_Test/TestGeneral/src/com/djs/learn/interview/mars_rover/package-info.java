@@ -1,5 +1,6 @@
 /**
- * SCB programming test: Mars Rover.
+ * From SCB.
+ * Mars Rover.
  * <p>
  * Requirement:<br>
  * Develop an API that moves a rover around on a grid.
@@ -16,4 +17,4 @@
  * possible point and reports the obstacle.
  */
 
-package com.djs.learn.scb;
+package com.djs.learn.interview.mars_rover;

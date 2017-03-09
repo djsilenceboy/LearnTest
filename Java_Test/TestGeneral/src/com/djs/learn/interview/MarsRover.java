@@ -1,5 +1,5 @@
 
-package com.djs.learn.jpmorgan;
+package com.djs.learn.interview;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,7 +8,8 @@ import java.util.TreeMap;
 
 import org.junit.Test;
 
-/*
+/**
+ * From JPM.
  * Programming test: Mars Rover.
  * <p>
  * Requirement:<br>
@@ -21,7 +22,7 @@ import org.junit.Test;
  * Implement commands that turn the rover left/right (L,R).
  * Implement wrapping from one edge of the grid to another. (planets are spheres after all)
  */
-public class TestMain3a
+public class MarsRover
 {
 	public static class Rover
 	{

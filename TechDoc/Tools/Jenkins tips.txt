@@ -1,5 +1,18 @@
 ================================================================================
-Install Jenkins for CentOS/RHEL 7
+Install Jenkins by yum as a service for CentOS/RHEL 7
+------------------------------------------------------------
+https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions
+
+Make sure Java/JDK is installed.
+------------------------------------------------------------
+wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
+rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+yum install -y jenkins
+
+systemctl start/stop/restart/status jenkins
+chkconfig jenkins on
+================================================================================
+Install Jenkins on Tomcat for CentOS/RHEL 7
 ------------------------------------------------------------
 https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins
 https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions
@@ -8,7 +21,7 @@ http://www.whiteboardcoder.com/2014/01/installing-jenkins-on-tomcat-8.html
 
 Install war file to Tomcat or standalone copy by rpm.
 
-Followin steps is for war file.
+Following steps is for war file.
 ------------------------------------------------------------
 ]# mkdir -p /opt/jenkins
 
@@ -34,9 +47,12 @@ Environment=JENKINS_HOME=/opt/jenkins
 ------------------------------------------------------------
 ]# systemctl daemon-reload
 ]# systemctl restart tomcat
+================================================================================
+Setup admin user
 ------------------------------------------------------------
-Open "http://<IP>:8080/jenkins" for first time.
-
+If installed by yum, open "http://<IP>:8080" for first time.
+If installed for Tomcat, open "http://<IP>:8080/jenkins" for first time.
+------------------------------------------------------------
 Unlock Jenkins
 To ensure Jenkins is securely set up by the administrator, a password has been written to the log (not sure where to find it?) and this file on the server:
 

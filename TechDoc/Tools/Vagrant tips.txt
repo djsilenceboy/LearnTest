@@ -10,15 +10,30 @@ Image
 bento/centos-7.3
 ubuntu/precise64
 ================================================================================
-Images.
+Box/Images.
 ------------------------------------------------------------
 List images.
 
 > vagrant box list
 ------------------------------------------------------------
+Add images.
+
+> vagrant box add <ImageId> <ImageName>.box
+> vagrant box add <ImageId> <URL>
+------------------------------------------------------------
 Delete image.
 
 > vagrant box remove <ImageId>
+> vagrant box remove <ImageId> --box-version <VersionNumber>
+------------------------------------------------------------
+Build new image from existing image.
+(Default new image name "package.box")
+
+> vagrant box repackage <ImageName> <VmProvide> <ImageVersion>
+
+Sample:
+
+> vagrant box repackage bento/centos-7.3 virtualbox 2.3.2
 ================================================================================
 Init empty project and Vagrantfile.
 
@@ -29,6 +44,8 @@ If already created, just start containers.
 
 > vagrant up
 > vagrant up <ContainerNameOrID>
+
+Option: --debug
 ------------------------------------------------------------
 Stop containers.
 
@@ -57,7 +74,11 @@ Location
 ~/.vagrant.d/insecure_private_key
 %USERPROFILE%\.vagrant.d\insecure_private_key
 ================================================================================
-Check containers status.
+Check global containers status.
+
+> vagrant global-status
+------------------------------------------------------------
+Check local containers status.
 
 > vagrant status
 > vagrant status <ContainerNameOrID>
@@ -75,6 +96,12 @@ SSH login container.
 Reload container.
 
 > vagrant reload <ContainerName>
+------------------------------------------------------------
+Build new image from container.
+(Default new image name "package.box")
+
+> vagrant package <ContainerName>
+> vagrant package <ContainerName> --output <ImageName>.box
 ================================================================================
 Default user
 ------------------------------------------------------------
@@ -103,4 +130,25 @@ Use DHCP first, to find out the actually interface name. Because it may not be "
   config.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.10 netmask 255.255.255.0 up"
 ================================================================================
 Auto mount local current path to "/vagrant" inside container.
+================================================================================
+Provisioner
+------------------------------------------------------------
+By default, provisioner only run in the first time "vagrant up", and will not run in the following times.
+------------------------------------------------------------
+Force to run provisioner in 2nd time onwards.
+
+$ vagrant up --provision
+$ vagrant provision
+
+Force not to run provisioner in 1st time.
+
+$ vagrant up --no-provision
+------------------------------------------------------------
+Enable provisioners by type, if there is multiple provisioners.
+
+$ vagrant up --provision-with <ProvisionerList>
+
+Sample:
+
+$ vagrant up --provision-with ansible,shell
 ================================================================================

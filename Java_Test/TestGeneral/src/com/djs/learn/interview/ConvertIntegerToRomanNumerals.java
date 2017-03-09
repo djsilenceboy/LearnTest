@@ -1,10 +1,11 @@
 
-package com.djs.learn.bnp;
+package com.djs.learn.interview;
 
 /**
+ * From BNP.
  * Convert integer to Roman numerals.
  */
-public class TestMain
+public class ConvertIntegerToRomanNumerals
 {
 	static int[] levelNumbers = {1, 5, 10, 50, 100, 500, 1000};
 	static String[] levelMarks = {"I", "V", "X", "L", "C", "D", "M"};
@@ -46,7 +47,7 @@ public class TestMain
 	}
 
 	public static void main(String[] args){
-		TestMain testMain = new TestMain();
+		ConvertIntegerToRomanNumerals testMain = new ConvertIntegerToRomanNumerals();
 
 		System.out.println("========================================");
 

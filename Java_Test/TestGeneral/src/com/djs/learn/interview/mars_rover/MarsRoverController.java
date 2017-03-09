@@ -1,5 +1,5 @@
 
-package com.djs.learn.scb;
+package com.djs.learn.interview.mars_rover;
 
 import java.util.Map;
 import java.util.TreeMap;
