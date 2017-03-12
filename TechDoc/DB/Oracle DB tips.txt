@@ -14,6 +14,10 @@ Check /etc/hosts, set correct host for local PC.
 If not set host for local PC, "oracle-xe configure" will fail later.
 ------------------------------------------------------------
 ]# rpm -ivh oracle-xe-11.2.0-1.0.x86_64.rpm
+
+or
+
+]# yum localinstall -y oracle-xe-11.2.0-1.0.x86_64.rpm
 ----------------------------------------
 You must run '/etc/init.d/oracle-xe configure' as the root user to configure the database.
 ================================================================================
@@ -24,6 +28,12 @@ Change ports and set SYS/SYSTEM password.
 Note that, the initial password MUST set as "system"!!!
 Otherwise, it will not work while first login.
 ------------------------------------------------------------
+Silent install.
+
+]# /etc/init.d/oracle-xe configure responseFile=<location of xe.rsp>
+------------------------------------------------------------
+Interactive install.
+
 ]# /etc/init.d/oracle-xe configure
 ----------------------------------------
 Oracle Database 11g Express Edition Configuration

@@ -15,6 +15,7 @@ https://tomcat.apache.org/index.html
 ]# cd /media/sf_Download/Shared
 ]# cp catalina-jmx-remote.jar catalina-ws.jar /opt/tomcat/lib
 ------------------------------------------------------------
+]# cd /opt
 ]# chgrp -R tomcat tomcat
 ]# chown -R tomcat tomcat
 ]# chmod -R ug+rwx tomcat
@@ -28,6 +29,10 @@ https://tomcat.apache.org/index.html
 <tomcat-users>
   <user name="admin" password="P@ssw0rd" roles="admin-gui,manager-gui"/>
 </tomcat-users>
+
+or
+
+]# sed -i '/<\/tomcat-users>/ i\  <user name="admin" password="P@ssw0rd" roles="admin-gui,manager-gui"/>' /etc/tomcat/tomcat-users.xml
 ------------------------------------------------------------
 ]# vi /etc/systemd/system/tomcat.service
 ----------------------------------------

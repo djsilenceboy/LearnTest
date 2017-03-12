@@ -5,10 +5,10 @@ set -v -x
 Var="a b c d e"
 
 # Get first word.
-echo ${Var##* }
+echo ${Var%% *}
 
 # Get last word.
-echo ${Var%% *}
+echo ${Var##* }
 
 Var="   hello     "
 

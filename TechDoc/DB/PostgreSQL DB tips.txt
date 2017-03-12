@@ -35,31 +35,41 @@ Uninstall.
 ================================================================================
 Enable remote access DB.
 
-]# su - postgres
-$ cd /var/lib/pgsql/9.5/data
+]# cd /var/lib/pgsql/9.5/data
 ----------------------------------------
 Modify config.
 
-$ vi postgresql.conf
+]# vi postgresql.conf
 
 Add line:
 
 listen_addresses = '*'
+
+or
+
+sed -i '/.*listen_addresses.*/ a\listen_addresses = '"'"'*'"'" /var/lib/pgsql/9.5/data/postgresql.conf
 ----------------------------------------
 Modify config.
 
-$ vi pg_hba.conf
+]# vi pg_hba.conf
 
 Add/update line:
 
 local   all             all                                     trust
 host    all             all             192.168.0.1/24          md5
+
+or
+
+sed -i 's/^local.*$/local   all             all                                     trust/g' /var/lib/pgsql/9.5/data/pg_hba.conf
+sed -i '$ a\host    all             all             192.168.0.1/24          md5' /var/lib/pgsql/9.5/data/pg_hba.conf
 ----------------------------------------
 Reload config.
 
 ]# systemctl restart postgresql-9.5
 ================================================================================
 Create user/role and DB.
+
+]# su - postgres
 
 $ psql
 =# CREATE ROLE tester WITH LOGIN CREATEDB PASSWORD 'Te$tC0se';
@@ -69,18 +79,31 @@ If modify after created:
 
 =# CREATE DATABASE test OWNER tester;
 =# GRANT ALL PRIVILEGES ON DATABASE test TO tester;
+------------------------------------------------------------
+su - postgres -c 'psql -c "CREATE ROLE tester WITH LOGIN CREATEDB PASSWORD '"'"'Te\$tC0se'"'"'"'
+su - postgres -c "psql -c \"CREATE DATABASE test OWNER tester\""
+su - postgres -c "psql -c \"GRANT ALL PRIVILEGES ON DATABASE test TO tester\""
+
+su - postgres -c 'psql -c "ALTER ROLE tester WITH LOGIN CREATEDB PASSWORD '"'"'Te\$tC0se'"'"'"'
 ================================================================================
 Login DB "test" with trusted user "tester".
 
 $ psql -U tester test
-----------------------------------------
+------------------------------------------------------------
 Login DB "test" with user "tester" by password.
 
 $ psql -U tester test -W
 ================================================================================
+Some commands
+
+List all databases.
+
+=# \l
+=# \list
+================================================================================
 Connect DB.
 
-=# \connect tester;
+=# \connect <Database>;
 ------------------------------------------------------------
 Show all tables.
 

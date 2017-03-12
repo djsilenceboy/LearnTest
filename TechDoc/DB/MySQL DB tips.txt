@@ -11,7 +11,7 @@ http://dev.mysql.com/downloads/repo/yum/
 ------------------------------------------------------------
 Create yum repo file.
 
-]# rpm -Uvh mysql57-community-release-el7-9.noarch.rpm
+]# yum localinstall -y mysql57-community-release-el7-9.noarch.rpm
 ----------------------------------------
 Find package.
 
@@ -32,23 +32,30 @@ Check port.
 ]# ss -ntpl | grep mysqld
 ]# ss -ntpl | grep 3306
 ------------------------------------------------------------
-Find initial temp root password.
+Find initial temp root@localhost password.
 
 ]# grep 'temporary password' /var/log/mysqld.log
+
+or
+
+]# Var=`grep 'temporary password' /var/log/mysqld.log`
+]# echo ${Var##* }
 ------------------------------------------------------------
-Change password.
+Login root@localhost.
+
+]# mysql -u root -p<Password>
+
+or
 
 ]# mysql -u root -p
 Enter password: <Password>
-----------------------------------------
-mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'P@ssw0rd';
 ------------------------------------------------------------
-Enable remote access DB.
-
-]# mysql -u root -p
+Enable remote root access.
 
 mysql> use mysql
-mysql> GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY 'P@ssw0rd' WITH GRANT OPTION;
+mysql> CREATE USER root@'%' IDENTIFIED BY "Password";
+mysql> GRANT ALL ON *.* TO root@'%' WITH GRANT OPTION;
+mysql> GRANT ALL ON *.* TO root@localhost WITH GRANT OPTION;
 ================================================================================
 MySQL / MariaDB
 ------------------------------------------------------------
@@ -65,7 +72,7 @@ Config files folder:
 /usr/lib64/mysql
 /usr/share/java/tomcat (For connector lib)
 ================================================================================
-Reset password, if forget.
+Reset root password, if forget.
 
 Reference:
 https://mariadb.com/blog/how-reset-root-password-mariadb-linux
@@ -79,15 +86,11 @@ Stop and restart service.
 Reset password:
 
 ]$ mysql -u root mysql
-mysql> UPDATE user SET Password = PASSWORD('admin') WHERE User = 'root';
+mysql> UPDATE user SET Password = PASSWORD('NewPassword') WHERE User = 'root';
 mysql> FLUSH PRIVILEGES;
-mysql> GRANT ALL ON *.* TO 'root'@'%' WITH GRANT OPTION;
+mysql> GRANT ALL ON *.* TO root@'%' WITH GRANT OPTION;
+mysql> GRANT ALL ON *.* TO root@localhost WITH GRANT OPTION;
 mysql> exit
-----------------------------------------
-Now test new password:
-
-]$ mysql -u root -p
-Enter password: 
 ----------------------------------------
 Now show new privileges:
 
@@ -95,14 +98,19 @@ mysql> show grants for root;
 ------------------------------------------------------------
 Normal change password.
 
-$ mysqladmin -u root -p 'OldPassword' password 'NewPassword'
+]# mysqladmin -u root password 'NewPassword'
 
-or
+or MySQL 5.7.6 and later:
 
-shell> mysql -u root
-mysql> SET PASSWORD FOR 'root'@'localhost' = PASSWORD('admin');
-mysql> SET PASSWORD FOR 'root'@'127.0.0.1' = PASSWORD('admin');
-mysql> SET PASSWORD FOR 'root'@'%' = PASSWORD('admin');
+]# mysql -u root -p<OldPassword>
+mysql> ALTER USER root@localhost IDENTIFIED BY "NewPassword";
+mysql> ALTER USER root@'%' IDENTIFIED BY "NewPassword";
+
+or MySQL 5.7.5 and earlier:
+
+]# mysql -u root -p<OldPassword>
+mysql> SET PASSWORD FOR root@localhost = PASSWORD('NewPassword');
+mysql> SET PASSWORD FOR root@'%' = PASSWORD('NewPassword');
 ================================================================================
 Check "root" user's privileges and host from WorkBench
 ------------------------------------------------------------
@@ -110,8 +118,7 @@ Start server and login with "root" user.
 Under "Users and Privileges" page, make sure there are:
     User    From Host
     root    %
-    root    127.0.0.1
+    root    localhost
     root    ::1
-If there is "root  localhost", but no "root  %", please change it to "root  %".
-Otherwise, "root" user cannot change other users' privileges.
+"%" for remote login, "localhost" for local login.
 ================================================================================

@@ -297,6 +297,8 @@ Allow only 2 versions of kernels to be installed:
 installonly_limit=2
 
 (Default is 5!)
+
+sed -i "s/\(installonly_limit=\).*$/\12/g" /etc/yum.conf
 ------------------------------------------------------------
 Prevent kernel updates while “yum update”:
 

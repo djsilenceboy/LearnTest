@@ -53,7 +53,6 @@ CentOS/RHEL 7:
 CentOS/RHEL 6:
 ]# rpm -Uvh http://repo.webtatic.com/yum/el6/latest.rpm
 
-
 ]# rpm --import https://mirror.webtatic.com/yum/RPM-GPG-KEY-webtatic-andy
 ------------------------------------------------------------
 RPMForge (Deprecated)

@@ -6,6 +6,10 @@ Install httpd for CentOS/RHEL 7 (default version in repo)
 ]# vi /etc/httpd/conf/httpd.conf
 ----------------------------------------
 ServerName  www.xxx.com
+
+or
+
+]# sed -i "s/\(ServerName\).*$/\1  "$(hostname)"/g" /etc/httpd/conf/httpd.conf
 ------------------------------------------------------------
 ]# systemctl enable httpd
 ]# systemctl start httpd

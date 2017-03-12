@@ -25,16 +25,21 @@ Following steps is for war file.
 ------------------------------------------------------------
 ]# mkdir -p /opt/jenkins
 
-]# chgrp tomcat /opt/jenkins
-]# chown tomcat /opt/jenkins
-]# chmod ug+rwx /opt/jenkins
-]# chmod o+rx /opt/jenkins
+]# cd /opt
+]# chgrp tomcat jenkins
+]# chown tomcat jenkins
+]# chmod ug+rwx jenkins
+]# chmod o+rx jenkins
 
 ]# vi /etc/systemd/system/tomcat.service
 ----------------------------------------
 [Service]
 ......
 Environment=JENKINS_HOME=/opt/jenkins
+
+or
+
+]# sed -i '/.*JAVA_OPTS.*/ a\Environment=JENKINS_HOME=/opt/jenkins' /etc/systemd/system/tomcat.service
 ------------------------------------------------------------
 ]# cd /media/sf_Download/Shared/
 ]# cp jenkins.war /opt/tomcat/webapps

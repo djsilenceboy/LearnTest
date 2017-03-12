@@ -9,7 +9,7 @@ Install pip.
 
 For RHEL/CentOS 7
 
-]# yum install epel-release
+]# yum install -y epel-release
 ]# yum install -y python-pip
 ------------------------------------------------------------
 Install pip if not available
