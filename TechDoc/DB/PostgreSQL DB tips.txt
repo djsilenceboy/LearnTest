@@ -72,19 +72,19 @@ Create user/role and DB.
 ]# su - postgres
 
 $ psql
-=# CREATE ROLE tester WITH LOGIN CREATEDB PASSWORD 'Te$tC0se';
+=# CREATE ROLE tester WITH LOGIN CREATEDB PASSWORD 'NewPassword';
 
 If modify after created:
-=# ALTER ROLE tester WITH LOGIN CREATEDB PASSWORD 'Te$tC0se';
+=# ALTER ROLE tester WITH LOGIN CREATEDB PASSWORD 'NewPassword';
 
 =# CREATE DATABASE test OWNER tester;
 =# GRANT ALL PRIVILEGES ON DATABASE test TO tester;
 ------------------------------------------------------------
-su - postgres -c 'psql -c "CREATE ROLE tester WITH LOGIN CREATEDB PASSWORD '"'"'Te\$tC0se'"'"'"'
+su - postgres -c 'psql -c "CREATE ROLE tester WITH LOGIN CREATEDB PASSWORD '"'"'NewPassword'"'"'"'
 su - postgres -c "psql -c \"CREATE DATABASE test OWNER tester\""
 su - postgres -c "psql -c \"GRANT ALL PRIVILEGES ON DATABASE test TO tester\""
 
-su - postgres -c 'psql -c "ALTER ROLE tester WITH LOGIN CREATEDB PASSWORD '"'"'Te\$tC0se'"'"'"'
+su - postgres -c 'psql -c "ALTER ROLE tester WITH LOGIN CREATEDB PASSWORD '"'"'NewPassword'"'"'"'
 ================================================================================
 Login DB "test" with trusted user "tester".
 

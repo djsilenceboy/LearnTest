@@ -106,3 +106,7 @@ Change listening port.
 SQL> select dbms_xdb.gethttpport from dual;
 SQL> begin dbms_xdb.sethttpport(8080); end; /
 ================================================================================
+Change password normally
+
+SQL> ALTER USER <UserName> IDENTIFIED BY "<NewPassword>";
+================================================================================

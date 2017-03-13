@@ -53,7 +53,7 @@ Enter password: <Password>
 Enable remote root access.
 
 mysql> use mysql
-mysql> CREATE USER root@'%' IDENTIFIED BY "Password";
+mysql> CREATE USER root@'%' IDENTIFIED BY "NewPassword";
 mysql> GRANT ALL ON *.* TO root@'%' WITH GRANT OPTION;
 mysql> GRANT ALL ON *.* TO root@localhost WITH GRANT OPTION;
 ================================================================================
