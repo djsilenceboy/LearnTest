@@ -1,0 +1,24 @@
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  # Use root as default SSH user.
+  config.ssh.username = "root"
+  config.ssh.password = "vagrant"
+  # Use the same SSH key for each VM.
+  config.ssh.insert_key = false
+  config.vm.box = "bento/centos-7.3"
+  # Use DHCP gateway.
+  config.vm.network "public_network", use_dhcp_assigned_default_route: true
+  # Not use DHCP IP, will configure IP manually.
+  config.vm.network "public_network", auto_config: false
+
+  config.vm.define "ansibleep1" do |ansibleep1|
+    # Configure IP manually.
+    ansibleep1.vm.provision "shell", run: "always", inline: "ifconfig enp0s8 192.168.0.51 netmask 255.255.255.0 up"
+  end
+
+  config.vm.define "ansibleep2" do |ansibleep2|
+    # Configure IP manually.
+    ansibleep2.vm.provision "shell", run: "always", inline: "ifconfig enp0s8 192.168.0.52 netmask 255.255.255.0 up"
+  end
+end

@@ -1,0 +1,26 @@
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  # Use the same SSH key for each VM.
+  config.ssh.insert_key = false
+  config.vm.box = "bento/centos-7.3"
+
+  # This message will run when all other completed.
+  config.vm.post_up_message = "This is vagrant test sample."
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = "Vagrant_TestProvision"
+  end
+
+  config.vm.provision "shell", path: "Scripts/CheckInfo.sh"
+
+  config.vm.provision "shell", inline: "echo Hello"
+
+  $script = <<SCRIPT
+cat /etc/hosts
+SCRIPT
+
+  config.vm.provision "shell", inline: $script, run: "always"
+
+  # config.vm.provision "ansible", playbook: "Playbooks/buildin.yml"
+end

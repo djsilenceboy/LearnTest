@@ -1,0 +1,68 @@
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  # Use the same SSH key for each VM.
+  config.ssh.insert_key = false
+  config.vm.box = "bento/centos-7.3"
+
+  # This message will run when all other completed.
+  config.vm.post_up_message = "Test environment for Home servers."
+
+  # Use DHCP gateway.
+  config.vm.network "public_network", use_dhcp_assigned_default_route: true
+  # Not use DHCP IP, will configure IP manually.
+  config.vm.network "public_network", auto_config: false
+
+  # This is default folder mapping.
+  config.vm.synced_folder "F:/Download/Shared", "/vagrant", owner: "root", group: "root"
+
+  # Install software.
+  config.vm.provision "shell", path: "Scripts/Prepare_Yum.sh"
+  config.vm.provision "shell", path: "Scripts/Prepare_Python.sh"
+  config.vm.provision "shell", path: "Scripts/Prepare_System.sh"
+
+  config.vm.define "homeDbServer" do |homeDbServer|
+    homeDbServer.vm.provider "virtualbox" do |vb|
+      vb.name = "Vagrant_HomeDbServer"
+      # Default is 1024M.
+      vb.memory = 2048
+      # Default is 1 CPU.
+      vb.cpus = 2
+    end
+
+    homeDbServer.vm.hostname = "db.djsilenceboy.com"
+
+    # Local provision will run after global provision.
+    # Configure IP manually.
+    homeDbServer.vm.provision "shell", run: "always", inline: "ifconfig enp0s8 192.168.0.52 netmask 255.255.255.0 up"
+
+    homeDbServer.vm.provision "shell", path: "Scripts/Install_PostgreSQL.sh"
+    # It requires to config after VM created.
+    homeDbServer.vm.provision "shell", path: "Scripts/Install_MySQL.sh"
+    homeDbServer.vm.provision "shell", path: "Scripts/Install_MongoDB.sh"
+    # It is not easy to install for Vagrant.
+    # homeDbServer.vm.provision "shell", path: "Scripts/Install_OracleXE.sh"
+  end
+
+  config.vm.define "homeApplicationServer" do |homeApplicationServer|
+    homeApplicationServer.vm.provider "virtualbox" do |vb|
+      vb.name = "Vagrant_HomeApplicationServer"
+      # Default is 1024M.
+      vb.memory = 3072
+      # Default is 1 CPU.
+      vb.cpus = 2
+    end
+
+    homeApplicationServer.vm.hostname = "appsvr.djsilenceboy.com"
+
+    # Local provision will run after global provision.
+    # Configure IP manually.
+    homeApplicationServer.vm.provision "shell", run: "always", inline: "ifconfig enp0s8 192.168.0.53 netmask 255.255.255.0 up"
+
+    homeApplicationServer.vm.provision "shell", path: "Scripts/Prepare_Development.sh"
+    homeApplicationServer.vm.provision "shell", path: "Scripts/Install_Ansible.sh"
+    homeApplicationServer.vm.provision "shell", path: "Scripts/Install_httpd.sh"
+    homeApplicationServer.vm.provision "shell", path: "Scripts/Install_Tomcat.sh"
+    homeApplicationServer.vm.provision "shell", path: "Scripts/Install_Jenkins.sh"
+  end
+end

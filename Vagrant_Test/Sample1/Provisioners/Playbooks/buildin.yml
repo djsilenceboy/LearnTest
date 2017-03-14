@@ -1,0 +1,12 @@
+---
+- name: Test build-in.
+  hosts: all
+  sudo: true
+  tasks:
+    - debug: var=ansible_version
+
+    - name: capture output of id command
+      command: id -un
+      register: login_info
+
+    - debug: var=login_info

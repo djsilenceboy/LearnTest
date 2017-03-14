@@ -28,3 +28,7 @@
 /**/__pycache__/
 /**/*.py[cod]
 /**/*$py.class
+
+
+# For Vagrant.
+/**/.vagrant/

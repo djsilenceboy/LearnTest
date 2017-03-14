@@ -1,0 +1,23 @@
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  # Use the same SSH key for each VM.
+  config.ssh.insert_key = false
+  config.vm.box = "bento/centos-7.3"
+
+  # This message will run when all other completed.
+  config.vm.post_up_message = "This is vagrant test sample."
+
+  # This is default folder mapping.
+  # config.vm.synced_folder ".", "/vagrant"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = "Vagrant_TestVMConfig"
+    # Default no GUI console.
+    vb.gui = true
+    # Default is 1024M.
+    vb.memory = 2048
+    # Default is 1 CPU.
+    vb.cpus = 2
+  end
+end

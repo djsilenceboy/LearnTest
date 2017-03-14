@@ -1,7 +1,7 @@
 ================================================================================
 https://docs.mongodb.com/master/tutorial/install-mongodb-on-red-hat/
 ================================================================================
-Install DB.
+Install DB for RHEL/CentOS.
 ------------------------------------------------------------
 Add yum repo.
 
@@ -9,10 +9,14 @@ Add yum repo.
 ----------------------------------------
 [mongodb-org-3.4]
 name=MongoDB Repository
-baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/testing/x86_64/
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.4/x86_64/
 gpgcheck=1
 enabled=1
 gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc
+------------------------------------------------------------
+For CentOS, change to this line:
+
+baseurl=https://repo.mongodb.org/yum/redhat/7/mongodb-org/3.4/x86_64/
 ------------------------------------------------------------
 Install by yum.
 
@@ -53,21 +57,22 @@ Create user in admin db.
 From console.
 
 ]# mongo
+
+Default is connect to test@localhost.
 ----------------------------------------
->
 use admin
 db.createUser(
-	{
-		user: "root",
-		pwd: "password",
-		roles: [{role: "root", db: "admin"}]
-	}
+  {
+    user: "root",
+    pwd: "Password",
+    roles: [{role: "root", db: "admin"}]
+  }
 )
 db.createUser(
-	{
-		user: "admin",
-		pwd: "password",
-		roles: [{role: "userAdminAnyDatabase", db: "admin"}]
+  {
+    user: "admin",
+    pwd: "Password",
+    roles: [{role: "userAdminAnyDatabase", db: "admin"}]
   }
 )
 ------------------------------------------------------------
@@ -76,57 +81,74 @@ From .js.
 mongo = new Mongo("localhost")
 db = mongo.getDB("admin")
 db.createUser(
-	{
-		user: "root",
-		pwd: "password",
-		roles: [{role: "root", db: "admin"}]
-	}
+  {
+    user: "root",
+    pwd: "Password",
+    roles: [{role: "root", db: "admin"}]
+  }
 )
 db.createUser(
-	{
-		user: "admin",
-		pwd: "password",
-		roles: [{role: "userAdminAnyDatabase", db: "admin"}]
+  {
+    user: "admin",
+    pwd: "Password",
+    roles: [{role: "userAdminAnyDatabase", db: "admin"}]
   }
 )
 ================================================================================
 Create user in test db.
 ------------------------------------------------------------
+From console.
+
+]# mongo
+
+Default is connect to test@localhost.
+----------------------------------------
+use test
+db.createUser(
+  {
+    user: "tester",
+    pwd: "Password",
+    roles: [{role: "dbOwner", db: "test"}]
+ }
+)
+------------------------------------------------------------
+From .js.
+----------------------------------------
 mongo = new Mongo("localhost")
 db = mongo.getDB("test")
 db.createUser(
-	{
-		user: "test",
-		pwd: "password",
-		roles: [{role: "dbOwner", db: "test"}]
-   }
+  {
+    user: "tester",
+    pwd: "Password",
+    roles: [{role: "dbOwner", db: "test"}]
+ }
 )
 ================================================================================
 Login admin db.
 ----------------------------------------
 >
 use admin
-db.auth("admin", "password")
+db.auth("admin", "Password")
 ------------------------------------------------------------
 Login and start with admin db from command line.
 ----------------------------------------
-]# mongo -u "root" -p "password" admin
-]# mongo -u "admin" -p "password" admin
+]# mongo -u "root" -p "Password" admin
+]# mongo -u "admin" -p "Password" admin
 ------------------------------------------------------------
 Login admin db but start with default test db from command line.
 ----------------------------------------
-]# mongo -u "root" -p "password" --authenticationDatabase admin
-]# mongo -u "admin" -p "password" --authenticationDatabase admin
+]# mongo -u "root" -p "Password" --authenticationDatabase admin
+]# mongo -u "admin" -p "Password" --authenticationDatabase admin
 ================================================================================
 Login test db.
 ----------------------------------------
 >
 use admin
-db.auth("tester", "password")
+db.auth("tester", "Password")
 ------------------------------------------------------------
 Login and start with test db from command line.
 ----------------------------------------
-]# mongo -u "test" -p "password" test
+]# mongo -u "test" -p "Password" test
 ================================================================================
 Show DB list.
 It must use root user.

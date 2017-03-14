@@ -1,0 +1,33 @@
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  # Use the same SSH key for each VM.
+  config.ssh.insert_key = false
+  config.vm.box = "bento/centos-7.3"
+
+  # This message will run when all other completed.
+  config.vm.post_up_message = "This is vagrant test sample."
+
+  # Use DHCP gateway.
+  config.vm.network "public_network", use_dhcp_assigned_default_route: true
+  # Not use DHCP IP, will configure IP manually.
+  config.vm.network "public_network", auto_config: false
+
+  config.vm.define "ansibleep1" do |ansibleep1|
+    ansibleep1.vm.provider "virtualbox" do |vb|
+      vb.name = "Vagrant_AnsibleEp1"
+    end
+    ansibleep1.vm.hostname = "ansibleep1.djsilenceboy.com"
+    # Configure IP manually.
+    ansibleep1.vm.provision "shell", run: "always", inline: "ifconfig enp0s8 192.168.0.51 netmask 255.255.255.0 up"
+  end
+
+  config.vm.define "ansibleep2" do |ansibleep2|
+    ansibleep2.vm.provider "virtualbox" do |vb|
+      vb.name = "Vagrant_AnsibleEp2"
+    end
+    ansibleep2.vm.hostname = "ansibleep2.djsilenceboy.com"
+    # Configure IP manually.
+    ansibleep2.vm.provision "shell", run: "always", inline: "ifconfig enp0s8 192.168.0.52 netmask 255.255.255.0 up"
+  end
+end
