@@ -2,8 +2,12 @@
 Install JBoss for CentOS/RHEL 7
 ------------------------------------------------------------
 ]# java -jar jboss-eap-7.0.0-installer.jar
-
 Installation path: /opt/eap7
+
+or
+
+Prepare "auto.xml" and "auto.xml.variables".
+]# java -jar jboss-eap-7.0.0-installer.jar auto.xml
 ------------------------------------------------------------
 Configuring JBoss EAP as a Service
 
@@ -16,6 +20,13 @@ Configuring JBoss EAP as a Service
 ----------------------------------------
 JBOSS_HOME="/opt/eap7"
 JBOSS_USER=root
+JBOSS_OPTS="$JBOSS_OPTS -Djboss.bind.address.management=0.0.0.0 -Djboss.bind.address:0.0.0.0"
+
+or
+
+sed -i "s/^.*JBOSS_HOME.*$/JBOSS_HOME=\"\/opt\/eap7\"/g" /etc/default/jboss-eap.conf
+sed -i "s/^.*JBOSS_USER.*$/JBOSS_USER=root/g" /etc/default/jboss-eap.conf
+sed -i "$ a\JBOSS_OPTS=\"\$JBOSS_OPTS -Djboss.bind.address.management=0.0.0.0 -Djboss.bind.address:0.0.0.0\"" /etc/default/jboss-eap.conf
 ------------------------------------------------------------
 ]# chkconfig --add jboss-eap-rhel.sh
 ]# chkconfig jboss-eap-rhel.sh on
@@ -24,28 +35,15 @@ JBOSS_USER=root
 or
 ]# systemctl start jboss-eap-rhel
 ================================================================================
-Add JDBC drivers
+Remote access management console
 ------------------------------------------------------------
-From Management console, under "Deployments" page, "Add":
-~/Downloads/jdbc_drivers/postgresql-9.4.1212.jar
-~/Downloads/jdbc_drivers/ojdbc6-11.2.0.4.jar
+]# vi /etc/default/jboss-eap.conf
+JBOSS_OPTS="$JBOSS_OPTS -Djboss.bind.address.management=0.0.0.0 -Djboss.bind.address:0.0.0.0"
+
+Restart service.
 ------------------------------------------------------------
 or
 
-]# cd /opt/eap7/modules
-]# /opt/eap7/bin/jboss-cli.sh
-connect
-------------------------------------------------------------
-MySQL
-
-module add --name=com.mysql --slot=main --resources=~/Downloads/jdbc_drivers/mysql-connector-java-5.1.40-bin.jar --dependencies=javax.api,javax.transaction.api
-----------------------------------------
-PostgreSQL
-
-module add --name=org.postgresql --slot=main --resources=~/Downloads/jdbc_drivers/postgresql-9.4.1212.jar --dependencies=javax.api,javax.transaction.api
-================================================================================
-Remote access management console
-------------------------------------------------------------
 From Management console, under "Configuration" page, "Interfaces" page, change:
 
 Name: management
@@ -67,4 +65,49 @@ or
             <inet-address value="${jboss.bind.address:0.0.0.0}"/>
         </interface>
     </interfaces>
+
+or
+
+sed -i "s/\(^.*inet-address.*\)127.0.0.1\(.*$\)/\10.0.0.0\2/g" /opt/eap7/standalone/configuration/standalone.xml
+================================================================================
+Add JDBC drivers
+------------------------------------------------------------
+From Management console, under "Deployments" page, "Add":
+~/Downloads/jdbc_drivers/mysql-connector-java-5.1.41-bin.jar
+~/Downloads/jdbc_drivers/ojdbc6-11.2.0.4.jar
+~/Downloads/jdbc_drivers/postgresql-42.0.0.jar
+------------------------------------------------------------
+or add drivers into "/opt/eap7/modules".
+
+]# /opt/eap7/bin/jboss-cli.sh
+----------------------------------------
+MySQL
+
+module add --name=com.mysql --slot=main --resources=~/Downloads/jdbc_drivers/mysql-connector-java-5.1.41-bin.jar --dependencies=javax.api,javax.transaction.api
+----------------------------------------
+Oracle XE
+
+module add --name=oracle.jdbc --slot=main --resources=~/Downloads/jdbc_drivers/ojdbc6-11.2.0.4.jar --dependencies=javax.api,javax.transaction.api
+----------------------------------------
+PostgreSQL
+
+module add --name=org.postgresql --slot=main --resources=~/Downloads/jdbc_drivers/postgresql-42.0.0.jar --dependencies=javax.api,javax.transaction.api
+
+/subsystem=ee:write-attribute(name=global-modules,value=[{name=org.postgresql}]
+----------------------------------------
+connect
+
+/subsystem=ee:write-attribute(name=global-modules,value=[{name=com.mysql},{name=oracle.jdbc},{name=org.postgresql}]
+
+/subsystem=datasources/jdbc-driver=mysql:add(driver-name=mysql,driver-module-name=com.mysql,driver-xa-datasource-class-name=com.mysql.jdbc.jdbc2.optional.MysqlXADataSource, driver-class-name=com.mysql.jdbc.Driver)
+
+/subsystem=datasources/jdbc-driver=oraclexe:add(driver-name=oraclexe,driver-module-name=oracle.jdbc,driver-xa-datasource-class-name=oracle.jdbc.xa.OracleXADataSource)
+
+/subsystem=datasources/jdbc-driver=postgresql:add(driver-name=postgresql,driver-module-name=org.postgresql,driver-xa-datasource-class-name=org.postgresql.xa.PGXADataSource)
+
+data-source add --name=MySqlDS --jndi-name=java:jboss/MySqlDS --driver-name=mysql --connection-url=jdbc:mysql://192.168.0.52:3306/test --user-name=tester --password=P@ssw0rd --validate-on-match=true --background-validation=false
+
+data-source add --name=OracleXeDS --jndi-name=java:jboss/OracleXeDS --driver-name=oraclexe --connection-url=jdbc:oracle:thin:@192.168.0.22:1521:xe --user-name=tester --password=P@ssw0rd --validate-on-match=true --background-validation=false
+
+data-source add --name=PostgreSqlDS --jndi-name=java:jboss/PostgreSqlDS --driver-name=postgresql --connection-url=jdbc:postgresql://192.168.0.52:5432/test --user-name=tester --password=P@ssw0rd --validate-on-match=true --background-validation=false
 ================================================================================

@@ -65,4 +65,23 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     homeApplicationServer.vm.provision "shell", path: "Scripts/Install_Tomcat.sh"
     homeApplicationServer.vm.provision "shell", path: "Scripts/Install_Jenkins.sh"
   end
+
+  config.vm.define "homeJbossServer" do |homeJbossServer|
+    homeJbossServer.vm.provider "virtualbox" do |vb|
+      vb.name = "Vagrant_HomeJbossServer"
+      # Default is 1024M.
+      vb.memory = 3072
+      # Default is 1 CPU.
+      vb.cpus = 2
+    end
+
+    homeJbossServer.vm.hostname = "jboss.djsilenceboy.com"
+
+    # Local provision will run after global provision.
+    # Configure IP manually.
+    homeJbossServer.vm.provision "shell", run: "always", inline: "ifconfig enp0s8 192.168.0.54 netmask 255.255.255.0 up"
+
+    homeJbossServer.vm.provision "shell", path: "Scripts/Prepare_Development.sh"
+    homeJbossServer.vm.provision "shell", path: "Scripts/Install_JBossEAP.sh"
+  end
 end
