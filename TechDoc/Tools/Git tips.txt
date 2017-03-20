@@ -144,6 +144,11 @@ Rebase source checked-out branch to target branch.
 Rebase from source checked-out branch to target branch by referring related branch.
 
 > git rebase --onto <TargetBranchName> <RelatedBranchName> <SourceBranchName>
+------------------------------------------------------------
+Rebase interactively.
+
+> git rebase --interactive master
+> git rebase --continue
 ================================================================================
 Pull from remote to local
 ------------------------------------------------------------

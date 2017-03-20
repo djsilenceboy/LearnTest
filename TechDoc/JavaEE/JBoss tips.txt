@@ -9,6 +9,11 @@ or
 Prepare "auto.xml" and "auto.xml.variables".
 ]# java -jar jboss-eap-7.0.0-installer.jar auto.xml
 ------------------------------------------------------------
+To uninstall.
+
+]# cd /opt/eap7/uninstaller
+]# java -jar uninstaller.jar
+================================================================================
 Configuring JBoss EAP as a Service
 
 ]# cp /opt/eap7/bin/init.d/jboss-eap.conf /etc/default
@@ -38,7 +43,7 @@ or
 Remote access management console
 ------------------------------------------------------------
 ]# vi /etc/default/jboss-eap.conf
-JBOSS_OPTS="$JBOSS_OPTS -Djboss.bind.address.management=0.0.0.0 -Djboss.bind.address:0.0.0.0"
+JBOSS_OPTS="$JBOSS_OPTS -Djboss.bind.address.management=0.0.0.0 -Djboss.bind.address=0.0.0.0"
 
 Restart service.
 ------------------------------------------------------------
@@ -110,4 +115,14 @@ data-source add --name=MySqlDS --jndi-name=java:jboss/MySqlDS --driver-name=mysq
 data-source add --name=OracleXeDS --jndi-name=java:jboss/OracleXeDS --driver-name=oraclexe --connection-url=jdbc:oracle:thin:@192.168.0.22:1521:xe --user-name=tester --password=P@ssw0rd --validate-on-match=true --background-validation=false
 
 data-source add --name=PostgreSqlDS --jndi-name=java:jboss/PostgreSqlDS --driver-name=postgresql --connection-url=jdbc:postgresql://192.168.0.52:5432/test --user-name=tester --password=P@ssw0rd --validate-on-match=true --background-validation=false
+================================================================================
+Admin portal
+
+http://localhost:9990/console
+------------------------------------------------------------
+tail -F -n100 /opt/eap7/standalone/log/server.log
+tail -F -n100 /var/log/jboss-eap/console.log
+
+alias tailsv='tail -F -n100 /opt/eap7/standalone/log/server.log'
+alias tailcs='tail -F -n100 /var/log/jboss-eap/console.log'
 ================================================================================

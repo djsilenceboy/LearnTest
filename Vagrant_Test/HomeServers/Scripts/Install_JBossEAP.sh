@@ -15,7 +15,7 @@ chmod +x /etc/init.d/jboss-eap-rhel.sh
 sed -i "s/^.*JBOSS_HOME.*$/JBOSS_HOME=\"\/opt\/eap7\"/g" /etc/default/jboss-eap.conf
 sed -i "s/^.*JBOSS_USER.*$/JBOSS_USER=root/g" /etc/default/jboss-eap.conf
 # Enable remote access.
-sed -i "$ a\JBOSS_OPTS=\"\$JBOSS_OPTS -Djboss.bind.address.management=0.0.0.0 -Djboss.bind.address:0.0.0.0\"" /etc/default/jboss-eap.conf
+sed -i "$ a\JBOSS_OPTS=\"\$JBOSS_OPTS -Djboss.bind.address.management=0.0.0.0 -Djboss.bind.address=0.0.0.0\"" /etc/default/jboss-eap.conf
 
 # Enable and start service.
 chkconfig --add jboss-eap-rhel.sh
@@ -41,7 +41,7 @@ connect
 
 /subsystem=datasources/jdbc-driver=postgresql:add(driver-name=postgresql,driver-module-name=org.postgresql,driver-xa-datasource-class-name=org.postgresql.xa.PGXADataSource)
 
-data-source add --name=MySqlDS --jndi-name=java:jboss/MySqlDS --driver-name=mysql --connection-url=jdbc:mysql://192.168.0.52:3306/test --user-name=tester --password=P@ssw0rd --validate-on-match=true --background-validation=false
+data-source add --name=MySqlDSvg --jndi-name=java:jboss/MySqlDSvg --driver-name=mysql --connection-url=jdbc:mysql://192.168.0.52:3306/test --user-name=tester --password=P@ssw0rd --validate-on-match=true --background-validation=false
 
-data-source add --name=PostgreSqlDS --jndi-name=java:jboss/PostgreSqlDS --driver-name=postgresql --connection-url=jdbc:postgresql://192.168.0.52:5432/test --user-name=tester --password=P@ssw0rd --validate-on-match=true --background-validation=false
+data-source add --name=PostgreSqlDSvg --jndi-name=java:jboss/PostgreSqlDSvg --driver-name=postgresql --connection-url=jdbc:postgresql://192.168.0.52:5432/test --user-name=tester --password=P@ssw0rd --validate-on-match=true --background-validation=false
 EOF
