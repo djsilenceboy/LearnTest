@@ -1,0 +1,6 @@
+VagrantEp1 ansible_ssh_host=192.168.0.51 ansible_ssh_port=22
+VagrantEp2 ansible_ssh_host=192.168.0.52 ansible_ssh_port=22
+
+[WebServers]
+VagrantEp1
+VagrantEp2

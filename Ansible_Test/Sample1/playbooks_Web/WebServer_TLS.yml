@@ -1,0 +1,53 @@
+---
+- name: Configure webserver with nginx and tls
+  hosts: WebServers
+  sudo: True
+  vars:
+    key_file: /etc/nginx/ssl/nginx.key
+    cert_file: /etc/nginx/ssl/nginx.crt
+    conf_file: /etc/nginx/nginx.conf
+    server_name: localhost
+  tasks:
+    - name: install epel repo
+      yum:
+        name: epel-release
+        state: latest
+        update_cache: yes
+
+    - name: install nginx
+      yum:
+        name: nginx
+        state: latest
+        update_cache: yes
+
+    - name: create directories for TLS certificates
+      file: path=/etc/nginx/ssl state=directory
+
+    - name: copy TLS key
+      copy:
+        src: Nginx/nginx.key
+        dest: "{{ key_file }}"
+        owner: root
+        mode: 0600
+      notify: restart nginx
+
+    - name: copy TLS certificate
+      copy: src=Nginx/nginx.crt dest={{ cert_file }}
+      notify: restart nginx
+
+    - name: copy nginx config file
+      template:
+        src: Nginx/nginx.conf.j2
+        dest: "{{ conf_file }}"
+      notify: restart nginx
+
+    - name: copy index.html
+      template: >
+        src=Nginx/index.html.j2
+        dest=/usr/share/nginx/html/index.html
+        mode=0644
+
+  handlers:
+    - name: restart nginx
+      service: name=nginx state=restarted
+

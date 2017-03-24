@@ -1,0 +1,45 @@
+---
+- name: Install MySQL v5.7
+  hosts: VagrantDbServer
+  sudo: True
+  vars:
+    local_installation_file_path: /cygdrive/f/Download/Shared
+    local_config_file_path: files
+    remote_temp_path: /tmp
+    mysql_repo_file: mysql57-community-release-el7-9.noarch.rpm
+  tasks:
+    - name: Copy Repo file to remote
+      copy:
+        src: "{{ local_installation_file_path }}/{{ mysql_repo_file }}"
+        dest: "{{ remote_temp_path }}"
+
+    - name: Install repo
+      yum:
+        name: "{{ remote_temp_path }}/{{ mysql_repo_file }}"
+        state: present
+
+    - name: Install DB
+      yum:
+        name: mysql-community-server
+        state: latest
+        update_cache: yes
+
+    - name: Enable and start service
+      service:
+        name: mysqld
+        enabled: yes
+        state: started
+
+    - name: Sleep
+      pause:
+        seconds: 5
+
+    - name: Copy config files to remote
+      copy:
+        src: "{{ item }}"
+        dest: "{{ remote_temp_path }}/"
+        mode: "a+x"
+      with_fileglob:
+        - "{{ local_config_file_path }}/MySQL_Config_*.sh"
+
+    - debug: msg="Please run {{ remote_temp_path }}/MySQL_Config_1.sh and then {{ remote_temp_path }}/MySQL_Config_2.sh."

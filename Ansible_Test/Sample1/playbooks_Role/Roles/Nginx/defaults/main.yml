@@ -1,0 +1,3 @@
+---
+# defaults file for Nginx
+server_name: localhost

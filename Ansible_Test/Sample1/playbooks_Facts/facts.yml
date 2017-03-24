@@ -1,0 +1,5 @@
+---
+- name: Test facts.
+  hosts: VagrantEps
+  tasks:
+    - debug: var=ansible_version

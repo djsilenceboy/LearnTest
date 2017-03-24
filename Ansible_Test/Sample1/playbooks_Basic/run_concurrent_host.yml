@@ -1,0 +1,20 @@
+---
+- name: Process hosts in sequence.
+  hosts: VagrantEps
+  serial: 1
+  tasks:
+    - name: capture output of id command
+      command: id -un
+      register: login_info
+
+    - debug: var=login_info
+
+- name: Process 2 hosts concurrently.
+  hosts: VagrantEps
+  serial: 2
+  tasks:
+    - name: capture output of id command
+      command: id -un
+      register: login_info
+
+    - debug: var=login_info

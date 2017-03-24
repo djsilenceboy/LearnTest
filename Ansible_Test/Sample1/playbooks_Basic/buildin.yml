@@ -1,0 +1,59 @@
+---
+- name: Test build-in.
+  hosts: VagrantEps
+  gather_facts: False
+  tasks:
+    # hostvars includes all info of all hosts for this play.
+    - name: show hostvars
+      debug: var=hostvars
+
+    # play_hosts includes all host names for current play.
+    - name: show play_hosts
+      debug: var=play_hosts
+
+    # Only for current host of current play.
+    - debug: var=ansible_version
+    - debug: var=group_names
+    - debug: var=inventory_hostname
+    - debug: var=hostvars[inventory_hostname]
+
+
+- name: Test debug, gather_facts, run_once, assert.
+  hosts: VagrantEps
+  gather_facts: False
+  tasks:
+    - name: capture output of id command
+      command: id -un
+      register: login_info
+
+    - debug: var=login_info
+
+    - debug: msg="Logged in as user {{ login_info.stdout }}"
+
+    - name: gather facts
+      setup:
+      run_once: true
+
+    - assert:
+        that: login_info
+
+
+- name: Test debug, with_items, with_dict.
+  hosts: VagrantEps
+  gather_facts: False
+  tasks:
+    - debug: msg="Fruit is {{ item }}."
+      with_items:
+        - Apple
+        - Orange
+        - Banana
+
+    - debug: msg="Fruit is {{ item.name }} ({{ item.quantity }})."
+      with_items:
+        - {name: Apple, quantity: 10}
+        - {name: Orange, quantity: 20}
+        - {name: Banana, quantity: 30}
+
+    - debug: msg="Fruit is {{ item.key }} ({{ item.value }})."
+      with_dict:
+        {Apple: 10, Orange: 20, Banana: 30}

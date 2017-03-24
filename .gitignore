@@ -1,34 +1,56 @@
-# For Eclipse.
+# For general purpose.
+/**/Temp/
+/**/temp/
 
+
+# For Ansible.
+/Ansible_Test/**/*.retry
+
+
+# For Eclipse.
 /**/.checkstyle
 /**/.pmd
 /**/*.epf
 /**/*.userlibraries
 
 
-# For Eclipse, Java.
-
-/**/.metadata/
-/**/bin/
-/**/build/
-/**/dist/
-/**/gen/
-/**/target/
-/**/temp/
-/**/ztest/log/
-/**/*.class
-
-
 # For Eclipse, Cpp.
-/**/Debug/
+/Cpp_Test/**/Debug/
+
+# For Eclipse, GoogleAE.
+/GoogleAE_Test
+/GoogleAE_Test/**/bin/
+/GoogleAE_Test/**/build/
+/GoogleAE_Test/**/dist/
+/GoogleAE_Test/**/gen/
+/GoogleAE_Test/**/target/
+/GoogleAE_Test/**/ztest/log/
+/GoogleAE_Test/**/*.class
 
 
-# For Python.
+# For Eclipse, Java.
+/Java_Test/**/.metadata/
+/Java_Test/**/bin/
+/Java_Test/**/build/
+/Java_Test/**/dist/
+/Java_Test/**/gen/
+/Java_Test/**/target/
+/Java_Test/**/ztest/log/
+/Java_Test/**/*.class
 
-/**/__pycache__/
-/**/*.py[cod]
-/**/*$py.class
+
+# For Eclipse, Python.
+/Python_Test/**/__pycache__/
+/Python_Test/**/*.pyc
+/Python_Test/**/*.pyo
+/Python_Test/**/*.pyd
+/Python_Test/**/*$py.class
+
+
+# For Eclipse, Ruby.
+/Ruby_Test/**/bin/
+/Ruby_Test/**/tests/
 
 
 # For Vagrant.
-/**/.vagrant/
+/Vagrant_Test/**/.vagrant/

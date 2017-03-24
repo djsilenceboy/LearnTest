@@ -1,0 +1,5 @@
+---
+# vars file for Nginx
+key_file: /etc/nginx/ssl/nginx.key
+cert_file: /etc/nginx/ssl/nginx.crt
+conf_file: /etc/nginx/nginx.conf

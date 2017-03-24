@@ -1,0 +1,42 @@
+---
+- name: Install MongoDB v3.4
+  hosts: VagrantDbServer
+  sudo: True
+  vars:
+    local_config_file_path: files
+    remote_temp_path: /tmp
+    mongo_repo_file: mongodb-org-3.4.repo
+    mongo_config_file: Mongo_Create.sh
+  tasks:
+    - name: Copy Repo file to remote
+      copy:
+        src: "{{ local_config_file_path }}/{{ mongo_repo_file }}"
+        dest: /etc/yum.repos.d
+
+    - name: Install DB
+      yum:
+        name: mongodb-org
+        state: latest
+        update_cache: yes
+
+    - name: Enable remote access
+      shell: sed -i "s/\(^.*bindIp.*$\)/#\1/g" /etc/mongod.conf
+
+    - name: Enable and start service
+      service:
+        name: mongod
+        enabled: yes
+        state: started
+
+    - name: Sleep
+      pause:
+        seconds: 5
+
+    - name: Copy config file to remote
+      copy:
+        src: "{{ local_config_file_path }}/{{ mongo_config_file }}"
+        dest: "{{ remote_temp_path }}"
+        mode: "a+x"
+
+    - name: Creat DB and users
+      shell: "{{ remote_temp_path }}/{{ mongo_config_file }}"

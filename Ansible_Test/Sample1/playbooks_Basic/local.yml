@@ -1,0 +1,16 @@
+---
+- name: Test local and local_action.
+  hosts: 127.0.0.1
+  connection: local
+  tasks:
+    - name: Test ls.
+      local_action: command ls
+      register: result
+
+    - debug: var=result.stdout_lines
+
+    - name: Test pwd.
+      local_action: command pwd
+      register: result2
+
+    - debug: var=result2.stdout_lines

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# The input parameters are saved to a temp file.
+# $1 is that file's path.
+
+# By default, the temp file format is ENVIRONMENT variable list.
+source $1
+
+# If add keyword "WANT _ JSON" (no space in between) in any comment in this script.
+# The temp file format will be JSON format.
+# Thus it is better to use some JSON parser to retrieve parameters.
+
+echo > /dev/tcp/$host/$port
+if [ $? -eq 0 ]; then
+    echo '{"changed": false}'
+else
+    echo "{\"failed\": true, \"msg\": \"could not reach $host:$port\"}"
+fi

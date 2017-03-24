@@ -1,0 +1,22 @@
+events {
+	worker_connections	1024;
+}
+
+http {
+	server {
+		listen	80;
+        listen  443 ssl;
+
+		server_name	{{ server_name }};
+        ssl_certificate {{ cert_file }};
+        ssl_certificate_key {{ key_file }};
+
+		location / {
+			root	html;
+			index	index.html index.htm;
+        }
+
+        #error_page  404              /404.html;
+	}
+}
+

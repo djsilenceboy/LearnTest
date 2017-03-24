@@ -176,11 +176,15 @@ Merge specified remote branch into current checked-out branch.
 
 > git merge <RemoteName>/<SourceBranchName>
 ------------------------------------------------------------
-Get and merge together.
+Get and merge/rebase together.
 
 Get and merge remote branch "origin/master" into current checked-out branch.
 
 > git pull
+
+Get and rebase remote branch "origin/master" into current checked-out branch.
+
+> git pull --rebase
 
 Get and merge specified remote "origin" branch into current checked-out branch.
 

@@ -1,0 +1,27 @@
+---
+- name: Test script module
+  hosts: VagrantEp1
+  tasks:
+    - name: Check info.
+      script: Scripts/CheckInfo.sh
+      register: result
+
+    - debug: var=result.stdout_lines
+
+    - name: Check connection by script.
+      script: Scripts/CheckConnection.sh www.google.com 443
+      register: result
+
+    - debug: var=result.stdout_lines
+
+    - name: Check connection by Python module.
+      CheckConnection: host=www.google.com port=443 timeout=1
+      register: result
+
+    - debug: var=result
+
+    - name: Check connection by Bash module.
+      CheckConnection_Bash: host=www.google.com port=443
+      register: result
+
+    - debug: var=result

@@ -1,0 +1,39 @@
+================================================================================
+]$ cd playbooks/Nginx
+]$ openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout nginx.key -out nginx.crt -subj "/CN=localhost"
+================================================================================
+]$ cd playbooks_Web
+
+]$ ansible-playbook WebServer_NoTLS.yml
+]$ ansible-playbook WebServer_TLS.yml
+================================================================================
+]$ cd playbooks_Basic
+
+]$ ansible-playbook buildin.yml
+]$ ansible-playbook debug.yml
+
+]$ ansible-playbook greet.yml
+]$ ansible-playbook greet.yml -e greeting=Hello
+]$ ansible-playbook greet.yml -e 'greeting="Hello Friend!"'
+]$ ansible-playbook greet.yml -e @greetvars.yml
+
+]$ ansible-playbook -l VagrantEp1 buildin.yml
+================================================================================
+]$ ansible-playbook --syntax-check buildin.yml
+]$ ansible-playbook --list-hosts buildin.yml
+]$ ansible-playbook --list-tasks buildin.yml
+
+]$ ansible-playbook -C buildin.yml
+
+]$ ansible-playbook --step buildin.yml
+
+]$ ansible-playbook --start-at-task "show play_hosts" buildin.yml
+================================================================================
+]$ ansible-playbook -t enabled debug.yml
+================================================================================
+]$ ansible-galaxy init -p Roles Nginx
+================================================================================
+]$ ssh -o ControlMaster=auto -o ControlPersist=60s -o ControlPath=./Temp vagrant@192.168.0.51
+
+]$ ssh -o ControlPath=./Temp -O check vagrant@192.168.0.51
+================================================================================

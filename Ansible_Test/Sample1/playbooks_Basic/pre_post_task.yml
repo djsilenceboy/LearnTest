@@ -1,0 +1,12 @@
+---
+- name: test pre/post task
+  hosts: VagrantEps
+
+  pre_tasks:
+    - debug: msg=Hello
+
+  tasks:
+    - debug: msg="Good day"
+
+  post_tasks:
+    - debug: msg=Bye

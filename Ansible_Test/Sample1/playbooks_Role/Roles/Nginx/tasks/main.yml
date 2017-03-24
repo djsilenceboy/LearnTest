@@ -1,0 +1,42 @@
+---
+# tasks file for Nginx
+- name: install epel repo
+  sudo: True
+  yum:
+    name: epel-release
+    state: latest
+    update_cache: yes
+
+- name: install nginx
+  sudo: True
+  yum:
+    name: nginx
+    state: latest
+    update_cache: yes
+
+- name: create directories for TLS certificates
+  file: path=/etc/nginx/ssl state=directory
+
+- name: copy TLS key
+  copy:
+    src: nginx.key
+    dest: "{{ key_file }}"
+    owner: root
+    mode: 0600
+  notify: restart nginx
+
+- name: copy TLS certificate
+  copy: src=nginx.crt dest={{ cert_file }}
+  notify: restart nginx
+
+- name: copy nginx config file
+  template:
+    src: nginx.conf.j2
+    dest: "{{ conf_file }}"
+  notify: restart nginx
+
+- name: copy index.html
+  template: >
+    src=index.html.j2
+    dest=/usr/share/nginx/html/index.html
+    mode=0644

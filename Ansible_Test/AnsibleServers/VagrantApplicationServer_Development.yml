@@ -1,0 +1,19 @@
+---
+- name: Install development tools
+  hosts: VagrantApplicationServer
+  sudo: True
+  tasks:
+    - name: Install development group
+      yum:
+        name: "@Development Tools"
+        state: present
+        update_cache: yes
+
+    - name: Install tools
+      yum:
+        name: "{{ item }}"
+        state: latest
+        update_cache: yes
+      with_items:
+        - python-devel
+        - openssl-devel

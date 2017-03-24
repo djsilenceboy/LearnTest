@@ -1,0 +1,19 @@
+---
+- name: Install httpd
+  hosts: VagrantApplicationServer
+  sudo: True
+  tasks:
+    - name: Install application
+      yum:
+        name: httpd
+        state: latest
+        update_cache: yes
+
+    - name: Config service
+      shell: sed -i "s/\(ServerName\).*$/\1  "$(hostname)"/g" /etc/httpd/conf/httpd.conf
+
+    - name: Enable and start service
+      service:
+        name: httpd
+        enabled: yes
+        state: started

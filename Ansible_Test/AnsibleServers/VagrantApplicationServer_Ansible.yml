@@ -1,0 +1,7 @@
+---
+- name: Install Ansible
+  hosts: VagrantApplicationServer
+  sudo: True
+  tasks:
+    - name: Install application
+      shell: pip install ansible

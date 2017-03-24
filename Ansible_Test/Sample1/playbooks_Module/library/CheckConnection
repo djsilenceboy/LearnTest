@@ -1,0 +1,74 @@
+#!/usr/bin/python
+
+DOCUMENTATION='''
+module: CheckConnection
+short_description: xxx
+description:
+ - xxxxxx
+version_added: "1.0"
+options:
+  host:
+    description:
+      - xxx
+    required: true
+  port:
+    description:
+      - xxx
+    required: true
+  timeout:
+    description:
+      - xxx
+    required: false
+    default: 3
+  flavor:
+    description:
+      - xxx
+    required: false
+    choices: ["Fa", "Fb", "Fc"]
+    aliases: ["flavour"]
+    default: Fa
+author: xx
+notes:
+  - xxx
+  - xxx
+'''
+
+EXAMPLES='''
+    - name: Check connection by Python module.
+      CheckConnection: host=www.google.com port=443 timeout=1
+'''
+
+def CheckConnection(module, host, port, timeout):
+    args = ["echo", "> /dev/tcp/{0}/{1}".format(host, port)]
+    (rc, stdout, stderr) = module.run_command(args)
+    return rc == 0
+
+def main():
+    module = AnsibleModule(
+        argument_spec=dict(
+            host=dict(required=True),
+            port=dict(required=True, type='int'),
+            timeout=dict(required=False, type='int', default=3)
+        ),
+        supports_check_mode=True
+    )
+
+    # In check mode, we take no action
+    # Since this module never changes system state, we just
+    # return changed=False
+    if module.check_mode:
+        module.exit_json(changed=False)
+
+    host = module.params['host']
+    port = module.params['port']
+    timeout = module.params['timeout']
+
+    if CheckConnection(module, host, port, timeout):
+        msg = "Reached {0}:{1}".format(host, port)
+        module.exit_json(changed=False, msg=msg)
+    else:
+        msg = "Could not reach {0}:{1}".format(host, port)
+        module.fail_json(msg=msg)
+
+from ansible.module_utils.basic import *
+main()

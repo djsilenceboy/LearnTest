@@ -1,0 +1,6 @@
+---
+- name: Configure webserver with nginx and tls
+  hosts: WebServers
+  sudo: True
+  roles:
+    - role: Nginx

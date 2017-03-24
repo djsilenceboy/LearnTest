@@ -1,0 +1,40 @@
+---
+- name: Install Jenkins
+  hosts: VagrantApplicationServer
+  sudo: True
+  vars:
+    local_installation_file_path: /cygdrive/f/Download/Shared
+    jenkins_installation_file: jenkins.war
+    tomcat_folder: /opt/tomcat/webapps
+    jenkins_folder: /opt/jenkins
+  tasks:
+    - name: Create working folder
+      file:
+        state: directory
+        path: "{{ jenkins_folder }}"
+        group: tomcat
+        owner: tomcat
+        mode: u+rwx,g+rwx,o+rw
+        recurse: yes
+
+    - name: Add config in Tomcat service
+      shell: sed -i '/.*JAVA_OPTS.*/ a\Environment=JENKINS_HOME=/opt/jenkins' /etc/systemd/system/tomcat.service
+
+    - name: Copy installation file to remote
+      copy:
+        src: "{{ local_installation_file_path }}/{{ jenkins_installation_file }}"
+        dest: "{{ tomcat_folder }}"
+
+    - name: Change privileges
+      file:
+        state: file
+        path: "{{ tomcat_folder }}/{{ jenkins_installation_file }}"
+        group: tomcat
+        owner: tomcat
+        mode: u+rwx,g+rwx,o+rw
+
+    - name: Reload and restart service
+      service:
+        name: tomcat
+        daemon_reload: true
+        state: restarted

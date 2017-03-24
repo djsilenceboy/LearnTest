@@ -1,0 +1,146 @@
+---
+- name: Install PostgreSQL v9.5
+  hosts: VagrantDbServer
+  sudo: True
+  tasks:
+    - name: Install repo
+      yum:
+        name: http://yum.postgresql.org/9.5/redhat/rhel-7-x86_64/pgdg-centos95-9.5-3.noarch.rpm
+
+    - name: Install DB 1
+      yum:
+        name: postgresql95-server
+        state: latest
+        update_cache: yes
+
+    - name: Install DB 2
+      yum:
+        name: postgresql95-contrib
+        state: latest
+        update_cache: yes
+
+    - name: Initial DB
+      shell: /usr/pgsql-9.5/bin/postgresql95-setup initdb
+
+    - name: Enable remote access 1
+      shell: sed -i '/.*listen_addresses.*/ a\listen_addresses = '"'"'*'"'" /var/lib/pgsql/9.5/data/postgresql.conf
+
+    - name: Enable remote access 2
+      shell: sed -i 's/^local.*$/local   all             all                                     trust/g' /var/lib/pgsql/9.5/data/pg_hba.conf
+
+    - name: Enable remote access 3
+      shell: sed -i '$ a\host    all             all             192.168.0.1/24          md5' /var/lib/pgsql/9.5/data/pg_hba.conf
+
+    - name: Enable and start service
+      service:
+        name: postgresql-9.5
+        enabled: yes
+        state: started
+
+    - name: Sleep
+      pause:
+        seconds: 5
+
+    - name: Create role
+      shell: psql -c "CREATE ROLE tester WITH LOGIN CREATEDB PASSWORD 'P@ssw0rd'"
+      become: true
+      become_user: postgres
+
+    - name: Create DB
+      shell: psql -c "CREATE DATABASE test OWNER tester"
+      become: true
+      become_user: postgres
+
+    - name: Grant privileges
+      shell: psql -c "GRANT ALL PRIVILEGES ON DATABASE test TO tester"
+      become: true
+      become_user: postgres
+
+
+- name: Install MySQL v5.7
+  hosts: VagrantDbServer
+  sudo: True
+  vars:
+    local_installation_file_path: /cygdrive/f/Download/Shared
+    local_config_file_path: files
+    remote_temp_path: /tmp
+    mysql_repo_file: mysql57-community-release-el7-9.noarch.rpm
+  tasks:
+    - name: Copy Repo file to remote
+      copy:
+        src: "{{ local_installation_file_path }}/{{ mysql_repo_file }}"
+        dest: "{{ remote_temp_path }}"
+
+    - name: Install repo
+      yum:
+        name: "{{ remote_temp_path }}/{{ mysql_repo_file }}"
+        state: present
+
+    - name: Install DB
+      yum:
+        name: mysql-community-server
+        state: latest
+        update_cache: yes
+
+    - name: Enable and start service
+      service:
+        name: mysqld
+        enabled: yes
+        state: started
+
+    - name: Sleep
+      pause:
+        seconds: 5
+
+    - name: Copy config files to remote
+      copy:
+        src: "{{ item }}"
+        dest: "{{ remote_temp_path }}/"
+        mode: "a+x"
+      with_fileglob:
+        - "{{ local_config_file_path }}/MySQL_Config_*.sh"
+
+    - debug: msg="Please run {{ remote_temp_path }}/MySQL_Config_1.sh and then {{ remote_temp_path }}/MySQL_Config_2.sh."
+
+
+- name: Install MongoDB v3.4
+  hosts: VagrantDbServer
+  sudo: True
+  vars:
+    local_config_file_path: files
+    remote_temp_path: /tmp
+    mongo_repo_file: mongodb-org-3.4.repo
+    mongo_config_file: Mongo_Create.sh
+  tasks:
+    - name: Copy Repo file to remote
+      copy:
+        src: "{{ local_config_file_path }}/{{ mongo_repo_file }}"
+        dest: /etc/yum.repos.d
+
+    - name: Install DB
+      yum:
+        name: mongodb-org
+        state: latest
+        update_cache: yes
+
+    - name: Enable remote access
+      shell: sed -i "s/\(^.*bindIp.*$\)/#\1/g" /etc/mongod.conf
+
+    - name: Enable and start service
+      service:
+        name: mongod
+        enabled: yes
+        state: started
+
+    - name: Sleep
+      pause:
+        seconds: 5
+
+    - name: Copy config file to remote
+      copy:
+        src: "{{ local_config_file_path }}/{{ mongo_config_file }}"
+        dest: "{{ remote_temp_path }}"
+        mode: "a+x"
+
+    - name: Creat DB and users
+      shell: "{{ remote_temp_path }}/{{ mongo_config_file }}"
