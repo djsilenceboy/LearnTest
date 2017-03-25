@@ -16,6 +16,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # This is default folder mapping.
   config.vm.synced_folder "F:/Download/Shared", "/vagrant", owner: "root", group: "root"
 
+  # Install software.
+  config.vm.provision "shell", path: "Scripts/Prepare_Yum.sh"
+  config.vm.provision "shell", path: "Scripts/Prepare_Python.sh"
+  config.vm.provision "shell", path: "Scripts/Prepare_System.sh"
+
   config.vm.define "ansibleDbServer" do |ansibleDbServer|
     ansibleDbServer.vm.provider "virtualbox" do |vb|
       vb.name = "Vagrant_AnsibleDbServer"

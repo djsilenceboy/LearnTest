@@ -7,7 +7,7 @@ https://training.github.com/kit/downloads/github-git-cheat-sheet.pdf
 ================================================================================
 Local Git repository
 ------------------------------------------------------------
-Create a new local repository
+Create a new local repository.
 
 The default branch is "master".
 
@@ -15,7 +15,7 @@ The default branch is "master".
 ================================================================================
 Repository
 ------------------------------------------------------------
-Clone local repository
+Clone local repository.
 
 To current folder.
 
@@ -25,7 +25,7 @@ To specified folder.
 
 > git clone /path/to/repository /path/to/another_repository
 ------------------------------------------------------------
-Clone remote repository
+Clone remote repository.
 
 The default remote name/branch is "origin/master".
 
@@ -36,7 +36,7 @@ The remote name/branch will be "<NewRemoteName>/master".
 
 > git clone username@host:/path/to/repository <NewRemoteName>
 ------------------------------------------------------------
-Add remote repository to local
+Add remote repository to local.
 (Especially, local repository is not clone from remote one.)
 
 > git remote add <NewRemoteName> git://host[:port]/path/to/repo.git/
@@ -47,11 +47,11 @@ It can add several <NewRemoteName> for same repository.
 > git remote add origin "Repo1"
 > git remote add tom "Repo1"
 ------------------------------------------------------------
-Remove remote repository from local
+Remove remote repository from local.
 
 > git remote rm <ExistingRemoteName>
 ------------------------------------------------------------
-Check repository
+Check repository.
 
 Show remote name list.
 
@@ -68,15 +68,15 @@ Show details of remote repository.
 ================================================================================
 Branch
 ------------------------------------------------------------
-Create new branch
+Create new branch.
 
 > git branch <NewBranchName>
 ------------------------------------------------------------
-Switch to branch
+Switch to branch.
 
 > git checkout <BranchName>
 ------------------------------------------------------------
-Create new branch and switch to it
+Create new branch and switch to it.
 
 > git checkout -b <BranchName>
 
@@ -88,7 +88,7 @@ Create new branch for remote branch and switch to it
 
 > git checkout -b <BranchName> <RemoteName>/<BranchName>
 ------------------------------------------------------------
-Check branch
+Check branch.
 
 Check current checked-out branches.
 
@@ -114,7 +114,7 @@ Check not merged branch.
 
 > git branch -v --merged
 ------------------------------------------------------------
-Change tracking remote branch for current checked-out branch
+Change tracking remote branch for current checked-out branch.
 
 For remote "origin" branch.
 
@@ -124,7 +124,7 @@ For remote branch.
 
 > git branch -u <RemoteName>/<BranchName>
 ------------------------------------------------------------
-Delete branch locally
+Delete branch locally.
 
 > git branch -d <BranchName>
 ================================================================================
@@ -164,17 +164,21 @@ From specified remote repository.
 ------------------------------------------------------------
 Merge.
 
-Merge remote branch "origin/master" into current checked-out branch.
+Merge remote branch "origin/master" into current checked-out branch by Fast-Forward.
 
 > git merge
 
-Merge specified remote "origin" branch into current checked-out branch.
+Merge specified remote "origin" branch into current checked-out branch by Fast-Forward.
 
 > git merge <SourceBranchName>
 
-Merge specified remote branch into current checked-out branch.
+Merge specified remote branch into current checked-out branch by Fast-Forward.
 
 > git merge <RemoteName>/<SourceBranchName>
+
+With "--squash", not by Fast-Forward, to combine all merged commits into one new commit.
+
+> git merge <SourceBranchName> --squash
 ------------------------------------------------------------
 Get and merge/rebase together.
 
@@ -196,7 +200,7 @@ Get and merge specified remote branch into current checked-out branch.
 ================================================================================
 Push from local to remote
 ------------------------------------------------------------
-Push changes from local branch to remote repository
+Push changes from local branch to remote repository.
 
 Push current checked-out branch to remote "origin/master".
 
@@ -219,7 +223,7 @@ Push specified checked-out branch to specified remote and branch.
 
 > git push <RemoteName> <BranchName>:<RemoteBranchName>
 ------------------------------------------------------------
-Delete branch on remote repository
+Delete branch on remote repository.
 
 > git push <RemoteName> :<RemoteBranchName>
 
@@ -227,13 +231,17 @@ Delete branch on remote repository
 ================================================================================
 Staging and Commit
 ------------------------------------------------------------
-Add files to be tracked (if not tracked yet) and to staging
+Add files to be tracked (if not tracked yet) and to staging.
 
 > git add <FileName>
 
 > git add *
 ------------------------------------------------------------
-Delete files from staging and to be untracked
+Remove file from staging, but preserve its content.
+
+> git reset <FileName>
+------------------------------------------------------------
+Delete files from staging and to be untracked.
 
 Also delete files from disk.
 
@@ -243,67 +251,128 @@ Still keep files on disk.
 
 > git rm --cached <FileName>
 ------------------------------------------------------------
-Remove files from staging, but preserve its content
-
-> git reset HEAD <FileName>
-------------------------------------------------------------
-Reset modified and unstaged files to origin content
-
-> git checkout -- <FileName>
-------------------------------------------------------------
-Move/Rename files
+Move/Rename files.
 
 > git mv <FileName> <NewFileName>
 ------------------------------------------------------------
-Commit files from staging to branch
+Commit files from staging to branch.
 
 > git commit -m "<Comments>"
 ------------------------------------------------------------
-Commit tracked files to staging first, then to branch
+Commit tracked files to staging first, then to branch.
 (New files should "git add" first.)
 
 > git commit -a -m "<Comments>"
 ------------------------------------------------------------
-Add more changes to same commit
+Add more changes to same commit.
 (Do it after "git commit -m".)
 
 > git add <FileName>
 > git commit --amend
 ------------------------------------------------------------
-Check status of staging and commit
+Check status of staging and commit.
 
 > git status
 ================================================================================
-Stash
-(Save tracked but unstaged files temporarily.)
+Reset
 ------------------------------------------------------------
-Save files in current branch
+Remove files from staging and discarded all unstaged files.
+
+> git reset --hard
+------------------------------------------------------------
+Remove files from staging, but preserve its content.
+
+> git reset HEAD <FileName>
+------------------------------------------------------------
+Reset back to where before just merged.
+
+> git reset --merge ORIG_HEAD
+------------------------------------------------------------
+Reset back to a commit and unstage uncommited files.
+
+> git reset <Commit>
+
+> git reset HEAD~n
+(n is a number from 1. HEAD~n means the commit back from HEAD.)
+------------------------------------------------------------
+Reset back to a commit and discard uncommited files.
+
+> git reset --hard <Commit>
+------------------------------------------------------------
+Reset modified and unstaged files to origin content.
+
+> git checkout -- <FileName>
+================================================================================
+Clean
+------------------------------------------------------------
+Clean all untracked files from working folder.
+
+> git clean -d
+
+By force.
+
+> git clean -d -f
+================================================================================
+Stash
+
+Save unstaged and uncommited files temporarily, and remove them from working folder.
+------------------------------------------------------------
+Save tracked files.
 
 > git stash
+> git stash save
 ------------------------------------------------------------
-Check saved files.
+Save both tracked and untracked files.
+
+> git stash --include-untracked
+> git stash save --include-untracked
+------------------------------------------------------------
+Check stashed copy list.
 
 > git stash list
 ------------------------------------------------------------
-Restore saved files to current branch.
+Check stashed files in one copy.
+
+> git show <StashId>
+------------------------------------------------------------
+Restore stashed files to current branch and keep that copy in stash.
+
+> git stash apply
+> git stash apply <StashId>
+
+With "--index" to reapply staged files.
+------------------------------------------------------------
+Restore stashed copy to current branch and delete that copy from stash.
 
 > git stash pop
+> git stash pop <StashId>
+
+With "--index" to reapply staged files.
 ------------------------------------------------------------
-Discard saved files.
+Discard stashed copy.
 
 > git stash drop
+> git stash drop <StashId>
+------------------------------------------------------------
+Discard all stashed copies.
+
+> git stash clear
+------------------------------------------------------------
+Create a new branch, and apply stashed files there, and drop stashed here.
+
+> git stash branch <BranchName>
 ================================================================================
 Tag
 ------------------------------------------------------------
-Add lightweight tag
+Add lightweight tag.
 
 > git tag <TagName>
 ------------------------------------------------------------
-Add annotated tag
+Add annotated tag.
 
 > git tag -a <TagName> -m "<Comments>"
 ------------------------------------------------------------
-Check tag list
+Check tag list.
 
 > git tag
 
@@ -311,11 +380,11 @@ Find certain tag(s).
 
 > git tag -l <TagPattern>
 ------------------------------------------------------------
-Show details of tag
+Show details of tag.
 
 > git show <TagName>
 ------------------------------------------------------------
-Push tags to remote repository
+Push tags to remote repository.
 
 Push a new tag to specified remote repository.
 
@@ -331,9 +400,7 @@ Push all new tags to specified remote repository.
 ================================================================================
 Log
 ------------------------------------------------------------
-Check log
-
-Full log.
+Check full log.
 
 > git log
 > git log -<NumberOfRecentLog>
@@ -362,7 +429,7 @@ One line with format.
 
 > git log --pretty=format:"%h - %an, %ar : %s"
 ------------------------------------------------------------
-Check reflog
+Check reflog.
 
 > git reflog
 ================================================================================

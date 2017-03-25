@@ -9,7 +9,7 @@ echo "Yum update and install tools."
 yum update -y
 
 # Some useful tools.
-yum install -y bind-utils bridge-utils cifs-utils git screen traceroute unzip whois zip 
+yum install -y bind-utils bridge-utils cifs-utils git screen traceroute unzip whois yum-utils zip
 
 # JDK.
 yum install -y java-1.8.0-openjdk

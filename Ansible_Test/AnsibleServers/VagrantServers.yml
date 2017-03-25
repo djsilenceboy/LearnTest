@@ -1,0 +1,60 @@
+---
+- name: Setup Linux environment
+  hosts: VagrantServers
+  sudo: True
+  tasks:
+    - name: Upgrade all packages
+      yum:
+        name: '*'
+        state: latest
+
+    - name: Install tools 1
+      yum:
+        name: "{{ item }}"
+        state: latest
+        update_cache: yes
+      with_items:
+        - bind-utils
+        - bridge-utils
+        - cifs-utils
+        - git
+        - net-tools
+        - openssl
+        - openssl-devel
+        - perl
+        - python
+        - python-devel
+        - screen
+        - traceroute
+        - unzip
+        - whois
+        - yum-utils
+        - zip
+        - java-1.8.0-openjdk
+        # epel-release must be installed before python-pip.
+        - epel-release
+
+    - name: Install tools 2
+      yum:
+        name: "{{ item }}"
+        state: latest
+        update_cache: yes
+      with_items:
+        - python-pip
+
+    - name: Upgrade pip
+      shell: pip install --upgrade pip
+
+    - name: Disable and stop firewall services
+      service:
+        name: "{{ item }}"
+        enabled: no
+        state: stopped
+      ignore_errors: yes
+      with_items:
+        - firewalld
+        - iptables
+        # - ipset
+
+    - name: Limit kept kernels
+      shell: sed -i "s/\(installonly_limit=\).*$/\12/g" /etc/yum.conf
