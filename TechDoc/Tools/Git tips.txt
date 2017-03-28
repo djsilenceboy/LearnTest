@@ -188,7 +188,7 @@ Get and merge remote branch "origin/master" into current checked-out branch.
 
 Get and rebase remote branch "origin/master" into current checked-out branch.
 
-> git pull --rebase
+> git pull --rebase=preserve
 
 Get and merge specified remote "origin" branch into current checked-out branch.
 
@@ -404,32 +404,50 @@ Check full log.
 
 > git log
 > git log -<NumberOfRecentLog>
-
+------------------------------------------------------------
 Full log with diff.
 
 > git log -p
-
+------------------------------------------------------------
 One line with short SHA-1.
 
 > git log --oneline
-
+------------------------------------------------------------
 One line with short SHA-1 and branch headers.
 
 > git log --oneline --decorate
-
+------------------------------------------------------------
 One line with short SHA-1 and graph.
 
 > git log --oneline --graph
-
+------------------------------------------------------------
 One line with full SHA-1.
 
 > git log --pretty=oneline
-
+------------------------------------------------------------
 One line with format.
 
 > git log --pretty=format:"%h - %an, %ar : %s"
 ------------------------------------------------------------
-Check reflog.
+Check reference log.
 
 > git reflog
+------------------------------------------------------------
+Clean all reference log.
+
+> git reflog expire --expire=now --all
+================================================================================
+Clean memory
+------------------------------------------------------------
+> git gc
+------------------------------------------------------------
+> git gc --prune=now
+================================================================================
+Rewrite branch and history
+------------------------------------------------------------
+> git filter-branch
+------------------------------------------------------------
+Remove file from history.
+
+> git filter-branch --index-filter 'git rm --cached --ignore-unmatch <File>' HEAD
 ================================================================================
