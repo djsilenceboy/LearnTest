@@ -31,6 +31,7 @@
         - yum-utils
         - zip
         - java-1.8.0-openjdk
+        - java-1.8.0-openjdk-devel
         # epel-release must be installed before python-pip.
         - epel-release
 

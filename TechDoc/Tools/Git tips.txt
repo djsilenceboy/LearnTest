@@ -39,7 +39,7 @@ The remote name/branch will be "<NewRemoteName>/master".
 Add remote repository to local.
 (Especially, local repository is not clone from remote one.)
 
-> git remote add <NewRemoteName> git://host[:port]/path/to/repo.git/
+> git remote add <NewRemoteName> git://host[:port]/path/to/repo.git
 
 The normal <NewRemoteName> is "origin".
 It can add several <NewRemoteName> for same repository.
@@ -51,20 +51,25 @@ Remove remote repository from local.
 
 > git remote rm <ExistingRemoteName>
 ------------------------------------------------------------
+Rename remote repository.
+
+> git remote rename <OldRemoteName> <NewRemoteName>
+------------------------------------------------------------
 Check repository.
 
-Show remote name list.
+Show remote names.
 
 > git remote
 > git remote show
 
-Show remote name and URL list.
-
-> git remote -v
-
 Show details of remote repository.
 
 > git remote show <RemoteName>
+
+Show remote name and URL list.
+
+> git remote -v
+> git remote --verbose
 ================================================================================
 Branch
 ------------------------------------------------------------
@@ -72,31 +77,17 @@ Create new branch.
 
 > git branch <NewBranchName>
 ------------------------------------------------------------
-Switch to branch.
-
-> git checkout <BranchName>
-------------------------------------------------------------
-Create new branch and switch to it.
-
-> git checkout -b <BranchName>
-
-Create new branch for remote "origin" branch and switch to it
-
-> git checkout -b <BranchName> <RemoteBranchName>
-
-Create new branch for remote branch and switch to it
-
-> git checkout -b <BranchName> <RemoteName>/<BranchName>
-------------------------------------------------------------
 Check branch.
 
-Check current checked-out branches.
+Check current branches.
+The checked-out one has a star.
 
 > git branch
 
 With more details.
 
 > git branch -v
+> git branch --verbose
 
 With more details and tracking branch info.
 
@@ -105,14 +96,17 @@ With more details and tracking branch info.
 Check all available branches.
 
 > git branch -a
+> git branch --all
 
 Check already merged branch.
 
-> git branch -v --merged
+> git branch --merged
+> git branch --merged -v
 
-Check not merged branch.
+Check remote branches.
 
-> git branch -v --merged
+> git branch --remotes
+> git branch --remotes -v
 ------------------------------------------------------------
 Change tracking remote branch for current checked-out branch.
 
@@ -127,6 +121,28 @@ For remote branch.
 Delete branch locally.
 
 > git branch -d <BranchName>
+================================================================================
+Checkout branch
+------------------------------------------------------------
+Switch to a local branch.
+
+> git checkout <BranchName>
+
+Copy a remote branch to local and switch to it.
+
+> git checkout --tracking <RemoteName>/<BranchName>
+------------------------------------------------------------
+Create new branch and switch to it.
+
+> git checkout -b <BranchName>
+
+Create new branch for remote "origin" branch and switch to it
+
+> git checkout -b <BranchName> <RemoteBranchName>
+
+Create new branch for remote branch and switch to it
+
+> git checkout -b <BranchName> <RemoteName>/<BranchName>
 ================================================================================
 Rebase
 
@@ -176,9 +192,20 @@ Merge specified remote branch into current checked-out branch by Fast-Forward.
 
 > git merge <RemoteName>/<SourceBranchName>
 
-With "--squash", not by Fast-Forward, to combine all merged commits into one new commit.
+With "--no-ff', not use Fast-Forward, combine all merged commits into a new commit, and merged.
 
-> git merge <SourceBranchName> --squash
+> git merge --no-ff
+> git merge --no-ff <SourceBranchName>
+
+With "--squash", not use Fast-Forward, combine all merged commits into a new commit, and not merged.
+
+> git merge --squash
+> git merge --squash <SourceBranchName>
+
+With "--strategy-option".
+
+> git merge --strategy-option=ours <SourceBranchName>
+> git merge --strategy-option=theirs <SourceBranchName>
 ------------------------------------------------------------
 Get and merge/rebase together.
 
@@ -211,7 +238,7 @@ Push current checked-out branch to specified remote.
 > git push <RemoteName>
 
 Push newly created checked-out branch to specified remote.
-(It will create copy of branc in repository.)
+(It will create a copy of branch in repository.)
 
 > git push --set-upstream <RemoteName> <BranchName>
 

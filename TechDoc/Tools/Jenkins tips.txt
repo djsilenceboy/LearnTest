@@ -68,3 +68,15 @@ Please copy the password from either location and paste it below.
 Customize Jenkins
 Create First Admin User
 ================================================================================
+Command line tool
+------------------------------------------------------------
+Download from
+
+http://<IP>:8080/cli
+or
+http://<IP>:8080/jenkins/cli
+------------------------------------------------------------
+Sample:
+
+java -jar jenkins-cli.jar -s http://<IP>:8080/jenkins/ help
+================================================================================
