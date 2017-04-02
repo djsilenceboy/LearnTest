@@ -4,6 +4,13 @@ package com.djs.learn.javalang.compare;
 import java.util.HashSet;
 
 /**
+ * "==" compare instance memory reference.
+ * "equals()" calls "equals(Object obj)".
+ * For "hashSet.add(Value)" and "hashSet.contains(Key)", the real hash address is actually not just "Value" but "Value.hashcode ^ (Value.hashcode >>> 16)".
+ * "hashSet.add(Value)" find real hash address first, then compares "instance memory reference || equals(Object obj)" to check unique.
+ * "hashSet.contains(Value)" compares real hash address first, then compares "instance memory reference || equals(Object obj)".
+ * Always remember to override hashCode() if you override equals().
+ *
  * <pre>
 ============================================================
 Class name: Simple

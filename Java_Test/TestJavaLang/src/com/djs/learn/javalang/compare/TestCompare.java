@@ -12,29 +12,31 @@ import java.util.Set;
 
 /**
  * <pre>
-============================================================
-T <java.lang.Integer> = 10
-T <java.lang.Integer> = 20
-T <java.lang.Double> = 30.0
-T <java.lang.Float> = 40.0
-T <java.lang.String> = Hello
-============================================================
-A: T <com.djs.learn.javalang.generics.SampleGeneric$SampleTypeB> = com.djs.learn.javalang.generics.SampleGeneric$SampleTypeB@2a139a55
-B: T <com.djs.learn.javalang.generics.SampleGeneric$SampleTypeB> = com.djs.learn.javalang.generics.SampleGeneric$SampleTypeB@15db9742
-B: T <com.djs.learn.javalang.generics.SampleGeneric$SampleTypeB> = com.djs.learn.javalang.generics.SampleGeneric$SampleTypeB@6d06d69c
-B: T <com.djs.learn.javalang.generics.SampleGeneric$SampleTypeB> = com.djs.learn.javalang.generics.SampleGeneric$SampleTypeB@7852e922
-C: T <com.djs.learn.javalang.generics.SampleGeneric$SampleTypeB> = com.djs.learn.javalang.generics.SampleGeneric$SampleTypeB@4e25154f
-C: T <com.djs.learn.javalang.generics.SampleGeneric$SampleTypeB> = com.djs.learn.javalang.generics.SampleGeneric$SampleTypeB@70dea4e
-============================================================
-T <java.lang.Integer> = 10
-============================================================
-List <java.lang.String> = Tom
-List <java.lang.String> = Jerry
-List <java.lang.String> = Mary
-============================================================
-List <java.io.IOException> = java.io.IOException: Problem 1
-List <java.io.IOException> = java.io.IOException: Problem 2
-List <java.io.FileNotFoundException> = java.io.FileNotFoundException: Problem 3
+list = [test, test, Test, Test]
+set = [test, Test]
+--------------------------------------------------
+list 2 = [10, 50, 20, 40]
+search index = 2
+list 2 = [10, 20, 40, 50]
+search index = 1
+search index = 1
+list 2 = [50, 40, 20, 10]
+search index = 1
+--------------------------------------------------
+Array = [10, 50, 20, 40]
+Array = [10, 20, 40, 50]
+Array = [50, 40, 20, 10]
+--------------------------------------------------
+Array 2 = [6, -4, 12, 0, -10]
+search index = 0
+Array 2 = [-10, -4, 0, 6, 12]
+search index = 3
+--------------------------------------------------
+students = [Student [name=Tom, age=8], Student [name=Jerry, age=6]]
+students (sorted) = [Student [name=Jerry, age=6], Student [name=Tom, age=8]]
+--------------------------------------------------
+products = [[price=50], [price=10], [price=20], [price=40]]
+products (sorted) = [[price=10], [price=20], [price=40], [price=50]]
  * </pre>
  */
 public class TestCompare
