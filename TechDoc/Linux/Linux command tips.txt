@@ -125,9 +125,23 @@ Output to a file with date in file name.
 > LogSample_`date +"%F"`.log
 > LogSample_`date +"%F_%H%M%S"`.log
 ------------------------------------------------------------
+Redirect Order
+
+Redirect stdout to a file, then redirect stderr to new stdout (a file).
+It means output both original stdout and stderr to the same file.
+
+> OutputFile 2>&1
+
+Redirect stderr to stdout, then redirect stdout to a file.
+It means output stderr to original stdout (console), while output stdout to a file.
+
+2>&1 > OutputFile
+------------------------------------------------------------
 Input from stdin until reach special delimter string.
 
 << DELIMITER
+......
+DELIMITER
 
 "DELIMITER" can be other string.
 ------------------------------------------------------------

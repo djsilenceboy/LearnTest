@@ -13,6 +13,42 @@ print("listA =", listA)
 
 print("-" * 40)
 
+# Empty [] is False; Not empty [] is True.
+
+list2 = []
+print("list2 =", list2)
+if list2:
+    print("list2 is not empty")
+else:
+    print("list2 is empty")
+
+list2 = [""]
+print("list2 =", list2)
+if list2:
+    print("list2 is not empty")
+else:
+    print("list2 is empty")
+
+# Make a reference.
+list2 = list1
+print("list2 =", list2)
+if list2 is list1:
+    print("list2 is list1")
+else:
+    print("list2 is not list1")
+
+# Make a copy.
+list2 = list1[:]
+print("list2 =", list2)
+if list2 is list1:
+    print("list2 is list1")
+else:
+    print("list2 is not list1")
+
+# Use "a is not b", instead of "not a is b".
+
+print("-" * 40)
+
 tuple1 = zip(list1, listA)
 
 for item in tuple1:

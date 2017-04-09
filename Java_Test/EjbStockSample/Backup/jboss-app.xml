@@ -1,5 +1,0 @@
-<jboss-app>
-	<loader-repository>
-		EjbStockSample:archive=EjbStockSample.ear
-  </loader-repository>
-</jboss-app>
