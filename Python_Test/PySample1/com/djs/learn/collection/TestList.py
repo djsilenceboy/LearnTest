@@ -52,6 +52,9 @@ print("a[lower_bound] =", a[-20:])
 # IndexError: list index out of range
 # print("a[out_of_index] =", a[20])
 
+b[3:9] = [3, 8]
+print("b[replaced] =", b)
+
 print("-" * 40)
 
 fruits_names = " | ".join(fruits)

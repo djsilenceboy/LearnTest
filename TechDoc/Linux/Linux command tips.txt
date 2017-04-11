@@ -292,3 +292,9 @@ Download
 scp optional to add:
 -o StrictHostKeyChecking=no
 ================================================================================
+Get remote FTP folder list
+
+]$ curl --user 'UserName:Password' ftp://IP:Port/Path/
+
+(Must append "/" in the end.)
+================================================================================

@@ -62,9 +62,11 @@ def do_test6():
     def do_test6_inner():
         nonlocal cat
         cat = 3
+        print("-" * 20)
         print("cat = {0}".format(cat))
         print("vars() =", vars())
         print("locals() =", locals())
+        print("-" * 20)
 
     print("cat = {0}".format(cat))
     do_test6_inner()
