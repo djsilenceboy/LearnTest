@@ -26,6 +26,12 @@ def gen_stopiteration():
     return 12
 
 
+class Wrapper():
+    def __iter__(self):
+        for n in range(10):
+            yield n
+
+
 def main():
     print("-" * 40)
 
@@ -91,6 +97,12 @@ def main():
         print("next(gn) =", next(gn))
     except Exception as e:
         print("next(gn).exception =", e)
+
+    print("-" * 40)
+
+    wrapper = Wrapper()
+    list3 = list(wrapper)
+    print("list3 =", list3)
 
     print("-" * 40)
 

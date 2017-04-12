@@ -4,6 +4,8 @@ Created on Mar 1, 2016
 @author: jiangdu
 '''
 
+from collections import defaultdict
+
 # set and dict(key) saved order will be random.
 
 print("-------------------- Set --------------------")
@@ -132,9 +134,6 @@ print("-" * 40)
 letter_count = {letter: sentence.count(letter) for letter in set(sentence)}
 # letter_count = {letter: sentence.count(letter) for letter in sentence}
 print("letter_count =", letter_count)
-
-print("-" * 40)
-
 
 if __name__ == '__main__':
     pass

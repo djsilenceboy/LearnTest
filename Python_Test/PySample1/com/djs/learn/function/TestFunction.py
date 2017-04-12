@@ -39,6 +39,11 @@ def default_args3(time=datetime.now()):
     print("args = {}".format(vars()))
 
 
+def default_args4(time=None):
+    time = datetime.now() if time is None else time
+    print("args = {}".format(vars()))
+
+
 def collect_args(*args):
     print("*args =", args)
     for value in args:
@@ -86,8 +91,14 @@ def main():
     print("-" * 40)
 
     default_args3()
-    time.sleep(5)
+    time.sleep(2)
     default_args3()
+
+    print("-" * 40)
+
+    default_args4()
+    time.sleep(2)
+    default_args4()
 
     print("-" * 40)
 
