@@ -1,7 +1,7 @@
 ---
 - name: Install PostgreSQL v9.5
   hosts: VagrantDbServer
-  sudo: True
+  become: True
   tasks:
     - name: Install repo
       yum:

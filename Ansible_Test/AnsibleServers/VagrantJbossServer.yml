@@ -1,7 +1,7 @@
 ---
 - name: Install JBoss EAP v7.0
   hosts: VagrantJbossServer
-  sudo: True
+  become: True
   vars:
     local_installation_file_path: /cygdrive/f/Download/Shared
     local_config_file_path: files

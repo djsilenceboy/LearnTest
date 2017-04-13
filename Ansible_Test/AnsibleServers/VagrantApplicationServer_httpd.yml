@@ -1,7 +1,7 @@
 ---
 - name: Install httpd
   hosts: VagrantApplicationServer
-  sudo: True
+  become: True
   tasks:
     - name: Install application
       yum:

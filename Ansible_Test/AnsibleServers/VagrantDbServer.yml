@@ -1,7 +1,7 @@
 ---
 - name: Install PostgreSQL v9.5
   hosts: VagrantDbServer
-  sudo: True
+  become: True
   tasks:
     - name: Install repo
       yum:
@@ -59,7 +59,7 @@
 
 - name: Install MySQL v5.7
   hosts: VagrantDbServer
-  sudo: True
+  become: True
   vars:
     local_installation_file_path: /cygdrive/f/Download/Shared
     local_config_file_path: files
@@ -105,7 +105,7 @@
 
 - name: Install MongoDB v3.4
   hosts: VagrantDbServer
-  sudo: True
+  become: True
   vars:
     local_config_file_path: files
     remote_temp_path: /tmp

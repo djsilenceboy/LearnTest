@@ -8,7 +8,7 @@ Created on Apr 13, 2016
 class ProductBase(object):
 
     def __init__(self, char_id):
-        self.char_id = char_id
+        self.char_id = char_id + "o"
         print("ProductBase:char_id = {}".format(
             self.char_id))
 
@@ -20,8 +20,6 @@ class ProductImplA(ProductBase):
         print("ProductImplA:char_id = {}".format(
             char_id))
         super().__init__(char_id)
-        print("ProductImplA:self.char_id = {}".format(
-            self.char_id))
         self.char_id += "a"
         print("ProductImplA:self.char_id = {}".format(
             self.char_id))
@@ -34,8 +32,6 @@ class ProductImplB(ProductBase):
         print("ProductImplB:char_id = {}".format(
             char_id))
         super().__init__(char_id)
-        print("ProductImplB:self.char_id = {}".format(
-            self.char_id))
         self.char_id += "b"
         print("ProductImplB:self.char_id = {}".format(
             self.char_id))
@@ -48,8 +44,6 @@ class ProductFinalA(ProductImplA, ProductImplB):
         print("ProductFinalA:char_id = {}".format(
             char_id))
         super().__init__(char_id)
-        print("ProductFinalA:self.char_id = {}".format(
-            self.char_id))
         self.char_id += "f"
         print("ProductFinalA:self.char_id = {}".format(
             self.char_id))
@@ -62,8 +56,6 @@ class ProductFinalB(ProductImplB, ProductImplA):
         print("ProductFinalB:char_id = {}".format(
             char_id))
         super().__init__(char_id)
-        print("ProductFinalB:self.char_id = {}".format(
-            self.char_id))
         self.char_id += "g"
         print("ProductFinalB:self.char_id = {}".format(
             self.char_id))

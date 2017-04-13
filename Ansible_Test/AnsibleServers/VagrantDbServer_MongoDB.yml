@@ -1,7 +1,7 @@
 ---
 - name: Install MongoDB v3.4
   hosts: VagrantDbServer
-  sudo: True
+  become: True
   vars:
     local_config_file_path: files
     remote_temp_path: /tmp

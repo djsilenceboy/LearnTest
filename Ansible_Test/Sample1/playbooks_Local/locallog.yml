@@ -1,0 +1,29 @@
+---
+- name: Prepare.
+  hosts: 127.0.0.1
+  connection: local
+  become: False
+  vars:
+    local_output_file: ../../Temp/Remote_Info.txt
+  tasks:
+    - name: Delete old output file
+      local_action: file path="{{ local_output_file }}" state=absent
+      run_once: True
+
+
+- name: Get local log.
+  hosts: VagrantEps
+  serial: 1
+  become: False
+  vars:
+    local_output_file: ../../Temp/Remote_Info.txt
+  tasks:
+    - name: Capture output of id command
+      command: hostname
+      register: result_info
+
+    - name: Save output to local file
+      # This can append contents to the file.
+      local_action: lineinfile line="{{ result_info.stdout }}" dest="{{ local_output_file }}" insertafter=EOF create=Yes
+      # This cannot append contents to the file.
+      # local_action: copy content="{{ result_info.stdout }}" dest="{{ local_output_file }}"

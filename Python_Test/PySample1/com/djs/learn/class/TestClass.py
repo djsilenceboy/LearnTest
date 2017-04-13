@@ -51,6 +51,16 @@ class MyClass3(MyClass2):
         print("staticmethod: Class count = {}.".format(MyClass3.count))
 
 
+class MyClass4(MyClass3):
+    def __init__(self):
+        # Python 3: Best way to call super.
+        super().__init__()
+        # Python 2: Best way to call super.
+        super(MyClass4, self).__init__()
+        # Not good way to call super.
+        MyClass3.__init__(self)
+
+
 class Fruit():
 
     def __init__(self, name):
@@ -169,6 +179,7 @@ def main():
     just_get_name(dog)
 
     print("-" * 40)
+
 
 if __name__ == '__main__':
     main()

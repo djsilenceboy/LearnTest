@@ -1,7 +1,7 @@
 ---
 - name: Install Jenkins
   hosts: VagrantApplicationServer
-  sudo: True
+  become: True
   vars:
     local_installation_file_path: /cygdrive/f/Download/Shared
     jenkins_installation_file: jenkins.war
