@@ -1,5 +1,5 @@
 ---
-- name: Prepare.
+- name: Prepare local file
   hosts: 127.0.0.1
   connection: local
   become: False
@@ -11,14 +11,15 @@
       run_once: True
 
 
-- name: Get local log.
+- name: Save remote info to local file
   hosts: VagrantEps
+  # If running concurrently, there will be issue to mutual access the local file.
   serial: 1
   become: False
   vars:
     local_output_file: ../../Temp/Remote_Info.txt
   tasks:
-    - name: Capture output of id command
+    - name: Capture output
       command: hostname
       register: result_info
 

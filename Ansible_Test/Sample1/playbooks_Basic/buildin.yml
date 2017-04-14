@@ -13,6 +13,7 @@
 
     # Only for current host of current play.
     - debug: var=ansible_version
+    # It will show all groups this endpoint belongs to.
     - debug: var=group_names
     - debug: var=inventory_hostname
     - debug: var=hostvars[inventory_hostname]

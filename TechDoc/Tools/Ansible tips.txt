@@ -60,6 +60,7 @@ host_key_checking=False
 ssh_args = -o ControlMaster=no
 ------------------------------------------------------------
 Generate host file.
+The default file name is "EndpointHosts".
 
 ]$ vi endpoint_hosts
 ----------------------------------------
@@ -136,6 +137,11 @@ Run playbook
 
 ]$ ansible-playbook <PlayBookName>.yml
 
+For different host file.
+
+]$ ansible-playbook -i <HostFile> <PlayBookName>.yml
+]$ ansible-playbook --inventory-file <HostFile> <PlayBookName>.yml
+
 For certain host or group.
 
 ]$ ansible-playbook -l <Host_Or_Group> <PlayBookName>.yml
@@ -208,4 +214,31 @@ In specified paht.
 Init role path structure
 
 ]$ ansible-galaxy init -p <RolePath> <Role>
+================================================================================
+Escape "{{" and "}}" in YAML
+
+Sample:
+
+    - name: Check running containers
+      shell: docker ps --format {%raw%}"{{.Image}}"{%endraw%}
+================================================================================
+Pattern for specifying hosts
+------------------------------------------------------------
+In YAML:
+  hosts: <Host_Or_Group>
+
+In command line:
+  -l <Host_Or_Group>
+By command line, only Host_Or_Group defined in YAML hosts are available.
+------------------------------------------------------------
+All:          *
+All:          all
+Union:        a:b
+Intersection: a:&b
+Exclusion:    a:!b
+Wildcard:     *.example.com
+Range:        web[1:9].example.com
+              web[01:09].example.com
+              web[a:c].example.com
+Regex:        ~web\d\.example\.com
 ================================================================================

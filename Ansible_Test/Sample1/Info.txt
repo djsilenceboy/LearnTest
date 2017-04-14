@@ -9,27 +9,26 @@
 ================================================================================
 ]$ cd playbooks_Basic
 
-]$ ansible-playbook buildin.yml
-]$ ansible-playbook debug.yml
+]$ ansible-playbook Buildin.yml
 
-]$ ansible-playbook greet.yml
-]$ ansible-playbook greet.yml -e greeting=Hello
-]$ ansible-playbook greet.yml -e 'greeting="Hello Friend!"'
-]$ ansible-playbook greet.yml -e @greetvars.yml
+]$ ansible-playbook Greet.yml
+]$ ansible-playbook Greet.yml -e greeting=Hello
+]$ ansible-playbook Greet.yml -e 'greeting="Hello Friend!"'
+]$ ansible-playbook Greet.yml -e @greetvars.yml
 
-]$ ansible-playbook -l VagrantEp1 buildin.yml
+]$ ansible-playbook -l VagrantEp1 Buildin.yml
 ================================================================================
-]$ ansible-playbook --syntax-check buildin.yml
-]$ ansible-playbook --list-hosts buildin.yml
-]$ ansible-playbook --list-tasks buildin.yml
+]$ ansible-playbook --syntax-check Buildin.yml
+]$ ansible-playbook --list-hosts Buildin.yml
+]$ ansible-playbook --list-tasks Buildin.yml
 
-]$ ansible-playbook -C buildin.yml
+]$ ansible-playbook -C Buildin.yml
 
-]$ ansible-playbook --step buildin.yml
+]$ ansible-playbook --step Buildin.yml
 
-]$ ansible-playbook --start-at-task "show play_hosts" buildin.yml
+]$ ansible-playbook --start-at-task "show play_hosts" Buildin.yml
 ================================================================================
-]$ ansible-playbook -t enabled debug.yml
+]$ ansible-playbook -t enabled Debug.yml
 ================================================================================
 ]$ ansible-galaxy init -p Roles Nginx
 ================================================================================

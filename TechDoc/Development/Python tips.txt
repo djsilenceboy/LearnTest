@@ -18,11 +18,11 @@ Install pip if not available
 ------------------------------------------------------------
 Upgrade pip.
 
-]# pip install --upgrade pip
+]$ pip install --upgrade pip
 
 or
 
-]# python -m pip install --upgrade pip
+]$ python -m pip install --upgrade pip
 ------------------------------------------------------------
 Install devel for compiling module.
 
@@ -30,16 +30,16 @@ Install devel for compiling module.
 ================================================================================
 List installed module
 
-> pip list
+]$ pip list
 ------------------------------------------------------------
 Upgrade all installed modules
 
-> pip install pip-review
-> pip-review --local --interactive
+]$ pip install pip-review
+]$ pip-review --local --interactive
 ------------------------------------------------------------
 Upgrade all installed modules
 
-> pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+]$ pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
 ================================================================================
 If having following error, while installing/upgrading:
 
@@ -72,76 +72,96 @@ For Python 3.5 and later: Visual C++ Build Tools 2015 or Visual Studio 2015
 For Python 3.3 and 3.4: Windows SDK for Windows 7 and .NET 4.0
 For Python 2.6 to 3.2: Microsoft Visual C++ Compiler for Python 2.7
 ================================================================================
-> pip install line_profiler
-  (Need vcvarsall.bat)
-> pip install guppy
-  (for heapy)
-  (Need vcvarsall.bat)
+Pip install/uninstall module
 
-> pip install memory_profiler
-  (depend on psutil for non-Unix platform)
-> pip install psutil
-------------------------------------------------------------
-> pip install numpy
-> pip install sqlalchemy
+]$ pip install <ModuleName>
+]$ pip install <ModuleName>==<Version>
 
-> pip install requests
-> pip install bottle
-> pip install flask
-  (depend on itsdangerous, Jinja2, MarkupSafe, Werkzeug)
-> pip install beautifulsoup4
-> pip install pyzmq
-> pip install nose
-------------------------------------------------------------
-> pip install paramiko
-  (depend on six, pycparser, cffi, idna, pyasn1, cryptography)
+]$ pip uninstall <ModuleName>
 
-> pip install pexpect
-  (depend on ptyprocess)
-------------------------------------------------------------
-> pip install Pillow
-> pip install Wand
-> pip install matplotlib
-------------------------------------------------------------
-> pip install scrapy
-  (Need vcvarsall.bat)
-> pip install twisted
-  (Need vcvarsall.bat)
-
-> pip install redis
-> pip install python-memcached
-  (depend on six)
+Options:
+-v: Verbose
 ================================================================================
+Pip environment snapshot
+
+]$ pip freeze > requirements.txt
+
+]$ pip install -r requirements.txt
+================================================================================
+Download for some modules
+------------------------------------------------------------
 https://pypi.python.org/pypi/wheel
 
-> pip install wheel-0.30.0a0-py2.py3-none-any.whl
+]$ pip install wheel-0.30.0a0-py2.py3-none-any.whl
 ------------------------------------------------------------
 http://www.lfd.uci.edu/~gohlke/pythonlibs/
 ------------------------------------------------------------
 http://www.lfd.uci.edu/~gohlke/pythonlibs/#line_profiler
 
-> pip install line_profiler-1.0-cp35-none-win32.whl
+]$ pip install line_profiler-1.0-cp35-none-win32.whl
 ================================================================================
-> python -m http.server
+Some useful modules
+------------------------------------------------------------
+]$ pip install line_profiler
+  (Need vcvarsall.bat)
+]$ pip install guppy
+  (for heapy)
+  (Need vcvarsall.bat)
+
+]$ pip install memory_profiler
+  (depend on psutil for non-Unix platform)
+]$ pip install psutil
+------------------------------------------------------------
+]$ pip install numpy
+]$ pip install sqlalchemy
+
+]$ pip install requests
+]$ pip install bottle
+]$ pip install flask
+  (depend on itsdangerous, Jinja2, MarkupSafe, Werkzeug)
+]$ pip install beautifulsoup4
+]$ pip install pyzmq
+]$ pip install nose
+------------------------------------------------------------
+]$ pip install paramiko
+  (depend on six, pycparser, cffi, idna, pyasn1, cryptography)
+
+]$ pip install pexpect
+  (depend on ptyprocess)
+------------------------------------------------------------
+]$ pip install Pillow
+]$ pip install Wand
+]$ pip install matplotlib
+------------------------------------------------------------
+]$ pip install scrapy
+  (Need vcvarsall.bat)
+]$ pip install twisted
+  (Need vcvarsall.bat)
+
+]$ pip install redis
+]$ pip install python-memcached
+  (depend on six)
+================================================================================
+Some modules usage
+------------------------------------------------------------
+]$ python -m http.server
 Serving HTTP on 0.0.0.0 port 8000 ...
 
-> python -m http.server 8008
+]$ python -m http.server 8008
 Serving HTTP on 0.0.0.0 port 8008 ...
+------------------------------------------------------------
+]$ python -m cProfile -s cumulative TestProfile1.py
+------------------------------------------------------------
+]$ python -m kernprof -l -v TestProfile2.py
+------------------------------------------------------------
+]$ python -m memory_profiler TestProfile2.py
 ================================================================================
-> python -m venv PySample2
-> cd PySample2
-> .\Scripts\activate.bat
-> pip list
-> .\Scripts\deactivate.bat
-> pip list
-================================================================================
-> pip freeze > requirements.txt
-
-> pip install -r requirements.txt
-================================================================================
-> python -m cProfile -s cumulative TestProfile1.py
-
-> python -m kernprof -l -v TestProfile2.py
-
-> python -m memory_profiler TestProfile2.py
+Create separated environment
+------------------------------------------------------------
+]$ python -m venv PySample2
+]$ cd PySample2
+]$ .\Scripts\activate.bat
+]$ pip list
+]$ .\Scripts\deactivate.bat
+]$ pip list
 ================================================================================

@@ -3,3 +3,6 @@ VagrantEp2 ansible_ssh_host=192.168.0.52 ansible_ssh_port=22
 
 [VagrantEps]
 VagrantEp[1:2]
+
+[VagrantEps2]
+VagrantEp[1:2]

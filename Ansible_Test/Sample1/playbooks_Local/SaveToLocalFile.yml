@@ -1,5 +1,5 @@
 ---
-- name: Get local log.
+- name:  Save remote info to local file
   hosts: VagrantEps
   become: False
   vars:
@@ -15,11 +15,12 @@
       register: result_info
 
     - name: Save output to local temp file
+      # Each endpoint has a separated file.
       # This can append contents to the file.
       local_action: lineinfile line="{{ result_info.stdout }}" dest="{{local_output_path}}/{{ local_output_file_prefix }}{{inventory_hostname}}{{local_output_file_postfix}}" create=Yes
 
 
-- name: Prepare.
+- name: Prepare local file
   hosts: 127.0.0.1
   connection: local
   become: False
@@ -31,8 +32,9 @@
       run_once: True
 
 
-- name: Combine local log.
+- name: Combine local temp files into one log file
   hosts: VagrantEps
+  # If running concurrently, there will be issue to mutual access the local file.
   serial: 1
   become: False
   vars:
@@ -41,9 +43,9 @@
     local_output_file_postfix: .txt
     local_output_file: ../../Temp/Remote_Info.txt
   tasks:
-    - name: Combine temp output to local output file
+    - name: Combine temp file to one log file
       # This can append contents to the file.
       local_action: shell cat "{{local_output_path}}/{{ local_output_file_prefix }}{{inventory_hostname}}{{local_output_file_postfix}}" >> "{{ local_output_file }}"
 
-    - name: Delete local temp file
+    - name: Delete temp file
       local_action: file path="{{local_output_path}}/{{ local_output_file_prefix }}{{inventory_hostname}}{{local_output_file_postfix}}" state=absent
