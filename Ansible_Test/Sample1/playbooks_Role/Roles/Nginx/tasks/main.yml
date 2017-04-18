@@ -20,19 +20,19 @@
 - name: copy TLS key
   copy:
     src: nginx.key
-    dest: "{{ key_file }}"
+    dest: "{{key_file}}"
     owner: root
     mode: 0600
   notify: restart nginx
 
 - name: copy TLS certificate
-  copy: src=nginx.crt dest={{ cert_file }}
+  copy: src=nginx.crt dest={{cert_file}}
   notify: restart nginx
 
 - name: copy nginx config file
   template:
     src: nginx.conf.j2
-    dest: "{{ conf_file }}"
+    dest: "{{conf_file}}"
   notify: restart nginx
 
 - name: copy index.html

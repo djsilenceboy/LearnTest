@@ -7,7 +7,7 @@
     local_output_file: ../../Temp/Remote_Info.txt
   tasks:
     - name: Delete old output file
-      local_action: file path="{{ local_output_file }}" state=absent
+      local_action: file path="{{local_output_file}}" state=absent
       run_once: True
 
 
@@ -25,6 +25,6 @@
 
     - name: Save output to local file
       # This can append contents to the file.
-      local_action: lineinfile line="{{ result_info.stdout }}" dest="{{ local_output_file }}" insertafter=EOF create=Yes
+      local_action: lineinfile line="{{result_info.stdout}}" dest="{{local_output_file}}" insertafter=EOF create=Yes
       # This cannot append contents to the file.
-      # local_action: copy content="{{ result_info.stdout }}" dest="{{ local_output_file }}"
+      # local_action: copy content="{{result_info.stdout}}" dest="{{local_output_file}}"

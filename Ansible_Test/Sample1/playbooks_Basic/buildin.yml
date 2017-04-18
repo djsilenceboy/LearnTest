@@ -29,7 +29,7 @@
 
     - debug: var=login_info
 
-    - debug: msg="Logged in as user {{ login_info.stdout }}"
+    - debug: msg="Logged in as user {{login_info.stdout}}"
 
     - name: gather facts
       setup:
@@ -43,18 +43,18 @@
   hosts: VagrantEps
   gather_facts: False
   tasks:
-    - debug: msg="Fruit is {{ item }}."
+    - debug: msg="Fruit is {{item}}."
       with_items:
         - Apple
         - Orange
         - Banana
 
-    - debug: msg="Fruit is {{ item.name }} ({{ item.quantity }})."
+    - debug: msg="Fruit is {{item.name}} ({{item.quantity}})."
       with_items:
         - {name: Apple, quantity: 10}
         - {name: Orange, quantity: 20}
         - {name: Banana, quantity: 30}
 
-    - debug: msg="Fruit is {{ item.key }} ({{ item.value }})."
+    - debug: msg="Fruit is {{item.key}} ({{item.value}})."
       with_dict:
         {Apple: 10, Orange: 20, Banana: 30}

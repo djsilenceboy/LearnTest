@@ -8,7 +8,7 @@
     local_output_file_postfix: .txt
   tasks:
     - name: Delete old local temp file
-      local_action: file path="{{local_output_path}}/{{ local_output_file_prefix }}{{inventory_hostname}}{{local_output_file_postfix}}" state=absent
+      local_action: file path="{{local_output_path}}/{{local_output_file_prefix}}{{inventory_hostname}}{{local_output_file_postfix}}" state=absent
 
     - name: Capture output
       command: hostname
@@ -17,7 +17,7 @@
     - name: Save output to local temp file
       # Each endpoint has a separated file.
       # This can append contents to the file.
-      local_action: lineinfile line="{{ result_info.stdout }}" dest="{{local_output_path}}/{{ local_output_file_prefix }}{{inventory_hostname}}{{local_output_file_postfix}}" create=Yes
+      local_action: lineinfile line="{{result_info.stdout}}" dest="{{local_output_path}}/{{local_output_file_prefix}}{{inventory_hostname}}{{local_output_file_postfix}}" create=Yes
 
 
 - name: Prepare local file
@@ -28,7 +28,7 @@
     local_output_file: ../../Temp/Remote_Info.txt
   tasks:
     - name: Delete old local output file
-      local_action: file path="{{ local_output_file }}" state=absent
+      local_action: file path="{{local_output_file}}" state=absent
       run_once: True
 
 
@@ -45,7 +45,7 @@
   tasks:
     - name: Combine temp file to one log file
       # This can append contents to the file.
-      local_action: shell cat "{{local_output_path}}/{{ local_output_file_prefix }}{{inventory_hostname}}{{local_output_file_postfix}}" >> "{{ local_output_file }}"
+      local_action: shell cat "{{local_output_path}}/{{local_output_file_prefix}}{{inventory_hostname}}{{local_output_file_postfix}}" >> "{{local_output_file}}"
 
     - name: Delete temp file
-      local_action: file path="{{local_output_path}}/{{ local_output_file_prefix }}{{inventory_hostname}}{{local_output_file_postfix}}" state=absent
+      local_action: file path="{{local_output_path}}/{{local_output_file_prefix}}{{inventory_hostname}}{{local_output_file_postfix}}" state=absent

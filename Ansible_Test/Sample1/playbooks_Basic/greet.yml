@@ -5,4 +5,4 @@
     greeting: "you didn't specify a message"
   tasks:
     - name: output a message
-      debug: msg="{{ greeting }}"
+      debug: msg="{{greeting}}"

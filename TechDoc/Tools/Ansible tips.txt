@@ -60,7 +60,7 @@ host_key_checking=False
 ssh_args = -o ControlMaster=no
 ------------------------------------------------------------
 Generate host file.
-The default file name is "EndpointHosts".
+The default file name is "/etc/ansible/hosts".
 
 ]$ vi endpoint_hosts
 ----------------------------------------

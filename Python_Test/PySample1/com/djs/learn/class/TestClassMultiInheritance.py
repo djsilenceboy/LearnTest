@@ -4,6 +4,8 @@ Created on Apr 13, 2016
 @author: djs
 '''
 
+from pprint import pprint
+
 
 class ProductBase(object):
 
@@ -60,6 +62,13 @@ class ProductFinalB(ProductImplB, ProductImplA):
         print("ProductFinalB:self.char_id = {}".format(
             self.char_id))
 
+
+print("-" * 40)
+
+pprint(ProductFinalA.mro())
+pprint(ProductFinalB.mro())
+
+print("-" * 40)
 
 product1 = ProductFinalA("1")
 print("product1.char_id = {}".format(product1.char_id))
