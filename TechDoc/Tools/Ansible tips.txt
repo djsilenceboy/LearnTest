@@ -3,16 +3,39 @@ Ansible
 ================================================================================
 Install for RHEL/CentOS
 ------------------------------------------------------------
+Make sure at least the following packages have been installed already.
+
+python
+python-crypto
+python-devel
+python-jinja
+python-openssl
+python-setuptools
+libffi-devel
+openssh
+openssl
+openssl-devel
+----------------------------------------
+If installed python with "Development Tools", it may only require to:
+
 ]# yum install -y python-devel openssl-devel
+
+Otherwise, install all:
+
+]# yum install -y python python-crypto python-devel python-jinja python-openssl python-setuptools libffi-devel openssh openssl openssl-devel
+------------------------------------------------------------
 ]# pip install ansible
 ----------------------------------------
 Successfully installed MarkupSafe-0.23 PyYAML-3.12 ansible-2.2.1.0 cryptography-1.7.2 jinja2-2.8.1 paramiko-2.1.1 pycrypto-2.6.1
 ================================================================================
-Install for Cygwin, with at least the following packages installed first.
+Install for Cygwin
 ------------------------------------------------------------
+Make sure at least the following packages have been installed already.
+
 python
-python-jinja
 python-crypto
+python-devel
+python-jinja
 python-openssl
 python-setuptools
 libffi-devel
@@ -27,7 +50,7 @@ Install for Windows 10
 Download VC compiler from: https://blogs.msdn.microsoft.com/pythonengineering/2016/04/11/unable-to-find-vcvarsall-bat/
 And install.
 ----------------------------------------
-]# pip install ansible
+> pip install ansible
 ================================================================================
 ]# ansible --version
 ansible 2.2.1.0

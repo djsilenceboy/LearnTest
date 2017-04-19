@@ -16,16 +16,18 @@ class Product(object):
         print("Production.__init__", "Leave")
 
     def __getattr__(self, name):
-        # Invoked if attribute does not exist.
+        # Only be invoked if attribute does not exist in "__dict__".
         print("Product.__getattr__({})".format(name))
         value = "This is " + name + "!"
         setattr(self, name, value)
         return value
 
     def __getattribute__(self, name):
-        # Always invoked first.
-        # If attribute does not exist, invoke __getattr__.
+        # Always be invoked first.
+        # It will invoke __getattr__, if attribute does not exist in
+        # "__dict__".
         print("Product.__getattribute__({})".format(name))
+        # Do not call this __getattribute__() directly, call super one.
         return super().__getattribute__(name)
 
     def __setattr__(self, name, value):
@@ -33,30 +35,44 @@ class Product(object):
         return super().__setattr__(name, value)
 
 
-product = Product()
+print("-" * 40)
+
+print("Product.__dict__ = {}".format(Product.__dict__))
+print("Product.m_name = {}".format(Product.m_name))
 
 print("-" * 40)
 
-print("product.m_name = {}".format(product.m_name))
+product = Product()
+print("product.__dict__ = {}".format(product.__dict__))
 
 print("-" * 40)
 
 print("product.name = {}".format(product.name))
+print("product.__dict__ = {}".format(product.__dict__))
 
 print("-" * 40)
 
-print("product.__dict__ = {}".format(product.__dict__))
-print("-" * 20)
-# This will invoke __getattribute__ and __getattr__.
+# This will invoke __getattribute__ and then __getattr__ and then __setaddr__.
 print("product.location = {}".format(product.location))
-print("-" * 20)
 print("product.__dict__ = {}".format(product.__dict__))
-# This will invoke __getattribute__ only.
-print("-" * 20)
-print("product.location = {}".format(product.location))
 
 print("-" * 40)
 
+print("product.location = {}".format(product.location))
+print("product.__dict__ = {}".format(product.__dict__))
 
+print("-" * 40)
+
+print("hasattr(product, location) = {}".format(hasattr(product, "location")))
+
+print("-" * 40)
+
+# This will also invoke __getattribute__ and then __getattr__ and then
+# __setaddr__.
+# hasattr will add attribute into __dict__, if not exists!
+print("hasattr(product, height) = {}".format(hasattr(product, "height")))
+print("product.__dict__ = {}".format(product.__dict__))
+
+print("-" * 40)
 if __name__ == '__main__':
     pass

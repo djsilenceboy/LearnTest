@@ -14,39 +14,42 @@ class Product(object):
             self.__class__.__name__, self.name, self.internal_name))
 
     def __get__(self, instance, instance_type):
-        print("__get__: instance, instance_type = {0}, {1}".format(
-            instance, instance_type))
+        print("__get__: internal_name, instance, instance_type = {0}, {1}, {2}".format(
+            self.internal_name, instance, instance_type))
         if instance is None:
             return self
         return getattr(instance, self.internal_name, "")
 
     def __set__(self, instance, value):
-        print("__set__: instance, value = {0}, {1}".format(
-            instance, value))
+        print("__set__: internal_name, instance, value = {0}, {1}, {2}".format(
+            self.internal_name, instance, value))
         setattr(instance, self.internal_name, value)
 
 
 class House(object):
     door = Product("Door")
+    window = Product("Window")
 
-product1 = House()
 
-print("-" * 40)
-
-print("product1.door =", product1.door)
-print("product1.__dict__ =", product1.__dict__)
+house1 = House()
 
 print("-" * 40)
 
-product1.door = 12
-print("product1.door =", product1.door)
-print("product1.__dict__ =", product1.__dict__)
+print("house1.door =", house1.door)
+print("house1.window =", house1.window)
+print("house1.__dict__ =", house1.__dict__)
 
 print("-" * 40)
 
-product1.door = 22
-print("product1.door =", product1.door)
-print("product1.__dict__ =", product1.__dict__)
+house1.door = "SingleDoor"
+print("house1.door =", house1.door)
+print("house1.__dict__ =", house1.__dict__)
+
+print("-" * 40)
+
+house1.window = "DoubleWindow"
+print("house1.window =", house1.window)
+print("house1.__dict__ =", house1.__dict__)
 
 
 if __name__ == '__main__':
