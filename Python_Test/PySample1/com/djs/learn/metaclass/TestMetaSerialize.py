@@ -37,14 +37,14 @@ def deserialize(data):
 
 class Meta(type):
 
-    def __new__(meta, name, baseclass, class_dict):
-        print("Meta.meta = {}".format(meta))
+    def __new__(cls, name, baseclass, class_dict):
+        print("Meta.meta = {}".format(cls))
         print("Meta.name = {}".format(name))
         print("Meta.baseclass = {}".format(baseclass))
         print("Meta.class_dict = {}".format(class_dict))
-        cls = super().__new__(meta, name, baseclass, class_dict)
-        register_class(cls)
-        return cls
+        child_cls = super().__new__(cls, name, baseclass, class_dict)
+        register_class(child_cls)
+        return child_cls
 
 
 class RegisteredSerializable(Serializable, metaclass=Meta):
