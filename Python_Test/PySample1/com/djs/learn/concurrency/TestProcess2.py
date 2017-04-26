@@ -1,10 +1,10 @@
 '''
-Created on Apr 18, 2016
+Created on Apr 26, 2017
 
 @author: djs
 '''
 
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ProcessPoolExecutor
 from time import time
 
 
@@ -21,24 +21,17 @@ numbers = [(1963309, 2265973), (2030677, 3814172),
 
 print("-" * 40)
 
-print("Run in sequence.")
+print("Run in ProcessPoolExecutor.")
 start = time()
-results = list(map(gcd, numbers))
-stop = time()
-print("results =", results)
-print("duration time (s) =", stop - start)
-
-print("-" * 40)
-
-print("Run in ThreadPoolExecutor.")
-start = time()
-pool = ThreadPoolExecutor(max_workers=4)
+pool = ProcessPoolExecutor(max_workers=2)
 results = list(pool.map(gcd, numbers))
 stop = time()
 print("results =", results)
 print("duration time (s) =", stop - start)
 
-print("-" * 40)
+# Currently, there is error:
+# concurrent.futures.process.BrokenProcessPool: A process in the process
+# pool was terminated abruptly while the future was running or pending.
 
 if __name__ == '__main__':
     pass
