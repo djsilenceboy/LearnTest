@@ -1,7 +1,7 @@
 '''
 Created on Apr 20, 2016
 
-@author: djs
+@author: dj
 '''
 
 from queue import deque
@@ -13,6 +13,8 @@ fifo.append(1)
 fifo.append(2)
 print("fifo =", fifo)
 fifo.append(3)
+fifo.append(4)
+fifo.appendleft(5)
 print("fifo =", fifo)
 
 fifo.popleft()

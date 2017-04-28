@@ -1,7 +1,7 @@
 '''
 Created on Apr 5, 2016
 
-@author: djs
+@author: dj
 '''
 
 import sqlite3

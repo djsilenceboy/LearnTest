@@ -1,20 +1,38 @@
 '''
 Created on Apr 20, 2016
 
-@author: djs
+@author: dj
 '''
 
 from heapq import heappush
 
-a = []
+hp = []
 
-heappush(a, 11)
-heappush(a, 3)
-heappush(a, 5)
-heappush(a, 21)
+# Each time, adding new element will cause heap to adjust.
+# The rule: Both child nodes should be larger than parent node.
 
-print("a = ", a)
+heappush(hp, 11)
+print("hp = ", hp)
 
+heappush(hp, 3)
+print("hp = ", hp)
+
+heappush(hp, 5)
+print("hp = ", hp)
+
+heappush(hp, 21)
+print("hp = ", hp)
+
+heappush(hp, 8)
+print("hp = ", hp)
+
+heappush(hp, 2)
+print("hp = ", hp)
+
+# Sort will rebuild heap from small to large.
+
+hp.sort()
+print("sort() = ", hp)
 
 if __name__ == '__main__':
     pass

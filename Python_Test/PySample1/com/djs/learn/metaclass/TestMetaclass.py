@@ -1,7 +1,7 @@
 '''
 Created on Apr 15, 2016
 
-@author: jiangdu
+@author: dj
 '''
 
 # "metaclass" is built-in, from following package:

@@ -1,7 +1,7 @@
 '''
 Created on Apr 16, 2016
 
-@author: djs
+@author: dj
 '''
 
 'Directly call system function, can be multi-thread/process.'

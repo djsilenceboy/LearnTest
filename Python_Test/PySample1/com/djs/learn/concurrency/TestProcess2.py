@@ -1,7 +1,7 @@
 '''
 Created on Apr 26, 2017
 
-@author: djs
+@author: dj
 '''
 
 from concurrent.futures import ProcessPoolExecutor

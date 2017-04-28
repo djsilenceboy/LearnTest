@@ -5,7 +5,7 @@ http://www.lfd.uci.edu/~gohlke/pythonlibs/#line_profiler
 > pip install line_profiler-1.0-cp35-none-win32.whl
 > python -m kernprof -l -v TestProfile2.py
 
-@author: djs
+@author: dj
 '''
 
 from random import randint

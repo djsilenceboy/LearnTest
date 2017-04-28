@@ -1,7 +1,7 @@
 '''
 Created on Mar 7, 2016
 
-@author: djs
+@author: dj
 '''
 
 

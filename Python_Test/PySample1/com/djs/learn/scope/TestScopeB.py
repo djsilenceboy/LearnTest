@@ -1,7 +1,7 @@
 '''
 Created on Mar 7, 2016
 
-@author: djs
+@author: dj
 '''
 
 from com.djs.learn.scope import TestScopeA as inner

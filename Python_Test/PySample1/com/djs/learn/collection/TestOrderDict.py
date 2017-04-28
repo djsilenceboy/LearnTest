@@ -1,7 +1,7 @@
 '''
 Created on Apr 20, 2016
 
-@author: djs
+@author: dj
 '''
 
 from collections import OrderedDict
@@ -21,6 +21,9 @@ b["bar"] = 3
 b["dog"] = 2
 
 print("b =", b)
+
+# But they are equal if with same contents!
+print("a == b?", a == b)
 
 if __name__ == '__main__':
     pass

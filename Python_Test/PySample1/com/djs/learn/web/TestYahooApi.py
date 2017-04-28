@@ -1,7 +1,7 @@
 '''
 Created on Apr 6, 2016
 
-@author: jiangdu
+@author: dj
 '''
 
 import requests

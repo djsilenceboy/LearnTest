@@ -1,25 +1,27 @@
 '''
 Created on Apr 20, 2016
 
-@author: djs
+@author: dj
 '''
 
 from bisect import bisect_left
 from time import time
 
-x = list(range(10**8))
-j = 99990000
-print("Find j =", j)
+
+data_set = list(range(10**8))
+print("List size =", len(data_set))
+index = 99990000
+print("Find index =", index)
 
 start = time()
-i = x.index(j)
+data = data_set.index(index)
 stop = time()
-print("index: duration time (s) =", stop - start)
+print("index(): duration time (s) =", stop - start)
 
 start = time()
-i = bisect_left(x, j)
+data = bisect_left(data_set, index)
 stop = time()
-print("bisect_left: duration time (s) =", stop - start)
+print("bisect_left(): duration time (s) =", stop - start)
 
 if __name__ == '__main__':
     pass

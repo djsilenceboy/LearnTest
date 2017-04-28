@@ -1,7 +1,7 @@
 '''
 Created on Apr 8, 2016
 
-@author: djs
+@author: dj
 '''
 
 from datetime import datetime, timezone
@@ -19,6 +19,7 @@ def make_list1():
 def make_list2():
     result = [value for value in range(1000)]
     return result
+
 
 counter = 0
 

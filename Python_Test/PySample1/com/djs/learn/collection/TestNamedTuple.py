@@ -1,7 +1,7 @@
 '''
 Created on Apr 1, 2016
 
-@author: djs
+@author: dj
 '''
 
 from collections import namedtuple

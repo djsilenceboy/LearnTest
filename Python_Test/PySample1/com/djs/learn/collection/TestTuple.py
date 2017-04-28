@@ -1,7 +1,7 @@
 '''
 Created on Feb 29, 2016
 
-@author: djs
+@author: dj
 '''
 
 print("-" * 40)

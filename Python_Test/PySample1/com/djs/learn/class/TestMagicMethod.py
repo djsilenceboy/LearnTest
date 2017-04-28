@@ -1,7 +1,7 @@
 '''
 Created on Feb 22, 2016
 
-@author: djs
+@author: dj
 '''
 
 from _operator import getitem

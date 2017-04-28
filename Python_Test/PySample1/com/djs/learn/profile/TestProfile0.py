@@ -1,7 +1,7 @@
 '''
 Created on July 13, 2016
 
-@author: djs
+@author: dj
 '''
 
 from random import randint

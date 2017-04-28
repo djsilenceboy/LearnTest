@@ -1,10 +1,8 @@
 '''
 Created on Mar 1, 2016
 
-@author: jiangdu
+@author: dj
 '''
-
-from collections import defaultdict
 
 # set and dict(key) saved order will be random.
 

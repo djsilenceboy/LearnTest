@@ -1,7 +1,7 @@
 '''
 Created on Mar 2, 2016
 
-@author: jiangdu
+@author: dj
 '''
 
 _city = "New york"

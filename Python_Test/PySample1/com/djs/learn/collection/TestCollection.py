@@ -1,7 +1,7 @@
 '''
 Created on Mar 29, 2016
 
-@author: djs
+@author: dj
 '''
 
 # Could be List or Set.

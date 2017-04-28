@@ -1,7 +1,7 @@
 '''
 Created on Apr 10, 2016
 
-@author: djs
+@author: dj
 '''
 
 a = [num for num in range(10)]

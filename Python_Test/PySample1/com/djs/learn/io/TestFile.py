@@ -1,7 +1,7 @@
 '''
 Created on Mar 2, 2016
 
-@author: djs
+@author: dj
 '''
 
 with open('../../../../etc/SampleInput.txt') as file1:

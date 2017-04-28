@@ -1,7 +1,7 @@
 '''
 Created on Apr 4, 2016
 
-@author: djs
+@author: dj
 '''
 
 import csv

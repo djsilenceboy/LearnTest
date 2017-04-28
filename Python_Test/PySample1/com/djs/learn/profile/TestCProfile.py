@@ -1,7 +1,7 @@
 '''
 Created on Apr 20, 2016
 
-@author: djs
+@author: dj
 '''
 
 from bisect import bisect_left

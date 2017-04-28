@@ -3,7 +3,7 @@ Created on July 13, 2016
 
 > python -m cProfile -s cumulative TestProfile1.py
 
-@author: djs
+@author: dj
 '''
 
 from cProfile import Profile

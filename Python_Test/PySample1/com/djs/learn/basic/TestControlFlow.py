@@ -1,7 +1,7 @@
 '''
 Created on Mar 29, 2016
 
-@author: djs
+@author: dj
 '''
 
 my_condition = 1

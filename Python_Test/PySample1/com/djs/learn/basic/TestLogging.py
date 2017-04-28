@@ -1,7 +1,7 @@
 '''
 Created on Apr 8, 2016
 
-@author: jiangdu
+@author: dj
 '''
 
 import logging
@@ -38,6 +38,7 @@ def some_logging():
     local_logger.debug("This is a cat.")
     local_logger.error("Got an exception.")
     local_logger.log(logging.INFO, "Stop running.")
+
 
 some_logging()
 

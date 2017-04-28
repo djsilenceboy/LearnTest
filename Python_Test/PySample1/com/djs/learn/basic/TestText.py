@@ -1,7 +1,7 @@
 '''
 Created on Mar 2, 2016
 
-@author: jiangdu
+@author: dj
 '''
 
 from string import capwords
@@ -90,6 +90,7 @@ def show_format_just(value):
         format_str = "".join(['{0:*', c, '10}'])
         print("format{0} = {1}".format(format_str, format_str.format(value)))
 
+
 show_format_just(123)
 print("-" * 20)
 show_format_just(-123)
@@ -105,6 +106,7 @@ def show_precise(width, value):
     for i in range(1, 7):
         format_str = "".join(['{0:', str(width), '.', str(i), '}'])
         print("format{0} = {1}".format(format_str, format_str.format(value)))
+
 
 show_precise(6, 123.45)
 print("-" * 20)

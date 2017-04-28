@@ -1,7 +1,7 @@
 '''
 Created on Apr 13, 2016
 
-@author: djs
+@author: dj
 '''
 
 from pprint import pprint

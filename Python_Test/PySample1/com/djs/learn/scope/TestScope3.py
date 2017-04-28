@@ -1,7 +1,7 @@
 '''
 Created on Mar 2, 2016
 
-@author: jiangdu
+@author: dj
 '''
 
 # In class, the member with double underscore prefix, such as "__value",

@@ -1,7 +1,7 @@
 '''
 Created on Apr 23, 2016
 
-@author: djs
+@author: dj
 '''
 
 import mysql.connector as ms

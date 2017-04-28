@@ -1,7 +1,7 @@
 '''
 Created on Apr 8, 2016
 
-@author: jiangdu
+@author: dj
 '''
 
 from nose.tools import eq_

@@ -1,7 +1,7 @@
 '''
 Created on Feb 23, 2016
 
-@author: djs
+@author: dj
 '''
 
 from random import random

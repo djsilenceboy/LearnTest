@@ -1,7 +1,7 @@
 '''
 Created on Mar 1, 2016
 
-@author: jiangdu
+@author: dj
 '''
 
 from _datetime import datetime
