@@ -4,6 +4,9 @@ Created on July 13, 2016
 @author: dj
 '''
 
+# Test this from command line:
+# python -m cProfile -s cumulative TestProfile0.py
+
 from random import randint
 
 max_size = 5000
@@ -29,6 +32,7 @@ def do_test():
             print("{0:-10}".format(matrix[y][x]), end="")
         print("")
     '''
+
 
 do_test()
 

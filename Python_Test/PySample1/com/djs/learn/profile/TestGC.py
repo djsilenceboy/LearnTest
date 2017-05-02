@@ -11,6 +11,7 @@ found_objects = gc.get_objects()
 print("objects = ", len(found_objects))
 x = []
 y = {}
+z = set()
 found_objects = gc.get_objects()
 print("objects = ", len(found_objects))
 
@@ -21,6 +22,7 @@ print("----------")
 for obj in found_objects[:10]:
     print(repr(obj))
 
+print("-" * 40)
 
 if __name__ == '__main__':
     pass

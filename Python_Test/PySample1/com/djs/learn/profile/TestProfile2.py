@@ -8,7 +8,13 @@ http://www.lfd.uci.edu/~gohlke/pythonlibs/#line_profiler
 @author: dj
 '''
 
+# Test this from command line:
+# python -m memory_profiler TestProfile2.py
+
 from random import randint
+
+from memory_profiler import profile
+
 
 max_size = 5000
 
@@ -35,6 +41,7 @@ def do_test():
             print("{0:-10}".format(matrix[y][x]), end="")
         print("")
     '''
+
 
 do_test()
 

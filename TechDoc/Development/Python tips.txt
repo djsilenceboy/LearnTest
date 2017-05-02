@@ -85,9 +85,25 @@ Pip install/uninstall module
 Options:
 -v: Verbose
 ================================================================================
+Create separated environment
+------------------------------------------------------------
+]$ python -m venv <NewProjectFolder>
+]$ cd <NewProjectFolder>
+]$ .\Scripts\activate.bat
+]$ pip list
+]$ .\Scripts\deactivate.bat
+]$ pip list
+------------------------------------------------------------
+"activate" will set new environment config.
+"deactivate" will restore old environment config.
+================================================================================
 Pip environment snapshot
+------------------------------------------------------------
+Export snapshot.
 
 ]$ pip freeze > requirements.txt
+
+Restore snapshot.
 
 ]$ pip install -r requirements.txt
 ================================================================================
@@ -153,18 +169,9 @@ Serving HTTP on 0.0.0.0 port 8000 ...
 ]$ python -m http.server 8008
 Serving HTTP on 0.0.0.0 port 8008 ...
 ------------------------------------------------------------
-]$ python -m cProfile -s cumulative TestProfile1.py
+]$ python -m cProfile -s cumulative TestProfile0.py
 ------------------------------------------------------------
 ]$ python -m kernprof -l -v TestProfile2.py
 ------------------------------------------------------------
 ]$ python -m memory_profiler TestProfile2.py
-================================================================================
-Create separated environment
-------------------------------------------------------------
-]$ python -m venv PySample2
-]$ cd PySample2
-]$ .\Scripts\activate.bat
-]$ pip list
-]$ .\Scripts\deactivate.bat
-]$ pip list
 ================================================================================

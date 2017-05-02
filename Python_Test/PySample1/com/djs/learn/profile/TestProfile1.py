@@ -34,16 +34,27 @@ def do_test():
         print("")
     '''
 
+
 profiler = Profile()
 profiler.runcall(do_test)
-
-print("-" * 40)
 
 stats = Stats(profiler)
 stats.strip_dirs()
 stats.sort_stats("cumulative")
+
+print("-" * 40)
+
 stats.print_stats()
+
+print("-" * 40)
+
 stats.print_callees()
+
+print("-" * 40)
+
+stats.print_callers()
+
+print("-" * 40)
 
 if __name__ == '__main__':
     pass
