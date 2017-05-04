@@ -4,6 +4,8 @@ Created on Sep 28, 2016
 @author: dj
 '''
 
+# Function foo becomes an instance of Class TaskEx.
+
 
 class Task(object):
 

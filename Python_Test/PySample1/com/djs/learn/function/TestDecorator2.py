@@ -7,6 +7,8 @@ Created on Sep 28, 2016
 from functools import wraps
 import time
 
+# Decorator for Class.
+
 
 def decoratorTypeD(cls):
     print("-" * 40)
@@ -64,6 +66,7 @@ def main():
     print("sorted class_list =", sorted_class_list)
 
     print("-" * 40)
+
 
 if __name__ == '__main__':
     main()

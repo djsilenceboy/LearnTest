@@ -1,0 +1,32 @@
+---
+- name: Install Docker
+  hosts: VagrantDockerServer
+  become: True
+  tasks:
+    - name: Install Yum repo
+      shell: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+    - name: Update the yum package index
+      command: yum makecache fast
+
+    - name: Install Docker CE
+      yum:
+        name: docker-ce
+        state: latest
+        update_cache: yes
+
+    - name: Enable and start service
+      service:
+        name: docker
+        enabled: yes
+        state: started
+
+    - name: Sleep
+      pause:
+        seconds: 5
+
+    - name: Download Dokcer Compose
+      shell: curl -L https://github.com/docker/compose/releases/download/1.12.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+
+    - name: Change mode of file
+      shell: chmod +x /usr/local/bin/docker-compose

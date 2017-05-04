@@ -1,9 +1,15 @@
 ================================================================================
 ansible-playbook VagrantServers.yml -vvv
+
+ansible-playbook -l VagrantDbServer VagrantServers.yml -vvv
+ansible-playbook -l VagrantApplicationServer VagrantServers.yml -vvv
+ansible-playbook -l VagrantJbossServer VagrantServers.yml -vvv
+ansible-playbook -l VagrantDockerServer VagrantServers.yml -vvv
 ------------------------------------------------------------
 ansible-playbook VagrantDbServer.yml -vvv
 ansible-playbook VagrantApplicationServer.yml -vvv
 ansible-playbook VagrantJbossServer.yml -vvv
+ansible-playbook VagrantDockerServer.yml -vvv
 ------------------------------------------------------------
 ansible-playbook VagrantDbServer_PostgreSQL.yml -vvv
 ansible-playbook VagrantDbServer_MySQL.yml -vvv

@@ -68,4 +68,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Configure IP manually.
     ansibleJbossServer.vm.provision "shell", run: "always", inline: "ifconfig enp0s8 192.168.0.44 netmask 255.255.255.0 up"
   end
+
+  config.vm.define "ansibleDockerServer" do |ansibleDockerServer|
+    ansibleDockerServer.vm.provider "virtualbox" do |vb|
+      vb.name = "Vagrant_AnsibleDockerServer"
+      # Default is 1024M.
+      vb.memory = 3072
+      # Default is 1 CPU.
+      vb.cpus = 2
+    end
+
+    ansibleDockerServer.vm.hostname = "docker.djsilenceboy.com"
+
+    # Local provision will run after global provision.
+    # Configure IP manually.
+    ansibleDockerServer.vm.provision "shell", run: "always", inline: "ifconfig enp0s8 192.168.0.45 netmask 255.255.255.0 up"
+  end
 end
