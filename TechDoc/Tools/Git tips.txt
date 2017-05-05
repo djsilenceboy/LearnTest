@@ -5,6 +5,39 @@ https://progit2.s3.amazonaws.com/en/2016-03-22-f3531/progit-en.1084.pdf
 
 https://training.github.com/kit/downloads/github-git-cheat-sheet.pdf
 ================================================================================
+Git config file
+------------------------------------------------------------
+Show the config files, which git will search for in order.
+
+> git config --list --show-origin
+
+For Linux:
+/etc/gitconfig
+~/.gitconfig
+.git/config
+
+For Windows:
+C:\ProgramData\Git\config
+C:\Program Files\Git\mingw64\etc\gitconfig
+C:\Users\<User>\.gitconfig
+<Local_Repo>\.git\config
+------------------------------------------------------------
+Show config from all config files.
+
+> git config --list
+
+Show global config from "/etc/gitconfig" or "C:\Users\<User>\.gitconfig".
+
+> git config --system --list
+
+Show global config from "~/.gitconfig" or "C:\Program Files\Git\mingw64\etc\gitconfig".
+
+> git config --global --list
+
+Show global config from "<Local_Repo>/.git/config" "<Local_Repo>\.git\config".
+
+> git config --local --list
+================================================================================
 Local Git repository
 ------------------------------------------------------------
 Create a new local repository.
