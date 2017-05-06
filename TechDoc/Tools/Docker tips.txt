@@ -60,22 +60,38 @@ Delete all.
 
 ]# docker rmi `docker images -q`
 ================================================================================
+Create container.
+
+]# docker create --restart=always --name <ShortName> <Repository>:<Tag>
+
+Options:
+
+-i : --interactive
+--network=<NetworkName> : Create with new network.
+--pid host : Use host's PID namespace.
+-P : Map all internal opened ports to random host ports [32768, 61000].
+-p <InternalPort> : Map a internal opened port to a random host port [32768, 61000].
+-p <HostPort>:<InternalPort> : Map a internal opened port to a specified host port.
+-t : --tty
+------------------------------------------------------------
 Create and start container.
 
 ]# docker run -d --restart=always --name <ShortName> <Repository>:<Tag>
 
-option:
+Options:
+
 -d : --detach
 -i : --interactive
--t : --tty
+--network=<NetworkName> : Create with new network.
+--pid host : Use host's PID namespace.
 -P : Map all internal opened ports to random host ports [32768, 61000].
 -p <InternalPort> : Map a internal opened port to a random host port [32768, 61000].
 -p <HostPort>:<InternalPort> : Map a internal opened port to a specified host port.
---network=<NetworkName> : Create with new network.
+-t : --tty
 
 Notes:
 "-d" cannot use together with "-it"
-------------------------------------------------------------
+================================================================================
 Start Docker container (Existing).
 
 ]# docker start <ContainerNameOrId>
@@ -116,7 +132,8 @@ Follow log in runtime.
 
 ]# docker log -f <ContainerNameOrId>
 
-option:
+Option:
+
 -f : --follow, works like "tail -f".
 ================================================================================
 Pull or load an image first (not from registry).

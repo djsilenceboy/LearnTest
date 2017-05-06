@@ -1,3 +1,5 @@
 # Set the default behavior.
 *        text=auto
 *.txt    text           eol=crlf
+*.sh     text           eol=lf
+*.yml    text           eol=lf

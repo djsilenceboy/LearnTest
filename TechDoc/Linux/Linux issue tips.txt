@@ -4,7 +4,6 @@ Notes:
 "]#" means root user.
 "]$" means normal user.
 ================================================================================
-------------------------------------------------------------
 Can ping with domain.
 
 [root@yyy ~]# ping xxx.company.com
@@ -35,5 +34,4 @@ File format.
 
 For Shell scripts and data text files, try to use UNIX EOL (End of line).
 That means only "LF" not "CRLF".
-------------------------------------------------------------
 ================================================================================
