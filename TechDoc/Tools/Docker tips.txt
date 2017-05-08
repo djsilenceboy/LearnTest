@@ -39,58 +39,85 @@ try restart docker service.
 Check version
 
 ]# docker version
+------------------------------------------------------------
+Check general info
+
+]# docker info
 ================================================================================
-Load Docker image.
+Search image from registry.
 
-]# docker load -i Image.tar
+]# docker search <Image>
+]# docker search <Host>:<Port>/<Image>
+]# docker search <Host>:<Port>/<Image>:<Tag>
+------------------------------------------------------------
+Pull the image from registry.
 
-]# docker load < Image.tar
+]# docker pull <Host>:<Port>/<Image>
+]# docker pull <Host>:<Port>/<Image>:<Tag>
+------------------------------------------------------------
+Load the image from a local file (tar).
+
+]# docker load -i <ImageFile.tar>
+
+]# docker load < <ImageFile.tar>
+------------------------------------------------------------
+Save the image to a local file (tar).
+
+]# docker save -o <ImageFile.tar> <Image>
+]# docker save -o <ImageFile.tar> <Image>:<Tag>
+
+]# docker save <Image> > <ImageFile.tar>
+]# docker save <Image>:<Tag> > <ImageFile.tar>
+------------------------------------------------------------
+Push the image to registry.
+
+]# docker push <Host>:<Port>/<Image>
+]# docker push <Host>:<Port>/<Image>:<Tag>
+
+]# docker push localhost:5000/<Image>
+]# docker push localhost:5000/<Image>:<Tag>
 ------------------------------------------------------------
 Check loaded images.
 
 ]# docker images
 ------------------------------------------------------------
-Delete loaded images (REPOSITORY).
+Delete loaded images.
 
-]# docker rmi <Repository>
+]# docker rmi <Image> <Image>...
+]# docker rmi <Image>:<Tag> <Image>:<Tag>...
 
-]# docker rmi -f <Repository>
+Option:
+-f : by force.
 
-Delete all.
+Delete all images.
 
 ]# docker rmi `docker images -q`
 ================================================================================
 Create container.
 
-]# docker create --restart=always --name <ShortName> <Repository>:<Tag>
+]# docker create --name <ShortName> <Repository>:<Tag>
 
 Options:
 
+-e Key=Value : --env Key=Value, add env variable.
 -i : --interactive
 --network=<NetworkName> : Create with new network.
 --pid host : Use host's PID namespace.
 -P : Map all internal opened ports to random host ports [32768, 61000].
 -p <InternalPort> : Map a internal opened port to a random host port [32768, 61000].
 -p <HostPort>:<InternalPort> : Map a internal opened port to a specified host port.
+--restart=always: When Docker service started/restarted, the container will start automatically.
+--read-only: The file system in container is read only.
 -t : --tty
 ------------------------------------------------------------
 Create and start container.
 
-]# docker run -d --restart=always --name <ShortName> <Repository>:<Tag>
+]# docker run -d --name <ShortName> <Repository>:<Tag>
 
-Options:
+Options: (mostly same as for creating.)
 
--d : --detach
--i : --interactive
---network=<NetworkName> : Create with new network.
---pid host : Use host's PID namespace.
--P : Map all internal opened ports to random host ports [32768, 61000].
--p <InternalPort> : Map a internal opened port to a random host port [32768, 61000].
--p <HostPort>:<InternalPort> : Map a internal opened port to a specified host port.
--t : --tty
-
-Notes:
-"-d" cannot use together with "-it"
+-d : --detach, cannot use together with "-it".
+--rm: After running, remove it immediately.
 ================================================================================
 Start Docker container (Existing).
 
@@ -111,6 +138,10 @@ Check all Docker container.
 Check last started Docker container.
 
 ]# docker ps -l
+
+Options:
+
+--no-trunc : Show full value in each PS field.
 ------------------------------------------------------------
 Stop Docker container.
 
@@ -136,42 +167,6 @@ Option:
 
 -f : --follow, works like "tail -f".
 ================================================================================
-Pull or load an image first (not from registry).
-
-]# docker pull <Image>
-
-Or
-
-]# docker load < <Image>
-------------------------------------------------------------
-Push the image to registry.
-
-]# docker push <Host>:<Port>/<Image>
-
-]# docker push localhost:5000/<Image>
-
-Or
-
-]# docker push <Host>:<Port>/<Image>:<Tag>
-
-]# docker push localhost:5000/<Image>:<Tag>
-------------------------------------------------------------
-Search image from registry.
-
-]# docker search <Host>:<Port>/<Image>
-
-Or
-
-]# docker search <Host>:<Port>/<Image>:<Tag>
-------------------------------------------------------------
-Pull the image from registry.
-
-]# docker pull <Host>:<Port>/<Image>
-
-Or
-
-]# docker pull <Host>:<Port>/<Image>:<Tag>
-================================================================================
 Tag image
 ------------------------------------------------------------
 Use default tag: latest
@@ -182,7 +177,7 @@ For localhost
 
 ]# docker tag <Image> <ImagePath>/<Image>
 ------------------------------------------------------------
-Use sepecified tag
+Use specified tag
 
 ]# docker tag <Image>:<Tag> <Host>:<Port>/<Image>:<Tag>
 ]# docker tag <Image> <Host>:<Port>/<Image>:<Tag>
