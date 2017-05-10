@@ -1,0 +1,108 @@
+================================================================================
+Docker Compose
+------------------------------------------------------------
+Install from Docker repository
+
+]$ sudo -i
+]# curl -L https://github.com/docker/compose/releases/download/1.12.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+
+]$ sudo chmod +x /usr/local/bin/docker-compose
+]$ ll /usr/local/bin/docker-compose
+------------------------------------------------------------
+Check version
+
+]$ docker-compose version
+================================================================================
+Create/re-create and first running Docker container by "docker-compose.yml".
+
+]# docker-compose up -d
+------------------------------------------------------------
+Start Docker container.
+
+]# docker-compose start
+------------------------------------------------------------
+Check started Docker container (and ID).
+
+]# docker-compose ps
+------------------------------------------------------------
+Stop Docker container.
+
+]# docker-compose stop
+
+Kill (force stop) Docker container.
+
+]# docker-compose kill -s SIGINT
+
+The containers are stopped, but not removed/deleted.
+
+If docker-compose cannot stop certain container, use docker to stop.
+------------------------------------------------------------
+Remove Docker container.
+
+Before removing, stop it first.
+
+]# docker-compose stop <ContainerNameOrId>
+]# docker-compose rm <ContainerNameOrId>
+
+Delete all stopped containers.
+
+]# docker rm `docker ps -qa`
+------------------------------------------------------------
+Check Docker log.
+
+]# docker-compose logs
+================================================================================
+Login Docker container with Shell by Compose
+
+Use "docker ps" to find container name.
+Login in by name.
+
+]# docker-compose run <ComposeContainerNameOrId> bash -l
+]# docker-compose run <ComposeContainerNameOrId> bash -l -c "<Some commands>"
+
+Sample:
+
+]# docker-compose run xeng bash -l
+]# docker-compose run xeng bash -l -c "/bin/bash"
+================================================================================
+Docker registry
+
+Install Docker registry
+------------------------------------------------------------
+Create folder.
+
+]# mkdir -p /docker/registry
+]# mkdir -p /docker/registry/certs
+]# mkdir -p /docker/registry/repo
+------------------------------------------------------------
+Generate certificate.
+
+]# cd /docker/registry/certs
+
+]# openssl req -x509 -nodes -days 365 -sha256 -newkey rsa:2048 -keyout docker_registry.key -out docker_registry.crt -subj "/C=SG/ST=Singapore/L=Singapore/O=djsilenceboy/CN=`hostname`"
+------------------------------------------------------------
+Load image and create container by Docker Engine.
+
+]# docker run -d -p 5000:5000 --restart=always --name registry -v /docker/registry/certs:/certs -v /docker/registry/repo:/var/lib/registry -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/docker_registry.crt -e REGISTRY_HTTP_TLS_KEY=/certs/docker_registry.key registry:2
+------------------------------------------------------------
+Load image and create container by Docker Compose.
+
+Generate yml.
+
+]# cd /docker/registry
+]# vi docker-compose.yml
+----------------------------------------
+registry:
+  restart: always
+  image: registry:2
+  ports:
+    - 5000:5000
+  environment:
+    REGISTRY_HTTP_TLS_CERTIFICATE: /certs/docker_registry.crt
+    REGISTRY_HTTP_TLS_KEY: /certs/docker_registry.key
+  volumes:
+    - /docker/registry/certs:/certs
+    - /docker/registry/repo:/var/lib/registry
+----------------------------------------
+]# docker-compose up -d
+================================================================================

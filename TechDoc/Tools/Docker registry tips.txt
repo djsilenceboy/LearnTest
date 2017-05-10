@@ -1,0 +1,42 @@
+================================================================================
+Docker registry
+
+Install Docker registry
+------------------------------------------------------------
+Create folder.
+
+]# mkdir -p /docker/registry
+]# mkdir -p /docker/registry/certs
+]# mkdir -p /docker/registry/repo
+------------------------------------------------------------
+Generate certificate.
+
+]# cd /docker/registry/certs
+
+]# openssl req -x509 -nodes -days 365 -sha256 -newkey rsa:2048 -keyout docker_registry.key -out docker_registry.crt -subj "/C=SG/ST=Singapore/L=Singapore/O=djsilenceboy/CN=`hostname`"
+------------------------------------------------------------
+Load image and create container by Docker Engine.
+
+]# docker run -d -p 5000:5000 --restart=always --name registry -v /docker/registry/certs:/certs -v /docker/registry/repo:/var/lib/registry -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/docker_registry.crt -e REGISTRY_HTTP_TLS_KEY=/certs/docker_registry.key registry:2
+------------------------------------------------------------
+Load image and create container by Docker Compose.
+
+Generate yml.
+
+]# cd /docker/registry
+]# vi docker-compose.yml
+----------------------------------------
+registry:
+  restart: always
+  image: registry:2
+  ports:
+    - 5000:5000
+  environment:
+    REGISTRY_HTTP_TLS_CERTIFICATE: /certs/docker_registry.crt
+    REGISTRY_HTTP_TLS_KEY: /certs/docker_registry.key
+  volumes:
+    - /docker/registry/certs:/certs
+    - /docker/registry/repo:/var/lib/registry
+----------------------------------------
+]# docker-compose up -d
+================================================================================

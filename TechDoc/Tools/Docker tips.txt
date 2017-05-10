@@ -83,41 +83,56 @@ Check loaded images.
 ------------------------------------------------------------
 Delete loaded images.
 
-]# docker rmi <Image> <Image>...
-]# docker rmi <Image>:<Tag> <Image>:<Tag>...
+]# docker rmi <Image>...
+]# docker rmi <Image>:<Tag>...
 
-Option:
--f : by force.
+Options:
+-f, --force : by force.
 
 Delete all images.
 
 ]# docker rmi `docker images -q`
+------------------------------------------------------------
+Some small sample images.
+
+busybox, alpine, nginx
 ================================================================================
 Create container.
 
 ]# docker create --name <ShortName> <Repository>:<Tag>
 
 Options:
-
--e Key=Value : --env Key=Value, add env variable.
--i : --interactive
+-e, --env Key=Value : Add env variable.
+-i, --interactive :
 --network=<NetworkName> : Create with new network.
 --pid host : Use host's PID namespace.
 -P : Map all internal opened ports to random host ports [32768, 61000].
 -p <InternalPort> : Map a internal opened port to a random host port [32768, 61000].
 -p <HostPort>:<InternalPort> : Map a internal opened port to a specified host port.
---restart=always: When Docker service started/restarted, the container will start automatically.
---read-only: The file system in container is read only.
--t : --tty
+--restart=always : When Docker service started/restarted, the container will start automatically.
+--read-only : The file system in container is read only.
+-t, --tty :
+-v, --volume : Bind mount a volume.
+  -v <DockerManagedVolumeName>
+  -v <HostPath>:<BindVolumeName>
+  -v <HostPath>:<BindVolumeName>:<AccessFlag>
+  AccessFlag: [rw, ro], default is rw.
+  Mapping sequence:
+    If <HostPath> is a folder on host, it is mapped as a folder in container.
+    If <HostPath> is a file on host, it is mapped as a file in container.
+    If <HostPath> does not exist on host, it will be created as a folder on host, and then is mapped as a folder in container.
+    It will hide the same named path in container, if exists.
+  If multiple -v mapping to same internal path, the late mapped one is used.
+--volumes-from <VolumeContainerName> : Mount volumes from the specified container.
+  If multiple volumes in different containers mapping to same internal path, the late mapped one is used.
 ------------------------------------------------------------
 Create and start container.
 
 ]# docker run -d --name <ShortName> <Repository>:<Tag>
 
 Options: (mostly same as for creating.)
-
--d : --detach, cannot use together with "-it".
---rm: After running, remove it immediately.
+-d, --detach : Cannot use together with "-it".
+--rm : After running, remove it immediately.
 ================================================================================
 Start Docker container (Existing).
 
@@ -134,26 +149,28 @@ Check running Docker container.
 Check all Docker container.
 
 ]# docker ps -a
-
-Check last started Docker container.
-
-]# docker ps -l
+]# docker ps --all
 
 Options:
-
---no-trunc : Show full value in each PS field.
+-l: Show the latest created container (includes all states)
+--no-trunc : Don't truncate output in each field.
+--quiet : Only display numeric IDs
 ------------------------------------------------------------
 Stop Docker container.
 
 ]# docker stop <ContainerNameOrId>
 
-Stop all Docker containers.
+Stop all running containers.
 
 ]# docker stop `docker ps -q`
 ------------------------------------------------------------
 Delete container.
 
-]# docker rm <ContainerNameOrId>
+]# docker rm <ContainerNameOrId>...
+
+Options:
+-f, --force : By force.
+-v, --volumes : Remove the volumes associated with the container.
 ------------------------------------------------------------
 Check Docker container log.
 
@@ -163,9 +180,8 @@ Follow log in runtime.
 
 ]# docker log -f <ContainerNameOrId>
 
-Option:
-
--f : --follow, works like "tail -f".
+Options:
+-f, --follow: Works like "tail -f".
 ================================================================================
 Tag image
 ------------------------------------------------------------
@@ -187,13 +203,20 @@ For localhost
 ]# docker tag <Image> <ImagePath>/<Image>:<Tag>
 ]# docker tag <Image>:<Tag> <ImagePath>/<Image>:<Tag>
 ================================================================================
-Check container config in JSON format
+Check container config
 
 ]# docker inspect <ContainerNameOrId>
 
-]# docker inspect -f 'Keyword' <ContainerNameOrId>
+Options:
+-f, --format <String> : Format the output using the given Go template.
+----------------------------------------
+Check mount info.
 
-Option "-f" is filter for keyword.
+]# docker inspect -f "{{.Mounts}}" <ContainerNameOrId>
+
+In JSON format:
+
+]# docker inspect -f "{{json .Mounts}}" <ContainerNameOrId>
 ------------------------------------------------------------
 Check opened port of container
 
@@ -238,122 +261,53 @@ Connect existing container to another network
 ]# docker network connect <NetworkName> <ContainerNameOrId>
 ================================================================================
 Login Docker container with Shell
-
+------------------------------------------------------------
 Use "docker ps" to find container ID and name.
 Login in by ID or name.
 
-]# docker exec -it <ContainerNameOrId> "/bin/bash"
 ]# docker exec -it <ContainerNameOrId> bash -l
 ]# docker exec -it <ContainerNameOrId> bash -l -c "<Command>"
-
-By default, login as root. Use "-u <User>" to login as specified user.
-
+]# docker exec -it <ContainerNameOrId> bash -c "<Command>"
 ]# docker exec -it -u <User> <ContainerNameOrId> bash -l
+
+Notes:
+1. The "bash -l" means with login shell.
+2. The "bash" without "-l" means with no-login shell.
+3. By default, login as root. Use "-u <User>" to login as specified user.
 ================================================================================
-Docker Compose
+Docker volume
 ------------------------------------------------------------
-Install from Docker repository
+Create.
 
-]$ sudo -i
-]# curl -L https://github.com/docker/compose/releases/download/1.12.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-
-]$ sudo chmod +x /usr/local/bin/docker-compose
-]$ ll /usr/local/bin/docker-compose
+]# docker volume create <VolumeContainerName>
 ------------------------------------------------------------
-Check version
+List.
 
-]$ docker-compose version
-================================================================================
-Create/re-create and first running Docker container by "docker-compose.yml".
+]# docker volume ls
 
-]# docker-compose up -d
+Options:
+-f, --filter <String> : Provide filter values.
+--format <String> : Pretty-print volumes using a Go template.
+-q, --quiet : Only display volume names.
 ------------------------------------------------------------
-Start Docker container.
+Check info.
 
-]# docker-compose start
+]# docker volume inspect <VolumeContainerName>
+
+Options:
+--format <String> : Pretty-print volumes using a Go template.
 ------------------------------------------------------------
-Check started Docker container (and ID).
+Delete.
 
-]# docker-compose ps
+]# docker volume rm <VolumeContainerName>...
+
+Options:
+-f, --force : Force the removal of one or more volumes.
 ------------------------------------------------------------
-Stop Docker container.
+Delete all unused volumes.
 
-]# docker-compose stop
+]# docker volume prune
 
-Kill (force stop) Docker container.
-
-]# docker-compose kill -s SIGINT
-
-The containers are stopped, but not removed/deleted.
-
-If docker-compose cannot stop certain container, use docker to stop.
-------------------------------------------------------------
-Remove Docker container.
-
-Before removing, stop it first.
-
-]# docker-compose stop <ContainerNameOrId>
-]# docker-compose rm <ContainerNameOrId>
-
-Delete all stopped containers.
-
-]# docker rm `docker ps -qa`
-------------------------------------------------------------
-Check Docker log.
-
-]# docker-compose logs
-================================================================================
-Login Docker container with Shell by Compose
-
-Use "docker ps" to find container name.
-Login in by name.
-
-]# docker-compose run <ComposeContainerNameOrId> bash -l
-]# docker-compose run <ComposeContainerNameOrId> bash -l -c "<Some commands>"
-
-Sample:
-
-]# docker-compose run xeng bash -l
-]# docker-compose run xeng bash -l -c "/bin/bash"
-================================================================================
-Docker registry
-
-Install Docker registry
-------------------------------------------------------------
-Create folder.
-
-]# mkdir -p /docker/registry
-]# mkdir -p /docker/registry/certs
-]# mkdir -p /docker/registry/repo
-------------------------------------------------------------
-Generate certificate.
-
-]# cd /docker/registry/certs
-
-]# openssl req -x509 -nodes -days 365 -sha256 -newkey rsa:2048 -keyout docker_registry.key -out docker_registry.crt -subj "/C=SG/ST=Singapore/L=Singapore/O=djsilenceboy/CN=`hostname`"
-------------------------------------------------------------
-Load image and create container by Docker Engine.
-
-]# docker run -d -p 5000:5000 --restart=always --name registry -v /docker/registry/certs:/certs -v /docker/registry/repo:/var/lib/registry -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/docker_registry.crt -e REGISTRY_HTTP_TLS_KEY=/certs/docker_registry.key registry:2
-------------------------------------------------------------
-Load image and create container by Docker Compose.
-
-Generate yml.
-
-]# cd /docker/registry
-]# vi docker-compose.yml
-----------------------------------------
-registry:
-  restart: always
-  image: registry:2
-  ports:
-    - 5000:5000
-  environment:
-    REGISTRY_HTTP_TLS_CERTIFICATE: /certs/docker_registry.crt
-    REGISTRY_HTTP_TLS_KEY: /certs/docker_registry.key
-  volumes:
-    - /docker/registry/certs:/certs
-    - /docker/registry/repo:/var/lib/registry
-----------------------------------------
-]# docker-compose up -d
+Options:
+-f, --force : Do not prompt for confirmation.
 ================================================================================

@@ -14,7 +14,6 @@ def fibonacci():
             numbers.append(sum(numbers))
             numbers.pop(0)
         yield numbers[-1]
-        # continue
 
 
 def main():
@@ -56,6 +55,7 @@ def main():
     print("next(fib3) =", next(fib3))
 
     print("-" * 40)
+
 
 if __name__ == '__main__':
     main()
