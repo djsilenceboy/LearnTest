@@ -3,28 +3,30 @@ Created on Oct 17, 2016
 
 @author: dj
 '''
+import itertools
 
 
 def sub_gen1():
-    print("B1")
+    print("AA1")
     yield "Foo"
-    print("B2")
+    print("AA2")
     yield "Bar"
-    print("B3")
+    print("AA3")
 
 
 # Coroutine can pass from parent generator to child generator.
 def sub_gen2():
-    print("C1")
+    print("BB1")
     yield "Apple"
-    print("C2")
+    print("BB2")
     received = yield "Orange"
-    print("C3 =", received)
+    print("BB3 =", received)
     yield "Banana"
-    print("C4")
+    print("BB4")
 
 
-def main_gen():
+def main_gen1():
+    # "yield from" support yield send.
     print("A1")
     yield from sub_gen1()
     print("A2")
@@ -32,12 +34,20 @@ def main_gen():
     print("A3")
 
 
+def main_gen2():
+    # "itertools.chain" does not support yield send.
+    print("B1")
+    for word in itertools.chain(sub_gen1(), sub_gen2()):
+        yield word
+    print("B2")
+
+
 def main():
     print("-" * 40)
 
-    gen = main_gen()
+    gen = main_gen1()
 
-    print("gen =", gen)
+    print("gen1 =", gen)
     print("-" * 20)
     print("M1 =", next(gen))
     print("-" * 20)
@@ -54,6 +64,21 @@ def main():
     # print("M6 =", next(gen))
 
     print("-" * 40)
+
+    gen = main_gen2()
+
+    print("gen2 =", gen)
+    print("-" * 20)
+    print("M1 =", next(gen))
+    print("-" * 20)
+    print("M2 =", next(gen))
+    print("-" * 20)
+    print("M3 =", next(gen))
+    print("-" * 20)
+    print("M4 =", next(gen))
+
+    print("-" * 40)
+
 
 if __name__ == '__main__':
     main()

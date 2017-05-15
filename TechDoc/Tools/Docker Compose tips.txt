@@ -12,6 +12,7 @@ Install from Docker repository
 Check version
 
 ]$ docker-compose version
+]$ docker-compose -v
 ================================================================================
 Create/re-create and first running Docker container by "docker-compose.yml".
 

@@ -27,8 +27,15 @@ Manually start/stop Docker.
 
 Start
 
+]# dockerd &
 ]# docker daemon &
 
+Options:
+--bip <Subnet/MuskBit> : Specify network bridge IP.
+-b, --bridge <PreDefinedNetworkName> : Attach containers to a network bridge.
+--dns : Add DNS IP.
+--icc <Boolean> : [true, false], enable or disable inter-container communication.
+----------------------------------------
 Stop
 
 ]# killall docker
@@ -39,6 +46,7 @@ try restart docker service.
 Check version
 
 ]# docker version
+]# docker -v
 ------------------------------------------------------------
 Check general info
 
@@ -102,13 +110,19 @@ Create container.
 ]# docker create --name <ShortName> <Repository>:<Tag>
 
 Options:
+--add-host <HostName:IP> : Add entry to "/etc/hosts" inside container.
+--dns : Add DNS IP.
 -e, --env Key=Value : Add env variable.
+--hostname <HostName> : Add host name to "/etc/hostname" and add entry to "/etc/hosts" inside container.
 -i, --interactive :
---network=<NetworkName> : Create with new network.
+--network <NetworkName> : Network type for container. [bridge, host, none], the default value is bridge. It can be user-defined networks by "docker network create". It can be joined container by "container:<AnotherContainerName>".
 --pid host : Use host's PID namespace.
--P : Map all internal opened ports to random host ports [32768, 61000].
--p <InternalPort> : Map a internal opened port to a random host port [32768, 61000].
--p <HostPort>:<InternalPort> : Map a internal opened port to a specified host port.
+-P, --publish-all : Map all internal opened ports to random host ports [32768, 61000].
+-p, --publish : Map container port to host port.
+  -p <ContainerPort> : Map container port to a random host port [32768, 61000].
+  -p <HostPort>:<ContainerPort> : Map container port to a specified host port.
+  -p <HostIP>::<ContainerPort> : Map container port to a random host port [32768, 61000] of specified host IP.
+  -p <HostIP>:<HostPort>:<ContainerPort> : Map container port to a specified host port of specified host IP.
 --restart=always : When Docker service started/restarted, the container will start automatically.
 --read-only : The file system in container is read only.
 -t, --tty :
@@ -236,17 +250,23 @@ Copy folder/file from host to container
 ================================================================================
 Check network
 ------------------------------------------------------------
+Get network type list.
+
 ]# docker network ls
 
 NETWORK ID          NAME                DRIVER              SCOPE
 d96c8b7c6017        bridge              bridge              local               
 ec9bebe55777        host                host                local               
 c09b728419ce        none                null                local        
+------------------------------------------------------------
+Check network type info.
 
+]# docker network inspect <NetworkName>
 ]# docker network inspect bridge
 ------------------------------------------------------------
 Remove a container from a network by disconnecting the container.
 
+]# docker network inspect <NetworkName> <ContainerNameOrId>
 ]# docker network disconnect bridge <ContainerNameOrId>
 ------------------------------------------------------------
 Create a new network
@@ -255,10 +275,17 @@ Create a new network
 ]# docker network create <NetworkName>
 
 ]# docker network create -d bridge <NetworkName>
+
+Options:
+-d, --driver : Network driver name.
 ------------------------------------------------------------
 Connect existing container to another network
 
 ]# docker network connect <NetworkName> <ContainerNameOrId>
+------------------------------------------------------------
+Check ports.
+
+]# docker port <ContainerNameOrId>
 ================================================================================
 Login Docker container with Shell
 ------------------------------------------------------------
