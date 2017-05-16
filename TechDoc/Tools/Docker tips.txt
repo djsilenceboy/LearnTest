@@ -31,10 +31,11 @@ Start
 ]# docker daemon &
 
 Options:
---bip <Subnet/MuskBit> : Specify network bridge IP.
--b, --bridge <PreDefinedNetworkName> : Attach containers to a network bridge.
---dns : Add DNS IP.
---icc <Boolean> : [true, false], enable or disable inter-container communication.
+--bip : Specify network bridge IP in "IP/SubnetMuskBit" format.
+-b, --bridge : Attach containers to a network bridge in "PreDefinedNetworkName" format.
+--dns [] : Add DNS IP.
+--fixed-cidr : IPv4 subnet for fixed IPs in "Subnet/MuskBit" format.
+--icc : Enable or disable inter-container communication. Values [true, false], the default value is true.
 ----------------------------------------
 Stop
 
@@ -69,13 +70,16 @@ Load the image from a local file (tar).
 
 ]# docker load < <ImageFile.tar>
 ------------------------------------------------------------
-Save the image to a local file (tar).
+Save the image to a local file (tar or tar.gz).
 
 ]# docker save -o <ImageFile.tar> <Image>
 ]# docker save -o <ImageFile.tar> <Image>:<Tag>
 
 ]# docker save <Image> > <ImageFile.tar>
 ]# docker save <Image>:<Tag> > <ImageFile.tar>
+
+]# docker save <Image> | gzip > <ImageFile.tar.gz>
+]# docker save <Image>:<Tag> | gzip > <ImageFile.tar.gz>
 ------------------------------------------------------------
 Push the image to registry.
 
@@ -110,22 +114,23 @@ Create container.
 ]# docker create --name <ShortName> <Repository>:<Tag>
 
 Options:
---add-host <HostName:IP> : Add entry to "/etc/hosts" inside container.
+--add-host [] : Add entry to "/etc/hosts" inside container in "HostName:IP" format.
 --dns : Add DNS IP.
--e, --env Key=Value : Add env variable.
---hostname <HostName> : Add host name to "/etc/hostname" and add entry to "/etc/hosts" inside container.
--i, --interactive :
---network <NetworkName> : Network type for container. [bridge, host, none], the default value is bridge. It can be user-defined networks by "docker network create". It can be joined container by "container:<AnotherContainerName>".
---pid host : Use host's PID namespace.
--P, --publish-all : Map all internal opened ports to random host ports [32768, 61000].
--p, --publish : Map container port to host port.
+-e, --env [] : Add env variable in "Key=Value" format.
+--expose [] : Expose a port or a range of ports. Exposed port may not be published.
+-h, --hostname <HostName> : Add host name to "/etc/hostname" and add entry to "/etc/hosts" inside container.
+-i, --interactive : Keep STDIN open even if not attached.
+--network : Network type for container. Values [bridge, host, none], the default value is bridge. It can be user-defined networks by "docker network create". It can be joined container by "container:<AnotherContainerName>". "--net" for old docker version.
+--pid : Use other PID namespace. Values [host, container:<AnotherContainerNameOrId>].
+-P, --publish-all : Publish all exposed ports (--expose) to random host ports [32768, 61000].
+-p, --publish [] : Publish a container's port(s) to the host. Published port is exposed.
   -p <ContainerPort> : Map container port to a random host port [32768, 61000].
   -p <HostPort>:<ContainerPort> : Map container port to a specified host port.
   -p <HostIP>::<ContainerPort> : Map container port to a random host port [32768, 61000] of specified host IP.
   -p <HostIP>:<HostPort>:<ContainerPort> : Map container port to a specified host port of specified host IP.
 --restart=always : When Docker service started/restarted, the container will start automatically.
 --read-only : The file system in container is read only.
--t, --tty :
+-t, --tty : Allocate a pseudo-TTY.
 -v, --volume : Bind mount a volume.
   -v <DockerManagedVolumeName>
   -v <HostPath>:<BindVolumeName>
@@ -177,6 +182,13 @@ Stop Docker container.
 Stop all running containers.
 
 ]# docker stop `docker ps -q`
+------------------------------------------------------------
+Kill container.
+
+]# docker kill <ContainerNameOrId>...
+
+Options:
+-s, --signal=KILL : Signal to send to the container.
 ------------------------------------------------------------
 Delete container.
 
