@@ -56,13 +56,11 @@ Check general info
 Search image from registry.
 
 ]# docker search <Image>
-]# docker search <Host>:<Port>/<Image>
-]# docker search <Host>:<Port>/<Image>:<Tag>
+]# docker search <Host>:<Port>/<Image[:Tag]>
 ------------------------------------------------------------
 Pull the image from registry.
 
-]# docker pull <Host>:<Port>/<Image>
-]# docker pull <Host>:<Port>/<Image>:<Tag>
+]# docker pull <Host>:<Port>/<Image[:Tag]>
 ------------------------------------------------------------
 Load the image from a local file (tar).
 
@@ -72,22 +70,17 @@ Load the image from a local file (tar).
 ------------------------------------------------------------
 Save the image to a local file (tar or tar.gz).
 
-]# docker save -o <ImageFile.tar> <Image>
-]# docker save -o <ImageFile.tar> <Image>:<Tag>
+]# docker save -o <ImageFile.tar> <Image[:Tag]>
 
-]# docker save <Image> > <ImageFile.tar>
-]# docker save <Image>:<Tag> > <ImageFile.tar>
+]# docker save <Image[:Tag]> > <ImageFile.tar>
 
-]# docker save <Image> | gzip > <ImageFile.tar.gz>
-]# docker save <Image>:<Tag> | gzip > <ImageFile.tar.gz>
+]# docker save <Image[:Tag]> | gzip > <ImageFile.tar.gz>
 ------------------------------------------------------------
 Push the image to registry.
 
-]# docker push <Host>:<Port>/<Image>
-]# docker push <Host>:<Port>/<Image>:<Tag>
+]# docker push <Host>:<Port>/<Image[:Tag]>
 
-]# docker push localhost:5000/<Image>
-]# docker push localhost:5000/<Image>:<Tag>
+]# docker push localhost:5000/<Image[:Tag]>
 ------------------------------------------------------------
 Check loaded images.
 
@@ -95,8 +88,7 @@ Check loaded images.
 ------------------------------------------------------------
 Delete loaded images.
 
-]# docker rmi <Image>...
-]# docker rmi <Image>:<Tag>...
+]# docker rmi <Image[:Tag]>...
 
 Options:
 -f, --force : by force.
@@ -111,15 +103,17 @@ busybox, alpine, nginx
 ================================================================================
 Create container.
 
-]# docker create --name <ShortName> <Repository>:<Tag>
+]# docker create --name <ShortName> <Repository[:Tag]>
 
 Options:
 --add-host [] : Add entry to "/etc/hosts" inside container in "HostName:IP" format.
+-c, --cpu-shares <Weight> : CPU shares (relative weight). The default value is 1024 (meaning 100%).
 --dns : Add DNS IP.
 -e, --env [] : Add env variable in "Key=Value" format.
 --expose [] : Expose a port or a range of ports. Exposed port may not be published.
 -h, --hostname <HostName> : Add host name to "/etc/hostname" and add entry to "/etc/hosts" inside container.
 -i, --interactive : Keep STDIN open even if not attached.
+-m, --memory <MemSize> : Memory limit in "<Number><Unit>" format. Unit values [b, k, m, g]. The default value is same as host memory size. 
 --network : Network type for container. Values [bridge, host, none], the default value is bridge. It can be user-defined networks by "docker network create". It can be joined container by "container:<AnotherContainerName>". "--net" for old docker version.
 --pid : Use other PID namespace. Values [host, container:<AnotherContainerNameOrId>].
 -P, --publish-all : Publish all exposed ports (--expose) to random host ports [32768, 61000].
@@ -131,6 +125,7 @@ Options:
 --restart=always : When Docker service started/restarted, the container will start automatically.
 --read-only : The file system in container is read only.
 -t, --tty : Allocate a pseudo-TTY.
+-u, --user <UserNameOrId> : Default login user in "<name|uid>[:<group|gid>])" format. The default user is root. Specified user must already exist in the image.
 -v, --volume : Bind mount a volume.
   -v <DockerManagedVolumeName>
   -v <HostPath>:<BindVolumeName>
@@ -147,13 +142,13 @@ Options:
 ------------------------------------------------------------
 Create and start container.
 
-]# docker run -d --name <ShortName> <Repository>:<Tag>
+]# docker run -d --name <ShortName> <Repository[:Tag]>
 
 Options: (mostly same as for creating.)
 -d, --detach : Cannot use together with "-it".
 --rm : After running, remove it immediately.
 ================================================================================
-Start Docker container (Existing).
+Start container (Existing).
 
 ]# docker start <ContainerNameOrId>
 
@@ -161,11 +156,11 @@ Restart.
 
 ]# docker restart <ContainerNameOrId>
 ------------------------------------------------------------
-Check running Docker container.
+Check running container.
 
 ]# docker ps
 
-Check all Docker container.
+Check all container.
 
 ]# docker ps -a
 ]# docker ps --all
@@ -175,7 +170,7 @@ Options:
 --no-trunc : Don't truncate output in each field.
 --quiet : Only display numeric IDs
 ------------------------------------------------------------
-Stop Docker container.
+Stop container.
 
 ]# docker stop <ContainerNameOrId>
 
@@ -197,17 +192,36 @@ Delete container.
 Options:
 -f, --force : By force.
 -v, --volumes : Remove the volumes associated with the container.
+================================================================================
+Check container statistics.
+
+]# docker stats
+]# docker stats -a --no-stream
+
+Options:
+-a, --all : Show all containers (default shows just running).
+--no-stream : Disable streaming stats and only pull the first result.
 ------------------------------------------------------------
-Check Docker container log.
+Check container log.
 
 ]# docker logs <ContainerNameOrId>
 
-Follow log in runtime.
-
-]# docker log -f <ContainerNameOrId>
-
 Options:
 -f, --follow: Works like "tail -f".
+================================================================================
+Check container changes.
+
+]# docker diff <ContainerNameOrId>
+
+Token [A, C, D]. A: Add; C: Change; D: Delete.
+------------------------------------------------------------
+Create new image from changed container.
+
+]# docker commit <ContainerNameOrId> <NewImageName[:Tag]>
+
+Options:
+-a, --author <String> : Author.
+-m, --message <String> : Commit message.
 ================================================================================
 Tag image
 ------------------------------------------------------------
@@ -221,13 +235,11 @@ For localhost
 ------------------------------------------------------------
 Use specified tag
 
-]# docker tag <Image>:<Tag> <Host>:<Port>/<Image>:<Tag>
-]# docker tag <Image> <Host>:<Port>/<Image>:<Tag>
+]# docker tag <Image[:Tag]> <Host>:<Port>/<Image[:Tag]>
 
 For localhost
 
-]# docker tag <Image> <ImagePath>/<Image>:<Tag>
-]# docker tag <Image>:<Tag> <ImagePath>/<Image>:<Tag>
+]# docker tag <Image[:Tag]> <ImagePath>/<Image[:Tag]>
 ================================================================================
 Check container config
 
@@ -299,7 +311,7 @@ Check ports.
 
 ]# docker port <ContainerNameOrId>
 ================================================================================
-Login Docker container with Shell
+Login container with Shell
 ------------------------------------------------------------
 Use "docker ps" to find container ID and name.
 Login in by ID or name.

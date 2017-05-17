@@ -165,7 +165,7 @@ Restart network to take in effect.
 
 Or just restart server.
 ================================================================================
-Check process
+Check process.
 
 To see every process on the system using standard syntax:
 
@@ -181,7 +181,7 @@ Filter.
 
 ]$ ps -o %cpu,%mem,cmd -p <PID>
 ------------------------------------------------------------
-Show top process
+Show top process.
 
 ]$ top -c -d 10
 
@@ -189,11 +189,15 @@ To sort by size, in app, press F or O, then select "o" and press any key.
 
 ]$ top -p <PID>
 ------------------------------------------------------------
-Check memory size
+Check CPU info.
+
+cat /proc/cpuinfo
+------------------------------------------------------------
+Check memory info.
 
 ]$ cat /proc/meminfo
 
-Check Swap size
+Check Swap size.
 
 ]$ SwapTotal /proc/meminfo
 
