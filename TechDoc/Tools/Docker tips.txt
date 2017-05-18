@@ -69,6 +69,7 @@ Load the image from a local file (tar).
 ]# docker load < <ImageFile.tar>
 ------------------------------------------------------------
 Save the image to a local file (tar or tar.gz).
+(The binary image block files.)
 
 ]# docker save -o <ImageFile.tar> <Image[:Tag]>
 
@@ -85,6 +86,10 @@ Push the image to registry.
 Check loaded images.
 
 ]# docker images
+------------------------------------------------------------
+Check image's build history.
+
+]# docker history <Image[:Tag]>
 ------------------------------------------------------------
 Delete loaded images.
 
@@ -147,6 +152,30 @@ Create and start container.
 Options: (mostly same as for creating.)
 -d, --detach : Cannot use together with "-it".
 --rm : After running, remove it immediately.
+------------------------------------------------------------
+Export the contents of container to a local file (tar or tar.gz).
+(The folders and files structure.)
+
+]# docker export -o <ContainerFile.tar> <ContainerName[:Tag]>
+
+]# docker export <ContainerName[:Tag]> > <ContainerFile.tar>
+
+]# docker export <ContainerName[:Tag]> | gzip > <ContainerFile.tar.gz>
+
+Options:
+-o, --output : Write to a tar file, instead of STDOUT.
+------------------------------------------------------------
+Import a image from a local file (tar) with the contents of container.
+(The folders and files structure.)
+
+]# docker import <ContainerFile.tar> <ImageName>
+
+]# docker import - <ImageName> < <ContainerFile.tar>
+
+Options:
+-c, --change <Command> : Apply Dockerfile instruction to the created image (default []).
+-m, --message <String> : Set commit message for imported image.
+- : Stdin.
 ================================================================================
 Start container (Existing).
 
