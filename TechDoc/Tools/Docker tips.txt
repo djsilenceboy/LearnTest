@@ -391,3 +391,13 @@ Delete all unused volumes.
 Options:
 -f, --force : Do not prompt for confirmation.
 ================================================================================
+Build image.
+
+]# docker build -t <Repository[:Tag]> <PathToFindBuildFile>
+
+Options:
+--compress : Compress the build context using gzip.
+-f, --file <DockerFileName> : Name of the Dockerfile. The default is 'PATH/Dockerfile'.
+-t, --tag : Name and optionally a tag in the <Repository[:Tag]> format.
+            Without tag, the default name is "<none>:<none>".
+================================================================================

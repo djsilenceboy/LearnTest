@@ -127,56 +127,35 @@ Chef admin server
 Get registered Node.
 
 $ knife node list
-
-sla-test6-asb-dal09.sdad.ibm.com
 ------------------------------------------------------------
 Get node information.
 
-$ knife node show <Node>
-
-$ knife node show sla-test6-asb-dal09.sdad.ibm.com
-----------------------------------------
-Node Name:   sla-test6-asb-dal09.sdad.ibm.com
-Environment: test_env
-FQDN:        sla-test6-asb-dal09.sdad.ibm.com
-IP:          10.120.22.16
-Run List:    recipe[sentinel_ingredients], recipe[cc_formatter], recipe[cobalt_ohai], role[linux_compliant_server]
-Roles:       linux_compliant_server
-Recipes:
-Platform:    redhat 7.2
-Tags:
+$ knife node show <NodeHostname>
 ------------------------------------------------------------
 Delete registered node.
 
-$ knife node delete <Node>
-$ knife client delete <Node>
-
-$ knife node delete sla-test6-asb-dal09.sdad.ibm.com
-$ knife client delete sla-test6-asb-dal09.sdad.ibm.com
+$ knife node delete <NodeHostname>
+$ knife client delete <NodeHostname>
 ================================================================================
 Chef admin server
 ------------------------------------------------------------
 Set environment to node.
 
-$ knife node environment_set <Node> <Environment>
-
-$ knife node environment_set sla-test6-asb-dal09.sdad.ibm.com test_env
+$ knife node environment_set <NodeHostname> <Environment>
 ------------------------------------------------------------
 Check node again.
 
-$ knife node show <Node>
+$ knife node show <NodeHostname>
 ================================================================================
 Chef admin server
 ------------------------------------------------------------
 Add role to node.
 
-$ knife node run_list add <Node> "role[<Role>]"
-
-$ knife node run_list add sla-test6-asb-dal09.sdad.ibm.com "role[linux_compliant_server]"
+$ knife node run_list add <NodeHostname> "role[<Role>]"
 ------------------------------------------------------------
 Check node again.
 
-$ knife node show <Node>
+$ knife node show <NodeHostname>
 ================================================================================
 Chef admin server
 ------------------------------------------------------------

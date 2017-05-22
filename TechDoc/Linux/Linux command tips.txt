@@ -220,7 +220,7 @@ Change password
 ================================================================================
 Use openssl to generate key.
 
-]# openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout some.key -out some.crt -subj "/C=US/ST=Texas/L=Dallas/O=IBM/CN=`hostname`"
+]# openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout some.key -out some.crt -subj "/C=Country/ST=State/L=Location/O=Orgnazation/CN=`hostname`"
 
 Check and verify.
 
@@ -277,7 +277,7 @@ Find empty file.
 ================================================================================
 rsync
 ------------------------------------------------------------
-]$ rsync -ahvn --delete --exclude "VMImage" --exclude "System Volume Information" DiskD/ WorkIBM/
+]$ rsync -ahvn --delete --exclude "VMImage" --exclude "System Volume Information" DiskD/ Work/
 ================================================================================
 Upload/Download file
 ------------------------------------------------------------
@@ -297,4 +297,9 @@ Get remote FTP folder list
 ]$ curl --user 'UserName:Password' ftp://IP:Port/Path/
 
 (Must append "/" in the end.)
+================================================================================
+Convert UTC time to zone time
+------------------------------------------------------------
+awk 'BEGIN {print strftime("%c",'1493919268')}'
+gawk 'BEGIN {print strftime("%c",'1493919268')}'
 ================================================================================
