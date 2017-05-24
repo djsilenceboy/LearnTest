@@ -170,16 +170,20 @@ Check process.
 To see every process on the system using standard syntax:
 
 ]$ ps -ef
+]$ ps -efly
 
 To see every process on the system using BSD syntax:
 
 ]$ ps aux
 
+Sorted by size (decend).
+
+]$ ps -efly --sort=-size
+]$ ps aux O-s
+
 Filter.
 
-]$ ps -o pid,%cpu,%mem,cmd -C <ProcessName>
-
-]$ ps -o %cpu,%mem,cmd -p <PID>
+]$ ps -e -o pid,pcpu,pmem,size,ruser,cmd --sort=-size
 ------------------------------------------------------------
 Show top process.
 
@@ -329,4 +333,46 @@ Check folder size
 ]$ du -h --max-depth=1
 
 ]$ du -h --max-depth=2
+================================================================================
+Job
+------------------------------------------------------------
+Stop/pause a foreground process and put into backgroup.
+
+]# kill -20 <PID>
+------------------------------------------------------------
+Stop/pause a foreground process and put into backgroup.
+
+In current running process tty, press ctrl+z to pause the process.
+Then:
+
+put recent process into backgroup.
+
+]# bg
+
+put other process into backgroup.
+
+]# bg %<JobId>
+------------------------------------------------------------
+Check background jobs.
+
+]$ jobs
+]$ jobs -l
+------------------------------------------------------------
+Bring a backgroup process to foreground.
+
+bring recent process into foregroup.
+
+]$ fg
+
+bring other process into foregroup.
+
+]$ fg %<JobId>
+------------------------------------------------------------
+Detach job.
+
+]$ disown %<JobId>
+------------------------------------------------------------
+Kill job.
+
+]$ kill %<JobId>
 ================================================================================
