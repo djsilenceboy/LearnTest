@@ -2,7 +2,11 @@
 - name: Test local and local_action.
   hosts: 127.0.0.1
   connection: local
+  vars:
+    current_time: "{{lookup('pipe', 'date \"+%Y%m%d_%H%M%S\"')}}"
   tasks:
+    - debug: var=current_time
+
     - name: Test ls.
       local_action: command ls
       register: result
@@ -14,3 +18,5 @@
       register: result2
 
     - debug: var=result2.stdout_lines
+
+    - debug: var=current_time

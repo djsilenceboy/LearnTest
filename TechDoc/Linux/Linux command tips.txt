@@ -241,6 +241,10 @@ Find file/folder.
 
 ]$ find . -name <Keyword>
 
+! -name <Keyword>
+-and -name <Keyword>
+-or -name <Keyword>
+
 Find file/folder and exec command.
 
 ]$ find . -name <Keyword> -exec grep <Keyword> {} \;
@@ -274,6 +278,10 @@ Find file within size range.
 Find empty file.
 
 ]$ find . -type f -empty
+
+Find file and redirect.
+
+]$ find . -name <Keyword> -exec bash -c "cat {} >> <AnotherFile>" \;
 ================================================================================
 rsync
 ------------------------------------------------------------
