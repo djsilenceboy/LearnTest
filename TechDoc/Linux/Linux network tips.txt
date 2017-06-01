@@ -19,7 +19,7 @@ Enable httpd to bind other ports.
 # SELINUX=enforcing
 SELINUX=disabled
 ================================================================================
-/etc configuration file
+"/etc" configuration file
 ------------------------------------------------------------
 Default settings.
 
@@ -43,14 +43,38 @@ DNS1=xxx.xxx.xxx.xxx
 DNS2=xxx.xxx.xxx.xxx
 MTU=1300
 ================================================================================
+"/proc" configuration file
+------------------------------------------------------------
+/proc/sys/net/bridge/
+/proc/sys/net/ipv4/
+/proc/sys/net/ipv6/
+------------------------------------------------------------
+IPv4 forward flag.
+
+]$ cat /proc/sys/net/ipv4/ip_forward
+
+0: off; 1: on.
+
+]# echo 0 > /proc/sys/net/ipv4/ip_forward
+]# echo 1 > /proc/sys/net/ipv4/ip_forward
+================================================================================
 Network interface
 ------------------------------------------------------------
 Check network interface name first, such as "eth0".
 
 ]# ifconfig
 
-]# ip addr show
+]# ip link
+]# ip link show [<Device>]
+]# ip link show eth0
 
+]# ip addr
+]# ip addr | grep global
+
+]# ip addr show [<Device>]
+]# ip addr show eth0
+
+]# ip addr show dev <Device>
 ]# ip addr show dev eth0
 ]# ip -4 addr show dev eth0
 ]# ip addr show dev eth0 scope global
@@ -264,4 +288,16 @@ Check DNS
 ------------------------------------------------------------
 ]$ whois <HostName>
 ]$ whois <IP>
+================================================================================
+Ethernet bridge administration
+------------------------------------------------------------
+Show a list of bridges.
+
+]$ brctl show [<Bridge>]
+]$ brctl show docker0
+
+Show a list of mac addrs.
+
+]$ brctl showmacs <Bridge>
+]$ brctl showmacs docker0
 ================================================================================
