@@ -1,0 +1,115 @@
+================================================================================
+CoreOS
+------------------------------------------------------------
+Download.
+
+]$ git clone https://github.com/coreos/coreos-vagrant.git
+
+Start VM.
+
+]$ cd coreos-vagrant
+]$ vagrant up
+================================================================================
+Docker UI
+------------------------------------------------------------
+Install and run.
+
+]# docker run -d --restart=always --privileged -v /var/run/docker.sock:/var/run/docker.sock -p 9000:9000 --name dockerui abh1nav/dockerui
+------------------------------------------------------------
+Portal.
+
+http://<IP>:9000
+================================================================================
+Logstash
+------------------------------------------------------------
+Use sample config file.
+
+Inside "ehazlett/logstash" image, there is sample "/etc/logstash.conf.sample".
+It actually requires "--link elasticsearch:elasticsearch" to Elasticsearch container.
+
+]# docker run -d --restart=always -p 5000:5000/udp --name logstash ehazlett/logstash -f /etc/logstash.conf.sample
+------------------------------------------------------------
+Use other config file.
+For example, not use "Elasticsearch".
+
+]$ cat > logstash.conf << EOF
+input {
+  tcp {
+    port => 5000
+    type => syslog
+  }
+  udp {
+    port => 5000
+    type => syslog
+  }
+}
+
+filter {
+  if [type] == "syslog" {
+    grok {
+      match => { "message" => "%{SYSLOGTIMESTAMP:syslog_timestamp} %{SYSLOGHOST:syslog_hostname} %{DATA:syslog_program}(?:\[%{POSINT:syslog_pid}\])?: %{GREEDYDATA:syslog_message}" }
+      add_field => [ "received_at", "%{@timestamp}" ]
+      add_field => [ "received_from", "%{host}" ]
+    }
+    syslog_pri { }
+    date {
+      match => [ "syslog_timestamp", "MMM  d HH:mm:ss", "MMM dd HH:mm:ss" ]
+    }
+  }
+}
+
+output {
+	stdout { codec => rubydebug }
+}
+EOF
+----------------------------------------
+Docker build file.
+
+]$ vi Dockerfile
+
+FROM ehazlett/logstash
+COPY logstash.conf /etc/logstash.conf
+ENTRYPOINT ["/opt/logstash/bin/logstash"]
+----------------------------------------
+Build Docker image.
+
+]# docker build -t logstash .
+----------------------------------------
+Install and run.
+
+]# docker run -d --restart=always -p 5000:5000/udp --name logstash logstash -f /etc/logstash.conf
+------------------------------------------------------------
+Collect logs.
+
+]# docker logs -f logstash
+================================================================================
+Logspout
+------------------------------------------------------------
+Install and run.
+
+]# docker run -d --restart=always -v /var/run/docker.sock:/tmp/docker.sock -p 8000:80 --name logspout gliderlabs/logspout syslog://192.168.0.46:5000
+
+Notes:
+Suppose "192.168.0.46:5000" is where located Logstash container with UDP port 5000 opened.
+------------------------------------------------------------
+API.
+
+Find output destination.
+
+]$ curl http://localhost:8000/routes
+]$ curl http://localhost:8000/routes/<ID>
+
+Get real time logs.
+
+]$ curl http://localhost:8000/logs
+================================================================================
+Elasticsearch, Kibana and Logstash
+------------------------------------------------------------
+]# docker run -d --restart=always -p 9200:9200 -p 9300:9300 --name elasticsearch ehazlett/elasticsearch
+]# docker run -d --restart=always -p 80:80 --name kibana ehazlett/kibana
+]# docker run -d --restart=always -p 5000:5000/udp --link elasticsearch:elasticsearch --name logstash ehazlett/logstash -f /etc/logstash.conf.sample
+------------------------------------------------------------
+Portal.
+
+http://<IP>
+================================================================================

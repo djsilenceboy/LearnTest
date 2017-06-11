@@ -124,6 +124,7 @@ Output to a file with date in file name.
 
 > LogSample_`date +"%F"`.log
 > LogSample_`date +"%F_%H%M%S"`.log
+> LogSample_`date +"%s"`.log
 ------------------------------------------------------------
 Redirect Order
 

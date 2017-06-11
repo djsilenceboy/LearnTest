@@ -68,6 +68,8 @@ Check network interface name first, such as "eth0".
 ]# ip link show [<Device>]
 ]# ip link show eth0
 
+]# ip a
+]# ip add
 ]# ip addr
 ]# ip addr | grep global
 

@@ -25,7 +25,7 @@ CentOS/RHEL 7
 ------------------------------------------------------------
 Manually start/stop Docker.
 
-Start
+Start.
 
 ]# dockerd &
 ]# docker daemon &
@@ -39,22 +39,36 @@ Options:
 -H, --host [] : Daemon socket(s) to connect to. The default value is "[]".
 --icc : Enable or disable inter-container communication. Values [true, false], the default value is true.
 ----------------------------------------
-Stop
+Stop.
 
 ]# killall docker
 ------------------------------------------------------------
 If some network connection not working inside container,
 try restart docker service.
 ------------------------------------------------------------
-Check version
+Check version.
 
 ]# docker version
 ]# docker -v
 ------------------------------------------------------------
-Check general info
+Check system-wide info.
 
 ]# docker info
 ]# docker info | grep Storage
+]# docker info --format "{{json .}}"
+
+Options:
+-f, --format <String> : Format the output using the given Go template.
+------------------------------------------------------------
+Check real time events from Docker server.
+
+]# docker events
+
+Options:
+-f, --filter <key=value> : Filter output based on conditions provided. For example, "event=<event action>", "container=<name or id>".
+--format <String> : Format the output using the given Go template
+--since <Time> : Show all events created since timestamp. Valid format: UTC timestamp, 2006-01-02T15:04:05, 2006-01-02.
+--until <Time> : Stream events until this timestamp. Valid format: UTC timestamp, 2006-01-02T15:04:05, 2006-01-02.
 ================================================================================
 Docker service/daemon config file.
 ------------------------------------------------------------
@@ -231,6 +245,7 @@ Restart.
 Check running container.
 
 ]# docker ps
+]# docker ps --no-trunc
 
 Check all container.
 
@@ -268,6 +283,9 @@ Options:
 Check container statistics.
 
 ]# docker stats
+
+(Use Ctrl+C to break.)
+
 ]# docker stats -a --no-stream
 
 Options:
@@ -327,6 +345,7 @@ Check opened port of container
 ]# docker port <ContainerNameOrId> [<ContainerPort>]
 ------------------------------------------------------------
 Check top inside container
+(Similar to Linux top.)
 
 ]# docker top <ContainerNameOrId>
 ================================================================================
