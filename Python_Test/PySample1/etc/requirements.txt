@@ -53,4 +53,6 @@ Wand==0.4.4
 wcwidth==0.1.7
 Werkzeug==0.12.1
 win-unicode-console==0.5
+xlrd==1.0.0
+xlwt==1.2.0
 zope.interface==4.4.0

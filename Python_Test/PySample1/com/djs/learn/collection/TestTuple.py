@@ -28,9 +28,13 @@ print("-" * 40)
 
 many = 'Apple', 'Orange', 'Bananas'
 print("many =", many)
+print("*many =", *many)
 
 apple, orange, bananas = many
 print(apple, orange, bananas)
+
+print("-" * 40)
+
 
 print("-" * 40)
 

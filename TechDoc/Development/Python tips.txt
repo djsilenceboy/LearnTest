@@ -121,45 +121,114 @@ http://www.lfd.uci.edu/~gohlke/pythonlibs/#line_profiler
 ================================================================================
 Some useful modules
 ------------------------------------------------------------
+Line-by-line profiler.
+(Need vcvarsall.bat)
+
 ]$ pip install line_profiler
-  (Need vcvarsall.bat)
-]$ pip install guppy
-  (for heapy)
-  (Need vcvarsall.bat)
+ 
+A cross-platform library for retrieving information onrunning processes and system utilization (CPU, memory, disks, network)in Python.
+
+]$ pip install psutil
+
+A module for monitoring memory usage of a python program.
+(depend on psutil for non-Unix platform.)
 
 ]$ pip install memory_profiler
-  (depend on psutil for non-Unix platform)
-]$ pip install psutil
-------------------------------------------------------------
-]$ pip install numpy
-]$ pip install sqlalchemy
 
-]$ pip install requests
-]$ pip install bottle
-]$ pip install flask
-  (depend on itsdangerous, Jinja2, MarkupSafe, Werkzeug)
-]$ pip install beautifulsoup4
-]$ pip install pyzmq
-]$ pip install nose
+Guppy-PE -- A Python Programming Environment
+(Need vcvarsall.bat)
+
+]$ pip install guppy
+
+A priority queue built with an in-place modifiable binary heap.
+(depend on guppy)
+
+]$ pip install heapy
 ------------------------------------------------------------
+SSH2 protocol library.
+(depend on six, pycparser, cffi, idna, pyasn1, cryptography)
+
 ]$ pip install paramiko
-  (depend on six, pycparser, cffi, idna, pyasn1, cryptography)
+
+Pexpect allows easy control of interactive console applications.
+(depend on ptyprocess.)
 
 ]$ pip install pexpect
-  (depend on ptyprocess)
 ------------------------------------------------------------
-]$ pip install Pillow
-]$ pip install Wand
-]$ pip install matplotlib
-------------------------------------------------------------
+Python HTTP for Humans.
+
+]$ pip install requests
+
+Fast and simple WSGI-framework for small web-applications.
+
+]$ pip install bottle
+
+A microframework based on Werkzeug, Jinja2 and good intentions.
+(depend on itsdangerous, Jinja2, MarkupSafe, Werkzeug)
+
+]$ pip install flask
+
+Python bindings for 0MQ.
+(Message queue.)
+
+]$ pip install pyzmq
+
+A high-level Web Crawling and Web Scraping framework.
+(Need vcvarsall.bat)
+
 ]$ pip install scrapy
-  (Need vcvarsall.bat)
+
+An asynchronous networking framework written in Python.
+(Need vcvarsall.bat)
+
 ]$ pip install twisted
-  (Need vcvarsall.bat)
+------------------------------------------------------------
+Python plotting package.
+
+]$ pip install matplotlib
+
+Python Imaging Library (Fork).
+
+]$ pip install Pillow
+
+Ctypes-based simple MagickWand API binding for Python
+
+]$ pip install Wand
+------------------------------------------------------------
+Screen-scraping library.
+(JSON formatter.)
+
+]$ pip install beautifulsoup4
+
+Nose extends unittest to make testing easier.
+(Unit testing.)
+
+]$ pip install nose
+
+NumPy: array processing for numbers, strings, records, and objects.
+
+]$ pip install numpy
+
+Pure python memcached client.
+(depend on six.)
+
+]$ pip install python-memcached
+
+Python client for Redis key-value store.
 
 ]$ pip install redis
-]$ pip install python-memcached
-  (depend on six)
+
+Database Abstraction Library.
+
+]$ pip install sqlalchemy
+
+Library for developers to extract data from Microsoft Excel (tm) spreadsheet files.
+
+]$ pip install xlrd
+
+Library to create spreadsheet files compatible with MS Excel 97/2000/XP/2003 XLS files, on any platform, with Python 2.6, 2.7, 3.3+.
+
+]$ pip install xlwt
 ================================================================================
 Some modules usage
 ------------------------------------------------------------
