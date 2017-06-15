@@ -4,24 +4,30 @@ Created on Apr 5, 2016
 @author: dj
 '''
 
+# Run TestSqlite3.py first.
+
+from os import path
 import sqlite3
 
-conn = sqlite3.connect('../../../etc/SampleSqlite3.db')
+db_file_path = "../../../../Temp"
+db_file = path.join(db_file_path, "SampleSqlite3.db")
+
+conn = sqlite3.connect(db_file)
 print("conn =", conn)
 
-curs = conn.cursor()
-print("curs =", curs)
+cur = conn.cursor()
+print("cur =", cur)
 
 print("-" * 40)
 
-curs.execute('SELECT * FROM ZOO')
-rows = curs.fetchall()
+cur.execute('SELECT * FROM SALE_ORDER')
+rows = cur.fetchall()
 
 print("rows =", rows)
 
 print("-" * 40)
 
-curs.close()
+cur.close()
 conn.close()
 
 
