@@ -118,6 +118,10 @@ http://www.lfd.uci.edu/~gohlke/pythonlibs/
 http://www.lfd.uci.edu/~gohlke/pythonlibs/#line_profiler
 
 ]$ pip install line_profiler-1.0-cp35-none-win32.whl
+------------------------------------------------------------
+http://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy
+
+]$ pip install scipy-0.19.0-cp35-cp35m-win32.whl
 ================================================================================
 Some useful modules
 ------------------------------------------------------------
@@ -141,7 +145,7 @@ Guppy-PE -- A Python Programming Environment
 ]$ pip install guppy
 
 A priority queue built with an in-place modifiable binary heap.
-(depend on guppy)
+(depend on guppy.)
 
 ]$ pip install heapy
 ------------------------------------------------------------
@@ -183,6 +187,11 @@ An asynchronous networking framework written in Python.
 
 ]$ pip install twisted
 ------------------------------------------------------------
+ggplot for python.
+
+]$ pip install ggplot
+(depend on scipy.)
+
 Python plotting package.
 
 ]$ pip install matplotlib
