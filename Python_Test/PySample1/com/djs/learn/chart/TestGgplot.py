@@ -10,7 +10,7 @@ from ggplot import *
 
 
 output_file_path = "../../../../Temp"
-output_file = "SampleChart_GG.png"
+output_file = "SampleChart_ggplot.png"
 
 
 print(diamonds.head())
