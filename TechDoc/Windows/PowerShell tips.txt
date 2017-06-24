@@ -1,0 +1,138 @@
+================================================================================
+PowerShell
+------------------------------------------------------------
+Download link
+
+WMF 5.1
+https://msdn.microsoft.com/en-us/powershell/wmf/5.1/install-configure
+------------------------------------------------------------
+Start PowerShell with more options.
+
+Without banner.
+
+> PowerShell -NoLogo
+
+Start special version.
+
+> PowerShell -Version 3
+
+Start with a special command.
+
+> PowerShell -Command "& {<CmdletString>}"
+================================================================================
+Check version.
+
+> $PSVersionTable.PSVersion
+------------------------------------------------------------
+Check OS version.
+
+> [System.Environment]::OSVersion
+> [System.Environment]::OSVersion | select versionstring
+------------------------------------------------------------
+Check WinRM config. (Command is for PowerShell 3.0 and above)
+
+> winrm get winrm/config
+> winrm get winrm/config/Winrs
+------------------------------------------------------------
+Check WinRM help and more.
+
+> winrm help config
+------------------------------------------------------------
+Check installed hotfix
+
+> Get-Hotfix
+> Get-Hotfix -id KB2842230
+
+> Get-WmiObject -query 'select * from win32_quickfixengineering' | foreach {$_.hotfixid}
+
+> wmic qfe get hotfixid
+> wmic qfe get hotfixid | find "KB2842230"
+> wmic qfe
+> wmic qfe | find "KB2842230"
+================================================================================
+Download more help content.
+Run as PowerShell admin.
+
+Check what will download.
+
+> Update-Help -Module * -WhatIf
+
+Download.
+
+> Update-Help -Module * -Force
+
+Download and hide error (for those not support download).
+
+> Update-Help -Module * -Force -ErrorAction 0
+------------------------------------------------------------
+Get help.
+
+> Get-Help
+
+> Get-Help Get-Help
+------------------------------------------------------------
+Get help for a Cmdlet and with more info.
+
+> Get-Help <Cmdlet>
+
+> Get-Help <Cmdlet> -Detailed
+
+> Get-Help <Cmdlet> -Full
+
+> Get-Help <Cmdlet> -Examples
+
+Open a browser and get help online.
+
+> Get-Help <Cmdlet> -Online
+------------------------------------------------------------
+Get a list of support Cmdlets with wildcard.
+
+> Get-Help *
+
+> Get-Help <PatialCmdletName_WithWildcard>
+------------------------------------------------------------
+Get alias.
+
+> Get-Alias
+------------------------------------------------------------
+Set a alias.
+
+> New-Alias <AliasName> <CmdletName>
+> New-Alias <AliasName> <ValueString>
+================================================================================
+Useful common parameters
+------------------------------------------------------------
+-WhatIf : Test/WhyRun mode.
+-Confirm : To prompt before executing. [Yes, Yes to All, No, No to All, Suspend]
+-Verbose : Provide more details.
+-Debug : Provide debug info.
+-ErrorAction : Perform certain action when there is an error. [Continue, Ignore, Inquire, SilentlyContinue, Stop, Suspend]
+-ErrorVariable : Save error info into a specific variable, other than standard $Error variable.
+-OutputVariable : Save output info into a specific variable.
+================================================================================
+List all verb for Cmdlet.
+
+> Get-Verb
+------------------------------------------------------------
+List all Cmdlets.
+
+> Get-Command
+> Get-Command <PatialCmdletName_WithWildcard>
+------------------------------------------------------------
+Check running process.
+
+> Get-Process
+> Get-Process <ProcessName>
+> Get-Process <PartialProcessName_WithWildcard>
+> Get-Process -Id <ProcessId>
+------------------------------------------------------------
+Stop running process.
+
+> Stop-Process <ProcessID> -WhatIf
+> Stop-Process -Name <ProcessName> -WhatIf
+================================================================================
+Change path.
+
+> Set-Location <FilePath>
+> cd <FilePath>
+================================================================================
