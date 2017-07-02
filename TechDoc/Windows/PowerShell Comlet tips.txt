@@ -1,0 +1,226 @@
+================================================================================
+PowerShell
+================================================================================
+Download more help content.
+Run as PowerShell admin.
+
+Check what will download.
+
+> Update-Help -Module * -WhatIf
+
+Download.
+
+> Update-Help -Module * -Force
+
+Download and hide error (for those not support download).
+
+> Update-Help -Module * -Force -ErrorAction 0
+------------------------------------------------------------
+Get help.
+
+> Get-Help
+
+> Get-Help Get-Help
+------------------------------------------------------------
+Get help for a Cmdlet and with more info.
+
+> Get-Help <Cmdlet>
+
+> Get-Help <Cmdlet> -Detailed
+
+> Get-Help <Cmdlet> -Full
+
+> Get-Help <Cmdlet> -Examples
+
+Open a browser and get help online.
+
+> Get-Help <Cmdlet> -Online
+------------------------------------------------------------
+Get a list of support Cmdlets with wildcard.
+
+> Get-Help *
+
+> Get-Help <PatialCmdletName_WithWildcard>
+------------------------------------------------------------
+Get alias.
+
+> Get-Alias
+> Get-Alias <PatialAliasName_WithWildcard>
+> Get-Alias -Definition <PatialCmdletName_WithWildcard>
+> gal
+------------------------------------------------------------
+Set a alias.
+
+> New-Alias <AliasName> <CmdletName>
+> New-Alias <AliasName> <ValueString>
+================================================================================
+Useful common parameters
+------------------------------------------------------------
+-WhatIf : Test/WhyRun mode.
+-Confirm : To prompt before executing. [Yes, Yes to All, No, No to All, Suspend]
+-Verbose : Provide more details.
+-Debug : Provide debug info.
+-ErrorAction : Perform certain action when there is an error. [Continue, Ignore, Inquire, SilentlyContinue, Stop, Suspend]
+-ErrorVariable : Save error info into a specific variable, other than standard $Error variable.
+-OutputVariable : Save output info into a specific variable.
+================================================================================
+List all verb for Cmdlet.
+
+> Get-Verb
+------------------------------------------------------------
+List all alias, Cmdlets, function, application.
+
+> Get-Command
+> Get-Command <PatialName_WithWildcard>
+
+List all matching verb (The part before dash of Cmdlet).
+
+> Get-Command -Verb <PatialVerb_WithWildcard>
+
+List all matching noun (The part after dash of Cmdlet).
+
+> Get-Command -Noun <PatialNoun_WithWildcard>
+------------------------------------------------------------
+List all member of a Cmdlet.
+
+Options:
+-MemberType <PSMemberTypes> : Specifies the member type that this cmdlet gets. The default is All.
+            [AliasProperty, CodeProperty, Property, NoteProperty, ScriptProperty, Properties, PropertySet, Method, CodeMethod,  ScriptMethod, Methods, ParameterizedProperty, MemberSet, Event, Dynamic, All]
+
+> <Cmdlet> | Get-Member
+> <Cmdlet> | Get-Member -MemberType <PSMemberTypes>
+> Get-Member -InputObject <Cmdlet>
+
+> Get-Alias | Get-Member
+> Get-Command | Get-Member
+> Get-Member -InputObject Get-Alias
+------------------------------------------------------------
+Check running process.
+
+> Get-Process
+> Get-Process <ProcessName>
+> Get-Process <PartialProcessName_WithWildcard>
+> Get-Process -Id <ProcessId>
+------------------------------------------------------------
+Stop running process.
+
+> Stop-Process <ProcessID> -WhatIf
+> Stop-Process -Name <ProcessName> -WhatIf
+================================================================================
+Change path.
+
+> Set-Location <FilePath>
+> cd <FilePath>
+------------------------------------------------------------
+List content in a directory.
+
+Options:
+-Recurse : Recurse the sub-folders.
+-Include <PatternWildcard> : Filter to include.
+-Exclude <PatternWildcard> : Filter to exclude.
+
+> Get-ChildItem
+> dir
+
+> Get-ChildItem <Directory>
+> Get-ChildItem -Recurse
+> Get-ChildItem -Recurse -Include *.txt
+> Get-ChildItem -Recurse -Exclude *.txt
+================================================================================
+Format list.
+Convert each row of result into a small list.
+
+Options:
+-GroupBy <Object> : Specifies the output in groups based on a shared property or value. Enter an expression or a property of the output.
+-Property : One or more fields.
+
+> Get-ChildItem | Format-List
+> Get-ChildItem | Format-List -Property Name, Length
+> Get-ChildItem | Format-List -Property Name, Length -GroupBy Length
+
+> Get-Process | Format-List
+> Get-Process | Format-List -Property Id, Name
+------------------------------------------------------------
+Format wide.
+Convert each row of result into a single field.
+
+Options:
+-AutoSize : Indicates that this cmdlet adjusts the column size and number of columns based on the width of the data.
+-Column <Int32> : Specifies the number of columns in the display. The default value is 2.
+-GroupBy <Object> : Specifies the output in groups based on a shared property or value. Enter an expression or a property of the output.
+-Property <FieldName> : One and only one field name. The default value is "Name".
+
+> Get-ChildItem | Format-Wide
+> Get-ChildItem | Format-Wide -AutoSize
+> Get-ChildItem | Format-Wide -Column 3
+> Get-ChildItem | Format-Wide -Property Length
+> Get-ChildItem | Format-Wide -Property Length -GroupBy Length
+
+> Get-Process | Format-Wide
+> Get-Process | Format-Wide -Property Id
+> Get-Process | Format-Wide -AutoSize
+> Get-Process | Format-Wide -Column 4
+------------------------------------------------------------
+Format table.
+Format each row of result into a better format.
+
+Options:
+-AutoSize : Indicates that this cmdlet adjusts the column size and number of columns based on the width of the data.
+-GroupBy <Object> : Specifies the output in groups based on a shared property or value. Enter an expression or a property of the output.
+-Property <FieldName> : One and only one field name. The default value is "Name".
+
+> Get-ChildItem | Format-Table
+> Get-ChildItem | Format-Table -AutoSize
+> Get-ChildItem | Format-Table -Property Name, Length
+> Get-ChildItem | Format-Table -Property Name, Length -GroupBy Length
+
+> Get-Process | Format-Table
+> Get-Process | Format-Table -AutoSize
+> Get-Process | Format-Table -Property Id, Name
+------------------------------------------------------------
+Grid view.
+Open a separated window for grid view of result.
+
+Options:
+-Title <String> : Specifies the text that appears in the title bar of the Out-GridView window.
+                  By default, the title bar displays the command that invokes Out-GridView.
+
+> Get-ChildItem | Out-GridView
+> Get-ChildItem | Out-GridView -Title "This is result"
+================================================================================
+Select object.
+
+Options:
+-ExcludeProperty <String[]> : Specifies the properties that this cmdlet excludes from the operation. Wildcards are permitted.
+-First <Int32> : Gets only the specified number of objects. Enter the number of objects to get.
+-Index <Int32[]> : Specifies an array of objects based on their index values. Enter the indexes in a comma-separated list.
+                   Indexes in an array begin with 0, where 0 represents the first value and (n-1) represents the last value.
+-Last <Int32> : Specifies the number of objects to select from the end of an array of input objects.
+-Property <Object[]> : Specifies the properties to select. Wildcards are permitted.
+-Skip <Int32> : Ignores the specified number of objects and then gets the remaining objects. Enter the number of objects to skip.
+-SkipLast <Int32> :
+-Unique [<SwitchParameter>] : Specifies that if a subset of the input objects has identical properties and values, only a single member of the subset will be selected.
+
+> Get-ChildItem | Select-Object Name, Length
+> Get-ChildItem | Select-Object Name, Length -First 2
+> Get-ChildItem | Select-Object Name, Length -Skip 1
+> Get-ChildItem | Select-Object Name, Length -Last 2
+
+> Get-Process | Select-Object Id, Name
+> Get-Process | Select-Object Id, Name -First 10
+> Get-Process | Select-Object Id, Name -Last 10
+> Get-Process | Select-Object Name -Unique
+------------------------------------------------------------
+Sort object.
+
+Options:
+-CaseSensitive : Indicates that the sort should be case sensitive. By default, sorting is not case sensitive.
+-Descending : Indicates that the cmdlet sorts the objects in descending order. The default is ascending order.
+              The Descending parameter applies to all properties. To sort by some properties in ascending order and others in descending order, you must specify their property values by using a hash table.
+-Property <Object[]> : Specifies the properties to use when sorting. Objects are sorted based on the values of these properties. Enter the names of the properties. Wildcards are permitted.
+-Unique : Indicates that the cmdlet eliminates duplicates and returns only the unique members of the collection. You can use this parameter instead of using the Get-Unique cmdlet.
+
+> Get-Process | Select-Object Id, Name | Sort-Object Id
+> Get-Process | Select-Object Id, Name | Sort-Object Name, Id
+> Get-Process | Select-Object Id, Name | Sort-Object Name -Unique
+================================================================================

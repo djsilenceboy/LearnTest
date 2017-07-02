@@ -26,7 +26,6 @@ if path.exists(input_file):
 print("-" * 60)
 
 url_format = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={0}&apikey=" + api_key
-# tickers = ["MSFT", "O87.SI"]
 tickers = ["MSFT"]
 
 

@@ -1,5 +1,7 @@
 # Set the default behavior.
 *        text=auto
-*.txt    text           eol=crlf
+.gitattributes  text    eol=lf
+*.py     text           eol=crlf
 *.sh     text           eol=lf
+*.txt    text           eol=crlf
 *.yml    text           eol=lf

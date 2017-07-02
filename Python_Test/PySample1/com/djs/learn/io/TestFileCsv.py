@@ -11,32 +11,55 @@ input_file_path = "../../../../etc"
 output_file_path = "../../../../Temp"
 
 
-with open(path.join(input_file_path, "SampleInput.csv")) as file1:
-    print('file1 =', file1)
-    cin = csv.reader(file1)
-    animals = [line for line in cin]
-    print("animals =", animals)
+with open(path.join(input_file_path, "SampleInput.csv")) as fileR1:
+    print('fileR1 =', fileR1)
+    cin = csv.reader(fileR1)
+    recordR1 = [line for line in cin]
+    print("recordR1 =", recordR1)
 
 print("-" * 40)
 
-with open(path.join(output_file_path, "SampleOutput.csv"), "wt") as file2:
-    print("file2 =", file2)
-    cout = csv.writer(file2, lineterminator="\n")
-    cout.writerows(animals)
+with open(path.join(output_file_path, "SampleOutput.csv"), "wt") as fileW1:
+    print("fileW1 =", fileW1)
+    cout = csv.writer(fileW1, lineterminator="\n")
+    cout.writerows(recordR1)
 
 print("-" * 40)
 
-with open(path.join(input_file_path, "SampleInput.csv")) as file3:
-    cin = csv.DictReader(file3, fieldnames=["Type", "Name"])
-    animals2 = [line for line in cin]
-    print("animals2 =", animals2)
+with open(path.join(input_file_path, "SampleInput.csv")) as fileR2:
+    print('fileR2 =', fileR2)
+    cin = csv.DictReader(fileR2)
+    print("fieldnames =", cin.fieldnames)
+    # There is no header line record.
+    recordR2 = [line for line in cin]
+    print("recordR2 =", recordR2)
 
 print("-" * 40)
 
-with open(path.join(output_file_path, "SampleOutput2.csv"), "wt") as file4:
-    cout = csv.DictWriter(file4, ["Type", "Name"], lineterminator="\n")
+with open(path.join(output_file_path, "SampleOutput2.csv"), "wt") as fileW2:
+    print('fileW2 =', fileW2)
+    cout = csv.DictWriter(fileW2, ["Type", "Name"], lineterminator="\n")
+    # Write header line, if needed.
     cout.writeheader()
-    cout.writerows(animals2)
+    cout.writerows(recordR2)
+
+print("-" * 40)
+
+with open(path.join(input_file_path, "SampleInput.csv")) as fileR3:
+    print('fileR3 =', fileR3)
+    cin = csv.DictReader(fileR3, fieldnames=["Type", "Name"])
+    print("fieldnames =", cin.fieldnames)
+    # There is a header line record.
+    recordR3 = [line for line in cin]
+    print("recordR3 =", recordR3)
+
+print("-" * 40)
+
+with open(path.join(output_file_path, "SampleOutput3.csv"), "wt") as fileW3:
+    print('fileW3 =', fileW3)
+    cout = csv.DictWriter(fileW3, ["Type", "Name"], lineterminator="\n")
+    # writerows() will also write header line.
+    cout.writerows(recordR3)
 
 print("-" * 40)
 
