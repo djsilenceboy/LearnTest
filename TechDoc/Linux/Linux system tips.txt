@@ -336,20 +336,20 @@ Check folder size
 ================================================================================
 Job
 ------------------------------------------------------------
-Stop/pause a foreground process and put into backgroup.
+Stop/pause a foreground process and put into background.
 
 ]# kill -20 <PID>
 ------------------------------------------------------------
-Stop/pause a foreground process and put into backgroup.
+Stop/pause a foreground process and put into background.
 
 In current running process tty, press ctrl+z to pause the process.
 Then:
 
-put recent process into backgroup.
+put recent process into background.
 
 ]# bg
 
-put other process into backgroup.
+put other process into background.
 
 ]# bg %<JobId>
 ------------------------------------------------------------
@@ -358,13 +358,13 @@ Check background jobs.
 ]$ jobs
 ]$ jobs -l
 ------------------------------------------------------------
-Bring a backgroup process to foreground.
+Bring a background process to foreground.
 
-bring recent process into foregroup.
+bring recent process into foreground.
 
 ]$ fg
 
-bring other process into foregroup.
+bring other process into foreground.
 
 ]$ fg %<JobId>
 ------------------------------------------------------------

@@ -1,0 +1,37 @@
+SELECT d.dept_no, COUNT(*)
+FROM dept_emp d
+GROUP BY d.dept_no
+
+
+SELECT de.dept_no, COUNT(*)
+FROM
+(SELECT e.emp_no, d.dept_no, s.salary
+ FROM employees e, dept_emp d, salaries s
+ WHERE (e.emp_no = d.emp_no)
+       AND (e.emp_no = s.emp_no)
+) de,
+(SELECT d.dept_no, AVG(s.salary) as avg_salary
+ FROM dept_emp d, employees e, salaries s
+ WHERE (d.emp_no = e.emp_no)
+       AND (e.emp_no = s.emp_no)
+ GROUP BY d.dept_no
+) sa
+WHERE (de.dept_no = sa.dept_no)
+       AND (de.salary > sa.avg_salary)
+GROUP BY de.dept_no
+ORDER BY de.dept_no
+
+
+SELECT d.dept_no, COUNT(*)
+FROM dept_emp d, employees e, salaries s
+WHERE (d.emp_no = e.emp_no)
+      AND (e.emp_no = s.emp_no)
+      AND (s.salary > (
+SELECT AVG(s.salary)
+FROM dept_emp dd, employees ee, salaries ss
+WHERE (d.dept_no = dd.dept_no)
+      AND (dd.emp_no = ee.emp_no)
+      AND (ee.emp_no = ss.emp_no)
+))
+GROUP BY d.dept_no
+ORDER BY d.dept_no

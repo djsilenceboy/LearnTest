@@ -122,3 +122,12 @@ Under "Users and Privileges" page, make sure there are:
     root    ::1
 "%" for remote login, "localhost" for local login.
 ================================================================================
+Sample data
+------------------------------------------------------------
+https://dev.mysql.com/doc/employee/en/
+Download as zip.
+
+Unzip it, and update "employees.sql", if necessary.
+
+]$ mysql -u root -p<Password> -t < employees.sql
+================================================================================
