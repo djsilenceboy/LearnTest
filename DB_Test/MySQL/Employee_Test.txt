@@ -1,17 +1,27 @@
+================================================================================
+Create a new table with only max salary for each employee.
+
+CREATE TABLE salary (emp_no INT, salary INT, PRIMARY KEY(emp_no))
+SELECT emp_no, MAX(salary) as salary FROM salaries
+GROUP BY emp_no;
+------------------------------------------------------------
+Find employee number for each department.
+
 SELECT d.dept_no, COUNT(*)
 FROM dept_emp d
-GROUP BY d.dept_no
-
+GROUP BY d.dept_no;
+------------------------------------------------------------
+Find employee number, whose salary is above average for each department.
 
 SELECT de.dept_no, COUNT(*)
 FROM
 (SELECT e.emp_no, d.dept_no, s.salary
- FROM employees e, dept_emp d, salaries s
+ FROM employees e, dept_emp d, salary s
  WHERE (e.emp_no = d.emp_no)
        AND (e.emp_no = s.emp_no)
 ) de,
 (SELECT d.dept_no, AVG(s.salary) as avg_salary
- FROM dept_emp d, employees e, salaries s
+ FROM dept_emp d, employees e, salary s
  WHERE (d.emp_no = e.emp_no)
        AND (e.emp_no = s.emp_no)
  GROUP BY d.dept_no
@@ -19,19 +29,5 @@ FROM
 WHERE (de.dept_no = sa.dept_no)
        AND (de.salary > sa.avg_salary)
 GROUP BY de.dept_no
-ORDER BY de.dept_no
-
-
-SELECT d.dept_no, COUNT(*)
-FROM dept_emp d, employees e, salaries s
-WHERE (d.emp_no = e.emp_no)
-      AND (e.emp_no = s.emp_no)
-      AND (s.salary > (
-SELECT AVG(s.salary)
-FROM dept_emp dd, employees ee, salaries ss
-WHERE (d.dept_no = dd.dept_no)
-      AND (dd.emp_no = ee.emp_no)
-      AND (ee.emp_no = ss.emp_no)
-))
-GROUP BY d.dept_no
-ORDER BY d.dept_no
+ORDER BY de.dept_no;
+================================================================================
