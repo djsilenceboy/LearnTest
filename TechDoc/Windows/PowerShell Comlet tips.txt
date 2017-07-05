@@ -95,6 +95,33 @@ Options:
 > Get-Command | Get-Member
 > Get-Member -InputObject Get-Alias
 ------------------------------------------------------------
+Show Cmdlet list in a pop up window (default 600 x 300).
+Choose a Cmdlet and set options.
+
+> Show-Command
+> Show-Command -Height 400 -Width 500
+
+Show one Cmdlet in a pop up window.
+
+> Show-Command -Name <CmdletName>
+================================================================================
+Query.
+
+> (Get-Verb).count
+
+Where <Condition>.
+
+> Get-Verb | Where Group -Match "Common"
+
+Select <Column>.
+
+> Get-Verb | Select Group -Unique
+> Get-Verb | Select Group -First 10
+
+Group by <Column>.
+
+> Get-Verb | Group Group
+================================================================================
 Check running process.
 
 > Get-Process
