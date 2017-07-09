@@ -67,6 +67,7 @@ Useful common parameters
 List all verb for Cmdlet.
 
 > Get-Verb
+> (Get-Verb).Count
 ------------------------------------------------------------
 List all alias, Cmdlets, function, application.
 
@@ -87,13 +88,18 @@ Options:
 -MemberType <PSMemberTypes> : Specifies the member type that this cmdlet gets. The default is All.
             [AliasProperty, CodeProperty, Property, NoteProperty, ScriptProperty, Properties, PropertySet, Method, CodeMethod,  ScriptMethod, Methods, ParameterizedProperty, MemberSet, Event, Dynamic, All]
 
-> <Cmdlet> | Get-Member
-> <Cmdlet> | Get-Member -MemberType <PSMemberTypes>
 > Get-Member -InputObject <Cmdlet>
 
-> Get-Alias | Get-Member
-> Get-Command | Get-Member
 > Get-Member -InputObject Get-Alias
+> Get-Member -InputObject Get-ChildItem
+------------------------------------------------------------
+List all member of current item.
+
+> <Cmdlet> | Get-Member
+> <Cmdlet> | Get-Member -MemberType <PSMemberTypes>
+
+> Get-Alias | Get-Member
+> Get-ChildItem | Get-Member
 ------------------------------------------------------------
 Show Cmdlet list in a pop up window (default 600 x 300).
 Choose a Cmdlet and set options.
@@ -105,41 +111,50 @@ Show one Cmdlet in a pop up window.
 
 > Show-Command -Name <CmdletName>
 ================================================================================
-Query.
+Clean screen.
 
-> (Get-Verb).count
-
-Where <Condition>.
-
-> Get-Verb | Where Group -Match "Common"
-
-Select <Column>.
-
-> Get-Verb | Select Group -Unique
-> Get-Verb | Select Group -First 10
-
-Group by <Column>.
-
-> Get-Verb | Group Group
-================================================================================
-Check running process.
-
-> Get-Process
-> Get-Process <ProcessName>
-> Get-Process <PartialProcessName_WithWildcard>
-> Get-Process -Id <ProcessId>
+> Clear-Host
+> cls
 ------------------------------------------------------------
-Stop running process.
+Save console output to a file.
 
-> Stop-Process <ProcessID> -WhatIf
-> Stop-Process -Name <ProcessName> -WhatIf
+Options:
+-Append : Indicates that this cmdlet adds the new transcript to the end of an existing file. Use the Path parameter to specify the file.
+-OutputDirectory <String> : Specifies a specific path and folder in which to save a transcript. Windows PowerShell automatically assigns the transcript name.
+-Path <String> : Specifies a location to the transcript file. Enter a path to a .txt file. Wildcards are not permitted.
+
+> Start-Transcript
+
+Transcript started, output file is C:\Users\xx\Documents\PowerShell_transcript.yy.zz.txt
+
+> Stop-Transcript
+
+Transcript stopped, output file is C:\Users\xx\Documents\PowerShell_transcript.yy.zz.txt
 ================================================================================
+Get drive list.
+
+> Get-PSDrive
+> Get-PSDrive | Format-Table -AutoSize
+------------------------------------------------------------
+Test path's existence.
+
+> Test-Path <Path>
+------------------------------------------------------------
 Change path.
 
-> Set-Location <FilePath>
-> cd <FilePath>
+Path could be PSProvider, PSDrvier, file path, etc.
+
+> Set-Location <Path>
+> cd <Path>
 ------------------------------------------------------------
-List content in a directory.
+Push / Pop current working location.
+
+> Push-Location
+> Pop-Location
+------------------------------------------------------------
+List content of location.
+
+Path could be PSProvider, PSDrvier, file path, etc.
 
 Options:
 -Recurse : Recurse the sub-folders.
@@ -149,10 +164,33 @@ Options:
 > Get-ChildItem
 > dir
 
-> Get-ChildItem <Directory>
+> Get-ChildItem <Path>
+> Get-ChildItem -Path <Path>
+
 > Get-ChildItem -Recurse
 > Get-ChildItem -Recurse -Include *.txt
 > Get-ChildItem -Recurse -Exclude *.txt
+
+Find file only.
+
+> Get-ChildItem -File
+> Get-ChildItem | Where {!$_.PSIsContainer}
+
+Find directory only.
+
+> Get-ChildItem -Directory
+> Get-ChildItem | Where PSIsContainer
+------------------------------------------------------------
+General purpose item actions.
+
+> Get-Item
+> New-Item
+> Rename-Item
+> Remove-Item
+> Set-Item
+
+> Get-ItemProperty
+> Set-ItemProperty
 ================================================================================
 Format list.
 Convert each row of result into a small list.
@@ -195,9 +233,10 @@ Options:
 -AutoSize : Indicates that this cmdlet adjusts the column size and number of columns based on the width of the data.
 -GroupBy <Object> : Specifies the output in groups based on a shared property or value. Enter an expression or a property of the output.
 -Property <FieldName> : One and only one field name. The default value is "Name".
+-Wrap : Indicates that the cmdlet displays text that exceeds the column width on the next line. By default, text that exceeds the column width is truncated.
 
 > Get-ChildItem | Format-Table
-> Get-ChildItem | Format-Table -AutoSize
+> Get-ChildItem | Format-Table -AutoSize -Wrap
 > Get-ChildItem | Format-Table -Property Name, Length
 > Get-ChildItem | Format-Table -Property Name, Length -GroupBy Length
 
@@ -215,7 +254,20 @@ Options:
 > Get-ChildItem | Out-GridView
 > Get-ChildItem | Out-GridView -Title "This is result"
 ================================================================================
-Select object.
+Sort-Object.
+
+Options:
+-CaseSensitive : Indicates that the sort should be case sensitive. By default, sorting is not case sensitive.
+-Descending : Indicates that the cmdlet sorts the objects in descending order. The default is ascending order.
+              The Descending parameter applies to all properties. To sort by some properties in ascending order and others in descending order, you must specify their property values by using a hash table.
+-Property <Object[]> : Specifies the properties to use when sorting. Objects are sorted based on the values of these properties. Enter the names of the properties. Wildcards are permitted.
+-Unique : Indicates that the cmdlet eliminates duplicates and returns only the unique members of the collection. You can use this parameter instead of using the Get-Unique cmdlet.
+
+> Get-Process | Select Id, Name | Sort Id
+> Get-Process | Select Id, Name | Sort Name, Id
+> Get-Process | Select Id, Name | Sort Name -Unique
+------------------------------------------------------------
+Select-Object.
 
 Options:
 -ExcludeProperty <String[]> : Specifies the properties that this cmdlet excludes from the operation. Wildcards are permitted.
@@ -228,26 +280,79 @@ Options:
 -SkipLast <Int32> :
 -Unique [<SwitchParameter>] : Specifies that if a subset of the input objects has identical properties and values, only a single member of the subset will be selected.
 
-> Get-ChildItem | Select-Object Name, Length
-> Get-ChildItem | Select-Object Name, Length -First 2
-> Get-ChildItem | Select-Object Name, Length -Skip 1
-> Get-ChildItem | Select-Object Name, Length -Last 2
+> Get-ChildItem | Select Name, Length
+> Get-ChildItem | Select Name, Length -First 2
+> Get-ChildItem | Select Name, Length -Skip 1
+> Get-ChildItem | Select Name, Length -Last 2
 
-> Get-Process | Select-Object Id, Name
-> Get-Process | Select-Object Id, Name -First 10
-> Get-Process | Select-Object Id, Name -Last 10
-> Get-Process | Select-Object Name -Unique
+> Get-Process | Select Id, Name
+> Get-Process | Select Id, Name -First 10
+> Get-Process | Select Id, Name -Last 10
+> Get-Process | Select Name -Unique
 ------------------------------------------------------------
-Sort object.
+Where-Object.
+"?" is alias.
+
+> Get-Verb | Where Group -Match "Common"
+> Get-Verb | Where {$_.Group -Match "Common"}
+> Get-Verb | ? Group -Match "Common"
+> (Get-Verb).Where({$PSItem.Group -Match "Common"})
+> (Get-Verb).Where({$_.Group -Match "Common"})
+
+> Get-ChildItem | Where Length -GT 13
+> (Get-ChildItem).Where({$PSItem.Length -GT 13})
+> (Get-ChildItem).Where({!($_.Length -GT 13)})
+
+> (Get-ChildItem).Where({($_.Length -Eq 13) -Or ($_.Length -Eq 14)})
+
+Note that,
+Both "$PSItem" and "$_" means current item in the pipe line.
+Both "-Not" and "!" means not.
+------------------------------------------------------------
+Group-Object.
+
+> Get-Verb | Group Group
+================================================================================
+Create object.
 
 Options:
--CaseSensitive : Indicates that the sort should be case sensitive. By default, sorting is not case sensitive.
--Descending : Indicates that the cmdlet sorts the objects in descending order. The default is ascending order.
-              The Descending parameter applies to all properties. To sort by some properties in ascending order and others in descending order, you must specify their property values by using a hash table.
--Property <Object[]> : Specifies the properties to use when sorting. Objects are sorted based on the values of these properties. Enter the names of the properties. Wildcards are permitted.
--Unique : Indicates that the cmdlet eliminates duplicates and returns only the unique members of the collection. You can use this parameter instead of using the Get-Unique cmdlet.
+-ComObject <String> : Specifies the programmatic identifier (ProgID) of the COM object.
+-TypeName <String> : Specifies the fully qualified name of the .NET Framework class. You cannot specify both the TypeName parameter and the ComObject parameter.
 
-> Get-Process | Select-Object Id, Name | Sort-Object Id
-> Get-Process | Select-Object Id, Name | Sort-Object Name, Id
-> Get-Process | Select-Object Id, Name | Sort-Object Name -Unique
+> $wshShell = New-Object -ComObject "WScript.Shell"
+
+Note that:
+"WScript.Shell" is a COM defined in "HKEY_CLASSES_ROOT\WScript.Shell".
+================================================================================
+Create a temp file in "%Temp%".
+
+> New-TemporaryFile -WhatIf
+------------------------------------------------------------
+Create a file.
+
+The <PathName> and <FileName> are case-insensitive.
+The default "-ItemType" is "File".
+The default "-Path" is ".".
+The default "-Value" is empty. "-Value" for "New-Item" has no new line end.
+
+> New-Item -Path <PathName> -Name <FileName> -ItemType File -Value "InitialContent"
+> New-Item -Path <PathName> -Name <FileName>
+> New-Item -Name <FileName>
+------------------------------------------------------------
+Show file content.
+
+> Get-Content <FilePath>
+> type <FilePath>
+------------------------------------------------------------
+Set new file content with new line end.
+
+> Set-Content <FilePath> -Value "Content"
+------------------------------------------------------------
+Append file content with new line end.
+
+> Add-Content <FilePath> -Value "Content"
+================================================================================
+Get date.
+
+> Get-Date
 ================================================================================

@@ -1,0 +1,27 @@
+================================================================================
+PowerShell
+================================================================================
+Check running process.
+
+> Get-Process
+> Get-Process <ProcessName>
+> Get-Process <PartialProcessName_WithWildcard>
+> Get-Process -Id <ProcessId>
+------------------------------------------------------------
+Stop running process.
+
+> Stop-Process <ProcessID> -WhatIf
+> Stop-Process -Name <ProcessName> -WhatIf
+================================================================================
+Check service.
+
+> Get-Service
+> Get-Service | ? Status -Match "Running" | Format-Table -AutoSize
+================================================================================
+Check Windows events.
+
+> Get-WinEvent -LogName application -MaxEvents 5
+> Get-WinEvent -LogName system -MaxEvents 5 | Format-Table ProviderName,TimeCreated,Id,Message -AutoSize -Wrap
+
+> Get-WinEvent -LogName application -MaxEvents 5 -ComputerName DESKTOP0
+================================================================================

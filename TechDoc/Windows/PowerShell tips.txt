@@ -30,7 +30,7 @@ Check version.
 Check OS version.
 
 > [System.Environment]::OSVersion
-> [System.Environment]::OSVersion | select versionstring
+> [System.Environment]::OSVersion | Select VersionString
 ------------------------------------------------------------
 Check WinRM config. (Command is for PowerShell 3.0 and above)
 
@@ -52,4 +52,52 @@ Check installed hotfix
 > wmic qfe get hotfixid | find "KB2842230"
 > wmic qfe
 > wmic qfe | find "KB2842230"
+================================================================================
+Check execution policy.
+
+> Get-ExecutionPolicy
+------------------------------------------------------------
+Gets information about the specified Windows PowerShell provider.
+
+Options:
+-PSProvider <String[]> : Specifies the name or names of the Windows PowerShell providers about which this cmdlet gets information.
+
+> Get-PSProvider
+
+> Get-PSProvider -PSProvider FileSystem
+> Get-PSProvider FileSystem
+> (Get-PSProvider FileSystem).home
+------------------------------------------------------------
+Select PowerShell provider.
+
+> Set-Location <PSProvider>
+
+> Set-Location Alias:\
+> Set-Location Cert:\
+> Set-Location Env:\
+> Set-Location Function:\
+> Set-Location HKLM:\
+> Set-Location Variable:\
+================================================================================
+Check content of function.
+
+Get function list.
+
+> Get-ChildItem Function:\
+
+> Set-Location Function:\
+> Get-Content <FunctionName>
+------------------------------------------------------------
+Check variable.
+
+Get variable list.
+
+> Get-ChildItem Variable:\
+
+> Set-Location Variable:\
+> Get-Variable <Variable>
+
+> New-Variable <Variable>
+> Remove-Variable <Variable>
+> Set-Variable <Variable> -Value <Value>
 ================================================================================

@@ -1,0 +1,59 @@
+================================================================================
+PowerShell
+================================================================================
+Enable/Disable WinRM.
+
+> Enable-PSRemoting
+
+WinRM has been updated to receive requests.
+WinRM service type changed successfully.
+WinRM service started.
+
+WinRM has been updated for remote management.
+Created a WinRM listener on HTTP://* to accept WS-Man requests to any IP on this machine.
+WinRM firewall exception enabled.
+Configured LocalAccountTokenFilterPolicy to grant administrative rights remotely to local users.
+
+> Disable-PSRemoting
+
+WARNING: Disabling the session configurations does not undo all the changes made by the Enable-PSRemoting or Enable-PSSessionConfiguration cmdlet.
+You might have to manually undo the changes by following these steps:
+    1. Stop and disable the WinRM service.
+    2. Delete the listener that accepts requests on any IP address.
+    3. Disable the firewall exceptions for WS-Management communications.
+    4. Restore the value of the LocalAccountTokenFilterPolicy to 0, which restricts remote access to members of the Administrators group on the
+computer.
+
+Note that,
+The WinRM serviceis "Windows Remote Management (WS-Management)".
+------------------------------------------------------------
+Check WinRM on local.
+
+> Test-WSMan
+> Test-WSMan -Authentication default
+
+Check WinRM on remote host.
+
+> Test-WSMan -ComputerName DESKTOP0
+> Test-WSMan -ComputerName 192.168.0.10
+================================================================================
+Find Cmdlets supporting remote access.
+
+> Get-Help * -Parameter ComputerName | ? ModuleName -Match "PowerShell.Management" | Sort Name | Format-Table Name, Synopsis -AutoSize -Wrap
+================================================================================
+Get Windows events on remote PC with popup window for password.
+
+> Get-WinEvent -LogName application -MaxEvents 5 -ComputerName DESKTOP0 -Credential DESKTOP0\administrator
+> Get-WinEvent -LogName application -MaxEvents 5 -ComputerName 192.168.0.10 -Credential <UserName>
+------------------------------------------------------------
+Run "Get-WinEvent" for remote host, and get error:
+"Get-WinEvent : The RPC server is unavailable."
+
+Solution:
+On remote host, launch the Group Policy Editor "Gpedit".
+From "Computer Configuration / Windows Settings / Security Settings / Windows Firewall Advanced Security", select "Inbound Rules".
+Right-click on it and select "New Rule...".
+Choose "Predefined" radio button, and select "Remote Event Log Management" option in drop down list, and click "Next" button
+Accept the defaults, and click "Next" button.
+Choose "Allow the connection", and click "Finish" button.
+================================================================================

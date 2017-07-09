@@ -1,17 +1,27 @@
 ================================================================================
 PowerShell
 ================================================================================
-Create object.
-
-Options:
--ComObject <String> : Specifies the programmatic identifier (ProgID) of the COM object.
--TypeName <String> : Specifies the fully qualified name of the .NET Framework class. You cannot specify both the TypeName parameter and the ComObject parameter.
+Condition.
+------------------------------------------------------------
+If (Test-Path CakeList.txt) {"Exist."} Else {"Not exist!"}
+If (Test-Path DishList.txt) {"Exist."} Else {"Not exist!"}
+================================================================================
+"WScript.Shell" is a COM defined in "HKEY_CLASSES_ROOT\WScript.Shell".
 
 > $wshShell = New-Object -ComObject "WScript.Shell"
 > $wshShell.Run("Calc.exe")
 > $wshShell.ExpandEnvironmentStrings("%windir%")
-
-Note that:
-"WScript.Shell" is a COM defined in "HKEY_CLASSES_ROOT\WScript.Shell".
+> $wshShell.Popup("Hello World!")
 ------------------------------------------------------------
+"WScript.Network" is a COM defined in "HKEY_CLASSES_ROOT\WScript.Network".
+
+> $wshNetwork = New-Object -ComObject "WScript.Network"
+> $wshNetwork.ComputerName
+> $wshNetwork.UserName
+> $wshNetwork.EnumPrinterConnections()
+================================================================================
+Call class and method.
+
+> [System.Environment]::OSVersion
+> [Io.Path]::GetRandomFileName()
 ================================================================================
