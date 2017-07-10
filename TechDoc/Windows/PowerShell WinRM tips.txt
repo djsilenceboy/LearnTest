@@ -1,7 +1,7 @@
 ================================================================================
 PowerShell
 ================================================================================
-Enable/Disable WinRM.
+Enable/Disable WinRM on remote host.
 
 > Enable-PSRemoting
 
@@ -25,7 +25,7 @@ You might have to manually undo the changes by following these steps:
 computer.
 
 Note that,
-The WinRM serviceis "Windows Remote Management (WS-Management)".
+The WinRM service is "Windows Remote Management (WS-Management)".
 ------------------------------------------------------------
 Check WinRM on local.
 
@@ -50,10 +50,40 @@ Run "Get-WinEvent" for remote host, and get error:
 "Get-WinEvent : The RPC server is unavailable."
 
 Solution:
-On remote host, launch the Group Policy Editor "Gpedit".
+On remote host, launch the Group Policy Editor "GPEdit".
 From "Computer Configuration / Windows Settings / Security Settings / Windows Firewall Advanced Security", select "Inbound Rules".
 Right-click on it and select "New Rule...".
-Choose "Predefined" radio button, and select "Remote Event Log Management" option in drop down list, and click "Next" button
+Choose "Predefined" radio button, and select "Remote Event Log Management" option in drop down list, and click "Next" button.
 Accept the defaults, and click "Next" button.
 Choose "Allow the connection", and click "Finish" button.
+================================================================================
+Add trusted remote host on local client.
+
+On client, launch the Group Policy Editor "GPEdit".
+From "Computer Configuration / Administrative Templates / Windows Remote Management (WinRM) / WinRM Client", select "Trusted Hosts".
+Double-click on it and check "Enabled" option.
+In "Options" section, fill "Trusted Hosts" with a list of remote hosts. For example, "192.168.0.10"
+
+After that, the client can use "Enter-PSSession" to login trusted remote hosts.
+------------------------------------------------------------
+Add trusted client on remote host.
+If "TrustedHosts" is not set, it means trust all clients. 
+
+> Set-Item WSMan:\localhost\Client\TrustedHosts -Value "192.168.0.11"
+> Get-Item WSMan:\localhost\Client\TrustedHosts
+================================================================================
+Login remote host.
+
+> Enter-PSSession -ComputerName 192.168.0.10 -Credential <UserName>
+------------------------------------------------------------
+Run command on remote host.
+
+> Invoke-Command -ComputerName 192.168.0.10 -Credential <UserName> -ScriptBlock {$PSVersionTable}
+------------------------------------------------------------
+> $session=New-PSSession -ComputerName 192.168.0.10 -Credential <UserName>
+> Enter-PSSession $session
+> Invoke-Command -Session $session -ScriptBlock {$PSVersionTable}
+> Get-PSSession
+> Get-PSSession | Remove-PSSession
+================================================================================
 ================================================================================

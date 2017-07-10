@@ -25,6 +25,7 @@ So, "Get-Help" and "get-help" are same.
 ================================================================================
 Check version.
 
+> $PSVersionTable
 > $PSVersionTable.PSVersion
 ------------------------------------------------------------
 Check OS version.
