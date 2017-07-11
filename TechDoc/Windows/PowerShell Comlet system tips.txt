@@ -25,3 +25,43 @@ Check Windows events.
 
 > Get-WinEvent -LogName application -MaxEvents 5 -ComputerName DESKTOP0
 ================================================================================
+Find job related Cmdlets.
+
+> Get-Command -Noun Job
+------------------------------------------------------------
+Start job in background.
+
+Options:
+-Name <String> : Specifies a friendly name for the new job. You can use the name to identify the job to other job cmdlets, such as the Stop-Job cmdlet. The default friendly name is Job#, where # is an ordinal number that is incremented for each job.
+-ScriptBlock <ScriptBlock> : Specifies the commands to run in the background job. Enclose the commands in braces ( { } ) to create a script block. This parameter is required.
+
+> Start-Job {Get-Process}
+> Start-Job -Name GP -ScriptBlock {Get-Process}
+------------------------------------------------------------
+Check job status.
+
+Options:
+-Newest <Int32> : Specifies a number of jobs to get. This cmdlet gets the jobs that ended most recently. The Newest parameter does not sort or return the newest jobs in end-time order. To sort the output, use the Sort-Object cmdlet.
+
+> Get-Job
+> Get-Job <JobName_Or_JobId>
+> Get-Job -Name <JobName>
+> Get-Job -Id <JobId>
+> Get-Job -Newest 2
+------------------------------------------------------------
+Bring job to forefront.
+
+> Receive-Job
+> Receive-Job -Name <JobName>
+> Receive-Job -Id <JobId>
+------------------------------------------------------------
+Remove job status.
+
+> Remove-Job
+> Remove-Job -Name <JobName>
+> Remove-Job -Id <JobId>
+
+Remove all job status.
+
+> Get-Job | Remove-Job
+================================================================================

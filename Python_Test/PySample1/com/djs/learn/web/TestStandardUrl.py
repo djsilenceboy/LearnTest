@@ -4,14 +4,14 @@ Created on Apr 6, 2016
 @author: dj
 '''
 
-import urllib.request as ur
+from urllib.request import urlopen
 
 # url = "https://www.google.com"
 # url = "http://localhost:8002"
 url = "http://localhost:8002/echo/Cake"
 print("url =", url)
 
-conn = ur.urlopen(url)
+conn = urlopen(url)
 print("conn =", conn)
 print("conn.status =", conn.status)
 print("-" * 40)
