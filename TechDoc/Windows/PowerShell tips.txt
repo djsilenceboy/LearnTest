@@ -58,6 +58,16 @@ Check execution policy.
 
 > Get-ExecutionPolicy
 ------------------------------------------------------------
+Set execution policy.
+
+To disable running ps1 file. (By default)
+
+> Set-ExecutionPolicy Restricted
+
+To enable running ps1 file.
+
+> Set-ExecutionPolicy RemoteSigned
+------------------------------------------------------------
 Gets information about the specified Windows PowerShell provider.
 
 Options:

@@ -130,6 +130,31 @@ Transcript started, output file is C:\Users\xx\Documents\PowerShell_transcript.y
 > Stop-Transcript
 
 Transcript stopped, output file is C:\Users\xx\Documents\PowerShell_transcript.yy.zz.txt
+------------------------------------------------------------
+Output text to screen.
+
+Options:
+-BackgroundColor <ConsoleColor> : Specifies the background color. There is no default. The acceptable values for this parameter are: [Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White].
+-ForegroundColor <ConsoleColor> : Specifies the text color. There is no default. The acceptable values for this parameter are: [Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White].
+-NoNewline : Specifies that the content displayed in the console does not end with a newline character.
+-Separator <Object> : Specifies a separator string to the output between objects displayed on the console.
+
+> Write-Host "Hello, World!" -BackgroundColor Yellow -ForegroundColor Blue
+> Write-Host ("Hello", "World", "Tom", "Cat") -Separator "<->"
+> Write-Host (10, 8, 6, 4) -Separator " > "
+------------------------------------------------------------
+Output text to file.
+
+Options:
+-Append : Indicates that the cmdlet adds the output to the end of an existing file, instead of replacing the file contents.
+-Encoding <String> : Specifies the type of character encoding used in the file. The acceptable values for this parameter are: [Unknown, String, Unicode, BigEndianUnicode, UTF8, UTF7, UTF32, ASCII, Default, OEM].
+          "Unicode" is the default. "Default" uses the encoding of the system's current ANSI code page. "OEM" uses the current original equipment manufacturer code page identifier for the operating system.
+-InputObject <PSObject> : Specifies the objects to be written to the file. Enter a variable that contains the objects or type a command or expression that gets the objects.
+-NoClobber : Indicates that the cmdlet will not overwrite an existing file. By default, if a file exists in the specified path, Out-File overwrites the file without warning. If both Append and NoClobber are used, the output is appended to the existing file.
+-NoNewline
+
+> Out-File Hello.txt -InputObject "Hello, World!"
+> Get-Process | Out-File Process.txt
 ================================================================================
 Get drive list.
 
