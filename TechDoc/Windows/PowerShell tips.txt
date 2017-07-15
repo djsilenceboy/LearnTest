@@ -56,9 +56,26 @@ Check installed hotfix
 ================================================================================
 Check execution policy.
 
+Options:
+-List : Gets all execution policy values for the session listed in precedence order. By default, Get-ExecutionPolicy gets only the effective execution policy.
+-Scope <ExecutionPolicyScope> : Gets the execution policy in the specified scope.  By default, Get-ExecutionPolicy gets the effective execution policy for the current session. The acceptable values for this parameter are:
+  - MachinePolicy. The execution policy set by a Group Policy for all users of the computer.
+  - UserPolicy. The execution policy set by a Group Policy for the current user of the computer.
+  - Process. The execution policy that is set for the current Windows PowerShell process.
+ - CurrentUser. The execution policy that is set for the current user. - LocalMachine. The execution policy that is set for all users of the computer.
+
 > Get-ExecutionPolicy
+> Get-ExecutionPolicy LocalMachine
+
+> Get-ExecutionPolicy -List
 ------------------------------------------------------------
 Set execution policy.
+
+Options:
+-Scope <ExecutionPolicyScope> : Specifies the scope of the execution policy. The default is LocalMachine. The acceptable values for this parameter are:
+   - Process: The execution policy affects only the current Windows PowerShell process.
+   - CurrentUser: The execution policy affects only the current user.
+   - LocalMachine: The execution policy affects all users of the computer.
 
 To disable running ps1 file. (By default)
 
@@ -67,6 +84,7 @@ To disable running ps1 file. (By default)
 To enable running ps1 file.
 
 > Set-ExecutionPolicy RemoteSigned
+> Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 ------------------------------------------------------------
 Gets information about the specified Windows PowerShell provider.
 

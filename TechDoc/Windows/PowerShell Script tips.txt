@@ -5,6 +5,18 @@ To enable running ps1 file.
 
 > Set-ExecutionPolicy RemoteSigned
 ================================================================================
+Run script outside PowerShell.
+
+> PowerShell -File <Path_To_ps1_File> <InputParameters>
+
+If not exist PowerShell after script completed.
+
+> PowerShell -NoExit -File <Path_To_ps1_File> <InputParameters>
+------------------------------------------------------------
+Run script inside PowerShell.
+
+> <Path_To_ps1_File> <InputParameters>
+================================================================================
 Condition.
 ------------------------------------------------------------
 If (Test-Path CakeList.txt) {"Exist."} Else {"Not exist!"}
