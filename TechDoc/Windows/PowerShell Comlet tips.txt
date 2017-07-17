@@ -397,3 +397,20 @@ Get date.
 
 > Get-Date
 ================================================================================
+Measure-Object
+
+Options:
+-Average : Indicates that the cmdlet displays the average value of the specified properties.
+-Character : ndicates that the cmdlet counts the number of characters in the input object.
+-IgnoreWhiteSpace : Indicates that the cmdlet ignores white space in word counts and character counts. By default, white space is not ignored.
+-InputObject <PSObject> : Specifies the objects to be measured. Enter a variable that contains the objects, or type a command or expression that gets the objects.
+-Line : Indicates that the cmdlet counts the number of lines in the input object.
+-Maximum : Indicates that the cmdlet displays the maximum value of the specified properties.
+-Minimum : Indicates that the cmdlet displays the minimum value of the specified properties.
+-Property <String[]> : Specifies one or more numeric properties to measure. The default is the Count property of the object.
+-Sum : Indicates that the cmdlet displays the sum of the values of the specified properties.
+-Word : Indicates that the cmdlet counts the number of words in the input object.
+
+> Get-ChildItem | Measure-Object -Property length -Minimum -Maximum -Average -Sum
+> Get-Content Hello.txt | Measure-Object -Line -Word -Character
+================================================================================

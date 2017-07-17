@@ -37,9 +37,11 @@ Write-Host '[boolean]$e1 = '$e1
 [boolean]$e1 = 1
 Write-Host '[boolean]$e1 = '$e1
 
-$f1 = 10, "20", 30, 40, 50
+$f1 = 10, "ab", 30, 40, 50
 Write-Host '$f1 = '$f1
-[array]$f1 = 10, "20", 30, 40, 50
+[array]$f1 = 10, "ab", 30, 40, 50
+Write-Host '$f1 = '$f1
+[int[]]$f1 = 10, "ab", 30, 40, 50
 Write-Host '$f1 = '$f1
 
 $f2 = 1..5
@@ -54,3 +56,15 @@ Set-Variable g1 -Value 123 -Option Constant
 Write-Host '$g1 = '$g1
 $g1 = 456
 Write-Host '$g1 = '$g1
+
+# Both @" and "@ should be stand-alone in separated lines.
+$h1 = @"
+Line1
+Line2
+Line3
+"@
+Write-Host '$h1 = '$h1
+$h2 = "Line1
+Line2
+Line3"
+Write-Host '$h2 = '$h2

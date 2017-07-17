@@ -30,7 +30,12 @@ Gets instances of WMI classes or information about the available classes.
 > Get-WmiObject Win32_Service | Format-Table
 > Get-WmiObject -Class Win32_Service | Format-Table
 
+> Get-WmiObject Win32_OperatingSystem | Format-Table
 > Get-WmiObject Win32_LogicalDisk | Format-Table
+------------------------------------------------------------
+> Get-CimInstance Win32_OperatingSystem | Format-Table
+> Get-CimInstance Win32_Service | Format-Table
+> Get-CimInstance Win32_LogicalDisk | Format-Table
 ================================================================================
 Find job related Cmdlets.
 

@@ -17,6 +17,14 @@ Run script inside PowerShell.
 
 > <Path_To_ps1_File> <InputParameters>
 ================================================================================
+Source functions in a script
+
+> . <FunctionsFile.ps1>
+------------------------------------------------------------
+Check imported functions.
+
+> Get-ChildItem Function:\ | Format-Table -Property Name, Definition
+================================================================================
 Condition.
 ------------------------------------------------------------
 If (Test-Path CakeList.txt) {"Exist."} Else {"Not exist!"}

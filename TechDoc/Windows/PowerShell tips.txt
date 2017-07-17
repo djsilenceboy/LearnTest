@@ -32,6 +32,8 @@ Check OS version.
 
 > [System.Environment]::OSVersion
 > [System.Environment]::OSVersion | Select VersionString
+
+> Get-CimInstance -Class Win32_OperatingSystem | Select Version
 ------------------------------------------------------------
 Check WinRM config. (Command is for PowerShell 3.0 and above)
 
