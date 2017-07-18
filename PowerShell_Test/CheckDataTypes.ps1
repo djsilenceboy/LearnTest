@@ -68,3 +68,7 @@ $h2 = "Line1
 Line2
 Line3"
 Write-Host '$h2 = '$h2
+
+[wmi]"Win32_LogicalDisk.DeviceId='D:'"
+$i1 = ([wmi]"Win32_LogicalDisk.DeviceId='D:'").FreeSpace
+Write-Host '$i1 = '$i1

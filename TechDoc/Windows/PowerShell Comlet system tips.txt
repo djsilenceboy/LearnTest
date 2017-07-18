@@ -32,6 +32,8 @@ Gets instances of WMI classes or information about the available classes.
 
 > Get-WmiObject Win32_OperatingSystem | Format-Table
 > Get-WmiObject Win32_LogicalDisk | Format-Table
+
+> [wmi]"Win32_LogicalDisk.DeviceId='D:'" | Format-Table
 ------------------------------------------------------------
 > Get-CimInstance Win32_OperatingSystem | Format-Table
 > Get-CimInstance Win32_Service | Format-Table

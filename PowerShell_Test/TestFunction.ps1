@@ -5,6 +5,7 @@ Function Get-OSVersion
 }
 
 Write-Host 'OS Version = '$(Get-OSVersion)
+Write-Host '----------------------------------------'
 
 # Function Get-TextStatistics($path)
 Function Get-TextStatistics($path)
@@ -13,6 +14,7 @@ Function Get-TextStatistics($path)
 }
 
 Get-TextStatistics("D:")
+Write-Host '----------------------------------------'
 
 Function Count-Test([string[]]$arr)
 {
@@ -20,8 +22,9 @@ Function Count-Test([string[]]$arr)
 }
 
 Count-Test("Hello", "World", "Next")
+Write-Host '----------------------------------------'
 
-Function WithOption-Test([switch]$show, [switch]$help)
+Function Switch-Test([switch]$show, [switch]$help)
 {
   if ($show)
   {
@@ -34,5 +37,58 @@ Function WithOption-Test([switch]$show, [switch]$help)
   }
 }
 
-WithOption-Test -Show
-WithOption-Test -Help
+Switch-Test -Show
+Write-Host '--------------------'
+Switch-Test -Help
+Write-Host '----------------------------------------'
+
+Function Option-Test($cat, $dog)
+{
+  if ($cat)
+  {
+    Write-Host 'There is cat: '$cat
+  }
+
+  if ($dog)
+  {
+    Write-Host 'There is dog: '$dog
+  }
+}
+
+Option-Test "Tom" "Bob"
+Write-Host '--------------------'
+Option-Test -cat "Tom" "Bob"
+Write-Host '--------------------'
+Option-Test -dog "Bob"
+Write-Host '----------------------------------------'
+
+# Another way for input parameters.
+Function Option-Test2
+{
+  Param{$cat, $dog}
+
+  if ($cat)
+  {
+    Write-Host 'There is cat: '$cat
+  }
+
+  if ($dog)
+  {
+    Write-Host 'There is dog: '$dog
+  }
+}
+
+Option-Test "Tom" "Bob"
+Write-Host '--------------------'
+Option-Test -dog "Bob"
+Write-Host '----------------------------------------'
+
+Function ReturnValue-Test($a, $b)
+{
+  Return $a + $b
+}
+
+$c = ReturnValue-Test("AA", "BB")
+
+Write-Host '$c = '$c
+Write-Host '----------------------------------------'
