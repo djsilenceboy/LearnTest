@@ -144,6 +144,10 @@ Powerful data structures for data analysis, time series,and statistics
 
 ]$ pip install pandas
 
+PDF parser and analyzer.
+
+]$ pip install pdfminer3k
+
 Pure python memcached client.
 (depend on six.)
 

@@ -25,3 +25,6 @@ Fmt="
 "
 ttt=("" X "" "" O "" "" X "")
 printf "$Fmt" "${ttt[@]}"
+
+printf '%.0s-' {1..20}; echo
+printf '%.0s=' {1..40}; echo
