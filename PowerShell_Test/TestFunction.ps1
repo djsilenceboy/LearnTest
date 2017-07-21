@@ -18,7 +18,7 @@ Write-Host '----------------------------------------'
 
 Function Count-Test([string[]]$arr)
 {
-  $arr | Measure-Object -Line -Word -Character
+  $arr | Measure -Line -Word -Character
 }
 
 Count-Test("Hello", "World", "Next")
@@ -42,7 +42,7 @@ Write-Host '--------------------'
 Switch-Test -Help
 Write-Host '----------------------------------------'
 
-Function Option-Test($cat, $dog)
+Function Option-Test($cat, $dog, $fruit="Apple")
 {
   if ($cat)
   {
@@ -53,6 +53,11 @@ Function Option-Test($cat, $dog)
   {
     Write-Host 'There is dog: '$dog
   }
+
+  if ($fruit)
+  {
+    Write-Host 'There is fruit: '$fruit
+  }
 }
 
 Option-Test "Tom" "Bob"
@@ -60,6 +65,8 @@ Write-Host '--------------------'
 Option-Test -cat "Tom" "Bob"
 Write-Host '--------------------'
 Option-Test -dog "Bob"
+Write-Host '--------------------'
+Option-Test -fruit "Orange"
 Write-Host '----------------------------------------'
 
 # Another way for input parameters.
@@ -91,4 +98,20 @@ Function ReturnValue-Test($a, $b)
 $c = ReturnValue-Test("AA", "BB")
 
 Write-Host '$c = '$c
+Write-Host '----------------------------------------'
+
+Function Default-Input
+{
+  # $input is default variable for pipe line.
+  Write-Host '$input = '$input
+  while ($input.MoveNext())
+  {
+    Write-Host 'input data = '$input.Current
+  }
+}
+
+Default-Input
+Write-Host '--------------------'
+1..5 | Default-Input
+
 Write-Host '----------------------------------------'

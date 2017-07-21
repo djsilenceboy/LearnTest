@@ -7,7 +7,7 @@ Created on Jul 20, 2017
 from io import BytesIO
 from os import path
 from zipfile import ZipFile
-
+from bs4 import BeautifulSoup
 
 input_file_path = "../../../../etc"
 
@@ -27,6 +27,17 @@ docx_file.close()
 print("-" * 40)
 
 print(content)
+
+print("-" * 40)
+
+content2 = BeautifulSoup(content.decode("utf-8"), "lxml-xml")
+print(content2)
+
+print("-" * 40)
+
+all_words = content2.findAll("t")
+for item in all_words:
+    print(item.text)
 
 print("-" * 40)
 

@@ -130,6 +130,10 @@ Screen-scraping library.
 
 ]$ pip install beautifulsoup4
 
+Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API.
+
+]$ pip install lxml
+
 Nose extends unittest to make testing easier.
 (Unit testing.)
 

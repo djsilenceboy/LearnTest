@@ -10,7 +10,9 @@ from bs4 import BeautifulSoup
 import requests
 
 
-def test_requests():
+def requests_html(url):
+    print("url =", url)
+
     resp = requests.get(url, "html.parser")
     print("resp.status_code =", resp.status_code)
 
@@ -34,7 +36,9 @@ def test_requests():
         print(link)
 
 
-def test_urllib():
+def urllib_html(url):
+    print("url =", url)
+
     html = urlopen(url)
 
     doc = BeautifulSoup(html.read(), "html.parser")
@@ -49,16 +53,48 @@ def test_urllib():
         print(link)
 
 
+def requests_xml(url):
+    print("url =", url)
+
+    resp = requests.get(url, "lxml-xml")
+    print("resp.status_code =", resp.status_code)
+
+    doc = BeautifulSoup(resp.text, "lxml-xml")
+
+    for item in doc.findAll("TITLE"):
+        print(item.text)
+
+
+def urllib_xml(url):
+    print("url =", url)
+
+    xml = urlopen(url)
+
+    doc = BeautifulSoup(xml.read(), "lxml-xml")
+
+    for item in doc.findAll("TITLE"):
+        print(item.text)
+
+
 url = "https://www.google.com"
-print("url =", url)
 
 print("-" * 60)
 
-test_requests()
+requests_html(url)
 
 print("-" * 60)
 
-test_urllib()
+urllib_html(url)
+
+print("-" * 60)
+
+url = "https://www.w3schools.com/xml/cd_catalog.xml"
+
+requests_xml(url)
+
+print("-" * 60)
+
+urllib_xml(url)
 
 print("-" * 60)
 

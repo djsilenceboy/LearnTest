@@ -4,8 +4,25 @@ $a2 = $a1 + 4
 $a2++
 Write-Host '$a2 = '$a2
 
-$b = 123456789123456789
-Write-Host '$b is string = '$b
+$b1 = 123456789123456789
+Write-Host '$b1 is string = '$b1
+
+$b2 = [byte]::MaxValue
+Write-Host '[byte]::MaxValue = '$b2
+$b2 = [int]::MaxValue
+Write-Host '[int]::MaxValue = '$b2
+$b2 = [int32]::MaxValue
+Write-Host '[Int32]::MaxValue = '$b2
+$b2 = [int64]::MaxValue
+Write-Host '[Int64]::MaxValue = '$b2
+$b2 = [long]::MaxValue
+Write-Host '[long]::MaxValue = '$b2
+$b2 = [decimal]::MaxValue
+Write-Host '[decimal]::MaxValue = '$b2
+$b2 = [single]::MaxValue
+Write-Host '[single]::MaxValue = '$b2
+$b2 = [double]::MaxValue
+Write-Host '[double]::MaxValue = '$b2
 
 [int]$c1 = 123456789123456789
 [int]$c1 = 123456789
