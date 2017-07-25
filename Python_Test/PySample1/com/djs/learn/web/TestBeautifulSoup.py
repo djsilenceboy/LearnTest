@@ -61,7 +61,7 @@ def requests_xml(url):
 
     doc = BeautifulSoup(resp.text, "lxml-xml")
 
-    for item in doc.findAll("TITLE"):
+    for item in doc.find_all("TITLE"):
         print(item.text)
 
 
@@ -72,7 +72,7 @@ def urllib_xml(url):
 
     doc = BeautifulSoup(xml.read(), "lxml-xml")
 
-    for item in doc.findAll("TITLE"):
+    for item in doc.find_all("TITLE"):
         print(item.text)
 
 

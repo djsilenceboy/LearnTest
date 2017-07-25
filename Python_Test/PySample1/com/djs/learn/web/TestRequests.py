@@ -6,24 +6,75 @@ Created on Apr 6, 2016
 
 import requests
 
+
+def test_get(url):
+    print("url =", url)
+    print("-" * 20)
+
+    response = requests.get(url)
+
+    print("response =", response)
+    print("response.status_code =", response.status_code)
+    print("response.headers =", response.headers)
+
+    print("-" * 20)
+    print("response.text =\n", response.text)
+
+
+def test_get_with_session(url):
+    print("url =", url)
+    session = requests.Session()
+    print("session =", session)
+    print("-" * 20)
+
+    response = session.get(url)
+
+    print("response =", response)
+    print("response.status_code =", response.status_code)
+    print("response.headers =", response.headers)
+
+    # print("-" * 20)
+    # print("response.text =\n", response.text)
+
+
+def test_get_data(url, keywords):
+    print("url =", url)
+
+    field_search = "q"
+    get_data = {field_search: keywords}
+    print("get_data =", get_data)
+
+    print("-" * 20)
+
+    response = requests.get(url, params=get_data)
+
+    print("response =", response)
+    print("response.status_code =", response.status_code)
+    print("response.headers =", response.headers)
+
+    print("-" * 20)
+    print("response.text =\n", response.text)
+
+
 url = "https://www.google.com"
 # url = "http://localhost:8002"
 # url = "http://localhost:8002/echo/Cake"
-print("url =", url)
-
-resp = requests.get(url)
-print("resp =", resp)
-print("resp.status_code =", resp.status_code)
 
 print("-" * 40)
 
-print("resp.headers =", resp.headers)
+test_get(url)
 
 print("-" * 40)
 
-print("resp.text =", resp.text)
+test_get_with_session(url)
 
 print("-" * 40)
+
+url = "https://www.google.com"
+test_get_data(url, "napoleon bonaparte")
+
+print("-" * 40)
+
 
 if __name__ == '__main__':
     pass

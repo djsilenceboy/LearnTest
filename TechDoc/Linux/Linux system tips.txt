@@ -189,6 +189,10 @@ Show top process.
 
 ]$ top -c -d 10
 
+Show static top.
+
+]$ top -n 1
+
 To sort by size, in app, press F or O, then select "o" and press any key.
 
 ]$ top -p <PID>
