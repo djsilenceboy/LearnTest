@@ -1,6 +1,8 @@
 '''
 Created on Apr 6, 2016
 
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent/Firefox
+
 @author: dj
 '''
 
@@ -11,7 +13,10 @@ def test_get(url):
     print("url =", url)
     print("-" * 20)
 
-    response = requests.get(url)
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT x.y; Win64; x64; rv:10.0) Gecko/20100101 Firefox/10.0",
+               "Accept": "text/html,application/xhtml+xml,application/xml"}
+
+    response = requests.get(url, headers=headers)
 
     print("response =", response)
     print("response.status_code =", response.status_code)
