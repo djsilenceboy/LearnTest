@@ -42,7 +42,7 @@ def test_proc_2():
 
     try:
         proc.communicate(timeout=1)
-        print("Successed")
+        print("Succeeded")
     except subprocess.TimeoutExpired:
         proc.terminate()
         proc.wait()

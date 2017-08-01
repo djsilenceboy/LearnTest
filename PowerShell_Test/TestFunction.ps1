@@ -1,3 +1,22 @@
+Function Sample
+{
+  Begin
+  {
+    "Print once in begin."
+  }
+  Process
+  {
+    "Print each time."
+  }
+  End
+  {
+    "Print once in end."
+  }
+}
+
+1..5 | Sample
+Write-Host '----------------------------------------'
+
 # Function Script:Get-OSVersion
 Function Get-OSVersion
 {
