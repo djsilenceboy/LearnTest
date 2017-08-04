@@ -65,6 +65,7 @@ print("-" * 40)
 
 print("animals.keys() =", animals.keys())
 print("animals.values() =", animals.values())
+print("animals.values() as list =", list(animals.values()))
 print("animals.items() =", animals.items())
 
 print("max(animals) =", max(animals))
