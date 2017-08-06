@@ -81,7 +81,7 @@ Function Option-Test($cat, $dog, $fruit="Apple")
 
 Option-Test "Tom" "Bob"
 Write-Host '--------------------'
-Option-Test -cat "Tom" "Bob"
+Option-Test -dog "Bob" "Tom"
 Write-Host '--------------------'
 Option-Test -dog "Bob"
 Write-Host '--------------------'
@@ -91,7 +91,7 @@ Write-Host '----------------------------------------'
 # Another way for input parameters.
 Function Option-Test2
 {
-  Param{$cat, $dog}
+  Param($cat, $dog)
 
   if ($cat)
   {
@@ -104,9 +104,34 @@ Function Option-Test2
   }
 }
 
-Option-Test "Tom" "Bob"
+Option-Test2 "Tom" "Bob"
 Write-Host '--------------------'
-Option-Test -dog "Bob"
+Option-Test2 -dog "Bob"
+Write-Host '----------------------------------------'
+
+Function Option-Test3
+{
+  Param(
+    $cat,
+    [Parameter(Mandatory=$True)]
+    $dog
+  )
+
+  if ($cat)
+  {
+    Write-Host 'There is cat: '$cat
+  }
+
+  if ($dog)
+  {
+    Write-Host 'There is dog: '$dog
+  }
+}
+
+Option-Test3 "Tom" "Bob"
+Write-Host '--------------------'
+# It will pause and ask for value of $dog.
+Option-Test3 "Tom"
 Write-Host '----------------------------------------'
 
 Function ReturnValue-Test($a, $b)

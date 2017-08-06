@@ -108,18 +108,68 @@ def get_fund_data(browser, results):
 
         if factsheet_section:
             print("factsheet_section =", factsheet_section)
+
             treasure_overlay_spinner_section = factsheet_section.find_element_by_tag_name(
                 "treasure-overlay-spinner")
-
             if treasure_overlay_spinner_section:
                 print("treasure_overlay_spinner_section =",
                       treasure_overlay_spinner_section)
-                ng_transclude_section = factsheet_section.find_element_by_tag_name(
-                    "ng-transclude")
+                banner_info_section = treasure_overlay_spinner_section.find_element_by_css_selector(
+                    "div[class='row m-t-md']")
+                if banner_info_section:
+                    print("banner_info_section =", banner_info_section)
+                    element_sections = banner_info_section.find_elements_by_css_selector(
+                        "div[class*='col-md-3']")
+                    if element_sections:
+                        # print("element_sections =", element_sections)
+                        for element_section in element_sections:
+                            print("element_section.text =",
+                                  element_section.text)
 
-                if ng_transclude_section:
-                    print("ng_transclude_section =",
-                          ng_transclude_section)
+            offer_to_bid_info_section = factsheet_section.find_element_by_id(
+                "offer-to-bid")
+            if offer_to_bid_info_section:
+                print("offer_to_bid_info_section =", offer_to_bid_info_section)
+                list_section = offer_to_bid_info_section.find_element_by_css_selector(
+                    "div[class='tab-pane ng-scope active']")
+                if list_section:
+                    element_sections = list_section.find_elements_by_tag_name(
+                        "li")
+                    if element_sections:
+                        # print("element_sections =", element_sections)
+                        for element_section in element_sections:
+                            print("element_section.text =",
+                                  element_section.text)
+
+            bid_to_offer_info_section = factsheet_section.find_element_by_id(
+                "bid-to-return")
+            if bid_to_offer_info_section:
+                print("bid_to_offer_info_section =", bid_to_offer_info_section)
+                list_section = bid_to_offer_info_section.find_element_by_css_selector(
+                    "div[class='tab-pane ng-scope active']")
+                if list_section:
+                    element_sections = list_section.find_elements_by_tag_name(
+                        "li")
+                    if element_sections:
+                        # print("element_sections =", element_sections)
+                        for element_section in element_sections:
+                            print("element_section.text =",
+                                  element_section.text)
+
+            relevant_charges_section = factsheet_section.find_element_by_id(
+                "relevant-charges")
+            if relevant_charges_section:
+                print("relevant_charges_section =", relevant_charges_section)
+                list_section = relevant_charges_section.find_element_by_css_selector(
+                    "div[class='m-t-xs']")
+                if list_section:
+                    element_sections = list_section.find_elements_by_tag_name(
+                        "div")
+                    if element_sections:
+                        # print("element_sections =", element_sections)
+                        for element_section in element_sections:
+                            print("element_section.text =",
+                                  element_section.text)
         else:
             raise Exception("Cannot find factsheet section.")
 
