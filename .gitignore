@@ -45,6 +45,7 @@
 /Python_Test/**/*.pyo
 /Python_Test/**/*.pyd
 /Python_Test/**/*$py.class
+/Python_Test/**/*.log
 
 
 # For Eclipse, Ruby.

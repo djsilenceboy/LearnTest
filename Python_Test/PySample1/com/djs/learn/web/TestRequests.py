@@ -13,7 +13,7 @@ def test_get(url):
     print("url =", url)
     print("-" * 20)
 
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT x.y; Win64; x64; rv:10.0) Gecko/20100101 Firefox/10.0",
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0",
                "Accept": "text/html,application/xhtml+xml,application/xml"}
 
     response = requests.get(url, headers=headers)

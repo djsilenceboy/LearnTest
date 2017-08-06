@@ -21,15 +21,14 @@ def test_get(url, keywords):
     print("url =", url)
     print("-" * 20)
 
-    browser = webdriver.Firefox(executable_path=geckodriver_path)
+    browser = webdriver.Firefox(
+        executable_path=geckodriver_path, log_path=None)
     browser.get(url)
 
     search_keyword_field = browser.find_element_by_name("search")
     search_keyword_field.send_keys(keywords)
 
-    submit_button = browser.find_element_by_css_selector(
-        "html.js-enabled body#www-wikipedia-org.jsl10n-visible div.search-container form#search-form.pure-form fieldset button.pure-button.pure-button-primary-progressive")
-    submit_button.click()
+    search_keyword_field.submit()
 
     # browser.close()
 
@@ -38,7 +37,8 @@ def test_get_chain(url, keywords):
     print("url =", url)
     print("-" * 20)
 
-    browser = webdriver.Firefox(executable_path=geckodriver_path)
+    browser = webdriver.Firefox(
+        executable_path=geckodriver_path, log_path=None)
     browser.get(url)
 
     actions = ActionChains(browser).click("search").send_keys(
@@ -48,7 +48,7 @@ def test_get_chain(url, keywords):
     # browser.close()
 
 
-url = "https://www.wikipedia.org/"
+url = "https://www.wikipedia.org"
 
 print("-" * 40)
 
