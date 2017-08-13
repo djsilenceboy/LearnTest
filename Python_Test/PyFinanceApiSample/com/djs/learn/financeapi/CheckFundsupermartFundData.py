@@ -5,7 +5,7 @@ Update log: (date / version / author : comments)
 2017-08-06 / 1.0.0 / Du Jiang : Creation
 
 Note that:
-1. This version ONLY supports FireFox.
+1. This version ONLY supports Firefox.
 2. It requires 3rd parth python lib (at least): requests, selenium.
 3. Selenium depends on Geckodriver for Firefox.
    Download: https://github.com/mozilla/geckodriver/releases
@@ -27,10 +27,10 @@ from selenium.webdriver.common.keys import Keys
 
 # Global variables.
 # The value can be updated by command line options.
-__geckodriver_file_path = None
-__geckodriver_log_file_path = None
 __fund_info_file_path = None
 __result_output_file_path = None
+__geckodriver_file_path = None
+__geckodriver_log_file_path = None
 __concurrent_max_workers = 5
 
 
@@ -54,7 +54,8 @@ class Constants(object):
     RESULT_OK = "Ok"
     RESULT_ERROR = "Error"
 
-    RECORDS = "Records"
+    FUNDS = "Funds"
+    RECORDS_NUMBER = "Records number"
     RECORD = "Record"
 
     START_TIME = "Start time"
@@ -67,6 +68,11 @@ class Constants(object):
     STATUS_CODE = "Status code"
 
     FUND_DATA = "Fund data"
+
+    SECTION_BANNER_INFO = "Banner info"
+    SECTION_OFFER_TO_BID_INFO = "Offer to bid info"
+    SECTION_BID_TO_OFFER_INFO = "Bid to offer info"
+    SECTION_RELEVANT_CHARGES = "Relevant charges"
 
 
 def check_url(url):
@@ -106,72 +112,114 @@ def get_fund_data(browser, results):
         # Find links to sub-portals.
         factsheet_section = browser.find_element_by_id("factsheet")
 
-        if factsheet_section:
-            print("factsheet_section =", factsheet_section)
-
-            treasure_overlay_spinner_section = factsheet_section.find_element_by_tag_name(
-                "treasure-overlay-spinner")
-            if treasure_overlay_spinner_section:
-                print("treasure_overlay_spinner_section =",
-                      treasure_overlay_spinner_section)
-                banner_info_section = treasure_overlay_spinner_section.find_element_by_css_selector(
-                    "div[class='row m-t-md']")
-                if banner_info_section:
-                    print("banner_info_section =", banner_info_section)
-                    element_sections = banner_info_section.find_elements_by_css_selector(
-                        "div[class*='col-md-3']")
-                    if element_sections:
-                        # print("element_sections =", element_sections)
-                        for element_section in element_sections:
-                            print("element_section.text =",
-                                  element_section.text)
-
-            offer_to_bid_info_section = factsheet_section.find_element_by_id(
-                "offer-to-bid")
-            if offer_to_bid_info_section:
-                print("offer_to_bid_info_section =", offer_to_bid_info_section)
-                list_section = offer_to_bid_info_section.find_element_by_css_selector(
-                    "div[class='tab-pane ng-scope active']")
-                if list_section:
-                    element_sections = list_section.find_elements_by_tag_name(
-                        "li")
-                    if element_sections:
-                        # print("element_sections =", element_sections)
-                        for element_section in element_sections:
-                            print("element_section.text =",
-                                  element_section.text)
-
-            bid_to_offer_info_section = factsheet_section.find_element_by_id(
-                "bid-to-return")
-            if bid_to_offer_info_section:
-                print("bid_to_offer_info_section =", bid_to_offer_info_section)
-                list_section = bid_to_offer_info_section.find_element_by_css_selector(
-                    "div[class='tab-pane ng-scope active']")
-                if list_section:
-                    element_sections = list_section.find_elements_by_tag_name(
-                        "li")
-                    if element_sections:
-                        # print("element_sections =", element_sections)
-                        for element_section in element_sections:
-                            print("element_section.text =",
-                                  element_section.text)
-
-            relevant_charges_section = factsheet_section.find_element_by_id(
-                "relevant-charges")
-            if relevant_charges_section:
-                print("relevant_charges_section =", relevant_charges_section)
-                list_section = relevant_charges_section.find_element_by_css_selector(
-                    "div[class='m-t-xs']")
-                if list_section:
-                    element_sections = list_section.find_elements_by_tag_name(
-                        "div")
-                    if element_sections:
-                        # print("element_sections =", element_sections)
-                        for element_section in element_sections:
-                            print("element_section.text =",
-                                  element_section.text)
-        else:
+        if not factsheet_section:
             raise Exception("Cannot find factsheet section.")
+
+        print("factsheet_section =", factsheet_section)
+
+        results[Constants.SECTION_BANNER_INFO] = {}
+        treasure_overlay_spinner_section = factsheet_section.find_element_by_tag_name(
+            "treasure-overlay-spinner")
+        if treasure_overlay_spinner_section:
+            print("treasure_overlay_spinner_section =",
+                  treasure_overlay_spinner_section)
+            banner_info_section = treasure_overlay_spinner_section.find_element_by_css_selector(
+                "div[class='row m-t-md']")
+            if banner_info_section:
+                print("banner_info_section =", banner_info_section)
+                element_sections = banner_info_section.find_elements_by_css_selector(
+                    "div[class*='col-md-3']")
+                if element_sections:
+                    # print("element_sections =", element_sections)
+                    for element_section in element_sections:
+                        # print("element_section.text =", element_section.text)
+                        element_data = element_section.text.splitlines()
+                        print("element_data =", element_data)
+
+                        if "Risk Rating" in element_data[1]:
+                            item_data = element_data[1].split(":")
+                            item_key = item_data[0].strip()
+                            item_values = [item.strip()
+                                           for item in item_data[1].split("-")]
+                            results[Constants.SECTION_BANNER_INFO][item_key] = item_values[0]
+                            results[Constants.SECTION_BANNER_INFO][item_key +
+                                                                   " Description"] = item_values[1]
+                        elif "NAV Price" in element_data[1]:
+                            loc = element_data[1].find("(")
+                            item_key = element_data[1][:loc].strip()
+                            item_value = element_data[1][loc + 1:-1]
+                            results[Constants.SECTION_BANNER_INFO][item_key] = element_data[0]
+                            results[Constants.SECTION_BANNER_INFO][item_key +
+                                                                   " Date"] = item_value
+                        else:
+                            results[Constants.SECTION_BANNER_INFO][element_data[1]
+                                                                   ] = element_data[0]
+
+        results[Constants.SECTION_OFFER_TO_BID_INFO] = {}
+        offer_to_bid_info_section = factsheet_section.find_element_by_id(
+            "offer-to-bid")
+        if offer_to_bid_info_section:
+            print("offer_to_bid_info_section =", offer_to_bid_info_section)
+            list_section = offer_to_bid_info_section.find_element_by_css_selector(
+                "div[class='tab-pane ng-scope active']")
+            if list_section:
+                element_sections = list_section.find_elements_by_tag_name(
+                    "li")
+                if element_sections:
+                    # print("element_sections =", element_sections)
+                    for element_section in element_sections:
+                        # print("element_section.text =", element_section.text)
+                        element_data = element_section.text.splitlines()
+                        print("element_data =", element_data)
+                        results[Constants.SECTION_OFFER_TO_BID_INFO][element_data[1]
+                                                                     ] = element_data[0]
+
+        results[Constants.SECTION_BID_TO_OFFER_INFO] = {}
+        bid_to_offer_info_section = factsheet_section.find_element_by_id(
+            "bid-to-return")
+        if bid_to_offer_info_section:
+            print("bid_to_offer_info_section =", bid_to_offer_info_section)
+            list_section = bid_to_offer_info_section.find_element_by_css_selector(
+                "div[class='tab-pane ng-scope active']")
+            if list_section:
+                element_sections = list_section.find_elements_by_tag_name(
+                    "li")
+                if element_sections:
+                    # print("element_sections =", element_sections)
+                    for element_section in element_sections:
+                        # print("element_section.text =", element_section.text)
+                        element_data = element_section.text.splitlines()
+                        print("element_data =", element_data)
+                        results[Constants.SECTION_BID_TO_OFFER_INFO][element_data[1]
+                                                                     ] = element_data[0]
+
+        results[Constants.SECTION_RELEVANT_CHARGES] = {}
+        relevant_charges_section = factsheet_section.find_element_by_id(
+            "relevant-charges")
+        if relevant_charges_section:
+            print("relevant_charges_section =", relevant_charges_section)
+            list_section = relevant_charges_section.find_element_by_css_selector(
+                "div[class='m-t-xs']")
+            if list_section:
+                element_sections = list_section.find_elements_by_tag_name(
+                    "div")
+                if element_sections:
+                    # print("element_sections =", element_sections)
+                    for element_section in element_sections:
+                        # print("element_section.text =", element_section.text)
+                        element_data = element_section.text.splitlines()
+                        print("element_data =", element_data)
+
+                        if "Expense Ratio" in element_data[1]:
+                            loc = element_data[1].find("(")
+                            item_key = element_data[1][:loc].strip()
+                            loc = element_data[1].find("of")
+                            item_value = element_data[1][loc + 3:-1]
+                            results[Constants.SECTION_RELEVANT_CHARGES][item_key] = element_data[0]
+                            results[Constants.SECTION_RELEVANT_CHARGES]["Annual Expense Ratio Date"] = item_value
+                        else:
+                            results[Constants.SECTION_RELEVANT_CHARGES][element_data[1]
+                                                                        ] = element_data[0]
 
         print("Get fund data: ok.")
         print("-" * 40)
@@ -198,6 +246,8 @@ def inspect_fund(record):
     results[Constants.START_TIME] = time_str
 
     fund_name, fund_id = record
+    fund_name = fund_name.strip()
+    fund_id = fund_id.strip()
     print("fund_name =", fund_name)
     print("fund_id =", fund_id)
 
@@ -213,30 +263,30 @@ def inspect_fund(record):
         results[Constants.URL] = url
 
         status_code = check_url(url)
-        if status_code == HTTPStatus.OK:
-            # Create profile.
-            profile = webdriver.FirefoxProfile()
-            profile.set_preference("general.useragent.override",
-                                   "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0")
-            browser = webdriver.Firefox(
-                profile, executable_path=__geckodriver_file_path, log_path=__geckodriver_log_file_path)
-            print("browser =", browser)
-            print("-" * 60)
-
-            # Load page.
-            browser.get(url)
-            # Wait for page to be fully loaded.
-            sleep(Constants.WAIT_TIME_LOAD_PAGE)
-            print("-" * 40)
-
-            # Get fund data.
-            results[Constants.FUND_DATA] = {}
-            get_fund_data(browser, results[Constants.FUND_DATA])
-            sleep(Constants.WAIT_TIME_VIEW_PAGE)
-            print("-" * 40)
-        else:
+        if status_code != HTTPStatus.OK:
             raise Exception("Get '{0}' failed with status code {1}.".format(url,
                                                                             status_code))
+
+        # Create profile.
+        profile = webdriver.FirefoxProfile()
+        profile.set_preference("general.useragent.override",
+                               "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0")
+        browser = webdriver.Firefox(
+            profile, executable_path=__geckodriver_file_path, log_path=__geckodriver_log_file_path)
+        print("browser =", browser)
+        print("-" * 60)
+
+        # Load page.
+        browser.get(url)
+        # Wait for page to be fully loaded.
+        sleep(Constants.WAIT_TIME_LOAD_PAGE)
+        print("-" * 40)
+
+        # Get fund data.
+        results[Constants.FUND_DATA] = {}
+        get_fund_data(browser, results[Constants.FUND_DATA])
+        sleep(Constants.WAIT_TIME_VIEW_PAGE)
+        print("-" * 40)
 
         print("Inspect fund: <{0}> ok.".format(fund_id))
         results[Constants.RESULT] = Constants.RESULT_OK
@@ -277,6 +327,8 @@ def process_fund_list():
     results[Constants.START_TIME] = time_str
 
     try:
+        results[Constants.FUNDS] = {}
+
         # Open input file.
         with open(__fund_info_file_path) as record_file:
             print('record_file =', record_file)
@@ -286,20 +338,20 @@ def process_fund_list():
             # But not header line.
             records.pop(0)
             print("records =", records)
-            results[Constants.RECORDS] = len(records)
+            results[Constants.RECORDS_NUMBER] = len(records)
         print("-" * 80)
 
-        # Inspect each env concurrently.
+        # Inspect each fund concurrently.
         with ThreadPoolExecutor(max_workers=__concurrent_max_workers) as executor:
             # Wait for result to return.
             for record, result in zip(records, executor.map(inspect_fund, records)):
-                gtsonsl = record[0]
-                results[gtsonsl] = result
+                fund_id = record[1].strip()
+                results[Constants.FUNDS][fund_id] = result
 
         print("-" * 80)
-        print("Process env list: ok.")
+        print("Process fund list: ok.")
     except Exception as e:
-        print("Process env list: Exception = {0}".format(e))
+        print("Process fund list: Exception = {0}".format(e))
 
     time_str = strftime("%Y-%m-%d %H:%M:%S", localtime(time()))
     print("Stop time =", time_str)
@@ -334,21 +386,21 @@ Check Fundsupermart fund data.
 
 Usage:
 -h
--i <file path> [-o <file path>] -w <file path>
+-i <file path> [-o <file path>] -w <file path> [-l <file path>] [-c <Number>]
 
 Options:
 -h : Show help.
 -i <file path> : Environment info file path (CSV). Compulsory.
 -o <file path> : Result output file path (JSON). Optional, output to screen by default.
--w <file path> : Selenium web driver file path. For example, geckodriver for Firefox. Compulsory.
+-w <file path> : Selenium web driver file path (absolute path). For example, geckodriver for Firefox. Compulsory.
 -l <file path> : Selenium web driver log file path. Optional, output to screen by default.
--c : Concurrent max workers to process records. Optional, 5 by default. Must >= 1.
+-c <Number> : Concurrent max workers to process records. Optional, 5 by default. Must >= 1
 
 Fund info file format sample (With header line):
 Fund name,Fund ID
 
 Note that:
-1. This version ONLY supports FireFox.
+1. This version ONLY supports Firefox.
 2. It requires 3rd parth python lib (at least): requests, selenium.
 3. Selenium depends on Geckodriver for Firefox.
    Download: https://github.com/mozilla/geckodriver/releases
@@ -363,10 +415,10 @@ def main(argv):
     @param argv: A list of arguments
     '''
 
-    global __geckodriver_file_path
-    global __geckodriver_log_file_path
     global __fund_info_file_path
     global __result_output_file_path
+    global __geckodriver_file_path
+    global __geckodriver_log_file_path
     global __concurrent_max_workers
 
     print("argv =", argv)
@@ -415,10 +467,10 @@ def main(argv):
                 3, "Wrong value for command line option."
 
     print("show_usage =", __show_usage)
+    print("fund_info_file_path =", __fund_info_file_path)
+    print("result_output_file_path", __result_output_file_path)
     print("geckodriver_file_path =", __geckodriver_file_path)
     print("geckodriver_log_file_path =", __geckodriver_log_file_path)
-    print("env_info_file_path =", __fund_info_file_path)
-    print("result_output_file_path", __result_output_file_path)
     print("concurrent_max_workers =", __concurrent_max_workers)
 
     # Check options are valid.

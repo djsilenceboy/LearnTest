@@ -25,16 +25,16 @@ __result_output_file_path = "../../../../Temp/Fundsupermart_FundData.json"
 # argv = ["-w", __geckodriver_file_path]
 
 # Test correct.
-argv = ["-i", __fund_info_file_path, "-w",
-        __geckodriver_file_path, "-l", __geckodriver_log_file_path]
-# argv = ["-i", __fund_info_file_path, "-o", __result_output_file_path, "-w", __geckodriver_file_path, "-l", __geckodriver_log_file_path]
+# argv = ["-i", __fund_info_file_path, "-w", __geckodriver_file_path, "-l", __geckodriver_log_file_path]
+argv = ["-i", __fund_info_file_path, "-o", __result_output_file_path,
+        "-w", __geckodriver_file_path, "-l", __geckodriver_log_file_path]
 CheckFundsupermartFundData.main(argv)
 
 
 '''
 Or run:
 
-python CheckSlaPortal.py -w "D:\Download\Shared\geckodriver.exe" -i "../../../../etc/Fundsupermart_FundInfo.csv" -o "../../../../Temp/Fundsupermart_FundData.json"
+python CheckFundsupermartFundData.py -i "../../../../etc/Fundsupermart_FundInfo.csv" -o "../../../../Temp/Fundsupermart_FundData.json" -w "D:\Download\Shared\geckodriver.exe" -l "../../../../Temp/geckodriver.log"
 '''
 
 if __name__ == '__main__':
