@@ -159,3 +159,13 @@ Write-Host '--------------------'
 1..5 | Default-Input
 
 Write-Host '----------------------------------------'
+
+Function Test-Automatic-Args($a)
+{
+  Write-Host '$a = '$a
+  Write-Host '$Args = '$Args
+}
+
+Test-Automatic-Args 1 2 3 4
+
+Write-Host '----------------------------------------'
