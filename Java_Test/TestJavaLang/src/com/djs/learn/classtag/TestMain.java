@@ -11,6 +11,7 @@ import com.djs.learn.classtag.inherited.ChildA;
 import com.djs.learn.classtag.inherited.ChildB;
 import com.djs.learn.classtag.inherited2.ChildB3;
 import com.djs.learn.classtag.interfacetag.ImplementChildA;
+import com.djs.learn.classtag.interfacetag.ImplementChildC;
 import com.djs.learn.classtag.interfacetag.ImplementParentA;
 import com.djs.learn.classtag.interfacetag.InterfaceParentA;
 import com.djs.learn.classtag.mix.MixChildA;
@@ -252,6 +253,13 @@ public class TestMain
 
 			i = ImplementChildA.age;
 			System.out.println("i = " + i);
+
+			System.out.println("--------------------");
+
+			ImplementChildC implementChildC = new ImplementChildC();
+
+			System.out.println("Count A = " + implementChildC.getCountA());
+			System.out.println("Count B = " + implementChildC.getCountB());
 		} catch (Exception e) {
 			System.err.println("Exception = " + e);
 		}

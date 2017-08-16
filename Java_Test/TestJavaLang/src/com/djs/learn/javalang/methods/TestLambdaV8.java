@@ -3,6 +3,7 @@ package com.djs.learn.javalang.methods;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class TestLambdaV8
 {
@@ -90,6 +91,17 @@ public class TestLambdaV8
 		infoOnly.info();
 	}
 
+	public void testVariableScope(int count, String text){
+		// Lamda can use effective final variables.
+		// Lamda cannot modify such variables.
+		Consumer<Integer> consumer = x -> {
+			for (int i = 0; i < count; i++)
+				System.out.println(i + ": " + text);
+		};
+
+		consumer.accept(1);
+	}
+
 	public static void main(String[] args){
 		TestLambdaV8 test = new TestLambdaV8();
 
@@ -104,6 +116,10 @@ public class TestLambdaV8
 		System.out.println("============================================================");
 
 		test.testInfoOnly();
+
+		System.out.println("============================================================");
+
+		test.testVariableScope(5, "Hello");
 
 		System.out.println("============================================================");
 	}
