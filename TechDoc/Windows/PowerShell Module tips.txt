@@ -1,0 +1,17 @@
+================================================================================
+PowerShell
+================================================================================
+Check loaded modules.
+
+> Get-Module
+> Get-Module <ModuleNameWildcard>
+
+Check available modules.
+
+> Get-Module -ListAvailable
+> Get-Module -ListAvailable <ModuleNameWildcard>
+------------------------------------------------------------
+Load module.
+
+> Import-Module -Name <ModuleName>
+================================================================================

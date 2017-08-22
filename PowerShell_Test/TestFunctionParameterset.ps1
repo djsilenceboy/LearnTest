@@ -13,11 +13,11 @@ Function Sample1
     $name
   )
 
-  Write-Host '$country= '$country
-  Write-Host '$city= '$city
-  Write-Host '$street= '$street
-  Write-Host '$block= '$block
-  Write-Host '$name= '$name
+  Write-Host '$country = '$country
+  Write-Host '$city = '$city
+  Write-Host '$street = '$street
+  Write-Host '$block = '$block
+  Write-Host '$name = '$name
 
   Switch($PSCmdlet.ParameterSetName)
   {
@@ -30,4 +30,17 @@ Function Sample1
 Sample1 -Country China -Name Jerry
 Write-Host '----------------------------------------'
 Sample1 -Street ChangAnJie -Name Jerry
+Write-Host '----------------------------------------'
+
+Function Sample2
+{
+  Param(
+    [Parameter(Mandatory=$True, HelpMessage="Please enter the name:")]
+    $name
+  )
+
+  Write-Host '$name = '$name
+}
+
+Sample2
 Write-Host '----------------------------------------'
