@@ -1,24 +1,29 @@
 ================================================================================
 PowerShell
 ================================================================================
-Check loaded modules.
+Check network adapters.
 
-> Get-Module
-> Get-Module <ModuleNameWildcard>
+(Similar to "ipconfig /all".)
 
-Check available modules.
+> Get-NetAdapter
 
-> Get-Module -ListAvailable
-> Get-Module -ListAvailable <ModuleNameWildcard>
+> Get-NetAdapterAdvancedProperty
 ------------------------------------------------------------
-Load module.
+Check route info.
 
-> Import-Module -Name <ModuleName>
+> Get-NetRoute
 ------------------------------------------------------------
-Check loaded module path.
+Check IP info.
 
-> $env:PSModulePath
-> Get-Item env:PSModulePath
+> Get-NetIPConfiguration
 
-> $env:PSModulePath.Split(";")
+> Get-NetIPAddress
+
+> Get-NetIPInterface
+================================================================================
+Check connection.
+
+(Similar to "netstat".)
+
+> Get-NetTCPConnection
 ================================================================================

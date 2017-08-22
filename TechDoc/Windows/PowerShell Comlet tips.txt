@@ -155,6 +155,10 @@ Options:
 
 > Out-File Hello.txt -InputObject "Hello, World!"
 > Get-Process | Out-File Process.txt
+------------------------------------------------------------
+Discard output.
+
+> Get-Process | Out-Null
 ================================================================================
 Get drive list.
 
