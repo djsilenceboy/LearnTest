@@ -1,0 +1,14 @@
+title {display:table-caption;}
+school {display:table;}
+headers {display:table-header-group;}
+students {display:table-row-group;}
+student {display:table-row;}
+column, name, age, score {display:table-cell;}
+
+school {margin:auto;
+	margin-top:20px;
+	width:300px;
+	border-spacing:3px;
+	border:8px ridge lime;}
+headers {background:lime;}
+students {background:aqua;}

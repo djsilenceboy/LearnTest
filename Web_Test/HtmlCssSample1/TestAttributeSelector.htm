@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>Test attribute selector</title>
+<style type="text/css">
+	[name] {font-size:20pt;}
+	input[type="text"] {display:block;}
+	input[type="button"] {width:120px;}
+	input[name="name2"] {color:red;}
+</style>
+</head>
+<body>
+	<form name="input" action="" method="get">
+		Name:<input type="text" name="name" value="Jerry" size="20">
+		School:<input type="text" name="name" value="NTU" size="20">
+		<input type="button" value="Click me">
+	</form>
+	<p>
+	<form name="input2" action="" method="get">
+		Name:<input type="text" name="name2" value="Jerry" size="20">
+		School:<input type="text" name="name2" value="NTU" size="20">
+		<input type="button" name="name2" value="Click me">
+	</form>
+</body>
+</html>

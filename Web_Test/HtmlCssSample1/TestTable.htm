@@ -1,0 +1,178 @@
+<html>
+<head>
+<title>Test table</title>
+<style type="text/css">
+	body {background-color:silver;}
+	caption {caption-side:bottom;}
+	#table1, #table1 th, #table1 td {
+		border:5px solid black;
+		border-collapse:collapse; }
+	#table2, #table2 th, #table2 td {
+		border:2px solid red;}
+	tr.altRow {
+		background-color:yellow;}
+	th {
+		width:100px;
+		height:80px;
+		background-color:green;
+		color:blue;}
+	td {
+		height:50px;
+		vertical-align:bottom;}
+	#table2 td {
+		text-align:right;
+		padding:10px;}
+	#first {background-color:lightblue;}
+	#second {background-color:lightgreen;}
+</style>
+</head>
+<body>
+	<table id="table1" border="1">
+		<caption>Table 1: Student</caption>
+		<tr>
+			<th>Name</th>
+			<th>Gender</th>
+			<th>Age</th>
+			<th>Score</th>
+		</tr>
+		<tr>
+			<td>Tom</td>
+			<td>Male</td>
+			<td>10</td>
+			<td>80</td>
+		</tr>
+		<tr class="altRow">
+			<td>Marry</td>
+			<td>Female</td>
+			<td>11</td>
+			<td>90</td>
+		</tr>
+		<tr>
+			<td>Jerry</td>
+			<td>Male</td>
+			<td>8</td>
+			<td>85</td>
+		</tr>
+		<tr class="altRow">
+			<td>Lili</td>
+			<td>Female</td>
+			<td>7</td>
+			<td>95</td>
+		</tr>
+	</table>
+	<table id="table2" border="1">
+		<caption>Table 2: Student</caption>
+		<tr>
+			<th>Name</th>
+			<th>Gender</th>
+			<th>Age</th>
+			<th>Score</th>
+		</tr>
+		<tr class="altRow">
+			<td>Tom</td>
+			<td>Male</td>
+			<td>10</td>
+			<td>80</td>
+		</tr>
+		<tr>
+			<td>Marry</td>
+			<td>Female</td>
+			<td>11</td>
+			<td>90</td>
+		</tr>
+		<tr class="altRow">
+			<td>Jerry</td>
+			<td>Male</td>
+			<td>8</td>
+			<td>85</td>
+		</tr>
+		<tr>
+			<td>Lili</td>
+			<td>Female</td>
+			<td>7</td>
+			<td>95</td>
+		</tr>
+	</table>
+	<table id="table3" border="1" rules="rows">
+		<caption>Table 3: Student</caption>
+		<colgroup id="first">
+			<col id="Name">
+			<col id="Gender">
+		</colgroup>
+		<colgroup id="second">
+			<col id="Age">
+			<col id="Score">
+		</colgroup>
+		<tr>
+			<th>Name</th>
+			<th>Gender</th>
+			<th>Age</th>
+			<th>Score</th>
+		</tr>
+		<tr>
+			<td>Tom</td>
+			<td>Male</td>
+			<td>10</td>
+			<td>80</td>
+		</tr>
+		<tr>
+			<td>Marry</td>
+			<td>Female</td>
+			<td>11</td>
+			<td>90</td>
+		</tr>
+		<tr>
+			<td>Jerry</td>
+			<td>Male</td>
+			<td>8</td>
+			<td>85</td>
+		</tr>
+		<tr>
+			<td>Lili</td>
+			<td>Female</td>
+			<td>7</td>
+			<td>95</td>
+		</tr>
+	</table>
+	<table id="table4" border="1">
+		<caption>Table 4: Student</caption>
+		<thead>
+		<tr>
+			<th>Name</th>
+			<th>Gender</th>
+			<th>Age</th>
+			<th>Score</th>
+		</tr>
+		</thead>
+		<tfoot>
+			Table 4: Student
+		</tfoot>
+		<tbody>
+		<tr class="altRow">
+			<td>Tom</td>
+			<td>Male</td>
+			<td>10</td>
+			<td>80</td>
+		</tr>
+		<tr>
+			<td>Marry</td>
+			<td>Female</td>
+			<td>11</td>
+			<td>90</td>
+		</tr>
+		<tr class="altRow">
+			<td>Jerry</td>
+			<td>Male</td>
+			<td>8</td>
+			<td>85</td>
+		</tr>
+		<tr>
+			<td>Lili</td>
+			<td>Female</td>
+			<td>7</td>
+			<td>95</td>
+		</tr>
+		</tbody>
+	</table>
+</body>
+</html>

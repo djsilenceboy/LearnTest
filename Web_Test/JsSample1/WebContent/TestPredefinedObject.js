@@ -1,0 +1,455 @@
+for (var propName in navigator)
+	document.write("Navigator[" + propName + "] = " + navigator[propName] + ".<br>");
+
+/*
+Navigator[appCodeName] = Mozilla.
+Navigator[appMinorVersion] = 0.
+Navigator[browserLanguage] = en-us.
+Navigator[cookieEnabled] = true.
+Navigator[cpuClass] = x86.
+Navigator[mimeTypes] = [object MSMimeTypesCollection].
+Navigator[plugins] = [object MSPluginsCollection].
+Navigator[systemLanguage] = zh-cn.
+Navigator[userLanguage] = en-us.
+Navigator[msDoNotTrack] = 0.
+Navigator[geolocation] = [object Geolocation].
+Navigator[appName] = Microsoft Internet Explorer.
+Navigator[appVersion] = 5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0).
+Navigator[platform] = Win32.
+Navigator[userAgent] = Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0).
+Navigator[onLine] = true.
+Navigator[javaEnabled] = function javaEnabled() { [native code] } .
+Navigator[taintEnabled] = function taintEnabled() { [native code] } .
+*/
+
+document.write("<p>");
+
+for (var propName in navigator.geolocation)
+	document.write("Navigator.geolocation[" + propName + "] = " + navigator.geolocation[propName] + ".<br>");
+
+document.write("<p>");
+
+for (var propName in navigator.mimeTypes)
+	document.write("Navigator.mimeTypes[" + propName + "] = " + navigator.mimeTypes[propName] + ".<br>");
+
+document.write("<p>");
+
+for (var propName in navigator.plugins)
+	document.write("Navigator.plugins[" + propName + "] = " + navigator.plugins[propName] + ".<br>");
+
+/*
+Navigator.geolocation[clearWatch] = function clearWatch() { [native code] } .
+Navigator.geolocation[getCurrentPosition] = function getCurrentPosition() { [native code] } .
+Navigator.geolocation[watchPosition] = function watchPosition() { [native code] } .
+
+
+Navigator.mimeTypes[length] = 0.
+
+
+Navigator.plugins[length] = 0.
+Navigator.plugins[refresh] = function refresh() { [native code] } .
+*/
+
+document.write("<p>");
+
+for (var propName in history)
+	document.write("History[" + propName + "] = " + history[propName] + ".<br>");
+
+/*
+History[length] = 0.
+History[back] = function back() { [native code] } .
+History[forward] = function forward() { [native code] } .
+History[go] = function go() { [native code] } .
+*/
+
+document.write("<p>");
+
+for (var propName in document)
+	document.write("Document[" + propName + "] = " + document[propName] + ".<br>");
+
+/*
+Document[doctype] = [object DocumentType].
+Document[documentElement] = [object HTMLHtmlElement].
+Document[implementation] = [object DOMImplementation].
+Document[inputEncoding] = GB2312.
+Document[xmlEncoding] = .
+Document[xmlStandalone] = false.
+Document[xmlVersion] = .
+Document[styleSheets] = [object StyleSheetList].
+Document[defaultView] = [object Window].
+Document[URL] = http://localhost/Web_Test/JsSample1/TestPredefinedObject.htm.
+Document[activeElement] = null.
+Document[alinkColor] = #0000ff.
+Document[all] = [object HTMLCollection].
+Document[anchors] = [object HTMLCollection].
+Document[applets] = [object HTMLCollection].
+Document[bgColor] = #ffffff.
+Document[body] = [object HTMLBodyElement].
+Document[characterSet] = gb2312.
+Document[charset] = gb2312.
+Document[compatMode] = CSS1Compat.
+Document[cookie] = .
+Document[defaultCharset] = gb2312.
+Document[designMode] = Inherit.
+Document[dir] = .
+Document[domain] = localhost.
+Document[embeds] = [object HTMLCollection].
+Document[fgColor] = #000000.
+Document[forms] = [object HTMLCollection].
+Document[head] = [object HTMLHeadElement].
+Document[images] = [object HTMLCollection].
+Document[lastModified] = 10/16/2013 17:53:22.
+Document[linkColor] = #0000ff.
+Document[links] = [object HTMLCollection].
+Document[location] = http://localhost/Web_Test/JsSample1/TestPredefinedObject.htm.
+Document[onabort] = null.
+Document[onblur] = null.
+Document[oncanplay] = null.
+Document[oncanplaythrough] = null.
+Document[onchange] = null.
+Document[onclick] = null.
+Document[oncontextmenu] = null.
+Document[ondblclick] = null.
+Document[ondrag] = null.
+Document[ondragend] = null.
+Document[ondragenter] = null.
+Document[ondragleave] = null.
+Document[ondragover] = null.
+Document[ondragstart] = null.
+Document[ondrop] = null.
+Document[ondurationchange] = null.
+Document[onemptied] = null.
+Document[onended] = null.
+Document[onerror] = null.
+Document[onfocus] = null.
+Document[oninput] = null.
+Document[onkeydown] = null.
+Document[onkeypress] = null.
+Document[onkeyup] = null.
+Document[onload] = null.
+Document[onloadeddata] = null.
+Document[onloadedmetadata] = null.
+Document[onloadstart] = null.
+Document[onmousedown] = null.
+Document[onmousemove] = null.
+Document[onmouseout] = null.
+Document[onmouseover] = null.
+Document[onmouseup] = null.
+Document[onmousewheel] = null.
+Document[onpause] = null.
+Document[onplay] = null.
+Document[onplaying] = null.
+Document[onprogress] = null.
+Document[onratechange] = null.
+Document[onreadystatechange] = null.
+Document[onreset] = null.
+Document[onscroll] = null.
+Document[onseeked] = null.
+Document[onseeking] = null.
+Document[onselect] = null.
+Document[onstalled] = null.
+Document[onsubmit] = null.
+Document[onsuspend] = null.
+Document[ontimeupdate] = null.
+Document[onvolumechange] = null.
+Document[onwaiting] = null.
+Document[plugins] = [object HTMLCollection].
+Document[readyState] = loading.
+Document[referrer] = .
+Document[scripts] = [object HTMLCollection].
+Document[title] = Test Predefined Object.
+Document[vlinkColor] = #800080.
+Document[URLUnencoded] = http://localhost/Web_Test/JsSample1/TestPredefinedObject.htm.
+Document[compatible] = [object MSCompatibleInfoCollection].
+Document[documentMode] = 9.
+Document[frames] = [object Window].
+Document[media] = .
+Document[namespaces] = [object MSNamespaceInfoCollection].
+Document[onactivate] = null.
+Document[onafterupdate] = null.
+Document[onbeforeactivate] = null.
+Document[onbeforedeactivate] = null.
+Document[onbeforeeditfocus] = null.
+Document[onbeforeupdate] = null.
+Document[oncellchange] = null.
+Document[oncontrolselect] = null.
+Document[ondataavailable] = null.
+Document[ondatasetchanged] = null.
+Document[ondatasetcomplete] = null.
+Document[ondeactivate] = null.
+Document[onerrorupdate] = null.
+Document[onfocusin] = null.
+Document[onfocusout] = null.
+Document[onhelp] = null.
+Document[onmssitemodejumplistitemremoved] = null.
+Document[onmsthumbnailclick] = null.
+Document[onpropertychange] = null.
+Document[onrowenter] = null.
+Document[onrowexit] = null.
+Document[onrowsdelete] = null.
+Document[onrowsinserted] = null.
+Document[onselectionchange] = null.
+Document[onselectstart] = null.
+Document[onstop] = null.
+Document[onstoragecommit] = null.
+Document[parentWindow] = [object Window].
+Document[security] = This type of document does not have a security certificate..
+Document[uniqueID] = ms__id1.
+Document[selection] = [object MSSelection].
+Document[fileCreatedDate] = 10/16/2013.
+Document[fileModifiedDate] = 10/16/2013.
+Document[fileSize] = 348.
+Document[fileUpdatedDate] = 10/16/2013.
+Document[mimeType] = Maxthon Document.
+Document[nameProp] = Test Predefined Object.
+Document[protocol] = HyperText Transfer Protocol.
+Document[rootElement] = null.
+Document[adoptNode] = function adoptNode() { [native code] } .
+Document[createAttribute] = function createAttribute() { [native code] } .
+Document[createAttributeNS] = function createAttributeNS() { [native code] } .
+Document[createCDATASection] = function createCDATASection() { [native code] } .
+Document[createComment] = function createComment() { [native code] } .
+Document[createDocumentFragment] = function createDocumentFragment() { [native code] } .
+Document[createElement] = function createElement() { [native code] } .
+Document[createElementNS] = function createElementNS() { [native code] } .
+Document[createProcessingInstruction] = function createProcessingInstruction() { [native code] } .
+Document[createTextNode] = function createTextNode() { [native code] } .
+Document[getElementById] = function getElementById() { [native code] } .
+Document[getElementsByTagName] = function getElementsByTagName() { [native code] } .
+Document[getElementsByTagNameNS] = function getElementsByTagNameNS() { [native code] } .
+Document[importNode] = function importNode() { [native code] } .
+Document[createEvent] = function createEvent() { [native code] } .
+Document[createRange] = function createRange() { [native code] } .
+Document[createNodeIterator] = function createNodeIterator() { [native code] } .
+Document[createTreeWalker] = function createTreeWalker() { [native code] } .
+Document[elementFromPoint] = function elementFromPoint() { [native code] } .
+Document[close] = function close() { [native code] } .
+Document[execCommand] = function execCommand() { [native code] } .
+Document[getElementsByClassName] = function getElementsByClassName() { [native code] } .
+Document[getElementsByName] = function getElementsByName() { [native code] } .
+Document[getSelection] = function getSelection() { [native code] } .
+Document[hasFocus] = function hasFocus() { [native code] } .
+Document[open] = function open() { [native code] } .
+Document[queryCommandEnabled] = function queryCommandEnabled() { [native code] } .
+Document[queryCommandIndeterm] = function queryCommandIndeterm() { [native code] } .
+Document[queryCommandState] = function queryCommandState() { [native code] } .
+Document[queryCommandSupported] = function queryCommandSupported() { [native code] } .
+Document[queryCommandText] = function queryCommandText() { [native code] } .
+Document[queryCommandValue] = function queryCommandValue() { [native code] } .
+Document[write] = function write() { [native code] } .
+Document[writeln] = function writeln() { [native code] } .
+Document[attachEvent] = function attachEvent() { [native code] } .
+Document[detachEvent] = function detachEvent() { [native code] } .
+Document[createEventObject] = function createEventObject() { [native code] } .
+Document[fireEvent] = function fireEvent() { [native code] } .
+Document[execCommandShowHelp] = function execCommandShowHelp() { [native code] } .
+Document[focus] = function focus() { [native code] } .
+Document[releaseCapture] = function releaseCapture() { [native code] } .
+Document[updateSettings] = function updateSettings() { [native code] } .
+Document[createStyleSheet] = function createStyleSheet() { [native code] } .
+Document[removeNode] = function removeNode() { [native code] } .
+Document[replaceNode] = function replaceNode() { [native code] } .
+Document[swapNode] = function swapNode() { [native code] } .
+Document[querySelector] = function querySelector() { [native code] } .
+Document[querySelectorAll] = function querySelectorAll() { [native code] } .
+Document[attributes] = null.
+Document[childNodes] = [object NodeList].
+Document[firstChild] = [object DocumentType].
+Document[lastChild] = [object HTMLHtmlElement].
+Document[localName] = null.
+Document[namespaceURI] = null.
+Document[nextSibling] = null.
+Document[nodeName] = #document.
+Document[nodeType] = 9.
+Document[nodeValue] = null.
+Document[ownerDocument] = null.
+Document[parentNode] = null.
+Document[prefix] = null.
+Document[previousSibling] = null.
+Document[textContent] = null.
+Document[addEventListener] = function addEventListener() { [native code] } .
+Document[dispatchEvent] = function dispatchEvent() { [native code] } .
+Document[removeEventListener] = function removeEventListener() { [native code] } .
+Document[appendChild] = function appendChild() { [native code] } .
+Document[cloneNode] = function cloneNode() { [native code] } .
+Document[compareDocumentPosition] = function compareDocumentPosition() { [native code] } .
+Document[hasAttributes] = function hasAttributes() { [native code] } .
+Document[hasChildNodes] = function hasChildNodes() { [native code] } .
+Document[insertBefore] = function insertBefore() { [native code] } .
+Document[isDefaultNamespace] = function isDefaultNamespace() { [native code] } .
+Document[isEqualNode] = function isEqualNode() { [native code] } .
+Document[isSameNode] = function isSameNode() { [native code] } .
+Document[isSupported] = function isSupported() { [native code] } .
+Document[lookupNamespaceURI] = function lookupNamespaceURI() { [native code] } .
+Document[lookupPrefix] = function lookupPrefix() { [native code] } .
+Document[normalize] = function normalize() { [native code] } .
+Document[removeChild] = function removeChild() { [native code] } .
+Document[replaceChild] = function replaceChild() { [native code] } .
+Document[ATTRIBUTE_NODE] = 2.
+Document[CDATA_SECTION_NODE] = 4.
+Document[COMMENT_NODE] = 8.
+Document[DOCUMENT_FRAGMENT_NODE] = 11.
+Document[DOCUMENT_NODE] = 9.
+Document[DOCUMENT_POSITION_CONTAINED_BY] = 16.
+Document[DOCUMENT_POSITION_CONTAINS] = 8.
+Document[DOCUMENT_POSITION_DISCONNECTED] = 1.
+Document[DOCUMENT_POSITION_FOLLOWING] = 4.
+Document[DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC] = 32.
+Document[DOCUMENT_POSITION_PRECEDING] = 2.
+Document[DOCUMENT_TYPE_NODE] = 10.
+Document[ELEMENT_NODE] = 1.
+Document[ENTITY_NODE] = 6.
+Document[ENTITY_REFERENCE_NODE] = 5.
+Document[NOTATION_NODE] = 12.
+Document[PROCESSING_INSTRUCTION_NODE] = 7.
+Document[TEXT_NODE] = 3.
+*/
+
+document.write("<p>");
+
+for (var propName in window)
+	document.write("Window[" + propName + "] = " + window[propName] + ".<br>");
+
+/*
+Window[propName] = propName.
+Window[document] = [object Document].
+Window[styleMedia] = [object StyleMedia].
+Window[clientInformation] = [object Navigator].
+Window[clipboardData] = [object DataTransfer].
+Window[closed] = false.
+Window[defaultStatus] = .
+Window[event] = null.
+Window[external] = undefined.
+Window[maxConnectionsPerServer] = 32.
+Window[offscreenBuffering] = auto.
+Window[onfocusin] = null.
+Window[onfocusout] = null.
+Window[onhelp] = null.
+Window[onmouseenter] = null.
+Window[onmouseleave] = null.
+Window[screenLeft] = 134.
+Window[screenTop] = 169.
+Window[status] = .
+Window[innerHeight] = 774.
+Window[innerWidth] = 1314.
+Window[outerHeight] = 954.
+Window[outerWidth] = 1320.
+Window[pageXOffset] = 0.
+Window[pageYOffset] = 0.
+Window[screen] = [object Screen].
+Window[screenX] = 132.
+Window[screenY] = 16.
+Window[frameElement] = null.
+Window[frames] = [object Window].
+Window[history] = [object History].
+Window[length] = 0.
+Window[location] = http://localhost/Web_Test/JsSample1/TestPredefinedObject.htm.
+Window[name] = .
+Window[navigator] = [object Navigator].
+Window[onabort] = null.
+Window[onafterprint] = null.
+Window[onbeforeprint] = null.
+Window[onbeforeunload] = null.
+Window[onblur] = null.
+Window[oncanplay] = null.
+Window[oncanplaythrough] = null.
+Window[onchange] = null.
+Window[onclick] = null.
+Window[oncontextmenu] = null.
+Window[ondblclick] = null.
+Window[ondrag] = null.
+Window[ondragend] = null.
+Window[ondragenter] = null.
+Window[ondragleave] = null.
+Window[ondragover] = null.
+Window[ondragstart] = null.
+Window[ondrop] = null.
+Window[ondurationchange] = null.
+Window[onemptied] = null.
+Window[onended] = null.
+Window[onerror] = null.
+Window[onfocus] = null.
+Window[onhashchange] = null.
+Window[oninput] = null.
+Window[onkeydown] = null.
+Window[onkeypress] = null.
+Window[onkeyup] = null.
+Window[onload] = null.
+Window[onloadeddata] = null.
+Window[onloadedmetadata] = null.
+Window[onloadstart] = null.
+Window[onmessage] = null.
+Window[onmousedown] = null.
+Window[onmousemove] = null.
+Window[onmouseout] = null.
+Window[onmouseover] = null.
+Window[onmouseup] = null.
+Window[onmousewheel] = null.
+Window[onoffline] = null.
+Window[ononline] = null.
+Window[onpause] = null.
+Window[onplay] = null.
+Window[onplaying] = null.
+Window[onprogress] = null.
+Window[onratechange] = null.
+Window[onreadystatechange] = null.
+Window[onreset] = null.
+Window[onresize] = null.
+Window[onscroll] = null.
+Window[onseeked] = null.
+Window[onseeking] = null.
+Window[onselect] = null.
+Window[onstalled] = null.
+Window[onstorage] = null.
+Window[onsubmit] = null.
+Window[onsuspend] = null.
+Window[ontimeupdate] = null.
+Window[onunload] = null.
+Window[onvolumechange] = null.
+Window[onwaiting] = null.
+Window[opener] = undefined.
+Window[parent] = [object Window].
+Window[self] = [object Window].
+Window[top] = [object Window].
+Window[window] = [object Window].
+Window[localStorage] = [object Storage].
+Window[performance] = [object Performance].
+Window[sessionStorage] = [object Storage].
+Window[addEventListener] = function addEventListener() { [native code] } .
+Window[dispatchEvent] = function dispatchEvent() { [native code] } .
+Window[removeEventListener] = function removeEventListener() { [native code] } .
+Window[attachEvent] = function attachEvent() { [native code] } .
+Window[detachEvent] = function detachEvent() { [native code] } .
+Window[createPopup] = function createPopup() { [native code] } .
+Window[execScript] = function execScript() { [native code] } .
+Window[item] = function item() { [native code] } .
+Window[moveBy] = function moveBy() { [native code] } .
+Window[moveTo] = function moveTo() { [native code] } .
+Window[msWriteProfilerMark] = function msWriteProfilerMark() { [native code] } .
+Window[navigate] = function navigate() { [native code] } .
+Window[resizeBy] = function resizeBy() { [native code] } .
+Window[resizeTo] = function resizeTo() { [native code] } .
+Window[showHelp] = function showHelp() { [native code] } .
+Window[showModelessDialog] = function showModelessDialog() { [native code] } .
+Window[toStaticHTML] = function toStaticHTML() { [native code] } .
+Window[scroll] = function scroll() { [native code] } .
+Window[scrollBy] = function scrollBy() { [native code] } .
+Window[scrollTo] = function scrollTo() { [native code] } .
+Window[getComputedStyle] = function getComputedStyle() { [native code] } .
+Window[alert] = function alert() { [native code] } .
+Window[blur] = function blur() { [native code] } .
+Window[close] = function close() { [native code] } .
+Window[confirm] = function confirm() { [native code] } .
+Window[focus] = function focus() { [native code] } .
+Window[getSelection] = function getSelection() { [native code] } .
+Window[open] = function open() { [native code] } .
+Window[postMessage] = function postMessage() { [native code] } .
+Window[print] = function print() { [native code] } .
+Window[prompt] = function prompt() { [native code] } .
+Window[showModalDialog] = function showModalDialog() { [native code] } .
+Window[toString] = function toString() { [native code] } .
+Window[clearInterval] = function clearInterval() { [native code] } .
+Window[clearTimeout] = function clearTimeout() { [native code] } .
+Window[setInterval] = function setInterval() { [native code] } .
+Window[setTimeout] = function setTimeout() { [native code] } .
+*/

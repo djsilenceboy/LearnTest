@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>Test canvas</title>
+<style type="text/css">
+</style>
+<script type="text/javascript">
+	window.addEventListener('load', function() {
+		var elem = document.getElementById('myCanvas');
+		if (!elem || !elem.getContext) {
+			return;
+		}
+		var context = elem.getContext('2d');
+		if (!context) {
+			return;
+		}
+		context.shadowOffsetX = 5;
+		context.shadowOffsetY = 5;
+		context.shadowBlur = 4;
+		context.shadowColor = 'rgba(0, 0, 0, 0.5)';
+		context.fillStyle = 'yellow';
+		context.fillRect(0, 0, 300, 200);
+	}, false);
+</script>
+</head>
+<body>
+	<canvas id="myCanvas" width="600" height="400"></canvas>
+</body>
+</html>

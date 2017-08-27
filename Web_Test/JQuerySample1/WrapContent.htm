@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>Test</title>
+<script type='text/javascript' src='/Web_Test/common/jQuery/jquery-1.10.2.js'></script>
+<script type='text/javascript'>
+$(document).ready(function()
+{
+	$(':submit').click(function()
+	{
+		$('#wrapInner').wrapInner('<strong></strong>');
+		$('#wrap').wrap('<div style=background-color:red;></div>');
+		$('.wrapAll').wrapAll('<div style=background-color:yellow;></div>');
+	});
+});
+</script>
+</head>
+<body>
+	<input value='Wrap' type='submit'>
+	<div id='wrapInner'>This will be wrappred inner.</div>
+	<div id='wrap'>This will be wrappred.</div>
+	<div class='wrapAll'>This will be wrappred all.</div>
+	<div class='wrapAll'>This will be wrappred all.</div>
+</body>
+</html>

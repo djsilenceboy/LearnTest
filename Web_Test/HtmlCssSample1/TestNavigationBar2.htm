@@ -1,0 +1,69 @@
+<html>
+<head>
+<title>Test navigation bar</title>
+<style type="text/css">
+	body {
+		font-family: verdana;
+	}
+	#mainMenu {
+		position: absolute;
+		top: 20px;
+		left: 20px;
+		width: 100px;
+		padding: 10px;
+		text-align: center;
+		background-color: #CCC;
+		border: 1px solid black;
+		cursor: pointer;
+	}
+	#subMenu {
+		position: absolute;
+		visibility: hidden;
+		top: 80px;
+		left: 20px;
+		width: 100px;
+		padding: 0px 10px;
+		text-align: center;
+		background-color: #333;
+		color: #FFF;
+		border: 1px solid #999;
+		cursor: pointer;
+	}
+	ul {
+		padding: 0px;
+		margin: 0px;
+	}
+	li {
+		list-style: none;
+		padding: 5px 0px;
+		border-bottom: 1px dashed white;
+	}
+	li a {
+		color: #FFF;
+		text-decoration: none;
+	}
+	.last {
+		border: 0px;
+	}
+</style>
+<script type="text/javascript">
+	function showLayer(menuId) {
+		document.getElementById(menuId).style.visibility = 'visible';
+	}
+	function hideLayer(menuId) {
+		document.getElementById(menuId).style.visibility = 'hidden';
+	}
+</script>
+</head>
+<body>
+	<div id="mainMenu" onclick="showLayer('subMenu');">Main menu</div>
+	<div id="subMenu">
+		<ul>
+			<li onclick="hideLayer('subMenu');">Home</li>
+			<li><a href="News">News</a></li>
+			<li><a href="ContactUs">Contact Us</a></li>
+			<li class="last"><a href="About">About</a></li>
+		</ul>
+	</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<html>
+<head>
+<title>Test</title>
+<script type='text/javascript' src='/Web_Test/common/jQuery/jquery-1.10.2.js'></script>
+<script type='text/javascript'>
+$(document).ready(function()
+{
+	$('#show').click(function()
+	{
+		$('#sample').slideDown(2000);
+	});
+
+	$('#hide').click(function()
+	{
+		$('#sample').slideUp(2000);
+	});
+
+	$('#toggle').click(function()
+	{
+		$('#sample').toggle(2000);
+	});
+
+	$('#fadeIn').click(function()
+	{
+		$('#sample').fadeIn(2000);
+	});
+
+	$('#fadeOut').click(function()
+	{
+		$('#sample').fadeOut(2000);
+	});
+});
+</script>
+</head>
+<body>
+	<input id='show' value='Show' type='submit'>
+	<input id='hide' value='Hide' type='submit'>
+	<input id='toggle' value='Toggle' type='submit'>
+	<input id='fadeIn' value='FadeIn' type='submit'>
+	<input id='fadeOut' value='FadeOut' type='submit'>
+	<div id='sample' style='display:none'><image src='/Web_Test/JQuerySample1/sample1.jpg'/></div>
+</body>
+</html>

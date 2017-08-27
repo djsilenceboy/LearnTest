@@ -1,0 +1,27 @@
+<html>
+<head>
+<title>Test numbering</title>
+<style type="text/css">
+	h1 {counter-increment: numa 1;}
+	h2 {counter-increment: numb 1;}
+	h1:before {
+		content:counter(numa) " ";
+		background:aqua;}
+	h2:before {
+		content:counter(numa) "." counter(numb) " ";
+		background:lime;}
+	h2.restart {counter-reset: numb 0;}
+</style>
+</head>
+<body>
+	<h1>Topic1</h1>
+	<h2>Item1</h2>
+	<h2>Item2</h2>
+	<h2>Item3</h2>
+
+	<h1>Topic2</h1>
+	<h2 class="restart">Item1</h2>
+	<h2>Item2</h2>
+	<h2>Item3</h2>
+</body>
+</html>

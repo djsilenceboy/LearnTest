@@ -1,0 +1,27 @@
+<html>
+<head>
+<title>Test before/after content</title>
+<style type="text/css">
+	#span1:before {content: "***"; background:yellow;}
+	#span1:after {content: "^^^"; background:red;}
+
+	#span2:before {content: open-quote; background:yellow;}
+	#span2:after {content: close-quote; background:red;}
+
+	#span3:before {content: "["; background:yellow;}
+	#span3:after {content: "]"; background:red;}
+
+	#span4:before {content: url(sample_icon_1.png);}
+	#span4:after {content: url(sample_icon_1.png);}
+
+	#span5:after {content: "(" attr(id) ")"; background:yellow;}
+</style>
+</head>
+<body>
+	<p id="text1">This is <span id="span1">some</span> text.</p>
+	<p id="text2">This is <span id="span2">some</span> text.</p>
+	<p id="text3">This is <span id="span3">some</span> text.</p>
+	<p id="text4">This is <span id="span4">some</span> text.</p>
+	<p id="text5">This is <span id="span5">some</span> text.</p>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<html>
+<head>
+<title>Test new feature</title>
+<style type="text/css">
+	div#borderImage1 {
+		height:100px;
+		width:400px;
+		background:aqua;
+		border:20px solid transparent;
+		border-image:url(sample_icon_1.png) 100% repeat;}
+
+	div#writingColumn1 {
+		height:100px;
+		width:800;
+		border:5px solid black;
+		columns:4;
+		column-gap:10px;
+		column-rule:3px dashed red;}
+
+	div#flex1 {
+		height:100px;
+		width:95%;
+		border:5px solid black;
+		text-align:center;
+		display:box;
+		display:flexbox;}
+	div#flexBox1 {
+		background:yellow;
+		box-flex:1;
+		flex:1;}
+	div#flexBox2 {
+		background:lime;
+		box-flex:2;
+		flex:2;}
+	div#flexBox3 {
+		background:aqua;
+		box-flex:3;
+		flex:3;}
+
+	#transforming1 div {
+		float:left;
+		margin:10;
+		height:50;
+		width:50;
+		border:5px solid black;}
+	div#transBox1 {background:yellow;}
+	div#transBox2 {background:lime;}
+	div#transBox3 {background:aqua;}
+	div#transBox1:active {transform:rotate(45deg);}
+	div#transBox2:active {transform:scale(0.5);}
+	div#transBox3:active {transform:scale(2);}
+
+	#transition1 div {
+		float:left;
+		margin:10;
+		height:50;
+		width:50;
+		border:5px solid black;}
+	div#transitionBox1 {background:yellow;}
+	div#transitionBox2 {background:lime;}
+	div#transitionBox1:hover {background:aqua; transition:1s ease-in-out;}
+	div#transitionBox2:active {border-radius:10px; transition:1s ease-in-out;}
+	div#transitionBox2:hover {transition:1s ease-in-out;}
+
+	#animation1 div {
+		margin:10;
+		height:50;
+		width:50;
+		border:5px solid black;}
+	@keyframes slide {from{left:50px} to {left:400px}}
+	div#animationBox1 {animation:slide 5s alternate infinite;}
+</style>
+</head>
+<body>
+	<div id="borderImage1">Border Image</div>
+	<p>
+	<div id="writingColumn1"><p>
+	This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. 
+	</p></div>
+	<p>
+	<div id="flex1">
+		<div id="flexBox1"><p>Flex=1</p></div>
+		<div id="flexBox2"><p>Flex=2</p></div>
+		<div id="flexBox3"><p>Flex=3</p></div>
+	</div>
+	<p>
+	<div id="transforming1">
+		<div id="transBox1"></div>
+		<div id="transBox2"></div>
+		<div id="transBox3"></div>
+	</div>
+	<p style="clear:both;">
+	<div id="transition1">
+		<div id="transitionBox1"></div>
+		<div id="transitionBox2"></div>
+	</div>
+	<p style="clear:both;">
+	<div id="animation1">
+		<div id="animationBox1"></div>
+	</div>
+</body>
+</html>

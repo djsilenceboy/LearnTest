@@ -1,0 +1,17 @@
+<html>
+<head>
+<title>Student data</title>
+<script>
+function loadDocument() {
+	var xmldoc = new ActiveXObject("Microsoft.XMLDOM");
+	xmldoc.load("TestXmlDom1.xml");
+
+	var names = xmldoc.getElementsByTagName("name");
+	message.innerHTML =  names.item(1).firstChild.nodeValue;
+}
+</script>
+</head>
+<body onload="loadDocument()">
+	<div id="message"></div>
+</body>
+</html>

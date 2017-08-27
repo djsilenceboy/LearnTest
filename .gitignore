@@ -55,3 +55,7 @@
 
 # For Vagrant.
 /Vagrant_Test/**/.vagrant/
+
+
+# For Eclipse, Web.
+/Web_Test/**/.metadata/

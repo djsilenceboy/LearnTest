@@ -1,0 +1,20 @@
+<html>
+<head>
+<title>Hello, World!</title>
+<script type='text/javascript' src='/Web_Test/common/jQuery/jquery-1.10.2.js'></script>
+<script type='text/javascript'>
+$(document).ready(function()
+{
+	var strongContent = $('strong').text();
+	var pContent = $('p').text();
+
+	$('strong').text(pContent);
+	$('p').text(strongContent);
+});
+</script>
+</head>
+<body>
+	<strong>This is text in the <em>STRONG</em> element.</strong>
+	<p>This is the text in the <em>P</em> element.</p>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>Test form</title>
+<style type="text/css">
+	body {
+		font-family: verdana;
+		font-size: 10px; }
+	form#allInOne {
+		border: 2px dotted #F60;
+		background-color: #FDE6A2;
+		padding: 10px; }
+	input, textarea {
+		border: 2px solid #F60;
+		border-radius: 10px;
+		background-color: #FC3;
+		clear: both; }
+	textarea {
+		overflow: auto;
+		padding: 5px; }
+	input#submit {
+		color: #F60;
+		font-weight: bold; }
+	label {
+		padding-top: 10px;
+		display: block;
+		font-weight: bold; }
+	legend {
+		font-size: 14pt;
+		font-weight: bold;
+		color: #F60; }
+</style>
+</head>
+<body>
+	<form id="allInOne">
+		<fieldset>
+			<legend>Ranges</legend>
+			<label>Range:</label>
+			-10<input type="range" id="range" name="range" title="range" min="-10" max="10" value="2">10
+			<p>
+			<label>Progress:</label>
+			0<progress name="progress" title="progress" min="0" max="10" value="2"></progress>10
+			<p>
+			<label>Meter:</label>
+			0<meter name="meter" title="meter" min="0" low="10" optimum="50" high="80" max="100" value="65"></meter>100
+		</fieldset>
+		<fieldset>
+			<legend>TextInput</legend>
+			<label for="text">Text:</label>
+			<input type="text" id="text" name="text" title="text" placeholder="enter something" size="50" required>
+			<p>
+			<label for="pattern">Pattern:</label>
+			<input pattern="[0-9]{4}" id="pattern" name="pattern" title="[0-9]{4}" placeholder="[0-9]{4}" required>
+			<p>
+			<label for="textarea">TextArea:</label>
+			<textarea name="textarea" title="textarea" placeholder="enter something" cols="30" rows="5"></textarea>
+		</fieldset>
+		<fieldset>
+			<legend>Other</legend>
+			<datalist id="colorlist">
+				<option value="blue">blue</option>
+				<option value="red">red</option>
+				<option value="yellow">yellow</option>
+				<option value="green">green</option>
+				<option value="other">other</option>
+			</datalist>
+			<label>Colorlist:</label>
+			<input name="colorlist" list="colorlist">
+		</fieldset>
+		<fieldset>
+			<input type="reset" name="reset" title="reset">
+			<input type="submit" name="submit" title="submit" value="Submit">
+		</fieldset>
+	</form>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<html>
+<head>
+<title>Test</title>
+<script type='text/javascript' src='/Web_Test/common/jQuery/jquery-1.10.2.js'></script>
+<script type='text/javascript'>
+$(document).ready(function()
+{
+	$(':submit').click(function()
+	{
+		$('#slowshow').show('slow');
+		$('#fastshow').show('fast');
+		$('.toggleshow').toggle('slow',function callback()
+		{
+			alert('Toggled!');
+		});
+	});
+});
+</script>
+</head>
+<body>
+	<div id='slowshow' style='display:none'>This will be shown slowly.</div>
+	<div id='fastshow' style='display:none'>This will be shown quickly.</div>
+	<div class='toggleshow'>This will be hidden.</div>
+	<div class='toggleshow' style='display:none'>This will be shown.</div>
+	<input value='Show' type='submit'>
+</body>
+</html>

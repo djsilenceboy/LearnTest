@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>Test</title>
+<script type='text/javascript' src='/Web_Test/common/jQuery/jquery-1.10.2.js'></script>
+<script type='text/javascript'>
+$(document).ready(function()
+{
+	$('#Animate').click(function()
+	{
+		$('#sample').animate({width:'280px', height:'140px', margin:'20px', opacity:0.5, fontSize:'50px'}, 4000);
+	});
+
+	$('#Stop').click(function()
+	{
+		$('#sample').stop();
+	});
+});
+</script>
+</head>
+<body>
+	<input id='Animate' value='Animate' type='submit'>
+	<input id='Stop' value='Stop' type='submit'>
+	<div id='sample' style='width:200px; height:200px; background-color:grey; border:10px'>This is a sample.</div>
+</body>
+</html>

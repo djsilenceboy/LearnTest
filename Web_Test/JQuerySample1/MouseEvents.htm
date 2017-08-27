@@ -1,0 +1,65 @@
+<html>
+<head>
+<title>Test</title>
+<script type='text/javascript' src='/Web_Test/common/jQuery/jquery-1.10.2.js'></script>
+<script type='text/javascript'>
+$(document).ready(function()
+{
+	// From high priority:
+	// mousemove > hover > mouseover > mouseenter.
+	// hover > mouseout > mouseleave.
+
+	/*
+	$('#target').mousemove(function()
+	{
+		$('#output').text('Mouse move.');
+	});
+	
+	$('#target').mouseover(function()
+	{
+		$('#output').text('Mouse over.');
+	});
+
+	$('#target').mouseenter(function()
+	{
+		$('#output').text('Mouse enter.');
+	});
+
+	$('#target').mouseout(function()
+	{
+		$('#output').text('Mouse out.');
+	});
+	
+	$('#target').mouseleave(function()
+	{
+		$('#output').text('Mouse leave.');
+	});
+	*/
+
+	$('#target').mousedown(function()
+	{
+		$('#output').text('Mouse down.');
+	});
+
+	$('#target').mouseup(function()
+	{
+		$('#output').text('Mouse up.');
+	});
+
+	$('#target').hover(function()
+	{
+		$('#output').text('Mouse hover in.');
+	},
+	function()
+	{
+		$('#output').text('Mouse hover out.');
+	});
+});
+</script>
+</head>
+<body>
+	<div id='output'>This text will be changed.</div>
+	<br/>
+	<div id='target'>Move mouse over me.</div>
+</body>
+</html>

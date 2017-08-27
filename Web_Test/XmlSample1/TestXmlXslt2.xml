@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="TestXmlXslt2.xsl"?>
+	<students>
+		<student id="tom">
+			<name>Tom</name>
+			<age unit="year">12</age>
+			<weight unit="kg">40</weight>
+			<score>80</score><!-- High score! -->
+		</student>
+		<student id="jerry">
+			<name>Jerry</name>
+			<age unit="year">11</age>
+			<weight unit="kg">30</weight>
+			<score>90</score><!-- Higherst score! -->
+		</student>
+		<student>
+			<name>Susan</name>
+			<age unit="year">10</age>
+			<weight unit="kg">35</weight>
+			<score>85</score><!-- Higher score! -->
+		</student>
+	</students>

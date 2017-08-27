@@ -1,0 +1,92 @@
+<html>
+<head>
+<title>Test list</title>
+<style type="text/css">
+	#center {
+		position:absolute;
+		top:0px;
+		left:300px;
+	}
+	#right {
+		position:absolute;
+		top:0px;
+		left:600px;
+	}
+	ol, ul, dl {
+		border-style:solid;
+		border-width:2px;
+		width:150px;
+	}
+	.inside {
+		list-style-position:inside;
+	}
+	.imageBullet {
+		list-style-image:url(sample_icon_1.png);
+	}
+</style>
+</head>
+<body>
+<div id="left">
+	<ol>
+		<li>Item1</li>
+		<li>Item2</li>
+		<li>Item3</li>
+	</ol>
+	<p>
+	<ol type="1">
+		<li class="inside">Item1</li>
+		<li class="inside">Item2</li>
+		<li class="inside">Item3</li>
+	</ol>
+	<p>
+	<ol type="1">
+		<li class="imageBullet">Item1</li>
+		<li class="imageBullet">Item2</li>
+		<li class="imageBullet">Item3</li>
+	</ol>
+</div>
+<div id="center">
+	<ol type="a" start="2">
+		<li>Item1</li>
+		<li>Item2</li>
+		<li value="6">Item3</li>
+	</ol>
+	<p>
+	<ol type="A">
+		<li>Item1</li>
+		<li>Item2</li>
+		<li>Item3</li>
+	</ol>
+	<p>
+	<ol type="i" start="5">
+		<li>Item1</li>
+		<li>Item2</li>
+		<li value="11">Item3</li>
+	</ol>
+	<p>
+	<ol type="I">
+		<li>Item1</li>
+		<li>Item2</li>
+		<li>Item3</li>
+	</ol>
+	<p>
+	<ul>
+		<li>Item1</li>
+		<li>Item2</li>
+		<li>Item3</li>
+	</ul>
+</div>
+<div id="right">
+	<dl>
+		<dt>Item1</dt><dd>This is item1.</dd>
+		<dt>Item2</dt><dd>This is item2.</dd>
+		<dt>Item3</dt><dd>This is item3.</dd>
+	</dl>
+	<dl>
+		<dt>Item1</dt><dd class="inside">This is item1.</dd>
+		<dt>Item2</dt><dd class="inside">This is item2.</dd>
+		<dt>Item3</dt><dd class="inside">This is item3.</dd>
+	</dl>
+</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Test String Convert</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script type="text/javascript">
+	//<![CDATA[
+	function convertToString() {
+		var newNumber = 34.56;
+		var newBoolean = true;
+		var nothing;
+		var newNull = null;
+
+		var strNumber = String(newNumber);
+		var strBoolean = String(newBoolean);
+		var strUndefined = String(nothing);
+		var strNull = String(newNull);
+
+		document.writeln(newNumber + " -> " + strNumber + "<br>");
+		document.writeln(newBoolean + " -> " + strBoolean + "<br>");
+		document.writeln(nothing + " -> " + strUndefined + "<br>");
+		document.writeln(newNull + " -> " + strNull + "<br>");
+
+		var strDocument = String(document);
+		document.writeln(document + " -> " + strDocument + "<br>");
+	}
+	//]]>
+</script>
+
+</head>
+<body onload="convertToString()">
+	<p>Hello, This is from HTML!</p>
+</body>
+</html>

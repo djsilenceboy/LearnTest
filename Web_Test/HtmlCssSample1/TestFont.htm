@@ -1,0 +1,62 @@
+<html>
+<head>
+<title>Test font</title>
+<style type="text/css">
+	#text1:first-line {font-variant:small-caps;}
+	#span1 {
+		float:left;
+		width:0.7em;
+		font-size:400%;
+		font-family:courier;
+		line-height:80%;}
+	#text3:first-letter {
+		color:red;
+		font-size:xx-large;}
+	.compare_size {text-decoration:overline;}
+	#size_50percent {font-size:50%;}
+	#size_xxsmall {font-size:xx-small;}
+	#size_xsmall {font-size:x-small;}
+	#size_small {font-size:small;}
+	#size_medium {font-size:medium;}
+	#size_100percent {font-size:100%;}
+	#size_1em {font-size:1em;}
+	#size_large {font-size:large;}
+	#size_xlarge {font-size:x-large;}
+	#size_xxlarge {font-size:xx-large;}
+	#size_200percent {font-size:200%;}
+	#text4 {width:400px; direction:ltr;}
+	#text5 {width:400px; direction:rtl;}
+	#text6 {width:400px; direction:bidi-override;}
+</style>
+</head>
+<body>
+	<p id="text1">
+	This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. 
+	</p>
+	<p id="text2">
+	<span id="span1">T</span>
+	his is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text.
+	</p>
+	<p id="text3">
+	This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. 
+	</p>
+	<span class="compare_size" id="size_50percent">50%</span>
+	<span class="compare_size" id="size_xxsmall">xx-small</span>
+	<span class="compare_size" id="size_xsmall">x-small</span>
+	<span class="compare_size" id="size_small">small</span>
+	<span class="compare_size" id="size_medium">medium</span>
+	<span class="compare_size" id="size_100percent">100%</span>
+	<span class="compare_size" id="size_1em">1em</span>
+	<span class="compare_size" id="size_large">large</span>
+	<span class="compare_size" id="size_xlarge">xlarge</span>
+	<span class="compare_size" id="size_xxlarge">xxlarge</span>
+	<span class="compare_size" id="size_200percent">200%</span>
+	<p id="text4">This is some text. 这是一些文字。</p>
+	<p id="text5">This is some text. 这是一些文字。</p>
+	<p id="text6">This is some text. 这是一些文字。</p>
+	<p id="text7">This
+       is some
+          text.
+	</p>
+</body>
+</html>

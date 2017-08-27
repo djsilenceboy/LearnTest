@@ -15,28 +15,32 @@ from com.djs.learn.common.CsvRecordsHelper import CsvRecordsHelper
 FIELD_IDX_PROVIDER = 0
 FIELD_IDX_APIKEY = 1
 
+FIELD_NAME_PROVIDER = "Provider"
+FIELD_NAME_APIKEY = "API key"
 
-class StockCompareRecordsHelper(CsvRecordsHelper):
+
+class FinanceApiKeyRecordsHelper(CsvRecordsHelper):
     '''
     Manage host records.
     '''
 
-    __logger = LoggingHelper.get_logger("StockCompareRecordsHelper")
+    __logger = LoggingHelper.get_logger("FinanceApiKeyRecordsHelper")
 
-    def __init__(self, csv_filename):
+    def __init__(self, csv_filename, use_dict=False):
         '''
         @param csv_filename: CSV file.
+        @param use_dict: Boolean, whether to open CSV as dict. True: read records as a list of dict; False: read records as a list of list.
         '''
-        super().__init__(csv_filename)
+        super().__init__(csv_filename, use_dict)
 
-        self.__logger = StockCompareRecordsHelper.__logger
+        self.__logger = FinanceApiKeyRecordsHelper.__logger
         self.__logger.debug("locals() = %s", locals())
 
-    def find_by_ticker(self, ticker):
+    def find_by_provider(self, provider):
         '''
-        Find record by ticker.
+        Find record by provider.
 
-        @param ticker
+        @param provider
         @return: Record, or None if not found.
         '''
         record = None
@@ -46,11 +50,11 @@ class StockCompareRecordsHelper(CsvRecordsHelper):
             # Check each item, and find matching one.
             for item in self._records:
                 if self._use_dict:
-                    if item[self._hearders[FIELD_IDX_PROVIDER]] == ticker:
+                    if item[self._hearders[FIELD_IDX_PROVIDER]] == provider:
                         record = item
                         break
                 else:
-                    if item[FIELD_IDX_PROVIDER] == ticker:
+                    if item[FIELD_IDX_PROVIDER] == provider:
                         record = item
                         break
         return record

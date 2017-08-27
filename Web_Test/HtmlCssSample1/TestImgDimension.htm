@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>Test img dimension</title>
+<style type="text/css">
+	img {border-style:solid;
+		border-width:1px;}
+	#resized0 {height:auto; width:auto;}
+	#resized2 {height:150px; width:200px;}
+	#resized3 {height:auto; width:20%;}
+	#resized4 {height:20%; width:auto;}
+	#resized5 {min-height:250; min-width:300;}
+	#resized6 {max-height:150; max-width:200;}
+</style>
+</head>
+<body>
+	<img id="original" class="original" src="sample2.bmp" />
+	<img id="resized0" class="resized" src="sample2.bmp" />
+	<p>
+	<img id="resized1" class="resized" src="sample2.bmp" width="200" height="150" />
+	<img id="resized2" class="resized" src="sample2.bmp" />
+	<img id="resized6" class="resized" src="sample2.bmp" />
+	<p>
+	<img id="resized3" class="resized" src="sample2.bmp" />
+	<img id="resized4" class="resized" src="sample2.bmp" />
+	<p>
+	<img id="resized5" class="resized" src="sample2.bmp" />
+</body>
+</html>

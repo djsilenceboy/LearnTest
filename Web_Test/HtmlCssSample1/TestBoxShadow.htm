@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>Test box shadow</title>
+<style type="text/css">
+	div {
+		margin:40px;
+		display:inline-block;
+		height:100;
+		width:100;
+		background-color:yellow;
+		text-align:center;
+		border:1px solid green;}
+	#shadow1 {box-shadow:20px 25px red;}
+	#shadow2 {box-shadow:20px 25px 5px red;}
+	#shadow3 {box-shadow:-20px -25px red;}
+	#shadow4 {box-shadow:20px 25px red inset;}
+	#shadow5 {box-shadow:20px 25px 5px red inset;}
+	#shadow6 {box-shadow:-20px -25px red inset;}
+	#shadow7 {box-shadow:0px 0px 20px red;}
+	#shadow8 {box-shadow:0px 0px 20px red inset;}
+</style>
+</head>
+<body>
+	<div id="shadow1">20px 25px red</div>
+	<div id="shadow2">20px 25px 5px red</div>
+	<div id="shadow3">-20px -25px red</div>
+	<div id="shadow4">20px 25px red inset</div>
+	<div id="shadow5">20px 25px 5px red inset</div>
+	<div id="shadow6">-20px -25px red inset</div>
+	<div id="shadow7">0px 0px 20px red</div>
+	<div id="shadow8">0px 0px 20px red inset</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>Test</title>
+<script type='text/javascript' src='/Web_Test/common/jQuery/jquery-1.10.2.js'></script>
+<script type='text/javascript'>
+$(document).ready(function()
+{
+	// Only one of the following events will be activated.
+	// From high priority: keydown > keypress > keyup.
+
+	$('input').keydown(function(e)
+	{
+		document.write('<br>Key down: ' + e.which);
+	});
+
+	$('input').keypress(function(e)
+	{
+		document.write('<br>Key press: ' + e.which);
+	});
+
+	$('input').keyup(function(e)
+	{
+		document.write('<br>Key up: ' + e.which);
+	});
+});
+</script>
+</head>
+<body>
+	Type a letter: <input type='text' id='textbox'>
+</body>
+</html>
