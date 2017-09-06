@@ -25,20 +25,6 @@ Check Windows events.
 
 > Get-WinEvent -LogName application -MaxEvents 5 -ComputerName DESKTOP0
 ================================================================================
-Gets instances of WMI classes or information about the available classes.
-
-> Get-WmiObject Win32_Service | Format-Table
-> Get-WmiObject -Class Win32_Service | Format-Table
-
-> Get-WmiObject Win32_OperatingSystem | Format-Table
-> Get-WmiObject Win32_LogicalDisk | Format-Table
-
-> [wmi]"Win32_LogicalDisk.DeviceId='D:'" | Format-Table
-------------------------------------------------------------
-> Get-CimInstance Win32_OperatingSystem | Format-Table
-> Get-CimInstance Win32_Service | Format-Table
-> Get-CimInstance Win32_LogicalDisk | Format-Table
-================================================================================
 Find job related Cmdlets.
 
 > Get-Command -Noun Job

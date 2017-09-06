@@ -2,6 +2,7 @@
 PowerShell
 ================================================================================
 Enable/Disable WinRM on remote host.
+(Need admin privilege.)
 
 > Enable-PSRemoting
 
@@ -28,6 +29,7 @@ Note that,
 The WinRM service is "Windows Remote Management (WS-Management)".
 ------------------------------------------------------------
 Check WinRM on local.
+(Need admin privilege.)
 
 > Test-WSMan
 > Test-WSMan -Authentication default

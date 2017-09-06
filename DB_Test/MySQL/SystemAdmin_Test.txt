@@ -1,0 +1,27 @@
+================================================================================
+> mysql -uroot -pPassword
+================================================================================
+Check DB size.
+
+SELECT ROUND(SUM(data_length + index_length) / 1024 / 1024) AS TOTAL_MB,
+       ROUND(SUM(data_length) / 1024 / 1024) AS DATA_MB,
+       ROUND(SUM(index_length) / 1024 / 1024) AS INDEX_MB
+FROM INFORMATION_SCHEMA.tables;
+------------------------------------------------------------
+Check engine type.
+
+SELECT table_schema, engine, COUNT(*) AS TABLES
+FROM INFORMATION_SCHEMA.tables
+WHERE table_schema NOT IN ('INFORMATION_SCHEMA', 'PERFORMANCE_SCHEMA')
+GROUP BY table_schema, engine
+ORDER BY table_schema, engine;
+------------------------------------------------------------
+SELECT table_schema, engine,
+       ROUND(SUM(data_length + index_length) / 1024 / 1024) AS TOTAL_MB,
+       ROUND(SUM(data_length) / 1024 / 1024) AS DATA_MB,
+       ROUND(SUM(index_length) / 1024 / 1024) AS INDEX_MB,
+       COUNT(*) AS TABLES
+FROM INFORMATION_SCHEMA.tables
+GROUP BY table_schema, engine
+ORDER BY table_schema, engine;
+================================================================================

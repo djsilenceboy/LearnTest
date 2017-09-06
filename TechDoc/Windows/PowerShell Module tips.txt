@@ -22,3 +22,13 @@ Check loaded module path.
 
 > $env:PSModulePath.Split(";")
 ================================================================================
+Check profile
+
+> $Profile
+> $Profile | Get-Member -MemberType NoteProperty
+------------------------------------------------------------
+Check whether a specific profile exist.
+
+> Test-Path $Profile.AllUsersCurrentHost
+> Test-Path $Profile.CurrentUserCurrentHost
+================================================================================

@@ -36,6 +36,7 @@ Check OS version.
 > Get-CimInstance -Class Win32_OperatingSystem | Select Version
 ------------------------------------------------------------
 Check WinRM config. (Command is for PowerShell 3.0 and above)
+(Need admin privilege.)
 
 > winrm get winrm/config
 > winrm get winrm/config/Winrs
