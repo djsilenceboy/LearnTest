@@ -1,5 +1,6 @@
 ================================================================================
 PowerShell
+WMI (Windows Management Instrumentation)
 ================================================================================
 Gets instances of WMI classes or information about the available classes.
 ------------------------------------------------------------
@@ -18,27 +19,42 @@ List all available objects.
 > [wmi]"Win32_LogicalDisk.DeviceId='D:'" | Format-Table
 ================================================================================
 Get object by name space.
+------------------------------------------------------------
+The default nameSpace is "ROOT/cimv2".
 
-> Get-WmiObject -Class __NAMESPACE -Computer localhost -NameSpace root\CIMV2
-> Get-WmiObject -Class __NAMESPACE -NameSpace root\CIMV2
+> Get-WmiObject -Class __NAMESPACE | Format-Table
+> Get-WmiObject -Class __NAMESPACE -Computer localhost | Format-Table
+------------------------------------------------------------
+Check "root"
+
+> Get-WmiObject -Class __NAMESPACE -NameSpace root | Format-Table
+> Get-WmiObject -Class __NAMESPACE -Computer localhost | Format-Table
 ================================================================================
-Find CIM class under nameSpace "ROOT/cimv2".
+Use Job.
 ------------------------------------------------------------
-> Get-CimClass <PatialName_WithWildcard>
-
-> Get-CimClass *Thread*
-> Get-CimClass *Thread* -QualifierName Abstract
-> Get-CimClass *Thread* -QualifierName Dynamic
+> Get-WmiObject Win32_BIOS -AsJob
+> Get-Job -Id 1
+> Receive-Job -Id 1
+------------------------------------------------------------
+> Invoke-Command -ComputerName localhost -ScriptBlock {Get-WmiObject Win32_BIOS} -AsJob
 ================================================================================
-Gets the CIM instances of a class from a CIM server.
-------------------------------------------------------------
-> Get-CimInstance Win32_OperatingSystem | Format-Table
-> Get-CimInstance Win32_Service | Format-Table
-> Get-CimInstance Win32_LogicalDisk | Format-Table
-------------------------------------------------------------
-List top level name space.
+Check process.
 
-> Get-CimInstance -ClassName __NAMESPACE -NameSpace root
-> Get-CimInstance -ClassName __Provider -NameSpace root\CIMV2 -Computer localhost
-> Get-CimInstance -ClassName __Provider -NameSpace root\CIMV2 | Select Name | Sort Name
+> Start-Process calc.exe
+> Start-Process calc.exe
+> $calc = Get-WmiObject Win32_Process -Filter "Name LIKE 'calc%'"
+> $calc.__PATH
+> $calc.__RELPATH
+------------------------------------------------------------
+Terminate process.
+
+> $calc.Terminate()
+
+or
+
+> Invoke-WmiMethod -Path $calc.__RELPATH -Name Terminate
+
+or
+
+> ([wmi]$calc.__RELPATH).Terminate()
 ================================================================================

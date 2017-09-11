@@ -8,15 +8,26 @@ Check running process.
 > Get-Process <PartialProcessName_WithWildcard>
 > Get-Process -Id <ProcessId>
 ------------------------------------------------------------
-Stop running process.
+Start/Stop running process.
+
+> Start-Process <Executable>
 
 > Stop-Process <ProcessID> -WhatIf
 > Stop-Process -Name <ProcessName> -WhatIf
 ================================================================================
 Check service.
+(Also refer to Get-CimInstance Win32_Service)
 
 > Get-Service
+> Get-Service | Sort Status, Name
 > Get-Service | ? Status -Match "Running" | Format-Table -AutoSize
+------------------------------------------------------------
+Start/Stop service.
+
+> $srv_BITS = Get-Service -Name BITS
+
+> Start-Service -InputObject $srv_BITS
+> Stop-Service -InputObject $srv_BITS
 ================================================================================
 Check Windows events.
 

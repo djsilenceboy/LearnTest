@@ -37,7 +37,7 @@ Enable remote access DB.
 
 ]# cd /var/lib/pgsql/9.5/data
 ----------------------------------------
-Modify config.
+Modify system config.
 
 ]# vi postgresql.conf
 
@@ -49,7 +49,7 @@ or
 
 sed -i '/.*listen_addresses.*/ a\listen_addresses = '"'"'*'"'" /var/lib/pgsql/9.5/data/postgresql.conf
 ----------------------------------------
-Modify config.
+Modify user control config.
 
 ]# vi pg_hba.conf
 
@@ -120,4 +120,8 @@ Exit DB.
 JDBC driver
 
 https://jdbc.postgresql.org/download.html
+================================================================================
+\connect postgres
+
+SELECT name, setting FROM pg_settings WHERE category = 'File Location';
 ================================================================================

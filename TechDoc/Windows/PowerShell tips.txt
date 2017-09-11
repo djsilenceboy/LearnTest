@@ -20,6 +20,13 @@ Start with a special command.
 
 > PowerShell -Command "& {<CmdletString>}"
 ================================================================================
+PowerShell tools.
+------------------------------------------------------------
+Type in PowerShell console.
+
+> ise
+> WbemTest
+================================================================================
 PowerShell command line and command options are case-insensitive.
 So, "Get-Help" and "get-help" are same.
 ================================================================================

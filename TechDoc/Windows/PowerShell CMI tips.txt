@@ -1,0 +1,74 @@
+================================================================================
+PowerShell
+CMI (Common Information Model)
+================================================================================
+Find CIM class
+The default nameSpace is "ROOT/cimv2".
+------------------------------------------------------------
+> Get-CimClass <PatialName_WithWildcard>
+
+> Get-CimClass *Thread*
+> Get-CimClass *Thread* -QualifierName Abstract
+> Get-CimClass *Thread* -QualifierName Dynamic
+
+> Get-CimClass *bios*
+================================================================================
+Gets the CIM instances of a class from a CIM server.
+------------------------------------------------------------
+> Get-CimInstance Win32_BIOS | Format-List *
+> Get-CimInstance Win32_ComputerSystem | Format-List *
+> Get-CimInstance Win32_Desktop | Format-Table
+> Get-CimInstance Win32_LogicalDisk | Format-Table
+> Get-CimInstance Win32_OperatingSystem | Format-Table
+> Get-CimInstance Win32_Service | Format-Table
+
+> $bios = Get-CimInstance Win32_BIOS
+> $bios.Get-Member
+------------------------------------------------------------
+List top level name space.
+
+> Get-CimInstance -ClassName __NAMESPACE -NameSpace root
+> Get-CimInstance -ClassName __Provider -NameSpace root\CIMV2 -Computer localhost
+> Get-CimInstance -ClassName __Provider -NameSpace root\CIMV2 | Select Name | Sort Name
+================================================================================
+Use WQL query.
+
+> Get-CimInstance -Query "SELECT Name FROM Win32_Service WHERE Name LIKE 'A%'" | Sort Name | Format-Wide -Column 4
+
+> $Query = "SELECT Name FROM Win32_Service WHERE Name LIKE 'A%'"
+> Get-CimInstance -Query $Query | Sort Name | Format-Wide -Column 4
+------------------------------------------------------------
+Use property (for Select-Object).
+Use filter (for Where-Object).
+
+> Get-CimInstance Win32_Service -Property Name -Filter "Name LIKE 'A%'" | Sort Name | Format-Wide -Column 4
+------------------------------------------------------------
+Use filter (for Where-Object).
+
+> $Filter = "Name LIKE 'A%'"
+> Get-CimInstance Win32_Service -Filter $Filter | Select Name | Sort Name | Format-Wide -Column 4
+================================================================================
+Check service.
+
+> Get-CimInstance Win32_Service | Format-Table
+> Get-CimInstance Win32_Service | Select State, Name, DisplayName | Sort State, Name | Format-Table
+------------------------------------------------------------
+Start/Stop service.
+
+> $srv_BITS = Get-CimInstance Win32_Service | ? Name -Eq BITS
+
+> Invoke-CimMethod -InputObject $srv_BITS -MethodName StartService
+> Invoke-CimMethod -InputObject $srv_BITS -MethodName StopService
+================================================================================
+Logic disk.
+
+> Get-CimInstance Win32_LogicalDisk -Filter 'DeviceID = "D:"'
+================================================================================
+Login remote host.
+
+> $Session = New-CimSession -ComputerName 192.168.0.10 -Credential <UserName>
+> Get-CimInstance -CimSession $Session -ClassName Win32_BIOS
+
+Note that:
+-ComputerName accept a list of computer names separated by comma.
+================================================================================

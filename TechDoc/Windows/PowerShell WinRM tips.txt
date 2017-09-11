@@ -76,13 +76,13 @@ If "TrustedHosts" is not set, it means trust all clients.
 ================================================================================
 Login remote host.
 
-> Enter-PSSession -ComputerName 192.168.0.10 -Credential <UserName>
+> Enter-PSSession -ComputerName <HostName_IP> -Credential <UserName>
 ------------------------------------------------------------
 Run command on remote host.
 
-> Invoke-Command -ComputerName 192.168.0.10 -Credential <UserName> -ScriptBlock {$PSVersionTable}
+> Invoke-Command -ComputerName <HostName_IP> -Credential <UserName> -ScriptBlock {$PSVersionTable}
 ------------------------------------------------------------
-> $session=New-PSSession -ComputerName 192.168.0.10 -Credential <UserName>
+> $session=New-PSSession -ComputerName <HostName_IP> -Credential <UserName>
 > Enter-PSSession $session
 > Invoke-Command -Session $session -ScriptBlock {$PSVersionTable}
 > Get-PSSession

@@ -229,6 +229,10 @@ Options:
 -Property : One or more fields.
 
 > Get-ChildItem | Format-List
+> Get-ChildItem | Format-List *
+> Get-ChildItem | Format-List N*
+> Get-ChildItem | Format-List N*, C*
+
 > Get-ChildItem | Format-List -Property Name, Length
 > Get-ChildItem | Format-List -Property Name, Length -GroupBy Length
 
@@ -313,6 +317,7 @@ Options:
 > Get-ChildItem | Select Name, Length -First 2
 > Get-ChildItem | Select Name, Length -Skip 1
 > Get-ChildItem | Select Name, Length -Last 2
+> Get-ChildItem | Select *
 
 > Get-Process | Select Id, Name
 > Get-Process | Select Id, Name -First 10
