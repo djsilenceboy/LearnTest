@@ -8,10 +8,29 @@ The default nameSpace is "ROOT/cimv2".
 > Get-CimClass <PatialName_WithWildcard>
 
 > Get-CimClass *Thread*
-> Get-CimClass *Thread* -QualifierName Abstract
-> Get-CimClass *Thread* -QualifierName Dynamic
+> Get-CimClass *Thread?????
+> Get-CimClass Win??_Thread
+------------------------------------------------------------
+Find method name.
 
-> Get-CimClass *bios*
+> Get-CimClass *_Process* -MethodName *
+> Get-CimClass *_Process* -MethodName Term*
+------------------------------------------------------------
+Find all qualifier names.
+
+> Get-CimClass -QualifierName * | Select -ExpandProperty CimClassQualifiers | Select Name -Unique | Sort Name
+------------------------------------------------------------
+Find deprecated class.
+
+> Get-CimClass -QualifierName deprecated
+
+Find abstract/template class.
+
+> Get-CimClass *Thread* -QualifierName Abstract
+
+Find dynamic/implemented class.
+
+> Get-CimClass *Thread* -QualifierName Dynamic
 ================================================================================
 Gets the CIM instances of a class from a CIM server.
 ------------------------------------------------------------
