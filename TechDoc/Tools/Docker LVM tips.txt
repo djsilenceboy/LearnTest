@@ -1,0 +1,260 @@
+================================================================================
+Docker
+
+https://docs.docker.com/engine/userguide/storagedriver/device-mapper-driver/#configure-direct-lvm-mode-for-production
+================================================================================
+Install packages
+
+]$ sudo yum install -y lvm2
+================================================================================
+Check disks
+
+]$ sudo pvs -a
+----------------------------------------
+  PV                                    VG   Fmt Attr PSize PFree
+......
+  /dev/xvdc                                      ---     0     0
+
+"/dev/xvdc" is 2nd disk.
+------------------------------------------------------------
+Check disk
+
+]$ sudo sfdisk -l /dev/xvdc
+----------------------------------------
+Disk /dev/xvdc: 13054 cylinders, 255 heads, 63 sectors/track
+================================================================================
+Create a partition
+
+]$ sudo sfdisk /dev/xvdc << EOF
+,,8e
+EOF
+----------------------------------------
+Checking that no-one is using this disk right now ...
+OK
+
+Disk /dev/xvdc: 13054 cylinders, 255 heads, 63 sectors/track
+sfdisk:  /dev/xvdc: unrecognized partition table type
+
+Old situation:
+sfdisk: No partitions found
+
+New situation:
+Units: cylinders of 8225280 bytes, blocks of 1024 bytes, counting from 0
+
+   Device Boot Start     End   #cyls    #blocks   Id  System
+/dev/xvdc1          0+  13053   13054- 104856254+  8e  Linux LVM
+/dev/xvdc2          0       -       0          0    0  Empty
+/dev/xvdc3          0       -       0          0    0  Empty
+/dev/xvdc4          0       -       0          0    0  Empty
+Warning: no primary partition is marked bootable (active)
+This does not matter for LILO, but the DOS MBR will not boot this disk.
+Successfully wrote the new partition table
+
+Re-reading the partition table ...
+
+If you created or changed a DOS partition, /dev/foo7, say, then use dd(1)
+to zero the first 512 bytes:  dd if=/dev/zero of=/dev/foo7 bs=512 count=1
+(See fdisk(8).)
+------------------------------------------------------------
+Check disks
+
+]$ sudo pvs -a
+----------------------------------------
+  PV                                    VG   Fmt Attr PSize PFree
+......
+  /dev/xvdc1                                     ---     0     0
+------------------------------------------------------------
+Check disk
+
+]$ sudo sfdisk -l /dev/xvdc
+----------------------------------------
+Disk /dev/xvdc: 13054 cylinders, 255 heads, 63 sectors/track
+Units: cylinders of 8225280 bytes, blocks of 1024 bytes, counting from 0
+
+   Device Boot Start     End   #cyls    #blocks   Id  System
+/dev/xvdc1          0+  13053   13054- 104856254+  8e  Linux LVM
+/dev/xvdc2          0       -       0          0    0  Empty
+/dev/xvdc3          0       -       0          0    0  Empty
+/dev/xvdc4          0       -       0          0    0  Empty
+================================================================================
+Create a physical volume
+
+]$ sudo pvcreate /dev/xvdc1
+----------------------------------------
+  Physical volume "/dev/xvdc1" successfully created
+------------------------------------------------------------
+Check disks
+
+]$ sudo pvs -a
+----------------------------------------
+  PV                                    VG   Fmt Attr PSize PFree
+......
+  /dev/xvdc1                                 lvm2 ---  100.00g 100.00g
+================================================================================
+Create a volume group
+
+]$ sudo vgcreate docker /dev/xvdc1
+----------------------------------------
+  Volume group "docker" successfully created
+------------------------------------------------------------
+Check volume groups
+
+]$ sudo vgs -a -o +devices
+----------------------------------------
+  VG     #PV #LV #SN Attr   VSize   VFree    Devices
+  docker   1   0   0 wz--n- 100.00g 100.00g  /dev/xvdc1(0)
+================================================================================
+Create LVMs named "thinpool" and "thinpoolmeta"
+
+]$ sudo lvcreate --wipesignatures y -n thinpool docker -l 95%VG
+
+]$ sudo lvcreate --wipesignatures y -n thinpoolmeta docker -l 1%VG
+----------------------------------------
+  Logical volume "thinpool" created.
+
+  Logical volume "thinpoolmeta" created.
+------------------------------------------------------------
+Check logic volumes
+
+]$ sudo lvs -a
+----------------------------------------
+ LV           VG     Attr       LSize    Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  thinpool     docker -wi-a-----   95.00g
+  thinpoolmeta docker -wi-a----- 1020.00m
+================================================================================
+Convert the pool to a thin pool
+
+]$ sudo lvconvert -y --zero n -c 512K --thinpool docker/thinpool --poolmetadata docker/thinpoolmeta
+----------------------------------------
+  WARNING: Converting logical volume docker/thinpool and docker/thinpoolmeta to pool's data and metadata volumes.
+  THIS WILL DESTROY CONTENT OF LOGICAL VOLUME (filesystem etc.)
+  Converted docker/thinpool to thin pool.
+------------------------------------------------------------
+Check logic volumes
+
+]$ sudo lvs -a -o +devices
+----------------------------------------
+  LV               VG     Attr       LSize    Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert Devices
+  [lvol0_pmspare]  docker ewi------- 1020.00m                                                     /dev/xvdc1(24574)
+  thinpool         docker twi-a-t---   95.00g             0.00   0.01                             thinpool_tdata(0)
+  [thinpool_tdata] docker Twi-ao----   95.00g                                                     /dev/xvdc1(0)
+  [thinpool_tmeta] docker ewi-ao---- 1020.00m                                                     /dev/xvdc1(24319)
+================================================================================
+Configure autoextension of thin pools via an LVM profile
+
+]$ sudo echo 'activation {
+     thin_pool_autoextend_threshold=80
+     thin_pool_autoextend_percent=20
+}' > /etc/lvm/profile/docker-thinpool.profile
+------------------------------------------------------------
+Verify
+
+]$ sudo cat /etc/lvm/profile/docker-thinpool.profile
+----------------------------------------
+activation {
+     thin_pool_autoextend_threshold=80
+     thin_pool_autoextend_percent=20
+}
+================================================================================
+Apply the new LVM profile
+
+]$ sudo lvchange --metadataprofile docker-thinpool docker/thinpool
+----------------------------------------
+  Logical volume "thinpool" changed.
+------------------------------------------------------------
+Check logic volumes
+
+]$ sudo lvs -a -o +devices
+]$ sudo lvs -a -o +seg_monitor
+----------------------------------------
+  LV       VG     Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert Devices
+  thinpool docker twi-a-t--- 95.00g             0.00   0.01                             thinpool_tdata(0)
+
+  LV       VG     Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert Monitor
+  thinpool docker twi-a-t--- 95.00g             0.00   0.01                             monitored
+------------------------------------------------------------
+Check disks
+
+]$ sudo pvs -a
+----------------------------------------
+  PV         VG     Fmt  Attr PSize   PFree
+  /dev/xvda1             ---       0     0
+  /dev/xvda2             ---       0     0
+  /dev/xvdb1             ---       0     0
+  /dev/xvdc1 docker lvm2 a--  100.00g 3.01g
+================================================================================
+Activate volume group
+------------------------------------------------------------
+Check logic volumes
+
+]$ sudo lvs -a
+
+  LV               VG     Attr       LSize    Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  [lvol0_pmspare]  docker ewi------- 1020.00m
+  thinpool         docker twi---t---   95.00g
+  [thinpool_tdata] docker Twi-------   95.00g
+  [thinpool_tmeta] docker ewi------- 1020.00m
+
+If no "a" in "Attr" field.
+------------------------------------------------------------
+Activate.
+
+]$ sudo vgchange -a y docker
+================================================================================
+Check physical volumes.
+
+]$ sudo pvdisplay
+
+  --- Physical volume ---
+  PV Name               /dev/xvdc
+  VG Name               docker
+  PV Size               100.00 GiB / not usable 4.00 MiB
+  Allocatable           yes
+  PE Size               4.00 MiB
+  Total PE              25599
+  Free PE               770
+  Allocated PE          24829
+  PV UUID               wIPcbH-Nbnk-1FhR-IZ0j-bAEU-tFvT-OcIkwU
+================================================================================
+Check devices and their pools.
+
+]$ sudo lsblk
+
+(loop-lvm)
+
+NAME                                                                                      MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+xvda                                                                                      202:0    0  100G  0 disk
+├─xvda1                                                                                   202:1    0  256M  0 part /boot
+└─xvda2                                                                                   202:2    0 99.8G  0 part /
+xvdb                                                                                      202:16   0    2G  0 disk
+└─xvdb1                                                                                   202:17   0    2G  0 part [SWAP]
+xvdc                                                                                      202:32   0  100G  0 disk
+loop0                                                                                       7:0    0  100G  0 loop
+└─docker-202:2-6358060-pool                                                               253:0    0  100G  0 dm
+  └─docker-202:2-6358060-82afe2509e14a72e4b56dfa6f746b927a5bfd1153a372e2a82b0b1e74388a825 253:1    0  100G  0 dm
+loop1                                                                                       7:1    0    2G  0 loop
+└─docker-202:2-6358060-pool                                                               253:0    0  100G  0 dm
+  └─docker-202:2-6358060-82afe2509e14a72e4b56dfa6f746b927a5bfd1153a372e2a82b0b1e74388a825 253:1    0  100G  0 dm
+
+(direct-lvm)
+
+NAME                                                                                        MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+xvda                                                                                        202:0    0  100G  0 disk
+├─xvda1                                                                                     202:1    0  256M  0 part /boot
+└─xvda2                                                                                     202:2    0 99.8G  0 part /
+xvdb                                                                                        202:16   0    2G  0 disk
+└─xvdb1                                                                                     202:17   0    2G  0 part [SWAP]
+xvdc                                                                                        202:32   0  100G  0 disk
+├─docker-thinpool_tmeta                                                                     253:0    0 1020M  0 lvm
+│ └─docker-thinpool                                                                         253:2    0   95G  0 lvm
+│   ├─docker-202:2-6357617-f1f6057e0c73c12b5530d11cdbc3f8d7fef1d15f41236ea8a26919f2e7c355e2 253:3    0   20G  0 dm
+│   ├─docker-202:2-6357617-4e5a3425ea49fc98989b662fec8822d6be99d80179a0b5bd552cb857d81252fa 253:4    0   20G  0 dm
+│   ├─docker-202:2-6357617-098ff94fb908f7c09ec370c435a2affbc2e90e323870fbb3dc67f6f76bec584f 253:5    0   20G  0 dm
+│   └─docker-202:2-6357617-4b2eb5158345ab0832ddcb0ad718ed6ce7b9544ccc0d3ccafd7e5a8eca29cd14 253:6    0   20G  0 dm
+└─docker-thinpool_tdata                                                                     253:1    0   95G  0 lvm
+  └─docker-thinpool                                                                         253:2    0   95G  0 lvm
+    ├─docker-202:2-6357617-f1f6057e0c73c12b5530d11cdbc3f8d7fef1d15f41236ea8a26919f2e7c355e2 253:3    0   20G  0 dm
+    ├─docker-202:2-6357617-4e5a3425ea49fc98989b662fec8822d6be99d80179a0b5bd552cb857d81252fa 253:4    0   20G  0 dm
+    ├─docker-202:2-6357617-098ff94fb908f7c09ec370c435a2affbc2e90e323870fbb3dc67f6f76bec584f 253:5    0   20G  0 dm
+    └─docker-202:2-6357617-4b2eb5158345ab0832ddcb0ad718ed6ce7b9544ccc0d3ccafd7e5a8eca29cd14 253:6    0   20G  0 dm
+================================================================================

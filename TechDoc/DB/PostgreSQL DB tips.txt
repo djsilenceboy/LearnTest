@@ -26,7 +26,7 @@ Config service.
 ------------------------------------------------------------
 Check port.
 
-]# ss -ntpl | grep postgres
+]# ss -tpl | grep postgres
 ]# ss -ntpl | grep 5432
 ------------------------------------------------------------
 Uninstall.
@@ -69,26 +69,27 @@ Reload config.
 ================================================================================
 Create user/role and DB.
 
-]# su - postgres
+]$ sudo su - postgres
 
 $ psql
-=# CREATE ROLE tester WITH LOGIN CREATEDB PASSWORD 'NewPassword';
+> CREATE ROLE tester WITH LOGIN CREATEDB PASSWORD 'NewPassword';
 
 If modify after created:
-=# ALTER ROLE tester WITH LOGIN CREATEDB PASSWORD 'NewPassword';
+> ALTER ROLE tester WITH LOGIN CREATEDB PASSWORD 'NewPassword';
 
-=# CREATE DATABASE test OWNER tester;
-=# GRANT ALL PRIVILEGES ON DATABASE test TO tester;
+> CREATE DATABASE test OWNER tester;
+> GRANT ALL PRIVILEGES ON DATABASE test TO tester;
 ------------------------------------------------------------
-su - postgres -c 'psql -c "CREATE ROLE tester WITH LOGIN CREATEDB PASSWORD '"'"'NewPassword'"'"'"'
-su - postgres -c "psql -c \"CREATE DATABASE test OWNER tester\""
-su - postgres -c "psql -c \"GRANT ALL PRIVILEGES ON DATABASE test TO tester\""
+sudo su - postgres -c 'psql -c "CREATE ROLE tester WITH LOGIN CREATEDB PASSWORD '"'"'NewPassword'"'"'"'
+sudo su - postgres -c "psql -c \"CREATE DATABASE test OWNER tester\""
+sudo su - postgres -c "psql -c \"GRANT ALL PRIVILEGES ON DATABASE test TO tester\""
 
-su - postgres -c 'psql -c "ALTER ROLE tester WITH LOGIN CREATEDB PASSWORD '"'"'NewPassword'"'"'"'
+sudo su - postgres -c 'psql -c "ALTER ROLE tester WITH LOGIN CREATEDB PASSWORD '"'"'NewPassword'"'"'"'
 ================================================================================
 Login DB "test" with trusted user "tester".
 
 $ psql -U tester test
+$ psql -U tester test -P pager=off
 ------------------------------------------------------------
 Login DB "test" with user "tester" by password.
 
@@ -98,24 +99,42 @@ Some commands
 
 List all databases.
 
-=# \l
-=# \list
+> \l
+> \list
 ================================================================================
 Connect DB.
 
-=# \connect <Database>;
-------------------------------------------------------------
-Show all tables.
-
-=# \dt
-------------------------------------------------------------
-Check granted access.
-
-=# \z
+> \connect <Database>;
 ------------------------------------------------------------
 Exit DB.
 
-=# \q
+> \q
+------------------------------------------------------------
+Show help for control commands.
+
+\?
+
+Show help for SQL commands.
+
+\h
+\h <SQL_Command>
+------------------------------------------------------------
+Show all tables.
+
+> \dt
+------------------------------------------------------------
+Check granted access.
+
+> \z
+------------------------------------------------------------
+Disable pagination.
+
+\pset pager off
+------------------------------------------------------------
+Check installed extensions.
+
+> \dx
+> \dx <ExtensionName>
 ================================================================================
 JDBC driver
 

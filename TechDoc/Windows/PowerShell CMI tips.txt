@@ -91,3 +91,11 @@ Login remote host.
 Note that:
 -ComputerName accept a list of computer names separated by comma.
 ================================================================================
+Get CIM associated instances.
+------------------------------------------------------------
+> $logicaldisk = Get-CimInstance Win32_LogicalDisk -KeyOnly
+> Get-CimAssociatedInstance $logicaldisk[0]
+> Get-CimAssociatedInstance $logicaldisk[0] -ResultClassName Win32_ComputerSystem
+> Get-CimAssociatedInstance $logicaldisk[0] -ResultClassName Win32_DiskPartition
+> Get-CimAssociatedInstance $logicaldisk[0] -ResultClassName Win32_Directory
+================================================================================
