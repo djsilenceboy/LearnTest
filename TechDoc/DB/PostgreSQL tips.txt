@@ -18,3 +18,95 @@ Install extension.
 
 > CREATE EXTENSION xml2;
 ================================================================================
+Special operators
+------------------------------------------------------------
+SIMILIAR TO: ~
+================================================================================
+Generate series function
+
+SELECT x FROM generate_series(1, 21, 4) AS x;
+================================================================================
+String functions
+------------------------------------------------------------
+Trim and Padding.
+
+SELECT a AS a_before, trim(a) AS a_tr, ltrim(a) AS a_lt, rtrim(a) AS a_rt,
+       i AS i_before, trim(i, '0') AS i_tr, ltrim(i, '0') AS i_lt, rtrim(i, '0') AS i_rt
+FROM (SELECT repeat(' ', 4) || i || repeat(' ', 4) AS a, '0' || i AS i
+      FROM generate_series(0, 200, 50) AS i) AS x;
+------------------------------------------------------------
+Split.
+
+SELECT split_part('abc.123.def.456', '.', 1) AS x;
+SELECT split_part('abc.123.def.456', '.', 4) AS x;
+------------------------------------------------------------
+To array.
+
+SELECT string_to_array('abc.123.def.456', '.') AS x;
+SELECT unnest(string_to_array('abc.123.def.456', '.')) AS x;
+------------------------------------------------------------
+Regular expressions.
+
+SELECT regexp_replace('861091234567', '([0-9]{2})([0-9]{2})([0-9]{8})', E'\(\\1\) \\2-\\3') AS x;
+SELECT regexp_matches('(86)10-91234567, 86-10-91234568, 86-1091234569', E'[(]{0,1}[0-9]{2}[)-]{0,1}[0-9]{2}[-]{0,1}[0-9]{8}', 'g') AS x;
+
+SELECT a_field FROM a_table WHERE a_field ~ E'<RegEx>';
+================================================================================
+Temporal functions
+------------------------------------------------------------
+Timezone and non-timezone.
+
+SELECT timestamptz '2017-09-20 3:10 AM America/Los_Angeles';
+SELECT '2017-09-20 3:10 AM America/Los_Angeles'::timestamptz;
+SELECT '2017-09-20 3:10 AM America/Los_Angeles'::timestamptz AT TIME ZONE 'Europe/Paris';
+SELECT '2017-09-20 3:10 AM America/Los_Angeles'::timestamptz - '2017-09-20 1:50 AM America/Los_Angeles'::timestamptz;
+
+SELECT timestamp '2017-09-20 3:10 AM';
+SELECT '2017-09-20 3:10 AM'::timestamp;
+SELECT '2017-09-20 3:10 AM'::timestamp - '2017-09-20 1:50 AM'::timestamp;
+------------------------------------------------------------
+Interval.
+
+SELECT '2017-09-20 3:10 AM'::timestamp + '1 hour'::interval;
+SELECT timestamp '2017-09-20 3:10 AM' + interval '1 hour';
+------------------------------------------------------------
+Overlaps.
+
+SELECT ('2017-09-20 3:00 AM'::timestamp, '2017-09-20 5:00 AM'::timestamp) OVERLAPS ('2017-09-20 3:30 AM'::timestamp, '2017-09-20 5:30 AM'::timestamp) AS x;
+
+SELECT ('2017-09-20 3:00 AM'::timestamp, '2017-09-20 5:00 AM'::timestamp) OVERLAPS ('2017-09-20 5:30 AM'::timestamp, '2017-09-20 6:30 AM'::timestamp) AS x;
+------------------------------------------------------------
+Generate series.
+
+SELECT (dt - interval '1 day')::date AS end_of_month FROM generate_series('2/1/2017', '1/1/2018', interval '1 month') AS dt;
+------------------------------------------------------------
+Extract.
+
+SELECT dt, date_part('hour', dt) AS hour, to_char(dt, 'HH12:MI AM') FROM generate_series('2017-09-20 5:00 AM', '2017-09-20 7:00 AM', interval '15 minutes') AS dt;
+================================================================================
+Array functions
+Index start from 1.
+------------------------------------------------------------
+SELECT ARRAY[10, 20, 30] AS num;
+SELECT unnest(ARRAY[10, 20, 30]) AS num;
+
+SELECT '{Tom, Jerry}'::text[] AS name, '{10, 8}'::smallint[] AS age;
+SELECT unnest('{Tom, Jerry}'::text[]) AS name, unnest('{10, 8}'::smallint[]) AS age;
+SELECT unnest('{Tom, Jerry}'::text[]) AS name, unnest('{10, 8, 6}'::smallint[]) AS age;
+------------------------------------------------------------
+It will be empty/NULL for no-matching rows.
+
+SELECT * FROM unnest('{Tom, Jerry}'::text[], '{10, 8, 6}'::smallint[]) AS f(name, age);
+================================================================================
+Range functions
+Default range is "[)".
+------------------------------------------------------------
+SELECT '[2017-09-01,2017-09-20)'::daterange;
+SELECT '(2017-09-01,2017-09-20]'::daterange;
+SELECT '[2017-09-01,)'::daterange;
+SELECT '[2017-09-01,infinity)'::daterange;
+
+SELECT '[1,10)'::int8range;
+SELECT '(1,10]'::int8range;
+SELECT '[1,)'::int8range;
+================================================================================
