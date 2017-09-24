@@ -26,12 +26,15 @@ Function Get-OSVersion
 Write-Host 'OS Version = '$(Get-OSVersion)
 Write-Host '----------------------------------------'
 
-# Function Get-TextStatistics($path)
-Function Get-TextStatistics($path)
+# Function Get-FolderList($path)
+# The default value of $path is "C:".
+Function Get-FolderList([string]$path = "C:")
 {
   Get-ChildItem $path
 }
 
+Get-TextStatistics
+Write-Host '----------------------------------------'
 Get-TextStatistics("D:")
 Write-Host '----------------------------------------'
 

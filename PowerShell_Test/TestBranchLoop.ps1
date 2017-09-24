@@ -45,6 +45,7 @@ for(;$i -le $max;)
 
 Write-Host "**********"
 
+# foreach alias %.
 foreach ($i in 1..10)
 {
   Write-Host "$i"

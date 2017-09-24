@@ -1,5 +1,6 @@
-# Escape $
-Write-Host "`$" 'or $'
+# Escape $ with ` in double quotation marks.
+Write-Host "`$"
+Write-Host '$'
 
 Write-Host '$^ = '$^
 Write-Host '$$ = '$$

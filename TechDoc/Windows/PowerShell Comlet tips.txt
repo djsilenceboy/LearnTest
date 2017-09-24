@@ -410,7 +410,7 @@ Measure-Object
 
 Options:
 -Average : Indicates that the cmdlet displays the average value of the specified properties.
--Character : ndicates that the cmdlet counts the number of characters in the input object.
+-Character : indicates that the cmdlet counts the number of characters in the input object.
 -IgnoreWhiteSpace : Indicates that the cmdlet ignores white space in word counts and character counts. By default, white space is not ignored.
 -InputObject <PSObject> : Specifies the objects to be measured. Enter a variable that contains the objects, or type a command or expression that gets the objects.
 -Line : Indicates that the cmdlet counts the number of lines in the input object.
