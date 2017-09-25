@@ -24,7 +24,12 @@ PowerShell tools.
 ------------------------------------------------------------
 Type in PowerShell console.
 
+IDE.
+
 > ise
+
+WMI tester.
+
 > WbemTest
 ================================================================================
 PowerShell command line and command options are case-insensitive.

@@ -1,59 +1,59 @@
 $max = 5
 
 $i = 1
-while ($i -le $max)
+While ($i -le $max)
 {
   Write-Host "$i"
   $i++
 }
 
-Write-Host "**********"
+Write-Host "----------------------------------------"
 
 $i = 1
-do
+Do
 {
   Write-Host "$i"
   $i++
 }
-while ($i -le $max)
+While ($i -le $max)
 
-Write-Host "**********"
+Write-Host "----------------------------------------"
 
 $i = 1
-do
+Do
 {
   Write-Host "$i"
   $i++
 }
-until ($i -gt $max)
+Until ($i -gt $max)
 
-Write-Host "**********"
+Write-Host "----------------------------------------"
 
-for($i = 1; $i -le $max; $i++)
+For($i = 1; $i -le $max; $i++)
 {
   Write-Host "$i"
 }
 
-Write-Host "**********"
+Write-Host "----------------------------------------"
 
 $i = 1
-for(;$i -le $max;)
+For(;$i -le $max;)
 {
   Write-Host "$i"
   $i++
 }
 
-Write-Host "**********"
+Write-Host "----------------------------------------"
 
-# foreach alias %.
-foreach ($i in 1..10)
+# ForEach alias %.
+ForEach ($i in 1..10)
 {
   Write-Host "$i"
 
   If ($i -ge $max) { break }
 }
 
-Write-Host "**********"
+Write-Host "----------------------------------------"
 
 $a = "Hello"
 
@@ -81,19 +81,31 @@ If ($a -NotMatch "ld")
   Write-Host "It contains no ld."
 }
 
-Write-Host "**********"
+Write-Host "----------------------------------------"
 
 If ($b = 0)
 {
-  Write-Host "$b"
+  Write-Host "`$b = "$b
 }
 
 If ($b = 1)
 {
-  Write-Host "$b"
+  Write-Host "`$b = "$b
 }
 
-Write-Host "**********"
+Write-Host "----------------------------------------"
+
+If ($b -eq $Null)
+{
+  Write-Host "`$b = Null"
+}
+
+If ($b -ne $Null)
+{
+  Write-Host "`$b != Null"
+}
+
+Write-Host "----------------------------------------"
 
 $c = 2
 Switch ($c)
@@ -103,7 +115,7 @@ Switch ($c)
   Default {Write-Host "0:Null"}
 }
 
-Write-Host "**********"
+Write-Host "----------------------------------------"
 
 $c = 1, 3, 2
 Switch ($c)

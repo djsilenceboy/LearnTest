@@ -28,7 +28,7 @@ Function Sample1
 
 # Cannot pass in parameter belonging to different ParameterSetName!
 Sample1 -Country China -Name Jerry
-Write-Host '----------------------------------------'
+Write-Host '--------------------'
 Sample1 -Street ChangAnJie -Name Jerry
 Write-Host '----------------------------------------'
 
@@ -43,4 +43,26 @@ Function Sample2
 }
 
 Sample2
+Write-Host '----------------------------------------'
+
+Function Sample3
+{
+  Param(
+    [ValidateSet("Tom", "Jerry")]
+    [string]$name,
+    [ValidateRange(8, 10)]
+    [int]$age
+  )
+
+  Write-Host '$name = '$name
+  Write-Host '$age = '$age
+}
+
+Sample3 "Tom" 7
+Write-Host '--------------------'
+Sample3 "Tom" 8
+Write-Host '--------------------'
+Sample3 "Mary" 8
+Write-Host '--------------------'
+Sample3 "Jerry" 10
 Write-Host '----------------------------------------'

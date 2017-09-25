@@ -22,6 +22,10 @@ Check loaded module path.
 
 > $env:PSModulePath.Split(";")
 ================================================================================
+List all PowerShell cmdlets from core module.
+
+> Get-Command -Module Microsoft.PowerShell*
+================================================================================
 Check profile
 
 > $Profile

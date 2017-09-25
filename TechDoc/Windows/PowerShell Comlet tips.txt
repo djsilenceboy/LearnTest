@@ -81,6 +81,10 @@ List all matching verb (The part before dash of Cmdlet).
 List all matching noun (The part after dash of Cmdlet).
 
 > Get-Command -Noun <PatialNoun_WithWildcard>
+
+List all PowerShell cmdlets from core module.
+
+> Get-Command -Module Microsoft.PowerShell*
 ------------------------------------------------------------
 List all member of a Cmdlet.
 
@@ -405,6 +409,7 @@ Append file content with new line end.
 Get date.
 
 > Get-Date
+> Get-Date -Format g
 ================================================================================
 Measure-Object
 

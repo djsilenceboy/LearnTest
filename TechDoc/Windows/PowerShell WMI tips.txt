@@ -9,6 +9,13 @@ List all available objects.
 > Get-WmiObject -List
 > Get-WmiObject -List | Select Name | Sort Name | Format-Wide -Column 3
 ------------------------------------------------------------
+Check provider and its subclasses.
+
+> Get-WmiObject __Provider | Format-Table
+> Get-WmiObject __Provider -Filter "name = 'CIMWin32'" | Format-Table
+------------------------------------------------------------
+Check classes.
+
 > Get-WmiObject Win32_Service | Format-Table
 > Get-WmiObject -Class Win32_Service | Format-Table
 
