@@ -34,6 +34,15 @@ WMI tester.
 ================================================================================
 PowerShell command line and command options are case-insensitive.
 So, "Get-Help" and "get-help" are same.
+------------------------------------------------------------
+Line break is "`".
+
+Get-Counter '\Process(*)\% Processor Time' |`
+Select -ExpandProperty CounterSamples |`
+Select -Property InstanceName, CookedValue |`
+Sort CookedValue -Descending |`
+Select -First 20 |`
+Format-Table InstanceName, @{L='CPU';E={($_.Cookedvalue/100).toString('P')}} -AutoSize
 ================================================================================
 Check version.
 

@@ -172,3 +172,16 @@ Function Test-Automatic-Args($a)
 Test-Automatic-Args 1 2 3 4
 
 Write-Host '----------------------------------------'
+
+Function Test-Ref-Args([ref]$innerAge)
+{
+  Write-Host '$innerAge.Value = '$innerAge.Value
+  $innerAge.Value += 10
+  Write-Host '$innerAge.Value = '$innerAge.Value
+}
+
+$outerAge = 8
+Write-Host '$outerAge = '$outerAge
+Test-Ref-Args([ref]$outerAge)
+Write-Host '$outerAge = '$outerAge
+Write-Host '----------------------------------------'

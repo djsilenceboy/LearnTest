@@ -1,6 +1,61 @@
 ================================================================================
 PowerShell
 ================================================================================
+Repository:
+http://www.powershellgallery.com/
+================================================================================
+Check online repository.
+
+> Get-PSRepository
+
+Currently, only one repository: PSGallery.
+------------------------------------------------------------
+Config online repository.
+
+> Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+================================================================================
+For not installed modules.
+------------------------------------------------------------
+Find module from online repository.
+
+> Find-Module
+
+(If first time run, it will require to install NuGet.)
+
+NuGet provider is required to continue
+PowerShellGet requires NuGet provider version '2.8.5.201' or newer to interact with NuGet-based repositories. The NuGet provider must be available in 'C:\Program
+Files\PackageManagement\ProviderAssemblies' or 'C:\Users\dj\AppData\Local\PackageManagement\ProviderAssemblies'. You can also install the NuGet provider by running  'Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force'. Do you want PowerShellGet to install and import the NuGet provider now?
+[Y] Yes  [N] No  [S] Suspend  [?] Help (default is "Y"):
+
+> Find-Module <ModuleNameWildcard>
+> Find-Module <ModuleName> | Format-List
+
+How many available module.
+
+> (Find-Module).Count
+------------------------------------------------------------
+Install module.
+
+> Install-Module <ModuleName>
+
+Test for current user.
+
+> Install-Module <ModuleName> -Scope CurrentUser -WhatIf
+------------------------------------------------------------
+Check installed module.
+
+> Get-InstalledModule
+------------------------------------------------------------
+Uninstall module.
+
+> Uninstall-Module <ModuleName>
+
+Test.
+
+> Uninstall-Module <ModuleName> -WhatIf
+================================================================================
+For already installed modules.
+------------------------------------------------------------
 Check loaded modules.
 
 > Get-Module

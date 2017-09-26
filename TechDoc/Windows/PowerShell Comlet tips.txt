@@ -86,6 +86,16 @@ List all PowerShell cmdlets from core module.
 
 > Get-Command -Module Microsoft.PowerShell*
 ------------------------------------------------------------
+Find all compatibility aliases.
+The alias for mapping commands used in old shell.
+
+> Get-ChildItem Alias: | Where  Options -NotMatch "ReadOnly"
+
+Find all canonical aliases.
+The alias for mapping commands used in PowerShell.
+
+> Get-ChildItem Alias: | Where  Options -Match "ReadOnly"
+------------------------------------------------------------
 List all member of a Cmdlet.
 
 Options:

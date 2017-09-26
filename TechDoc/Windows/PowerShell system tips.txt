@@ -82,5 +82,5 @@ Check CPU usage.
 
 Better format.
 
-> Get-Counter '\Process(*)\% Processor Time' | Select -ExpandProperty CounterSamples | Select -Property InstanceName, CookedValue | Sort CookedValue -Descending  | Select -First 20 | Format-Table InstanceName, @{L='CPU';E={($_.Cookedvalue/100).toString('P')}} -AutoSize
+> Get-Counter '\Process(*)\% Processor Time' | Select -ExpandProperty CounterSamples | Select -Property InstanceName, CookedValue | Sort CookedValue -Descending | Select -First 20 | Format-Table InstanceName, @{L='CPU';E={($_.Cookedvalue/100).toString('P')}} -AutoSize
 ================================================================================
