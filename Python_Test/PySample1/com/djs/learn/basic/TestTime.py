@@ -63,7 +63,7 @@ print("timeit(2) time =", timeit(
 
 print("-" * 40)
 
-time_point1 = 1500000000
+time_point1 = time()
 print("time point1 =", time_point1)
 time_tuple = localtime(time_point1)
 print("time point1 (tuple) =", time_tuple)

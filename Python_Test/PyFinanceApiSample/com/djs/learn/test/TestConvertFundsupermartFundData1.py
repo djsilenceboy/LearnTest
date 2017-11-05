@@ -8,8 +8,9 @@ Update log: (date / version / author : comments)
 
 from com.djs.learn.dataformat import ConvertFundsupermartFundData1
 
-__input_file_path = "../../../../Temp/Fundsupermart_FundData.json"
-__output_file_path = "../../../../Temp/Fundsupermart_FundData_1.csv"
+__base_file_name = "Fundsupermart_FundData"
+__input_file_path = "../../../../Temp/{0}.json".format(__base_file_name)
+__output_file_path = "../../../../Temp/{0}.csv".format(__base_file_name)
 
 # Test usage.
 # argv = []

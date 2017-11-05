@@ -1,0 +1,208 @@
+================================================================================
+# Table with date range
+
+CREATE TABLE employment (id serial PRIMARY KEY, employee varchar(20), period daterange);
+CREATE INDEX idx_employment_period ON employment USING gist (period);
+INSERT INTO employment (employee, period) VALUES ('Alex', '[2012-04-24, infinity)'::daterange), ('Sonia', '[2011-04-24, 2012-06-01)'::daterange), ('Leo', '[2012-06-20, 2013-04-20)'::daterange), ('Regina', '[2012-06-20, 2013-04-20)'::daterange);
+------------------------------------------------------------
+# Who worked with whom?
+
+SELECT e1.employee, string_agg(DISTINCT e2.employee, ', ' ORDER BY e2.employee) As colleagues
+FROM employment As e1 INNER JOIN employment As e2 ON e1.period && e2.period
+WHERE e1.employee <> e2.employee
+GROUP BY e1.employee;
+------------------------------------------------------------
+# Who is currently working?
+
+SELECT employee FROM employment WHERE period @> CURRENT_DATE GROUP BY employee;
+================================================================================
+# Populating JSON field
+
+CREATE TABLE families_j (id serial PRIMARY KEY, profile json);
+INSERT INTO families_j (profile) VALUES (
+'{"name":"Gomez", "members":[
+{"member":{"relation":"padre", "name":"Alex"}},
+{"member":{"relation":"madre", "name":"Sonia"}},
+{"member":{"relation":"hijo", "name":"Brandon"}},
+{"member":{"relation":"hija", "name":"Azaleah"}}
+]}');
+------------------------------------------------------------
+# Query subelements
+
+SELECT json_extract_path_text(profile, 'name') As family,
+       json_extract_path_text( json_array_elements(json_extract_path(profile,'members') ),
+       'member','name' ) As member
+FROM families_j;
+------------------------------------------------------------
+# Extract path equivalent operators
+# The ->> and #>> operators are shorthand for json_extract_path_text. The #>> takes a path array.
+
+SELECT profile ->> 'name' As family,
+       json_array_elements((profile->'members')) #>> '{member,name}'::text[] As member
+FROM families_j;
+------------------------------------------------------------
+# Query subelements of members
+# use json_array_length to get a count of elements and -> with an index position to return specific index element.
+# The -> operator always returns a json or jsonb object, but it takes as a second argument either a text field (shorthand for json_object_field) or an integer (shorthand for json_array_element).
+
+SELECT id, json_array_length(profile->'members') As numero,
+       profile -> 'members' -> 0 #>> '{member,name}'::text[] As primero
+FROM families_j;
+------------------------------------------------------------
+# Converting rows to individual JSON objects (requires version 9.3 or later)
+
+SELECT row_to_json(f) As x
+FROM (SELECT id, profile ->> 'name' As name FROM families_j) As f;
+================================================================================
+# Populating JSON field
+
+CREATE TABLE families_b (id serial PRIMARY KEY, profile jsonb);
+INSERT INTO families_b (profile) VALUES (
+'{"name":"Gomez", "members":[
+{"member":{"relation":"padre", "name":"Alex"}},
+{"member":{"relation":"madre", "name":"Sonia"}},
+{"member":{"relation":"hijo", "name":"Brandon"}},
+{"member":{"relation":"hija", "name":"Azaleah"}}
+]}');
+------------------------------------------------------------
+# jsonb vs. json output
+
+SELECT profile As b FROM families_b WHERE id = 1;
+SELECT profile As j FROM families_j WHERE id = 1;
+------------------------------------------------------------
+# jsonb contains operator
+
+SELECT profile->>'name' As family
+FROM families_b
+WHERE profile @> '{"members":[{"member":{"name":"Alex"} }]}';
+================================================================================
+# Populate XML field
+
+CREATE TABLE families (id serial PRIMARY KEY, profile xml);
+INSERT INTO families(profile) VALUES (
+'<family name="Gomez">
+<member><relation>padre</relation><name>Alex</name></member>
+<member><relation>madre</relation><name>Sonia</name></member>
+<member><relation>hijo</relation><name>Brandon</name></member>
+<member><relation>hija</relation><name>Azaleah</name></member>
+</family>');
+------------------------------------------------------------
+# Ensure that all records have at least one member relation
+
+ALTER TABLE families ADD CONSTRAINT chk_has_relation
+CHECK (xpath_exists('/family/member/relation', profile));
+----------------------------------------
+INSERT INTO families (profile) VALUES ('<family name="HsuObe"></family>');
+
+ERROR:  new row for relation "families" violates check constraint "chk_has_relation"
+DETAIL:  Failing row contains (2, <family name="HsuObe"></family>).
+------------------------------------------------------------
+# Query XML field
+
+SELECT family,
+       (xpath('/member/relation/text()', f))[1]::text As relation,
+       (xpath('/member/name/text()', f))[1]::text As mem_name
+FROM (SELECT (xpath('/family/@name', profile))[1]::text As family,
+      unnest(xpath('/family/member', profile)) As f FROM families) x;
+================================================================================
+Turducken
+------------------------------------------------------------
+CREATE TABLE chickens (id integer PRIMARY KEY);
+CREATE TABLE ducks (id integer PRIMARY KEY, chickens chickens[]);
+CREATE TABLE turkeys (id integer PRIMARY KEY, ducks ducks[]);
+INSERT INTO ducks VALUES (1, ARRAY[ROW(1)::chickens, ROW(1)::chickens]);
+INSERT INTO turkeys VALUES (1, array(SELECT d FROM ducks d));
+
+SELECT * FROM turkeys;
+
+UPDATE turkeys SET ducks[1].chickens[2] = ROW(3)::chickens
+WHERE id = 1 RETURNING *;
+================================================================================
+Building Custom Data Types
+------------------------------------------------------------
+CREATE TYPE complex_number AS (r double precision, i double precision);
+CREATE TABLE circuits (circuit_id serial PRIMARY KEY, ac_volt complex_number);
+
+INSERT INTO circuits VALUES (1, (1.1, 2.2)::complex_number), (2, (3.3, 4.4)::complex_number), (3, (5.5, 6.6)::complex_number);
+
+SELECT circuit_id, (ac_volt).* FROM circuits;
+SELECT circuit_id, (ac_volt).r, (ac_volt).i FROM circuits;
+------------------------------------------------------------
+# Add function for complex number.
+
+CREATE OR REPLACE FUNCTION add(complex_number, complex_number) RETURNS complex_number AS
+$$
+SELECT ((COALESCE(($1).r,0) + COALESCE(($2).r,0)),
+        (COALESCE(($1).i,0) + COALESCE(($2).i,0)))::complex_number;
+$$
+language sql;
+------------------------------------------------------------
+# Create a symbolic operator to wrap the function. "+" operator for complex number.
+
+CREATE OPERATOR +(
+  PROCEDURE = add,
+  LEFTARG = complex_number,
+  RIGHTARG = complex_number,
+  COMMUTATOR = +);
+------------------------------------------------------------
+# Test "+" operator.
+
+SELECT (1, 2)::complex_number + (3, -4)::complex_number;
+================================================================================
+Basic Table Creation
+------------------------------------------------------------
+CREATE TABLE logs ( log_id serial PRIMARY KEY, user_name varchar(50), description text, log_ts timestamp with time zone NOT NULL DEFAULT current_timestamp);
+CREATE INDEX idx_logs_log_ts ON logs USING btree (log_ts);
+================================================================================
+Inherited table creation
+------------------------------------------------------------
+CREATE TABLE logs_ex (PRIMARY KEY(log_id)) INHERITS (logs);
+CREATE INDEX idx_logs_ex_log_ts ON logs USING btree(log_ts);
+ALTER TABLE logs_ex ADD CONSTRAINT chk_logs_ex
+CHECK (log_ts >= '2017-1-1'::timestamptz AND log_ts < '2018-1-1'::timestamptz);
+================================================================================
+Unlogged table creation
+------------------------------------------------------------
+CREATE UNLOGGED TABLE web_sessions ( session_id text PRIMARY KEY, add_ts timestamptz, upd_ts timestamptz, session_state xml);
+================================================================================
+Type of
+------------------------------------------------------------
+CREATE TYPE basic_user AS (user_name varchar(50), pwd varchar(10));
+CREATE TABLE super_users OF basic_user (CONSTRAINT pk_su PRIMARY KEY (user_name));
+ALTER TYPE basic_user ADD ATTRIBUTE phone varchar(10) CASCADE;
+================================================================================
+# Unique Constraints
+
+ALTER TABLE logs_ex ADD CONSTRAINT uq UNIQUE (user_name,log_ts);
+------------------------------------------------------------
+# Check Constraints
+
+ALTER TABLE logs ADD CONSTRAINT chk CHECK (user_name = lower(user_name));
+------------------------------------------------------------
+# Exclusion Constraints
+
+CREATE TABLE schedules(id serial primary key, room smallint, time_slot tstzrange);
+ALTER TABLE schedules ADD CONSTRAINT ex_schedules EXCLUDE USING gist (room WITH =, time_slot WITH &&);
+================================================================================
+Operator Classes
+------------------------------------------------------------
+# Which data types and operator classes does B-Tree support?
+
+SELECT am.amname AS index_method, opc.opcname AS opclass_name,
+       opc.opcintype::regtype AS indexed_type, opc.opcdefault AS is_default
+FROM pg_am am INNER JOIN pg_opclass opc ON opc.opcmethod = am.oid
+WHERE am.amname = 'btree'
+ORDER BY index_method, indexed_type, opclass_name;
+================================================================================
+Functional Indexes
+
+CREATE INDEX fidx ON featnames_short USING btree (upper(fullname) varchar_pattern_ops);
+------------------------------------------------------------
+Partial Indexes
+
+CREATE TABLE subscribers (
+  id serial PRIMARY KEY,
+  name varchar(50) NOT NULL, type varchar(50),
+  is_active boolean);
+CREATE UNIQUE INDEX uq ON subscribers USING btree(lower(name)) WHERE is_active;
+================================================================================

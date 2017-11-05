@@ -6,14 +6,20 @@ Update log: (date / version / author : comments)
 '''
 
 
+from time import time, localtime, strftime
+
 from com.djs.learn.financeapi import CheckFundsupermartFundData
+
 
 # The path must be absolute path.
 __geckodriver_file_path = "D:\Download\Shared\geckodriver.exe"
 __geckodriver_log_file_path = "../../../../Temp/geckodriver.log"
 
+time_str = strftime("%Y%m%d_%H%M%S", localtime(time()))
+
 __fund_info_file_path = "../../../../etc/Fundsupermart_FundInfo.csv"
-__result_output_file_path = "../../../../Temp/Fundsupermart_FundData.json"
+__result_output_file_path = "../../../../Temp/Fundsupermart_FundData_{0}.json".format(
+    time_str)
 
 # Test usage.
 # argv = []

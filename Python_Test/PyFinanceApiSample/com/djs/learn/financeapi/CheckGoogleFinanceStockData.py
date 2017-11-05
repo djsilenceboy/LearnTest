@@ -1,8 +1,8 @@
 '''
-Check Fundsupermart fund data.
+Check Google finance stock data.
 
 Update log: (date / version / author : comments)
-2017-08-06 / 1.0.0 / Du Jiang : Creation
+2017-11-05 / 1.0.0 / Du Jiang : Creation
 
 Note that:
 1. This version ONLY supports Firefox.
@@ -27,7 +27,7 @@ from selenium.webdriver.common.keys import Keys
 
 # Global variables.
 # The value can be updated by command line options.
-__fund_info_file_path = None
+__stock_info_file_path = None
 __result_output_file_path = None
 __geckodriver_file_path = None
 __geckodriver_log_file_path = None
@@ -54,21 +54,22 @@ class Constants(object):
     RESULT_OK = "Ok"
     RESULT_ERROR = "Error"
 
-    FUNDS = "Funds"
+    STOCKS = "Stocks"
     RECORDS_NUMBER = "Records number"
     RECORD = "Record"
 
     START_TIME = "Start time"
     STOP_TIME = "Stop time"
 
-    FUND_NAME = "Fund name"
-    FUND_ID = "Fund ID"
+    STOCK_NAME = "Stock name"
+    EXCHANGE = "Exchange"
+    TICKER = "Ticker"
 
     URL = "URL"
-    API_URL = "https://secure.fundsupermart.com/fsm/funds/factsheet/{0}"
+    API_URL = "http://finance.google.com/finance?q={0}"
     STATUS_CODE = "Status code"
 
-    FUND_DATA = "Fund data"
+    STOCK_DATA = "Stock data"
 
     SECTION_BANNER_INFO = "Banner info"
     SECTION_OFFER_TO_BID_INFO = "Offer to bid info"
@@ -101,7 +102,7 @@ def check_url(url):
     return status_code
 
 
-def get_fund_data(browser, results):
+def get_stock_data(browser, results):
     '''
     Open URL and get data
 
@@ -222,18 +223,18 @@ def get_fund_data(browser, results):
                             results[Constants.SECTION_RELEVANT_CHARGES][element_data[1]
                                                                         ] = element_data[0]
 
-        print("Get fund data: ok.")
+        print("Get stock data: ok.")
         print("-" * 40)
     except Exception as e:
-        print("Get fund data: Exception = {0}".format(e))
+        print("Get stock data: Exception = {0}".format(e))
         raise e
 
 
-def inspect_fund(record):
+def inspect_stock(record):
     '''
-    Inspect fund info page.
+    Inspect stock info page.
 
-    @param record: [fund name, fund id] 
+    @param record: [stock name, exchange, ticker] 
     @return : Dict with return results.
     '''
 
@@ -246,19 +247,25 @@ def inspect_fund(record):
     print("Start time =", time_str)
     results[Constants.START_TIME] = time_str
 
-    fund_name, fund_id = record
-    fund_name = fund_name.strip()
-    fund_id = fund_id.strip()
-    print("fund_name =", fund_name)
-    print("fund_id =", fund_id)
+    stock_name, exchange, ticker = record
+    stock_name = stock_name.strip()
+    exchange = exchange.strip()
+    ticker = ticker.strip()
+    print("stock_name =", stock_name)
+    print("exchange =", exchange)
+    print("ticker =", ticker)
 
     results[Constants.RECORD] = {}
-    results[Constants.RECORD][Constants.FUND_NAME] = fund_name
-    results[Constants.RECORD][Constants.FUND_ID] = fund_id
+    results[Constants.RECORD][Constants.STOCK_NAME] = stock_name
+    results[Constants.RECORD][Constants.EXCHANGE] = exchange
+    results[Constants.RECORD][Constants.TICKER] = ticker
 
     browser = None
     try:
-        url = Constants.API_URL.format(fund_id)
+        if exchange:
+            url = Constants.API_URL.format("{0}:{1}".format(exchange, ticker))
+        else:
+            url = Constants.API_URL.format(ticker)
         print("url =", url)
         results[Constants.URL] = url
 
@@ -282,16 +289,16 @@ def inspect_fund(record):
         sleep(Constants.WAIT_TIME_LOAD_PAGE)
         print("-" * 40)
 
-        # Get fund data.
-        results[Constants.FUND_DATA] = {}
-        get_fund_data(browser, results[Constants.FUND_DATA])
+        # Get stock data.
+        results[Constants.STOCK_DATA] = {}
+        get_stock_data(browser, results[Constants.STOCK_DATA])
         sleep(Constants.WAIT_TIME_VIEW_PAGE)
         print("-" * 40)
 
-        print("Inspect fund: <{0}> ok.".format(fund_id))
+        print("Inspect stock: <{0}> ok.".format(ticker))
         results[Constants.RESULT] = Constants.RESULT_OK
     except Exception as e:
-        print("Inspect fund: <{0}> Exception = {1}".format(fund_id, e))
+        print("Inspect stock: <{0}> Exception = {1}".format(ticker, e))
         results[Constants.RESULT] = Constants.RESULT_ERROR
         results[Constants.ERROR] = repr(e)
     finally:
@@ -307,16 +314,16 @@ def inspect_fund(record):
     return results
 
 
-def process_fund_list():
+def process_stock_list():
     '''
-    Get a list of fund info from a config file.
+    Get a list of stock info from a config file.
     Inspect each of them.
 
     @return: Dict with return results.
     '''
 
     global __concurrent_max_workers
-    global __fund_info_file_path
+    global __stock_info_file_path
     global __result_output_file_path
 
     results = {}
@@ -327,10 +334,10 @@ def process_fund_list():
     results[Constants.START_TIME] = time_str
 
     try:
-        results[Constants.FUNDS] = {}
+        results[Constants.STOCKS] = {}
 
         # Open input file.
-        with open(__fund_info_file_path) as record_file:
+        with open(__stock_info_file_path) as record_file:
             print('record_file =', record_file)
             cin = csv.reader(record_file)
             # Get all records.
@@ -341,17 +348,17 @@ def process_fund_list():
             results[Constants.RECORDS_NUMBER] = len(records)
         print("-" * 80)
 
-        # Inspect each fund concurrently.
+        # Inspect each stock concurrently.
         with ThreadPoolExecutor(max_workers=__concurrent_max_workers) as executor:
             # Wait for result to return.
-            for record, result in zip(records, executor.map(inspect_fund, records)):
-                fund_id = record[1].strip()
-                results[Constants.FUNDS][fund_id] = result
+            for record, result in zip(records, executor.map(inspect_stock, records)):
+                ticker = record[2].strip()
+                results[Constants.STOCKS][ticker] = result
 
         print("-" * 80)
-        print("Process fund list: ok.")
+        print("Process stock list: ok.")
     except Exception as e:
-        print("Process fund list: Exception = {0}".format(e))
+        print("Process stock list: Exception = {0}".format(e))
 
     time_str = strftime("%Y-%m-%d %H:%M:%S", localtime(time()))
     print("Stop time =", time_str)
@@ -382,7 +389,7 @@ def process_fund_list():
 
 def usage():
     print('''
-Check Fundsupermart fund data.
+Check Fundsupermart stock data.
 
 Usage:
 -h
@@ -415,7 +422,7 @@ def main(argv):
     @param argv: A list of arguments
     '''
 
-    global __fund_info_file_path
+    global __stock_info_file_path
     global __result_output_file_path
     global __geckodriver_file_path
     global __geckodriver_log_file_path
@@ -449,7 +456,7 @@ def main(argv):
                 if opt == "-h":
                     __show_usage, __exit_code = True, 0
                 elif opt == "-i":
-                    __fund_info_file_path = arg
+                    __stock_info_file_path = arg
                 elif opt == "-o":
                     __result_output_file_path = arg
                 elif opt == "-w":
@@ -467,7 +474,7 @@ def main(argv):
                 3, "Wrong value for command line option."
 
     print("show_usage =", __show_usage)
-    print("fund_info_file_path =", __fund_info_file_path)
+    print("stock_info_file_path =", __stock_info_file_path)
     print("result_output_file_path", __result_output_file_path)
     print("geckodriver_file_path =", __geckodriver_file_path)
     print("geckodriver_log_file_path =", __geckodriver_log_file_path)
@@ -475,14 +482,14 @@ def main(argv):
 
     # Check options are valid.
     if not __show_usage:
-        if (not __fund_info_file_path) or (not __geckodriver_file_path):
+        if (not __stock_info_file_path) or (not __geckodriver_file_path):
             __show_usage, __exit_code, __error_message = True, - \
                 4, "Missing compulsory command line option."
         elif __concurrent_max_workers < 1:
             __show_usage, __exit_code, __error_message = True, -5, "Wrong value for -c."
 
     if not __show_usage:
-        process_fund_list()
+        process_stock_list()
     else:
         print("__exit_code =", __exit_code)
         if __error_message:
