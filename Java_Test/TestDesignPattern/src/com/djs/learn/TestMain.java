@@ -66,7 +66,7 @@ import com.djs.learn.structural.proxy.SubjectInterface;
 public class TestMain
 {
 	public void testFacotry(){
-		System.out.println("Test pattern: Creational / Facotry (Virtual Constructor)\n");
+		System.out.println("Test pattern: Creational / Factory (Virtual Constructor)\n");
 
 		Factory factory = new Factory();
 		ProductType[] productTypes = new ProductType[]{ProductType.ProductTypeA, ProductType.ProductTypeB};
@@ -78,7 +78,7 @@ public class TestMain
 	}
 
 	public void testAbstractedFacotry(){
-		System.out.println("Test pattern: Creational / Abstracted Facotry (Kit)\n");
+		System.out.println("Test pattern: Creational / Abstracted Factory (Kit)\n");
 
 		FactoryInterface[] factories = new FactoryInterface[]{new ProductTypeAFactory(), new ProductTypeBFactory()};
 
@@ -285,7 +285,7 @@ public class TestMain
 		subject.register(new Observer("Dog"));
 		subject.register(new Observer("Bird"));
 
-		subject.notify("Rain comming!");
+		subject.notify("Rain is coming!");
 	}
 
 	public void testState(){

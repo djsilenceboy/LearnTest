@@ -8,7 +8,7 @@ import com.djs.learn.creational.common.ProductInterface;
 public class BuilderB extends AbstractBuilder
 {
 	public BuilderB(){
-		builderType = BuilderType.BuilderTypeA;
+		builderType = BuilderType.BuilderTypeB;
 		name = BuilderB.class.getSimpleName();
 
 		System.out.println("Create builder: " + name);
