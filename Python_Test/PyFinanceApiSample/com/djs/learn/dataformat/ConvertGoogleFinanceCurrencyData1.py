@@ -1,8 +1,8 @@
 '''
-Convert Fundsupermart fund data: From JSON to CSV.
+Convert Google finance currency data: From JSON to CSV.
 
 Update log: (date / version / author : comments)
-2017-08-13 / 1.0.0 / Du Jiang : Creation
+2017-11-07 / 1.0.0 / Du Jiang : Creation
 '''
 
 from collections import OrderedDict
@@ -24,23 +24,24 @@ class Constants(object):
     Use a class to keep constant variables.
     '''
 
-    FUNDS = "Funds"
+    CURRENCIES = "Currencies"
     RECORD = "Record"
 
-    FUND_ID = "Fund ID"
-    FUND_NAME = "Fund name"
+    RECORD = "Record"
+
+    CURRENCY_INFO = "Currency info"
+    CURRENCY_INFO_FROM_SYMBOL = "From symbol"
+    CURRENCY_INFO_TO_SYMBOL = "To symbol"
+
+    EXCHANGE_INFO = "Exchange info"
+    EXCHANGE_INFO_VALUE = "Value"
+
     URL = "URL"
-    FUND_DATA = "Fund data"
-
-    SECTION_BANNER_INFO = "Banner info"
-    SECTION_OFFER_TO_BID_INFO = "Offer to bid info"
-    SECTION_BID_TO_OFFER_INFO = "Bid to offer info"
-    SECTION_RELEVANT_CHARGES = "Relevant charges"
 
 
-def process_fund_list():
+def process_currency_list():
     '''
-    Get a list of fund info from a config file.
+    Get a list of currency info from a config file.
 
     @return: Dict with return results.
     '''
@@ -58,39 +59,23 @@ def process_fund_list():
         # Open input file.
         with open(__json_file_path) as input_file:
             print('input_file =', input_file)
-            fund_data = json.load(input_file, object_pairs_hook=OrderedDict)
-            print('fund_data =', fund_data)
+            currency_data = json.load(
+                input_file, object_pairs_hook=OrderedDict)
+            print('currency_data =', currency_data)
 
         print("-" * 80)
 
         add_field_name = True
-        for _, record_value in fund_data[Constants.FUNDS].items():
+        for _, record_value in currency_data[Constants.CURRENCIES].items():
             record = {}
-            record[Constants.FUND_NAME] = record_value[Constants.RECORD][Constants.FUND_NAME]
-            record[Constants.FUND_ID] = record_value[Constants.RECORD][Constants.FUND_ID]
+            record[Constants.CURRENCY_INFO_FROM_SYMBOL] = record_value[Constants.CURRENCY_INFO][Constants.CURRENCY_INFO_FROM_SYMBOL]
+            record[Constants.CURRENCY_INFO_TO_SYMBOL] = record_value[Constants.CURRENCY_INFO][Constants.CURRENCY_INFO_TO_SYMBOL]
+            record[Constants.EXCHANGE_INFO_VALUE] = record_value[Constants.EXCHANGE_INFO][Constants.EXCHANGE_INFO_VALUE]
 
             if add_field_name:
-                field_names.append(Constants.FUND_NAME)
-                field_names.append(Constants.FUND_ID)
-
-            # Following iteration must be sorted for adding field names in
-            # correct order.
-
-            for item_key, item_value in sorted(record_value[Constants.FUND_DATA][Constants.SECTION_BANNER_INFO].items()):
-                record[item_key] = item_value
-                if add_field_name:
-                    field_names.append(item_key)
-
-            for item_key, item_value in sorted(record_value[Constants.FUND_DATA][Constants.SECTION_OFFER_TO_BID_INFO].items()):
-                record[item_key] = item_value
-                if add_field_name:
-                    field_names.append(item_key)
-
-            for item_key, item_value in sorted(record_value[Constants.FUND_DATA][Constants.SECTION_RELEVANT_CHARGES].items()):
-                if "Annual" in item_key:
-                    record[item_key] = item_value
-                    if add_field_name:
-                        field_names.append(item_key)
+                field_names.append(Constants.CURRENCY_INFO_FROM_SYMBOL)
+                field_names.append(Constants.CURRENCY_INFO_TO_SYMBOL)
+                field_names.append(Constants.EXCHANGE_INFO_VALUE)
 
             record[Constants.URL] = record_value[Constants.URL]
             if add_field_name:
@@ -106,9 +91,9 @@ def process_fund_list():
 
         print("-" * 80)
 
-        print("Process fund list: ok.")
+        print("Process currency list: ok.")
     except Exception as e:
-        print("Process fund list: Exception = {0}".format(e))
+        print("Process currency list: Exception = {0}".format(e))
 
     time_str = strftime("%Y-%m-%d %H:%M:%S", localtime(time()))
     print("Stop time =", time_str)
@@ -141,7 +126,7 @@ def process_fund_list():
 
 def usage():
     print('''
-Convert Fundsupermart fund data: From JSON to CSV.
+Convert Google finance currency data: From JSON to CSV.
 
 Usage:
 -h
@@ -213,7 +198,7 @@ def main(argv):
                 4, "Missing compulsory command line option."
 
     if not __show_usage:
-        process_fund_list()
+        process_currency_list()
     else:
         print("__exit_code =", __exit_code)
         if __error_message:

@@ -39,6 +39,8 @@ class Constants(object):
     Use a class to keep constant variables.
     '''
 
+    MAX_TRY = 3
+
     # Seconds.
     WAIT_TIME_LOAD_PAGE = 10
     WAIT_TIME_LOGIN_AND_LOAD = 20
@@ -276,22 +278,33 @@ def inspect_fund(record):
         print("browser =", browser)
         print("-" * 60)
 
-        # Load page.
-        browser.get(url)
-        # Wait for page to be fully loaded.
-        sleep(Constants.WAIT_TIME_LOAD_PAGE)
-        print("-" * 40)
+        for i in range(0, Constants.MAX_TRY):
+            try:
+                # Load page.
+                browser.get(url)
+                # Wait for page to be fully loaded.
+                sleep(Constants.WAIT_TIME_LOAD_PAGE)
+                print("-" * 40)
 
-        # Get fund data.
-        results[Constants.FUND_DATA] = {}
-        get_fund_data(browser, results[Constants.FUND_DATA])
-        sleep(Constants.WAIT_TIME_VIEW_PAGE)
-        print("-" * 40)
+                # Get fund data.
+                results[Constants.FUND_DATA] = {}
+                get_fund_data(browser, results[Constants.FUND_DATA])
+                sleep(Constants.WAIT_TIME_VIEW_PAGE)
+                print("-" * 40)
 
-        print("Inspect fund: <{0}> ok.".format(fund_id))
-        results[Constants.RESULT] = Constants.RESULT_OK
+                print("Inspect fund: <{0}> ok.".format(fund_id))
+                results[Constants.RESULT] = Constants.RESULT_OK
+
+                # It is ok, no need retry.
+                break
+            except Exception as e:
+                print("Inspect fund <{0}>: Count {1}: Exception = {2}".format(
+                    fund_id, i, e))
+                # If reach max try.
+                if (i + 1) == Constants.MAX_TRY:
+                    raise e
     except Exception as e:
-        print("Inspect fund: <{0}> Exception = {1}".format(fund_id, e))
+        print("Inspect fund <{0}>: Exception = {1}".format(fund_id, e))
         results[Constants.RESULT] = Constants.RESULT_ERROR
         results[Constants.ERROR] = repr(e)
     finally:

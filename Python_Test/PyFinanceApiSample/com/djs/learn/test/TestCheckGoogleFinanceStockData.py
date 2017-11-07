@@ -1,24 +1,24 @@
 '''
-Check Fundsupermart fund data helper.
+Check Google finance stock data helper.
 
 Update log: (date / version / author : comments)
-2017-08-06 / 1.0.0 / Du Jiang : Creation
+2017-11-07 / 1.0.0 / Du Jiang : Creation
 '''
 
 
-from com.djs.learn.financeapi import CheckFundsupermartFundData
+from com.djs.learn.financeapi import CheckGoogleFinanceStockData
 
 
 # The path must be absolute path.
 __geckodriver_file_path = "D:\Download\Shared\geckodriver.exe"
 __geckodriver_log_file_path = "../../../../Temp/geckodriver.log"
 
-__fund_info_file_path = "../../../../etc/Fundsupermart_FundInfo.csv"
-__result_output_file_path = "../../../../Temp/Fundsupermart_FundData.json"
+__fund_info_file_path = "../../../../etc/StockInfo.csv"
+__result_output_file_path = "../../../../Temp/StockData.json"
 
 # from time import time, localtime, strftime
 # time_str = strftime("%Y%m%d_%H%M%S", localtime(time()))
-# __result_output_file_path = "../../../../Temp/Fundsupermart_FundData_{0}.json".format(time_str)
+# __result_output_file_path = "../../../../Temp/StockData_{0}.json".format(time_str)
 
 # Test usage.
 # argv = []
@@ -33,13 +33,13 @@ __result_output_file_path = "../../../../Temp/Fundsupermart_FundData.json"
 # argv = ["-i", __fund_info_file_path, "-w", __geckodriver_file_path, "-l", __geckodriver_log_file_path]
 argv = ["-i", __fund_info_file_path, "-o", __result_output_file_path,
         "-w", __geckodriver_file_path, "-l", __geckodriver_log_file_path]
-CheckFundsupermartFundData.main(argv)
+CheckGoogleFinanceStockData.main(argv)
 
 
 '''
 Or run:
 
-python CheckFundsupermartFundData.py -i "../../../../etc/Fundsupermart_FundInfo.csv" -o "../../../../Temp/Fundsupermart_FundData.json" -w "D:\Download\Shared\geckodriver.exe" -l "../../../../Temp/geckodriver.log"
+python CheckGoogleFinanceStockData.py -i "../../../../etc/StockData.csv" -o "../../../../Temp/StockData.json" -w "D:\Download\Shared\geckodriver.exe" -l "../../../../Temp/geckodriver.log"
 '''
 
 if __name__ == '__main__':

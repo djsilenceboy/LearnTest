@@ -1,5 +1,5 @@
 '''
-Convert Fundsupermart fund data: From JSON to CSV.
+Convert Google finance stock data: From JSON to CSV.
 
 Update log: (date / version / author : comments)
 2017-08-13 / 1.0.0 / Du Jiang : Creation
@@ -24,23 +24,27 @@ class Constants(object):
     Use a class to keep constant variables.
     '''
 
-    FUNDS = "Funds"
+    STOCKS = "Stocks"
     RECORD = "Record"
 
-    FUND_ID = "Fund ID"
-    FUND_NAME = "Fund name"
+    RECORD = "Record"
+
+    STOCK_INFO = "Stock info"
+    STOCK_INFO_NAME = "Name"
+    STOCK_INFO_EXCHANGE = "Exchange"
+    STOCK_INFO_TICKER = "Ticker"
+
+    MARKET_INFO = "Market info"
+
+    MARKET_INFO_FILTER = ["52 week high", "52 week low",
+                          "Beta", "Currency", "P/E", "Price"]
+
     URL = "URL"
-    FUND_DATA = "Fund data"
-
-    SECTION_BANNER_INFO = "Banner info"
-    SECTION_OFFER_TO_BID_INFO = "Offer to bid info"
-    SECTION_BID_TO_OFFER_INFO = "Bid to offer info"
-    SECTION_RELEVANT_CHARGES = "Relevant charges"
 
 
-def process_fund_list():
+def process_stock_list():
     '''
-    Get a list of fund info from a config file.
+    Get a list of stock info from a config file.
 
     @return: Dict with return results.
     '''
@@ -58,36 +62,29 @@ def process_fund_list():
         # Open input file.
         with open(__json_file_path) as input_file:
             print('input_file =', input_file)
-            fund_data = json.load(input_file, object_pairs_hook=OrderedDict)
-            print('fund_data =', fund_data)
+            stock_data = json.load(input_file, object_pairs_hook=OrderedDict)
+            print('stock_data =', stock_data)
 
         print("-" * 80)
 
         add_field_name = True
-        for _, record_value in fund_data[Constants.FUNDS].items():
+        for _, record_value in stock_data[Constants.STOCKS].items():
             record = {}
-            record[Constants.FUND_NAME] = record_value[Constants.RECORD][Constants.FUND_NAME]
-            record[Constants.FUND_ID] = record_value[Constants.RECORD][Constants.FUND_ID]
+            record[Constants.STOCK_INFO_NAME] = record_value[Constants.STOCK_INFO][Constants.STOCK_INFO_NAME]
+            record[Constants.STOCK_INFO_EXCHANGE] = record_value[Constants.STOCK_INFO][Constants.STOCK_INFO_EXCHANGE]
+            record[Constants.STOCK_INFO_TICKER] = record_value[Constants.STOCK_INFO][Constants.STOCK_INFO_TICKER]
 
             if add_field_name:
-                field_names.append(Constants.FUND_NAME)
-                field_names.append(Constants.FUND_ID)
+                field_names.append(Constants.STOCK_INFO_NAME)
+                field_names.append(Constants.STOCK_INFO_EXCHANGE)
+                field_names.append(Constants.STOCK_INFO_TICKER)
 
             # Following iteration must be sorted for adding field names in
             # correct order.
 
-            for item_key, item_value in sorted(record_value[Constants.FUND_DATA][Constants.SECTION_BANNER_INFO].items()):
-                record[item_key] = item_value
-                if add_field_name:
-                    field_names.append(item_key)
-
-            for item_key, item_value in sorted(record_value[Constants.FUND_DATA][Constants.SECTION_OFFER_TO_BID_INFO].items()):
-                record[item_key] = item_value
-                if add_field_name:
-                    field_names.append(item_key)
-
-            for item_key, item_value in sorted(record_value[Constants.FUND_DATA][Constants.SECTION_RELEVANT_CHARGES].items()):
-                if "Annual" in item_key:
+            for item_key, item_value in sorted(record_value[Constants.MARKET_INFO].items()):
+                if item_key in Constants.MARKET_INFO_FILTER:
+                    print(item_key, "=", item_value)
                     record[item_key] = item_value
                     if add_field_name:
                         field_names.append(item_key)
@@ -106,9 +103,9 @@ def process_fund_list():
 
         print("-" * 80)
 
-        print("Process fund list: ok.")
+        print("Process stock list: ok.")
     except Exception as e:
-        print("Process fund list: Exception = {0}".format(e))
+        print("Process stock list: Exception = {0}".format(e))
 
     time_str = strftime("%Y-%m-%d %H:%M:%S", localtime(time()))
     print("Stop time =", time_str)
@@ -141,7 +138,7 @@ def process_fund_list():
 
 def usage():
     print('''
-Convert Fundsupermart fund data: From JSON to CSV.
+Convert Google finance stock data: From JSON to CSV.
 
 Usage:
 -h
@@ -213,7 +210,7 @@ def main(argv):
                 4, "Missing compulsory command line option."
 
     if not __show_usage:
-        process_fund_list()
+        process_stock_list()
     else:
         print("__exit_code =", __exit_code)
         if __error_message:
