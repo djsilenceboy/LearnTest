@@ -39,7 +39,7 @@ CheckGoogleFinanceStockData.main(argv)
 '''
 Or run:
 
-python CheckGoogleFinanceStockData.py -i "../../../../etc/StockData.csv" -o "../../../../Temp/StockData.json" -w "D:\Download\Shared\geckodriver.exe" -l "../../../../Temp/geckodriver.log"
+python CheckGoogleFinanceStockData.py -i "../../../../etc/StockInfo.csv" -o "../../../../Temp/StockData.json" -w "D:\Download\Shared\geckodriver.exe" -l "../../../../Temp/geckodriver.log"
 '''
 
 if __name__ == '__main__':

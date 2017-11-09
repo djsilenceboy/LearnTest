@@ -67,7 +67,7 @@ def process_currency_list():
 
         add_field_name = True
         for _, record_value in currency_data[Constants.CURRENCIES].items():
-            record = {}
+            record = OrderedDict()
             record[Constants.CURRENCY_INFO_FROM_SYMBOL] = record_value[Constants.CURRENCY_INFO][Constants.CURRENCY_INFO_FROM_SYMBOL]
             record[Constants.CURRENCY_INFO_TO_SYMBOL] = record_value[Constants.CURRENCY_INFO][Constants.CURRENCY_INFO_TO_SYMBOL]
             record[Constants.EXCHANGE_INFO_VALUE] = record_value[Constants.EXCHANGE_INFO][Constants.EXCHANGE_INFO_VALUE]

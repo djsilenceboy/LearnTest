@@ -69,7 +69,7 @@ def process_stock_list():
 
         add_field_name = True
         for _, record_value in stock_data[Constants.STOCKS].items():
-            record = {}
+            record = OrderedDict()
             record[Constants.STOCK_INFO_NAME] = record_value[Constants.STOCK_INFO][Constants.STOCK_INFO_NAME]
             record[Constants.STOCK_INFO_EXCHANGE] = record_value[Constants.STOCK_INFO][Constants.STOCK_INFO_EXCHANGE]
             record[Constants.STOCK_INFO_TICKER] = record_value[Constants.STOCK_INFO][Constants.STOCK_INFO_TICKER]

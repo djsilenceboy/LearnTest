@@ -37,6 +37,9 @@ class Constants(object):
     SECTION_BID_TO_OFFER_INFO = "Bid to offer info"
     SECTION_RELEVANT_CHARGES = "Relevant charges"
 
+    RELEVANT_CHARGES_FILTER = [
+        "Annual Expense Ratio", "Annual Management Charge"]
+
 
 def process_fund_list():
     '''
@@ -65,7 +68,7 @@ def process_fund_list():
 
         add_field_name = True
         for _, record_value in fund_data[Constants.FUNDS].items():
-            record = {}
+            record = OrderedDict()
             record[Constants.FUND_NAME] = record_value[Constants.RECORD][Constants.FUND_NAME]
             record[Constants.FUND_ID] = record_value[Constants.RECORD][Constants.FUND_ID]
 
@@ -77,17 +80,24 @@ def process_fund_list():
             # correct order.
 
             for item_key, item_value in sorted(record_value[Constants.FUND_DATA][Constants.SECTION_BANNER_INFO].items()):
+                if item_key == "Latest NAV Price":
+                    item_value = item_value.split(" ")[1].strip()
+
                 record[item_key] = item_value
                 if add_field_name:
                     field_names.append(item_key)
 
             for item_key, item_value in sorted(record_value[Constants.FUND_DATA][Constants.SECTION_OFFER_TO_BID_INFO].items()):
+                if item_value == "-":
+                    item_value = ""
                 record[item_key] = item_value
                 if add_field_name:
                     field_names.append(item_key)
 
             for item_key, item_value in sorted(record_value[Constants.FUND_DATA][Constants.SECTION_RELEVANT_CHARGES].items()):
-                if "Annual" in item_key:
+                if item_key in Constants.RELEVANT_CHARGES_FILTER:
+                    if item_value == "-":
+                        item_value = ""
                     record[item_key] = item_value
                     if add_field_name:
                         field_names.append(item_key)
