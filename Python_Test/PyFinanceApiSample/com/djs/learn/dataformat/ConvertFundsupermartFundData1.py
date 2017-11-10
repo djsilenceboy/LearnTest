@@ -27,6 +27,9 @@ class Constants(object):
     FUNDS = "Funds"
     RECORD = "Record"
 
+    RESULT = "Result"
+    RESULT_ERROR = "Error"
+
     FUND_ID = "Fund ID"
     FUND_NAME = "Fund name"
     URL = "URL"
@@ -67,7 +70,14 @@ def process_fund_list():
         print("-" * 80)
 
         add_field_name = True
-        for _, record_value in fund_data[Constants.FUNDS].items():
+        for item, record_value in fund_data[Constants.FUNDS].items():
+            print("item =", item)
+
+            if record_value[Constants.RESULT] == Constants.RESULT_ERROR:
+                print("Result =", record_value[Constants.RESULT_ERROR])
+                print("-" * 60)
+                continue
+
             record = OrderedDict()
             record[Constants.FUND_NAME] = record_value[Constants.RECORD][Constants.FUND_NAME]
             record[Constants.FUND_ID] = record_value[Constants.RECORD][Constants.FUND_ID]

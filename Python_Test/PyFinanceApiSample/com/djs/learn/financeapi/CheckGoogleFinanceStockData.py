@@ -119,28 +119,31 @@ def get_stock_data(browser, results):
     try:
        # Appbar section.
 
-        appbar_section = browser.find_element_by_id("appbar")
-
-        if not appbar_section:
+        try:
+            appbar_section = browser.find_element_by_id("appbar")
+            print("appbar_section =", appbar_section)
+        except Exception:
             raise Exception("Cannot find appbar section.")
-        print("appbar_section =", appbar_section)
         results[Constants.SECTION_STOCK_INFO] = {}
 
-        stock_info_name_section = appbar_section.find_element_by_class_name(
-            "appbar-snippet-primary")
-        if not stock_info_name_section:
+        try:
+            stock_info_name_section = appbar_section.find_element_by_class_name(
+                "appbar-snippet-primary")
+            print("stock_info_name_section =", stock_info_name_section)
+        except Exception:
             raise Exception("Cannot find stock_info_name section.")
-        print("stock_info_name_section =", stock_info_name_section)
 
         stock_info_name = stock_info_name_section.text
         print("stock_info_name =", stock_info_name)
         results[Constants.SECTION_STOCK_INFO][Constants.STOCK_INFO_NAME] = stock_info_name
 
-        stock_exchange_ticker_section = appbar_section.find_element_by_class_name(
-            "appbar-snippet-secondary")
-        if not stock_exchange_ticker_section:
+        try:
+            stock_exchange_ticker_section = appbar_section.find_element_by_class_name(
+                "appbar-snippet-secondary")
+            print("stock_exchange_ticker_section =",
+                  stock_exchange_ticker_section)
+        except Exception:
             raise Exception("Cannot find stock_exchange_ticker section.")
-        print("stock_exchange_ticker_section =", stock_exchange_ticker_section)
 
         stock_exchange_ticker = stock_exchange_ticker_section.text
         print("stock_exchange_ticker =", stock_exchange_ticker)
@@ -150,79 +153,87 @@ def get_stock_data(browser, results):
 
         # App section.
 
-        app_section = browser.find_element_by_id("app")
-
-        if not app_section:
+        try:
+            app_section = browser.find_element_by_id("app")
+            print("app_section =", app_section)
+        except Exception:
             raise Exception("Cannot find app section.")
-        print("app_section =", app_section)
         results[Constants.SECTION_MARKET_INFO] = {}
 
-        price_info_section = app_section.find_element_by_id(
-            "price-panel")
-        if not price_info_section:
+        try:
+            price_info_section = app_section.find_element_by_id("price-panel")
+            print("price_info_section =", price_info_section)
+        except Exception:
             raise Exception("Cannot find price_info section.")
-        print("price_info_section =", price_info_section)
 
-        price_section = price_info_section.find_element_by_class_name("pr")
-        if not price_section:
+        try:
+            price_section = price_info_section.find_element_by_class_name("pr")
+            print("price_section =", price_section)
+        except Exception:
             raise Exception("Cannot find price section.")
-        print("price_section =", price_section)
         results[Constants.SECTION_MARKET_INFO][Constants.MARKET_INFO_PRICE] = price_section.text
 
-        currency_section = price_info_section.find_element_by_class_name(
-            "mdata-dis")
-        if not currency_section:
+        try:
+            currency_section = price_info_section.find_element_by_class_name(
+                "mdata-dis")
+            print("currency_section =", currency_section)
+        except Exception:
             raise Exception("Cannot find currency section.")
-        print("currency_section =", currency_section)
         results[Constants.SECTION_MARKET_INFO][Constants.MARKET_INFO_CURRENCY] = currency_section.text[-3:]
 
-        misc_info_section = app_section.find_element_by_class_name(
-            "snap-panel-and-plusone")
-        if not misc_info_section:
+        try:
+            misc_info_section = app_section.find_element_by_class_name(
+                "snap-panel-and-plusone")
+            print("misc_info_section =", misc_info_section)
+        except Exception:
             raise Exception("Cannot find misc_info section.")
-        print("misc_info_section =", misc_info_section)
 
-        table_entry_sections = misc_info_section.find_elements_by_tag_name(
-            "tr")
-        if not table_entry_sections:
+        try:
+            table_entry_sections = misc_info_section.find_elements_by_tag_name(
+                "tr")
+            print("table_entry_sections =", table_entry_sections)
+        except Exception:
             raise Exception("Cannot find table_entry section.")
-        print("table_entry_sections =", table_entry_sections)
 
         for table_entry_section in table_entry_sections:
             print("table_entry_section =", table_entry_section.text)
-            key_section = table_entry_section.find_element_by_class_name("key")
-            print("key_section =", key_section.text)
-            value_section = table_entry_section.find_element_by_class_name(
-                "val")
-            print("value_section =", value_section.text)
-            if key_section and value_section:
-                key = key_section.text.strip()
-                value = value_section.text.strip()
-                if value == "-":
-                    value = ""
+            try:
+                key_section = table_entry_section.find_element_by_class_name(
+                    "key")
+                print("key_section =", key_section.text)
+                value_section = table_entry_section.find_element_by_class_name(
+                    "val")
+                print("value_section =", value_section.text)
+            except Exception:
+                raise Exception("Cannot find key/value section.")
 
-                if key == Constants.MARKET_INFO_52WEEK:
-                    if value:
-                        values = value.split("-")
-                    else:
-                        values = ["", ""]
-                    print("values =", values)
-                    results[Constants.SECTION_MARKET_INFO][Constants.MARKET_INFO_52WEEK_LOW] = values[0].strip(
-                    )
-                    results[Constants.SECTION_MARKET_INFO][Constants.MARKET_INFO_52WEEK_HIGH] = values[1].strip(
-                    )
-                elif key == Constants.MARKET_INFO_RANGE:
-                    if value:
-                        values = value.split("-")
-                    else:
-                        values = ["", ""]
-                    print("values =", values)
-                    results[Constants.SECTION_MARKET_INFO][Constants.MARKET_INFO_RANGE_LOW] = values[0].strip(
-                    )
-                    results[Constants.SECTION_MARKET_INFO][Constants.MARKET_INFO_RANGE_HIGH] = values[1].strip(
-                    )
+            key = key_section.text.strip()
+            value = value_section.text.strip()
+            if value == "-":
+                value = ""
+
+            if key == Constants.MARKET_INFO_52WEEK:
+                if value:
+                    values = value.split("-")
                 else:
-                    results[Constants.SECTION_MARKET_INFO][key] = value
+                    values = ["", ""]
+                print("values =", values)
+                results[Constants.SECTION_MARKET_INFO][Constants.MARKET_INFO_52WEEK_LOW] = values[0].strip(
+                )
+                results[Constants.SECTION_MARKET_INFO][Constants.MARKET_INFO_52WEEK_HIGH] = values[1].strip(
+                )
+            elif key == Constants.MARKET_INFO_RANGE:
+                if value:
+                    values = value.split("-")
+                else:
+                    values = ["", ""]
+                print("values =", values)
+                results[Constants.SECTION_MARKET_INFO][Constants.MARKET_INFO_RANGE_LOW] = values[0].strip(
+                )
+                results[Constants.SECTION_MARKET_INFO][Constants.MARKET_INFO_RANGE_HIGH] = values[1].strip(
+                )
+            else:
+                results[Constants.SECTION_MARKET_INFO][key] = value
 
         print("Get stock data: ok.")
         print("-" * 40)

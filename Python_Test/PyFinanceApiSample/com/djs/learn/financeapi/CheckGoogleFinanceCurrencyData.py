@@ -112,31 +112,32 @@ def get_currency_data(browser, results):
     try:
        # Appbar section.
 
-        appbar_section = browser.find_element_by_id("appbar")
-
-        if not appbar_section:
+        try:
+            appbar_section = browser.find_element_by_id("appbar")
+            print("appbar_section =", appbar_section)
+        except Exception:
             raise Exception("Cannot find appbar section.")
-
-        print("appbar_section =", appbar_section)
         results[Constants.SECTION_CURRENCY_INFO] = {}
 
-        currency_info_name_section = appbar_section.find_element_by_class_name(
-            "appbar-snippet-primary")
-        if not currency_info_name_section:
+        try:
+            currency_info_name_section = appbar_section.find_element_by_class_name(
+                "appbar-snippet-primary")
+            print("currency_info_name_section =", currency_info_name_section)
+        except Exception:
             raise Exception("Cannot find currency_info_name section.")
-        print("currency_info_name_section =", currency_info_name_section)
 
         currency_info_name = currency_info_name_section.text
         print("currency_info_name =", currency_info_name)
         results[Constants.SECTION_CURRENCY_INFO][Constants.CURRENCY_INFO_NAME] = currency_info_name
 
-        currency_from_to_symbols_section = appbar_section.find_element_by_class_name(
-            "appbar-snippet-secondary")
-        if not currency_from_to_symbols_section:
+        try:
+            currency_from_to_symbols_section = appbar_section.find_element_by_class_name(
+                "appbar-snippet-secondary")
+            print("currency_from_to_symbols_section =",
+                  currency_from_to_symbols_section)
+        except Exception:
             raise Exception(
                 "Cannot find currency_from_to_symbols section.")
-        print("currency_from_to_symbols_section =",
-              currency_from_to_symbols_section)
 
         currency_from_to_symbols = currency_from_to_symbols_section.text
         print("currency_from_to_symbols =", currency_from_to_symbols)
@@ -146,32 +147,36 @@ def get_currency_data(browser, results):
 
         # App section.
 
-        app_section = browser.find_element_by_id("app")
-
-        if not app_section:
+        try:
+            app_section = browser.find_element_by_id("app")
+            print("app_section =", app_section)
+        except Exception:
             raise Exception("Cannot find app section.")
-
-        print("app_section =", app_section)
         results[Constants.SECTION_EXCHANGE_INFO] = {}
 
-        value_info_section = app_section.find_element_by_id(
-            "currency_value")
-        if not value_info_section:
+        try:
+            value_info_section = app_section.find_element_by_id(
+                "currency_value")
+            print("value_info_section =", value_info_section)
+        except Exception:
             raise Exception("Cannot find value_info section.")
-        print("value_info_section =", value_info_section)
 
-        rate_section = value_info_section.find_element_by_class_name("pr")
-        if not rate_section:
+        try:
+            rate_section = value_info_section.find_element_by_class_name("pr")
+            print("rate_section =", rate_section)
+        except Exception:
             raise Exception("Cannot find rate section.")
-        print("rate_section =", rate_section)
+
         results[Constants.SECTION_EXCHANGE_INFO][Constants.EXCHANGE_INFO_RATE] = rate_section.text
         results[Constants.SECTION_EXCHANGE_INFO][Constants.EXCHANGE_INFO_VALUE] = rate_section.text.split("=")[1].strip().split(" ")[
             0].strip()
 
-        time_section = value_info_section.find_element_by_class_name("time")
-        if not time_section:
+        try:
+            time_section = value_info_section.find_element_by_class_name(
+                "time")
+            print("time_section =", time_section)
+        except Exception:
             raise Exception("Cannot find time section.")
-        print("time_section =", time_section)
         results[Constants.SECTION_EXCHANGE_INFO][Constants.EXCHANGE_INFO_TIME] = time_section.text
 
         print("Get currency data: ok.")

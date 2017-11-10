@@ -27,7 +27,8 @@ class Constants(object):
     STOCKS = "Stocks"
     RECORD = "Record"
 
-    RECORD = "Record"
+    RESULT = "Result"
+    RESULT_ERROR = "Error"
 
     STOCK_INFO = "Stock info"
     STOCK_INFO_NAME = "Name"
@@ -68,7 +69,14 @@ def process_stock_list():
         print("-" * 80)
 
         add_field_name = True
-        for _, record_value in stock_data[Constants.STOCKS].items():
+        for item, record_value in stock_data[Constants.STOCKS].items():
+            print("item =", item)
+
+            if record_value[Constants.RESULT] == Constants.RESULT_ERROR:
+                print("Result =", record_value[Constants.RESULT_ERROR])
+                print("-" * 60)
+                continue
+
             record = OrderedDict()
             record[Constants.STOCK_INFO_NAME] = record_value[Constants.STOCK_INFO][Constants.STOCK_INFO_NAME]
             record[Constants.STOCK_INFO_EXCHANGE] = record_value[Constants.STOCK_INFO][Constants.STOCK_INFO_EXCHANGE]

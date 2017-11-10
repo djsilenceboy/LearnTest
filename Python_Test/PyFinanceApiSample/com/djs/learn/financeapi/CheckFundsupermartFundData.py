@@ -113,116 +113,155 @@ def get_fund_data(browser, results):
 
     try:
         # Find links to sub-portals.
-        factsheet_section = browser.find_element_by_id("factsheet")
 
-        if not factsheet_section:
+        try:
+            factsheet_section = browser.find_element_by_id("factsheet")
+            print("factsheet_section =", factsheet_section)
+        except Exception:
             raise Exception("Cannot find factsheet section.")
-
-        print("factsheet_section =", factsheet_section)
-
         results[Constants.SECTION_BANNER_INFO] = {}
-        treasure_overlay_spinner_section = factsheet_section.find_element_by_tag_name(
-            "treasure-overlay-spinner")
-        if treasure_overlay_spinner_section:
+
+        try:
+            treasure_overlay_spinner_section = factsheet_section.find_element_by_tag_name(
+                "treasure-overlay-spinner")
             print("treasure_overlay_spinner_section =",
                   treasure_overlay_spinner_section)
+        except Exception:
+            raise Exception("Cannot find treasure_overlay_spinner section.")
+
+        try:
             banner_info_section = treasure_overlay_spinner_section.find_element_by_css_selector(
                 "div[class='row m-t-md']")
-            if banner_info_section:
-                print("banner_info_section =", banner_info_section)
-                element_sections = banner_info_section.find_elements_by_css_selector(
-                    "div[class*='col-md-3']")
-                if element_sections:
-                    # print("element_sections =", element_sections)
-                    for element_section in element_sections:
-                        # print("element_section.text =", element_section.text)
-                        element_data = element_section.text.splitlines()
-                        print("element_data =", element_data)
+            print("banner_info_section =", banner_info_section)
+        except Exception:
+            raise Exception("Cannot find banner_info section.")
 
-                        if "Risk Rating" in element_data[1]:
-                            item_data = element_data[1].split(":")
-                            item_key = item_data[0].strip()
-                            item_values = [item.strip()
-                                           for item in item_data[1].split("-")]
-                            results[Constants.SECTION_BANNER_INFO][item_key] = item_values[0]
-                            results[Constants.SECTION_BANNER_INFO][item_key +
-                                                                   " Description"] = item_values[1]
-                        elif "NAV Price" in element_data[1]:
-                            loc = element_data[1].find("(")
-                            item_key = element_data[1][:loc].strip()
-                            item_value = element_data[1][loc + 1:-1]
-                            results[Constants.SECTION_BANNER_INFO][item_key] = element_data[0]
-                            results[Constants.SECTION_BANNER_INFO][item_key +
-                                                                   " Date"] = item_value
-                        else:
-                            results[Constants.SECTION_BANNER_INFO][element_data[1]
-                                                                   ] = element_data[0]
+        try:
+            element_sections = banner_info_section.find_elements_by_css_selector(
+                "div[class*='col-md-3']")
+            # print("element_sections =", element_sections)
+        except Exception:
+            raise Exception("Cannot find element sections.")
+
+        for element_section in element_sections:
+            # print("element_section.text =", element_section.text)
+            element_data = element_section.text.splitlines()
+            print("element_data =", element_data)
+
+            if "Risk Rating" in element_data[1]:
+                item_data = element_data[1].split(":")
+                item_key = item_data[0].strip()
+                item_values = [item.strip()
+                               for item in item_data[1].split("-")]
+                results[Constants.SECTION_BANNER_INFO][item_key] = item_values[0]
+                results[Constants.SECTION_BANNER_INFO][item_key +
+                                                       " Description"] = item_values[1]
+            elif "NAV Price" in element_data[1]:
+                loc = element_data[1].find("(")
+                item_key = element_data[1][:loc].strip()
+                item_value = element_data[1][loc + 1:-1]
+                results[Constants.SECTION_BANNER_INFO][item_key] = element_data[0]
+                results[Constants.SECTION_BANNER_INFO][item_key +
+                                                       " Date"] = item_value
+            else:
+                results[Constants.SECTION_BANNER_INFO][element_data[1]
+                                                       ] = element_data[0]
 
         results[Constants.SECTION_OFFER_TO_BID_INFO] = {}
-        offer_to_bid_info_section = factsheet_section.find_element_by_id(
-            "offer-to-bid")
-        if offer_to_bid_info_section:
+
+        try:
+            offer_to_bid_info_section = factsheet_section.find_element_by_id(
+                "offer-to-bid")
             print("offer_to_bid_info_section =", offer_to_bid_info_section)
+        except Exception:
+            raise Exception("Cannot find offer_to_bid_info section.")
+
+        try:
             list_section = offer_to_bid_info_section.find_element_by_css_selector(
                 "div[class='tab-pane ng-scope active']")
-            if list_section:
-                element_sections = list_section.find_elements_by_tag_name(
-                    "li")
-                if element_sections:
-                    # print("element_sections =", element_sections)
-                    for element_section in element_sections:
-                        # print("element_section.text =", element_section.text)
-                        element_data = element_section.text.splitlines()
-                        print("element_data =", element_data)
-                        results[Constants.SECTION_OFFER_TO_BID_INFO][element_data[1]
-                                                                     ] = element_data[0]
+        except Exception:
+            raise Exception("Cannot find list section.")
+
+        try:
+            element_sections = list_section.find_elements_by_tag_name(
+                "li")
+            # print("element_sections =", element_sections)
+        except Exception:
+            raise Exception("Cannot find element sections.")
+
+        for element_section in element_sections:
+            # print("element_section.text =", element_section.text)
+            element_data = element_section.text.splitlines()
+            print("element_data =", element_data)
+            results[Constants.SECTION_OFFER_TO_BID_INFO][element_data[1]
+                                                         ] = element_data[0]
 
         results[Constants.SECTION_BID_TO_OFFER_INFO] = {}
-        bid_to_offer_info_section = factsheet_section.find_element_by_id(
-            "bid-to-return")
-        if bid_to_offer_info_section:
+
+        try:
+            bid_to_offer_info_section = factsheet_section.find_element_by_id(
+                "bid-to-return")
             print("bid_to_offer_info_section =", bid_to_offer_info_section)
+        except Exception:
+            raise Exception("Cannot find bid_to_offer_info section.")
+
+        try:
             list_section = bid_to_offer_info_section.find_element_by_css_selector(
                 "div[class='tab-pane ng-scope active']")
-            if list_section:
-                element_sections = list_section.find_elements_by_tag_name(
-                    "li")
-                if element_sections:
-                    # print("element_sections =", element_sections)
-                    for element_section in element_sections:
-                        # print("element_section.text =", element_section.text)
-                        element_data = element_section.text.splitlines()
-                        print("element_data =", element_data)
-                        results[Constants.SECTION_BID_TO_OFFER_INFO][element_data[1]
-                                                                     ] = element_data[0]
+        except Exception:
+            raise Exception("Cannot find list section.")
+
+        try:
+            element_sections = list_section.find_elements_by_tag_name(
+                "li")
+            # print("element_sections =", element_sections)
+        except Exception:
+            raise Exception("Cannot find element sections.")
+
+        for element_section in element_sections:
+            # print("element_section.text =", element_section.text)
+            element_data = element_section.text.splitlines()
+            print("element_data =", element_data)
+            results[Constants.SECTION_BID_TO_OFFER_INFO][element_data[1]
+                                                         ] = element_data[0]
 
         results[Constants.SECTION_RELEVANT_CHARGES] = {}
-        relevant_charges_section = factsheet_section.find_element_by_id(
-            "relevant-charges")
-        if relevant_charges_section:
+
+        try:
+            relevant_charges_section = factsheet_section.find_element_by_id(
+                "relevant-charges")
             print("relevant_charges_section =", relevant_charges_section)
+        except Exception:
+            raise Exception("Cannot find relevant_charges section.")
+
+        try:
             list_section = relevant_charges_section.find_element_by_css_selector(
                 "div[class='m-t-xs']")
-            if list_section:
-                element_sections = list_section.find_elements_by_tag_name(
-                    "div")
-                if element_sections:
-                    # print("element_sections =", element_sections)
-                    for element_section in element_sections:
-                        # print("element_section.text =", element_section.text)
-                        element_data = element_section.text.splitlines()
-                        print("element_data =", element_data)
+        except Exception:
+            raise Exception("Cannot find list section.")
 
-                        if "Expense Ratio" in element_data[1]:
-                            loc = element_data[1].find("(")
-                            item_key = element_data[1][:loc].strip()
-                            loc = element_data[1].find("of")
-                            item_value = element_data[1][loc + 3:-1]
-                            results[Constants.SECTION_RELEVANT_CHARGES][item_key] = element_data[0]
-                            results[Constants.SECTION_RELEVANT_CHARGES]["Annual Expense Ratio Date"] = item_value
-                        else:
-                            results[Constants.SECTION_RELEVANT_CHARGES][element_data[1]
-                                                                        ] = element_data[0]
+        try:
+            element_sections = list_section.find_elements_by_tag_name(
+                "div")
+            # print("element_sections =", element_sections)
+        except Exception:
+            raise Exception("Cannot find element sections.")
+
+        for element_section in element_sections:
+            # print("element_section.text =", element_section.text)
+            element_data = element_section.text.splitlines()
+            print("element_data =", element_data)
+
+            if "Expense Ratio" in element_data[1]:
+                loc = element_data[1].find("(")
+                item_key = element_data[1][:loc].strip()
+                loc = element_data[1].find("of")
+                item_value = element_data[1][loc + 3:-1]
+                results[Constants.SECTION_RELEVANT_CHARGES][item_key] = element_data[0]
+                results[Constants.SECTION_RELEVANT_CHARGES]["Annual Expense Ratio Date"] = item_value
+            else:
+                results[Constants.SECTION_RELEVANT_CHARGES][element_data[1]
+                                                            ] = element_data[0]
 
         print("Get fund data: ok.")
         print("-" * 40)

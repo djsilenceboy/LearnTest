@@ -27,7 +27,8 @@ class Constants(object):
     CURRENCIES = "Currencies"
     RECORD = "Record"
 
-    RECORD = "Record"
+    RESULT = "Result"
+    RESULT_ERROR = "Error"
 
     CURRENCY_INFO = "Currency info"
     CURRENCY_INFO_FROM_SYMBOL = "From symbol"
@@ -66,7 +67,14 @@ def process_currency_list():
         print("-" * 80)
 
         add_field_name = True
-        for _, record_value in currency_data[Constants.CURRENCIES].items():
+        for item, record_value in currency_data[Constants.CURRENCIES].items():
+            print("item =", item)
+
+            if record_value[Constants.RESULT] == Constants.RESULT_ERROR:
+                print("Result =", record_value[Constants.RESULT_ERROR])
+                print("-" * 60)
+                continue
+
             record = OrderedDict()
             record[Constants.CURRENCY_INFO_FROM_SYMBOL] = record_value[Constants.CURRENCY_INFO][Constants.CURRENCY_INFO_FROM_SYMBOL]
             record[Constants.CURRENCY_INFO_TO_SYMBOL] = record_value[Constants.CURRENCY_INFO][Constants.CURRENCY_INFO_TO_SYMBOL]
