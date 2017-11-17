@@ -75,6 +75,7 @@ class Constants(object):
     SECTION_BANNER_INFO = "Banner info"
     SECTION_OFFER_TO_BID_INFO = "Offer to bid info"
     SECTION_BID_TO_OFFER_INFO = "Bid to offer info"
+    SECTION_HISTORICAL_PRICE_INFO = "Historical price info"
     SECTION_RELEVANT_CHARGES = "Relevant charges"
 
 
@@ -224,6 +225,36 @@ def get_fund_data(browser, results):
             print("element_data =", element_data)
             results[Constants.SECTION_BID_TO_OFFER_INFO][element_data[1]
                                                          ] = element_data[0]
+
+        results[Constants.SECTION_HISTORICAL_PRICE_INFO] = {}
+
+        try:
+            historical_price_info_section = factsheet_section.find_element_by_id(
+                "fund-historical-price")
+            print("historical_price_info_section =",
+                  historical_price_info_section)
+        except Exception:
+            raise Exception("Cannot find historical_price_info section.")
+
+        try:
+            list_section = historical_price_info_section.find_element_by_css_selector(
+                "div[class='tab-pane ng-scope active']")
+        except Exception:
+            raise Exception("Cannot find list section.")
+
+        try:
+            element_sections = list_section.find_elements_by_tag_name(
+                "li")
+            # print("element_sections =", element_sections)
+        except Exception:
+            raise Exception("Cannot find element sections.")
+
+        for element_section in element_sections:
+            # print("element_section.text =", element_section.text)
+            element_data = element_section.text.splitlines()
+            print("element_data =", element_data)
+            results[Constants.SECTION_HISTORICAL_PRICE_INFO][element_data[1]
+                                                             ] = element_data[0]
 
         results[Constants.SECTION_RELEVANT_CHARGES] = {}
 

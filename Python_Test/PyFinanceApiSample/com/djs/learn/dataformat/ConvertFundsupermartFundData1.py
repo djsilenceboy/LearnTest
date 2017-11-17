@@ -38,8 +38,11 @@ class Constants(object):
     SECTION_BANNER_INFO = "Banner info"
     SECTION_OFFER_TO_BID_INFO = "Offer to bid info"
     SECTION_BID_TO_OFFER_INFO = "Bid to offer info"
+    SECTION_HISTORICAL_PRICE_INFO = "Historical price info"
     SECTION_RELEVANT_CHARGES = "Relevant charges"
 
+    OFFER_TO_BID_FILTER = ["1 YR", "10 YR", "3 YR", "5 YR"]
+    HISTORICAL_PRICE_FILTER = ["1 YR High", "1 YR Low"]
     RELEVANT_CHARGES_FILTER = [
         "Annual Expense Ratio", "Annual Management Charge"]
 
@@ -98,11 +101,20 @@ def process_fund_list():
                     field_names.append(item_key)
 
             for item_key, item_value in sorted(record_value[Constants.FUND_DATA][Constants.SECTION_OFFER_TO_BID_INFO].items()):
-                if item_value == "-":
-                    item_value = ""
-                record[item_key] = item_value
-                if add_field_name:
-                    field_names.append(item_key)
+                if item_key in Constants.OFFER_TO_BID_FILTER:
+                    if item_value == "-":
+                        item_value = ""
+                    record[item_key] = item_value
+                    if add_field_name:
+                        field_names.append(item_key)
+
+            for item_key, item_value in sorted(record_value[Constants.FUND_DATA][Constants.SECTION_HISTORICAL_PRICE_INFO].items()):
+                if item_key in Constants.HISTORICAL_PRICE_FILTER:
+                    if item_value == "-":
+                        item_value = ""
+                    record[item_key] = item_value
+                    if add_field_name:
+                        field_names.append(item_key)
 
             for item_key, item_value in sorted(record_value[Constants.FUND_DATA][Constants.SECTION_RELEVANT_CHARGES].items()):
                 if item_key in Constants.RELEVANT_CHARGES_FILTER:
