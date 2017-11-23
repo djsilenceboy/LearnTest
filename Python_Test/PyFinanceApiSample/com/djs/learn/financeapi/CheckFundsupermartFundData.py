@@ -39,16 +39,10 @@ class Constants(object):
     Use a class to keep constant variables.
     '''
 
-    MAX_TRY = 3
-
+    WAIT_PAGE_LOAD_MAX_TRY = 10
     # Seconds.
-    WAIT_TIME_LOAD_PAGE = 10
-    WAIT_TIME_LOGIN_AND_LOAD = 20
-    WAIT_TIME_LOAD_TAB = 10
-    WAIT_TIME_QUICK_LOAD = 5
-    WAIT_TIME_VERY_QUICK_LOAD = 2
-    WAIT_TIME_FRESH_CONTENT = 5
-    WAIT_TIME_VIEW_PAGE = 5
+    WAIT_TIME_LOAD_PAGE = 1
+    WAIT_TIME_VIEW_PAGE = 1
 
     RESULT = "Result"
     ERROR = "Error"
@@ -104,9 +98,32 @@ def check_url(url):
     return status_code
 
 
+def check_page_loaded(browser):
+    '''
+    Check whether page is loaded.
+
+    @param browser : Selenium handle.
+    '''
+    for i in range(0, Constants.WAIT_PAGE_LOAD_MAX_TRY):
+        # Wait for page to be fully loaded.
+        sleep(Constants.WAIT_TIME_LOAD_PAGE)
+        try:
+            factsheet_section = browser.find_element_by_id("factsheet")
+            print("factsheet_section =", factsheet_section)
+
+            # It is ok, no need retry.
+            break
+        except Exception as e:
+            print("Wait page to be loaded: Count {0}: Exception = {1}".format(
+                i, e))
+            # If reach max try.
+            if (i + 1) == Constants.MAX_TRY:
+                raise e
+
+
 def get_fund_data(browser, results):
     '''
-    Open URL and get data
+    Open URL and get data.
 
     @param browser : Selenium handle.
     @param results : Dict with return results.
@@ -348,38 +365,26 @@ def inspect_fund(record):
         print("browser =", browser)
         print("-" * 60)
 
-        for i in range(0, Constants.MAX_TRY):
-            try:
-                # Load page.
-                browser.get(url)
-                # Wait for page to be fully loaded.
-                sleep(Constants.WAIT_TIME_LOAD_PAGE)
-                print("-" * 40)
+        # Load page.
+        browser.get(url)
+        # Wait for page to be fully loaded.
+        check_page_loaded(browser)
+        print("-" * 40)
 
-                # Get fund data.
-                results[Constants.FUND_DATA] = {}
-                get_fund_data(browser, results[Constants.FUND_DATA])
-                sleep(Constants.WAIT_TIME_VIEW_PAGE)
-                print("-" * 40)
+        # Get fund data.
+        results[Constants.FUND_DATA] = {}
+        get_fund_data(browser, results[Constants.FUND_DATA])
+        sleep(Constants.WAIT_TIME_VIEW_PAGE)
+        print("-" * 40)
 
-                print("Inspect fund: <{0}> ok.".format(fund_id))
-                results[Constants.RESULT] = Constants.RESULT_OK
-
-                # It is ok, no need retry.
-                break
-            except Exception as e:
-                print("Inspect fund <{0}>: Count {1}: Exception = {2}".format(
-                    fund_id, i, e))
-                # If reach max try.
-                if (i + 1) == Constants.MAX_TRY:
-                    raise e
+        print("Inspect fund: <{0}> ok.".format(fund_id))
+        results[Constants.RESULT] = Constants.RESULT_OK
     except Exception as e:
         print("Inspect fund <{0}>: Exception = {1}".format(fund_id, e))
         results[Constants.RESULT] = Constants.RESULT_ERROR
         results[Constants.ERROR] = repr(e)
     finally:
         if browser:
-            sleep(Constants.WAIT_TIME_VIEW_PAGE)
             print("Close browser.")
             browser.close()
 

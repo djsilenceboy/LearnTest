@@ -38,11 +38,10 @@ class Constants(object):
     Use a class to keep constant variables.
     '''
 
-    MAX_TRY = 3
-
+    WAIT_PAGE_LOAD_MAX_TRY = 10
     # Seconds.
-    WAIT_TIME_LOAD_PAGE = 10
-    WAIT_TIME_VIEW_PAGE = 5
+    WAIT_TIME_LOAD_PAGE = 1
+    WAIT_TIME_VIEW_PAGE = 1
 
     RESULT = "Result"
     ERROR = "Error"
@@ -101,9 +100,32 @@ def check_url(url):
     return status_code
 
 
+def check_page_loaded(browser):
+    '''
+    Check whether page is loaded.
+
+    @param browser : Selenium handle.
+    '''
+    for i in range(0, Constants.WAIT_PAGE_LOAD_MAX_TRY):
+        # Wait for page to be fully loaded.
+        sleep(Constants.WAIT_TIME_LOAD_PAGE)
+        try:
+            appbar_section = browser.find_element_by_id("appbar")
+            print("appbar_section =", appbar_section)
+
+            # It is ok, no need retry.
+            break
+        except Exception as e:
+            print("Wait page to be loaded: Count {0}: Exception = {1}".format(
+                i, e))
+            # If reach max try.
+            if (i + 1) == Constants.MAX_TRY:
+                raise e
+
+
 def get_currency_data(browser, results):
     '''
-    Open URL and get data
+    Open URL and get data.
 
     @param browser : Selenium handle.
     @param results : Dict with return results.
@@ -234,31 +256,20 @@ def inspect_currency(record):
         print("browser =", browser)
         print("-" * 60)
 
-        for i in range(0, Constants.MAX_TRY):
-            try:
-                # Load page.
-                browser.get(url)
-                # Wait for page to be fully loaded.
-                sleep(Constants.WAIT_TIME_LOAD_PAGE)
-                print("-" * 40)
+        # Load page.
+        browser.get(url)
+        # Wait for page to be fully loaded.
+        check_page_loaded(browser)
+        print("-" * 40)
 
-                # Get currency data.
-                get_currency_data(browser, results)
-                sleep(Constants.WAIT_TIME_VIEW_PAGE)
-                print("-" * 40)
+        # Get currency data.
+        get_currency_data(browser, results)
+        sleep(Constants.WAIT_TIME_VIEW_PAGE)
+        print("-" * 40)
 
-                print("Inspect currency <{0}>: ok.".format(
-                    currency_info_to_symbol))
-                results[Constants.RESULT] = Constants.RESULT_OK
-
-                # It is ok, no need retry.
-                break
-            except Exception as e:
-                print("Inspect currency <{0}:{1}>: Count {2}: Exception = {3}".format(
-                    currency_info_from_symbol, currency_info_to_symbol, i, e))
-                # If reach max try.
-                if (i + 1) == Constants.MAX_TRY:
-                    raise e
+        print("Inspect currency <{0}>: ok.".format(
+            currency_info_to_symbol))
+        results[Constants.RESULT] = Constants.RESULT_OK
     except Exception as e:
         print("Inspect currency <{0}:{1}>: Exception = {2}".format(
             currency_info_from_symbol, currency_info_to_symbol, e))
@@ -266,7 +277,6 @@ def inspect_currency(record):
         results[Constants.ERROR] = repr(e)
     finally:
         if browser:
-            sleep(Constants.WAIT_TIME_VIEW_PAGE)
             print("Close browser.")
             browser.close()
 
