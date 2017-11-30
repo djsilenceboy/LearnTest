@@ -2,6 +2,10 @@
 Check plugin list.
 
 > vagrant plugin list
+
+Update installed plugins.
+
+> vagrant plugin update
 ------------------------------------------------------------
 Install plugin for VirtualBox guest.
 
@@ -10,17 +14,22 @@ Install plugin for VirtualBox guest.
 It is only useful when the container requires some VirtulBox related function.
 For exiting container, it requires to destroy and up again to take into effect.
 For new container, it may require to up and halt and up again to take into effect.
+------------------------------------------------------------
+Check VirtualBox guest VM status.
+
+> vagrant vbguest --status
 ================================================================================
 Repo
 
-https://atlas.hashicorp.com/bento/
-https://atlas.hashicorp.com/ubuntu
-https://atlas.hashicorp.com/hashicorp
+https://app.vagrantup.com/centos
+https://app.vagrantup.com/ubuntu
+https://app.vagrantup.com/bento
 ------------------------------------------------------------
 Image
 
-bento/centos-7.3
-ubuntu/precise64
+centos/7
+ubuntu/trusty64
+bento/centos-7.4
 ================================================================================
 Box/Images.
 ------------------------------------------------------------
@@ -78,10 +87,6 @@ Delete containers.
 
 > vagrant destroy
 > vagrant destroy <ContainerNameOrID>
-------------------------------------------------------------
-Check VirtualBox guest status.
-
-> vagrant vbguest --status
 ================================================================================
 Vagrant SSH key
 ------------------------------------------------------------
