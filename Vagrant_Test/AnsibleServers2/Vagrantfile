@@ -3,7 +3,7 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Use the same SSH key for each VM.
   config.ssh.insert_key = false
-  config.vm.box = "centos/7"
+  config.vm.box = "bento/centos-7.3"
 
   # This message will run when all other completed.
   config.vm.post_up_message = "Test environment for Ansible servers."
@@ -15,18 +15,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # This is default folder mapping.
   config.vm.synced_folder "F:/Download/Shared", "/vagrant", owner: "root", group: "root"
-
-  # Global config.
-  # Install package for ifconfig.
-  config.vm.provision "shell", inline: "sudo yum install -y net-tools"
-  # Enable password login.
-  config.vm.provision "shell", inline: <<-END
-    # Testing: sudo sed "/^PasswordAuthentication.*$/d; /^#PasswordAuthentication.*$/a PasswordAuthentication yes" /etc/ssh/sshd_config
-    sudo sed -i "/^PasswordAuthentication.*$/d" /etc/ssh/sshd_config
-    sudo sed -i "/^#PasswordAuthentication.*$/a PasswordAuthentication yes" /etc/ssh/sshd_config
-    sudo systemctl restart sshd
-  END
-
 
   config.vm.define "ansibleDbServer" do |ansibleDbServer|
     ansibleDbServer.vm.provider "virtualbox" do |vb|
@@ -41,9 +29,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Local provision will run after global provision.
     # Configure IP manually.
-    ansibleDbServer.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.42 netmask 255.255.255.0 up"
+    ansibleDbServer.vm.provision "shell", run: "always", inline: "ifconfig enp0s8 192.168.0.42 netmask 255.255.255.0 up"
   end
-
 
   config.vm.define "ansibleApplicationServer" do |ansibleApplicationServer|
     ansibleApplicationServer.vm.provider "virtualbox" do |vb|
@@ -58,9 +45,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Local provision will run after global provision.
     # Configure IP manually.
-    ansibleApplicationServer.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.43 netmask 255.255.255.0 up"
+    ansibleApplicationServer.vm.provision "shell", run: "always", inline: "ifconfig enp0s8 192.168.0.43 netmask 255.255.255.0 up"
   end
-
 
   config.vm.define "ansibleJbossServer" do |ansibleJbossServer|
     ansibleJbossServer.vm.provider "virtualbox" do |vb|
@@ -75,26 +61,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Local provision will run after global provision.
     # Configure IP manually.
-    ansibleJbossServer.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.44 netmask 255.255.255.0 up"
+    ansibleJbossServer.vm.provision "shell", run: "always", inline: "ifconfig enp0s8 192.168.0.44 netmask 255.255.255.0 up"
   end
-
-
-  config.vm.define "ansibleWebServer" do |ansibleWebServer|
-    ansibleWebServer.vm.provider "virtualbox" do |vb|
-      vb.name = "Vagrant_AnsibleWebServer"
-      # Default is 1024M.
-      vb.memory = 2048
-      # Default is 1 CPU.
-      vb.cpus = 2
-    end
-
-    ansibleWebServer.vm.hostname = "web.djsilenceboy.com"
-
-    # Local provision will run after global provision.
-    # Configure IP manually.
-    ansibleWebServer.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.45 netmask 255.255.255.0 up"
-  end
-
 
   config.vm.define "ansibleDockerServer" do |ansibleDockerServer|
     ansibleDockerServer.vm.provider "virtualbox" do |vb|
@@ -109,9 +77,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Local provision will run after global provision.
     # Configure IP manually.
-    ansibleDockerServer.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.46 netmask 255.255.255.0 up"
+    ansibleDockerServer.vm.provision "shell", run: "always", inline: "ifconfig enp0s8 192.168.0.45 netmask 255.255.255.0 up"
   end
-
 
   config.vm.define "ansibleDockerServer2" do |ansibleDockerServer2|
     ansibleDockerServer2.vm.provider "virtualbox" do |vb|
@@ -126,6 +93,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Local provision will run after global provision.
     # Configure IP manually.
-    ansibleDockerServer2.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.47 netmask 255.255.255.0 up"
+    ansibleDockerServer2.vm.provision "shell", run: "always", inline: "ifconfig enp0s8 192.168.0.46 netmask 255.255.255.0 up"
+  end
+
+  config.vm.define "ansibleWebServer" do |ansibleWebServer|
+    ansibleWebServer.vm.provider "virtualbox" do |vb|
+      vb.name = "Vagrant_AnsibleWebServer"
+      # Default is 1024M.
+      vb.memory = 2048
+      # Default is 1 CPU.
+      vb.cpus = 2
+    end
+
+    ansibleWebServer.vm.hostname = "web.djsilenceboy.com"
+
+    # Local provision will run after global provision.
+    # Configure IP manually.
+    ansibleWebServer.vm.provision "shell", run: "always", inline: "ifconfig enp0s8 192.168.0.47 netmask 255.255.255.0 up"
   end
 end

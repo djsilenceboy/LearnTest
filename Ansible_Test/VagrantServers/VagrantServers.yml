@@ -54,7 +54,7 @@
       ignore_errors: yes
       with_items:
         - firewalld
-        - iptables
+        # - iptables
         # - ipset
 
     - name: Limit kept kernels

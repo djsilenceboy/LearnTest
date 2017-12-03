@@ -182,4 +182,14 @@ Library for developers to extract data from Microsoft Excel (tm) spreadsheet fil
 Library to create spreadsheet files compatible with MS Excel 97/2000/XP/2003 XLS files, on any platform, with Python 2.6, 2.7, 3.3+.
 
 ]$ pip install xlwt
+------------------------------------------------------------
+A Python library for the Docker Engine API.
+(depend on six, idna, ipaddress, backports.ssl-match-hostname, certifi, chardet, docker-pycreds, requests, urllib3, websocket-client)
+
+]$ pip install docker
+
+Python client for Docker.
+(depend on six, ipaddress, backports.ssl-match-hostname, certifi, chardet, docker-pycreds, requests, urllib3, websocket-client)
+
+]$ pip install docker-py
 ================================================================================

@@ -1,5 +1,5 @@
 ================================================================================
-Use "centos/7"
+Use "bento/centos-7.3"
 ================================================================================
 vagrant up ansibleDbServer
 vagrant up ansibleApplicationServer

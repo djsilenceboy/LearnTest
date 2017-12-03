@@ -26,7 +26,10 @@
         seconds: 5
 
     - name: Download Docker Compose
-      shell: curl -L https://github.com/docker/compose/releases/download/1.12.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+      shell: curl -L https://github.com/docker/compose/releases/download/1.17.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 
     - name: Change mode of file
       shell: chmod +x /usr/local/bin/docker-compose
+
+    - name: Add Docker Compose path to sudo
+      shell: sed -i "s/^Defaults.*:\/usr\/bin$/&:\/usr\/local\/bin/g" /etc/sudoers
