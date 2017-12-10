@@ -3,7 +3,7 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Use the same SSH key for each VM.
   config.ssh.insert_key = false
-  config.vm.box = "bento/centos-7.3"
+  config.vm.box = "centos/7"
 
   # This message will run when all other completed.
   config.vm.post_up_message = "This is vagrant test sample."
@@ -13,19 +13,32 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Disable auto config, and assign fixed IP 172.28.128.XX.
   config.vm.network "private_network", type: "dhcp", auto_config: false
 
+  # Global config.
+  # Install package for ifconfig.
+  config.vm.provision "shell", inline: "sudo yum install -y net-tools"
+  # Enable password login.
+  config.vm.provision "shell", inline: <<-END
+    # Testing: sudo sed "/^PasswordAuthentication.*$/d; /^#PasswordAuthentication.*$/a PasswordAuthentication yes" /etc/ssh/sshd_config
+    sudo sed -i "/^PasswordAuthentication.*$/d" /etc/ssh/sshd_config
+    sudo sed -i "/^#PasswordAuthentication.*$/a PasswordAuthentication yes" /etc/ssh/sshd_config
+    sudo systemctl restart sshd
+  END
+
+
   config.vm.define "ansibleep3" do |ansibleep3|
     ansibleep3.vm.provider "virtualbox" do |vb|
       vb.name = "Vagrant_AnsibleEp3"
     end
-    ansibleep3.vm.provision "shell", run: "always", inline: "ifconfig enp0s8 172.28.128.51 netmask 255.255.255.0 up"
+    ansibleep3.vm.provision "shell", run: "always", inline: "ifconfig eth1 172.28.128.51 netmask 255.255.255.0 up"
     # Default SSH port 2222.
   end
+
 
   config.vm.define "ansibleep4" do |ansibleep4|
     ansibleep4.vm.provider "virtualbox" do |vb|
       vb.name = "Vagrant_AnsibleEp4"
     end
-    ansibleep4.vm.provision "shell", run: "always", inline: "ifconfig enp0s8 172.28.128.52 netmask 255.255.255.0 up"
+    ansibleep4.vm.provision "shell", run: "always", inline: "ifconfig eth1 172.28.128.52 netmask 255.255.255.0 up"
     # Default SSH port 2200.
   end
 end

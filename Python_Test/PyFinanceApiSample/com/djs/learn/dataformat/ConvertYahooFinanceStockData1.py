@@ -1,8 +1,8 @@
 '''
-Convert Google finance stock data: From JSON to CSV.
+Convert Yahoo finance stock data: From JSON to CSV.
 
 Update log: (date / version / author : comments)
-2017-08-13 / 1.0.0 / Du Jiang : Creation
+2017-12-10 / 1.0.0 / Du Jiang : Creation
 '''
 
 from collections import OrderedDict
@@ -37,8 +37,11 @@ class Constants(object):
 
     MARKET_INFO = "Market info"
 
+    MARKET_INFO_FIELD_PE_OLD = "PE Ratio (TTM)"
+    MARKET_INFO_FIELD_PE_NEW = "P/E"
+
     MARKET_INFO_FILTER = ["52 week high", "52 week low",
-                          "Beta", "Currency", "P/E", "Price"]
+                          "Beta", "Currency", MARKET_INFO_FIELD_PE_OLD, "Price"]
 
     URL = "URL"
 
@@ -92,6 +95,8 @@ def process_stock_list():
 
             for item_key, item_value in sorted(record_value[Constants.MARKET_INFO].items()):
                 if item_key in Constants.MARKET_INFO_FILTER:
+                    if item_key == Constants.MARKET_INFO_FIELD_PE_OLD:
+                        item_key = Constants.MARKET_INFO_FIELD_PE_NEW
                     print(item_key, "=", item_value)
                     record[item_key] = item_value
                     if add_field_name:
@@ -146,7 +151,7 @@ def process_stock_list():
 
 def usage():
     print('''
-Convert Google finance stock data: From JSON to CSV.
+Convert Yahoo finance stock data: From JSON to CSV.
 
 Usage:
 -h

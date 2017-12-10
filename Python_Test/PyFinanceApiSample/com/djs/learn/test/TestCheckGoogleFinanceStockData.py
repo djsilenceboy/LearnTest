@@ -13,12 +13,12 @@ from com.djs.learn.financeapi import CheckGoogleFinanceStockData
 __geckodriver_file_path = "D:\Download\Shared\geckodriver.exe"
 __geckodriver_log_file_path = "../../../../Temp/geckodriver.log"
 
-__fund_info_file_path = "../../../../etc/StockInfo.csv"
-__result_output_file_path = "../../../../Temp/StockData.json"
+__fund_info_file_path = "../../../../etc/StockInfoG.csv"
+__result_output_file_path = "../../../../Temp/StockDataG.json"
 
 # from time import time, localtime, strftime
 # time_str = strftime("%Y%m%d_%H%M%S", localtime(time()))
-# __result_output_file_path = "../../../../Temp/StockData_{0}.json".format(time_str)
+# __result_output_file_path = "../../../../Temp/StockDataG_{0}.json".format(time_str)
 
 # Test usage.
 # argv = []
@@ -39,7 +39,7 @@ CheckGoogleFinanceStockData.main(argv)
 '''
 Or run:
 
-python CheckGoogleFinanceStockData.py -i "../../../../etc/StockInfo.csv" -o "../../../../Temp/StockData.json" -w "D:\Download\Shared\geckodriver.exe" -l "../../../../Temp/geckodriver.log"
+python CheckGoogleFinanceStockData.py -i "../../../../etc/StockInfoG.csv" -o "../../../../Temp/StockDataG.json" -w "D:\Download\Shared\geckodriver.exe" -l "../../../../Temp/geckodriver.log"
 '''
 
 if __name__ == '__main__':

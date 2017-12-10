@@ -8,7 +8,7 @@ Update log: (date / version / author : comments)
 
 from com.djs.learn.dataformat import ConvertGoogleFinanceCurrencyData1
 
-__base_file_name = "CurrencyData"
+__base_file_name = "CurrencyDataG"
 __input_file_path = "../../../../Temp/{0}.json".format(__base_file_name)
 __output_file_path = "../../../../Temp/{0}.csv".format(__base_file_name)
 
@@ -29,7 +29,7 @@ ConvertGoogleFinanceCurrencyData1.main(argv)
 '''
 Or run:
 
-python ConvertGoogleFinanceCurrencyData1.py -i "../../../../Temp/CurrencyData.json" -o "../../../../Temp/CurrencyData.csv" 
+python ConvertGoogleFinanceCurrencyData1.py -i "../../../../Temp/CurrencyDataG.json" -o "../../../../Temp/CurrencyDataG.csv" 
 '''
 
 if __name__ == '__main__':

@@ -21,6 +21,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "shell", path: "Scripts/Prepare_Python.sh"
   config.vm.provision "shell", path: "Scripts/Prepare_System.sh"
 
+
   config.vm.define "homeDbServer" do |homeDbServer|
     homeDbServer.vm.provider "virtualbox" do |vb|
       vb.name = "Vagrant_HomeDbServer"
@@ -44,6 +45,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # homeDbServer.vm.provision "shell", path: "Scripts/Install_OracleXE.sh"
   end
 
+
   config.vm.define "homeApplicationServer" do |homeApplicationServer|
     homeApplicationServer.vm.provider "virtualbox" do |vb|
       vb.name = "Vagrant_HomeApplicationServer"
@@ -65,6 +67,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     homeApplicationServer.vm.provision "shell", path: "Scripts/Install_Tomcat.sh"
     homeApplicationServer.vm.provision "shell", path: "Scripts/Install_Jenkins.sh"
   end
+
 
   config.vm.define "homeJbossServer" do |homeJbossServer|
     homeJbossServer.vm.provider "virtualbox" do |vb|

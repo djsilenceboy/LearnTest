@@ -3,7 +3,7 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Use the same SSH key for each VM.
   config.ssh.insert_key = false
-  config.vm.box = "bento/centos-7.3"
+  config.vm.box = "centos/7"
 
   # This message will run when all other completed.
   config.vm.post_up_message = "This is vagrant test sample."

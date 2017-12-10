@@ -3,14 +3,25 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Use the same SSH key for each VM.
   config.ssh.insert_key = false
-  config.vm.box = "bento/centos-7.3"
+  config.vm.box = "centos/7"
   # All use localhost/127.0.0.1, but with different port forwarding.
+
+  # Global config.
+  # Enable password login.
+  config.vm.provision "shell", inline: <<-END
+    # Testing: sudo sed "/^PasswordAuthentication.*$/d; /^#PasswordAuthentication.*$/a PasswordAuthentication yes" /etc/ssh/sshd_config
+    sudo sed -i "/^PasswordAuthentication.*$/d" /etc/ssh/sshd_config
+    sudo sed -i "/^#PasswordAuthentication.*$/a PasswordAuthentication yes" /etc/ssh/sshd_config
+    sudo systemctl restart sshd
+  END
+
 
   config.vm.define "ansibleep1" do |ansibleep1|
     ansibleep1.vm.network "forwarded_port", guest: 80, host: 9080
     ansibleep1.vm.network "forwarded_port", guest: 443, host: 9443
     # Default SSH port 2222.
   end
+
 
   config.vm.define "ansibleep2" do |ansibleep2|
     ansibleep2.vm.network "forwarded_port", guest: 80, host: 9081

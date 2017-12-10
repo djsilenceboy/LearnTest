@@ -14,11 +14,11 @@ __geckodriver_file_path = "D:\Download\Shared\geckodriver.exe"
 __geckodriver_log_file_path = "../../../../Temp/geckodriver.log"
 
 __fund_info_file_path = "../../../../etc/CurrencyInfo.csv"
-__result_output_file_path = "../../../../Temp/CurrencyData.json"
+__result_output_file_path = "../../../../Temp/CurrencyDataG.json"
 
 # from time import time, localtime, strftime
 # time_str = strftime("%Y%m%d_%H%M%S", localtime(time()))
-# __result_output_file_path = "../../../../Temp/CurrencyData_{0}.json".format(time_str)
+# __result_output_file_path = "../../../../Temp/CurrencyDataG_{0}.json".format(time_str)
 
 # Test usage.
 # argv = []
@@ -39,7 +39,7 @@ CheckGoogleFinanceCurrencyData.main(argv)
 '''
 Or run:
 
-python CheckGoogleFinanceCurrencyData.py -i "../../../../etc/CurrencyData.csv" -o "../../../../Temp/CurrencyData.json" -w "D:\Download\Shared\geckodriver.exe" -l "../../../../Temp/geckodriver.log"
+python CheckGoogleFinanceCurrencyData.py -i "../../../../etc/CurrencyData.csv" -o "../../../../Temp/CurrencyDataG.json" -w "D:\Download\Shared\geckodriver.exe" -l "../../../../Temp/geckodriver.log"
 '''
 
 if __name__ == '__main__':
