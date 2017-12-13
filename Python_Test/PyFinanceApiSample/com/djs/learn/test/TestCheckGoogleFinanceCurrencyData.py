@@ -24,7 +24,7 @@ CheckFinanceDataSelenium.main(argv)
 '''
 Or run:
 
-python CheckFinanceDataSelenium.py -d 2 -i "../../../../etc/CurrencyInfo.csv" -o "../../../../Temp/CurrencyDataG.json" -w "D:\Download\Shared\geckodriver.exe" -l "../../../../Temp/geckodriver.log"
+python CheckFinanceDataSelenium.py -d 2 -i "../../../../etc/CurrencyInfo.csv" -o "../../../../Temp/CurrencyDataG.json" -w "D:\Download\Shared\phantomjs.exe" -l "../../../../Temp/phantomjs.log"
 '''
 
 if __name__ == '__main__':

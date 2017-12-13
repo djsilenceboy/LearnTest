@@ -639,7 +639,7 @@ def inspect_inventory(record):
     '''
     Inspect inventory info page.
 
-    @param record: [stock name, exchange, ticker] 
+    @param record: [Fund name, Fund ID], [Stock name, Exchange, Ticker], [Currency from_symbol, To symbol] 
     @return : Dict with return results.
     '''
 
@@ -854,7 +854,7 @@ Usage:
 
 Options:
 -h : Show help.
--d <DataType> : Finance data type. Compulsory, Value [0: Fundsupermart fund, 1: Google finance stock, 2: Google finance currency].
+-d <DataType> : Finance data type. Compulsory, Value [0: Fundsupermart fund, 1: Google Finance stock, 2: Google Finance currency].
 -i <FilePath> : Environment info file path (CSV). Compulsory.
 -o <FilePath> : Result output file path (JSON). Optional, output to screen by default.
 -c <Number> : Concurrent max workers to process records. Optional, Value [1, 10], 5 by default.
@@ -867,9 +867,9 @@ Inventory info file format sample (With header line):
 1. Fundsupermart fund
 Fund name,Fund ID
 2. Google stock 
-stock name, exchange, ticker
+Name,Exchange,Ticker
 3. Google currency
-currency name, from_symbol, to_symbol
+From symbol,To symbol
 
 Notes:
 1. It requires 3rd parth python lib (at least): requests, selenium.

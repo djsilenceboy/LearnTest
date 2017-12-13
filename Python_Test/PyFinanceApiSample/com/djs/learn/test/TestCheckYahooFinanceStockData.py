@@ -3,37 +3,24 @@ Check Yahoo finance stock data helper.
 
 Update log: (date / version / author : comments)
 2017-12-08 / 1.0.0 / Du Jiang : Creation
+2017-12-13 / 2.0.0 / Du Jiang : Use new API
 '''
 
 
-from com.djs.learn.financeapi import CheckYahooFinanceStockData
+from com.djs.learn.financeapi import CheckFinanceDataRequests
 
-
+__data_type = 0
 __inventory_info_file_path = "../../../../etc/StockInfoY.csv"
 __result_output_file_path = "../../../../Temp/StockDataY.json"
 
-# from time import time, localtime, strftime
-# time_str = strftime("%Y%m%d_%H%M%S", localtime(time()))
-# __result_output_file_path = "../../../../Temp/StockDataY_{0}.json".format(time_str)
-
-# Test usage.
-# argv = []
-# argv = ["-h"]
-
-# Test wrong.
-# argv = ["-b"]
-# argv = ["-i"]
-
-# Test correct.
-# argv = ["-i", __inventory_info_file_path]
-argv = ["-i", __inventory_info_file_path, "-o", __result_output_file_path]
-CheckYahooFinanceStockData.main(argv)
-
+argv = ["-d", __data_type, "-i", __inventory_info_file_path,
+        "-o", __result_output_file_path]
+CheckFinanceDataRequests.main(argv)
 
 '''
 Or run:
 
-python CheckYahooFinanceStockData.py -i "../../../../etc/StockInfoY.csv" -o "../../../../Temp/StockDataY.json"
+python CheckFinanceDataRequests.py -d 0 -i "../../../../etc/StockInfoY.csv" -o "../../../../Temp/StockDataY.json"
 '''
 
 if __name__ == '__main__':
