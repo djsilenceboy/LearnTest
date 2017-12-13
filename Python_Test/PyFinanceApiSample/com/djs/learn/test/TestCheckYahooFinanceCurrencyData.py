@@ -9,7 +9,7 @@ Update log: (date / version / author : comments)
 from com.djs.learn.financeapi import CheckYahooFinanceCurrencyData
 
 
-__fund_info_file_path = "../../../../etc/CurrencyInfo.csv"
+__inventory_info_file_path = "../../../../etc/CurrencyInfo.csv"
 __result_output_file_path = "../../../../Temp/CurrencyDataY.json"
 
 # from time import time, localtime, strftime
@@ -25,8 +25,8 @@ __result_output_file_path = "../../../../Temp/CurrencyDataY.json"
 # argv = ["-i"]
 
 # Test correct.
-# argv = ["-i", __fund_info_file_path]
-argv = ["-i", __fund_info_file_path, "-o", __result_output_file_path]
+# argv = ["-i", __inventory_info_file_path]
+argv = ["-i", __inventory_info_file_path, "-o", __result_output_file_path]
 CheckYahooFinanceCurrencyData.main(argv)
 
 

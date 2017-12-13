@@ -63,6 +63,21 @@ print("animals2 dict() =", animals2)
 
 print("-" * 40)
 
+animals.update({'Duck': 4})
+print("animals {} =", animals)
+
+one_animal = {}
+one_animal["Tiger"] = 5
+animals.update(one_animal)
+print("animals {} =", animals)
+
+animals_copy = animals
+animals_copy.update({"Lion": 6})
+print("animals {} =", animals)
+
+
+print("-" * 40)
+
 print("animals.keys() =", animals.keys())
 print("animals.values() =", animals.values())
 print("animals.values() as list =", list(animals.values()))

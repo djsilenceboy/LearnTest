@@ -22,7 +22,7 @@ import requests
 
 # Global variables.
 # The value can be updated by command line options.
-__stock_info_file_path = None
+__inventory_info_file_path = None
 __result_output_file_path = None
 __concurrent_max_workers = 5
 
@@ -38,20 +38,21 @@ class Constants(object):
     RESULT_OK = "Ok"
     RESULT_ERROR = "Error"
 
-    STOCKS = "Stocks"
-    RECORDS_NUMBER = "Records number"
-    RECORD = "Record"
-
     START_TIME = "Start time"
     STOP_TIME = "Stop time"
 
-    COLUMN_NAME = "Name"
-    COLUMN_EXCHANGE = "Exchange"
-    COLUMN_TICKER = "Ticker"
+    INVENTORIES = "Inventories"
+    RECORDS_NUMBER = "Records number"
+    RECORD = "Record"
+    INVENTORY_DATA = "Inventory data"
 
     URL = "URL"
     API_URL = "https://finance.yahoo.com/quote/{0}"
     STATUS_CODE = "Status code"
+
+    COLUMN_NAME = "Name"
+    COLUMN_EXCHANGE = "Exchange"
+    COLUMN_TICKER = "Ticker"
 
     SECTION_STOCK_INFO = "Stock info"
     STOCK_INFO_NAME = "Name"
@@ -102,7 +103,7 @@ def check_url(url):
     return status_code, response
 
 
-def get_stock_data(http_response, results):
+def parse_get_data(http_response, results):
     '''
     Analyse HTTP response data.
 
@@ -256,19 +257,13 @@ def get_stock_data(http_response, results):
         raise e
 
 
-def inspect_stock(record):
+def inspect_inventory(record):
     '''
-    Inspect stock info page.
+    Inspect inventory info page.
 
     @param record: [stock name, exchange, ticker] 
     @return : Dict with return results.
     '''
-
-    results = {}
-
-    time_str = strftime("%Y-%m-%d %H:%M:%S", localtime(time()))
-    print("Start time =", time_str)
-    results[Constants.START_TIME] = time_str
 
     stock_info_name, stock_info_exchange, stock_info_ticker = record
     stock_info_name = stock_info_name.strip()
@@ -278,10 +273,18 @@ def inspect_stock(record):
     print("stock_info_exchange =", stock_info_exchange)
     print("stock_info_ticker =", stock_info_ticker)
 
-    results[Constants.RECORD] = {}
-    results[Constants.RECORD][Constants.COLUMN_NAME] = stock_info_name
-    results[Constants.RECORD][Constants.COLUMN_EXCHANGE] = stock_info_exchange
-    results[Constants.RECORD][Constants.COLUMN_TICKER] = stock_info_ticker
+    results = {}
+    results[stock_info_ticker] = {}
+    result = results[stock_info_ticker]
+
+    time_str = strftime("%Y-%m-%d %H:%M:%S", localtime(time()))
+    print("Start time =", time_str)
+    result[Constants.START_TIME] = time_str
+
+    result[Constants.RECORD] = {}
+    result[Constants.RECORD][Constants.COLUMN_NAME] = stock_info_name
+    result[Constants.RECORD][Constants.COLUMN_EXCHANGE] = stock_info_exchange
+    result[Constants.RECORD][Constants.COLUMN_TICKER] = stock_info_ticker
 
     if stock_info_exchange:
         url = Constants.API_URL.format("{0}.{1}".format(
@@ -289,7 +292,7 @@ def inspect_stock(record):
     else:
         url = Constants.API_URL.format(stock_info_ticker)
     print("url =", url)
-    results[Constants.URL] = url
+    result[Constants.URL] = url
 
     browser = None
     try:
@@ -298,17 +301,18 @@ def inspect_stock(record):
             raise Exception("Get '{0}' failed with status code {1}.".format(url,
                                                                             status_code))
 
-        # Get stock data.
-        get_stock_data(http_response, results)
+        # Parse and get data.
+        result[Constants.INVENTORY_DATA] = {}
+        parse_get_data(http_response, result[Constants.INVENTORY_DATA])
         print("-" * 40)
 
-        print("Inspect stock <{0}>: ok.".format(stock_info_ticker))
-        results[Constants.RESULT] = Constants.RESULT_OK
+        print("Inspect inventory <{0}>: ok.".format(stock_info_ticker))
+        result[Constants.RESULT] = Constants.RESULT_OK
     except Exception as e:
-        print("Inspect stock <{0}> Exception = {1}".format(
+        print("Inspect inventory <{0}> Exception = {1}".format(
             stock_info_ticker, e))
-        results[Constants.RESULT] = Constants.RESULT_ERROR
-        results[Constants.ERROR] = repr(e)
+        result[Constants.RESULT] = Constants.RESULT_ERROR
+        result[Constants.ERROR] = repr(e)
     finally:
         if browser:
             print("Close browser.")
@@ -316,21 +320,21 @@ def inspect_stock(record):
 
     time_str = strftime("%Y-%m-%d %H:%M:%S", localtime(time()))
     print("Stop time =", time_str)
-    results[Constants.STOP_TIME] = time_str
+    result[Constants.STOP_TIME] = time_str
 
     return results
 
 
-def process_stock_list():
+def process_inventory_list():
     '''
-    Get a list of stock info from a config file.
+    Get a list of inventory info from a config file.
     Inspect each of them.
 
     @return: Dict with return results.
     '''
 
     global __concurrent_max_workers
-    global __stock_info_file_path
+    global __inventory_info_file_path
     global __result_output_file_path
 
     results = {}
@@ -341,10 +345,10 @@ def process_stock_list():
     results[Constants.START_TIME] = time_str
 
     try:
-        results[Constants.STOCKS] = {}
+        results[Constants.INVENTORIES] = {}
 
         # Open input file.
-        with open(__stock_info_file_path) as record_file:
+        with open(__inventory_info_file_path) as record_file:
             print('record_file =', record_file)
             cin = csv.reader(record_file)
             # Get all records.
@@ -355,17 +359,16 @@ def process_stock_list():
             results[Constants.RECORDS_NUMBER] = len(records)
         print("-" * 80)
 
-        # Inspect each stock concurrently.
+        # Inspect inventory concurrently.
         with ThreadPoolExecutor(max_workers=__concurrent_max_workers) as executor:
             # Wait for result to return.
-            for record, result in zip(records, executor.map(inspect_stock, records)):
-                stock_info_ticker = record[2].strip()
-                results[Constants.STOCKS][stock_info_ticker] = result
+            for record, result in zip(records, executor.map(inspect_inventory, records)):
+                results[Constants.INVENTORIES].update(result)
 
         print("-" * 80)
-        print("Process stock list: ok.")
+        print("Process inventory list: ok.")
     except Exception as e:
-        print("Process stock list: Exception = {0}".format(e))
+        print("Process inventory list: Exception = {0}".format(e))
 
     time_str = strftime("%Y-%m-%d %H:%M:%S", localtime(time()))
     print("Stop time =", time_str)
@@ -396,11 +399,11 @@ def process_stock_list():
 
 def usage():
     print('''
-Check Yahoo stock data.
+Check Yahoo data.
 
 Usage:
 -h
--i <file path> [-o <file path>] -w <file path> [-l <file path>] [-c <Number>]
+-i <file path> [-o <file path>] [-c <Number>]
 
 Options:
 -h : Show help.
@@ -408,8 +411,8 @@ Options:
 -o <file path> : Result output file path (JSON). Optional, output to screen by default.
 -c <Number> : Concurrent max workers to process records. Optional, 5 by default. Must >= 1
 
-Fund info file format sample (With header line):
-Fund name,Fund ID
+Inventory info file format sample (With header line):
+stock name, exchange, ticker
 ''')
 
 
@@ -420,7 +423,7 @@ def main(argv):
     @param argv: A list of arguments
     '''
 
-    global __stock_info_file_path
+    global __inventory_info_file_path
     global __result_output_file_path
     global __concurrent_max_workers
 
@@ -452,7 +455,7 @@ def main(argv):
                 if opt == "-h":
                     __show_usage, __exit_code = True, 0
                 elif opt == "-i":
-                    __stock_info_file_path = arg
+                    __inventory_info_file_path = arg
                 elif opt == "-o":
                     __result_output_file_path = arg
                 elif opt == "-c":
@@ -466,20 +469,20 @@ def main(argv):
                 3, "Wrong value for command line option."
 
     print("show_usage =", __show_usage)
-    print("stock_info_file_path =", __stock_info_file_path)
+    print("inventory_info_file_path =", __inventory_info_file_path)
     print("result_output_file_path", __result_output_file_path)
     print("concurrent_max_workers =", __concurrent_max_workers)
 
     # Check options are valid.
     if not __show_usage:
-        if not __stock_info_file_path:
+        if not __inventory_info_file_path:
             __show_usage, __exit_code, __error_message = True, - \
                 4, "Missing compulsory command line option."
         elif __concurrent_max_workers < 1:
             __show_usage, __exit_code, __error_message = True, -5, "Wrong value for -c."
 
     if not __show_usage:
-        process_stock_list()
+        process_inventory_list()
     else:
         print("__exit_code =", __exit_code)
         if __error_message:

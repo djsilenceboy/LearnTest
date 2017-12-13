@@ -1,0 +1,9 @@
+================================================================================
+Selenium for Python
+------------------------------------------------------------
+]$ pip install selenium
+
+Chrome driver: https://sites.google.com/a/chromium.org/chromedriver/downloads
+Firefox driver: https://github.com/mozilla/geckodriver/releases
+PhantomJS engine (Headless): http://phantomjs.org/download.html
+================================================================================

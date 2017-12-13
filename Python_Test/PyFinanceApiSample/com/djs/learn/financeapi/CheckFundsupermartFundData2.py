@@ -30,11 +30,11 @@ from selenium.webdriver.common.keys import Keys
 
 # Global variables.
 # The value can be updated by command line options.
-__inventory_info_file_path = None
+__fund_info_file_path = None
 __result_output_file_path = None
-__concurrent_max_workers = 5
 __web_driver_file_path = None
 __web_driver_log_file_path = None
+__concurrent_max_workers = 5
 
 
 class Constants(object):
@@ -53,20 +53,21 @@ class Constants(object):
     RESULT_OK = "Ok"
     RESULT_ERROR = "Error"
 
+    FUNDS = "Funds"
+    RECORDS_NUMBER = "Records number"
+    RECORD = "Record"
+
     START_TIME = "Start time"
     STOP_TIME = "Stop time"
 
-    INVENTORIES = "Inventories"
-    RECORDS_NUMBER = "Records number"
-    RECORD = "Record"
-    INVENTORY_DATA = "Inventory data"
+    FUND_NAME = "Fund name"
+    FUND_ID = "Fund ID"
 
     URL = "URL"
     API_URL = "https://secure.fundsupermart.com/fsm/funds/factsheet/{0}"
     STATUS_CODE = "Status code"
 
-    FUND_NAME = "Fund name"
-    FUND_ID = "Fund ID"
+    FUND_DATA = "Fund data"
 
     SECTION_BANNER_INFO = "Banner info"
     SECTION_OFFER_TO_BID_INFO = "Offer to bid info"
@@ -123,7 +124,7 @@ def check_page_loaded(browser):
                 raise e
 
 
-def parse_get_data(browser, results):
+def get_fund_data(browser, results):
     '''
     Open URL and get data.
 
@@ -320,9 +321,9 @@ def parse_get_data(browser, results):
         raise e
 
 
-def inspect_inventory(record):
+def inspect_fund(record):
     '''
-    Inspect inventory info page.
+    Inspect fund info page.
 
     @param record: [fund name, fund id] 
     @return : Dict with return results.
@@ -331,42 +332,38 @@ def inspect_inventory(record):
     global __web_driver_file_path
     global __web_driver_log_file_path
 
+    results = {}
+
+    time_str = strftime("%Y-%m-%d %H:%M:%S", localtime(time()))
+    print("Start time =", time_str)
+    results[Constants.START_TIME] = time_str
+
     fund_name, fund_id = record
     fund_name = fund_name.strip()
     fund_id = fund_id.strip()
     print("fund_name =", fund_name)
     print("fund_id =", fund_id)
 
-    results = {}
-    results[fund_id] = {}
-    result = results[fund_id]
-
-    time_str = strftime("%Y-%m-%d %H:%M:%S", localtime(time()))
-    print("Start time =", time_str)
-    result[Constants.START_TIME] = time_str
-
-    result[Constants.RECORD] = {}
-    result[Constants.RECORD][Constants.FUND_NAME] = fund_name
-    result[Constants.RECORD][Constants.FUND_ID] = fund_id
+    results[Constants.RECORD] = {}
+    results[Constants.RECORD][Constants.FUND_NAME] = fund_name
+    results[Constants.RECORD][Constants.FUND_ID] = fund_id
 
     browser = None
     try:
         url = Constants.API_URL.format(fund_id)
         print("url =", url)
-        result[Constants.URL] = url
+        results[Constants.URL] = url
 
         status_code = check_url(url)
         if status_code != HTTPStatus.OK:
             raise Exception("Get '{0}' failed with status code {1}.".format(url,
                                                                             status_code))
 
-        # Create profile.
-        profile = webdriver.FirefoxProfile()
-        profile.set_preference("general.useragent.override",
-                               "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0")
-        browser = webdriver.Firefox(
-            profile, executable_path=__web_driver_file_path, log_path=__web_driver_log_file_path)
+        browser = webdriver.PhantomJS(
+            executable_path=__web_driver_file_path, service_log_path=__web_driver_log_file_path)
         print("browser =", browser)
+        # browser.implicitly_wait(3)
+        # browser.set_page_load_timeout(3)
         print("-" * 60)
 
         # Load page.
@@ -375,18 +372,18 @@ def inspect_inventory(record):
         check_page_loaded(browser)
         print("-" * 40)
 
-        # Parse and get data.
-        result[Constants.INVENTORY_DATA] = {}
-        parse_get_data(browser, result[Constants.INVENTORY_DATA])
+        # Get fund data.
+        results[Constants.FUND_DATA] = {}
+        get_fund_data(browser, results[Constants.FUND_DATA])
         sleep(Constants.WAIT_TIME_VIEW_PAGE)
         print("-" * 40)
 
-        print("Inspect inventory: <{0}> ok.".format(fund_id))
-        result[Constants.RESULT] = Constants.RESULT_OK
+        print("Inspect fund: <{0}> ok.".format(fund_id))
+        results[Constants.RESULT] = Constants.RESULT_OK
     except Exception as e:
-        print("Inspect inventory <{0}>: Exception = {1}".format(fund_id, e))
-        result[Constants.RESULT] = Constants.RESULT_ERROR
-        result[Constants.ERROR] = repr(e)
+        print("Inspect fund <{0}>: Exception = {1}".format(fund_id, e))
+        results[Constants.RESULT] = Constants.RESULT_ERROR
+        results[Constants.ERROR] = repr(e)
     finally:
         if browser:
             print("Close browser.")
@@ -394,21 +391,21 @@ def inspect_inventory(record):
 
     time_str = strftime("%Y-%m-%d %H:%M:%S", localtime(time()))
     print("Stop time =", time_str)
-    result[Constants.STOP_TIME] = time_str
+    results[Constants.STOP_TIME] = time_str
 
     return results
 
 
-def process_inventory_list():
+def process_fund_list():
     '''
-    Get a list of inventory info from a config file.
+    Get a list of fund info from a config file.
     Inspect each of them.
 
     @return: Dict with return results.
     '''
 
     global __concurrent_max_workers
-    global __inventory_info_file_path
+    global __fund_info_file_path
     global __result_output_file_path
 
     results = {}
@@ -419,10 +416,10 @@ def process_inventory_list():
     results[Constants.START_TIME] = time_str
 
     try:
-        results[Constants.INVENTORIES] = {}
+        results[Constants.FUNDS] = {}
 
         # Open input file.
-        with open(__inventory_info_file_path) as record_file:
+        with open(__fund_info_file_path) as record_file:
             print('record_file =', record_file)
             cin = csv.reader(record_file)
             # Get all records.
@@ -433,16 +430,17 @@ def process_inventory_list():
             results[Constants.RECORDS_NUMBER] = len(records)
         print("-" * 80)
 
-        # Inspect inventory concurrently.
+        # Inspect each fund concurrently.
         with ThreadPoolExecutor(max_workers=__concurrent_max_workers) as executor:
             # Wait for result to return.
-            for record, result in zip(records, executor.map(inspect_inventory, records)):
-                results[Constants.INVENTORIES].update(result)
+            for record, result in zip(records, executor.map(inspect_fund, records)):
+                fund_id = record[1].strip()
+                results[Constants.FUNDS][fund_id] = result
 
         print("-" * 80)
-        print("Process inventory list: ok.")
+        print("Process fund list: ok.")
     except Exception as e:
-        print("Process inventory list: Exception = {0}".format(e))
+        print("Process fund list: Exception = {0}".format(e))
 
     time_str = strftime("%Y-%m-%d %H:%M:%S", localtime(time()))
     print("Stop time =", time_str)
@@ -477,17 +475,17 @@ Check Fundsupermart fund data.
 
 Usage:
 -h
--i <file path> [-o <file path>] [-c <Number>] -w <file path> [-l <file path>]
+-i <file path> [-o <file path>] -w <file path> [-l <file path>] [-c <Number>]
 
 Options:
 -h : Show help.
 -i <file path> : Environment info file path (CSV). Compulsory.
 -o <file path> : Result output file path (JSON). Optional, output to screen by default.
--c <Number> : Concurrent max workers to process records. Optional, 5 by default. Must >= 1
 -w <file path> : Selenium web driver file path (absolute path). For example, geckodriver for Firefox. Compulsory.
 -l <file path> : Selenium web driver log file path. Optional, output to screen by default.
+-c <Number> : Concurrent max workers to process records. Optional, 5 by default. Must >= 1
 
-Inventory info file format sample (With header line):
+Fund info file format sample (With header line):
 Fund name,Fund ID
 
 Note that:
@@ -506,11 +504,11 @@ def main(argv):
     @param argv: A list of arguments
     '''
 
-    global __inventory_info_file_path
+    global __fund_info_file_path
     global __result_output_file_path
-    global __concurrent_max_workers
     global __web_driver_file_path
     global __web_driver_log_file_path
+    global __concurrent_max_workers
 
     print("argv =", argv)
 
@@ -525,7 +523,7 @@ def main(argv):
     # Parse command line.
     if not __show_usage:
         try:
-            opts, args = getopt.getopt(argv, "hi:o:c:w:l:")
+            opts, args = getopt.getopt(argv, "hi:o:w:l:c:")
             print("opts =", opts)
             print("args =", args)
         except Exception as e:
@@ -540,15 +538,15 @@ def main(argv):
                 if opt == "-h":
                     __show_usage, __exit_code = True, 0
                 elif opt == "-i":
-                    __inventory_info_file_path = arg
+                    __fund_info_file_path = arg
                 elif opt == "-o":
                     __result_output_file_path = arg
-                elif opt == "-c":
-                    __concurrent_max_workers = int(arg)
                 elif opt == "-w":
                     __web_driver_file_path = arg
                 elif opt == "-l":
                     __web_driver_log_file_path = arg
+                elif opt == "-c":
+                    __concurrent_max_workers = int(arg)
                 else:
                     __show_usage, __exit_code, __error_message = True, - \
                         2, "Unknown command line option."
@@ -558,22 +556,22 @@ def main(argv):
                 3, "Wrong value for command line option."
 
     print("show_usage =", __show_usage)
-    print("inventory_info_file_path =", __inventory_info_file_path)
+    print("fund_info_file_path =", __fund_info_file_path)
     print("result_output_file_path", __result_output_file_path)
+    print("geckodriver_file_path =", __web_driver_file_path)
+    print("geckodriver_log_file_path =", __web_driver_log_file_path)
     print("concurrent_max_workers =", __concurrent_max_workers)
-    print("web_driver_file_path =", __web_driver_file_path)
-    print("web_driver_log_file_path =", __web_driver_log_file_path)
 
     # Check options are valid.
     if not __show_usage:
-        if (not __inventory_info_file_path) or (not __web_driver_file_path):
+        if (not __fund_info_file_path) or (not __web_driver_file_path):
             __show_usage, __exit_code, __error_message = True, - \
                 4, "Missing compulsory command line option."
         elif __concurrent_max_workers < 1:
             __show_usage, __exit_code, __error_message = True, -5, "Wrong value for -c."
 
     if not __show_usage:
-        process_inventory_list()
+        process_fund_list()
     else:
         print("__exit_code =", __exit_code)
         if __error_message:

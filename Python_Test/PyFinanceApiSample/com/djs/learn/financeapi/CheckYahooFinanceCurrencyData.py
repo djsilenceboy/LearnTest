@@ -21,7 +21,7 @@ import requests
 
 # Global variables.
 # The value can be updated by command line options.
-__currency_info_file_path = None
+__inventory_info_file_path = None
 __result_output_file_path = None
 __concurrent_max_workers = 5
 
@@ -37,20 +37,21 @@ class Constants(object):
     RESULT_OK = "Ok"
     RESULT_ERROR = "Error"
 
-    CURRENCIES = "Currencies"
-    RECORDS_NUMBER = "Records number"
-    RECORD = "Record"
-
     START_TIME = "Start time"
     STOP_TIME = "Stop time"
 
-    COLUMN_NAME = "Name"
-    COLUMN_FROM_SYMBOL = "From symbol"
-    COLUMN_TO_SYMBOL = "To symbol"
+    INVENTORIES = "Inventories"
+    RECORDS_NUMBER = "Records number"
+    RECORD = "Record"
+    INVENTORY_DATA = "Inventory data"
 
     URL = "URL"
     API_URL = "https://finance.yahoo.com/quote/{0}=X"
     STATUS_CODE = "Status code"
+
+    COLUMN_NAME = "Name"
+    COLUMN_FROM_SYMBOL = "From symbol"
+    COLUMN_TO_SYMBOL = "To symbol"
 
     SECTION_CURRENCY_INFO = "Currency info"
     CURRENCY_INFO_NAME = "Name"
@@ -89,7 +90,7 @@ def check_url(url):
     return status_code, response
 
 
-def get_currency_data(http_response, results):
+def parse_get_data(http_response, results):
     '''
     Analyse HTTP response data.
 
@@ -156,11 +157,7 @@ def get_currency_data(http_response, results):
         except Exception:
             raise Exception("Cannot find time_section.")
 
-        # The date sub-string cannot be displayed/captured, although it can display on the screen.
-        # On screen: "At close: 8 December 10:38PM GMT"
-        # Captured:  "At close:  10:38PM GMT"
-        results[Constants.SECTION_EXCHANGE_INFO][Constants.EXCHANGE_INFO_TIME] = time_section.get_text().split(": ")[
-            1].strip()
+        results[Constants.SECTION_EXCHANGE_INFO][Constants.EXCHANGE_INFO_TIME] = time_section.get_text()
 
         print("Get currency data: ok.")
         print("-" * 40)
@@ -169,54 +166,57 @@ def get_currency_data(http_response, results):
         raise e
 
 
-def inspect_currency(record):
+def inspect_inventory(record):
     '''
-    Inspect currency info page.
+    Inspect inventory info page.
 
     @param record: [currency name, from_symbol, to_symbol] 
     @return : Dict with return results.
     '''
-
-    results = {}
-
-    time_str = strftime("%Y-%m-%d %H:%M:%S", localtime(time()))
-    print("Start time =", time_str)
-    results[Constants.START_TIME] = time_str
 
     currency_info_from_symbol, currency_info_to_symbol = record
     currency_info_from_symbol = currency_info_from_symbol.strip()
     currency_info_to_symbol = currency_info_to_symbol.strip()
     print("currency_info_from_symbol =", currency_info_from_symbol)
     print("currency_info_to_symbol =", currency_info_to_symbol)
+    currency_info_symbols = currency_info_from_symbol + currency_info_to_symbol
 
-    results[Constants.RECORD] = {}
-    results[Constants.RECORD][Constants.COLUMN_FROM_SYMBOL] = currency_info_from_symbol
-    results[Constants.RECORD][Constants.COLUMN_TO_SYMBOL] = currency_info_to_symbol
+    results = {}
+    results[currency_info_symbols] = {}
+    result = results[currency_info_symbols]
+
+    time_str = strftime("%Y-%m-%d %H:%M:%S", localtime(time()))
+    print("Start time =", time_str)
+    result[Constants.START_TIME] = time_str
+
+    result[Constants.RECORD] = {}
+    result[Constants.RECORD][Constants.COLUMN_FROM_SYMBOL] = currency_info_from_symbol
+    result[Constants.RECORD][Constants.COLUMN_TO_SYMBOL] = currency_info_to_symbol
 
     browser = None
     try:
         url = Constants.API_URL.format("{0}{1}".format(
             currency_info_from_symbol, currency_info_to_symbol))
         print("url =", url)
-        results[Constants.URL] = url
+        result[Constants.URL] = url
 
         status_code, http_response = check_url(url)
         if status_code != HTTPStatus.OK:
             raise Exception("Get '{0}' failed with status code {1}.".format(url,
                                                                             status_code))
 
-        # Get currency data.
-        get_currency_data(http_response, results)
+        # Parse and get data.
+        result[Constants.INVENTORY_DATA] = {}
+        parse_get_data(http_response, result[Constants.INVENTORY_DATA])
         print("-" * 40)
 
-        print("Inspect currency <{0}>: ok.".format(
-            currency_info_to_symbol))
-        results[Constants.RESULT] = Constants.RESULT_OK
+        print("Inspect currency <{0}>: ok.".format(currency_info_symbols))
+        result[Constants.RESULT] = Constants.RESULT_OK
     except Exception as e:
-        print("Inspect currency <{0}:{1}>: Exception = {2}".format(
-            currency_info_from_symbol, currency_info_to_symbol, e))
-        results[Constants.RESULT] = Constants.RESULT_ERROR
-        results[Constants.ERROR] = repr(e)
+        print("Inspect currency <{0}>: Exception = {1}".format(
+            currency_info_symbols, e))
+        result[Constants.RESULT] = Constants.RESULT_ERROR
+        result[Constants.ERROR] = repr(e)
     finally:
         if browser:
             print("Close browser.")
@@ -224,21 +224,21 @@ def inspect_currency(record):
 
     time_str = strftime("%Y-%m-%d %H:%M:%S", localtime(time()))
     print("Stop time =", time_str)
-    results[Constants.STOP_TIME] = time_str
+    result[Constants.STOP_TIME] = time_str
 
     return results
 
 
-def process_currency_list():
+def process_inventory_list():
     '''
-    Get a list of currency info from a config file.
+    Get a list of inventory info from a config file.
     Inspect each of them.
 
     @return: Dict with return results.
     '''
 
     global __concurrent_max_workers
-    global __currency_info_file_path
+    global __inventory_info_file_path
     global __result_output_file_path
 
     results = {}
@@ -249,10 +249,10 @@ def process_currency_list():
     results[Constants.START_TIME] = time_str
 
     try:
-        results[Constants.CURRENCIES] = {}
+        results[Constants.INVENTORIES] = {}
 
         # Open input file.
-        with open(__currency_info_file_path) as record_file:
+        with open(__inventory_info_file_path) as record_file:
             print('record_file =', record_file)
             cin = csv.reader(record_file)
             # Get all records.
@@ -263,18 +263,16 @@ def process_currency_list():
             results[Constants.RECORDS_NUMBER] = len(records)
         print("-" * 80)
 
-        # Inspect each currency concurrently.
+        # Inspect inventory concurrently.
         with ThreadPoolExecutor(max_workers=__concurrent_max_workers) as executor:
             # Wait for result to return.
-            for record, result in zip(records, executor.map(inspect_currency, records)):
-                currency_info_symbols = record[0].strip(
-                ) + ":" + record[1].strip()
-                results[Constants.CURRENCIES][currency_info_symbols] = result
+            for record, result in zip(records, executor.map(inspect_inventory, records)):
+                results[Constants.INVENTORIES].update(result)
 
         print("-" * 80)
-        print("Process currency list: ok.")
+        print("Process inventory list: ok.")
     except Exception as e:
-        print("Process currency list: Exception = {0}".format(e))
+        print("Process inventory list: Exception = {0}".format(e))
 
     time_str = strftime("%Y-%m-%d %H:%M:%S", localtime(time()))
     print("Stop time =", time_str)
@@ -305,7 +303,7 @@ def process_currency_list():
 
 def usage():
     print('''
-Check Yahoo currency data.
+Check Yahoo data.
 
 Usage:
 -h
@@ -317,8 +315,8 @@ Options:
 -o <file path> : Result output file path (JSON). Optional, output to screen by default.
 -c <Number> : Concurrent max workers to process records. Optional, 5 by default. Must >= 1
 
-Fund info file format sample (With header line):
-Fund name,Fund ID
+Inventory info file format sample (With header line):
+currency name, from_symbol, to_symbol
 ''')
 
 
@@ -329,7 +327,7 @@ def main(argv):
     @param argv: A list of arguments
     '''
 
-    global __currency_info_file_path
+    global __inventory_info_file_path
     global __result_output_file_path
     global __concurrent_max_workers
 
@@ -361,7 +359,7 @@ def main(argv):
                 if opt == "-h":
                     __show_usage, __exit_code = True, 0
                 elif opt == "-i":
-                    __currency_info_file_path = arg
+                    __inventory_info_file_path = arg
                 elif opt == "-o":
                     __result_output_file_path = arg
                 elif opt == "-c":
@@ -375,20 +373,20 @@ def main(argv):
                 3, "Wrong value for command line option."
 
     print("show_usage =", __show_usage)
-    print("currency_info_file_path =", __currency_info_file_path)
+    print("inventory_info_file_path =", __inventory_info_file_path)
     print("result_output_file_path", __result_output_file_path)
     print("concurrent_max_workers =", __concurrent_max_workers)
 
     # Check options are valid.
     if not __show_usage:
-        if not __currency_info_file_path:
+        if not __inventory_info_file_path:
             __show_usage, __exit_code, __error_message = True, - \
                 4, "Missing compulsory command line option."
         elif __concurrent_max_workers < 1:
             __show_usage, __exit_code, __error_message = True, -5, "Wrong value for -c."
 
     if not __show_usage:
-        process_currency_list()
+        process_inventory_list()
     else:
         print("__exit_code =", __exit_code)
         if __error_message:

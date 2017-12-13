@@ -98,7 +98,7 @@ Python bindings for Selenium.
 
 ]$ pip install selenium
 
-(selenium Firefox depends on "https://github.com/mozilla/geckodriver/releases".)
+(Selenium Firefox depends on "https://github.com/mozilla/geckodriver/releases".)
 
 Extends Selenium WebDriver classes to include the request function from the Requests library, while doing all the needed cookie and request headers handling.
 
