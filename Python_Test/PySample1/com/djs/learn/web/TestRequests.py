@@ -20,11 +20,17 @@ def test_get(url):
 
     print("response =", response)
     print("response.status_code =", response.status_code)
-    print("response.headers =", response.headers)
+    print("response.headers =\n", response.headers)
+    print("-" * 40)
 
-    print("-" * 20)
-    print("response.text =\n", response.text)
+    # print("response.text =\n", response.text)
+    # print("-" * 40)
 
+    print("response.history =\n", response.history)
+    if response.history:
+       for resp in response.history:
+           print("resp.status_code =", resp.status_code, resp.url)
+       print ("Request was redirected to =", response.url)
 
 def test_get_with_session(url):
     print("url =", url)

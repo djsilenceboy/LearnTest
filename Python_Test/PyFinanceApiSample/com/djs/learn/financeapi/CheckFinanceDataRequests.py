@@ -123,7 +123,12 @@ def check_url(url):
         response = requests.get(url, headers=headers)
         # print("response =", response)
         print("response.status_code =", response.status_code)
-        status_code = response.status_code
+
+        if response.history:
+            status_code = HTTPStatus.OK
+            print("response.status_code (Due to redirected) =", status_code)
+        else:
+            status_code = response.status_code
     except Exception as e:
         print("Check url: Exception = {0}".format(e))
         raise e
