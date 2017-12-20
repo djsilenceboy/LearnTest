@@ -1,0 +1,23 @@
+======================================================================
+Denial of Service (DoS)
+------------------------------------------------------------
+TCP SYN flood
+
+Step 1: Source host sends "TCP SYN" to Target host.
+Step 2: Target host prepares pending TCP connection data, and sends "TCP SYN ACK" to Source host.
+Step 3: Source host sends "TCP ACK" to Target host to start TCP connection.
+
+However in Step 3, Source host does not send "TCP ACK". Thus, Target host may not release temp data from memory in time.
+------------------------------------------------------------
+flood of UDP packets
+------------------------------------------------------------
+ICMP traffic
+
+Source host sends Ping command with large data.
+======================================================================
+Distributed Denial of Service (DDoS)
+------------------------------------------------------------
+Use multiple Source hosts (Zombies) to launch DoS.
+Normally, there is a Master host or Command and Control host (CnC).
+The Master host controls Zombies.
+======================================================================

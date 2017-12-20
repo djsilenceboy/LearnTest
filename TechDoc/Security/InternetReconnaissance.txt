@@ -1,0 +1,39 @@
+======================================================================
+Internet Reconnaissance / Port Scan / Stealth Scan
+------------------------------------------------------------
+To find a valid host
+
+Step 1: Source host sends "TCP SYN" to Target host.
+Step 2: Target host prepares pending TCP connection data, and sends "TCP SYN ACK" to Source host.
+------------------------------------------------------------
+To find a invalid host
+
+Step 1: Source host sends "TCP RST" to Target host.
+Step 2: If Target host does not exist, Router for that network address will return ICMP "Host Unreachable".
+======================================================================
+To get IP of a host name (FQDN)
+
+nslookup <Target_FQDN>
+
+or
+
+nslookup
+> set type=mx
+> <Target_FQDN>
+------------------------------------------------------------
+ARIN Whois service
+
+Website: https://www.arin.net
+
+1. Show Source host IP.
+2. Use "SEARCH Whois" to search info about given IP.
+------------------------------------------------------------
+Network Solutions, LLC
+
+Website: https://www.networksolutions.com
+
+1. Check domain names.
+2. Purchase domain names.
+------------------------------------------------------------
+Use NMap to scan ports.
+======================================================================
