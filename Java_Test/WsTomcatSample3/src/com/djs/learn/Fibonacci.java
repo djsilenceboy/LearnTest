@@ -2,58 +2,31 @@
 package com.djs.learn;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Fibonacci
 {
-	public List<Long> generateNumber(int number){
-		ArrayList<Long> result = new ArrayList<Long>();
-		int count = 0;
-		Long a = 1L;
-		Long b = 1L;
+	public List<Long> sort(List<Long> fib){
+		ArrayList<Long> odd = new ArrayList<Long>();
+		ArrayList<Long> even = new ArrayList<Long>();
 
-		result.add(a);
-		count++;
-
-		if (number > 1) {
-			result.add(b);
-			count++;
-
-			if (number > 2) {
-				while (count < number) {
-					Long c = a + b;
-					result.add(c);
-					a = b;
-					b = c;
-					count++;
-				}
+		for (Long i : fib) {
+			if (i % 2 == 0) {
+				even.add(i);
+			} else {
+				odd.add(i);
 			}
 		}
 
-		return result;
-	}
+		Collections.reverse(odd);
+		Collections.reverse(even);
 
-	public static void main(String[] args){
-		Fibonacci f = new Fibonacci();
+		// System.out.println("odd = " + odd);
+		// System.out.println("even = " + even);
 
-		{
-			List<Long> result = f.generateNumber(1);
-			System.out.println("Gen(1) = " + result);
-		}
+		odd.addAll(even);
 
-		{
-			List<Long> result = f.generateNumber(2);
-			System.out.println("Gen(2) = " + result);
-		}
-
-		{
-			List<Long> result = f.generateNumber(10);
-			System.out.println("Gen(10) = " + result);
-		}
-
-		{
-			List<Long> result = f.generateNumber(50);
-			System.out.println("Gen(50) = " + result);
-		}
+		return odd;
 	}
 }
