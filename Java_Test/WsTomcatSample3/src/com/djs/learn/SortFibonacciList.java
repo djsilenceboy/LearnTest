@@ -3,7 +3,9 @@ package com.djs.learn;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -15,24 +17,24 @@ import javax.ws.rs.core.MediaType;
 import org.apache.log4j.Logger;
 
 /*
- * http://localhost:8080/WsTomcatSample3/SortFibonacciList/j/{Numbers}
- * http://localhost:8080/WsTomcatSample3/SortFibonacciList/h/{Numbers}
+ * GET: http://localhost:8080/WsTomcatSample3/SortFibonacciList/j/{Number}
+ * POST: http://localhost:8080/WsTomcatSample3/SortFibonacciList/f with Number={Number}
  */
 @Path("/SortFibonacciList")
 public class SortFibonacciList
 {
 	public static Logger log = Logger.getLogger(SortFibonacciList.class);
 
-	private String getFibonacciListUrl = "http://localhost:8080/WsTomcatSample2/GetFibonacciList/j/Numbers";
+	private String getFibonacciListUrl = "http://localhost:8080/WsTomcatSample2/GetFibonacciList/j/Number";
 	private Fibonacci fibonacci = new Fibonacci();
 
-	private List<Long> getFibonacciList(String url){
-		List<Long> fib_result = null;
+	private List<Long> getRemoteFibonacciList(String url){
+		List<Long> fibResult = null;
 		Client client = null;
 
 		try {
 			client = ClientBuilder.newClient();
-			fib_result = client.target(url).request(MediaType.APPLICATION_JSON).get(new GenericType<List<Long>>() {});
+			fibResult = client.target(url).request(MediaType.APPLICATION_JSON).get(new GenericType<List<Long>>() {});
 		} catch (Exception e) {
 			log.error("getFibonacciList failed. Exception = " + e);
 		} finally {
@@ -41,58 +43,63 @@ public class SortFibonacciList
 			}
 		}
 
-		return fib_result;
+		return fibResult;
+	}
+
+	private List<Long> getFibonacciList(int number){
+		log.info("number = " + number);
+
+		if (number <= 0) {
+			throw new javax.ws.rs.BadRequestException("Input number should >= 1.");
+		}
+
+		String url = getFibonacciListUrl.replaceFirst("Number", Integer.toString(number));
+
+		List<Long> fibResult = getRemoteFibonacciList(url);
+		log.info("Gen(" + number + ") = " + fibResult);
+
+		return fibResult;
 	}
 
 	@GET
-	@Path("/j/{Numbers}")
+	@Path("/j/{Number}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Long> sortFibonacciListJson(@PathParam("Numbers") int number){
-		log.info("number = " + number);
+	public List<Long> sortFibonacciList1_Json(@PathParam("Number") int number){
+		log.info("Enter");
+		List<Long> fibResult = getFibonacciList(number);
 
-		if (number <= 0) {
-			throw new javax.ws.rs.BadRequestException("Input number should >= 1.");
+		List<Long> sortedResult = null;
+		if (fibResult != null) {
+			sortedResult = fibonacci.sort(fibResult);
 		}
 
-		String url = getFibonacciListUrl.replaceFirst("Numbers", Integer.toString(number));
+		log.info("Sort(" + number + ") = " + sortedResult);
 
-		List<Long> fib_result = getFibonacciList(url);
-		log.info("Gen(" + number + ") = " + fib_result);
-
-		List<Long> sorted_result = null;
-		if (fib_result != null) {
-			sorted_result = fibonacci.sort(fib_result);
-		}
-
-		log.info("Sort(" + number + ") = " + sorted_result);
-
-		return sorted_result;
+		return sortedResult;
 	}
 
-	@GET
-	@Path("/h/{Numbers}")
-	@Produces(MediaType.TEXT_HTML)
-	public String sortFibonacciListHtml(@PathParam("Numbers") int number){
-		log.info("number = " + number);
+	@POST
+	@Path("/f")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	// public List<Long> sortFibonacciList2_Json(@FormParam("Numbers") List<Long> numberList){
+	public List<Long> sortFibonacciList2_Json(NumberList numberList){
+		log.info("Enter");
 
-		if (number <= 0) {
-			throw new javax.ws.rs.BadRequestException("Input number should >= 1.");
+		log.info("Original = " + numberList);
+
+		List<Long> sortedResult = null;
+
+		if (numberList != null) {
+			log.info("Original = " + numberList.getNumbers());
+
+			if (numberList.getNumbers() != null) {
+				sortedResult = fibonacci.sort(numberList.getNumbers());
+			}
 		}
 
-		String url = getFibonacciListUrl.replaceFirst("Numbers", Integer.toString(number));
+		log.info("Sorted = " + sortedResult);
 
-		List<Long> fib_result = getFibonacciList(url);
-		log.info("Gen(" + number + ") = " + fib_result);
-
-		List<Long> sorted_result = null;
-		if (fib_result != null) {
-			sorted_result = fibonacci.sort(fib_result);
-		}
-
-		log.info("Sort(" + number + ") = " + sorted_result);
-
-		String html_resulot = "<html><title>Fibonacci List</title><body>" + sorted_result + "</body></html>";
-
-		return html_resulot;
+		return sortedResult;
 	}
 }

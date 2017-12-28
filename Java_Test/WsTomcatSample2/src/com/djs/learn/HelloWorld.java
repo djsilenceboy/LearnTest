@@ -7,7 +7,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /*
- * http://localhost:8080/WsTomcatSample2/Hello
+ * GET: http://localhost:8080/WsTomcatSample2/Hello
  */
 @Path("/Hello")
 public class HelloWorld
