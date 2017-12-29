@@ -1,27 +1,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>com.djs.learn</groupId>
-	<artifactId>hbt_sample</artifactId>
-	<version>1.0.0</version>
+	<artifactId>test_general</artifactId>
+	<version>0.0.1</version>
 	<packaging>jar</packaging>
+	<name>test_general</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java-version>1.8</java-version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<junit.version>4.12</junit.version>
-		<hibernate.version>5.2.12.Final</hibernate.version>
-		<mysql.version>5.1.45</mysql.version>
 	</properties>
 
 	<build>
 		<plugins>
-			<!--
+			<!-- To generate "maven_test-0.0.1-SNAPSHOT-jar-with-dependencies.jar". -->
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.2</version>
 				<configuration>
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
@@ -37,7 +37,6 @@
 					</execution>
 				</executions>
 			</plugin>
-  			-->
 			<!-- To generate "target\dependencies" with needed jars. -->
 			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>
@@ -48,9 +47,6 @@
 						<goals>
 							<goal>copy-dependencies</goal>
 						</goals>
-						<configuration>
-							<includeScope>runtime</includeScope>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -65,48 +61,6 @@
 						</property>
 					</systemProperties>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>hibernate3-maven-plugin</artifactId>
-				<version>2.2</version>
-				<executions>
-					<execution>
-						<id>hbm2cfgxml</id>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>hbm2cfgxml</goal>
-						</goals>
-						<configuration>
-							<components>
-								<component>
-									<name>hbm2cfgxml</name>
-									<implementation>jdbcconfiguration</implementation>
-									<outputDirectory>target/classes</outputDirectory>
-								</component>
-							</components>
-							<componentProperties>
-								<packageName>com.djs.learn.hbt_sample</packageName>
-							</componentProperties>
-						</configuration>
-					</execution>
-					<execution>
-						<id>hbm2java</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>hbm2java</goal>
-							<goal>hbm2dao</goal>
-						</goals>
-						<configuration>
-							<components>
-								<component>
-									<name>hbm2java</name>
-									<implementation>annotationconfiguration</implementation>
-								</component>
-							</components>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 		<pluginManagement>
@@ -146,6 +100,7 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
+			<type>jar</type>
 			<scope>test</scope>
 		</dependency>
 
@@ -169,25 +124,63 @@
 			</exclusions>
 		</dependency>
 
-		<!-- Hibernate -->
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>${hibernate.version}</version>
+			<groupId>commons-cli</groupId>
+			<artifactId>commons-cli</artifactId>
+			<version>1.4</version>
 		</dependency>
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>${hibernate.version}</version>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.11</version>
 		</dependency>
-		<!-- Hibernate 3.5.x/3.6.x uses log4j <= 1.2.14, otherwise cause error. -->
-		<!-- Hibernate 3.5.x/3.6.x uses slf4j-api 1.5.8. It conflicts with 1.6.x. -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.5</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.7</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
+		</dependency>
 
-		<!-- MySQL -->
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>bson</artifactId>
+			<version>3.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>3.6.1</version>
+		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>${mysql.version}</version>
+			<version>5.1.45</version>
 		</dependency>
+		<dependency>
+			<groupId>sshtools</groupId>
+			<artifactId>j2ssh-core</artifactId>
+			<version>0.2.9</version>
+		</dependency>
+		<!--
+			<dependency>
+			<groupId>oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0.3</version>
+			</dependency>
+		-->
 	</dependencies>
 </project>

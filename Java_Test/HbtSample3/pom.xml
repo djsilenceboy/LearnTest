@@ -16,7 +16,8 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<junit.version>4.12</junit.version>
-		<hibernate.version>3.6.10.Final</hibernate.version>
+		<hibernate.version>5.2.12.Final</hibernate.version>
+		<mysql.version>5.1.45</mysql.version>
 	</properties>
 
 	<build>
@@ -124,8 +125,18 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+   			<groupId>javax.persistence</groupId>
+   			<artifactId>javax.persistence-api</artifactId>
+   			<version>2.2</version>
+		</dependency>
 
 		<!-- Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
@@ -137,7 +148,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.31</version>
+			<version>${mysql.version}</version>
 		</dependency>
 	</dependencies>
 </project>
