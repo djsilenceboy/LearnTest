@@ -7,15 +7,13 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.cxf.xjc.runtime.JAXBToStringStyle;
-
 
 /**
- * <p>Java class for anonymous complex type.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ * <p>
+ * Java class for anonymous complex type.
+ * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -29,104 +27,83 @@ import org.apache.cxf.xjc.runtime.JAXBToStringStyle;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "out",
-    "out2"
-})
+@XmlType(name = "", propOrder = {"out", "out2"})
 @XmlRootElement(name = "MyOperationResponse")
-public class MyOperationResponse {
+public class MyOperationResponse
+{
 
-    @XmlElement(required = true)
-    protected String out;
-    @XmlElement(required = true)
-    protected String out2;
-    @XmlAttribute(name = "NewAttribute")
-    protected String newAttribute;
+	@XmlElement(required = true)
+	protected String out;
+	@XmlElement(required = true)
+	protected String out2;
+	@XmlAttribute(name = "NewAttribute")
+	protected String newAttribute;
 
-    /**
-     * Gets the value of the out property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getOut() {
-        return out;
-    }
+	/**
+	 * Gets the value of the out property.
+	 * 
+	 * @return
+	 *         possible object is
+	 *         {@link String }
+	 */
+	public String getOut(){
+		return out;
+	}
 
-    /**
-     * Sets the value of the out property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setOut(String value) {
-        this.out = value;
-    }
+	/**
+	 * Sets the value of the out property.
+	 * 
+	 * @param value
+	 *        allowed object is
+	 *        {@link String }
+	 */
+	public void setOut(String value){
+		this.out = value;
+	}
 
-    /**
-     * Gets the value of the out2 property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getOut2() {
-        return out2;
-    }
+	/**
+	 * Gets the value of the out2 property.
+	 * 
+	 * @return
+	 *         possible object is
+	 *         {@link String }
+	 */
+	public String getOut2(){
+		return out2;
+	}
 
-    /**
-     * Sets the value of the out2 property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setOut2(String value) {
-        this.out2 = value;
-    }
+	/**
+	 * Sets the value of the out2 property.
+	 * 
+	 * @param value
+	 *        allowed object is
+	 *        {@link String }
+	 */
+	public void setOut2(String value){
+		this.out2 = value;
+	}
 
-    /**
-     * Gets the value of the newAttribute property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getNewAttribute() {
-        return newAttribute;
-    }
+	/**
+	 * Gets the value of the newAttribute property.
+	 * 
+	 * @return
+	 *         possible object is
+	 *         {@link String }
+	 */
+	public String getNewAttribute(){
+		return newAttribute;
+	}
 
-    /**
-     * Sets the value of the newAttribute property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setNewAttribute(String value) {
-        this.newAttribute = value;
-    }
-
-    /**
-     * Generates a String representation of the contents of this type.
-     * This is an extension method, produced by the 'ts' xjc plugin
-     * 
-     */
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, JAXBToStringStyle.DEFAULT_STYLE);
-    }
-
+	/**
+	 * Sets the value of the newAttribute property.
+	 * 
+	 * @param value
+	 *        allowed object is
+	 *        {@link String }
+	 */
+	public void setNewAttribute(String value){
+		this.newAttribute = value;
+	}
 }

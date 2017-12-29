@@ -10,9 +10,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class NumberList
 {
 	@XmlElement(name = "numbers")
-	private List<Long> numbers;
+	List<Long> numbers;
 
 	public List<Long> getNumbers(){
 		return numbers;
+	}
+
+	public void setNumbers(List<Long> numbers){
+		this.numbers = numbers;
 	}
 }

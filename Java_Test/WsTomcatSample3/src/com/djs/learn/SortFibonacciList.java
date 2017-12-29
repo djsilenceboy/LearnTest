@@ -3,12 +3,12 @@ package com.djs.learn;
 
 import java.util.List;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 
 /*
  * GET: http://localhost:8080/WsTomcatSample3/SortFibonacciList/j/{Number}
+ * GET: http://localhost:8080/WsTomcatSample3/SortFibonacciList/q?Numbers=1&Numbers=1&Numbers=2&Numbers=3&Numbers=5&Numbers=8&Numbers=13&Numbers=21
  * POST: http://localhost:8080/WsTomcatSample3/SortFibonacciList/f with Number={Number}
  */
 @Path("/SortFibonacciList")
@@ -78,23 +79,39 @@ public class SortFibonacciList
 		return sortedResult;
 	}
 
-	@POST
-	@Path("/f")
-	@Consumes(MediaType.APPLICATION_JSON)
+	@GET
+	@Path("/q")
 	@Produces(MediaType.APPLICATION_JSON)
-	// public List<Long> sortFibonacciList2_Json(@FormParam("Numbers") List<Long> numberList){
-	public List<Long> sortFibonacciList2_Json(NumberList numberList){
+	public List<Long> sortFibonacciList2_Json(@QueryParam("Numbers") List<Long> numberList){
 		log.info("Enter");
-
 		log.info("Original = " + numberList);
 
 		List<Long> sortedResult = null;
 
 		if (numberList != null) {
-			log.info("Original = " + numberList.getNumbers());
+			sortedResult = fibonacci.sort(numberList);
+		}
 
-			if (numberList.getNumbers() != null) {
-				sortedResult = fibonacci.sort(numberList.getNumbers());
+		log.info("Sorted = " + sortedResult);
+
+		return sortedResult;
+	}
+
+	@POST
+	@Path("/f")
+	@Produces(MediaType.APPLICATION_JSON)
+	// Must use a wrap class.
+	public List<Long> sortFibonacciList3_Json(NumberList numberList){
+		log.info("Enter");
+		log.info("Original = " + numberList);
+
+		List<Long> sortedResult = null;
+
+		if (numberList != null) {
+			log.info("Original = " + numberList.numbers);
+
+			if (numberList.numbers != null) {
+				sortedResult = fibonacci.sort(numberList.numbers);
 			}
 		}
 

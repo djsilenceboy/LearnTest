@@ -6,15 +6,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.cxf.xjc.runtime.JAXBToStringStyle;
-
 
 /**
- * <p>Java class for anonymous complex type.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ * <p>
+ * Java class for anonymous complex type.
+ * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -26,51 +24,35 @@ import org.apache.cxf.xjc.runtime.JAXBToStringStyle;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "in"
-})
+@XmlType(name = "", propOrder = {"in"})
 @XmlRootElement(name = "NewOperation2")
-public class NewOperation2 {
+public class NewOperation2
+{
 
-    @XmlElement(required = true)
-    protected String in;
+	@XmlElement(required = true)
+	protected String in;
 
-    /**
-     * Gets the value of the in property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getIn() {
-        return in;
-    }
+	/**
+	 * Gets the value of the in property.
+	 * 
+	 * @return
+	 *         possible object is
+	 *         {@link String }
+	 */
+	public String getIn(){
+		return in;
+	}
 
-    /**
-     * Sets the value of the in property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setIn(String value) {
-        this.in = value;
-    }
-
-    /**
-     * Generates a String representation of the contents of this type.
-     * This is an extension method, produced by the 'ts' xjc plugin
-     * 
-     */
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, JAXBToStringStyle.DEFAULT_STYLE);
-    }
-
+	/**
+	 * Sets the value of the in property.
+	 * 
+	 * @param value
+	 *        allowed object is
+	 *        {@link String }
+	 */
+	public void setIn(String value){
+		this.in = value;
+	}
 }

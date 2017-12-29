@@ -1,0 +1,78 @@
+================================================================================
+Install
+------------------------------------------------------------
+Install dependency.
+
+sudo yum groupinstall -y 'Development Tools'
+----------------------------------------
+Install downloaded rpm.
+
+sudo yum install -y VirtualBox-5.2-5.2.2_119230_el7-1.x86_64.rpm
+
+or
+
+sudo yum list virtualbox
+sudo yum install -y VirtualBox
+----------------------------------------
+Check service status.
+
+sudo systemctl status vboxdrv
+----------------------------------------
+Rebuild kernel mode, if needed.
+
+cd /usr/lib/virtualbox
+sudo ./vboxdrv.sh setup
+----------------------------------------
+Add user to its group.
+
+sudo usermod -a -G vboxusers jiangdu
+cat /etc/group | grep vboxusers
+================================================================================
+Start GUI
+------------------------------------------------------------
+VirtualBox
+
+or
+
+/usr/bin/VirtualBox
+================================================================================
+Uninstall
+------------------------------------------------------------
+sudo yum list virtualbox*
+sudo yum remove -y VirtualBox-5.2.x86_64
+================================================================================
+Conflict with other virtual manager
+------------------------------------------------------------
+VT-x is being used by another hypervisor (VERR_VMX_IN_VMX_ROOT_MODE).
+VirtualBox can't operate in VMX root mode. Please disable the KVM kernel extension, recompile your kernel and reboot (VERR_VMX_IN_VMX_ROOT_MODE).
+------------------------------------------------------------
+Method 1
+
+Stop other manager, then start VirtualBox.
+------------------------------------------------------------
+Method 2
+
+Delete other kernel mode.
+----------------------------------------
+Find kernel mode for other virtual manager.
+
+]$ lsmod | grep kvm
+kvm_intel             170200  4
+kvm                   566604  1 kvm_intel
+----------------------------------------
+Remove other kernel mode.
+
+]$ sudo modprobe -r kvm_intel
+----------------------------------------
+If getting a error saying that the service is still running, then run the following command to stop the service before removing it.
+
+]$ sudo rmmod -f kvm_intel
+
+Reboot the computer. After that:
+
+]$ sudo yum remove -y libvirt*
+
+And then:
+
+]$ sudo modprobe -r kvm_intel
+================================================================================
