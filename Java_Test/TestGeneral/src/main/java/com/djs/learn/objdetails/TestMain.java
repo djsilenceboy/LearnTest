@@ -7,15 +7,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import com.djs.learn.objdetails.sample.Car;
 import com.djs.learn.objdetails.sample.Goods;
 import com.djs.learn.objdetails.sample.MixShow;
+import com.djs.learn.objdetails.sample.MixShow.InnerCar;
 import com.djs.learn.objdetails.sample.Shop;
 import com.djs.learn.objdetails.sample.Tv;
 import com.djs.learn.objdetails.sample.TvBrand;
-import com.djs.learn.objdetails.sample.MixShow.InnerCar;
 
 public class TestMain
 {
@@ -131,15 +131,16 @@ public class TestMain
 			System.out.println("----------------------------------------");
 			System.out.println(Arrays.deepToString(cars));
 			System.out.println(ArrayUtils.toString(cars));
-			System.out.println(CommonToStringHelper.objectDeepToString_0_ValueOnly(cars, new String[]{"|", "null", "ref", "yyyyMMddHHmmssSSSZ", "#.###",
-			                                                                                          "exclude", "notinclude"}, null, null, 0, 0));
-			System.out.println(CommonToStringHelper.objectDeepToString_1_Simple(cars,
-			                                                                    new String[]{null, "#Nil#", null, null, "#.########", "#Exc#", "#NotInc#"},
-			                                                                    null, null, 0, 0));
+			System.out.println(CommonToStringHelper
+			        .objectDeepToString_0_ValueOnly(cars, new String[]{"|", "null", "ref", "yyyyMMddHHmmssSSSZ", "#.###", "exclude", "notinclude"}, null, null,
+			                                        0, 0));
+			System.out.println(CommonToStringHelper
+			        .objectDeepToString_1_Simple(cars, new String[]{null, "#Nil#", null, null, "#.########", "#Exc#", "#NotInc#"}, null, null, 0, 0));
 			System.out.println(CommonToStringHelper.objectDeepToString_2_Readable(cars, null, null, null, 0, 0));
 			System.out.println(CommonToStringHelper.objectDeepToString_3_ReadMore(cars, null, null, null, 0, 0));
-			System.out.println(CommonToStringHelper.objectDeepToString_4_Verbose(cars, new String[]{null, "#Nil#", null, null, "#.########", "#Exc#",
-			                                                                                        "#NotInc#"}, excludedFields1, null, 0, 0));
+			System.out
+			        .println(CommonToStringHelper.objectDeepToString_4_Verbose(cars, new String[]{null, "#Nil#", null, null, "#.########", "#Exc#", "#NotInc#"},
+			                                                                   excludedFields1, null, 0, 0));
 			System.out.println(CommonToStringHelper.objectDeepToString_5_Trivial(cars, null, excludedFields1, null, 0, 0));
 			System.out.println("----------------------------------------");
 			System.out.println(CommonToStringHelper.objectDeepToString_0_ValueOnly(tvs, null, null, null, 0, 0));
@@ -170,14 +171,13 @@ public class TestMain
 
 			System.out.println(CommonToStringHelper.objectDeepToString_1_Simple(null, null, null, null, 0, 0));
 
-			System.out.println(CommonToStringHelper.objectDeepToString_0_ValueOnly(mixShow, new String[]{null, null, null, "yyyyMMddHHmmssSSSZ", "#", null,
-			                                                                                             null}, null, null, 0, 0));
+			System.out.println(CommonToStringHelper
+			        .objectDeepToString_0_ValueOnly(mixShow, new String[]{null, null, null, "yyyyMMddHHmmssSSSZ", "#", null, null}, null, null, 0, 0));
 			System.out.println(CommonToStringHelper.objectDeepToString_0_ValueOnly(mixShow, new String[]{null, null, "REF", null, "#.###########", null, null},
 			                                                                       null, null, 0, 0));
 			System.out.println(CommonToStringHelper.objectDeepToString_0_ValueOnly(mixShow, null, null, null, 0, 0));
-			System.out.println(CommonToStringHelper.objectDeepToString_2_Readable(mixShow, null,
-			                                                                      CommonToStringHelper.IGNORED_FIELDS_FOR_THROWABLE.toArray(new String[0]),
-			                                                                      null, 0, 0));
+			System.out.println(CommonToStringHelper
+			        .objectDeepToString_2_Readable(mixShow, null, CommonToStringHelper.IGNORED_FIELDS_FOR_THROWABLE.toArray(new String[0]), null, 0, 0));
 
 			System.out.println("----------------------------------------");
 			System.out.println(CommonToStringHelper.objectDeepToString_1_Simple(new Integer(10), null, null, null, 0, 0));

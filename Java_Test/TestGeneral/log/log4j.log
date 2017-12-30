@@ -1,0 +1,66 @@
+{DEBUG}[com.djs.learn.junit.ParameterizedTest:testDoSum1] 3 + 4 = 7
+{DEBUG}[com.djs.learn.junit.ParameterizedTest:testDoSum1] assertEquals( 7, 7 )
+{DEBUG}[com.djs.learn.junit.ParameterizedTest:testDoSum1] 3 + 4 = 7
+{DEBUG}[com.djs.learn.junit.ParameterizedTest:testDoSum1] assertEquals( 7, 8 )
+{DEBUG}[com.djs.learn.junit.ParameterizedTest:testDoSum1] 4 + 4 = 8
+{DEBUG}[com.djs.learn.junit.ParameterizedTest:testDoSum1] assertEquals( 8, 7 )
+{DEBUG}[com.djs.learn.junit.ParameterizedTest:testDoSum1] 4 + 4 = 8
+{DEBUG}[com.djs.learn.junit.ParameterizedTest:testDoSum1] assertEquals( 8, 8 )
+{DEBUG}[com.djs.learn.junit.NormalTest:testException1] thrown.expect(NullPointerException.class)
+{DEBUG}[com.djs.learn.junit.NormalTest:testException2] thrown.expect(NullPointerException.class)
+{DEBUG}[com.djs.learn.junit.NormalTest:test1] assertArrayEquals( [1, 2, 3], [1, 2, 3] )
+{DEBUG}[com.djs.learn.junit.NormalTest:test2] assertNull( 1 )
+{DEBUG}[com.djs.learn.junit.NormalTest:test3] assertNull( null )
+{DEBUG}[com.djs.learn.junit.NormalTest:test4] assertSame( 1, 1 )
+{DEBUG}[com.djs.learn.junit.NormalTest:test5] assertSame( 1, 1 )
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoMultiply1] 3 x 4 = 12
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoMultiply1] assertEquals( 12, 12 )
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoMultiply2] 3 x 4 = 12
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoMultiply2] assertTrue( 12 == 12 )
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum1] 3 + 4 = 7
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum1] assertEquals( 7, 7 )
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum2] 3 + 4 = 7
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum2] assertEquals( 7, 8 )
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum3] 3 + 4 = 7
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum3] assertFalse( 7 == 7 )
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum4] 3 + 4 = 7
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum4] assert 7 == 7
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum5] 3 + 4 = 7
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum5] assertThat( 7, is( 7 )
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum6] 3 + 4 = 7
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum6] assertThat( 7, is( 7 )
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum7] 3 + 4 = 7
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum7] assertThat( 7, equalTo( 7 )
+{DEBUG}[com.djs.learn.junit.ParameterizedTest:testDoSum1] 3 + 4 = 7
+{DEBUG}[com.djs.learn.junit.ParameterizedTest:testDoSum1] assertEquals( 7, 7 )
+{DEBUG}[com.djs.learn.junit.ParameterizedTest:testDoSum1] 3 + 4 = 7
+{DEBUG}[com.djs.learn.junit.ParameterizedTest:testDoSum1] assertEquals( 7, 8 )
+{DEBUG}[com.djs.learn.junit.ParameterizedTest:testDoSum1] 4 + 4 = 8
+{DEBUG}[com.djs.learn.junit.ParameterizedTest:testDoSum1] assertEquals( 8, 7 )
+{DEBUG}[com.djs.learn.junit.ParameterizedTest:testDoSum1] 4 + 4 = 8
+{DEBUG}[com.djs.learn.junit.ParameterizedTest:testDoSum1] assertEquals( 8, 8 )
+{DEBUG}[com.djs.learn.junit.NormalTest:testException1] thrown.expect(NullPointerException.class)
+{DEBUG}[com.djs.learn.junit.NormalTest:testException2] thrown.expect(NullPointerException.class)
+{DEBUG}[com.djs.learn.junit.NormalTest:test1] assertArrayEquals( [1, 2, 3], [1, 2, 3] )
+{DEBUG}[com.djs.learn.junit.NormalTest:test2] assertNull( 1 )
+{DEBUG}[com.djs.learn.junit.NormalTest:test3] assertNull( null )
+{DEBUG}[com.djs.learn.junit.NormalTest:test4] assertSame( 1, 1 )
+{DEBUG}[com.djs.learn.junit.NormalTest:test5] assertSame( 1, 1 )
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoMultiply1] 3 x 4 = 12
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoMultiply1] assertEquals( 12, 12 )
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoMultiply2] 3 x 4 = 12
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoMultiply2] assertTrue( 12 == 12 )
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum1] 3 + 4 = 7
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum1] assertEquals( 7, 7 )
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum2] 3 + 4 = 7
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum2] assertEquals( 7, 8 )
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum3] 3 + 4 = 7
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum3] assertFalse( 7 == 7 )
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum4] 3 + 4 = 7
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum4] assert 7 == 7
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum5] 3 + 4 = 7
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum5] assertThat( 7, is( 7 )
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum6] 3 + 4 = 7
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum6] assertThat( 7, is( 7 )
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum7] 3 + 4 = 7
+{DEBUG}[com.djs.learn.junit.NormalTest:testDoSum7] assertThat( 7, equalTo( 7 )
