@@ -39,6 +39,8 @@ class Constants_Base(object):
     Use a class to keep constant variables.
     '''
 
+    WAIT_PAGE_LOAD_MAX_TRY = 10
+
     RESULT = "Result"
     ERROR = "Error"
 
@@ -117,21 +119,29 @@ def check_url(url):
     status_code = None
     response = None
 
-    try:
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0"}
-        response = requests.get(url, headers=headers)
-        # print("response =", response)
-        print("response.status_code =", response.status_code)
+    for i in range(0, __Constants.WAIT_PAGE_LOAD_MAX_TRY):
+        try:
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0"}
+            response = requests.get(url, headers=headers, timeout=5)
+            # print("response =", response)
+            print("response.status_code =", response.status_code)
 
-        if response.history:
-            status_code = HTTPStatus.OK
-            print("response.status_code (Due to redirected) =", status_code)
-        else:
-            status_code = response.status_code
-    except Exception as e:
-        print("Check url: Exception = {0}".format(e))
-        raise e
+            if response.history:
+                status_code = HTTPStatus.OK
+                print("response.status_code (Due to redirected) =", status_code)
+            else:
+                status_code = response.status_code
+                response.raise_for_status()
+
+            # It is ok, no need retry.
+            break
+        except Exception as e:
+            print("Check url: Count {0}: Exception = {1}".format(
+                i, e))
+            # If reach max try.
+            if (i + 1) == __Constants.WAIT_PAGE_LOAD_MAX_TRY:
+                raise e
 
     return status_code, response
 
