@@ -1,0 +1,50 @@
+================================================================================
+Java keytool
+------------------------------------------------------------
+Sample env for Windows.
+
+set KEY_ALIAS=my_server
+set KEY_DNAME="CN=my_server, OU=MyDivision/MyDepartment, O=MyCompany, L=Singapore, S=Singapore, C=Singapore"
+
+set KEY_ALGORITHM=RSA
+set KEY_KEYSIZE=1024
+set KEY_VALIDITY=365
+
+set KEY_KEYPASS=changeit
+set KEY_KEYSTORE=%KEY_ALIAS%.keystore
+set KEY_STOREPASS=changeit
+------------------------------------------------------------
+Generate key.
+
+keytool -genkeypair -v -alias %KEY_ALIAS% -dname %KEY_DNAME% -keyalg %KEY_ALGORITHM% -keysize %KEY_KEYSIZE% -validity %KEY_VALIDITY% -keypass %KEY_KEYPASS% -keystore %KEY_KEYSTORE% -storepass %KEY_STOREPASS%
+------------------------------------------------------------
+Generate CSR.
+
+keytool -certreq -v -alias %KEY_ALIAS% -file %KEY_ALIAS%.csr -keypass %KEY_KEYPASS% -keystore %KEY_KEYSTORE% -storepass %KEY_STOREPASS%
+------------------------------------------------------------
+Export certificate.
+
+keytool -exportcert -v -alias %KEY_ALIAS% -file %KEY_ALIAS%.cer -keystore %KEY_KEYSTORE% -storepass %KEY_STOREPASS%
+------------------------------------------------------------
+Import certificate.
+
+keytool -importcert -v -alias %KEY_ALIAS% -file %KEY_ALIAS%.cer -keystore %KEY_KEYSTORE% -storepass %KEY_STOREPASS%
+------------------------------------------------------------
+List keys.
+
+keytool -list -v -keystore %KEY_KEYSTORE% -storepass %KEY_STOREPASS%
+================================================================================
+Create trust store from certificate.
+------------------------------------------------------------
+Without keypass:
+
+keytool -import -trustcacerts -alias %KEY_ALIAS% -file %KEY_ALIAS%.cer -keystore %KEY_KEYSTORE% -storepass %KEY_STOREPASS%
+------------------------------------------------------------
+With keypass:
+
+keytool -import -trustcacerts -alias %KEY_ALIAS% -file %KEY_ALIAS%.cer -keypass %KEY_KEYPASS% -keystore %KEY_KEYSTORE% -storepass %KEY_STOREPASS%
+------------------------------------------------------------
+Notes:
+1. KEY_KEYSTORE is a ".truststore" file.
+2. When asked for whether "trust", answer "yes".
+================================================================================
