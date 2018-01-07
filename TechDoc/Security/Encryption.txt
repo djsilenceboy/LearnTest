@@ -1,0 +1,82 @@
+======================================================================
+Symmetric key encryption
+
+A single key is used for both encryption and decryption.
+------------------------------------------------------------
+Substitution ciphers
+----------------------------------------
+One-time pads (OTPs)
+----------------------------------------
+Data Encryption Standard (DES)
+
+56-bit key = 7 bits of 8 bytes (The 8th bit is used for parity)
+----------------------------------------
+Unix password encryption
+
+A variant of DES.
+----------------------------------------
+Advance Encryption Standard (AES): Rijndael
+
+AES is a block cipher using keys and blocks of 128, 192, 256 bits.
+AES-256 is generally used.
+======================================================================
+Public key encryption
+------------------------------------------------------------
+Diffie-Hellman key exchange
+
+For key distribution.
+----------------------------------------
+Rivest-Shamir-Adleman (RSA)
+
+For encryption and decryption.
+2048 bits or larger is better.
+----------------------------------------
+Elgamal
+
+A variant of Diffie-Hellman key exchange.
+Enhanced to allow encryption and authentication.
+----------------------------------------
+Digital Signature Algorithm (DSA)
+
+Based on Elgamal.
+Only allow authentication, not provide confidentiality.
+----------------------------------------
+Elliptic Curve Encryption (ECC)
+
+For encryption.
+Used over RSA or Diffie-Hellman.
+======================================================================
+Digital signatures
+
+A form of encryption to provide for authentication of signed information.
+------------------------------------------------------------
+Secure hash functions
+
+To create checksum of at least 256 bits.
+Secure Hash Algorithm (SHA) is mostly used: SHA-256, SHA-512.
+
+MD5 and SHA-1 have deprecated.
+======================================================================
+Key certificates
+
+Central Authority (CA)
+------------------------------------------------------------
+User generates a key pair.
+User signs user's public key and user information with user's private key.
+User sends signed request to CA.
+CA verifies user request.
+CA signs user request with CA's private key, and generates certificate.
+CA sends certificate to user.
+User verifies certificate with CA's public key.
+
+Note that:
+CA's public key is public available.
+User's CA signed certificate may be public available.
+======================================================================
+Trust in encryption systems
+------------------------------------------------------------
+Hierarchy
+
+Hierarchical trust model: Trust in the keys is derived from a higher authority.
+Root CA certificate, CA certificate path.
+======================================================================
