@@ -1,0 +1,24 @@
+======================================================================
+Penetration Testing
+
+https://www.kali.org/
+------------------------------------------------------------
+Burp Suite (Community Edition)
+
+https://portswigger.net/burp/
+------------------------------------------------------------
+Social-Engineer Toolkit (SET)
+
+https://www.trustedsec.com/
+
+git clone https://github.com/trustedsec/social-engineer-toolkit/ set/
+======================================================================
+Check sum tool
+
+https://sourceforge.net/projects/checksumtool/
+------------------------------------------------------------
+Net Scan Tools
+
+https://www.netscantools.com/
+======================================================================
+

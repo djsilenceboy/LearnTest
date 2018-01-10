@@ -1,21 +1,4 @@
 ======================================================================
-Penetration Testing
-
-https://www.kali.org/
-======================================================================
-The search engine for IOT
-
-https://www.shodan.io/
-======================================================================
-Burp Suite (Community Edition)
-
-https://portswigger.net/burp/
-======================================================================
-Social-Engineer Toolkit (SET)
-
-https://www.trustedsec.com/
-git clone https://github.com/trustedsec/social-engineer-toolkit/ set/
-======================================================================
 Reflected XSS attacks
 
 <script>alert("Hello, there")</script>

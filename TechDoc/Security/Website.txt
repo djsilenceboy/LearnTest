@@ -1,0 +1,58 @@
+======================================================================
+2600 — The Hacker Quarterly magazine
+
+https://www.2600.com/
+------------------------------------------------------------
+(IN)SECURE magazine
+
+https://www.helpnetsecurity.com/insecuremag-archive/
+------------------------------------------------------------
+Hackin9
+
+https://hakin9.org/
+------------------------------------------------------------
+PHRACK
+
+http://www.phrack.org/archives/
+======================================================================
+Whois Lookup — Domain Names Search, Registration and Availability
+
+https://www.whois.net/
+------------------------------------------------------------
+DNS tools
+
+http://dnstools.com/
+------------------------------------------------------------
+DNS queries
+
+https://mxtoolbox.com/
+------------------------------------------------------------
+American Registry for Internet Numbers (ARIN)
+
+https://www.arin.net/
+------------------------------------------------------------
+Net Craft
+What’s that site running?
+
+https://www.netcraft.com/
+======================================================================
+Common Vulnerabilities and Exposures
+
+http://cve.mitre.org/cve/
+------------------------------------------------------------
+CERT Vulnerability Notes Database
+
+http://www.kb.cert.org/vuls/
+------------------------------------------------------------
+NIST National Vulnerability Database
+
+https://nvd.nist.gov/
+------------------------------------------------------------
+Rapid7 Vulnerability & Exploit Database
+
+https://www.rapid7.com/db
+======================================================================
+The search engine for IOT
+
+https://www.shodan.io/
+======================================================================
