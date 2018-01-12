@@ -1,9 +1,11 @@
 ================================================================================
-Use "jaxrs-ri-2.26.zip" for "WEB-INF/lib".
+Use JAX-RS Jersey.
 ------------------------------------------------------------
 Deploy to Tomcat in Eclipse.
 ------------------------------------------------------------
 Test URL.
+
+GET: http://localhost:8080/WsTomcatSample2/Hello
 
 GET: http://localhost:8080/WsTomcatSample2/GetFibonacciList/u/{Number}
 

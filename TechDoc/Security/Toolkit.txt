@@ -21,4 +21,9 @@ Net Scan Tools
 
 https://www.netscantools.com/
 ======================================================================
+Windows password dump
+(pwdump3, pwdump3e)
 
+http://www.openwall.com/passwords/windows-pwdump
+------------------------------------------------------------
+======================================================================

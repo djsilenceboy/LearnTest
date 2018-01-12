@@ -246,14 +246,21 @@
 
 		<!-- Oracle -->
 		<dependency>
-			<!-- The lib needs to be manually imported into local repository. -->
-			<groupId>com.oracle</groupId>
-			<artifactId>ojdbc</artifactId>
-			<version>6-11.2.0.4</version>
+			<groupId>oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0.3</version>
 		</dependency>
-
 	</dependencies>
 
+	<repositories>
+		<!-- For Oracle ojdbc6. -->
+		<repository>
+			<id>datanucleus</id>
+			<name>datanucleus</name>
+			<url>http://www.datanucleus.org/downloads/maven2/</url>
+		</repository>
+	</repositories>
+	
 	<reporting>
 		<plugins>
 			<plugin>
