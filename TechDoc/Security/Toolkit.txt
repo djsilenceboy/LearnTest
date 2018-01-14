@@ -21,9 +21,59 @@ Net Scan Tools
 
 https://www.netscantools.com/
 ======================================================================
+John the Ripper
+(Password cracker)
+
+http://www.openwall.com/john/
+------------------------------------------------------------
+Ophcrack
+(Windows password cracker based on rainbow tables)
+
+http://ophcrack.sourceforge.net/
+------------------------------------------------------------
+THC-Hydra
+(Network logon cracker)
+
+https://www.thc.org/thc-hydra/
+https://github.com/vanhauser-thc/thc-hydra
+------------------------------------------------------------
+RainbowCrack
+(Uses time-memory tradeoff algorithm to crack hashes)
+
+http://project-rainbowcrack.com/
+------------------------------------------------------------
+ElcomSoft Distributed Password Recovery
+(Break complex passwords, recover strong encryption keys and unlock documents in a production environment.)
+(Free trial)
+
+https://www.elcomsoft.com/edpr.html
+----------------------------------------
+Proactive System Password Recovery
+(Recover many types of Windows passwords and review hidden information such as product keys. Extract Wi-Fi encryption keys (WEP and WPA-PSK), VPN, RAS and dial-up passwords, passwords to network shares and RDP.)
+(Free trial)
+
+https://www.elcomsoft.com/pspr.html
+----------------------------------------
+Proactive Password Auditor
+(Audit security policies, examine network security and recover account passwords by running a timed attack on account passwords.)
+(Free trial)
+
+https://www.elcomsoft.com/ppa.html
+======================================================================
+Old and maybe still useful
+------------------------------------------------------------
 Windows password dump
 (pwdump3, pwdump3e)
 
 http://www.openwall.com/passwords/windows-pwdump
 ------------------------------------------------------------
+Brutus AET2
+(Remote password cracker, FTP/HTTP etc)
+
+http://www.hoobie.net/brutus/
+------------------------------------------------------------
+Cain & Abel
+(Password recovery tool)
+
+http://www.oxid.it/cain.html
 ======================================================================
