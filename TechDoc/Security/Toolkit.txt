@@ -16,10 +16,32 @@ git clone https://github.com/trustedsec/social-engineer-toolkit/ set/
 Check sum tool
 
 https://sourceforge.net/projects/checksumtool/
-------------------------------------------------------------
-Net Scan Tools
+======================================================================
+NMap
 
-https://www.netscantools.com/
+https://nmap.org/
+------------------------------------------------------------
+NetScanTools Basic
+
+https://www.netscantools.com/download.html
+------------------------------------------------------------
+Essential NetTools
+
+https://www.tamos.com/download/main/
+------------------------------------------------------------
+Ettercap
+(Source code only)
+
+http://ettercap.github.io/ettercap/downloads.html
+------------------------------------------------------------
+PromiscDetect 
+(Checks if your network adapter(s) is running in promiscuous mode.)
+
+http://ntsecurity.nu/toolbox/promiscdetect/
+======================================================================
+UDPFlood v2.0
+
+https://www.mcafee.com/us/downloads/free-tools/udpflood.aspx/udpflood.aspx
 ======================================================================
 John the Ripper
 (Password cracker)
@@ -60,6 +82,11 @@ Proactive Password Auditor
 
 https://www.elcomsoft.com/ppa.html
 ======================================================================
+Omnipeek Enterprise & Capture Engine for Omnipeek
+(Free 30 day trial)
+
+https://www.savvius.com/free-30-day-software-trials/
+======================================================================
 Old and maybe still useful
 ------------------------------------------------------------
 Windows password dump
@@ -76,4 +103,14 @@ Cain & Abel
 (Password recovery tool)
 
 http://www.oxid.it/cain.html
+------------------------------------------------------------
+Getif
+(SNMP tool)
+
+http://www.wtcs.org/snmp4tpc/getif.htm
+------------------------------------------------------------
+Netcat
+(Linux only)
+
+http://netcat.sourceforge.net/
 ======================================================================
