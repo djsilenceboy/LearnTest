@@ -1,69 +1,122 @@
 ======================================================================
-Penetration Testing
+Penetration testing tools
+------------------------------------------------------------
+Kali Penetration Testing
+(ISO)
 
 https://www.kali.org/
-------------------------------------------------------------
+----------------------------------------
 Burp Suite (Community Edition)
 
 https://portswigger.net/burp/
-------------------------------------------------------------
+----------------------------------------
 Social-Engineer Toolkit (SET)
 
 https://www.trustedsec.com/
 
 git clone https://github.com/trustedsec/social-engineer-toolkit/ set/
+----------------------------------------
+Network Security Toolkit
+(Bootable ISO live DVD/USB Flash Drive)
+
+http://www.networksecuritytoolkit.org/
 ======================================================================
+Utility tools
+------------------------------------------------------------
 Check sum tool
 
 https://sourceforge.net/projects/checksumtool/
+------------------------------------------------------------
+AccessEnum
+(Full view of your file system and Registry security settings for Windows)
+
+https://docs.microsoft.com/en-us/sysinternals/downloads/accessenum
 ======================================================================
+Network tools
+------------------------------------------------------------
 NMap
 
 https://nmap.org/
-------------------------------------------------------------
+----------------------------------------
+NPing
+(Network packet generation, response analysis and response time measurement)
+(Part of NMap)
+
+https://nmap.org/nping/
+----------------------------------------
 NetScanTools Basic
 
 https://www.netscantools.com/download.html
-------------------------------------------------------------
+----------------------------------------
 Essential NetTools
 
 https://www.tamos.com/download/main/
-------------------------------------------------------------
+----------------------------------------
 Ettercap
 (Source code only)
 
 http://ettercap.github.io/ettercap/downloads.html
-------------------------------------------------------------
+----------------------------------------
 PromiscDetect 
 (Checks if your network adapter(s) is running in promiscuous mode.)
 
 http://ntsecurity.nu/toolbox/promiscdetect/
-======================================================================
-UDPFlood v2.0
+----------------------------------------
+GNU MAC Changer
 
-https://www.mcafee.com/us/downloads/free-tools/udpflood.aspx/udpflood.aspx
+https://github.com/alobbs/macchanger
+----------------------------------------
+SMAC
+(MAC Address Changer)
+(Evaluation Edition)
+
+http://www.klcconsulting.net/smac/
 ======================================================================
+Wireless LAN tools
+------------------------------------------------------------
+Kismet
+(Wireless network detector, sniffer, and intrusion detection system)
+
+https://www.kismetwireless.net/
+------------------------------------------------------------
+Aircrack-ng
+(Complete suite of tools to assess WiFi network security)
+
+http://aircrack-ng.org/
+------------------------------------------------------------
+NetStumbler
+(discover SSIDs and other detailed information about wireless APs)
+
+http://www.netstumbler.com/downloads/
+------------------------------------------------------------
+Reaver WPS
+(brute force attack against Wifi Protected Setup (WPS) registrar PINs in order to recover WPA/WPA2 passphrases)
+
+https://code.google.com/archive/p/reaver-wps/
+======================================================================
+Password tools
+------------------------------------------------------------
 John the Ripper
 (Password cracker)
 
 http://www.openwall.com/john/
-------------------------------------------------------------
+----------------------------------------
 Ophcrack
 (Windows password cracker based on rainbow tables)
 
 http://ophcrack.sourceforge.net/
-------------------------------------------------------------
+----------------------------------------
 THC-Hydra
 (Network logon cracker)
 
 https://www.thc.org/thc-hydra/
 https://github.com/vanhauser-thc/thc-hydra
-------------------------------------------------------------
+----------------------------------------
 RainbowCrack
 (Uses time-memory tradeoff algorithm to crack hashes)
 
 http://project-rainbowcrack.com/
-------------------------------------------------------------
+----------------------------------------
 ElcomSoft Distributed Password Recovery
 (Break complex passwords, recover strong encryption keys and unlock documents in a production environment.)
 (Free trial)
@@ -82,6 +135,8 @@ Proactive Password Auditor
 
 https://www.elcomsoft.com/ppa.html
 ======================================================================
+Business suits
+------------------------------------------------------------
 Omnipeek Enterprise & Capture Engine for Omnipeek
 (Free 30 day trial)
 
@@ -93,24 +148,38 @@ Windows password dump
 (pwdump3, pwdump3e)
 
 http://www.openwall.com/passwords/windows-pwdump
-------------------------------------------------------------
+----------------------------------------
 Brutus AET2
 (Remote password cracker, FTP/HTTP etc)
 
 http://www.hoobie.net/brutus/
-------------------------------------------------------------
+----------------------------------------
 Cain & Abel
 (Password recovery tool)
 
 http://www.oxid.it/cain.html
-------------------------------------------------------------
+----------------------------------------
 Getif
 (SNMP tool)
 
 http://www.wtcs.org/snmp4tpc/getif.htm
-------------------------------------------------------------
+----------------------------------------
 Netcat
 (Linux only)
 
 http://netcat.sourceforge.net/
+----------------------------------------
+UDPFlood v2.0
+(UDP packet sender)
+
+https://www.mcafee.com/us/downloads/free-tools/udpflood.aspx/udpflood.aspx
+----------------------------------------
+Wellenreiter wireless penetration tool
+
+https://sourceforge.net/projects/wellenreiter/
+------------------------------------------------------------
+WEPCrack
+(cracks 802.11 WEP encryption keys using the latest discovered weakness of RC4 key scheduling.)
+
+https://sourceforge.net/projects/wepcrack/
 ======================================================================

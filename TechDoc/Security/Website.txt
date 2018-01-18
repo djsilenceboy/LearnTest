@@ -31,10 +31,20 @@ American Registry for Internet Numbers (ARIN)
 
 https://www.arin.net/
 ------------------------------------------------------------
+MAC Registration Authority
+(IEEE offers Registration Authority programs or registries which maintain lists of unique identifiers under standards and issue unique identifiers to those wishing to register them.)
+
+https://regauth.standards.ieee.org/standards-ra-web/pub/view.html#registries
+------------------------------------------------------------
 Net Craft
 What’s that site running?
 
 https://www.netcraft.com/
+------------------------------------------------------------
+WiGLE
+(database of wireless networks)
+
+https://wigle.net/
 ======================================================================
 Common Vulnerabilities and Exposures
 
