@@ -1,4 +1,21 @@
 ======================================================================
+OS / network vulnerability scan tools
+------------------------------------------------------------
+Microsoft Baseline Security Analyzer
+
+https://technet.microsoft.com/en-us/security/cc184924.aspx
+----------------------------------------
+GFI LanGuard
+(Network security scanner & patch management)
+(Free trial)
+
+https://www.gfi.com/products-and-solutions/network-security-solutions/gfi-languard3
+----------------------------------------
+Nexpose
+(Free trial)
+
+https://www.rapid7.com/products/nexpose
+======================================================================
 Penetration testing tools
 ------------------------------------------------------------
 Kali Penetration Testing
@@ -20,17 +37,22 @@ Network Security Toolkit
 (Bootable ISO live DVD/USB Flash Drive)
 
 http://www.networksecuritytoolkit.org/
+----------------------------------------
+Metasploit
+(Penetration testing framework)
+
+https://www.metasploit.com/
 ======================================================================
-Utility tools
+OS / Utility tools
 ------------------------------------------------------------
+Windows Sysinternals
+
+https://docs.microsoft.com/en-us/sysinternals/
+https://live.sysinternals.com/
+----------------------------------------
 Check sum tool
 
 https://sourceforge.net/projects/checksumtool/
-------------------------------------------------------------
-AccessEnum
-(Full view of your file system and Registry security settings for Windows)
-
-https://docs.microsoft.com/en-us/sysinternals/downloads/accessenum
 ======================================================================
 Network tools
 ------------------------------------------------------------
@@ -51,6 +73,11 @@ https://www.netscantools.com/download.html
 Essential NetTools
 
 https://www.tamos.com/download/main/
+----------------------------------------
+SoftPerfect Network Scanner
+(Free trial)
+
+https://www.softperfect.com/products/networkscanner/
 ----------------------------------------
 Ettercap
 (Source code only)
