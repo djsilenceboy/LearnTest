@@ -1,0 +1,3 @@
+FROM scratch
+ADD ReadMe.txt /root
+CMD ["cat", "/root/ReadMe.txt"]

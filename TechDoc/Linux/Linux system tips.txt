@@ -277,59 +277,6 @@ Enter single user mode:
 
 ]# init 1
 ================================================================================
-Bootable kernels
-------------------------------------------------------------
-Check Linux release version.
-
-]# cat /etc/redhat-release
-------------------------------------------------------------
-Check current kernel version.
-
-]# uname -r
-]# uname -a
-------------------------------------------------------------
-Check /boot size.
-
-]# ll /boot
-------------------------------------------------------------
-Check installed kernels.
-
-]# rpm -q kernel
-------------------------------------------------------------
-Keep 2 recent versions of kernels, remove old ones if any.
-
-]# package-cleanup --oldkernels --count=2 -y
-------------------------------------------------------------
-Modify "yum.conf" for kernel update.
-
-]# vi /etc/yum.conf
-----------------------------------------
-Allow only 2 versions of kernels to be installed:
-
-installonly_limit=2
-
-(Default is 5!)
-
-sed -i "s/\(installonly_limit=\).*$/\12/g" /etc/yum.conf
-------------------------------------------------------------
-Prevent kernel updates while “yum update”:
-
-exclude=kernel*
-------------------------------------------------------------
-Set default kernel to boot.
-
-Find installed kernel detail strings.
-
-]# cat /boot/grub2/grub2.cfg | grep menuentry
-
-'CentOS Linux (3.10.0-514.10.2.el7.x86_64) 7 (Core)'
-----------------------------------------
-]# vi /boot/grub2/grubenv
-
-saved_entry=CentOS Linux (3.10.0-514.10.2.el7.x86_64) 7 (Core)
-----------------------------------------
-Reboot.
-================================================================================
 Check folder size
 
 ]$ du -hs *

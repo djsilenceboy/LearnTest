@@ -1,0 +1,23 @@
+FROM busybox
+
+# It is better to combine all RUN clauses into simple one.
+RUN addgroup cat
+RUN adduser -H -D -G cat tom
+USER tom
+
+# The default ENTRYPOINT is "/bin/sh".
+# ENTRYPOINT ["/bin/sh"]
+
+# a file from local disk to image.
+# ADD can add URL and zip file (unzip it).
+COPY ["ReadMe.txt", "/root"]
+
+# Only last CMD will be used.
+CMD ["echo", "Good day."]
+CMD ["cat", "/root/ReadMe.txt"]
+
+# For ENTRYPOINT, ADD, COPY, CMD,
+# "[]" means exec form, otherwise shell form.
+
+# CMD is appended to ENTRYPOINT.
+# Full command = ENTRYPOINT + CMD

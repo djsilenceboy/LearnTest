@@ -1,0 +1,52 @@
+================================================================================
+vagrant up ansibleDockerServer
+vagrant halt ansibleDockerServer
+------------------------------------------------------------
+sudo docker run -d --name busy busybox /bin/sh -c "echo Hello"
+
+sudo docker run -d --restart=always --name busy2 busybox /bin/sh -c "echo Hello"
+sudo docker run -d --restart=always --name busy3 busybox
+
+sudo docker run --pid host busybox ps
+================================================================================
+sudo docker run -d --restart=always -m 512m -c 1024 -p 80:80 --name nginx nginx
+sudo docker run -d --restart=always -m 256m -c 512 -v /data -p 82:80 --name nginx2 nginx
+sudo docker inspect -f "{{.Mounts}}" nginx2
+================================================================================
+sudo docker build -t nginx:ex -f NginxEx.df .
+sudo docker history nginx:ex
+
+sudo docker run -d --name nginx3 nginx:ex
+================================================================================
+sudo docker run -d --name wp --read-only wordpress:4
+
+sudo docker run -d --name wpdb -e MYSQL_ROOT_PASSWORD=ch2demo mysql:5
+================================================================================
+sudo docker create -v /var/data --name v_data1 busybox /bin/true
+sudo docker create -v /var/data --name v_data2 busybox /bin/true
+sudo docker create --volumes-from v_data1 --volumes-from v_data2 --name v_data3 busybox /bin/true
+sudo docker create --volumes-from v_data2 --volumes-from v_data1 --name v_data4 busybox /bin/true
+
+sudo docker run -d -v /var/data --name v_data1 busybox /bin/true
+sudo docker run -d -v /var/data --name v_data2 busybox /bin/true
+sudo docker run -d --volumes-from v_data1 --volumes-from v_data2 --name v_data3 busybox /bin/true
+sudo docker run -d --volumes-from v_data2 --volumes-from v_data1 --name v_data4 busybox /bin/true
+
+sudo docker rm -v v_data3
+sudo docker rm -v v_data2
+================================================================================
+sudo docker save -o nginx_image.tar nginx2
+================================================================================
+sudo docker build -t small:v1 -f Small.df .
+sudo docker history small:v1
+
+sudo docker run --rm small:v1
+sudo docker run --rm small:v1 whoami
+sudo docker run --rm small:v1 id
+
+sudo docker rmi small:v1
+================================================================================
+sudo docker run -d -p 9000:9000 --privileged -v /var/run/docker.sock:/var/run/docker.sock --name dockerui abh1nav/dockerui
+================================================================================
+sudo docker run -d -v /var/run/docker.sock:/tmp/docker.sock --name logspout gliderlabs/logspout syslog://192.168.0.46:5000
+================================================================================

@@ -1,5 +1,5 @@
 ======================================================================
-OS / network vulnerability scan tools
+OS / network / application / SQL vulnerability scan tools
 ------------------------------------------------------------
 Microsoft Baseline Security Analyzer
 
@@ -12,9 +12,16 @@ GFI LanGuard
 https://www.gfi.com/products-and-solutions/network-security-solutions/gfi-languard3
 ----------------------------------------
 Nexpose
-(Free trial)
+(Vulnerability scanner)
+(Free trial 30 days)
 
 https://www.rapid7.com/products/nexpose
+----------------------------------------
+AppSpider
+(Application scanner)
+(Free trial 30 days)
+
+https://www.rapid7.com/products/appspider
 ======================================================================
 Penetration testing tools
 ------------------------------------------------------------
@@ -99,6 +106,25 @@ SMAC
 
 http://www.klcconsulting.net/smac/
 ======================================================================
+Web tools
+------------------------------------------------------------
+HTTrack
+(Easy-to-use offline browser utility)
+
+http://www.httrack.com/
+------------------------------------------------------------
+SQL Inject Me
+(SQL Injection vulnerabilites)
+(Firefox add-on)
+
+https://addons.mozilla.org/en-US/firefox/addon/sql-inject-me/
+------------------------------------------------------------
+XSS Me
+(Cross-Site Scripting (XSS) vulnerabilities)
+(Firefox add-on)
+
+https://addons.mozilla.org/en-US/firefox/addon/xss-me/
+======================================================================
 Wireless LAN tools
 ------------------------------------------------------------
 Kismet
@@ -165,9 +191,15 @@ https://www.elcomsoft.com/ppa.html
 Business suits
 ------------------------------------------------------------
 Omnipeek Enterprise & Capture Engine for Omnipeek
-(Free 30 day trial)
+(Free trial 30 days)
 
 https://www.savvius.com/free-30-day-software-trials/
+------------------------------------------------------------
+Acunetix
+(Web scanner)
+(Free trial 14 days)
+
+https://www.acunetix.com/
 ======================================================================
 Old and maybe still useful
 ------------------------------------------------------------

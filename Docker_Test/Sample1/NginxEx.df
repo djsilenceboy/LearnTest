@@ -1,0 +1,4 @@
+FROM nginx
+
+# a file from local disk to image.
+COPY ["ReadMe.txt", "/root"]

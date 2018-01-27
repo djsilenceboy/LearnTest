@@ -236,6 +236,10 @@ Check history
 
 Find ID of each action.
 ------------------------------------------------------------
+Check history detail
+
+]# yum history info <ID> 
+------------------------------------------------------------
 Undo by history
 
 ]# yum history undo <ID>

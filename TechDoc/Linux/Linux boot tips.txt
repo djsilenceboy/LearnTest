@@ -1,0 +1,78 @@
+================================================================================
+Notes:
+
+"]#" means root user.
+"]$" means normal user.
+================================================================================
+GRUB config
+
+/etc/grub2.cfg -> /boot/grub2/grub.cfg
+------------------------------------------------------------
+Check boot menu entries (kernels).
+(The entries are ordered by index from 0.)
+
+]# awk -F\' '$1=="menuentry " {print $2}' /etc/grub2.cfg
+
+or
+
+]# grep menuentry /etc/grub2.cfg
+------------------------------------------------------------
+Change default boot entry.
+(Index starts from 0.)
+
+]# grub2-set-default <EntryIndex>
+
+or
+
+]# vi /boot/grub2/grubenv
+
+saved_entry=<EntryIndex>
+----------------------------------------
+Reboot to reload kernel.
+
+]# reboot
+================================================================================
+Bootable kernels
+------------------------------------------------------------
+Check Linux release version.
+
+]# cat /etc/redhat-release
+------------------------------------------------------------
+Check current kernel version.
+
+]# uname -r
+]# uname -a
+------------------------------------------------------------
+Check /boot size.
+(Where is kernel files.)
+
+]# ll /boot
+------------------------------------------------------------
+Check installed kernels.
+
+]# rpm -q kernel
+
+or
+
+]# yum list installed kernel*
+------------------------------------------------------------
+Keep 2 recent versions of kernels, remove old ones if any.
+
+]# package-cleanup --oldkernels --count=2 -y
+------------------------------------------------------------
+Modify "yum.conf" for kernel update.
+
+]# vi /etc/yum.conf
+----------------------------------------
+Allow only 2 versions of kernels to be installed:
+
+installonly_limit=2
+
+(Default is 5!)
+
+sed -i "s/\(installonly_limit=\).*$/\12/g" /etc/yum.conf
+------------------------------------------------------------
+Prevent kernel updates while “yum update”:
+
+exclude=kernel*
+================================================================================
