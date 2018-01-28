@@ -1,8 +1,0 @@
-{INFO }[com.djs.learn.TestMain:getFibonacciList_Get_1] number = 10
-{INFO }[com.djs.learn.TestMain:getFibonacciList_Get_1] Get(10) = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
-{INFO }[com.djs.learn.TestMain:getFibonacciList_Post_1] number = 10
-{INFO }[com.djs.learn.TestMain:getFibonacciList_Post_1] Post(10) = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
-{INFO }[com.djs.learn.TestMain:sortFibonacciList_Get_1] number = 10
-{INFO }[com.djs.learn.TestMain:sortFibonacciList_Get_1] Get(10) = [55, 21, 13, 5, 3, 1, 1, 34, 8, 2]
-{INFO }[com.djs.learn.TestMain:sortFibonacciList_Post_1] numberList = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
-{INFO }[com.djs.learn.TestMain:sortFibonacciList_Post_1] Post(com.djs.learn.NumberList@2bec854f) = [55, 21, 13, 5, 3, 1, 1, 34, 8, 2]

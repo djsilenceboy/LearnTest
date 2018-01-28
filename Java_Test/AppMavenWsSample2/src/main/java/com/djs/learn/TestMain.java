@@ -129,7 +129,7 @@ public class TestMain
 		log.info("numberList = " + numberList.getNumbers());
 
 		List<Long> fibResult = doPost2(sortFibonacciListUrl_Post, numberList);
-		log.info("Post(" + numberList + ") = " + fibResult);
+		log.info("Post(" + numberList.getNumbers().size() + ") = " + fibResult);
 
 		return fibResult;
 	}
