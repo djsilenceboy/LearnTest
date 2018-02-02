@@ -31,3 +31,12 @@ Second=${MinuteSecond#*:}
 # Best.
 
 eval "$(date "+Year=%Y Mount=%m Day=%d Hour=%H Minute=%M Second=%S")"
+
+# Get UTC in seconds.
+date +%s
+
+# Get UTC in nanoseconds.
+date +%s%N
+
+# Get UTC in milliseconds.
+date +%s%N | cut -b1-13

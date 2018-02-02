@@ -81,6 +81,16 @@ echo ${VarArr2["a"]}
 echo ${VarArr2["b"]}
 
 
+# Declare a associative array.
+declare -A VarArr3
+
+VarArr3[1, "a"]=1
+VarArr3[2, "b"]=2
+VarArr3[3, "c"]=3
+
+echo ${!VarArr3[*]}
+echo ${VarArr3[*]}
+
 # Auto create array in first time, then increase size in following times.
 for v in {a..e}
 do
