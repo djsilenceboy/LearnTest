@@ -17,3 +17,13 @@ POST: http://localhost:8080/WsTomcatSample3/SortFibonacciList/f with Number={Num
 ------------------------------------------------------------
 Tested with SoapUI and browser.
 ================================================================================
+"maven-war-plugin" for VirturlBox
+------------------------------------------------------------
+When running this project from a shared disk in VirtualBox, it must use version 2.4 for WAR plugin.
+
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+
+Otherwise, it can use higher version, such as "2.6", "3.2.0".
+================================================================================

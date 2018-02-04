@@ -3,17 +3,39 @@ https://leetcode.com/problems/nth-highest-salary/description/
 ================================================================================
 Test
 ------------------------------------------------------------
+Accepted.
+
 CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
 BEGIN
   RETURN (
-SELECT Salary
+SELECT DISTINCT Salary
 FROM Employee a
 WHERE ((SELECT COUNT(*)
-       FROM Employee b
-       WHERE (b.Salary > a.Salary)) = N - 1)
+        FROM (SELECT DISTINCT Salary FROM Employee) b
+        WHERE (b.Salary > a.Salary)) = N - 1)
   );
 END
+------------------------------------------------------------
+Accepted.
+
+SELECT DISTINCT Salary
+FROM Employee a
+WHERE ((SELECT COUNT(*)
+        FROM (SELECT DISTINCT Salary FROM Employee) b
+        WHERE (b.Salary > a.Salary)
+        ORDER BY Salary) = N - 1)
 ================================================================================
 Other solutions
 ------------------------------------------------------------
+SELECT DISTINCT Salary
+FROM Employee a
+WHERE ((SELECT COUNT(DISTINCT b.Salary)
+        FROM Employee b
+        WHERE (b.Salary > a.Salary)) = N - 1)
+------------------------------------------------------------
+SELECT a.Salary
+FROM (SELECT DISTINCT Salary FROM Employee) a
+WHERE ((SELECT COUNT(*)
+        FROM (SELECT DISTINCT Salary FROM Employee) b
+        WHERE (b.Salary > a.Salary)) = N - 1)
 ================================================================================

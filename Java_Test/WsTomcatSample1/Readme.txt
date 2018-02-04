@@ -19,3 +19,13 @@ But it is not used anywhere in the codes!
 In "sun-jaxws.xml", the "name" attribute of "<endpoint>" can be defined to any name.
 It is not used anywhere in the codes and in "web.xml"!
 ================================================================================
+"maven-war-plugin" for VirturlBox
+------------------------------------------------------------
+When running this project from a shared disk in VirtualBox, it must use version 2.4 for WAR plugin.
+
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+
+Otherwise, it can use higher version, such as "2.6", "3.2.0".
+================================================================================

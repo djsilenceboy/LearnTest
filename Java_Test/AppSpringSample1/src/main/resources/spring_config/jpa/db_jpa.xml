@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:ehcache="http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+            			http://www.springframework.org/schema/beans/spring-beans.xsd
+            			http://www.springframework.org/schema/context
+            			http://www.springframework.org/schema/context/spring-context.xsd
+            			http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring   
+  						http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd">
+
+	<!-- Not use this method, because it need to set ignoreUnresolvablePlaceholders 
+		for enabling multiple PropertyPlaceholderConfigurer. -->
+	<!-- context:property-placeholder location="${file_path.context.local_external}jpa.properties" 
+		/ -->
+
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<!-- Enabling multiple PropertyPlaceholderConfigurer. -->
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="location"
+			value="${file_path.context.local_external}jpa.properties" />
+	</bean>
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<!-- This is the "persistence-unit name" set in "persistence.xml". -->
+		<property name="persistenceUnitName" value="spring_sample" />
+		<property name="persistenceXmlLocation"
+			value="${file_path.context.local_internal}persistence.xml" />
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter">
+			<bean class="${jpa.vendor.class}">
+				<property name="database" value="${jpa.vendor.database}" />
+				<property name="databasePlatform" value="${jpa.vendor.databasePlatform}" />
+				<property name="generateDdl" value="${jpa.vendor.generateDdl}" />
+				<property name="showSql" value="${jpa.vendor.showSql}" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- ehcache-spring-annotations to enable Ehcache for itemDao0 and itemDao1. -->
+	<ehcache:annotation-driven cache-manager="ehCacheManager" />
+
+	<bean id="ehCacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
+		p:configLocation="${file_path.context.shared_internal}ehcache.xml" />
+
+
+	<bean id="jpaTemplate" class="org.springframework.orm.jpa.JpaTemplate"
+		p:entityManagerFactory-ref="entityManagerFactory" />
+
+
+	<bean id="itemDao0" class="com.djs.learn.spring_sample.jpa.ItemDaoJpaImplA" />
+	<!-- jpaTemplate-ref is @Autowired in code. -->
+	<!-- p:jpaTemplate-ref="jpaTemplate" / -->
+
+
+	<bean id="itemDao1" class="com.djs.learn.spring_sample.jpa.ItemDaoSpringJpaImplA"
+		p:entityManagerFactory-ref="entityManagerFactory" />
+
+</beans>
