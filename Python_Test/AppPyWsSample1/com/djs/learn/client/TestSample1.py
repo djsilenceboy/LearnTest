@@ -58,16 +58,16 @@ def do_Post_2(url, number_list):
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0",
                'Content-type': 'application/json',
                "Accept": "application/json,text/html,application/xhtml+xml,application/xml"}
-    data = {"numberList": {"numbers": number_list}}
+    data = {"numbers": number_list}
     response = requests.post(url, headers=headers,
-                             json=json.dumps(data))
+                             json=data)
 
     print("response =", response)
     print("response.status_code =", response.status_code)
     print("response.headers =\n", response.headers)
     print("-" * 40)
 
-    print("response.text =\n", response.text)
+    # print("response.text =\n", response.text)
     # print("-" * 40)
 
     return response
@@ -105,15 +105,15 @@ def sortfibonaccilist_Post_1(number_list):
 
 print("-" * 60)
 
-# getfibonaccilist_Get_1(10)
+getfibonaccilist_Get_1(10)
 
 print("-" * 60)
 
-# getfibonaccilist_Post_1(10)
+getfibonaccilist_Post_1(10)
 
 print("-" * 60)
 
-# sortfibonaccilist_Get_1(10)
+sortfibonaccilist_Get_1(10)
 
 print("-" * 60)
 
