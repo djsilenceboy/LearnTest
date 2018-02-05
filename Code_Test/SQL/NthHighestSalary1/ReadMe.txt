@@ -38,4 +38,10 @@ FROM (SELECT DISTINCT Salary FROM Employee) a
 WHERE ((SELECT COUNT(*)
         FROM (SELECT DISTINCT Salary FROM Employee) b
         WHERE (b.Salary > a.Salary)) = N - 1)
+------------------------------------------------------------
+SELECT a.Salary
+FROM Employee a
+     JOIN Employee b ON (b.Salary >= a.Salary)
+GROUP BY a.Salary
+HAVING COUNT(DISTINCT b.Salary) = N
 ================================================================================

@@ -18,8 +18,10 @@ import csv
 import getopt
 from http import HTTPStatus
 import json
+import string
 import sys
 from time import localtime, strftime, time
+
 from bs4 import BeautifulSoup
 import requests
 
@@ -112,12 +114,12 @@ def check_url(url):
 
     @param url: A string of URL.
     @return: HTTP response status code, or None if request failed.
-    @return: HTTP response, or None if request failed.
+    @return: Parsed HTTP response, or None if request failed.
     '''
 
     print("url =", url)
     status_code = None
-    response = None
+    parsed_data = None
 
     for i in range(0, __Constants.WAIT_PAGE_LOAD_MAX_TRY):
         try:
@@ -134,6 +136,34 @@ def check_url(url):
                 status_code = response.status_code
                 response.raise_for_status()
 
+            # There is non-printable characters for Yahoo page.
+            # print("text_data =\n", ascii(http_response.text))
+            # There is error while parasing yahoo page.
+            # print("json_data =\n", http_response.json())
+
+            parsed_data = BeautifulSoup(response.text, "lxml-xml")
+            # print("parsed_data =\n", parsed_data)
+
+            if __data_type == 0:
+                try:
+                    stock_name_info_section = parsed_data.find(
+                        "h1", {"data-reactid": 7})
+                    if not stock_name_info_section:
+                        raise
+                except Exception:
+                    raise Exception("Cannot find stock_name_info_section.")
+            else:  # __data_type == 1:
+                try:
+                    currency_name_info_section = parsed_data.find(
+                        "h1", {"data-reactid": 7})
+                    if not currency_name_info_section:
+                        raise
+                except Exception:
+                    raise Exception("Cannot find currency_name_info_section.")
+
+            print("Check url: Count {0}: url = {1}".format(
+                i, url))
+
             # It is ok, no need retry.
             break
         except Exception as e:
@@ -143,42 +173,38 @@ def check_url(url):
             if (i + 1) == __Constants.WAIT_PAGE_LOAD_MAX_TRY:
                 raise e
 
-    return status_code, response
+    return status_code, parsed_data
 
 
-def parse_get_data_yahoo_stock(http_response, results):
+def parse_get_data_yahoo_stock(parsed_http_response, results):
     '''
     Analyse HTTP response data.
 
-    @param http_response : HTTP response.
+    @param parsed_http_response : Parsed HTTP response.
     @param results : Dict with return results.
     '''
 
     try:
-        # There is non-printable characters for Yahoo page.
-        # print("text_data =\n", ascii(http_response.text))
-        # There is error while parasing yahoo page.
-        # print("json_data =\n", http_response.json())
-
-        parsed_data = BeautifulSoup(http_response.text, "lxml-xml")
-        # print("parsed_data =\n", parsed_data)
-
         results[__Constants.SECTION_STOCK_INFO] = {}
 
         # The return object from find() is class 'bs4.element.Tag'.
-
         try:
-            stock_name_info_section = parsed_data.find(
+            stock_name_info_section = parsed_http_response.find(
                 "h1", {"data-reactid": 7})
 
             if not stock_name_info_section:
                 raise
 
-            print("stock_name_info_section =", stock_name_info_section)
+            # The stock name may contain non-printable characters.
+            # print("stock_name_info_section =", stock_name_info_section)
         except Exception:
             raise Exception("Cannot find stock_name_info_section.")
 
-        stock_name_info = stock_name_info_section.get_text().strip().rsplit(" ", 1)
+        # Remove possible non-printable characters.
+        stock_name_info_text = ''.join(
+            [x for x in stock_name_info_section.get_text().strip() if x in string.printable])
+
+        stock_name_info = stock_name_info_text.rsplit(" ", 1)
         print("stock_name_info =", stock_name_info)
         results[__Constants.SECTION_STOCK_INFO][__Constants.STOCK_INFO_NAME] = stock_name_info[0]
         ticker_exchange_info = stock_name_info[1][1:-1].split(".")
@@ -192,7 +218,7 @@ def parse_get_data_yahoo_stock(http_response, results):
         results[__Constants.SECTION_MARKET_INFO] = {}
 
         try:
-            currency_section = parsed_data.find(
+            currency_section = parsed_http_response.find(
                 "span", {"data-reactid": 9})
 
             if not currency_section:
@@ -206,7 +232,7 @@ def parse_get_data_yahoo_stock(http_response, results):
         ).strip()[-3:]
 
         try:
-            price_section = parsed_data.find(
+            price_section = parsed_http_response.find(
                 "span", {"data-reactid": 35})
 
             if not price_section:
@@ -220,7 +246,7 @@ def parse_get_data_yahoo_stock(http_response, results):
         ).strip()
 
         try:
-            misc_info_section = parsed_data.find(
+            misc_info_section = parsed_http_response.find(
                 "div", {"id": "quote-summary"})
 
             if not misc_info_section:
@@ -300,29 +326,20 @@ def parse_get_data_yahoo_stock(http_response, results):
         raise e
 
 
-def parse_get_data_yahoo_currency(http_response, results):
+def parse_get_data_yahoo_currency(parsed_http_response, results):
     '''
     Analyse HTTP response data.
 
-    @param http_response : HTTP response.
+    @param parsed_http_response : Parsed HTTP response.
     @param results : Dict with return results.
     '''
 
     try:
-        # There is non-printable characters for Yahoo page.
-        # print("text_data =\n", ascii(http_response.text))
-        # There is error while parasing yahoo page.
-        # print("json_data =\n", http_response.json())
-
-        parsed_data = BeautifulSoup(http_response.text, "lxml-xml")
-        # print("parsed_data =\n", parsed_data)
-
-        # The return object from find() is class 'bs4.element.Tag'.
-
         results[__Constants.SECTION_CURRENCY_INFO] = {}
 
+        # The return object from find() is class 'bs4.element.Tag'.
         try:
-            currency_name_info_section = parsed_data.find(
+            currency_name_info_section = parsed_http_response.find(
                 "h1", {"data-reactid": 7})
 
             if not currency_name_info_section:
@@ -344,7 +361,7 @@ def parse_get_data_yahoo_currency(http_response, results):
         results[__Constants.SECTION_EXCHANGE_INFO] = {}
 
         try:
-            value_section = parsed_data.find(
+            value_section = parsed_http_response.find(
                 "span", {"data-reactid": 35})
 
             if not value_section:
@@ -357,7 +374,7 @@ def parse_get_data_yahoo_currency(http_response, results):
         results[__Constants.SECTION_EXCHANGE_INFO][__Constants.EXCHANGE_INFO_VALUE] = value_section.get_text().strip()
 
         try:
-            time_section = parsed_data.find(
+            time_section = parsed_http_response.find(
                 "div", {"id": "quote-market-notice"})
 
             if not time_section:
@@ -440,14 +457,15 @@ def inspect_inventory(record):
 
     browser = None
     try:
-        status_code, http_response = check_url(url)
+        status_code, parsed_http_response = check_url(url)
         if status_code != HTTPStatus.OK:
             raise Exception("Get '{0}' failed with status code {1}.".format(url,
                                                                             status_code))
 
         # Parse and get data.
         result[__Constants.INVENTORY_DATA] = {}
-        parse_get_data(http_response, result[__Constants.INVENTORY_DATA])
+        parse_get_data(parsed_http_response,
+                       result[__Constants.INVENTORY_DATA])
         print("-" * 40)
 
         print("Inspect inventory <{0}>: ok.".format(inventory_id))
