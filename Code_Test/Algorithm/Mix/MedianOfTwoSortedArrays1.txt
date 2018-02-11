@@ -1,0 +1,153 @@
+================================================================================
+https://leetcode.com/problems/median-of-two-sorted-arrays/description/
+================================================================================
+Test
+------------------------------------------------------------
+Java
+Accepted
+O((m+n)/2)
+
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int total_length = nums1.length + nums2.length;
+        int index_m1 = total_length / 2 + total_length % 2 - 1;
+        int index_m2 = index_m1 + 1 - total_length % 2;
+        int i = 0;
+        int j = 0;
+        double sum = 0;
+
+        do {
+            int temp, index;
+
+            if ((i < nums1.length) && (j < nums2.length)) {
+                index = i + j;
+                temp = (nums1[i] <= nums2[j]) ? nums1[i++] : nums2[j++];
+            } else if (i < nums1.length) {
+                index = i + nums2.length;
+                temp = nums1[i++];
+            } else {
+                index = nums1.length + j;
+                temp = nums2[j++];
+            }
+
+            if (index == index_m1) {
+                sum = temp;
+            }
+            if (index == index_m2) {
+                sum += temp;
+                break;
+            }
+        }
+        while ((i < nums1.length) || (j < nums2.length));
+
+        return sum / 2;
+    }
+}
+------------------------------------------------------------
+C++
+Accepted
+O((m+n)/2)
+
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        int total_length = nums1.size() + nums2.size();
+        int index_m1 = total_length / 2 + total_length % 2 - 1;
+        int index_m2 = index_m1 + 1 - total_length % 2;
+        int i = 0;
+        int j = 0;
+        double sum = 0;
+
+        do {
+            int temp, index;
+
+            if ((i < nums1.size()) && (j < nums2.size())) {
+                index = i + j;
+                temp = (nums1[i] <= nums2[j]) ? nums1[i++] : nums2[j++];
+            } else if (i < nums1.size()) {
+                index = i + nums2.size();
+                temp = nums1[i++];
+            } else {
+                index = nums1.size() + j;
+                temp = nums2[j++];
+            }
+
+            if (index == index_m1) {
+                sum = temp;
+            }
+            if (index == index_m2) {
+                sum += temp;
+                break;
+            }
+        }
+        while ((i < nums1.size()) || (j < nums2.size()));
+
+        return sum / 2;
+    }
+};
+------------------------------------------------------------
+Java
+Incompleted
+
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int total_length = nums1.length + nums2.length;
+        int index_m1 = total_length / 2 + total_length % 2 - 1;
+        int index_m2 = index_m1 + 1 - total_length % 2;
+        double sum = 0;
+        
+        if ((nums1.length == 0) || (nums2.length == 0)) {
+            int[] a = (nums1.length == 0) ? nums2 : nums1;
+            sum = a[index_m1] + a[index_m2];
+        } else if ((nums1[nums1.length - 1] <= nums2[0]) || (nums2[nums2.length - 1] <= nums1[0])) {
+            int[] a = null;
+            int[] b = null;
+            
+            if (nums1[nums1.length - 1] <= nums2[0]) {
+                a = nums1; b = nums2;
+            } else {
+                a = nums2; b = nums1;
+            }
+
+            sum = ((index_m1 < a.length) ? a[index_m1] : b[index_m1 - a.length]) +
+                  ((index_m2 < a.length) ? a[index_m2] : b[index_m2 - a.length]);
+        } else {
+            int[] a = nums1;
+            int[] b = nums2;
+            int i = (a.length - 1) / 2;
+            int temp = index_m1 - i;
+            int j = (temp > 0) ? temp - 1 : temp;
+            
+            while (((j < b.length - 1) && (a[i] > b[j + 1])) || ((i < a.length - 1) && (b[j] > a[i + 1]))) {
+                if (a[i] > b[j + 1]) {
+                    j++;
+                    if (i + j + 1 > index_m1)
+                        i--;
+                } else {
+                    i++;
+                    if (i + j + 1 > index_m1)
+                        j--;
+                }
+            }
+            
+            if (index_m1 == index_m2)
+                sum = Math.max(a[i], b[j]) * 2;
+            else {
+                sum = Math.max(a[i], b[j]);
+
+                if ((i + 1 < a.length) && (j + 1 < b.length))
+                    sum += Math.min(a[i + 1], b[j + 1]);
+                else if (i + 1 < a.length)
+                    sum += a[i + 1];
+                else
+                    sum += b[j + 1];
+            }
+        }
+
+        return sum / 2;
+    }
+}
+================================================================================
+Other solutions
+------------------------------------------------------------
+================================================================================
