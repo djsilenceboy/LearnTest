@@ -4,13 +4,119 @@ https://leetcode.com/problems/longest-substring-without-repeating-characters/des
 Test
 ------------------------------------------------------------
 Java
+Accepted.
 
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        
+        ArrayList<Character> tempList = new ArrayList<Character>();
+        int start_idx = 0;
+        int substr_length = 0;
+        int max_idx = 0;
+        int max_length = 0;
+
+        for (int i = 0; i < s.length() - max_length; i++) {
+            tempList.clear();
+            start_idx = i;
+            substr_length = 0;
+
+            int j = 0;
+            for (j = i; j < s.length(); j++) {
+                if (!tempList.contains(s.charAt(j))) {
+                    tempList.add(s.charAt(j));
+                    substr_length++;
+                } else
+                    break;
+            }
+
+            if (substr_length > max_length) {
+                max_idx = start_idx;
+                max_length = substr_length;
+            }
+        }
+
+        return max_length;
+    }
+}
+------------------------------------------------------------
+Java
+Accepted.
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        ArrayList<Character> tempList = new ArrayList<Character>();
+        int max_length = 0;
+
+        for (int i = 0; i < s.length() - max_length; i++) {
+            tempList.clear();
+
+            int j = 0;
+            for (j = i; j < s.length(); j++) {
+                if (!tempList.contains(s.charAt(j)))
+                    tempList.add(s.charAt(j));
+                else
+                    break;
+            }
+
+            int length = j - i;
+            if (length > max_length) {
+                max_length = length;
+            }
+        }
+
+        return max_length;
     }
 }
 ================================================================================
 Other solutions
 ------------------------------------------------------------
+Java
+Accepted.
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        Set<Character> temp = new HashSet<Character>();
+        int max_length = 0;
+        int i = 0;
+        int j = 0;
+
+        while ((i < s.length() - max_length) && (j < s.length())) {
+            if (!temp.contains(s.charAt(j))) {
+                temp.add(s.charAt(j));
+                j++;
+                int length = j - i;
+                if (length > max_length) {
+                    max_length = length;
+                }
+            } else {
+                temp.remove(s.charAt(i));
+                i++;
+            }
+        }
+
+        return max_length;
+    }
+}
+------------------------------------------------------------
+Java
+Incomplete.
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        Map<Character, Integer> temp = new HashMap<Character, Integer>();
+        int max_length = 0;
+        int i = 0;
+        int length = 0;
+
+        for (i = 0; i < s.length() - max_length); i++) {
+            if (!temp.containsKey(s.charAt(i))) {
+                temp.put(s.charAt(i), i);
+            } else {
+                temp.get(s.charAt(i));
+                i++;
+            }
+        }
+
+        return max_length;
+    }
+}
 ================================================================================
