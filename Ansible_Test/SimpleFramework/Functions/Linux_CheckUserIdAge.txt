@@ -1,0 +1,29 @@
+================================================================================
+# Purpose:
+#   Linux: Check user ID age.
+#
+# Update log: (date / version / author : comments)
+# 2017-09-13 / 1.0.0 / Du Jiang : Creation
+================================================================================
+PreProduction
+------------------------------------------------------------
+(No need "-i" option, because the default host group is PreProduction.)
+
+ansible-playbook Linux_RemoteProcess.yml -e @vars_override/Linux_CheckUserIdAge.yml -e 'ExtraParameters=jiangdu'
+------------------------------------------------------------
+For certain sub-group.
+
+ansible-playbook -l PreProduction1_Test6 Linux_RemoteProcess.yml -e @vars_override/Linux_CheckUserIdAge.yml -e 'ExtraParameters=jiangdu'
+ansible-playbook -l PreProduction2_Test7 Linux_RemoteProcess.yml -e @vars_override/Linux_CheckUserIdAge.yml -e 'ExtraParameters=jiangdu'
+================================================================================
+Production
+------------------------------------------------------------
+(Must use "-i" option.)
+
+ansible-playbook -i Hosts_Production_dj Linux_RemoteProcess.yml -e @vars_override/Linux_CheckUserIdAge.yml -e 'ExtraParameters=jiangdu'
+ansible-playbook -i Hosts_Production_All_dj Linux_RemoteProcess.yml -e @vars_override/Linux_CheckUserIdAge.yml -e 'ExtraParameters=jiangdu'
+================================================================================
+Useful options for ansible-playbook
+------------------------------------------------------------
+Debug info: -vvv
+================================================================================

@@ -1,0 +1,13 @@
+NA011_Global_Sandbox-ASB ansible_ssh_host=10.142.128.125
+NA011_Global_Sandbox-BPM ansible_ssh_host=10.142.128.76
+NA011_Global_Sandbox-Chef ansible_ssh_host=10.142.128.78
+NA011_Global_Sandbox-EE ansible_ssh_host=10.142.128.86
+
+[Production:children]
+NA011_Global_Sandbox
+
+[NA011_Global_Sandbox]
+NA011_Global_Sandbox-ASB
+NA011_Global_Sandbox-BPM
+NA011_Global_Sandbox-Chef
+NA011_Global_Sandbox-EE

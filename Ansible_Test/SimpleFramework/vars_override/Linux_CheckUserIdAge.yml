@@ -1,0 +1,36 @@
+# Purpose:
+#   Linux: Check user ID age.
+#
+# Usage:
+#   Ansible: Playbook variable file (override common variable file).
+#
+# Update log: (date / version / author : comments)
+# 2017-09-13 / 1.0.0 / Du Jiang : Creation
+---
+current_date: "{{lookup('pipe', 'date \"+%Y%m%d\"')}}"
+failed_infix: _Failed
+
+local_output_subfolder: "{{local_output_folder}}/{{local_output_file_prefix}}_{{local_output_file_middle}}"
+local_output_file: "{{local_output_subfolder}}/{{current_date}}{{local_output_file_postfix}}"
+local_output_file_failed: "{{local_output_subfolder}}/{{current_date}}{{failed_infix}}{{local_output_file_postfix}}"
+
+local_temp_subfolder: "{{local_temp_folder}}/{{local_output_file_prefix}}_{{local_output_file_middle}}_{{current_date}}"
+local_temp_file: "{{local_temp_subfolder}}/{{inventory_hostname}}{{local_output_file_postfix}}"
+local_temp_file_failed: "{{local_temp_subfolder}}/{{inventory_hostname}}{{failed_infix}}{{local_output_file_postfix}}"
+
+# Because the playbook modules are in subfolder.
+local_script_folder: ../Scripts
+local_output_folder: ../../../Log
+local_temp_folder: ../../../Log
+
+local_output_file_middle: Linux_CheckUserIdAge
+local_output_file_postfix: .txt
+
+remote_script: Linux_CheckUserIdAge.sh
+remote_extra_parameters: "{{ExtraParameters}}"
+
+multiple_lines: True
+add_header_line: False
+# header_line:
+add_header_line_failed: False
+# header_line_failed:
