@@ -1,0 +1,37 @@
+# Purpose:
+#   EE: Pull images.
+#
+# Usage:
+#   Ansible: Playbook variable file (override default group variable file).
+#
+# Update log: (date / version / author : comments)
+# 2017-04-27 / 1.0.0 / Du Jiang : Creation
+# 2017-05-26 / 1.1.0 / Du Jiang : Use "date" instead of "ansible_date_time", in order not gather_facts
+---
+current_date: "{{lookup('pipe', 'date \"+%Y%m%d\"')}}"
+failed_infix: _Failed
+
+local_output_subfolder: "{{local_output_folder}}/{{local_output_file_prefix}}_{{local_output_file_middle}}"
+local_output_file: "{{local_output_subfolder}}/{{current_date}}{{local_output_file_postfix}}"
+local_output_file_failed: "{{local_output_subfolder}}/{{current_date}}{{failed_infix}}{{local_output_file_postfix}}"
+
+local_temp_subfolder: "{{local_temp_folder}}/{{local_output_file_prefix}}_{{local_output_file_middle}}_{{current_date}}"
+local_temp_file: "{{local_temp_subfolder}}/{{inventory_hostname}}{{local_output_file_postfix}}"
+local_temp_file_failed: "{{local_temp_subfolder}}/{{inventory_hostname}}{{failed_infix}}{{local_output_file_postfix}}"
+
+# Because the playbook modules are in subfolder.
+local_script_folder: ../Scripts
+local_output_folder: ../../../Log
+local_temp_folder: ../../../Log
+
+local_output_file_middle: EE_PullImages
+local_output_file_postfix: .txt
+
+remote_script: EE_PullImages.sh
+remote_extra_parameters: "{{ExtraParameters}}"
+
+multiple_lines: True
+add_header_line: False
+# header_line:
+add_header_line_failed: False
+# header_line_failed:

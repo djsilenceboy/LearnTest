@@ -1,0 +1,55 @@
+# Purpose:
+#   Common: Prepare local output sub-folder and files.
+#
+# Usage:
+#   Used by main playbook as module.
+#
+# Update log: (date / version / author : comments)
+# 2017-04-21 / 1.0.0 / Du Jiang : Creation
+# 2017-05-26 / 1.1.0 / Du Jiang : Not gather_facts
+---
+- name: Prepare local output file
+  hosts: all
+  connection: local
+  gather_facts: False
+  become: False
+  tasks:
+    - name: Check existance of old local output subfolder
+      local_action: stat path="{{local_output_subfolder}}"
+      register: result_info
+      run_once: True
+
+    - name: Create new empty local output subfolder if not exist
+      local_action: file path="{{local_output_subfolder}}" state=directory
+      when: not result_info.stat.exists
+      run_once: True
+
+    - name: Check existance of old local output file (succeeded)
+      local_action: stat path="{{local_output_file}}"
+      run_once: True
+      register: result_info
+
+    - name: Delete old local output file (succeeded)
+      local_action: file path="{{local_output_file}}" state=absent
+      run_once: True
+      when: result_info.stat.exists
+
+    - name: Add header line to new local output file (succeeded)
+      local_action: lineinfile line="{{header_line}}" dest="{{local_output_file}}" create=Yes
+      when: add_header_line
+      run_once: True
+
+    - name: Check existance of old local output file (failed)
+      local_action: stat path="{{local_output_file_failed}}"
+      run_once: True
+      register: result_info
+
+    - name: Delete old local output file (failed)
+      local_action: file path="{{local_output_file_failed}}" state=absent
+      run_once: True
+      when: result_info.stat.exists
+
+    - name: Add header line to new local output file (failed)
+      local_action: lineinfile line="{{header_line_failed}}" dest="{{local_output_file_failed}}" create=Yes
+      when: add_header_line
+      run_once: True

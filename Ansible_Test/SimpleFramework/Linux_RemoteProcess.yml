@@ -1,0 +1,18 @@
+# Purpose:
+#   Linux: Upload and run a script on remote hosts, capture results to localhost, combine results together into one result file.
+#
+# Usage:
+#   Ansible playbook.
+#
+# Update log: (date / version / author : comments)
+# 2017-04-21 / 1.0.0 / Du Jiang : Creation, split one big playbook into several common module.
+---
+- include: Playbooks/Common_DeleteTempSubfolder_Pre.yml
+
+- include: Playbooks/Common_ExecuteRemoteScript.yml
+
+- include: Playbooks/Common_PrepareOutputSubfolder.yml
+
+- include: Playbooks/Common_CombineOutputFile.yml
+
+- include: Playbooks/Common_DeleteTempSubfolder_Post.yml

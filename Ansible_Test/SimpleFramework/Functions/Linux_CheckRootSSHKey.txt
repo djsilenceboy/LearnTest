@@ -1,0 +1,28 @@
+================================================================================
+# Purpose:
+#   Linux: Check root user's SSH keys.
+#
+# Update log: (date / version / author : comments)
+# 2017-08-21 / 1.0.0 / Du Jiang : Creation
+================================================================================
+PreProduction
+------------------------------------------------------------
+(No need "-i" option, because the default host group is PreProduction.)
+
+ansible-playbook Linux_RemoteProcess.yml -e @vars_override/Linux_CheckRootSSHKey.yml
+------------------------------------------------------------
+For certain sub-group.
+
+ansible-playbook -l PreProduction1_Test6 Linux_RemoteProcess.yml -e @vars_override/Linux_CheckRootSSHKey.yml
+ansible-playbook -l PreProduction2_Test7 Linux_RemoteProcess.yml -e @vars_override/Linux_CheckRootSSHKey.yml
+================================================================================
+Production
+------------------------------------------------------------
+(Must use "-i" option.)
+
+ansible-playbook -i Hosts_Production_dj Linux_RemoteProcess.yml -e @vars_override/Linux_CheckRootSSHKey.yml
+================================================================================
+Useful options for ansible-playbook
+------------------------------------------------------------
+Debug info: -vvv
+================================================================================

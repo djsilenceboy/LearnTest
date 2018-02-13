@@ -1,0 +1,13 @@
+PreProduction1_Test6-ASB ansible_ssh_host=10.120.22.16
+PreProduction1_Test6-BPM ansible_ssh_host=10.120.22.25
+PreProduction1_Test6-Chef ansible_ssh_host=10.120.22.53
+PreProduction1_Test6-EE ansible_ssh_host=10.120.22.50
+
+[PreProduction:children]
+PreProduction1_Test6
+
+[PreProduction1_Test6]
+PreProduction1_Test6-ASB
+PreProduction1_Test6-BPM
+PreProduction1_Test6-Chef
+PreProduction1_Test6-EE
