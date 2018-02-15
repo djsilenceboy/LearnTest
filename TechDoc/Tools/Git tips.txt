@@ -163,7 +163,8 @@ Switch to a local branch.
 
 Copy a remote branch to local and switch to it.
 
-> git checkout --tracking <RemoteName>/<BranchName>
+> git checkout -t <RemoteName>/<BranchName>
+> git checkout --track <RemoteName>/<BranchName>
 ------------------------------------------------------------
 Create new branch and switch to it.
 

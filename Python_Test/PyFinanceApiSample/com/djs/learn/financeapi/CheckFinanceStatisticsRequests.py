@@ -1,11 +1,9 @@
 '''
-Check finance data by Requests.
+Check finance statistics by Requests.
 
 Update log: (date / version / author : comments)
-2017-12-08 / 1.0.0 / Du Jiang : Creation
+2018-02-15 / 1.0.0 / Du Jiang : Creation
                                 Support Yahoo Finance stock
-2017-12-10 / 1.1.0 / Du Jiang : Support Yahoo Finance currency
-2017-12-13 / 2.0.0 / Du Jiang : Combined support Yahoo Finance stock / currency.
                                 
 Notes:
 1. It requires 3rd parth python lib (at least): requests.
@@ -62,50 +60,13 @@ class Constants_Base(object):
 
 
 class Constants_YahooStock(Constants_Base):
-    API_URL = "https://finance.yahoo.com/quote/{0}"
+    API_URL = "https://finance.yahoo.com/quote/{0}/key-statistics"
 
     COLUMN_NAME = "Name"
     COLUMN_EXCHANGE = "Exchange"
     COLUMN_TICKER = "Ticker"
 
-    SECTION_STOCK_INFO = "Stock info"
-    STOCK_INFO_NAME = "Name"
-    STOCK_INFO_EXCHANGE = "Exchange"
-    STOCK_INFO_TICKER = "Ticker"
-
     SECTION_MARKET_INFO = "Market info"
-    MARKET_INFO_PRICE = "Price"
-    MARKET_INFO_CURRENCY = "Currency"
-
-    MARKET_INFO_52WEEK = "52 Week Range"
-    MARKET_INFO_52WEEK_LOW = "52 week low"
-    MARKET_INFO_52WEEK_HIGH = "52 week high"
-
-    MARKET_INFO_RANGE = "Day's Range"
-    MARKET_INFO_RANGE_LOW = "Range low"
-    MARKET_INFO_RANGE_HIGH = "Range high"
-
-    MARKET_INFO_DIVIDEND_YIELD = "Forward Dividend  Yield"
-    MARKET_INFO_DIVIDEND = "Forward Dividend"
-    MARKET_INFO_YIELD = "Yield"
-
-
-class Constants_YahooCurrency(Constants_Base):
-    API_URL = "https://finance.yahoo.com/quote/{0}=X"
-
-    COLUMN_NAME = "Name"
-    COLUMN_FROM_SYMBOL = "From symbol"
-    COLUMN_TO_SYMBOL = "To symbol"
-
-    SECTION_CURRENCY_INFO = "Currency info"
-    CURRENCY_INFO_NAME = "Name"
-    CURRENCY_INFO_FROM_SYMBOL = "From symbol"
-    CURRENCY_INFO_TO_SYMBOL = "To symbol"
-
-    SECTION_EXCHANGE_INFO = "Exchange info"
-    EXCHANGE_INFO_RATE = "Rate"
-    EXCHANGE_INFO_VALUE = "Value"
-    EXCHANGE_INFO_TIME = "Time"
 
 
 def check_url(url):
@@ -152,14 +113,6 @@ def check_url(url):
                         raise
                 except Exception:
                     raise Exception("Cannot find stock_name_info_section.")
-            else:  # __data_type == 1:
-                try:
-                    currency_name_info_section = parsed_data.find(
-                        "h1", {"data-reactid": 7})
-                    if not currency_name_info_section:
-                        raise
-                except Exception:
-                    raise Exception("Cannot find currency_name_info_section.")
 
             print("Check url: Count {0}: url = {1}".format(
                 i, url))
@@ -185,69 +138,13 @@ def parse_get_data_yahoo_stock(parsed_http_response, results):
     '''
 
     try:
-        results[__Constants.SECTION_STOCK_INFO] = {}
-
-        # The return object from find() is class 'bs4.element.Tag'.
-        try:
-            stock_name_info_section = parsed_http_response.find(
-                "h1", {"data-reactid": 7})
-
-            if not stock_name_info_section:
-                raise
-
-            # The stock name may contain non-printable characters.
-            # print("stock_name_info_section =", stock_name_info_section)
-        except Exception:
-            raise Exception("Cannot find stock_name_info_section.")
-
-        # Remove possible non-printable characters.
-        stock_name_info_text = ''.join(
-            [x for x in stock_name_info_section.get_text().strip() if x in string.printable])
-
-        stock_name_info = stock_name_info_text.rsplit(" ", 1)
-        print("stock_name_info =", stock_name_info)
-        results[__Constants.SECTION_STOCK_INFO][__Constants.STOCK_INFO_NAME] = stock_name_info[0]
-        ticker_exchange_info = stock_name_info[1][1:-1].split(".")
-        print("ticker_exchange_info =", ticker_exchange_info)
-        results[__Constants.SECTION_STOCK_INFO][__Constants.STOCK_INFO_TICKER] = ticker_exchange_info[0]
-        if len(ticker_exchange_info) > 1:
-            results[__Constants.SECTION_STOCK_INFO][__Constants.STOCK_INFO_EXCHANGE] = ticker_exchange_info[1]
-        else:
-            results[__Constants.SECTION_STOCK_INFO][__Constants.STOCK_INFO_EXCHANGE] = ""
-
         results[__Constants.SECTION_MARKET_INFO] = {}
 
-        try:
-            currency_section = parsed_http_response.find(
-                "span", {"data-reactid": 9})
-
-            if not currency_section:
-                raise
-
-            print("currency_section =", currency_section)
-        except Exception:
-            raise Exception("Cannot find currency_section.")
-
-        results[__Constants.SECTION_MARKET_INFO][__Constants.MARKET_INFO_CURRENCY] = currency_section.get_text(
-        ).strip()[-3:]
-
-        try:
-            price_section = parsed_http_response.find(
-                "span", {"data-reactid": 35})
-
-            if not price_section:
-                raise
-
-            print("price_section =", price_section)
-        except Exception:
-            raise Exception("Cannot find price_section.")
-
-        results[__Constants.SECTION_MARKET_INFO][__Constants.MARKET_INFO_PRICE] = price_section.get_text(
-        ).strip()
+        # The return object from find() is class 'bs4.element.Tag'.
 
         try:
             misc_info_section = parsed_http_response.find(
-                "div", {"id": "quote-summary"})
+                "div", {"id": "Main"})
 
             if not misc_info_section:
                 raise
@@ -275,7 +172,8 @@ def parse_get_data_yahoo_stock(parsed_http_response, results):
                 # print("key_value_sections[] =", len(key_value_sections))
 
                 if key_value_sections:
-                    key = key_value_sections[0].get_text().strip()
+                    key_section = key_value_sections[0].find("span")
+                    key = key_section.get_text().strip()
                     value = None
 
                     if len(key_value_sections) > 1:
@@ -284,38 +182,7 @@ def parse_get_data_yahoo_stock(parsed_http_response, results):
                             value = ""
 
                         print("key, value = {0}, {1}".format(key, value))
-
-                        if key == __Constants.MARKET_INFO_52WEEK:
-                            if value:
-                                values = value.split("-")
-                            else:
-                                values = ["", ""]
-                            print("values =", values)
-                            results[__Constants.SECTION_MARKET_INFO][__Constants.MARKET_INFO_52WEEK_LOW] = values[0].strip(
-                            )
-                            results[__Constants.SECTION_MARKET_INFO][__Constants.MARKET_INFO_52WEEK_HIGH] = values[1].strip(
-                            )
-                        elif key == __Constants.MARKET_INFO_RANGE:
-                            if value:
-                                values = value.split("-")
-                            else:
-                                values = ["", ""]
-                            print("values =", values)
-                            results[__Constants.SECTION_MARKET_INFO][__Constants.MARKET_INFO_RANGE_LOW] = values[0].strip(
-                            )
-                            results[__Constants.SECTION_MARKET_INFO][__Constants.MARKET_INFO_RANGE_HIGH] = values[1].strip(
-                            )
-                        elif key == __Constants.MARKET_INFO_DIVIDEND_YIELD:
-                            if value:
-                                values = value.split(" ")
-                            else:
-                                values = ["", ""]
-                            results[__Constants.SECTION_MARKET_INFO][__Constants.MARKET_INFO_DIVIDEND] = values[0].strip(
-                            )
-                            results[__Constants.SECTION_MARKET_INFO][__Constants.MARKET_INFO_YIELD] = values[1].strip(
-                            )[1:-1]
-                        else:
-                            results[__Constants.SECTION_MARKET_INFO][key] = value
+                        results[__Constants.SECTION_MARKET_INFO][key] = value
             except Exception:
                 raise Exception("Cannot find key_value_sections.")
 
@@ -323,73 +190,6 @@ def parse_get_data_yahoo_stock(parsed_http_response, results):
         print("-" * 40)
     except Exception as e:
         print("Get stock data: Exception = {0}".format(e))
-        raise e
-
-
-def parse_get_data_yahoo_currency(parsed_http_response, results):
-    '''
-    Analyse HTTP response data.
-
-    @param parsed_http_response : Parsed HTTP response.
-    @param results : Dict with return results.
-    '''
-
-    try:
-        results[__Constants.SECTION_CURRENCY_INFO] = {}
-
-        # The return object from find() is class 'bs4.element.Tag'.
-        try:
-            currency_name_info_section = parsed_http_response.find(
-                "h1", {"data-reactid": 7})
-
-            if not currency_name_info_section:
-                raise
-
-            print("currency_name_info_section =", currency_name_info_section)
-        except Exception:
-            raise Exception("Cannot find currency_name_info_section.")
-
-        currency_name_info = currency_name_info_section.get_text().strip()
-        print("currency_name_info =", currency_name_info)
-        results[__Constants.SECTION_CURRENCY_INFO][__Constants.CURRENCY_INFO_NAME] = currency_name_info
-
-        currency_names = currency_name_info.split(" ")[0].split("/")
-        print("currency_names =", currency_names)
-        results[__Constants.SECTION_CURRENCY_INFO][__Constants.CURRENCY_INFO_FROM_SYMBOL] = currency_names[0]
-        results[__Constants.SECTION_CURRENCY_INFO][__Constants.CURRENCY_INFO_TO_SYMBOL] = currency_names[1]
-
-        results[__Constants.SECTION_EXCHANGE_INFO] = {}
-
-        try:
-            value_section = parsed_http_response.find(
-                "span", {"data-reactid": 35})
-
-            if not value_section:
-                raise
-
-            print("value_section =", value_section)
-        except Exception:
-            raise Exception("Cannot find value_section.")
-
-        results[__Constants.SECTION_EXCHANGE_INFO][__Constants.EXCHANGE_INFO_VALUE] = value_section.get_text().strip()
-
-        try:
-            time_section = parsed_http_response.find(
-                "div", {"id": "quote-market-notice"})
-
-            if not time_section:
-                raise
-
-            print("time_section =", time_section)
-        except Exception:
-            raise Exception("Cannot find time_section.")
-
-        results[__Constants.SECTION_EXCHANGE_INFO][__Constants.EXCHANGE_INFO_TIME] = time_section.get_text()
-
-        print("Get currency data: ok.")
-        print("-" * 40)
-    except Exception as e:
-        print("Get currency data: Exception = {0}".format(e))
         raise e
 
 
@@ -428,25 +228,6 @@ def inspect_inventory(record):
                 stock_info_ticker, stock_info_exchange))
         else:
             url = __Constants.API_URL.format(stock_info_ticker)
-    else:  # __data_type == 1:
-        parse_get_data = parse_get_data_yahoo_currency
-
-        currency_info_from_symbol, currency_info_to_symbol = record
-        currency_info_from_symbol = currency_info_from_symbol.strip()
-        currency_info_to_symbol = currency_info_to_symbol.strip()
-        print("currency_info_from_symbol =", currency_info_from_symbol)
-        print("currency_info_to_symbol =", currency_info_to_symbol)
-        currency_info_symbols = currency_info_from_symbol + currency_info_to_symbol
-        inventory_id = currency_info_symbols
-
-        results[currency_info_symbols] = {}
-        result = results[currency_info_symbols]
-
-        result[__Constants.RECORD] = {}
-        result[__Constants.RECORD][__Constants.COLUMN_FROM_SYMBOL] = currency_info_from_symbol
-        result[__Constants.RECORD][__Constants.COLUMN_TO_SYMBOL] = currency_info_to_symbol
-
-        url = __Constants.API_URL.format(currency_info_symbols)
 
     print("url =", url)
     result[__Constants.URL] = url
@@ -499,8 +280,6 @@ def process_inventory_list():
 
     if __data_type == 0:
         __Constants = Constants_YahooStock
-    else:  # __data_type == 1:
-        __Constants = Constants_YahooCurrency
 
     results = {}
 
@@ -572,7 +351,7 @@ Usage:
 
 Options:
 -h : Show help.
--d <DataType> : Finance data type. Compulsory, Value [0: Yahoo Finance stock, 1: Yahoo Finance currency].
+-d <DataType> : Finance data type. Compulsory, Value [0: Yahoo Finance stock].
 -i <file path> : Environment info file path (CSV). Compulsory.
 -o <file path> : Result output file path (JSON). Optional, output to screen by default.
 -c <Number> : Concurrent max workers to process records. Optional, Value [1, 10], 5 by default.
@@ -581,8 +360,6 @@ Notes:
 Inventory info file format sample (With header line):
 1. Yahoo stock 
 Name,Exchange,Ticker
-2. Yahoo currency
-From symbol,To symbol
 ''')
 
 
@@ -652,7 +429,7 @@ def main(argv):
         if (__data_type is None) or (__inventory_info_file_path is None):
             __show_usage, __exit_code, __error_message = True, - \
                 4, "Missing compulsory command line option."
-        elif (__data_type < 0) or (__data_type > 2):
+        elif (__data_type < 0) or (__data_type > 1):
             __show_usage, __exit_code, __error_message = True, -5, "Wrong value for -d."
         elif (__concurrent_max_workers < 1) or (__concurrent_max_workers > 10):
             __show_usage, __exit_code, __error_message = True, -6, "Wrong value for -c."

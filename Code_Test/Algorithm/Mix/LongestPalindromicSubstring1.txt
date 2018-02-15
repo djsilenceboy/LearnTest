@@ -7,10 +7,30 @@ Java
 
 class Solution {
     public String longestPalindrome(String s) {
-        for (int k = s.length() - 1; k > 1; k--) {
-            for (int i = 0; i < s.length() - k; i++) {
+        String result = null;
+
+        for (int k = s.length(); k > 0; k--) {
+            for (int p = 0; p < s.length() - k + 1; p++) {
+                 int i = p, j = p + k - 1;
+
+                 while (i < j) {
+                     if (s.charAt(i) == s.charAt(j)) {
+                         i++; j--;
+                     } else
+                         break;
+                 }
+
+                if (i >= j) {
+                    result = s.substring(p, p + k);
+                    break;
+                }
             }
+
+            if (result != null)
+                break;
         }
+
+        return result;
     }
 }
 ================================================================================
