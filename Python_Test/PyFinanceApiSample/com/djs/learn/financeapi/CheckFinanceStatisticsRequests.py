@@ -66,6 +66,11 @@ class Constants_YahooStock(Constants_Base):
     COLUMN_EXCHANGE = "Exchange"
     COLUMN_TICKER = "Ticker"
 
+    SECTION_STOCK_INFO = "Stock info"
+    STOCK_INFO_NAME = "Name"
+    STOCK_INFO_EXCHANGE = "Exchange"
+    STOCK_INFO_TICKER = "Ticker"
+
     SECTION_MARKET_INFO = "Market info"
 
 
@@ -138,9 +143,37 @@ def parse_get_data_yahoo_stock(parsed_http_response, results):
     '''
 
     try:
-        results[__Constants.SECTION_MARKET_INFO] = {}
+        results[__Constants.SECTION_STOCK_INFO] = {}
 
         # The return object from find() is class 'bs4.element.Tag'.
+        try:
+            stock_name_info_section = parsed_http_response.find(
+                "h1", {"data-reactid": 7})
+
+            if not stock_name_info_section:
+                raise
+
+            # The stock name may contain non-printable characters.
+            # print("stock_name_info_section =", stock_name_info_section)
+        except Exception:
+            raise Exception("Cannot find stock_name_info_section.")
+
+        # Remove possible non-printable characters.
+        stock_name_info_text = ''.join(
+            [x for x in stock_name_info_section.get_text().strip() if x in string.printable])
+
+        stock_name_info = stock_name_info_text.rsplit(" ", 1)
+        print("stock_name_info =", stock_name_info)
+        results[__Constants.SECTION_STOCK_INFO][__Constants.STOCK_INFO_NAME] = stock_name_info[0]
+        ticker_exchange_info = stock_name_info[1][1:-1].split(".")
+        print("ticker_exchange_info =", ticker_exchange_info)
+        results[__Constants.SECTION_STOCK_INFO][__Constants.STOCK_INFO_TICKER] = ticker_exchange_info[0]
+        if len(ticker_exchange_info) > 1:
+            results[__Constants.SECTION_STOCK_INFO][__Constants.STOCK_INFO_EXCHANGE] = ticker_exchange_info[1]
+        else:
+            results[__Constants.SECTION_STOCK_INFO][__Constants.STOCK_INFO_EXCHANGE] = ""
+
+        results[__Constants.SECTION_MARKET_INFO] = {}
 
         try:
             misc_info_section = parsed_http_response.find(
@@ -172,8 +205,11 @@ def parse_get_data_yahoo_stock(parsed_http_response, results):
                 # print("key_value_sections[] =", len(key_value_sections))
 
                 if key_value_sections:
-                    key_section = key_value_sections[0].find("span")
-                    key = key_section.get_text().strip()
+                    # key_section = key_value_sections[0].find("span")
+                    # key = key_section.get_text().strip()
+                    key = key_value_sections[0].get_text().strip()
+                    if key[-1].isdigit():
+                        key = key[:-2]
                     value = None
 
                     if len(key_value_sections) > 1:
