@@ -4,27 +4,32 @@ httpsleetcode.comproblemsregular-expression-matchingdescription
 Test
 ------------------------------------------------------------
 Java
+Incomplete.
 
 class Solution {
     public boolean isMatch(String s, String p) {
         int s_length = s.length();
         int p_length = p.length();
         int i = 0, j = 0;
+        char temp = 0;
 
         while (i < s_length && j < p_length) {
-            if (s.charAt(i) == p.charAt(j)) {
-                i++; j++;
+            if (p.charAt(j) == s.charAt(i)) {
+                temp = s.charAt(i); i++; j++;
             } else if (p.charAt(j) == '.') {
-                i++; j++;
+                temp = '.'; i++; j++;
             } else if (p.charAt(j) == '*') {
-                while ((i < s_length) && ((j + 1 >= p_length) || (s.charAt(i) != p.charAt(j + 1)))) {
+                while ((i < s_length) && ((temp == '.') || (s.charAt(i) == temp))) {
                     i++;
                 }
-
-                if ((i >= s_length) || (s.charAt(i) == p.charAt(j + 1)))
-                    j++;
-            } else
-                break;
+                j++;
+            } else {
+                temp = 0;
+                if (j + 1 < p_length) {
+                    if (p.charAt(j + 1) == '*') j += 2;
+                    else break;
+                } else break;
+            }
         }
 
         return (i >= s_length && j >= p_length);
