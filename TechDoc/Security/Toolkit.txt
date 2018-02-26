@@ -30,6 +30,14 @@ Kali Penetration Testing
 
 https://www.kali.org/
 ----------------------------------------
+Open Source vulnerability scanner
+(ISO)
+
+http://www.openvas.org/
+
+With Kali Linux
+https://www.kali.org/penetration-testing/openvas-vulnerability-scanning/
+----------------------------------------
 Burp Suite (Community Edition)
 
 https://portswigger.net/burp/

@@ -178,7 +178,7 @@ Usage:
 
 Options:
 -h : Show help.
--d <DataType> : Finance data type. Compulsory, Value [0: Google Finance stock].
+-d <DataType> : Finance data type. Compulsory, Value [0: Yahoo Finance stock].
 -i <FilePath> : Environment info file path (CSV). Compulsory.
 -o <FilePath> : Result output file path (JSON). Optional, output to screen by default.
 ''')
