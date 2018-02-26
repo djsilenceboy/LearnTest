@@ -512,3 +512,11 @@ Remove file from history.
 
 > git filter-branch --index-filter 'git rm --cached --ignore-unmatch <File>' HEAD
 ================================================================================
+Save git user/password
+------------------------------------------------------------
+> git config credential.helper store
+> git push
+
+Username for 'https://github.com':
+Password for 'https://xxx@github.com':
+================================================================================
