@@ -1,0 +1,36 @@
+================================================================================
+httpsleetcode.comproblemsregular-expression-matchingdescription
+================================================================================
+Test
+------------------------------------------------------------
+Java
+
+class Solution {
+    public boolean isMatch(String s, String p) {
+        int s_length = s.length();
+        int p_length = p.length();
+        int i = 0, j = 0;
+
+        while (i < s_length && j < p_length) {
+            if (s.charAt(i) == p.charAt(j)) {
+                i++; j++;
+            } else if (p.charAt(j) == '.') {
+                i++; j++;
+            } else if (p.charAt(j) == '*') {
+                while ((i < s_length) && ((j + 1 >= p_length) || (s.charAt(i) != p.charAt(j + 1)))) {
+                    i++;
+                }
+
+                if ((i >= s_length) || (s.charAt(i) == p.charAt(j + 1)))
+                    j++;
+            } else
+                break;
+        }
+
+        return (i >= s_length && j >= p_length);
+    }
+}
+================================================================================
+Other solutions
+------------------------------------------------------------
+================================================================================

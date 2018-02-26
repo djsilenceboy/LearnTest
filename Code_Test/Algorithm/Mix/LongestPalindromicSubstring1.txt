@@ -4,6 +4,7 @@ https://leetcode.com/problems/longest-palindromic-substring/description/
 Test
 ------------------------------------------------------------
 Java
+Accepted
 
 class Solution {
     public String longestPalindrome(String s) {
@@ -33,6 +34,76 @@ class Solution {
         return result;
     }
 }
+------------------------------------------------------------
+Java
+Incomplete.
+
+class Solution {
+    public String longestPalindrome(String s) {
+        String result = null;
+        int length = s.length();
+
+        if (length == 1)
+            result = s;
+        else {
+            int i = 0, j = length - 1;
+
+            while (i < j) {
+                if (s.charAt(i) == s.charAt(j)) {
+                    i++; j--;
+                } else
+                    break;
+            }
+
+            if (i >= j)
+                result = s;
+            else {
+                int maxLength = 0;
+                for (int k = 0; k <= 1; k++) {
+                    String temp = longestPalindrome(s.substring(k, k + length - 1));
+
+                    if (temp.length() > maxLength) {
+                        maxLength = temp.length();
+                        result = temp;
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+}
+------------------------------------------------------------
+Python3
+Accepted.
+
+class Solution:
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        result = None
+
+        for k in range(len(s), 0, -1):
+            for p in range(0, len(s) - k + 1):
+                i = p
+                j = p + k - 1
+
+                while (i < j):
+                    if (s[i] == s[j]):
+                        i = i + 1
+                        j = j - 1
+                    else:
+                        break
+
+                if (i >= j):
+                    result = s[p:p + k]
+                    break
+
+            if (result != None):
+                break
+
+        return result
 ================================================================================
 Other solutions
 ------------------------------------------------------------
