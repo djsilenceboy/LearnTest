@@ -19,10 +19,21 @@ class Solution {
             } else if (p.charAt(j) == '.') {
                 temp = '.'; i++; j++;
             } else if (p.charAt(j) == '*') {
+                int mark = i;
                 while ((i < s_length) && ((temp == '.') || (s.charAt(i) == temp))) {
                     i++;
                 }
                 j++;
+
+                if ((i >= s_length) && (j < p_length)) {
+                   if ((j + 1 < p_length) && (p.charAt(j + 1) == '*')) {
+
+                   } else {
+                       while ((i > mark + 1) && ((temp == '.') || (s.charAt(i) == temp))) {
+                          i--;
+                       } 
+                   }
+                }
             } else {
                 temp = 0;
                 if (j + 1 < p_length) {
