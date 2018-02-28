@@ -49,4 +49,27 @@ class Solution {
 ================================================================================
 Other solutions
 ------------------------------------------------------------
+Java
+Accepted.
+
+class Solution {
+    public boolean isMatch(String s, String p) {
+        // When p is empty, if s is empty too, return true, else return false.
+        if (p.isEmpty()) return s.isEmpty();
+        // If s is not empty, and s[0] match p[0] or p[0] is '.', it matches first char.
+        boolean first_match = (!s.isEmpty() && (p.charAt(0) == s.charAt(0) || p.charAt(0) == '.'));
+        if (p.length() >= 2 && p.charAt(1) == '*') {
+        // If p has p[1] and p[1] is '*'.
+        // For greedy matching:
+        // 1. Suppose 0 matching case for '*' first, further check same string s with remaining p[2..].
+        // 2. Then, suppose more matching case for '*', further check string s[1..] with same p.
+            return isMatch(s, p.substring(2)) || (first_match && isMatch(s.substring(1), p));
+        } else {
+        // Otherwise,
+        // if first char matches, then further check s[1..] with p[1..].
+        // if first char does not match, return false.
+            return first_match && isMatch(s.substring(1), p.substring(1));
+        }
+    }
+}
 ================================================================================
