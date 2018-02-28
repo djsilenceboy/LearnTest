@@ -1,0 +1,22 @@
+================================================================================
+Windows
+================================================================================
+NetBIOS Over TCP/IP
+https://technet.microsoft.com/en-us/library/cc940063.aspx
+
+NetBIOS Hex Codes
+https://jcifs.samba.org/src/docs/nbtcodes.html
+------------------------------------------------------------
+List local NetBIOS names.
+
+nbtstat -n
+----------------------------------------
+List cached remote host NetBIOS names.
+
+nbtstat -c
+----------------------------------------
+List remote host NetBIOS names.
+
+nbtstat -a <RemoteHost_NetBIOS_Name>
+nbtstat -A <RemoteHost_IP>
+================================================================================

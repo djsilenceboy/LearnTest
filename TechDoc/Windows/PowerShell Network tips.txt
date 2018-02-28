@@ -33,4 +33,3 @@ Test remote connection.
 
 Win32_PingStatus wrappers Test-Connection.
 ================================================================================
-
