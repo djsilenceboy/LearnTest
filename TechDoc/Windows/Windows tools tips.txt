@@ -20,3 +20,77 @@ List remote host NetBIOS names.
 nbtstat -a <RemoteHost_NetBIOS_Name>
 nbtstat -A <RemoteHost_IP>
 ================================================================================
+Sysinternals Suite: PsTools
+------------------------------------------------------------
+All ps tools support following parameters for checking remote host:
+\\<Remote_Host_Name_IP> -u UserName -p Password
+Otherwise, it checks local info.
+
+All ps tools support "/?" to show help.
+------------------------------------------------------------
+Lists files and directories opened remotely.
+
+psfile
+------------------------------------------------------------
+See who's logged on.
+
+psloggedon
+------------------------------------------------------------
+Translates SIDs to names and vice versa.
+
+psgetsid
+psgetsid <UserName>
+
+Postfix "-500" means Administrator.
+Postfix "-1000" means normal user.
+------------------------------------------------------------
+Local and remote system information viewer.
+
+psinfo
+------------------------------------------------------------
+Service information and configuration utility.
+Control Windows services info.
+
+psservice
+psservice help
+psservice start <Service>
+psservice stop <Service>
+psservice query <Service>
+------------------------------------------------------------
+Process information lister.
+
+pslist
+pslist <ProcessName>
+------------------------------------------------------------
+Terminates processes on local or remote systems.
+
+pskill
+------------------------------------------------------------
+Process Suspender.
+
+pssuspend
+------------------------------------------------------------
+Local and remote event log viewer
+
+psloglist
+psloglist <EventLog>
+
+EventLog: [application, security, system]
+
+Output comma CSV.
+psloglist -s
+------------------------------------------------------------
+Execute processes remotely.
+
+psexec <Command>
+------------------------------------------------------------
+Shutdown, logoff and power manage local and remote systems.
+
+psshutdown
+
+Power off.
+psshutdown -k
+
+Reboot.
+psshutdown -r
+================================================================================

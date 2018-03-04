@@ -1,0 +1,100 @@
+================================================================================
+https://leetcode.com/problems/container-with-most-water/description/
+================================================================================
+Test
+------------------------------------------------------------
+Java
+Correct, but time Limit Exceeded.
+
+class Solution {
+    public int maxArea(int[] height) {
+        int max_area = 0;
+
+        for (int i = 0; i < height.length - 1; i++)
+            for (int j = i + 1; j < height.length; j++) {
+                int h = (height[i] < height[j]) ? height[i] : height[j];
+                int area = h * (j - i);
+                if (area > max_area) max_area = area;
+            }
+
+        return max_area;
+    }
+}
+------------------------------------------------------------
+Java
+Correct, but time Limit Exceeded.
+
+class Solution {
+    public int maxArea(int[] height) {
+		int max_area = 0;
+		int max_height_i = 0;
+
+		for (int i = 0; i < height.length - 1; i++)
+			if (height[i] > max_height_i) {
+				for (int j = height.length - 1; j > i; j--) {
+					int h = (height[i] < height[j]) ? height[i] : height[j];
+					int area = h * (j - i);
+					if (area > max_area) {
+						max_area = area;
+						max_height_i = height[i];
+					}
+				}
+			}
+
+		return max_area;
+	}
+}
+------------------------------------------------------------
+Java
+Correct, but time Limit Exceeded.
+
+class Solution {
+    public int maxArea(int[] height) {
+		int max_area = 0;
+		int max_i = -1;
+		int max_j = height.length - 1;
+
+		for (int i = 0; i < height.length - 1; i++)
+			if ((max_i < 0) || (height[i] > height[max_i])) {
+				for (int j = max_j; j > i; j--) {
+					int h = (height[i] < height[j]) ? height[i] : height[j];
+					int area = h * (j - i);
+					if (area > max_area) {
+						max_area = area;
+						max_i = i;
+						max_j = j;
+					}
+				}
+			}
+
+		return max_area;
+	}
+}
+------------------------------------------------------------
+Java
+Accepted
+
+class Solution {
+    public int maxArea(int[] height) {
+		int max_area = 0;
+		int i = 0;
+		int j = height.length - 1;
+
+		while (i < j) {
+			int h = (height[i] < height[j]) ? height[i] : height[j];
+			int area = h * (j - i);
+			if (area > max_area) {
+				max_area = area;
+			}
+
+			if (height[i] < height[j]) i++;
+			else j--;
+		}
+
+		return max_area;
+	}
+}
+================================================================================
+Other solutions
+------------------------------------------------------------
+================================================================================
