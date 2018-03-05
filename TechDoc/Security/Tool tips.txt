@@ -1,0 +1,27 @@
+======================================================================
+Netcat (nc or ncat)
+------------------------------------------------------------
+Listen once for port.
+
+nc -l <Port>
+nc -l <Port> < <FileDisplay>
+echo "Something" | nc -l <Port>
+------------------------------------------------------------
+Keep listening for port.
+
+nc -l -k <Port>
+nc -l -k <Port> < <FileDisplay>
+nc -l -k -e "SomeCommand" <Port>
+------------------------------------------------------------
+Client to host / port.
+
+nc <HostIP> <Port>
+------------------------------------------------------------
+Port scan.
+
+nc -v <HostIP> <Port>
+nc -v -r <HostIP> <Port>
+nc -v -z -r <HostIP> <Port>
+nc -v -i <Interval> <HostIP> <Port>
+nc -v -r <HostIP> <PortA-PortB>
+======================================================================
