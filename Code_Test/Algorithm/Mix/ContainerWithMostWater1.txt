@@ -4,7 +4,7 @@ https://leetcode.com/problems/container-with-most-water/description/
 Test
 ------------------------------------------------------------
 Java
-Correct, but time Limit Exceeded.
+Correct, but Time Limit Exceeded.
 
 class Solution {
     public int maxArea(int[] height) {
@@ -22,7 +22,7 @@ class Solution {
 }
 ------------------------------------------------------------
 Java
-Correct, but time Limit Exceeded.
+Correct, but Time Limit Exceeded.
 
 class Solution {
     public int maxArea(int[] height) {
@@ -46,7 +46,7 @@ class Solution {
 }
 ------------------------------------------------------------
 Java
-Correct, but time Limit Exceeded.
+Correct, but Time Limit Exceeded.
 
 class Solution {
     public int maxArea(int[] height) {
