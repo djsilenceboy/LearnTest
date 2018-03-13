@@ -19,12 +19,14 @@
         - cifs-utils
         - git
         - net-tools
+        - nmap
         - openssl
         - openssl-devel
         - perl
         - python
         - python-devel
         - screen
+        - tcpdump
         - traceroute
         - unzip
         - whois

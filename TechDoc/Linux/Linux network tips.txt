@@ -283,13 +283,60 @@ Restore a saved state.
 
 ]# ipset restore
 ================================================================================
-Check DNS
+whois
 ------------------------------------------------------------
-]$ dig <HostName>
-]$ dig -x <IP>
+Default use "-h whois.inernic.net".
+
+whois <Host>
+whois -h whois.inernic.net <HostName>
+whois -h whois.crsnic.net <HostName>
+----------------------------------------
+Sample:
+
+whois -h whois.inernic.net google.com
 ------------------------------------------------------------
-]$ whois <HostName>
-]$ whois <IP>
+Check network address space by IP and NetHandle from "whois.arin.net".
+
+whois -h whois.arin.net "n <IP>"
+whois -h whois.arin.net "n ! <NetHandle>"
+----------------------------------------
+Sample:
+
+whois -h whois.arin.net "n 74.125.200.102"
+whois -h whois.arin.net "n ! NET-74-125-0-0-1"
+================================================================================
+nslookup / host / dig
+------------------------------------------------------------
+Check host name.
+
+nslookup <HostName>
+host <HostName>
+----------------------------------------
+Sample:
+
+nslookup google.com
+host google.com
+------------------------------------------------------------
+Check host info by type.
+
+host -a <HostName>
+host -t <Type> <HostName>
+
+"-a" option: -v -t any
+
+"-t:" option:
+a  : Hostname to address mapping.
+mx : Mail handler specification.
+ns : name server specification.
+ptr: hostname mappings.
+soa: start of authority entries.
+------------------------------------------------------------
+Check host info by type.
+
+dig <HostName>
+(Equal to "host -a".)
+
+dig -x <IP>
 ================================================================================
 Ethernet bridge administration
 ------------------------------------------------------------

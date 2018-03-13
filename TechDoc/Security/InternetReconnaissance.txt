@@ -1,4 +1,4 @@
-======================================================================
+================================================================================
 Internet Reconnaissance / Port Scan / Stealth Scan
 ------------------------------------------------------------
 To find a valid host
@@ -10,7 +10,7 @@ To find a invalid host
 
 Step 1: Source host sends "TCP RST" to Target host.
 Step 2: If Target host does not exist, Router for that network address will return ICMP "Host Unreachable".
-======================================================================
+================================================================================
 To get IP of a host name (FQDN)
 
 nslookup <Target_FQDN>
@@ -36,4 +36,4 @@ Website: https://www.networksolutions.com
 2. Purchase domain names.
 ------------------------------------------------------------
 Use NMap to scan ports.
-======================================================================
+================================================================================
