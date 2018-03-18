@@ -55,7 +55,7 @@ class Solution {
 Other solutions
 ------------------------------------------------------------
 Java
-Correct, but Time Limit Exceeded.
+Correct, but Time Limit Exceeded, but quick than mine.
 
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
