@@ -157,6 +157,14 @@ Delete all images.
 
 ]# docker rmi `docker images -q`
 ------------------------------------------------------------
+Delete all unused images.
+
+]# docker images prune
+]# docker images prune -a
+
+Options:
+-f, --force : Do not prompt for confirmation.
+------------------------------------------------------------
 Some small sample images.
 
 busybox, alpine, nginx
@@ -279,6 +287,13 @@ Delete container.
 Options:
 -f, --force : By force.
 -v, --volumes : Remove the volumes associated with the container.
+------------------------------------------------------------
+Delete all stopped containers.
+
+]# docker container prune
+
+Options:
+-f, --force : Do not prompt for confirmation.
 ================================================================================
 Check container statistics.
 
@@ -339,6 +354,16 @@ Check mount info.
 In JSON format:
 
 ]# docker inspect -f "{{json .Mounts}}" <ContainerNameOrId>
+
+Check config env.
+It is a string array, so can "join" with ", ".
+
+]# docker inspect -f '{{join .Config.Env ", "}}' <ContainerNameOrId>
+
+Check config env.
+It is a string separated with ", ", so can "split" into an array by ", ".
+
+]# docker inspect -f '{{split (join .Config.Env ", ") ", "}}' <ContainerNameOrId>
 ------------------------------------------------------------
 Check opened port of container
 
@@ -391,6 +416,13 @@ Options:
 Connect existing container to another network
 
 ]# docker network connect <NetworkName> <ContainerNameOrId>
+------------------------------------------------------------
+Delete all unused networks.
+
+]# docker network prune
+
+Options:
+-f, --force : Do not prompt for confirmation.
 ------------------------------------------------------------
 Check ports.
 
