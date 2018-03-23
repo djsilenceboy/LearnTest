@@ -75,7 +75,7 @@ class Constants_Base(object):
 
 
 class Constants_FundsupermartFund(Constants_Base):
-    API_URL = "https://secure.fundsupermart.com/fsm/funds/factsheet/{0}"
+    API_URL = "https://secure.fundsupermart.com/fsm/funds/factsheet/{0}/"
 
     FUND_NAME = "Fund name"
     FUND_ID = "Fund ID"

@@ -312,7 +312,7 @@ Convert UTC time to zone time
 awk 'BEGIN {print strftime("%c",'1493919268')}'
 gawk 'BEGIN {print strftime("%c",'1493919268')}'
 ================================================================================
-Screen
+screen
 ------------------------------------------------------------
 Start new session.
 
@@ -331,4 +331,32 @@ tr
 Convert all 'a' to 'b', then squeeze repeated 'b'.
 
 ]$ tr -s 'a' 'b'
+================================================================================
+strings: Display printable strings in [file(s)] (stdin by default).
+------------------------------------------------------------
+Find all displayable strings.
+
+]$ strings <File>
+
+Find all displayable strings longer than certain number.
+
+]$ strings -n <Number> <File>
+================================================================================
+strace: Trace system calls and signals.
+------------------------------------------------------------
+]$ strace <Command_Or_PID>
+
+Trace child processes.
+
+]$ strace -f <Command>
+
+Trace PID.
+
+]$ strace -p <PID>
+================================================================================
+objdump: Display information from object <file(s)>.
+------------------------------------------------------------
+]$ objdump <File>
+]$ objdump -f <File>
+]$ objdump -i <File>
 ================================================================================
