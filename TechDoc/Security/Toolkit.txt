@@ -5,6 +5,10 @@ Microsoft Baseline Security Analyzer
 
 https://technet.microsoft.com/en-us/security/cc184924.aspx
 ----------------------------------------
+OWASP Zed Attack Proxy (ZAP)
+
+https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project
+----------------------------------------
 GFI LanGuard
 (Network security scanner & patch management)
 (Free trial)
@@ -74,7 +78,7 @@ Network tools
 WinDump
 
 https://www.winpcap.org/windump/install/default.htm
-------------------------------------------------------------
+----------------------------------------
 NMap
 
 https://nmap.org/
@@ -130,13 +134,26 @@ HTTrack
 (Easy-to-use offline browser utility)
 
 http://www.httrack.com/
-------------------------------------------------------------
+----------------------------------------
+Nikto2
+(Web server scanner)
+(Perl source code only)
+
+https://www.cirt.net/Nikto2/
+https://github.com/sullo/nikto
+----------------------------------------
 SQL Inject Me
 (SQL Injection vulnerabilites)
 (Firefox add-on)
 
 https://addons.mozilla.org/en-US/firefox/addon/sql-inject-me/
-------------------------------------------------------------
+----------------------------------------
+SQLmap
+(Python source code only)
+
+http://sqlmap.org/
+https://github.com/sqlmapproject/sqlmap
+----------------------------------------
 XSS Me
 (Cross-Site Scripting (XSS) vulnerabilities)
 (Firefox add-on)
@@ -150,17 +167,17 @@ Kismet Wireless
 (Source code only)
 
 https://www.kismetwireless.net/
-------------------------------------------------------------
+----------------------------------------
 Aircrack-ng
 (Complete suite of tools to assess WiFi network security)
 
 http://aircrack-ng.org/
-------------------------------------------------------------
+----------------------------------------
 NetStumbler
 (discover SSIDs and other detailed information about wireless APs)
 
 http://www.netstumbler.com/downloads/
-------------------------------------------------------------
+----------------------------------------
 Reaver WPS
 (brute force attack against Wifi Protected Setup (WPS) registrar PINs in order to recover WPA/WPA2 passphrases)
 
@@ -219,7 +236,7 @@ Omnipeek Enterprise & Capture Engine for Omnipeek
 (Free trial 30 days)
 
 https://www.savvius.com/free-30-day-software-trials/
-------------------------------------------------------------
+----------------------------------------
 Acunetix
 (Web scanner)
 (Free trial 14 days)
@@ -261,7 +278,7 @@ https://www.mcafee.com/us/downloads/free-tools/udpflood.aspx/udpflood.aspx
 Wellenreiter wireless penetration tool
 
 https://sourceforge.net/projects/wellenreiter/
-------------------------------------------------------------
+----------------------------------------
 WEPCrack
 (cracks 802.11 WEP encryption keys using the latest discovered weakness of RC4 key scheduling.)
 

@@ -350,3 +350,30 @@ Show a list of mac addrs.
 ]$ brctl showmacs <Bridge>
 ]$ brctl showmacs docker0
 ================================================================================
+Get remote FTP folder list
+
+]$ curl --user 'UserName:Password' ftp://IP:Port/Path/
+
+(Must append "/" in the end.)
+================================================================================
+Use openssl to generate key.
+
+]$ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout key.pem -out cert.pem -subj "/C=Country/ST=State/L=Location/O=Orgnazation/CN=`hostname`"
+------------------------------------------------------------
+Check and verify.
+
+]$ openssl x509 -text -noout -in some.crt
+]$ openssl rsa -check -in some.key
+------------------------------------------------------------
+Starting OpenSSL s_server.
+
+]$ openssl s_server -key key.pem -cert cert.pem -accept 3333 -www
+
+Verify.
+
+https://localhost:3333
+
+Access with s_client.
+
+}$ openssl s_client -connect localhost:3333
+================================================================================

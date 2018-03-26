@@ -219,15 +219,6 @@ Change password
 
 ]# echo UserName:NewPassword | chpasswd
 ================================================================================
-Use openssl to generate key.
-
-]# openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout some.key -out some.crt -subj "/C=Country/ST=State/L=Location/O=Orgnazation/CN=`hostname`"
-
-Check and verify.
-
-]# openssl x509 -text -noout -in some.crt
-]# openssl rsa -check -in some.key
-================================================================================
 Delete user with home directory
 
 ]# userdel -r <User>
@@ -300,12 +291,6 @@ Download
 
 scp optional to add:
 -o StrictHostKeyChecking=no
-================================================================================
-Get remote FTP folder list
-
-]$ curl --user 'UserName:Password' ftp://IP:Port/Path/
-
-(Must append "/" in the end.)
 ================================================================================
 Convert UTC time to zone time
 ------------------------------------------------------------

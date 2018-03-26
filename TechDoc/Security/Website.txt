@@ -14,6 +14,10 @@ https://hakin9.org/
 PHRACK
 
 http://www.phrack.org/archives/
+------------------------------------------------------------
+Deadliest Web Attacks
+
+https://deadliestwebattacks.com/
 ================================================================================
 Whois Lookup — Domain Names Search, Registration and Availability
 
@@ -46,6 +50,10 @@ WiGLE
 
 https://wigle.net/
 ================================================================================
+Open Web Application Security Project
+
+https://www.owasp.org/index.php/
+------------------------------------------------------------
 Common Vulnerabilities and Exposures
 
 http://cve.mitre.org/cve/
