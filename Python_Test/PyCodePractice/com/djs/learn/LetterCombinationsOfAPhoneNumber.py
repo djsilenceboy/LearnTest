@@ -6,43 +6,37 @@ Created on Mar 27, 2018
 
 
 class Solution:
-    __valid_numbers = [num for num in range(2, 10)]
-    __number_letter_dict = {2: ["a", "b", "c"], 3: ["d", "e", "f"],
-                            4: ["g", "h", "i"], 5: ["j", "k", "l"], 6: ["m", "n", "o"], 7: ["p", "q", "r", "s"], 8: ["t", "u", "v"], 9: ["w", "x", "y", "z"]}
+    __number_letter_dict = {"0": "", "1": "", "2": "abc", "3": "def",
+                            "4": "ghi", "5": "jkl", "6": "mno", "7": "pqrs", "8": "tuv", "9": "wxyz"}
 
     def letterCombinations(self, digits):
         """
         :type digits: str
         :rtype: List[str]
         """
-        print("digits =", digits)
-        first_digit = int(digits[0])
-        print("first_digit =", first_digit)
+        if len(digits) == 0:
+            return []
+
+        a_list = list(Solution.__number_letter_dict[digits[0]])
+
         if len(digits) == 1:
-            if first_digit in Solution.__valid_numbers:
-                return Solution.__number_letter_dict[first_digit]
-            else:
-                return [""]
+            return a_list
         else:
-            result = []
-            if first_digit in Solution.__valid_numbers:
-                a_list = Solution.__number_letter_dict.get(
-                    first_digit)
-            else:
-                a_list = [""]
-            print("a_list =", a_list)
-            for a, b in zip(a_list, self.letterCombinations(digits[1:])):
-                result.append(a + b)
-            return result
+            return [a + b for a in a_list for b in self.letterCombinations(digits[1:])]
 
 
 def test(digits):
     solution = Solution()
-    solution.letterCombinations(digits)
+    result = solution.letterCombinations(digits)
+    print("result =", result)
     print("-" * 80)
 
 
 def main():
+    digits = ""
+    # []
+    test(digits)
+
     digits = "23"
     # ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]
     test(digits)
