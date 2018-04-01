@@ -203,6 +203,7 @@ http://ophcrack.sourceforge.net/
 ----------------------------------------
 THC-Hydra
 (Network logon cracker)
+(Source code only)
 
 https://www.thc.org/thc-hydra/
 https://github.com/vanhauser-thc/thc-hydra
@@ -229,6 +230,20 @@ Proactive Password Auditor
 (Free trial)
 
 https://www.elcomsoft.com/ppa.html
+================================================================================
+Forensic tool
+------------------------------------------------------------
+The Sleuth Kit (TSK) is a library and collection of command line tools that allow you to investigate disk images.
+http://www.sleuthkit.org/sleuthkit/
+
+Autopsy is a digital forensics platform and graphical interface to The Sleuth Kit and other digital forensics tools.
+http://www.sleuthkit.org/autopsy/
+----------------------------------------
+Security Onion
+(Peel back the layers of your network)
+(ISO)
+
+https://securityonion.net/
 ================================================================================
 Business suits
 ------------------------------------------------------------
