@@ -29,4 +29,28 @@ class Solution:
 ================================================================================
 Other solutions
 ------------------------------------------------------------
+Python
+Working.
+
+class Solution:
+    __temp_result = None
+
+    def internalProcess(self, stack, open, close, max):
+        if len(stack) == (max * 2):
+            self.__temp_result.append(stack)
+            return
+
+        if open < max:
+            self.internalProcess(stack + "(", open + 1, close, max)
+        if close < open:
+            self.internalProcess(stack + ")", open, close + 1, max)
+
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        self.__temp_result = []
+        self.internalProcess("", 0, 0, n)
+        return sorted(self.__temp_result)
 ================================================================================

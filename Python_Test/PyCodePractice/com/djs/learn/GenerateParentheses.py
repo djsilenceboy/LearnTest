@@ -6,77 +6,26 @@ Created on Mar 29, 2018
 
 
 class Solution:
-    def generateParenthesis_1(self, n):
-        """
-        :type n: int
-        :rtype: List[str]
-        """
-        result = None
-        if n == 1:
-            result = ["()"]
-        else:
-            sub_result = self.generateParenthesis(n - 1)
-            temp = {"(" + x + ")" for x in sub_result} | {"()" +
-                                                          x for x in sub_result} | {x + "()" for x in sub_result}
-            if (n >= 4) and (n % 2 == 0):
-                sub_result_2 = self.generateParenthesis((n - 2) / 2)
-                temp = temp | {"(" + x + ")(" + x + ")" for x in sub_result_2}
 
-            result = sorted(list(temp))
-        return result
+    # ""
 
-    def generateParenthesis_2(self, n):
-        """
-        :type n: int
-        :rtype: List[str]
-        """
-        result = set()
-        if n == 0:
-            result = [""]
-        elif n == 1:
-            result = ["()"]
-        else:
-            for i in range(int(n / 2) + 1):
-                print("i =", i, int(n / 2), n)
-                temp1 = self.generateParenthesis(i) if i < 3 else [
-                    "(" + x + ")" for x in self.generateParenthesis(i - 1)]
-                print("temp1 =", temp1)
-                temp2 = self.generateParenthesis(
-                    n - i) if n - i < 3 else ["(" + x + ")" for x in self.generateParenthesis(n - i - 1)]
-                print("temp2 =", temp2)
-                temp = {x + y for x in temp1 for y in temp2} | {x +
-                                                                y for x in temp2 for y in temp1}
-                print("temp =", temp)
-                result = result | temp
-                print("result =", result)
+    # ()""
+    # ("")""
 
-            result = sorted(list(result))
-        return result
+    # ()()
+    # ("")("")
+    # (())""
+    # (()"")""
+    # (("")"")""
 
-    def generateParenthesis_3(self, n):
-        """
-        :type n: int
-        :rtype: List[str]
-        """
-        result = set()
-        if n == 0:
-            result = [""]
-        else:
-            for i in range(1, n + 1):
-                print("i =", i, n - i)
-                temp1 = {
-                    "(" + x + ")" for x in self.generateParenthesis(i - 1)}
-                print("temp1 =", i, temp1)
-                temp2 = {x for x in self.generateParenthesis(n - i)}
-                print("temp2 =", n - i, temp2)
-                temp = {x + y for x in temp1 for y in temp2} | {x +
-                                                                y for x in temp2 for y in temp1}
-                print("temp =", temp)
-                result = result | temp
-                print("result =", result)
-
-            result = sorted(list(result))
-        return result
+    # ""((()))
+    # ""(()())
+    # ()(())
+    # ()()()
+    # (())()
+    # ()()()
+    # ((()))""
+    # (()())""
 
     def generateParenthesis(self, n):
         """
@@ -98,30 +47,38 @@ class Solution:
             result = sorted(list(result))
         return result
 
-# ""
+    __temp_result = None
 
-# ()""
-# ("")""
+    def internalProcess(self, stack, open, close, max):
+        if len(stack) == (max * 2):
+            self.__temp_result.append(stack)
+            return
 
-# ()()
-# ("")("")
-# (())""
-# (()"")""
-# (("")"")""
+        if open < max:
+            self.internalProcess(stack + "(", open + 1, close, max)
+        if close < open:
+            self.internalProcess(stack + ")", open, close + 1, max)
 
-# ""((()))
-# ""(()())
-# ()(())
-# ()()()
-# (())()
-# ()()()
-# ((()))""
-# (()())""
+    def generateParenthesis_2(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        self.__temp_result = []
+        self.internalProcess("", 0, 0, n)
+        return sorted(self.__temp_result)
 
 
 def test(n):
     solution = Solution()
     result = solution.generateParenthesis(n)
+    print("result =", result)
+    print("-" * 80)
+
+
+def test_2(n):
+    solution = Solution()
+    result = solution.generateParenthesis_2(n)
     print("result =", result)
     print("-" * 80)
 
@@ -148,6 +105,15 @@ def main():
     # ['((((()))))', '(((()())))', '(((())()))', '(((()))())', '(((())))()', '((()(())))', '((()()()))', '((()())())', '((()()))()', '((())(()))', '((())()())', '((())())()', '((()))(())', '((()))()()', '(()((())))', '(()(()()))', '(()(())())', '(()(()))()', '(()()(()))', '(()()()())', '(()()())()', '(()())(())', '(()())()()', '(())((()))', '(())(()())', '(())(())()', '(())()(())', '(())()()()', '()(((())))', '()((()()))', '()((())())', '()((()))()', '()(()(()))', '()(()()())', '()(()())()', '()(())(())', '()(())()()', '()()((()))', '()()(()())', '()()(())()', '()()()(())', '()()()()()']
     # ["((((()))))","(((()())))","(((())()))","(((()))())","(((())))()","((()(())))","((()()()))","((()())())","((()()))()","((())(()))","((())()())","((())())()","((()))(())","((()))()()","(()((())))","(()(()()))","(()(())())","(()(()))()","(()()(()))","(()()()())","(()()())()","(()())(())","(()())()()","(())((()))","(())(()())","(())(())()","(())()(())","(())()()()","()(((())))","()((()()))","()((())())","()((()))()","()(()(()))","()(()()())","()(()())()","()(())(())","()(())()()","()()((()))","()()(()())","()()(())()","()()()(())","()()()()()"]
     test(n)
+
+    n = 3
+    test_2(n)
+
+    n = 4
+    test_2(n)
+
+    n = 5
+    test_2(n)
 
 
 if __name__ == '__main__':
