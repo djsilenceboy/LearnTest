@@ -37,3 +37,14 @@ Scan port with version detection.
 
 nmap -sO <IP>
 ================================================================================
+gpg2
+------------------------------------------------------------
+gpg2 --gen-key
+gpg2 --armor --export <KeyID>
+gpg2 --import <KeyFile>
+gpg2 --sign-key <KeyID>
+gpg2 --list-keys
+gpg2 --list-secret-keys
+gpg2 --default-key <KeyID> --decrypt <FilePath>
+gpg2 --verify <FilePath>
+================================================================================

@@ -233,10 +233,12 @@ https://www.elcomsoft.com/ppa.html
 ================================================================================
 Forensic tool
 ------------------------------------------------------------
-The Sleuth Kit (TSK) is a library and collection of command line tools that allow you to investigate disk images.
+The Sleuth Kit (TSK)
+(A library and collection of command line tools that allow you to investigate disk images.)
 http://www.sleuthkit.org/sleuthkit/
 
-Autopsy is a digital forensics platform and graphical interface to The Sleuth Kit and other digital forensics tools.
+Autopsy
+(A digital forensics platform and graphical interface to The Sleuth Kit and other digital forensics tools.)
 http://www.sleuthkit.org/autopsy/
 ----------------------------------------
 Security Onion
@@ -244,6 +246,21 @@ Security Onion
 (ISO)
 
 https://securityonion.net/
+================================================================================
+Privacy tool
+------------------------------------------------------------
+Tor (The Onion Router)
+(Protect your privacy. Defend yourself against network surveillance and traffic analysis.)
+https://www.torproject.org/
+------------------------------------------------------------
+GnuPG for Windows
+
+https://www.gpg4win.org/
+------------------------------------------------------------
+Pidgin
+(IM all your friends in one place)
+
+http://pidgin.im/
 ================================================================================
 Business suits
 ------------------------------------------------------------
