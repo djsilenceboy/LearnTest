@@ -3,6 +3,16 @@ package com.djs.learn;
 
 public class RemoveNthNodeFromEndOfList
 {
+	static class ListNode
+	{
+		int val;
+		ListNode next;
+
+		ListNode(int x){
+			val = x;
+		}
+	}
+
 	// a                 b
 	// n5 -> n4 -> n3 -> n2 -> n1 -> null
 	//             a                 b
@@ -51,15 +61,5 @@ public class RemoveNthNodeFromEndOfList
 			ListNode head = new ListNode(1);
 			solution.test_removeNthFromEnd_1(head, 2);
 		}
-	}
-}
-
-class ListNode
-{
-	int val;
-	ListNode next;
-
-	ListNode(int x){
-		val = x;
 	}
 }
