@@ -4,6 +4,7 @@ https://leetcode.com/problems/merge-k-sorted-lists/description/
 Test
 ------------------------------------------------------------
 Java
+Correct, but Time Limit Exceeded.
 
 /**
  * Definition for singly-linked list.
@@ -14,8 +15,169 @@ Java
  * }
  */
 class Solution {
-    public ListNode mergeKLists(ListNode[] lists) {
+	public int swap(int x, int y){
+		return x;
+	}
 
+	public ListNode mergeKLists(ListNode[] lists) {
+		ListNode result = null;
+		ListNode result_tail = null;
+		int[] list_indexes = new int[lists.length];
+		int available_lists = 0;
+
+		// Count all not-empty lists.
+		// Put all not-empty lists' indexes into an array.
+		for (int i = 0; i < lists.length; i++) {
+			if (lists[i] != null) list_indexes[available_lists++] = i;
+		}
+
+		// Use heap sort to keep sorting all header element from each not-empty lists.
+		while (available_lists > 0) {
+			int position, child, parent;
+			// Push the smallest element to top position.
+			for (position = 0; position < available_lists; position++) {
+				// From the bottom position.
+				child = available_lists - 1;
+
+				// Compare each node with its parent,
+				// Swap value if child is smaller than parent.
+				while (child > position) {
+					// Get parent position.
+					parent = position + (int)(((float)child - position - 0.5) / 2.0);
+
+					// Compare parent and child.
+					if (lists[list_indexes[parent]].val > lists[list_indexes[child]].val) {
+						// Swap.
+						list_indexes[child] = swap(list_indexes[parent], list_indexes[parent] = list_indexes[child]);
+					}
+
+					// move up one node.
+					child--;
+				}
+			}
+
+			// Always fetch the header element of the first list. And append it into result list.
+			if (result == null) {
+				result = lists[list_indexes[0]];
+				result_tail = result;
+			} else {
+				result_tail.next = lists[list_indexes[0]];
+				result_tail = result_tail.next;
+			}
+			lists[list_indexes[0]] = lists[list_indexes[0]].next;
+			result_tail.next = null;
+
+			// If the first list is empty, move the last list into first place.
+			// And reduce available_lists.
+			if (lists[list_indexes[0]] == null) {
+				if (available_lists > 1) list_indexes[0] = list_indexes[available_lists - 1];
+				available_lists--;
+			}
+		}
+
+		return result;
+    }
+}
+------------------------------------------------------------
+Java
+Accepted.
+
+Using heap sort to find smallest one from current header elements of each list.
+Remove the smallest one, then re-build heap.
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+	public int swap(int x, int y){
+		return x;
+	}
+
+  	/**
+	 * Move the largest element down to the bottom position.
+	 * Move the smallest up to the top position.
+	 */
+	public void percolateDown(ListNode[] lists, int[] list_indexes, int size, int position){
+		int i = position;
+		int child = i * 2 + 1;
+
+		// If there is valid child.
+		while (child < size) {
+			// If right child is smaller.
+			if ((child + 1 < size) && (lists[list_indexes[child]].val > lists[list_indexes[child + 1]].val)) {
+				child++;
+			}
+
+			// If current is smaller than child, swap.
+			if (lists[list_indexes[i]].val > lists[list_indexes[child]].val) {
+				list_indexes[child] = swap(list_indexes[i], list_indexes[i] = list_indexes[child]);
+			}
+			// No need to further down, break.
+			else {
+				break;
+			}
+
+			i = child;
+			child = i * 2 + 1;
+		}
+	}
+
+	public ListNode mergeKLists(ListNode[] lists) {
+		ListNode result = null;
+		ListNode result_tail = null;
+		int[] list_indexes = new int[lists.length];
+		int available_lists = 0;
+
+		// Count all not-empty lists.
+		// Put all not-empty lists' indexes into an array.
+		for (int i = 0; i < lists.length; i++) {
+			if (lists[i] != null) list_indexes[available_lists++] = i;
+		}
+
+		if (available_lists > 0) {
+			// Build heap.
+
+			// Move the large elements down to the bottom positions.
+			// Move the small elements up to the top positions.
+			// From the last non-leaf node.
+			for (int i = available_lists / 2 - 1; i >= 0; i--) {
+				percolateDown(lists, list_indexes, available_lists, i);
+			}
+
+			// Use heap sort to keep sorting all header element from each not-empty lists.
+			do {
+				// Always fetch the header element of the first list. And append it into result list.
+				if (result == null) {
+					result = lists[list_indexes[0]];
+					result_tail = result;
+				} else {
+					result_tail.next = lists[list_indexes[0]];
+					result_tail = result_tail.next;
+				}
+				lists[list_indexes[0]] = lists[list_indexes[0]].next;
+				result_tail.next = null;
+
+				// If the first list is empty, move the last list into first place.
+				// And reduce available_lists.
+				if (lists[list_indexes[0]] == null) {
+					if (available_lists > 1) list_indexes[0] = list_indexes[available_lists - 1];
+					available_lists--;
+				}
+
+				if (available_lists > 0) {
+					// Re-build heap.
+					// Move new smallest element to top position.
+					percolateDown(lists, list_indexes, available_lists, 0);
+				}
+			} while (available_lists > 0);
+		}
+
+		return result;
     }
 }
 ================================================================================
