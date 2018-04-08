@@ -28,6 +28,24 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   END
 
 
+  config.vm.define "ansibleCentOS" do |ansibleCentOS|
+    ansibleCentOS.vm.provider "virtualbox" do |vb|
+      vb.name = "Vagrant_AnsibleCentOS"
+      # Default is 1024M.
+      vb.memory = 4096
+      # Default is 1 CPU.
+      vb.cpus = 2
+      vb.gui = true
+    end
+
+    ansibleCentOS.vm.hostname = "centos.djsilenceboy.com"
+
+    # Local provision will run after global provision.
+    # Configure IP manually.
+    ansibleCentOS.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.41 netmask 255.255.255.0 up"
+  end
+
+
   config.vm.define "ansibleDbServer" do |ansibleDbServer|
     ansibleDbServer.vm.provider "virtualbox" do |vb|
       vb.name = "Vagrant_AnsibleDbServer"

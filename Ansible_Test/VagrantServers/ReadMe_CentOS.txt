@@ -1,11 +1,7 @@
 ================================================================================
-Use "centos/7"
+Setup for CentOS 7 Desktop
 ================================================================================
-vagrant up ansibleCentOS
-vagrant up ansibleDbServer
-vagrant up ansibleApplicationServer
-vagrant up ansibleJbossServer
-vagrant up ansibleDockerServer
-vagrant up ansibleDockerServer2
-vagrant up ansibleWebServer
+Step 1: General installations.
+------------------------------------------------------------
+ansible-playbook -l VagrantCentOS VagrantCentOS.yml -vvv
 ================================================================================

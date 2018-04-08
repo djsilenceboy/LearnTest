@@ -258,9 +258,12 @@ def parse_get_data_fundsupoermart_fund(browser, results):
                 results[__Constants.SECTION_BANNER_INFO][item_key] = element_data[0]
                 results[__Constants.SECTION_BANNER_INFO][item_key +
                                                          " Date"] = item_value
-            else:
+            elif len(element_data) > 1:
                 results[__Constants.SECTION_BANNER_INFO][element_data[1]
                                                          ] = element_data[0]
+            else:
+                results[__Constants.SECTION_BANNER_INFO][element_data[1]
+                                                         ] = ""
 
         results[__Constants.SECTION_OFFER_TO_BID_INFO] = {}
 

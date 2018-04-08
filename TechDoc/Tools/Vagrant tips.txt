@@ -28,8 +28,7 @@ https://app.vagrantup.com/bento
 Image
 
 centos/7
-ubuntu/trusty64
-bento/centos-7.4
+ubuntu/xenial64
 ================================================================================
 Box/Images.
 ------------------------------------------------------------
@@ -41,6 +40,11 @@ Add images.
 
 > vagrant box add <ImageId> <ImageName>.box
 > vagrant box add <ImageId> <URL>
+------------------------------------------------------------
+Update images.
+
+> vagrant box update
+> vagrant box update <ImageId>
 ------------------------------------------------------------
 Delete image.
 
@@ -117,6 +121,7 @@ SSH login container.
 Reload container.
 
 > vagrant reload <ContainerName>
+> vagrant reload --provision <ContainerName>
 ------------------------------------------------------------
 Build new image from container.
 (Default new image name "package.box")
@@ -158,7 +163,6 @@ By default, provisioner only run in the first time "vagrant up", and will not ru
 ------------------------------------------------------------
 Force to run provisioner in 2nd time onwards.
 
-$ vagrant up --provision
 $ vagrant provision
 
 Force not to run provisioner in 1st time.

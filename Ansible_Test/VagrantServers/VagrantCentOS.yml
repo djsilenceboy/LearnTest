@@ -1,0 +1,117 @@
+---
+- name: Install desktop
+  hosts: VagrantCentOS
+  become: True
+  tasks:
+    - name: Upgrade all packages
+      yum:
+        name: '*'
+        state: latest
+
+    - name: Install desktop group
+      yum:
+        name: "@^Server with GUI"
+        state: present
+        update_cache: yes
+
+    - name: Install tools 1
+      yum:
+        name: "{{ item }}"
+        state: latest
+        update_cache: yes
+      with_items:
+        - bind-utils
+        - bridge-utils
+        - cifs-utils
+        - git
+        - net-tools
+        - nmap
+        - openssl
+        - openssl-devel
+        - perl
+        - python
+        - python-devel
+        - screen
+        - tcpdump
+        - tigervnc-server
+        - traceroute
+        - unzip
+        - whois
+        - yum-utils
+        - zip
+        - java-1.8.0-openjdk
+        - java-1.8.0-openjdk-devel
+        # epel-release must be installed before python-pip, xrdp.
+        - epel-release
+
+    - name: Install tools 2
+      yum:
+        name: "{{ item }}"
+        state: latest
+        update_cache: yes
+      with_items:
+        - python-pip
+        - xrdp
+
+    - name: Upgrade pip
+      shell: pip install --upgrade pip
+
+    - name: Disable and stop firewall services
+      service:
+        name: "{{ item }}"
+        enabled: no
+        state: stopped
+      ignore_errors: yes
+      with_items:
+        - firewalld
+        # - iptables
+        # - ipset
+
+    - name: Limit kept kernels
+      shell: sed -i "s/\(installonly_limit=\).*$/\12/g" /etc/yum.conf
+
+    - name: Change default runlevel to graphical
+      shell: systemctl set-default graphical.target
+
+    - name: Setup VNC server 1
+      shell: cp /usr/lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@.service
+
+    - name: Setup VNC server 2
+      shell: sed -i "s/<USER>/vagrant/g" /etc/systemd/system/vncserver@.service
+
+    - name: Setup VNC server 3
+      file:
+        path: /home/vagrant/.vnc
+        state: directory
+        owner: vagrant
+        group: vagrant
+        mode: 0700
+
+    - name: Setup VNC server 4
+      shell: echo "P@ssw0rd" | vncpasswd -f > /home/vagrant/.vnc/passwd
+
+    - name: Setup VNC server 5
+      file:
+        path: /home/vagrant/.vnc/passwd
+        owner: vagrant
+        group: vagrant
+        mode: 0600
+
+    - name: VNC service
+      systemd:
+        name: vncserver@:1
+        daemon_reload: yes
+        enabled: true
+        state: started
+
+    - name: XRDP service
+      service:
+        name: xrdp
+        enabled: yes
+        state: started
+
+    - name: Setup XRDP 1
+      shell: chcon --type=bin_t /usr/sbin/xrdp
+
+    - name: Setup XRDP 2
+      shell: chcon --type=bin_t /usr/sbin/xrdp-sesman

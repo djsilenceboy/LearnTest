@@ -171,20 +171,20 @@ Export cron job file.
 ]$ crontab <File>
 ]# crontab -u <User> <File>
 ------------------------------------------------------------
-Cron job file location
+Cron job file location.
 
 /var/spool/cron
 
 After run "crontab -e", a cron file will be created with user's name.
 Normally, do not modify it directly.
 ------------------------------------------------------------
-Cron job log
+Cron job log.
 
 /var/log/cron
 
 It requires "root" privilege.
 ================================================================================
-Check network TCP listening port
+Check network TCP listening port.
 ------------------------------------------------------------
 ]# netstat -ntl
 ]# netstat -ntl | grep :9080
@@ -192,7 +192,7 @@ Check network TCP listening port
 ]# ss -ntl
 ]# ss -ntl | grep :9080
 ------------------------------------------------------------
-Show linked process
+Show linked process.
 
 ]# netstat -ntlp
 ]# netstat -ntlp | grep :9080
@@ -201,29 +201,39 @@ Copy file and keep timestamps.
 
 ]$ cp --preserve=timestamps <Source> <Destination>
 ================================================================================
-Check all file in folder
+Check all file in folder.
 
 ]$ ls -a
 ]$ ll -a
 
-Check file name length
+Check all hidden files in folder.
+
+]$ ls -a | grep '^\.'
+]$ ls -A | grep '^\.'
+]$ ls -ld ~/.[^.]*
+
+Check all hidden files in folder (with their sub-contents, if it is folder).
+
+]$ ls -l ~/.??*
+
+Check file name length.
 
 ]$ ls | awk '$(NF+1)=length'
 
-Display non-printable character in file name
+Display non-printable character in file name.
 
 ]$ ls | cat -v
 ]$ ls | od -c
 ================================================================================
-Change password
+Change password.
 
 ]# echo UserName:NewPassword | chpasswd
 ================================================================================
-Delete user with home directory
+Delete user with home directory.
 
 ]# userdel -r <User>
 ------------------------------------------------------------
-Delete group
+Delete group.
 
 ]# groupdel <Group>
 ================================================================================
