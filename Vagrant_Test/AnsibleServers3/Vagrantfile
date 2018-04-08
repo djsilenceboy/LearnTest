@@ -1,0 +1,47 @@
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  # Use the same SSH key for each VM.
+  config.ssh.insert_key = false
+  config.vm.box = "ubuntu/xenial64"
+
+  # This message will run when all other completed.
+  config.vm.post_up_message = "Test environment for Ansible servers."
+
+  # Use DHCP gateway.
+  config.vm.network "public_network", use_dhcp_assigned_default_route: true
+  # Not use DHCP IP, will configure IP manually.
+  config.vm.network "public_network", auto_config: false
+
+  # This is default folder mapping.
+  config.vm.synced_folder "F:/Download/Shared", "/vagrant", owner: "root", group: "root"
+
+  # Global config.
+  # Install package for ifconfig.
+  config.vm.provision "shell", inline: "sudo apt install -y net-tools"
+  # Enable password login.
+  config.vm.provision "shell", inline: <<-END
+    # Testing: sudo sed "/^PasswordAuthentication.*$/d; /^#PasswordAuthentication.*$/a PasswordAuthentication yes" /etc/ssh/sshd_config
+    sudo sed -i "/^PasswordAuthentication.*$/d" /etc/ssh/sshd_config
+    sudo sed -i "/^#PasswordAuthentication.*$/a PasswordAuthentication yes" /etc/ssh/sshd_config
+    sudo systemctl restart sshd
+  END
+
+
+  config.vm.define "ansibleUbuntu" do |ansibleUbuntu|
+    ansibleUbuntu.vm.provider "virtualbox" do |vb|
+      vb.name = "Vagrant_AnsibleUbuntu"
+      # Default is 1024M.
+      vb.memory = 4096
+      # Default is 1 CPU.
+      vb.cpus = 2
+      vb.gui = true
+    end
+
+    ansibleUbuntu.vm.hostname = "ubuntu.djsilenceboy.com"
+
+    # Local provision will run after global provision.
+    # Configure IP manually.
+    ansibleUbuntu.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.48 netmask 255.255.255.0 up"
+  end
+end
