@@ -27,8 +27,14 @@ https://app.vagrantup.com/bento
 ------------------------------------------------------------
 Image
 
+https://app.vagrantup.com/centos
 centos/7
+
+https://app.vagrantup.com/ubuntu
 ubuntu/xenial64
+
+https://app.vagrantup.com/Sliim
+Sliim/kali-2018.1-amd64
 ================================================================================
 Box/Images.
 ------------------------------------------------------------

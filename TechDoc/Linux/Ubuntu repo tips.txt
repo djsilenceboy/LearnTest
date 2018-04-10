@@ -1,0 +1,85 @@
+================================================================================
+VNC
+================================================================================
+Install
+------------------------------------------------------------
+Need to install GUI, for example:
+]# yum groupinstall -y 'Server with GUI'
+
+]# yum install -y tigervnc-server
+
+Suggested to reboot once.
+================================================================================
+Start VNC manually
+------------------------------------------------------------
+":1" for port 5901, ":2" for port 5902.
+
+]# vncserver :1
+password: P@ssw0rd
+
+]# echo P@ssw0rd | vncpasswd -f
+
+]# vncpasswd
+password: P@ssw0rd
+
+]# vncserver -kill :1
+================================================================================
+Start VNC as service
+------------------------------------------------------------
+# Quick HowTo:
+# 1. Copy this file to /etc/systemd/system/vncserver@.service
+# 2. Replace <USER> with the actual user name and edit vncserver
+#    parameters appropriately
+#   ("User=<USER>" and "/home/<USER>/.vnc/%H%i.pid")
+# 3. Run `systemctl daemon-reload`
+# 4. Run `systemctl enable vncserver@:<display>.service`
+------------------------------------------------------------
+Copy template to service.
+
+]# cp /usr/lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@.service
+----------------------------------------
+Modify:
+
+]# vim /etc/systemd/system/vncserver@.service
+
+[Service]
+......
+User=<USER>
+......
+ExecStart=/usr/bin/vncserver %i
+PIDFile=/home/<USER>/.vnc/%H%i.pid
+
+For root user to:
+
+User=root
+ExecStart=/usr/sbin/runuser -l root -c "/usr/bin/vncserver %i"
+PIDFile=/root/.vnc/%H%i.pid
+
+For normal user to:
+
+User=user_name
+PIDFile=/home/user_name/.vnc/%H%i.pid
+
+]# sed -i "s/<USER>/user_name/g" /etc/systemd/system/vncserver@.service
+----------------------------------------
+Reload and set passwd.
+
+]# vncpasswd
+enter password: P@ssw0rd
+
+For root user:
+
+]# echo P@ssw0rd | vncpasswd -f > /root/.vnc/passwd
+]# chmod 600 /root/.vnc/passwd
+
+For normal user:
+
+]$ echo P@ssw0rd | vncpasswd -f > /home/user_name/.vnc/passwd
+]$ chmod 600 /home/vagrant/.vnc/passwd
+----------------------------------------
+Start service.
+
+]# systemctl daemon-reload
+]# systemctl enable vncserver@:1.service
+]# systemctl start vncserver@:1.service
+================================================================================

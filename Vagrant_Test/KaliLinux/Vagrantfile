@@ -3,10 +3,10 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Use the same SSH key for each VM.
   config.ssh.insert_key = false
-  config.vm.box = "ubuntu/xenial64"
+  config.vm.box = "Sliim/kali-2018.1-amd64"
 
   # This message will run when all other completed.
-  config.vm.post_up_message = "Test environment for Ansible servers."
+  config.vm.post_up_message = "Test environment for Kali Linux."
 
   # Use DHCP gateway.
   config.vm.network "public_network", use_dhcp_assigned_default_route: true
@@ -28,20 +28,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   END
 
 
-  config.vm.define "ansibleUbuntu" do |ansibleUbuntu|
-    ansibleUbuntu.vm.provider "virtualbox" do |vb|
-      vb.name = "Vagrant_AnsibleUbuntu"
+  config.vm.define "kaliLinux" do |kaliLinux|
+    kaliLinux.vm.provider "virtualbox" do |vb|
+      vb.name = "Vagrant_KaliLinux"
       # Default is 1024M.
-      vb.memory = 4096
+      vb.memory = 3072
       # Default is 1 CPU.
       vb.cpus = 2
       vb.gui = true
     end
 
-    ansibleUbuntu.vm.hostname = "ubuntu.djsilenceboy.com"
+    kaliLinux.vm.hostname = "kali.djsilenceboy.com"
 
     # Local provision will run after global provision.
     # Configure IP manually.
-    ansibleUbuntu.vm.provision "shell", run: "always", inline: "ifconfig enp0s8 192.168.0.48 netmask 255.255.255.0 up"
+    kaliLinux.vm.provision "shell", run: "always", inline: "ifconfig enp0s8 192.168.0.49 netmask 255.255.255.0 up"
   end
 end
