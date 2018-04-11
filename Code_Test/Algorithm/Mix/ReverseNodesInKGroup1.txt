@@ -1,0 +1,55 @@
+================================================================================
+https://leetcode.com/problems/reverse-nodes-in-k-group/description/
+================================================================================
+Test
+------------------------------------------------------------
+Java
+Accepted.
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+		ListNode result = new ListNode(-1);
+		result.next = head;
+		ListNode a = result;
+		ListNode b = a.next;
+
+		do {
+			int counter = 0;
+			while ((b != null) && (counter < k)) {
+				b = b.next;
+				counter++;
+			}
+
+			if (counter == k) {
+				ListNode tempHead = null;
+				ListNode tempTail = null;
+				ListNode temp = null;
+				while (counter > 0) {
+					temp = a.next;
+					a.next = temp.next;
+					if (tempTail == null) tempTail = temp;
+					temp.next = (tempHead == null) ? null : tempHead;
+					tempHead = temp;
+					counter--;
+				}
+				a.next = tempHead;
+				tempTail.next = b;
+				a = tempTail;
+			}
+		} while (b != null);
+
+		return result.next;
+    }
+}
+================================================================================
+Other solutions
+------------------------------------------------------------
+================================================================================
