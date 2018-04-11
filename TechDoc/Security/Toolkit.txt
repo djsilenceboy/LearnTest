@@ -33,6 +33,10 @@ Kali Penetration Testing
 (ISO)
 
 https://www.kali.org/
+
+For Vagrant:
+
+https://github.com/Sliim/pentest-env/
 ----------------------------------------
 Open Source vulnerability scanner
 (ISO)

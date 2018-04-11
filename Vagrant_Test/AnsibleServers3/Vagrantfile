@@ -24,7 +24,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Testing: sudo sed "/^PasswordAuthentication.*$/d; /^#PasswordAuthentication.*$/a PasswordAuthentication yes" /etc/ssh/sshd_config
     sudo sed -i "/^PasswordAuthentication.*$/d" /etc/ssh/sshd_config
     sudo sed -i "/^#PasswordAuthentication.*$/a PasswordAuthentication yes" /etc/ssh/sshd_config
-    sudo systemctl restart sshd
+    sudo service ssh restart
   END
 
 

@@ -13,21 +13,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Not use DHCP IP, will configure IP manually.
   config.vm.network "public_network", auto_config: false
 
-  # This is default folder mapping.
-  config.vm.synced_folder "F:/Download/Shared", "/vagrant", owner: "root", group: "root"
-
-  # Global config.
-  # Install package for ifconfig.
-  config.vm.provision "shell", inline: "sudo apt install -y net-tools"
-  # Enable password login.
-  config.vm.provision "shell", inline: <<-END
-    # Testing: sudo sed "/^PasswordAuthentication.*$/d; /^#PasswordAuthentication.*$/a PasswordAuthentication yes" /etc/ssh/sshd_config
-    sudo sed -i "/^PasswordAuthentication.*$/d" /etc/ssh/sshd_config
-    sudo sed -i "/^#PasswordAuthentication.*$/a PasswordAuthentication yes" /etc/ssh/sshd_config
-    sudo systemctl restart sshd
-  END
-
-
   config.vm.define "kaliLinux" do |kaliLinux|
     kaliLinux.vm.provider "virtualbox" do |vb|
       vb.name = "Vagrant_KaliLinux"
@@ -37,11 +22,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.cpus = 2
       vb.gui = true
     end
-
-    kaliLinux.vm.hostname = "kali.djsilenceboy.com"
-
-    # Local provision will run after global provision.
-    # Configure IP manually.
-    kaliLinux.vm.provision "shell", run: "always", inline: "ifconfig enp0s8 192.168.0.49 netmask 255.255.255.0 up"
   end
 end
