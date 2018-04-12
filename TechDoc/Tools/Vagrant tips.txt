@@ -1,4 +1,17 @@
 ================================================================================
+Install Vagrant on RHEL/CentOS
+
+https://www.vagrantup.com/downloads.html
+------------------------------------------------------------
+Download and install package.
+
+]$ curl -O -L https://releases.hashicorp.com/vagrant/2.0.3/vagrant_2.0.3_x86_64.rpm
+]$ yum install -y vagrant_2.0.3_x86_64.rpm
+================================================================================
+Install Vagrant plugins
+
+https://github.com/hashicorp/vagrant/wiki/Available-Vagrant-Plugins
+------------------------------------------------------------
 Check plugin list.
 
 > vagrant plugin list
@@ -10,23 +23,23 @@ Update installed plugins.
 Install plugin for VirtualBox guest.
 
 > vagrant plugin install vagrant-vbguest
+> vagrant plugin install vagrant-disksize
 
 It is only useful when the container requires some VirtulBox related function.
 For exiting container, it requires to destroy and up again to take into effect.
 For new container, it may require to up and halt and up again to take into effect.
 ------------------------------------------------------------
+Install plugin for Libvert/KVM.
+(Normally for Linux, require libvirt-devel and ruby-devel)
+
+> vagrant plugin install vagrant-libvirt
+------------------------------------------------------------
 Check VirtualBox guest VM status.
 
 > vagrant vbguest --status
 ================================================================================
-Repo
-
-https://app.vagrantup.com/centos
-https://app.vagrantup.com/ubuntu
-https://app.vagrantup.com/bento
+Repo and images
 ------------------------------------------------------------
-Image
-
 https://app.vagrantup.com/centos
 centos/7
 
