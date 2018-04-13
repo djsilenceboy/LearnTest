@@ -183,6 +183,10 @@ Library to create spreadsheet files compatible with MS Excel 97/2000/XP/2003 XLS
 
 ]$ pip install xlwt
 ------------------------------------------------------------
+A package which provides cryptographic recipes and primitives to Python developers.
+
+]$ pip install cryptography
+------------------------------------------------------------
 A Python library for the Docker Engine API.
 (depend on six, idna, ipaddress, backports.ssl-match-hostname, certifi, chardet, docker-pycreds, requests, urllib3, websocket-client)
 
