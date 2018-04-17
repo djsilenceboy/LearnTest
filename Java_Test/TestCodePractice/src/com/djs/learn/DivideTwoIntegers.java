@@ -3,23 +3,57 @@ package com.djs.learn;
 
 public class DivideTwoIntegers
 {
+	/*
+	============================================================
+	-2147483648 / -2147483648 = 1
+	-2147483648 / 2147483647 = -1
+	-2147483648 / -1 = -2147483648
+	-2147483648 / 1 = -2147483648
+	-2147483648 / 0 = java.lang.ArithmeticException: / by zero
+	2147483647 / -2147483648 = 0
+	2147483647 / 2147483647 = 1
+	2147483647 / -1 = -2147483647
+	2147483647 / 1 = 2147483647
+	2147483647 / 0 = java.lang.ArithmeticException: / by zero
+	-1 / -2147483648 = 0
+	-1 / 2147483647 = 0
+	-1 / -1 = 1
+	-1 / 1 = -1
+	-1 / 0 = java.lang.ArithmeticException: / by zero
+	1 / -2147483648 = 0
+	1 / 2147483647 = 0
+	1 / -1 = -1
+	1 / 1 = 1
+	1 / 0 = java.lang.ArithmeticException: / by zero
+	0 / -2147483648 = 0
+	0 / 2147483647 = 0
+	0 / -1 = 0
+	0 / 1 = 0
+	0 / 0 = java.lang.ArithmeticException: / by zero
+	============================================================
+	 */
+
 	public int divide_1(int dividend, int divisor){
-		// if (dividend == Integer.MIN_VALUE) return Integer.MAX_VALUE;
-		// else if (divisor == Integer.MIN_VALUE) return 0;
+		boolean dividend_is_min = false;
+		if (divisor == Integer.MIN_VALUE) {
+			return (dividend == Integer.MIN_VALUE) ? 1 : 0;
+		} else if (dividend == Integer.MIN_VALUE) {
+			dividend = -Integer.MAX_VALUE;
+			dividend_is_min = true;
+		}
 
 		int result = 0;
-		boolean negtive = ((dividend < 0) && (divisor >= 0)) || ((dividend >= 0) && (divisor < 0));
+		boolean negative = ((dividend < 0) && (divisor >= 0)) || ((dividend >= 0) && (divisor < 0));
 		dividend = Math.abs(dividend);
 		divisor = Math.abs(divisor);
-		System.out.println("Dividend / Divisor = " + dividend + " / " + divisor);
 
 		while (dividend >= divisor) {
 			dividend -= divisor;
 			result++;
-			// System.out.println("Dividend / Result = " + dividend + " / " + result);
 		}
 
-		if (negtive) result = -result;
+		if (negative) result = -result;
+		if ((result == -Integer.MAX_VALUE) && dividend_is_min) result = Integer.MIN_VALUE;
 
 		return result;
 	}

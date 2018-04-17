@@ -4,10 +4,32 @@ https://leetcode.com/problems/divide-two-integers/description/
 Test
 ------------------------------------------------------------
 Java
+Working, but Time Limit Exceeded.
 
 class Solution {
     public int divide(int dividend, int divisor) {
+		boolean dividend_is_min = false;
+		if (divisor == Integer.MIN_VALUE) {
+			return (dividend == Integer.MIN_VALUE) ? 1 : 0;
+		} else if (dividend == Integer.MIN_VALUE) {
+			dividend = -Integer.MAX_VALUE;
+			dividend_is_min = true;
+		}
 
+		int result = 0;
+		boolean negative = ((dividend < 0) && (divisor >= 0)) || ((dividend >= 0) && (divisor < 0));
+		dividend = Math.abs(dividend);
+		divisor = Math.abs(divisor);
+
+		while (dividend >= divisor) {
+			dividend -= divisor;
+			result++;
+		}
+
+		if (negative) result = -result;
+		if ((result == -Integer.MAX_VALUE) && dividend_is_min) result = Integer.MIN_VALUE;
+
+		return result;
     }
 }
 ================================================================================
