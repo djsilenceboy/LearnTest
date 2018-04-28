@@ -1,0 +1,109 @@
+---
+- name: Install desktop
+  hosts: VagrantUbuntu
+  become: True
+  tasks:
+    - name: Upgrade all packages
+      apt:
+        name: '*'
+        state: latest
+
+    - name: Install desktop
+      apt:
+        name: ubuntu-desktop
+        state: present
+        update_cache: yes
+
+    - name: Install development tools
+      apt:
+        name: build-essential
+        state: present
+        update_cache: yes
+
+    - name: Install tools 1
+      apt:
+        name: "{{ item }}"
+        state: latest
+        update_cache: yes
+      with_items:
+        - apt-utils
+        - bridge-utils
+        - cifs-utils
+        - dnsutils
+        - git-core
+        - net-tools
+        - nmap
+        - openssl
+        - oracle-java8-installer
+        - perl
+        - python
+        - screen
+        - tcpdump
+        - tightvncserver
+        - traceroute
+        - ufw
+        - unzip
+        - whois
+        - zip
+
+    - name: Install tools 2
+      apt:
+        name: "{{ item }}"
+        state: latest
+        update_cache: yes
+      with_items:
+        - python-pip
+        - xrdp
+
+    - name: Upgrade pip
+      shell: pip install --upgrade pip
+
+    - name: Disable and stop firewall services
+      ufw:
+        state: disabled
+
+    - name: Change default runlevel to graphical
+      shell: systemctl set-default graphical.target
+
+    - name: Setup VNC server 1
+      shell: cp /usr/lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@.service
+
+    - name: Setup VNC server 2
+      shell: sed -i "s/<USER>/vagrant/g" /etc/systemd/system/vncserver@.service
+
+    - name: Setup VNC server 3
+      file:
+        path: /home/vagrant/.vnc
+        state: directory
+        owner: vagrant
+        group: vagrant
+        mode: 0700
+
+    - name: Setup VNC server 4
+      shell: echo "P@ssw0rd" | vncpasswd -f > /home/vagrant/.vnc/passwd
+
+    - name: Setup VNC server 5
+      file:
+        path: /home/vagrant/.vnc/passwd
+        owner: vagrant
+        group: vagrant
+        mode: 0600
+
+    - name: VNC service
+      systemd:
+        name: vncserver@:1
+        daemon_reload: yes
+        enabled: true
+        state: started
+
+    - name: XRDP service
+      service:
+        name: xrdp
+        enabled: yes
+        state: started
+
+    - name: Setup XRDP 1
+      shell: chcon --type=bin_t /usr/sbin/xrdp
+
+    - name: Setup XRDP 2
+      shell: chcon --type=bin_t /usr/sbin/xrdp-sesman
