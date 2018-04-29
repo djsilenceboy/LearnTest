@@ -32,6 +32,7 @@ Install for Cygwin
 ------------------------------------------------------------
 Make sure at least the following packages have been installed already.
 
+gcc
 python
 python-crypto
 python-devel
@@ -48,7 +49,7 @@ openssl-devel
 Install for Windows 10
 ------------------------------------------------------------
 Download VC compiler from: https://blogs.msdn.microsoft.com/pythonengineering/2016/04/11/unable-to-find-vcvarsall-bat/
-And install.
+And install Windows 10 SDK.
 ----------------------------------------
 > pip install ansible
 ================================================================================
@@ -60,7 +61,11 @@ Generate SSH key pair.
 ]# mkdir -p ~/ansible
 ]# ssh-keygen -t rsa -N "" -C "Ansible Server" -f ~/ansible/ansible_key | tee ~/ansible/ssh-keygen.log
 
-Copy/Add "~/ansible/ansible_key.pub" to remote host "~/.ssh/authorized_keys".
+For SSH public key file "~/ansible/ansible_key.pub",
+Add the key inside to remote host "~/.ssh/authorized_keys".
+
+For SSH private key "~/ansible/ansible_key",
+Set path to it in "ansible.cfg".
 ================================================================================
 Ansible will search config file in order:
 
@@ -98,6 +103,20 @@ EndpointA ansible_ssh_host=192.168.0.xx ansible_ssh_port=22
 If not use cfg file:
 
 EndpointA ansible_ssh_host=192.168.0.xx ansible_ssh_port=22 ansible_ssh_user=root ansible_ssh_private_key_file=~/ansible/ansible_key
+================================================================================
+Install Python on remote host.
+------------------------------------------------------------
+On remote host, Python is required to run ansible script.
+The default path is "/usr/bin/python" for Python 2.
+
+If installed Python 3 (such as the default on Ubuntu), set "ansible_python_interpreter" in "hostfile".
+----------------------------------------
+[SomeHosts]
+Ep1
+Ep2
+
+[SomeHosts:vars]
+ansible_python_interpreter=/usr/bin/python3
 ================================================================================
 Test ping.
 ------------------------------------------------------------

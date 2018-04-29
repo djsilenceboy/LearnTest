@@ -3,6 +3,10 @@
   hosts: VagrantUbuntu
   become: True
   tasks:
+    # Python2 and Aptitude are required by following steps.
+    - name: Install Python2 and Aptitude
+      raw: apt-get install -y python-minimal aptitude
+
     - name: Upgrade all packages
       apt:
         name: '*'
@@ -30,18 +34,16 @@
         - bridge-utils
         - cifs-utils
         - dnsutils
-        - git-core
-        - net-tools
+        # - git-core
+        # - net-tools
         - nmap
-        - openssl
+        # - openssl
         - oracle-java8-installer
-        - perl
-        - python
         - screen
-        - tcpdump
+        # - tcpdump
         - tightvncserver
         - traceroute
-        - ufw
+        # - ufw
         - unzip
         - whois
         - zip
