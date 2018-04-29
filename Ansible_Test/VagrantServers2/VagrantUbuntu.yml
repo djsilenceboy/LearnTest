@@ -38,7 +38,7 @@
         # - net-tools
         - nmap
         # - openssl
-        - oracle-java8-installer
+        - openjdk-8-jdk
         - screen
         # - tcpdump
         - tightvncserver
