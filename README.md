@@ -21,7 +21,7 @@ The samples for Ansible. All run in Cygwin.
 * VagrantServers2 : Refer to Vagrant_Test/AnsibleServers2, create bare VMs (Ubuntu) by Vagrant first, then use Ansible to setup servers.
 
 # Code_Test
-The exercises for questions from such as [Google](https://leetcode.com/).
+The exercises for questions from such as [LeetCode](https://leetcode.com/).
 
 * Algorithm
 * Shell
@@ -48,7 +48,7 @@ General purpose:
 * TestGeneral : Some useful snippets.
 * TestDesignPattern : Samples for Design patterns.
 * TestAlgorithm : Samples for algorithm, currently only sorting.
-* TestCodePractice : Samples for questions from such as [Google](https://leetcode.com/).
+* TestCodePractice : Samples for questions from such as [LeetCode](https://leetcode.com/).
 
 Special purpose:
 * Web Service (Tomcat, Spring boot) : AppMavenWsSampleX, WsSpringSampleX, WsTomcatSampleX
@@ -69,7 +69,7 @@ The sample for Python.
 
 General purpose:
 * PySample1 : Samples and useful snippets for Python 3.
-* PyCodePractice : Samples for questions from such as [Google](https://leetcode.com/).
+* PyCodePractice : Samples for questions from such as [LeetCode](https://leetcode.com/).
 
 Special purpose:
 * PyFinanceApiSample : Sample for retrieving finance data from Yahoo/Google by selenium and requests. Codes in "financeapi" sub-folder.
