@@ -1,0 +1,11 @@
+1. Log in as "db2inst1".
+
+2. Restore.
+   Change path to where shell script is. For example:
+   ]$ cd /home/db2inst1/db2backup
+
+   Run script as:
+   ]$ ./Restore_Offline.sh <DbName> <BackupFullPath> <Timestamp>
+
+   For example:
+   ]$ ./Restore_Offline.sh DERDB /home/db2inst1/db2backup/DERDB 20140930104008 2>&1 | tee /home/db2inst1/db2backup/log/Restore_Offline_DERDB.log

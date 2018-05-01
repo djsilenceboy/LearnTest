@@ -1,0 +1,28 @@
+1. Log in as "db2inst1".
+
+2. Use following command to open edit (It is vi by default).
+   ]$ crontab -e
+
+3. Add following job, save and quit.
+
+# At 00:00 every Sunday, full backup.
+0 0 * * 0 /home/db2inst1/db2backup/Backup_Online.sh DERDB /home/db2inst1/db2backup/DERDB full >> /home/db2inst1/db2backup/log/Backup_Online_DERDB.log 2>&1
+
+# At 00:00 every Thursday, incremental backup.
+0 0 * * 4 /home/db2inst1/db2backup/Backup_Online.sh DERDB /home/db2inst1/db2backup/DERDB incremental >> /home/db2inst1/db2backup/log/Backup_Online_DERDB.log 2>&1
+
+# At 00:00 every Monday/Tuesday/Wednesday/Friday/Saturday, delta backup.
+0 0 * * 1,2,3,5,6 /home/db2inst1/db2backup/Backup_Online.sh DERDB /home/db2inst1/db2backup/DERDB delta >> /home/db2inst1/db2backup/log/Backup_Online_DERDB.log 2>&1
+
+The 1st job is to invoke script at 00:00 (midnight) every Sunday, to do a full backup and save (append) output message to log file.
+The 2nd job is to invoke script at 00:00 (midnight) every Thursday, to do a incremental backup, and save (append) output message to log file.
+The 3rd job is to invoke script at 00:00 (midnight) every other weekdays, to do a  delta backup, and save (append) output message to log file.
+Please note that, it must specify absolute path for the files.
+Please refer to reference to modify time interval.
+
+4. Use following command to check existing jobs.
+   ]$ crontab -l
+
+5. Reference for configuration of crontab.
+	http://en.wikipedia.org/wiki/Cron
+	http://www.adminschoice.com/crontab-quick-reference/

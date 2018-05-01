@@ -108,15 +108,26 @@ Install Python on remote host.
 ------------------------------------------------------------
 On remote host, Python is required to run ansible script.
 The default path is "/usr/bin/python" for Python 2.
-
-If installed Python 3 (such as the default on Ubuntu), set "ansible_python_interpreter" in "hostfile".
+------------------------------------------------------------
+If installed Python 3 (such as the default on Ubuntu),
 ----------------------------------------
+1. set "ansible_python_interpreter" in "hostfile".
+
 [SomeHosts]
 Ep1
 Ep2
 
 [SomeHosts:vars]
 ansible_python_interpreter=/usr/bin/python3
+----------------------------------------
+2. Or set "ansible_python_interpreter" in playbook yml.
+
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+----------------------------------------
+3. Or set "ansible_python_interpreter" while running playbook yml.
+
+ansible-playbook -l Ep1 Action.yml -e "ansible_python_interpreter=/usr/bin/python3"
 ================================================================================
 Test ping.
 ------------------------------------------------------------
@@ -283,4 +294,26 @@ Range:        web[1:9].example.com
               web[01:09].example.com
               web[a:c].example.com
 Regex:        ~web\d\.example\.com
+================================================================================
+Trick to add multiple lines in yaml file
+------------------------------------------------------------
+Sample:
+
+    - name: Create a file
+      shell:
+        cmd: |
+          cat > ~/text.cfg << EOF
+          [Unit]
+          Description=Start TightVNC server at startup
+          After=syslog.target network.target
+          
+          [Service]
+          Type=forking
+          User=vagrant
+          PAMName=login
+          PIDFile=/home/vagrant/.vnc/%H:%i.pid
+          ExecStartPre=-/usr/bin/vncserver -kill :%i > /dev/null 2>&1
+          ExecStart=/usr/bin/vncserver -depth 24 -geometry 1280x800 :%i
+          ExecStop=/usr/bin/vncserver -kill :%i
+          EOF
 ================================================================================

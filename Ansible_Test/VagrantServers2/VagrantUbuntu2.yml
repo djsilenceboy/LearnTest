@@ -40,6 +40,7 @@
         - openjdk-8-jdk
         - screen
         # - tcpdump
+        - tightvncserver
         - traceroute
         # - ufw
         - unzip
@@ -52,6 +53,7 @@
         state: latest
       with_items:
         - python-pip
+        - xrdp
 
     - name: Upgrade pip
       shell: pip install --upgrade pip
@@ -68,3 +70,55 @@
       with_items:
         - echo "nameserver 192.168.0.1" >> /etc/resolvconf/resolv.conf.d/base
         - resolvconf -u
+
+    - name: Setup VNC server 1
+      shell:
+        cmd: |
+          cat > /etc/systemd/system/vncserver@.service << EOF
+          [Unit]
+          Description=Start TightVNC server at startup
+          After=syslog.target network.target
+          
+          [Service]
+          Type=forking
+          User=vagrant
+          PAMName=login
+          PIDFile=/home/vagrant/.vnc/%H:%i.pid
+          ExecStartPre=-/usr/bin/vncserver -kill :%i > /dev/null 2>&1
+          ExecStart=/usr/bin/vncserver -depth 24 -geometry 1280x800 :%i
+          ExecStop=/usr/bin/vncserver -kill :%i
+          
+          [Install]
+          WantedBy=multi-user.target
+          EOF
+
+    - name: Setup VNC server 2
+      file:
+        path: /home/vagrant/.vnc
+        state: directory
+        owner: vagrant
+        group: vagrant
+        mode: 0700
+
+    - name: Setup VNC server 3
+      shell: echo "P@ssw0rd" | vncpasswd -f > /home/vagrant/.vnc/passwd
+
+    - name: Setup VNC server 4
+      file:
+        path: /home/vagrant/.vnc/passwd
+        owner: vagrant
+        group: vagrant
+        mode: 0600
+
+    - name: VNC service
+      systemd:
+        name: vncserver@1
+        daemon_reload: yes
+        enabled: true
+        state: started
+
+    - name: XRDP service
+      service:
+        name: xrdp
+        enabled: yes
+        state: started

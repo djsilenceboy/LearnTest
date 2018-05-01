@@ -1,0 +1,20 @@
+1. Log in as "db2inst1".
+
+2. Use following command to open edit (It is vi by default).
+   ]$ crontab -e
+
+3. Add following job, save and quit.
+
+# At 00:00 every Sunday.
+0 0 * * 0 /home/db2inst1/db2backup/Backup_Offline.sh DERDB /home/db2inst1/db2backup/DERDB >> /home/db2inst1/db2backup/log/Backup_Offline_DERDB.log 2>&1
+
+This job is to invoke "Backup_Offline.sh" at 00:00 (midnight) every Sunday, and save (append) output message to log file.
+Please note that, it must specify absolute path for the files.
+Please refer to reference to modify time interval.
+
+4. Use following command to check existing jobs.
+   ]$ crontab -l
+
+5. Reference for configuration of crontab.
+	http://en.wikipedia.org/wiki/Cron
+	http://www.adminschoice.com/crontab-quick-reference/
