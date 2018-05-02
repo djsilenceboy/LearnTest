@@ -1,0 +1,25 @@
+================================================================================
+Install (Ubuntu)
+------------------------------------------------------------
+Copy the following as a single line into a terminal window and press enter.
+This should be copied and pasted onto a single line.
+This will install all required software up through docker.
+
+curl -H 'Accept: application/vnd.github.v3.raw' https://raw.githubusercontent.com/rddill-IBM/ZeroToBlockchain/master/setup_Ubuntu_Part_1.sh | bash
+------------------------------------------------------------
+You will then need to reboot your system prior to executing the following command.
+This will complete the installation of the hyper ledger images and the supporting tools.
+
+curl -H 'Accept: application/vnd.github.v3.raw' https://raw.githubusercontent.com/rddill-IBM/ZeroToBlockchain/master/setup_Ubuntu_Part_2.sh | bash
+
+This command will go through the following steps, informing you of each step in the process
+* Update the apt-get repositories and upgrade current software
+* Ensure that the base development environment is installed
+* Check for the presence of git and install it if it’s missing
+* Check for the presence of nodeJS version 6 (Required for hyper ledger) and install it if it’s missing
+* Install the nodejs SDK for hyper ledger composer
+* Install the VSCode editor
+* Install the hyper ledger fabric docker images
+* Install the fabric tools and update your .bash_profile
+* Install hyper ledger  composer platform-specific binaries
+================================================================================
