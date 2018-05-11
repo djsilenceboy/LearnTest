@@ -23,3 +23,37 @@ This command will go through the following steps, informing you of each step in 
 * Install the fabric tools and update your .bash_profile
 * Install hyper ledger  composer platform-specific binaries
 ================================================================================
+Development only script for Hyperledger Fabric control
+Running 'createPeerAdminCard.sh'
+FABRIC_VERSION is set to 'hlfv1'
+FABRIC_START_TIMEOUT is unset, assuming 15 (seconds)
+
+Using composer-cli at v0.16.0
+
+Successfully created business network card file to
+        Output file: /tmp/PeerAdmin@hlfv1.card
+
+Command succeeded
+
+
+Successfully imported business network card
+        Card file: /tmp/PeerAdmin@hlfv1.card
+        Card name: PeerAdmin@hlfv1
+
+Command succeeded
+
+Hyperledger Composer PeerAdmin card has been imported
+The following Business Network Cards are available:
+
+Connection Profile: hlfv1
+┌─────────────────┬───────────┬──────────────────┐
+│ Card Name       │ UserId    │ Business Network │
+├─────────────────┼───────────┼──────────────────┤
+│ PeerAdmin@hlfv1 │ PeerAdmin │                  │
+└─────────────────┴───────────┴──────────────────┘
+
+
+Issue composer card list --name <Card Name> to get details a specific card
+
+Command succeeded
+================================================================================

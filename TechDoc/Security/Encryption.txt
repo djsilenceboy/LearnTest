@@ -52,10 +52,16 @@ A form of encryption to provide for authentication of signed information.
 ------------------------------------------------------------
 Secure hash functions
 
-To create checksum of at least 256 bits.
-Secure Hash Algorithm (SHA) is mostly used: SHA-256, SHA-512.
+Including Compression-based and Permutation-based algorithms.
+Secure Hash Algorithm (SHA) is mostly used.
 
 MD5 and SHA-1 have deprecated.
+Currently used:
+SHA-2 (SHA-224 / SHA-256, SHA-384 / SHA-512);
+SHA-3 / Keccak (SHA3-224 / SHA3-256, SHA3-384 / SHA3-512).
+
+SHA-256 and SHA-512 are two algorithms.
+SHA-224 and SHA-256 are same algorithm with different bit length.
 ================================================================================
 Key certificates
 
