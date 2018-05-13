@@ -57,3 +57,41 @@ Issue composer card list --name <Card Name> to get details a specific card
 
 Command succeeded
 ================================================================================
+Get and compile codes
+------------------------------------------------------------
+$ git clone https://github.com/rddill-IBM/ZeroToBlockchain
+------------------------------------------------------------
+$ cd ZeroToBlockchain/Chapter03
+$ npm install
+$ ./buildAndDeploy
+------------------------------------------------------------
+Command succeeded
+
+       =====================================================
+       -----> starting REST server
+       =====================================================
+
+       network archive, start and deploy script for the Zero To Blockchain Series
+       This has been tested on Mac OSX thru High Sierra and Ubuntu V16 LTS
+       This script will create your Composer archive
+
+Parameters:
+       Network Name is:  zerotoblockchain-network
+       =====================================================
+       -----> testing rest server
+        when this completes,
+         go to your favorite browser
+        and enter localhost:3000/explorer
+       =====================================================
+       =====================================================
+       -----> starting rest server v0.15 for admin@zerotoblockchain-network
+       =====================================================
+Discovering types from business network definition ...
+Discovered types from business network definition
+Generating schemas for all types in business network definition ...
+Generated schemas for all types in business network definition
+Adding schemas for all types to Loopback ...
+Added schemas for all types to Loopback
+Web server listening at: http://localhost:3000
+Browse your REST API at http://localhost:3000/explorer
+================================================================================
