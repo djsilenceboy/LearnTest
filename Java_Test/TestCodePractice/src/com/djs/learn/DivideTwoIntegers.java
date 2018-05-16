@@ -58,10 +58,83 @@ public class DivideTwoIntegers
 		return result;
 	}
 
+	public int divide_2(int dividend, int divisor){
+		int result = 0;
+
+		if ((divisor == 0) || (dividend == Integer.MIN_VALUE) && (divisor == -1)) {
+			result = Integer.MAX_VALUE;
+		} else {
+			boolean negative = ((dividend < 0) && (divisor >= 0)) || ((dividend >= 0) && (divisor < 0));
+			long ldividend = Math.abs((long)dividend);
+			long ldivisor = Math.abs((long)divisor);
+
+			while (ldividend >= ldivisor) {
+				ldividend -= ldivisor;
+				result++;
+			}
+
+			if (negative) result = -result;
+		}
+
+		return result;
+	}
+
+	public int divide_3(int dividend, int divisor){
+		int result = 0;
+
+		if ((divisor == 0) || (dividend == Integer.MIN_VALUE) && (divisor == -1)) {
+			result = Integer.MAX_VALUE;
+		} else {
+			boolean negative = ((dividend < 0) && (divisor >= 0)) || ((dividend >= 0) && (divisor < 0));
+			long ldividend = Math.abs((long)dividend);
+			long ldivisor = Math.abs((long)divisor);
+
+			if (ldivisor <= ldividend) {
+				long temp_remain = ldividend;
+				while (ldivisor < temp_remain) {
+					long temp_sum = ldivisor;
+					int temp_result = 1;
+
+					while (temp_sum + temp_sum <= temp_remain) {
+						temp_sum += temp_sum;
+						temp_result += temp_result;
+					}
+
+					temp_remain -= temp_sum;
+					result += temp_result;
+				}
+			}
+
+			if (negative) result = -result;
+		}
+
+		return result;
+	}
+
 	public void test_divide_1(int dividend, int divisor){
 		System.out.println("Dividend / Divisor = " + dividend + " / " + divisor);
 		long startTime = System.currentTimeMillis();
 		int result = divide_1(dividend, divisor);
+		long stopTime = System.currentTimeMillis();
+		System.out.println("Result = " + result);
+		System.out.println("Time (ms) = " + (stopTime - startTime + 1));
+		System.out.println("----------------------------------------");
+	}
+
+	public void test_divide_2(int dividend, int divisor){
+		System.out.println("Dividend / Divisor = " + dividend + " / " + divisor);
+		long startTime = System.currentTimeMillis();
+		int result = divide_2(dividend, divisor);
+		long stopTime = System.currentTimeMillis();
+		System.out.println("Result = " + result);
+		System.out.println("Time (ms) = " + (stopTime - startTime + 1));
+		System.out.println("----------------------------------------");
+	}
+
+	public void test_divide_3(int dividend, int divisor){
+		System.out.println("Dividend / Divisor = " + dividend + " / " + divisor);
+		long startTime = System.currentTimeMillis();
+		int result = divide_3(dividend, divisor);
 		long stopTime = System.currentTimeMillis();
 		System.out.println("Result = " + result);
 		System.out.println("Time (ms) = " + (stopTime - startTime + 1));
@@ -78,6 +151,22 @@ public class DivideTwoIntegers
 		for (int a : special)
 			for (int b : special) {
 				solution.test_divide_1(a, b);
+			}
+
+		solution.test_divide_2(10, 3);
+		solution.test_divide_2(7, -3);
+
+		for (int a : special)
+			for (int b : special) {
+				solution.test_divide_2(a, b);
+			}
+
+		solution.test_divide_3(10, 3);
+		solution.test_divide_3(7, -3);
+
+		for (int a : special)
+			for (int b : special) {
+				solution.test_divide_3(a, b);
 			}
 	}
 }
