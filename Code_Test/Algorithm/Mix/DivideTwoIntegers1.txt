@@ -32,6 +32,69 @@ class Solution {
 		return result;
     }
 }
+------------------------------------------------------------
+Java
+Working, but Time Limit Exceeded.
+
+class Solution {
+    public int divide(int dividend, int divisor) {
+		int result = 0;
+
+		if ((divisor == 0) || (dividend == Integer.MIN_VALUE) && (divisor == -1)) {
+			result = Integer.MAX_VALUE;
+		} else {
+			boolean negative = ((dividend < 0) && (divisor >= 0)) || ((dividend >= 0) && (divisor < 0));
+			long ldividend = Math.abs((long)dividend);
+			long ldivisor = Math.abs((long)divisor);
+
+			while (ldividend >= ldivisor) {
+				ldividend -= ldivisor;
+				result++;
+			}
+
+			if (negative) result = -result;
+		}
+
+		return result;
+    }
+}
+------------------------------------------------------------
+Java
+Accepted.
+
+class Solution {
+    public int divide(int dividend, int divisor) {
+		int result = 0;
+
+		if ((divisor == 0) || (dividend == Integer.MIN_VALUE) && (divisor == -1)) {
+			result = Integer.MAX_VALUE;
+		} else {
+			boolean negative = ((dividend < 0) && (divisor >= 0)) || ((dividend >= 0) && (divisor < 0));
+			long ldividend = Math.abs((long)dividend);
+			long ldivisor = Math.abs((long)divisor);
+
+			if (ldivisor <= ldividend) {
+				long temp_remain = ldividend;
+				while (ldivisor <= temp_remain) {
+					long temp_sum = ldivisor;
+					int temp_result = 1;
+
+					while (temp_sum + temp_sum <= temp_remain) {
+						temp_sum += temp_sum;
+						temp_result += temp_result;
+					}
+
+					temp_remain -= temp_sum;
+					result += temp_result;
+				}
+			}
+
+			if (negative) result = -result;
+		}
+
+		return result;
+    }
+}
 ================================================================================
 Other solutions
 ------------------------------------------------------------

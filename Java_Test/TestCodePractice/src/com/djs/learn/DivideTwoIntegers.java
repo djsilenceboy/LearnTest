@@ -91,7 +91,7 @@ public class DivideTwoIntegers
 
 			if (ldivisor <= ldividend) {
 				long temp_remain = ldividend;
-				while (ldivisor < temp_remain) {
+				while (ldivisor <= temp_remain) {
 					long temp_sum = ldivisor;
 					int temp_result = 1;
 
@@ -153,6 +153,8 @@ public class DivideTwoIntegers
 				solution.test_divide_1(a, b);
 			}
 
+		System.out.println("==================================================");
+
 		solution.test_divide_2(10, 3);
 		solution.test_divide_2(7, -3);
 
@@ -160,6 +162,8 @@ public class DivideTwoIntegers
 			for (int b : special) {
 				solution.test_divide_2(a, b);
 			}
+
+		System.out.println("==================================================");
 
 		solution.test_divide_3(10, 3);
 		solution.test_divide_3(7, -3);
