@@ -21,14 +21,17 @@ Check IP info.
 
 > Get-NetIPInterface
 ================================================================================
-Check locla connection.
+Check local connection.
 
 (Similar to "netstat".)
 
 > Get-NetTCPConnection
 ================================================================================
 Test remote connection.
-
+------------------------------------------------------------
+> Test-NetConnection -ComputerName <HostName_Or_IP>
+> Test-NetConnection -ComputerName <HostName_Or_IP> -Port <Int32>
+------------------------------------------------------------
 > Test-Connection -ComputerName <HostName_Or_IP>
 
 Win32_PingStatus wrappers Test-Connection.
