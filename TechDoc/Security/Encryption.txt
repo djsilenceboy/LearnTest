@@ -86,3 +86,12 @@ Hierarchy
 Hierarchical trust model: Trust in the keys is derived from a higher authority.
 Root CA certificate, CA certificate path.
 ================================================================================
+Shamir's Secret Sharing Scheme
+
+http://point-at-infinity.org/ssss/
+------------------------------------------------------------
+Red October
+
+https://github.com/cloudflare/redoctober
+Red October is a software-based two-man rule style encryption and decryption server.
+================================================================================
