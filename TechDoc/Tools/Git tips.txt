@@ -510,7 +510,13 @@ Rewrite branch and history
 ------------------------------------------------------------
 Remove file from history.
 
-> git filter-branch --index-filter 'git rm --cached --ignore-unmatch <File>' HEAD
+> git filter-branch --index-filter 'git rm --cached --ignore-unmatch <PathToFile>' HEAD
+> git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch <PathToFile>' --prune-empty --tag-name-filter cat -- --all
+
+For Windows, use double quota.
+
+> git push origin --force --all
+> git push origin --force --tags
 ================================================================================
 Save git user/password
 ------------------------------------------------------------
