@@ -34,7 +34,7 @@ public class BExampleTestTest
 		try
 		{
 			svc =
-			      new SendDataService( new URL( GeneralDefines.makeWsdlUrl( urlPart ) ), new QName( "http://singtel.com/ndp/ext/example_test/v1_0/service",
+			      new SendDataService( new URL( GeneralDefines.makeWsdlUrl( urlPart ) ), new QName( "http://djs.com/some/example_test/v1_0/service",
 			              "SendDataService" ) );
 
 			svc.setHandlerResolver( new HandlerResolver()

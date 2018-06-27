@@ -5,5 +5,5 @@
 // Generated on: 2011.11.08 at 05:13:14 PM GMT+08:00 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://singtel.com/schema/example_test/local", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package com.singtel.schema.example_test.local;
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://djs.com/schema/example_test/local", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+package com.djs.schema.example_test.local;

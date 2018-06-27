@@ -1,5 +1,5 @@
 
-package com.singtel.ndp.ext.example_test.v1_0.service;
+package com.djs.sample.ext.example_test.v1_0.service;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,22 +17,22 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.1
  * 
  */
-@WebServiceClient(name = "SendDataService", targetNamespace = "http://singtel.com/ndp/ext/example_test/v1_0/service", wsdlLocation = "file:/D:/WorkDJS/Test/JEE_Test/MavenSample2/src/main/wsdl/ndp_ext_example_test_service.wsdl")
+@WebServiceClient(name = "SendDataService", targetNamespace = "http://djs.com/some/example_test/v1_0/service", wsdlLocation = "file:/D:/WorkDJS/Test/JEE_Test/MavenSample2/src/main/wsdl/some_example_test_service.wsdl")
 public class SendDataService
     extends Service
 {
 
     private final static URL SENDDATASERVICE_WSDL_LOCATION;
-    private final static Logger logger = Logger.getLogger(com.singtel.ndp.ext.example_test.v1_0.service.SendDataService.class.getName());
+    private final static Logger logger = Logger.getLogger(com.djs.sample.ext.example_test.v1_0.service.SendDataService.class.getName());
 
     static {
         URL url = null;
         try {
             URL baseUrl;
-            baseUrl = com.singtel.ndp.ext.example_test.v1_0.service.SendDataService.class.getResource(".");
-            url = new URL(baseUrl, "file:/D:/WorkDJS/Test/JEE_Test/MavenSample2/src/main/wsdl/ndp_ext_example_test_service.wsdl");
+            baseUrl = com.djs.sample.ext.example_test.v1_0.service.SendDataService.class.getResource(".");
+            url = new URL(baseUrl, "file:/D:/WorkDJS/Test/JEE_Test/MavenSample2/src/main/wsdl/some_example_test_service.wsdl");
         } catch (MalformedURLException e) {
-            logger.warning("Failed to create URL for the wsdl Location: 'file:/D:/WorkDJS/Test/JEE_Test/MavenSample2/src/main/wsdl/ndp_ext_example_test_service.wsdl', retrying as a local file");
+            logger.warning("Failed to create URL for the wsdl Location: 'file:/D:/WorkDJS/Test/JEE_Test/MavenSample2/src/main/wsdl/some_example_test_service.wsdl', retrying as a local file");
             logger.warning(e.getMessage());
         }
         SENDDATASERVICE_WSDL_LOCATION = url;
@@ -43,7 +43,7 @@ public class SendDataService
     }
 
     public SendDataService() {
-        super(SENDDATASERVICE_WSDL_LOCATION, new QName("http://singtel.com/ndp/ext/example_test/v1_0/service", "SendDataService"));
+        super(SENDDATASERVICE_WSDL_LOCATION, new QName("http://djs.com/some/example_test/v1_0/service", "SendDataService"));
     }
 
     /**
@@ -53,7 +53,7 @@ public class SendDataService
      */
     @WebEndpoint(name = "SendDataPort")
     public SendDataPort getSendDataPort() {
-        return super.getPort(new QName("http://singtel.com/ndp/ext/example_test/v1_0/service", "SendDataPort"), SendDataPort.class);
+        return super.getPort(new QName("http://djs.com/some/example_test/v1_0/service", "SendDataPort"), SendDataPort.class);
     }
 
     /**
@@ -65,7 +65,7 @@ public class SendDataService
      */
     @WebEndpoint(name = "SendDataPort")
     public SendDataPort getSendDataPort(WebServiceFeature... features) {
-        return super.getPort(new QName("http://singtel.com/ndp/ext/example_test/v1_0/service", "SendDataPort"), SendDataPort.class, features);
+        return super.getPort(new QName("http://djs.com/some/example_test/v1_0/service", "SendDataPort"), SendDataPort.class, features);
     }
 
 }

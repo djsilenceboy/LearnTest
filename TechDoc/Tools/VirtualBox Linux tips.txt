@@ -25,7 +25,7 @@ sudo ./vboxdrv.sh setup
 ----------------------------------------
 Add user to its group.
 
-sudo usermod -a -G vboxusers jiangdu
+sudo usermod -a -G vboxusers myname
 cat /etc/group | grep vboxusers
 ================================================================================
 Start GUI

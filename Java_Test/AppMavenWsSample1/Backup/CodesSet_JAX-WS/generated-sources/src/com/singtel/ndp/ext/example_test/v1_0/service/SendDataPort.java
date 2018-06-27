@@ -1,5 +1,5 @@
 
-package com.singtel.ndp.ext.example_test.v1_0.service;
+package com.djs.sample.ext.example_test.v1_0.service;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -7,8 +7,8 @@ import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.xml.bind.annotation.XmlSeeAlso;
-import com.singtel.schema.example_test.local.SendDataRequest;
-import com.singtel.schema.example_test.local.SendDataResponse;
+import com.djs.schema.example_test.local.SendDataRequest;
+import com.djs.schema.example_test.local.SendDataResponse;
 
 
 /**
@@ -17,10 +17,10 @@ import com.singtel.schema.example_test.local.SendDataResponse;
  * Generated source version: 2.1
  * 
  */
-@WebService(name = "SendDataPort", targetNamespace = "http://singtel.com/ndp/ext/example_test/v1_0/interface")
+@WebService(name = "SendDataPort", targetNamespace = "http://djs.com/some/example_test/v1_0/interface")
 @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
 @XmlSeeAlso({
-    com.singtel.schema.example_test.local.ObjectFactory.class,
+    com.djs.schema.example_test.local.ObjectFactory.class,
     org.csapi.schema.parlayx.common.v2_1.ObjectFactory.class
 })
 public interface SendDataPort {
@@ -30,14 +30,14 @@ public interface SendDataPort {
      * 
      * @param parameters
      * @return
-     *     returns com.singtel.schema.example_test.local.SendDataResponse
+     *     returns com.djs.schema.example_test.local.SendDataResponse
      * @throws ServiceException
      * @throws PolicyException
      */
     @WebMethod
-    @WebResult(name = "sendDataResponse", targetNamespace = "http://singtel.com/schema/example_test/local", partName = "result")
+    @WebResult(name = "sendDataResponse", targetNamespace = "http://djs.com/schema/example_test/local", partName = "result")
     public SendDataResponse sendData(
-        @WebParam(name = "sendDataRequest", targetNamespace = "http://singtel.com/schema/example_test/local", partName = "parameters")
+        @WebParam(name = "sendDataRequest", targetNamespace = "http://djs.com/schema/example_test/local", partName = "parameters")
         SendDataRequest parameters)
         throws PolicyException, ServiceException
     ;

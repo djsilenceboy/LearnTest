@@ -42,7 +42,7 @@
 									</extraargs>
 								</wsdlOption>
 								<wsdlOption>
-									<wsdl>${basedir}/src/main/wsdl/ndp_ext_example_test_service.wsdl</wsdl>
+									<wsdl>${basedir}/src/main/wsdl/some_example_test_service.wsdl</wsdl>
 									<bindingFiles>
 										<bindingFile>${basedir}/src/main/wsdl/bindings_common_faults.xjb</bindingFile>
 									</bindingFiles>
@@ -52,7 +52,7 @@
 									</extraargs>
 								</wsdlOption>
 								<wsdlOption>
-									<wsdl>${basedir}/src/main/wsdl/ndp_ext_parlayx_wappush_service_1_0.wsdl</wsdl>
+									<wsdl>${basedir}/src/main/wsdl/some_parlayx_wappush_service_1_0.wsdl</wsdl>
 									<bindingFiles>
 										<bindingFile>${basedir}/src/main/wsdl/bindings_common_faults.xjb</bindingFile>
 									</bindingFiles>

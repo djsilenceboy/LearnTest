@@ -14,7 +14,6 @@ import java.util.logging.Logger;
  * <li>2008-04-02 / Du Jiang : Creation
  * </ul>
  * 
- * @author Du Jiang
  * @version 1.0.0.0
  */
 public final class LoggingOutputStream extends OutputStream

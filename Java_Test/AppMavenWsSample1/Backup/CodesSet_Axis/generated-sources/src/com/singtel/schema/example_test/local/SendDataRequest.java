@@ -5,7 +5,7 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package com.singtel.schema.example_test.local;
+package com.djs.schema.example_test.local;
 
 public class SendDataRequest  implements java.io.Serializable {
     private java.lang.String data;
@@ -106,16 +106,16 @@ public class SendDataRequest  implements java.io.Serializable {
         new org.apache.axis.description.TypeDesc(SendDataRequest.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://singtel.com/schema/example_test/local", "sendDataRequest"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://djs.com/schema/example_test/local", "sendDataRequest"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("data");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://singtel.com/schema/example_test/local", "data"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://djs.com/schema/example_test/local", "data"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("address");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://singtel.com/schema/example_test/local", "address"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://djs.com/schema/example_test/local", "address"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "anyURI"));
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);

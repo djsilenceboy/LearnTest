@@ -23,9 +23,9 @@ public class LoginSoapHandler implements SOAPHandler<SOAPMessageContext>
 	public static final int USER_INDEX = 0;
 
 	public static final String [] USER_IDS = new String []
-	{ "app_ndp_test_user", "lbsE2e", "lbsE2eAds", "tester1" };
+	{ "app_test_user", "lbsE2e", "lbsE2eAds", "tester1" };
 	public static final String [] PASSWORDS = new String []
-	{ "app_ndp_test_user", "lbsE2e", "lbsE2eAds", "tester1" };
+	{ "app_test_user", "lbsE2e", "lbsE2eAds", "tester1" };
 
 	@Override
 	public boolean handleMessage( SOAPMessageContext context )
@@ -41,8 +41,8 @@ public class LoginSoapHandler implements SOAPHandler<SOAPMessageContext>
 				<soapenv:Header>
 				 <ns1:Security soapenv:actor="http://schemas.xmlsoap.org/soap/actor/next" soapenv:mustUnderstand="0" xmlns:ns1="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
 				    <ns1:UsernameToken>
-				       <ns1:Username>app_ndp_test_user</ns1:Username>
-				       <ns1:Password>app_ndp_test_user</ns1:Password>
+				       <ns1:Username>app_test_user</ns1:Username>
+				       <ns1:Password>app_test_user</ns1:Password>
 				    </ns1:UsernameToken>
 				 </ns1:Security>
 				</soapenv:Header>

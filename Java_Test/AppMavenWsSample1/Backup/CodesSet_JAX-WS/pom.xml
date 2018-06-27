@@ -29,8 +29,8 @@
 							<wsdlDirectory>${basedir}/src/main/wsdl</wsdlDirectory>
 							<wsdlFiles>
 								<wsdlFile>session_manager_service.wsdl</wsdlFile>
-								<wsdlFile>ndp_ext_example_test_service.wsdl</wsdlFile>
-								<wsdlFile>ndp_ext_parlayx_wappush_service_1_0.wsdl</wsdlFile>
+								<wsdlFile>some_example_test_service.wsdl</wsdlFile>
+								<wsdlFile>some_parlayx_wappush_service_1_0.wsdl</wsdlFile>
 							</wsdlFiles>
 							<bindingDirectory>${basedir}/src/main/wsdl</bindingDirectory>
 							<bindingFiles>

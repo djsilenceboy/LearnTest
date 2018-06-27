@@ -1,12 +1,12 @@
 
-package org.csapi.schema.parlayx.singtel.ndp.ext.wappush.v1_0.local;
+package org.csapi.schema.parlayx.djs.sample.ext.wappush.v1_0.local;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import org.csapi.schema.parlayx.singtel.ndp.ext.wappush.v1_0.WapPushReqData;
+import org.csapi.schema.parlayx.djs.sample.ext.wappush.v1_0.WapPushReqData;
 
 
 /**
@@ -19,7 +19,7 @@ import org.csapi.schema.parlayx.singtel.ndp.ext.wappush.v1_0.WapPushReqData;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="wapPushRequest" type="{http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0}WapPushReqData"/>
+ *         &lt;element name="wapPushRequest" type="{http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0}WapPushReqData"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>

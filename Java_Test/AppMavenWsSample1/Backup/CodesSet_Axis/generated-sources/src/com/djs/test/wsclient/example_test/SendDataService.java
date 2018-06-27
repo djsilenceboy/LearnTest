@@ -10,7 +10,7 @@ package com.djs.learn.wsclient.example_test;
 public interface SendDataService extends javax.xml.rpc.Service {
     public java.lang.String getSendDataPortAddress();
 
-    public com.singtel.ndp.ext.example_test.v1_0._interface.SendDataPort getSendDataPort() throws javax.xml.rpc.ServiceException;
+    public com.djs.sample.ext.example_test.v1_0._interface.SendDataPort getSendDataPort() throws javax.xml.rpc.ServiceException;
 
-    public com.singtel.ndp.ext.example_test.v1_0._interface.SendDataPort getSendDataPort(java.net.URL portAddress) throws javax.xml.rpc.ServiceException;
+    public com.djs.sample.ext.example_test.v1_0._interface.SendDataPort getSendDataPort(java.net.URL portAddress) throws javax.xml.rpc.ServiceException;
 }

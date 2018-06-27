@@ -1,5 +1,5 @@
 
-package org.csapi.wsdl.parlayx.singtel.ndp.ext.wappush.v1_0.service;
+package org.csapi.wsdl.parlayx.djs.sample.ext.wappush.v1_0.service;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,22 +17,22 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.1
  * 
  */
-@WebServiceClient(name = "WapPushService", targetNamespace = "http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/service", wsdlLocation = "file:/D:/WorkDJS/Test/JEE_Test/MavenSample2/src/main/wsdl/ndp_ext_parlayx_wappush_service_1_0.wsdl")
+@WebServiceClient(name = "WapPushService", targetNamespace = "http://www.csapi.org/wsdl/parlayx/djs/sample/ext/wappush/v1_0/service", wsdlLocation = "file:/D:/WorkDJS/Test/JEE_Test/MavenSample2/src/main/wsdl/some_parlayx_wappush_service_1_0.wsdl")
 public class WapPushService
     extends Service
 {
 
     private final static URL WAPPUSHSERVICE_WSDL_LOCATION;
-    private final static Logger logger = Logger.getLogger(org.csapi.wsdl.parlayx.singtel.ndp.ext.wappush.v1_0.service.WapPushService.class.getName());
+    private final static Logger logger = Logger.getLogger(org.csapi.wsdl.parlayx.djs.sample.ext.wappush.v1_0.service.WapPushService.class.getName());
 
     static {
         URL url = null;
         try {
             URL baseUrl;
-            baseUrl = org.csapi.wsdl.parlayx.singtel.ndp.ext.wappush.v1_0.service.WapPushService.class.getResource(".");
-            url = new URL(baseUrl, "file:/D:/WorkDJS/Test/JEE_Test/MavenSample2/src/main/wsdl/ndp_ext_parlayx_wappush_service_1_0.wsdl");
+            baseUrl = org.csapi.wsdl.parlayx.djs.sample.ext.wappush.v1_0.service.WapPushService.class.getResource(".");
+            url = new URL(baseUrl, "file:/D:/WorkDJS/Test/JEE_Test/MavenSample2/src/main/wsdl/some_parlayx_wappush_service_1_0.wsdl");
         } catch (MalformedURLException e) {
-            logger.warning("Failed to create URL for the wsdl Location: 'file:/D:/WorkDJS/Test/JEE_Test/MavenSample2/src/main/wsdl/ndp_ext_parlayx_wappush_service_1_0.wsdl', retrying as a local file");
+            logger.warning("Failed to create URL for the wsdl Location: 'file:/D:/WorkDJS/Test/JEE_Test/MavenSample2/src/main/wsdl/some_parlayx_wappush_service_1_0.wsdl', retrying as a local file");
             logger.warning(e.getMessage());
         }
         WAPPUSHSERVICE_WSDL_LOCATION = url;
@@ -43,7 +43,7 @@ public class WapPushService
     }
 
     public WapPushService() {
-        super(WAPPUSHSERVICE_WSDL_LOCATION, new QName("http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/service", "WapPushService"));
+        super(WAPPUSHSERVICE_WSDL_LOCATION, new QName("http://www.csapi.org/wsdl/parlayx/djs/sample/ext/wappush/v1_0/service", "WapPushService"));
     }
 
     /**
@@ -53,7 +53,7 @@ public class WapPushService
      */
     @WebEndpoint(name = "ExtWapPush")
     public ExtWapPush getExtWapPush() {
-        return super.getPort(new QName("http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/service", "ExtWapPush"), ExtWapPush.class);
+        return super.getPort(new QName("http://www.csapi.org/wsdl/parlayx/djs/sample/ext/wappush/v1_0/service", "ExtWapPush"), ExtWapPush.class);
     }
 
     /**
@@ -65,7 +65,7 @@ public class WapPushService
      */
     @WebEndpoint(name = "ExtWapPush")
     public ExtWapPush getExtWapPush(WebServiceFeature... features) {
-        return super.getPort(new QName("http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/service", "ExtWapPush"), ExtWapPush.class, features);
+        return super.getPort(new QName("http://www.csapi.org/wsdl/parlayx/djs/sample/ext/wappush/v1_0/service", "ExtWapPush"), ExtWapPush.class, features);
     }
 
 }

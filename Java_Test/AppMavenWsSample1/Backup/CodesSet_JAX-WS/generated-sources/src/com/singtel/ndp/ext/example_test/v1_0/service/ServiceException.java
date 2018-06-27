@@ -1,5 +1,5 @@
 
-package com.singtel.ndp.ext.example_test.v1_0.service;
+package com.djs.sample.ext.example_test.v1_0.service;
 
 import javax.xml.ws.WebFault;
 

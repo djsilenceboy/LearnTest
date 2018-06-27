@@ -16,8 +16,6 @@ import com.djs.learn.commonlog.sub.AnotherOne;
  * <p>
  * Try this pattern for log4j: <%d{HH:mm:ss.SSS}>{%-5p}[%t:%c:%M] %m%n
  * <p>
- * 
- * @author dujiang
  */
 public class TestMain
 {

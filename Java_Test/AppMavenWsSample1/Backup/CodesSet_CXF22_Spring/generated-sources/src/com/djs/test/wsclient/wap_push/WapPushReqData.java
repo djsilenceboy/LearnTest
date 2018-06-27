@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "WapPushReqData", namespace = "http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0", propOrder = {
+@XmlType(name = "WapPushReqData", namespace = "http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0", propOrder = {
     "addresses",
     "pushType",
     "url",

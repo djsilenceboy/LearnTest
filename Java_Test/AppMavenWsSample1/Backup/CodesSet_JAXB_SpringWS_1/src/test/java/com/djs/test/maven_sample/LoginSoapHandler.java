@@ -66,13 +66,13 @@ public class LoginSoapHandler implements WebServiceMessageCallback
 			<SOAP-ENV:Header>
 			<wsee:Security xmlns:wsee="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
 			<wsee:UsernameToken>
-			<wsee:Username>app_ndp_test_user</wsee:Username>
-			<wsee:Password>app_ndp_test_user</wsee:Password>
+			<wsee:Username>app_test_user</wsee:Username>
+			<wsee:Password>app_test_user</wsee:Password>
 			</wsee:UsernameToken>
 			</wsee:Security>
 			</SOAP-ENV:Header>
 			<SOAP-ENV:Body>
-			<ns3:getSession xmlns:ns3="http://www.bea.com/wsdl/wlcp/wlng/session_manager/service" xmlns:ns4="http://singtel.com/schema/example_test/local" xmlns:ns5="http://www.csapi.org/schema/parlayx/common/v2_1"/>
+			<ns3:getSession xmlns:ns3="http://www.bea.com/wsdl/wlcp/wlng/session_manager/service" xmlns:ns4="http://djs.com/schema/example_test/local" xmlns:ns5="http://www.csapi.org/schema/parlayx/common/v2_1"/>
 			</SOAP-ENV:Body></SOAP-ENV:Envelope>
 			*/
 
@@ -102,8 +102,8 @@ public class LoginSoapHandler implements WebServiceMessageCallback
 				<SOAP-ENV:Header>
 				<wsee:Security xmlns:wsee="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
 				<wsee:UsernameToken>
-				<wsee:Username>app_ndp_test_user</wsee:Username>
-				<wsee:Password>app_ndp_test_user</wsee:Password>
+				<wsee:Username>app_test_user</wsee:Username>
+				<wsee:Password>app_test_user</wsee:Password>
 				</wsee:UsernameToken>
 				</wsee:Security>
 				<SOAP-ENV:session>
@@ -111,7 +111,7 @@ public class LoginSoapHandler implements WebServiceMessageCallback
 				</SOAP-ENV:session>
 				</SOAP-ENV:Header>
 				<SOAP-ENV:Body>
-				<ns5:sendDataRequest xmlns:ns3="http://www.csapi.org/schema/parlayx/common/v2_1" xmlns:ns4="http://www.bea.com/wsdl/wlcp/wlng/session_manager/service" xmlns:ns5="http://singtel.com/schema/example_test/local">
+				<ns5:sendDataRequest xmlns:ns3="http://www.csapi.org/schema/parlayx/common/v2_1" xmlns:ns4="http://www.bea.com/wsdl/wlcp/wlng/session_manager/service" xmlns:ns5="http://djs.com/schema/example_test/local">
 				<ns5:data>6512345678</ns5:data>
 				<ns5:address>tel:6512345678</ns5:address>
 				</ns5:sendDataRequest>

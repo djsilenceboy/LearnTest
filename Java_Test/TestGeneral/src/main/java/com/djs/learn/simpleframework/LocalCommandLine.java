@@ -19,7 +19,6 @@ import org.apache.commons.cli.ParseException;
  * <li>2008-03-25 / Du Jiang : Impl.
  * </ul>
  * 
- * @author Du Jiang
  * @version 1.0.0.0
  */
 public class LocalCommandLine

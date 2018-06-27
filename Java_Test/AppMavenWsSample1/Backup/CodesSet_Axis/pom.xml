@@ -25,8 +25,8 @@
 						for imported wsdl files. -->
 					<wsdlFiles>
 						<wsdlFile>session_manager_service.wsdl</wsdlFile>
-						<wsdlFile>ndp_ext_example_test_service.wsdl</wsdlFile>
-						<wsdlFile>ndp_ext_parlayx_wappush_service_1_0.wsdl</wsdlFile>
+						<wsdlFile>some_example_test_service.wsdl</wsdlFile>
+						<wsdlFile>some_parlayx_wappush_service_1_0.wsdl</wsdlFile>
 					</wsdlFiles>
 					<!-- Not use <packageSpace> and <subPackageByFileName>, because they 
 						generate codes in one same folder, and use wsdl file name as folder name. -->
@@ -38,11 +38,11 @@
 							<targetPackage>com.djs.learn.wsclient.sessionmanager</targetPackage>
 						</mapping>
 						<mapping>
-							<namespace>http://singtel.com/ndp/ext/example_test/v1_0/service</namespace>
+							<namespace>http://djs.com/some/example_test/v1_0/service</namespace>
 							<targetPackage>com.djs.learn.wsclient.example_test</targetPackage>
 						</mapping>
 						<mapping>
-							<namespace>http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/service</namespace>
+							<namespace>http://www.csapi.org/wsdl/parlayx/djs/sample/ext/wappush/v1_0/service</namespace>
 							<targetPackage>com.djs.learn.wsclient.wap_push</targetPackage>
 						</mapping>
 					</mappings>

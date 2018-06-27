@@ -7,7 +7,7 @@
 
 package com.djs.learn.wsclient.example_test;
 
-public class SendDataBindingStub extends org.apache.axis.client.Stub implements com.singtel.ndp.ext.example_test.v1_0._interface.SendDataPort {
+public class SendDataBindingStub extends org.apache.axis.client.Stub implements com.djs.sample.ext.example_test.v1_0._interface.SendDataPort {
     private java.util.Vector cachedSerClasses = new java.util.Vector();
     private java.util.Vector cachedSerQNames = new java.util.Vector();
     private java.util.Vector cachedSerFactories = new java.util.Vector();
@@ -25,11 +25,11 @@ public class SendDataBindingStub extends org.apache.axis.client.Stub implements 
         org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("sendData");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://singtel.com/schema/example_test/local", "sendDataRequest"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://singtel.com/schema/example_test/local", "sendDataRequest"), com.singtel.schema.example_test.local.SendDataRequest.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://djs.com/schema/example_test/local", "sendDataRequest"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://djs.com/schema/example_test/local", "sendDataRequest"), com.djs.schema.example_test.local.SendDataRequest.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://singtel.com/schema/example_test/local", "sendDataResponse"));
-        oper.setReturnClass(com.singtel.schema.example_test.local.SendDataResponse.class);
-        oper.setReturnQName(new javax.xml.namespace.QName("http://singtel.com/schema/example_test/local", "sendDataResponse"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://djs.com/schema/example_test/local", "sendDataResponse"));
+        oper.setReturnClass(com.djs.schema.example_test.local.SendDataResponse.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://djs.com/schema/example_test/local", "sendDataResponse"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
@@ -77,16 +77,16 @@ public class SendDataBindingStub extends org.apache.axis.client.Stub implements 
             java.lang.Class simpledf = org.apache.axis.encoding.ser.SimpleDeserializerFactory.class;
             java.lang.Class simplelistsf = org.apache.axis.encoding.ser.SimpleListSerializerFactory.class;
             java.lang.Class simplelistdf = org.apache.axis.encoding.ser.SimpleListDeserializerFactory.class;
-            qName = new javax.xml.namespace.QName("http://singtel.com/schema/example_test/local", "sendDataRequest");
+            qName = new javax.xml.namespace.QName("http://djs.com/schema/example_test/local", "sendDataRequest");
             cachedSerQNames.add(qName);
-            cls = com.singtel.schema.example_test.local.SendDataRequest.class;
+            cls = com.djs.schema.example_test.local.SendDataRequest.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("http://singtel.com/schema/example_test/local", "sendDataResponse");
+            qName = new javax.xml.namespace.QName("http://djs.com/schema/example_test/local", "sendDataResponse");
             cachedSerQNames.add(qName);
-            cls = com.singtel.schema.example_test.local.SendDataResponse.class;
+            cls = com.djs.schema.example_test.local.SendDataResponse.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
@@ -171,7 +171,7 @@ public class SendDataBindingStub extends org.apache.axis.client.Stub implements 
         }
     }
 
-    public com.singtel.schema.example_test.local.SendDataResponse sendData(com.singtel.schema.example_test.local.SendDataRequest parameters) throws java.rmi.RemoteException, org.csapi.www.schema.parlayx.common.v2_1.PolicyException, org.csapi.www.schema.parlayx.common.v2_1.ServiceException {
+    public com.djs.schema.example_test.local.SendDataResponse sendData(com.djs.schema.example_test.local.SendDataRequest parameters) throws java.rmi.RemoteException, org.csapi.www.schema.parlayx.common.v2_1.PolicyException, org.csapi.www.schema.parlayx.common.v2_1.ServiceException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -195,9 +195,9 @@ public class SendDataBindingStub extends org.apache.axis.client.Stub implements 
         else {
             extractAttachments(_call);
             try {
-                return (com.singtel.schema.example_test.local.SendDataResponse) _resp;
+                return (com.djs.schema.example_test.local.SendDataResponse) _resp;
             } catch (java.lang.Exception _exception) {
-                return (com.singtel.schema.example_test.local.SendDataResponse) org.apache.axis.utils.JavaUtils.convert(_resp, com.singtel.schema.example_test.local.SendDataResponse.class);
+                return (com.djs.schema.example_test.local.SendDataResponse) org.apache.axis.utils.JavaUtils.convert(_resp, com.djs.schema.example_test.local.SendDataResponse.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {

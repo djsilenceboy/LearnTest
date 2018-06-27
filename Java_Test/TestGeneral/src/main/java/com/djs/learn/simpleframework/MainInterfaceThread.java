@@ -9,7 +9,6 @@ package com.djs.learn.simpleframework;
  * <li>2008-03-26 / Du Jiang : Creation
  * </ul>
  * 
- * @author Du Jiang
  * @version 1.0.0.0
  */
 public class MainInterfaceThread implements Runnable

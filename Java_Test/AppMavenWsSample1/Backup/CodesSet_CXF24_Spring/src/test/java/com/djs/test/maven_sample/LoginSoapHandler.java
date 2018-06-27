@@ -70,8 +70,8 @@ public class LoginSoapHandler implements SOAPHandler<SOAPMessageContext>
 				<soapenv:Header>
 				 <ns1:Security soapenv:actor="http://schemas.xmlsoap.org/soap/actor/next" soapenv:mustUnderstand="0" xmlns:ns1="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
 				    <ns1:UsernameToken>
-				       <ns1:Username>app_ndp_test_user</ns1:Username>
-				       <ns1:Password>app_ndp_test_user</ns1:Password>
+				       <ns1:Username>app_test_user</ns1:Username>
+				       <ns1:Password>app_test_user</ns1:Password>
 				    </ns1:UsernameToken>
 				 </ns1:Security>
 				</soapenv:Header>
@@ -107,8 +107,8 @@ public class LoginSoapHandler implements SOAPHandler<SOAPMessageContext>
 					<soapenv:Header>
 					 <ns1:Security soapenv:actor="http://schemas.xmlsoap.org/soap/actor/next" soapenv:mustUnderstand="0" xmlns:ns1="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
 					    <ns1:UsernameToken>
-					       <ns1:Username>app_ndp_test_user</ns1:Username>
-					       <ns1:Password>app_ndp_test_user</ns1:Password>
+					       <ns1:Username>app_test_user</ns1:Username>
+					       <ns1:Password>app_test_user</ns1:Password>
 					    </ns1:UsernameToken>
 					 </ns1:Security>
 					 <soapenv:session soapenv:actor="http://schemas.xmlsoap.org/soap/actor/next" soapenv:mustUnderstand="0">
@@ -116,7 +116,7 @@ public class LoginSoapHandler implements SOAPHandler<SOAPMessageContext>
 					 </soapenv:session>
 					</soapenv:Header>
 					<soapenv:Body>
-					 <sendDataRequest xmlns="http://singtel.com/schema/example_test/local">
+					 <sendDataRequest xmlns="http://djs.com/schema/example_test/local">
 					    <data>6512345678</data>
 					    <address>tel:6512345678</address>
 					 </sendDataRequest>

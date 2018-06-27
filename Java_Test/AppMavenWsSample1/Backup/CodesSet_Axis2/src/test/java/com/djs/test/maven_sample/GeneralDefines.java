@@ -17,9 +17,9 @@ public class GeneralDefines
 	public static final int USER_INDEX = 0;
 
 	public static final String [] USER_IDS = new String []
-	{ "app_ndp_test_user", "lbsE2e", "lbsE2eAds", "tester1" };
+	{ "app_test_user", "lbsE2e", "lbsE2eAds", "tester1" };
 	public static final String [] PASSWORDS = new String []
-	{ "app_ndp_test_user", "lbsE2e", "lbsE2eAds", "tester1" };
+	{ "app_test_user", "lbsE2e", "lbsE2eAds", "tester1" };
 
 	// Change this index for different host.
 	public static final int HOST_INDEX = 1;
@@ -67,8 +67,8 @@ public class GeneralDefines
 		<soapenv:Header>
 		 <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
 		    <wsse:UsernameToken>
-		       <wsse:Username>app_ndp_test_user</wsse:Username>
-		       <wsse:Password>app_ndp_test_user</wsse:Password>
+		       <wsse:Username>app_test_user</wsse:Username>
+		       <wsse:Password>app_test_user</wsse:Password>
 		    </wsse:UsernameToken>
 		 </wsse:Security>
 		</soapenv:Header>

@@ -12,7 +12,6 @@ import org.apache.log4j.Logger;
  * <li>2009-05-07 / Du Jiang : Creation
  * </ul>
  * 
- * @author Du Jiang
  * @version 1.0.0.0
  */
 public class TaskEnqueueThread extends Thread

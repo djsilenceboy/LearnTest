@@ -6,7 +6,7 @@
 //
 
 
-package org.csapi.schema.parlayx.singtel.ndp.ext.wappush.v1_0;
+package org.csapi.schema.parlayx.djs.sample.ext.wappush.v1_0;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

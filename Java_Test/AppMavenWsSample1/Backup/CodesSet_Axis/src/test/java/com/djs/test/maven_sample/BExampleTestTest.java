@@ -11,9 +11,9 @@ import org.junit.Test;
 
 import com.djs.learn.wsclient.example_test.SendDataService;
 import com.djs.learn.wsclient.example_test.SendDataServiceLocator;
-import com.singtel.ndp.ext.example_test.v1_0._interface.SendDataPort;
-import com.singtel.schema.example_test.local.SendDataRequest;
-import com.singtel.schema.example_test.local.SendDataResponse;
+import com.djs.sample.ext.example_test.v1_0._interface.SendDataPort;
+import com.djs.schema.example_test.local.SendDataRequest;
+import com.djs.schema.example_test.local.SendDataResponse;
 
 public class BExampleTestTest
 {

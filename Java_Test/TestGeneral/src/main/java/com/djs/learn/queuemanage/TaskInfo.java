@@ -9,7 +9,6 @@ package com.djs.learn.queuemanage;
  * <li>2009-05-07 / Du Jiang : Creation
  * </ul>
  * 
- * @author Du Jiang
  * @version 1.0.0.0
  */
 public class TaskInfo

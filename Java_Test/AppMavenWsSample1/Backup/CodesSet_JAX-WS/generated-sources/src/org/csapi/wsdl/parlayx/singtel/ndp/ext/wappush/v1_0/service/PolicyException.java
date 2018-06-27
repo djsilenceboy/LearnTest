@@ -1,5 +1,5 @@
 
-package org.csapi.wsdl.parlayx.singtel.ndp.ext.wappush.v1_0.service;
+package org.csapi.wsdl.parlayx.djs.sample.ext.wappush.v1_0.service;
 
 import javax.xml.ws.WebFault;
 

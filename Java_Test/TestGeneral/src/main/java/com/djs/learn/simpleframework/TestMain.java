@@ -13,7 +13,7 @@ public class TestMain
 		MainCommandManager mcm = null;
 
 		try {
-			lcl = new LocalCommandLine((new TestMain()).getClass().getName(), "1.0", "(C) 2008, SingTel Mobile", "Consumer Mobile / SND / ITD : Du Jiang");
+			lcl = new LocalCommandLine((new TestMain()).getClass().getName(), "1.0", "(C) 2008, Company", "Department : Developer");
 			lcl.fnPrepare();
 
 			bRet = lcl.fnParse(args);

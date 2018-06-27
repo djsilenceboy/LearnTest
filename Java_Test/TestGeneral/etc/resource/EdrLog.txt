@@ -4,7 +4,7 @@
 [ExtWapPushValidationHelper:validateURL] Enter...
 [ExtWapPushPluginFactory:createRequestInfo] Enter...
 [ExtWapPushPluginFactory:createRequestInfo] Method = SendWapPush
-[Rule:PrintAdditionalData] Service = ndp.trafficpath.wappush.plugin.ExtWapPushPl
+[Rule:PrintAdditionalData] Service = some.trafficpath.wappush.plugin.ExtWapPushPl
 ugin
 [Rule:PrintAdditionalData] Method  = sendWapPush
 [Rule:PrintAdditionalData] Data name   = arg0.wapPushRequest.message
@@ -87,7 +87,7 @@ x.common.v2_1.ServiceException
 [ExtWapPushPluginFactory:convertEx] Exception = org.csapi.schema.parlayx.common.
 v2_1.ServiceException
 <WSEE>
- Error invoking ndp.trafficpath.wappush.jws.ExtWapPushWsImpl (POJO): org.csapi.s
+ Error invoking some.trafficpath.wappush.jws.ExtWapPushWsImpl (POJO): org.csapi.s
 chema.parlayx.common.v2_1.ServiceException<ComponentHandler.handleRequest:115>
 <WSEE>org.csapi.schema.parlayx.common.v2_1.ServiceException<ComponentHandler.han
 dleRequest:115>
@@ -98,9 +98,9 @@ org.csapi.schema.parlayx.common.v2_1.ServiceException
 .java:335)
         at weblogic.rmi.cluster.ClusterableRemoteRef.invoke(ClusterableRemoteRef
 .java:252)
-        at ndp.trafficpath.wappush.ejb.ExtWapPush_xk6lkx_EOImpl_921_WLStub.sendW
+        at some.trafficpath.wappush.ejb.ExtWapPush_xk6lkx_EOImpl_921_WLStub.sendW
 apPush(Unknown Source)
-        at ndp.trafficpath.wappush.jws.ExtWapPushWsImpl.sendWapPush(Unknown Sour
+        at some.trafficpath.wappush.jws.ExtWapPushWsImpl.sendWapPush(Unknown Sour
 ce)
         at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
         at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.
@@ -150,12 +150,12 @@ ava:1359)
         at weblogic.work.ExecuteThread.run(ExecuteThread.java:181)
 [AllEdrListener] Enter...
 [EdrListenerImpl:setDbHelper] Enter...
-[EdrListenerImpl:setDbHelper] DB helper = ndp.ejb.mdb.capture_edrs.AllEdrDbHelpe
+[EdrListenerImpl:setDbHelper] DB helper = some.ejb.mdb.capture_edrs.AllEdrDbHelpe
 r@c6fb37
 [AllEdrListener:onMessage] Enter...
 [AllEdrDbHelper:getConnection] Enter...
-[AllEdrDbHelper:getConnection] ndp.ejb.mdb.capture_edrs.TableName = NDP_TP_EDR
-[AllEdrDbHelper:getConnection] ndp.ejb.mdb.capture_edrs.DBRetryTimes = 3
+[AllEdrDbHelper:getConnection] some.ejb.mdb.capture_edrs.TableName = NDP_TP_EDR
+[AllEdrDbHelper:getConnection] some.ejb.mdb.capture_edrs.DBRetryTimes = 3
 DBConnectionHelper.getDBConnection      Looking up <wlng.localTX.datasource> dat
 asource
 [AllEdrDbHelper:getConnection] Connected = true
@@ -185,12 +185,12 @@ asource
 [CoreEdrContents:showContents] [17] OrigAddress = null
 [CoreEdrContents:showContents] [18] DestAddress = null
 [CoreEdrContents:showContents] Keys -----
-[CoreEdrContents:showContents] [0] ApplicationId_wlng22 = [app_ndp_test]
+[CoreEdrContents:showContents] [0] ApplicationId_wlng22 = [app_test]
 [CoreEdrContents:showContents] [1] ServiceProviderId_wlng22 = [sp_ndp_test]
 [CoreEdrContents:showContents] [2] Class = [com.bea.wlcp.wlng.edr.EdrService_imp
 l]
 [CoreEdrContents:showContents] [3] Method = [logEdr]
-[CoreEdrContents:showContents] [4] ApplicationInstanceGroup_wlng22 = [app_ndp_te
+[CoreEdrContents:showContents] [4] ApplicationInstanceGroup_wlng22 = [app_te
 st_user]
 [CoreEdrContents:showContents] [5] EdrId = [12100]
 [CoreEdrContents:showContents] [6] Timestamp = [1215420435781]
@@ -222,7 +222,7 @@ l, null, null, null, null, null, null)
 [CoreEdrContents:showContents] [4] Timestamp = 1215420437765
 [CoreEdrContents:showContents] [5] ContainerTransactionId = BEA1-00181EA627F47D4
 1F582
-[CoreEdrContents:showContents] [6] Class = ndp.plugin.wappush.north.ExtWapPushPl
+[CoreEdrContents:showContents] [6] Class = some.plugin.wappush.north.ExtWapPushPl
 uginImpl
 [CoreEdrContents:showContents] [7] Method = SendWapPushResponse sendWapPush(Send
 WapPush)
@@ -233,20 +233,20 @@ WapPush)
 [CoreEdrContents:showContents] [12] Exception = null
 [CoreEdrContents:showContents] [13] SessionId = app:-7190872511128393215
 [CoreEdrContents:showContents] [14] ServiceProviderId = sp_ndp_test
-[CoreEdrContents:showContents] [15] ApplicationId = app_ndp_test
-[CoreEdrContents:showContents] [16] AppInstanceGroupId = app_ndp_test_user
+[CoreEdrContents:showContents] [15] ApplicationId = app_test
+[CoreEdrContents:showContents] [16] AppInstanceGroupId = app_test_user
 [CoreEdrContents:showContents] [17] OrigAddress = null
 [CoreEdrContents:showContents] [18] DestAddress = null
 [CoreEdrContents:showContents] Keys -----
 [CoreEdrContents:showContents] [0] Direction = [south]
 [CoreEdrContents:showContents] [1] EdrId3 = [101000]
-[CoreEdrContents:showContents] [2] Class = [ndp.plugin.wappush.north.ExtWapPushP
+[CoreEdrContents:showContents] [2] Class = [some.plugin.wappush.north.ExtWapPushP
 luginImpl]
 [CoreEdrContents:showContents] [3] Method = [SendWapPushResponse sendWapPush(Sen
 dWapPush)]
 [CoreEdrContents:showContents] [4] Timestamp = [1215420437765]
 [CoreEdrContents:showContents] [5] Source = [method]
-[CoreEdrContents:showContents] [6] AppInstanceGroupId = [app_ndp_test_user]
+[CoreEdrContents:showContents] [6] AppInstanceGroupId = [app_test_user]
 [CoreEdrContents:showContents] [7] ServerName = [AdminServer]
 [CoreEdrContents:showContents] [8] ContainerTransactionId = [BEA1-00181EA627F47D
 41F582]
@@ -255,7 +255,7 @@ dWapPush)]
 [CoreEdrContents:showContents] [11] Interface = [north]
 [CoreEdrContents:showContents] [12] ServiceName = [WapPush]
 [CoreEdrContents:showContents] [13] SessionId = [app:-7190872511128393215]
-[CoreEdrContents:showContents] [14] ApplicationId = [app_ndp_test]
+[CoreEdrContents:showContents] [14] ApplicationId = [app_test]
 [CoreEdrContents:showContents] [15] TagEdr = [101000]
 [CoreEdrContents:showContents] ---------- Pure EDR (end) ----------
 [AllEdrDbHelper:insertRecord] Enter...
@@ -267,7 +267,7 @@ nId, AppInstanceGroupId, OrigAddress, DestAddress) values (1215420449907, '10100
 0', 'WapPush', 'AdminServer', '1215420437765', 'BEA1-00181EA627F47D41F582', 'ndp
 .plugin.wappush.north.ExtWapPushPluginImpl', 'SendWapPushResponse sendWapPush(Se
 ndWapPush)', 'method', 'south', 'before', 'north', null, 'app:-71908725111283932
-15', 'sp_ndp_test', 'app_ndp_test', 'app_ndp_test_user', null, null)
+15', 'sp_ndp_test', 'app_test', 'app_test_user', null, null)
 [AllEdrDbHelper:insertRecord] Leave...
 [PureEdrRecord:prepareContents] Enter...
 [CoreEdrContents:prepareCoreContents] Enter...
@@ -279,7 +279,7 @@ ndWapPush)', 'method', 'south', 'before', 'north', null, 'app:-71908725111283932
 [CoreEdrContents:showContents] [4] Timestamp = 1215420438546
 [CoreEdrContents:showContents] [5] ContainerTransactionId = BEA1-00181EA627F47D4
 1F582
-[CoreEdrContents:showContents] [6] Class = ndp.plugin.wappush.south.ExtWapPushPl
+[CoreEdrContents:showContents] [6] Class = some.plugin.wappush.south.ExtWapPushPl
 uginSouthImpl
 [CoreEdrContents:showContents] [7] Method = SubmitResponse sendWapPush(PushIniti
 ator, SubmitOptions, URI[], String, String, BigInteger)
@@ -290,20 +290,20 @@ ator, SubmitOptions, URI[], String, String, BigInteger)
 [CoreEdrContents:showContents] [12] Exception = null
 [CoreEdrContents:showContents] [13] SessionId = app:-7190872511128393215
 [CoreEdrContents:showContents] [14] ServiceProviderId = sp_ndp_test
-[CoreEdrContents:showContents] [15] ApplicationId = app_ndp_test
-[CoreEdrContents:showContents] [16] AppInstanceGroupId = app_ndp_test_user
+[CoreEdrContents:showContents] [15] ApplicationId = app_test
+[CoreEdrContents:showContents] [16] AppInstanceGroupId = app_test_user
 [CoreEdrContents:showContents] [17] OrigAddress = null
 [CoreEdrContents:showContents] [18] DestAddress = null
 [CoreEdrContents:showContents] Keys -----
 [CoreEdrContents:showContents] [0] Direction = [south]
 [CoreEdrContents:showContents] [1] EdrId3 = [101001]
-[CoreEdrContents:showContents] [2] Class = [ndp.plugin.wappush.south.ExtWapPushP
+[CoreEdrContents:showContents] [2] Class = [some.plugin.wappush.south.ExtWapPushP
 luginSouthImpl]
 [CoreEdrContents:showContents] [3] Method = [SubmitResponse sendWapPush(PushInit
 iator, SubmitOptions, URI[], String, String, BigInteger)]
 [CoreEdrContents:showContents] [4] Timestamp = [1215420438546]
 [CoreEdrContents:showContents] [5] Source = [method]
-[CoreEdrContents:showContents] [6] AppInstanceGroupId = [app_ndp_test_user]
+[CoreEdrContents:showContents] [6] AppInstanceGroupId = [app_test_user]
 [CoreEdrContents:showContents] [7] ServerName = [AdminServer]
 [CoreEdrContents:showContents] [8] ContainerTransactionId = [BEA1-00181EA627F47D
 41F582]
@@ -312,7 +312,7 @@ iator, SubmitOptions, URI[], String, String, BigInteger)]
 [CoreEdrContents:showContents] [11] Interface = [south]
 [CoreEdrContents:showContents] [12] ServiceName = [WapPush]
 [CoreEdrContents:showContents] [13] SessionId = [app:-7190872511128393215]
-[CoreEdrContents:showContents] [14] ApplicationId = [app_ndp_test]
+[CoreEdrContents:showContents] [14] ApplicationId = [app_test]
 [CoreEdrContents:showContents] [15] TagEdr = [101001]
 [CoreEdrContents:showContents] ---------- Pure EDR (end) ----------
 [AllEdrDbHelper:insertRecord] Enter...
@@ -324,8 +324,8 @@ nId, AppInstanceGroupId, OrigAddress, DestAddress) values (1215420449908, '10100
 1', 'WapPush', 'AdminServer', '1215420438546', 'BEA1-00181EA627F47D41F582', 'ndp
 .plugin.wappush.south.ExtWapPushPluginSouthImpl', 'SubmitResponse sendWapPush(Pu
 shInitiator, SubmitOptions, URI[], String, String, BigInteger)', 'method', 'sout
-h', 'before', 'south', null, 'app:-7190872511128393215', 'sp_ndp_test', 'app_ndp
-_test', 'app_ndp_test_user', null, null)
+h', 'before', 'south', null, 'app:-7190872511128393215', 'sp_ndp_test', 'app
+_test', 'app_test_user', null, null)
 [AllEdrDbHelper:insertRecord] Leave...
 [AlarmRecord:prepareContents] Enter...
 [CoreEdrContents:prepareCoreContents] Enter...
@@ -338,7 +338,7 @@ _test', 'app_ndp_test_user', null, null)
 [CoreEdrContents:showContents] [5] Timestamp = 1215420439687
 [CoreEdrContents:showContents] [6] ContainerTransactionId = BEA1-00181EA627F47D4
 1F582
-[CoreEdrContents:showContents] [7] Class = ndp.plugin.wappush.south.ExtWapPushPl
+[CoreEdrContents:showContents] [7] Class = some.plugin.wappush.south.ExtWapPushPl
 uginSouthImpl
 [CoreEdrContents:showContents] [8] Method = SubmitResponse sendWapPush(PushIniti
 ator, SubmitOptions, URI[], String, String, BigInteger)
@@ -350,19 +350,19 @@ ator, SubmitOptions, URI[], String, String, BigInteger)
 tion
 [CoreEdrContents:showContents] [14] SessionId = app:-7190872511128393215
 [CoreEdrContents:showContents] [15] ServiceProviderId = sp_ndp_test
-[CoreEdrContents:showContents] [16] ApplicationId = app_ndp_test
-[CoreEdrContents:showContents] [17] AppInstanceGroupId = app_ndp_test_user
+[CoreEdrContents:showContents] [16] ApplicationId = app_test
+[CoreEdrContents:showContents] [17] AppInstanceGroupId = app_test_user
 [CoreEdrContents:showContents] [18] OrigAddress = null
 [CoreEdrContents:showContents] [19] DestAddress = null
 [CoreEdrContents:showContents] Keys -----
 [CoreEdrContents:showContents] [0] Direction = [south]
-[CoreEdrContents:showContents] [1] Class = [ndp.plugin.wappush.south.ExtWapPushP
+[CoreEdrContents:showContents] [1] Class = [some.plugin.wappush.south.ExtWapPushP
 luginSouthImpl]
 [CoreEdrContents:showContents] [2] Method = [SubmitResponse sendWapPush(PushInit
 iator, SubmitOptions, URI[], String, String, BigInteger)]
 [CoreEdrContents:showContents] [3] Timestamp = [1215420439687]
 [CoreEdrContents:showContents] [4] Source = [exception]
-[CoreEdrContents:showContents] [5] AppInstanceGroupId = [app_ndp_test_user]
+[CoreEdrContents:showContents] [5] AppInstanceGroupId = [app_test_user]
 [CoreEdrContents:showContents] [6] Exception = [com.ericsson.wap.pushsdk.PIExcep
 tion]
 [CoreEdrContents:showContents] [7] ServerName = [AdminServer]
@@ -373,7 +373,7 @@ tion]
 [CoreEdrContents:showContents] [11] Interface = [null]
 [CoreEdrContents:showContents] [12] ServiceName = [WapPush]
 [CoreEdrContents:showContents] [13] SessionId = [app:-7190872511128393215]
-[CoreEdrContents:showContents] [14] ApplicationId = [app_ndp_test]
+[CoreEdrContents:showContents] [14] ApplicationId = [app_test]
 [CoreEdrContents:showContents] [15] TagAlarm = [199900]
 [CoreEdrContents:showContents] ---------- Alarm (end) ----------
 [AlarmRecord:prepareContents] Enter...
@@ -387,7 +387,7 @@ tion]
 [CoreEdrContents:showContents] [5] Timestamp = 1215420439718
 [CoreEdrContents:showContents] [6] ContainerTransactionId = BEA1-00181EA627F47D4
 1F582
-[CoreEdrContents:showContents] [7] Class = ndp.plugin.wappush.south.ExtWapPushIn
+[CoreEdrContents:showContents] [7] Class = some.plugin.wappush.south.ExtWapPushIn
 boundAdapterImpl
 [CoreEdrContents:showContents] [8] Method = SendWapPushResponse sendWapPush(Send
 WapPush)
@@ -399,19 +399,19 @@ WapPush)
 v2_1.ServiceException
 [CoreEdrContents:showContents] [14] SessionId = app:-7190872511128393215
 [CoreEdrContents:showContents] [15] ServiceProviderId = sp_ndp_test
-[CoreEdrContents:showContents] [16] ApplicationId = app_ndp_test
-[CoreEdrContents:showContents] [17] AppInstanceGroupId = app_ndp_test_user
+[CoreEdrContents:showContents] [16] ApplicationId = app_test
+[CoreEdrContents:showContents] [17] AppInstanceGroupId = app_test_user
 [CoreEdrContents:showContents] [18] OrigAddress = null
 [CoreEdrContents:showContents] [19] DestAddress = null
 [CoreEdrContents:showContents] Keys -----
 [CoreEdrContents:showContents] [0] Direction = [south]
-[CoreEdrContents:showContents] [1] Class = [ndp.plugin.wappush.south.ExtWapPushI
+[CoreEdrContents:showContents] [1] Class = [some.plugin.wappush.south.ExtWapPushI
 nboundAdapterImpl]
 [CoreEdrContents:showContents] [2] Method = [SendWapPushResponse sendWapPush(Sen
 dWapPush)]
 [CoreEdrContents:showContents] [3] Timestamp = [1215420439718]
 [CoreEdrContents:showContents] [4] Source = [exception]
-[CoreEdrContents:showContents] [5] AppInstanceGroupId = [app_ndp_test_user]
+[CoreEdrContents:showContents] [5] AppInstanceGroupId = [app_test_user]
 [CoreEdrContents:showContents] [6] Exception = [org.csapi.schema.parlayx.common.
 v2_1.ServiceException]
 [CoreEdrContents:showContents] [7] ServerName = [AdminServer]
@@ -424,7 +424,7 @@ occured. Error code is %1.:[Ljava.lang.String;@1f91958]
 [CoreEdrContents:showContents] [12] Interface = [null]
 [CoreEdrContents:showContents] [13] ServiceName = [WapPush]
 [CoreEdrContents:showContents] [14] SessionId = [app:-7190872511128393215]
-[CoreEdrContents:showContents] [15] ApplicationId = [app_ndp_test]
+[CoreEdrContents:showContents] [15] ApplicationId = [app_test]
 [CoreEdrContents:showContents] [16] TagAlarm = [110400]
 [CoreEdrContents:showContents] ---------- Alarm (end) ----------
 [AllEdrDbHelper:releaseConnection] Enter...

@@ -1,4 +1,4 @@
-package com.singtel.ndp.ext.example_test.v1_0.service;
+package com.djs.sample.ext.example_test.v1_0.service;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -6,7 +6,7 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.WebEndpoint;
 import javax.xml.ws.WebServiceClient;
 import javax.xml.ws.WebServiceFeature;
-import com.singtel.ndp.ext.example_test.v1_0._interface.SendDataPort;
+import com.djs.sample.ext.example_test.v1_0._interface.SendDataPort;
 import javax.xml.ws.Service;
 
 /**
@@ -16,22 +16,22 @@ import javax.xml.ws.Service;
  * 
  */
 @WebServiceClient(name = "SendDataService", 
-                  wsdlLocation = "file:/D:/WorkDJS/Test/JEE_Test/MavenSample2/src/main/wsdl/ndp_ext_example_test_service.wsdl",
-                  targetNamespace = "http://singtel.com/ndp/ext/example_test/v1_0/service") 
+                  wsdlLocation = "file:/D:/WorkDJS/Test/JEE_Test/MavenSample2/src/main/wsdl/some_example_test_service.wsdl",
+                  targetNamespace = "http://djs.com/some/example_test/v1_0/service") 
 public class SendDataService extends Service {
 
     public final static URL WSDL_LOCATION;
 
-    public final static QName SERVICE = new QName("http://singtel.com/ndp/ext/example_test/v1_0/service", "SendDataService");
-    public final static QName SendDataPort = new QName("http://singtel.com/ndp/ext/example_test/v1_0/service", "SendDataPort");
+    public final static QName SERVICE = new QName("http://djs.com/some/example_test/v1_0/service", "SendDataService");
+    public final static QName SendDataPort = new QName("http://djs.com/some/example_test/v1_0/service", "SendDataPort");
     static {
         URL url = null;
         try {
-            url = new URL("file:/D:/WorkDJS/Test/JEE_Test/MavenSample2/src/main/wsdl/ndp_ext_example_test_service.wsdl");
+            url = new URL("file:/D:/WorkDJS/Test/JEE_Test/MavenSample2/src/main/wsdl/some_example_test_service.wsdl");
         } catch (MalformedURLException e) {
             java.util.logging.Logger.getLogger(SendDataService.class.getName())
                 .log(java.util.logging.Level.INFO, 
-                     "Can not initialize the default wsdl from {0}", "file:/D:/WorkDJS/Test/JEE_Test/MavenSample2/src/main/wsdl/ndp_ext_example_test_service.wsdl");
+                     "Can not initialize the default wsdl from {0}", "file:/D:/WorkDJS/Test/JEE_Test/MavenSample2/src/main/wsdl/some_example_test_service.wsdl");
         }
         WSDL_LOCATION = url;
     }

@@ -7,9 +7,9 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.csapi.schema.parlayx.singtel.ndp.ext.wappush.v1_0.WapPushReqData;
-import org.csapi.schema.parlayx.singtel.ndp.ext.wappush.v1_0.local.SendWapPush;
-import org.csapi.schema.parlayx.singtel.ndp.ext.wappush.v1_0.local.SendWapPushResponse;
+import org.csapi.schema.parlayx.djs.sample.ext.wappush.v1_0.WapPushReqData;
+import org.csapi.schema.parlayx.djs.sample.ext.wappush.v1_0.local.SendWapPush;
+import org.csapi.schema.parlayx.djs.sample.ext.wappush.v1_0.local.SendWapPushResponse;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -19,8 +19,8 @@ import org.springframework.ws.client.core.WebServiceTemplate;
 
 import com.bea.wsdl.wlcp.wlng.session_manager.service.GetSession;
 import com.bea.wsdl.wlcp.wlng.session_manager.service.GetSessionResponse;
-import com.singtel.schema.example_test.local.SendDataRequest;
-import com.singtel.schema.example_test.local.SendDataResponse;
+import com.djs.schema.example_test.local.SendDataRequest;
+import com.djs.schema.example_test.local.SendDataResponse;
 
 public class AppTest
 {

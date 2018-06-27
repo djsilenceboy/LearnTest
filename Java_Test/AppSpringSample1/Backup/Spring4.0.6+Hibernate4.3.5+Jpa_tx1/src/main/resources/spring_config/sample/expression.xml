@@ -16,7 +16,7 @@
 	</bean>
 
 	<bean id="company" class="com.djs.learn.spring_sample.expression.ACompany">
-		<property name="name" value="SingTel" />
+		<property name="name" value="Company" />
 		<property name="boss" ref="boss" />
 		<property name="assistant" ref="assistant" />
 		<property name="totalSalary" value="#{ boss.salary + assistant.salary }" />

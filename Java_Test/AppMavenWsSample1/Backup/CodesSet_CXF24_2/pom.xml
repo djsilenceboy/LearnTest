@@ -39,10 +39,10 @@
 									<wsdl>${basedir}/src/main/wsdl/session_manager_service.wsdl</wsdl>
 								</wsdlOption>
 								<wsdlOption>
-									<wsdl>${basedir}/src/main/wsdl/ndp_ext_example_test_service.wsdl</wsdl>
+									<wsdl>${basedir}/src/main/wsdl/some_example_test_service.wsdl</wsdl>
 								</wsdlOption>
 								<wsdlOption>
-									<wsdl>${basedir}/src/main/wsdl/ndp_ext_parlayx_wappush_service_1_0.wsdl</wsdl>
+									<wsdl>${basedir}/src/main/wsdl/some_parlayx_wappush_service_1_0.wsdl</wsdl>
 								</wsdlOption>
 							</wsdlOptions>
 						</configuration>

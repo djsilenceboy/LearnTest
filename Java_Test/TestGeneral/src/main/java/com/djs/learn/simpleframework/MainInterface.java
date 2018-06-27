@@ -36,7 +36,6 @@ import javax.swing.JTextField;
  * <li>2008-03-25 - 2008-03-26 / Du Jiang : Impl.
  * </ul>
  * 
- * @author Du Jiang
  * @version 1.0.0.0
  */
 public class MainInterface

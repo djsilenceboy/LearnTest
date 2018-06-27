@@ -21,10 +21,6 @@ import java.util.TreeSet;
  * <p>
  * The class uses Java reflect function. Sometimes, user should synchronize target object while using method of this class.
  * <p>
- * $Revision: 2832 $<br>
- * $Date: 2013-09-19 11:48:24 +0800 (Thu, 19 Sep 2013) $<br>
- * $Author: dujiang $
- * <p>
  * Update log: (date / author : comments)
  * <ul>
  * <li>2011-11-23 / Du Jiang : Creation

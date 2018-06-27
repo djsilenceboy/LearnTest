@@ -5,7 +5,7 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package org.csapi.www.schema.parlayx.singtel.ndp.ext.wappush.v1_0;
+package org.csapi.www.schema.parlayx.djs.sample.ext.wappush.v1_0;
 
 public class WapPushReqData  implements java.io.Serializable {
     private org.apache.axis.types.URI[] addresses;
@@ -212,7 +212,7 @@ public class WapPushReqData  implements java.io.Serializable {
         new org.apache.axis.description.TypeDesc(WapPushReqData.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0", "WapPushReqData"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0", "WapPushReqData"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("addresses");
         elemField.setXmlName(new javax.xml.namespace.QName("", "addresses"));

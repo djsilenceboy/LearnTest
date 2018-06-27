@@ -5,7 +5,7 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package com.singtel.schema.example_test.local;
+package com.djs.schema.example_test.local;
 
 public class SendDataResponse  implements java.io.Serializable {
     public SendDataResponse() {
@@ -43,7 +43,7 @@ public class SendDataResponse  implements java.io.Serializable {
         new org.apache.axis.description.TypeDesc(SendDataResponse.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://singtel.com/schema/example_test/local", "sendDataResponse"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://djs.com/schema/example_test/local", "sendDataResponse"));
     }
 
     /**

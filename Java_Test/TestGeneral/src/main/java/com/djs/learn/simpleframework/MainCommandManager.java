@@ -17,7 +17,6 @@ import java.util.logging.SimpleFormatter;
  * <li>2008-03-26 / Du Jiang : Thread
  * </ul>
  * 
- * @author Du Jiang
  * @version 1.0.0.0
  */
 public class MainCommandManager extends Thread

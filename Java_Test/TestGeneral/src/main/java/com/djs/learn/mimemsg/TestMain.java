@@ -23,8 +23,8 @@ public class TestMain
 			String[] szayContentType = {"text/plain", "text/html", "image/gif", "image/jpeg"};
 			String[] szayContent =
 			                       {"Hello", "<html><head></head><body>Welcome</body></html>",
-			                        "D:\\WorkSingTel\\Project_Test\\Java_Test\\MimeMessage\\temp\\sample.gif",
-			                        "D:\\WorkSingTel\\Project_Test\\Java_Test\\MimeMessage\\temp\\sample.jpg"};
+			                        "D:\\WorkCompany\\Project_Test\\Java_Test\\MimeMessage\\temp\\sample.gif",
+			                        "D:\\WorkCompany\\Project_Test\\Java_Test\\MimeMessage\\temp\\sample.jpg"};
 
 			Session session = Session.getInstance(new Properties());
 			MimeMessage mimeMsg = new MimeMessage(session);

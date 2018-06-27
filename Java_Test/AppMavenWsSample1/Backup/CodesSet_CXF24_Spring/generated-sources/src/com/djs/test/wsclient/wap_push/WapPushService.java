@@ -15,22 +15,22 @@ import javax.xml.ws.Service;
  * 
  */
 @WebServiceClient(name = "WapPushService", 
-                  wsdlLocation = "file:/D:/WorkDJS/Test/JEE_Test/MavenWsSample1/src/main/wsdl/ndp_ext_parlayx_wappush_service_1_0.wsdl",
-                  targetNamespace = "http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/service") 
+                  wsdlLocation = "file:/D:/WorkDJS/Test/JEE_Test/MavenWsSample1/src/main/wsdl/some_parlayx_wappush_service_1_0.wsdl",
+                  targetNamespace = "http://www.csapi.org/wsdl/parlayx/djs/sample/ext/wappush/v1_0/service") 
 public class WapPushService extends Service {
 
     public final static URL WSDL_LOCATION;
 
-    public final static QName SERVICE = new QName("http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/service", "WapPushService");
-    public final static QName ExtWapPush = new QName("http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/service", "ExtWapPush");
+    public final static QName SERVICE = new QName("http://www.csapi.org/wsdl/parlayx/djs/sample/ext/wappush/v1_0/service", "WapPushService");
+    public final static QName ExtWapPush = new QName("http://www.csapi.org/wsdl/parlayx/djs/sample/ext/wappush/v1_0/service", "ExtWapPush");
     static {
         URL url = null;
         try {
-            url = new URL("file:/D:/WorkDJS/Test/JEE_Test/MavenWsSample1/src/main/wsdl/ndp_ext_parlayx_wappush_service_1_0.wsdl");
+            url = new URL("file:/D:/WorkDJS/Test/JEE_Test/MavenWsSample1/src/main/wsdl/some_parlayx_wappush_service_1_0.wsdl");
         } catch (MalformedURLException e) {
             java.util.logging.Logger.getLogger(WapPushService.class.getName())
                 .log(java.util.logging.Level.INFO, 
-                     "Can not initialize the default wsdl from {0}", "file:/D:/WorkDJS/Test/JEE_Test/MavenWsSample1/src/main/wsdl/ndp_ext_parlayx_wappush_service_1_0.wsdl");
+                     "Can not initialize the default wsdl from {0}", "file:/D:/WorkDJS/Test/JEE_Test/MavenWsSample1/src/main/wsdl/some_parlayx_wappush_service_1_0.wsdl");
         }
         WSDL_LOCATION = url;
     }

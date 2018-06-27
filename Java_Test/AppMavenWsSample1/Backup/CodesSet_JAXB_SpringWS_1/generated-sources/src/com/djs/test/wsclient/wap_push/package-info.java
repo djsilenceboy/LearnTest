@@ -5,5 +5,5 @@
 // Generated on: 2011.11.08 at 05:01:37 PM GMT+08:00 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local")
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local")
 package com.djs.learn.wsclient.wap_push;

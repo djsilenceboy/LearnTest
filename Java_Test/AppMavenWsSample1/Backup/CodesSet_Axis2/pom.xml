@@ -40,7 +40,7 @@
 						</goals>
 						<configuration>
 							<packageName>com.djs.learn.wsclient.example_test</packageName>
-							<wsdlFile>${basedir}/src/main/wsdl/ndp_ext_example_test_service.wsdl</wsdlFile>
+							<wsdlFile>${basedir}/src/main/wsdl/some_example_test_service.wsdl</wsdlFile>
 							<outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
 							<!-- databindingName>xmlbeans</databindingName -->
 							<unwrap>true</unwrap>
@@ -54,7 +54,7 @@
 						</goals>
 						<configuration>
 							<packageName>com.djs.learn.wsclient.wap_push</packageName>
-							<wsdlFile>${basedir}/src/main/wsdl/ndp_ext_parlayx_wappush_service_1_0.wsdl</wsdlFile>
+							<wsdlFile>${basedir}/src/main/wsdl/some_parlayx_wappush_service_1_0.wsdl</wsdlFile>
 							<outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
 							<!-- databindingName>adb</databindingName-->
 							<unwrap>true</unwrap>

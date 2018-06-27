@@ -13,12 +13,12 @@ import javax.xml.ws.handler.HandlerResolver;
 import javax.xml.ws.handler.PortInfo;
 
 import org.apache.log4j.Logger;
-import org.csapi.schema.parlayx.singtel.ndp.ext.wappush.v1_0.WapPushReqData;
-import org.csapi.schema.parlayx.singtel.ndp.ext.wappush.v1_0.WapPushRespData;
-import org.csapi.wsdl.parlayx.singtel.ndp.ext.wappush.v1_0.service.ExtWapPush;
-import org.csapi.wsdl.parlayx.singtel.ndp.ext.wappush.v1_0.service.PolicyException;
-import org.csapi.wsdl.parlayx.singtel.ndp.ext.wappush.v1_0.service.ServiceException;
-import org.csapi.wsdl.parlayx.singtel.ndp.ext.wappush.v1_0.service.WapPushService;
+import org.csapi.schema.parlayx.djs.sample.ext.wappush.v1_0.WapPushReqData;
+import org.csapi.schema.parlayx.djs.sample.ext.wappush.v1_0.WapPushRespData;
+import org.csapi.wsdl.parlayx.djs.sample.ext.wappush.v1_0.service.ExtWapPush;
+import org.csapi.wsdl.parlayx.djs.sample.ext.wappush.v1_0.service.PolicyException;
+import org.csapi.wsdl.parlayx.djs.sample.ext.wappush.v1_0.service.ServiceException;
+import org.csapi.wsdl.parlayx.djs.sample.ext.wappush.v1_0.service.WapPushService;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,7 +38,7 @@ public class CWapPushTest
 		{
 			svc =
 			      new WapPushService( new URL( GeneralDefines.makeWsdlUrl( urlPart ) ), new QName(
-			              "http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/service", "WapPushService" ) );
+			              "http://www.csapi.org/wsdl/parlayx/djs/sample/ext/wappush/v1_0/service", "WapPushService" ) );
 
 			svc.setHandlerResolver( new HandlerResolver()
 			{

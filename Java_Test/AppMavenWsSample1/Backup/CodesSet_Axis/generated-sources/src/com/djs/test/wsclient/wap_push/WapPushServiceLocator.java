@@ -39,7 +39,7 @@ public class WapPushServiceLocator extends org.apache.axis.client.Service implem
         ExtWapPushWSDDServiceName = name;
     }
 
-    public org.csapi.www.wsdl.parlayx.singtel.ndp.ext.wappush.v1_0._interface.ExtWapPush getExtWapPush() throws javax.xml.rpc.ServiceException {
+    public org.csapi.www.wsdl.parlayx.djs.sample.ext.wappush.v1_0._interface.ExtWapPush getExtWapPush() throws javax.xml.rpc.ServiceException {
        java.net.URL endpoint;
         try {
             endpoint = new java.net.URL(ExtWapPush_address);
@@ -50,7 +50,7 @@ public class WapPushServiceLocator extends org.apache.axis.client.Service implem
         return getExtWapPush(endpoint);
     }
 
-    public org.csapi.www.wsdl.parlayx.singtel.ndp.ext.wappush.v1_0._interface.ExtWapPush getExtWapPush(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
+    public org.csapi.www.wsdl.parlayx.djs.sample.ext.wappush.v1_0._interface.ExtWapPush getExtWapPush(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
         try {
             com.djs.learn.wsclient.wap_push.SendWapPushBindingStub _stub = new com.djs.learn.wsclient.wap_push.SendWapPushBindingStub(portAddress, this);
             _stub.setPortName(getExtWapPushWSDDServiceName());
@@ -72,7 +72,7 @@ public class WapPushServiceLocator extends org.apache.axis.client.Service implem
      */
     public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         try {
-            if (org.csapi.www.wsdl.parlayx.singtel.ndp.ext.wappush.v1_0._interface.ExtWapPush.class.isAssignableFrom(serviceEndpointInterface)) {
+            if (org.csapi.www.wsdl.parlayx.djs.sample.ext.wappush.v1_0._interface.ExtWapPush.class.isAssignableFrom(serviceEndpointInterface)) {
                 com.djs.learn.wsclient.wap_push.SendWapPushBindingStub _stub = new com.djs.learn.wsclient.wap_push.SendWapPushBindingStub(new java.net.URL(ExtWapPush_address), this);
                 _stub.setPortName(getExtWapPushWSDDServiceName());
                 return _stub;
@@ -105,7 +105,7 @@ public class WapPushServiceLocator extends org.apache.axis.client.Service implem
     }
 
     public javax.xml.namespace.QName getServiceName() {
-        return new javax.xml.namespace.QName("http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/service", "WapPushService");
+        return new javax.xml.namespace.QName("http://www.csapi.org/wsdl/parlayx/djs/sample/ext/wappush/v1_0/service", "WapPushService");
     }
 
     private java.util.HashSet ports = null;
@@ -113,7 +113,7 @@ public class WapPushServiceLocator extends org.apache.axis.client.Service implem
     public java.util.Iterator getPorts() {
         if (ports == null) {
             ports = new java.util.HashSet();
-            ports.add(new javax.xml.namespace.QName("http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/service", "ExtWapPush"));
+            ports.add(new javax.xml.namespace.QName("http://www.csapi.org/wsdl/parlayx/djs/sample/ext/wappush/v1_0/service", "ExtWapPush"));
         }
         return ports.iterator();
     }

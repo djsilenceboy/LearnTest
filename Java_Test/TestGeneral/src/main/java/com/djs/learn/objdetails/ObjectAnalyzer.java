@@ -1,16 +1,6 @@
 
 package com.djs.learn.objdetails;
 
-/*
- * Project : ATOMIC
- * FileName : ObjectAnalyzer.java
- * Copyright Notice: 2008 Singapore Telecom Pte Ltd -- Confidential and Proprietary
- * All rights reserved.
- * This software is the confidential and proprietary information of SingTel Pte Ltd ("Confidential Information").
- * You shall not disclose such Confidential Information and shall use it only in accordance with the terms of the license
- * agreement you entered into with SingTel.
- */
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.text.MessageFormat;
@@ -36,9 +26,9 @@ public class ObjectAnalyzer
 	static final String strFormat = new String("+--- Value : {0}\n");
 	static final String listHeaderFormat = new String("+--- {0}:");
 	static final String listFormat = new String("{0}:{1} ");
-	private static final String SINGTEL_NDP_PACKAGE = "com.singtel.ndp";
-	private static final String SINGTEL_NDP_PACKAGE_2 = "ndp";
-	private static final String SINGTEL_ATOMIC_PACKAGE = "com.atomic";
+	private static final String PROD_PACKAGE = "com.djs.sample";
+	private static final String PROD_PACKAGE_2 = "some";
+	private static final String TEST_PACKAGE = "com.another";
 	private static final String OPTUS_PACKAGE = "au.com";
 
 	/**
@@ -244,7 +234,7 @@ public class ObjectAnalyzer
 	}
 
 	private static boolean isPackageAllowed(String packageName){
-		return (packageName.startsWith(SINGTEL_NDP_PACKAGE) || packageName.startsWith(SINGTEL_NDP_PACKAGE_2) || packageName.startsWith(SINGTEL_ATOMIC_PACKAGE) || packageName
+		return (packageName.startsWith(PROD_PACKAGE) || packageName.startsWith(PROD_PACKAGE_2) || packageName.startsWith(TEST_PACKAGE) || packageName
 		        .startsWith(OPTUS_PACKAGE));
 	}
 }

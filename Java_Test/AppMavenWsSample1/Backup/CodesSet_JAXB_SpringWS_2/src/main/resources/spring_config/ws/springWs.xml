@@ -27,7 +27,7 @@
 	<bean id="messageFactory" class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory" />
 
 	<oxm:jaxb2-marshaller id="marshaller"
-		contextPath="com.bea.wsdl.wlcp.wlng.session_manager.service:com.singtel.schema.example_test.local:org.csapi.schema.parlayx.singtel.ndp.ext.wappush.v1_0.local" />
+		contextPath="com.bea.wsdl.wlcp.wlng.session_manager.service:com.djs.schema.example_test.local:org.csapi.schema.parlayx.djs.sample.ext.wappush.v1_0.local" />
 
 	<!-- "org.springframework.ws.client.core.WebServiceTemplate" -->
 	<!-- "org.springframework.ws.client.core.support.WebServiceGatewaySupport" -->

@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="wapPushResponse" type="{http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0}WapPushRespData"/>
+ *         &lt;element name="wapPushResponse" type="{http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0}WapPushRespData"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -41,7 +41,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "sendWapPushResponse")
 public class SendWapPushResponse {
 
-    @XmlElement(namespace = "http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local", required = true)
+    @XmlElement(namespace = "http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local", required = true)
     protected WapPushRespData wapPushResponse;
 
     /**

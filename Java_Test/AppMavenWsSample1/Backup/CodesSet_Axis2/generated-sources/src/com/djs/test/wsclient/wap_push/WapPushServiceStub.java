@@ -49,7 +49,7 @@
                    __operation = new org.apache.axis2.description.OutInAxisOperation();
                 
 
-            __operation.setName(new javax.xml.namespace.QName("http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/interface", "sendWapPush"));
+            __operation.setName(new javax.xml.namespace.QName("http://www.csapi.org/wsdl/parlayx/djs/sample/ext/wappush/v1_0/interface", "sendWapPush"));
 	    _service.addOperation(__operation);
 	    
 
@@ -159,7 +159,7 @@
               org.apache.axis2.context.MessageContext _messageContext = null;
               try{
                org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[0].getName());
-              _operationClient.getOptions().setAction("http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/interface/ExtWapPush/sendWapPushRequest");
+              _operationClient.getOptions().setAction("http://www.csapi.org/wsdl/parlayx/djs/sample/ext/wappush/v1_0/interface/ExtWapPush/sendWapPushRequest");
               _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
               
@@ -178,7 +178,7 @@
                                                     env = toEnvelope(getFactory(_operationClient.getOptions().getSoapVersionURI()),
                                                     wapPushRequest,
                                                     dummyWrappedType,
-                                                    optimizeContent(new javax.xml.namespace.QName("http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/interface",
+                                                    optimizeContent(new javax.xml.namespace.QName("http://www.csapi.org/wsdl/parlayx/djs/sample/ext/wappush/v1_0/interface",
                                                     "sendWapPush")));
                                                 
         //adding SOAP soap_headers
@@ -302,7 +302,7 @@
         implements org.apache.axis2.databinding.ADBBean{
         /* This type was generated from the piece of schema that had
                 name = WapPushReqData
-                Namespace URI = http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0
+                Namespace URI = http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0
                 Namespace Prefix = ns4
                 */
             
@@ -552,7 +552,7 @@
                   if (serializeType){
                
 
-                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0");
+                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0");
                    if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
                            namespacePrefix+":WapPushReqData",
@@ -671,7 +671,7 @@
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
-            if(namespace.equals("http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0")){
+            if(namespace.equals("http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0")){
                 return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
@@ -1148,7 +1148,7 @@
         implements org.apache.axis2.databinding.ADBBean{
         /* This type was generated from the piece of schema that had
                 name = sendWapPush
-                Namespace URI = http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local
+                Namespace URI = http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local
                 Namespace Prefix = ns5
                 */
             
@@ -1228,7 +1228,7 @@
                   if (serializeType){
                
 
-                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local");
+                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local");
                    if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
                            namespacePrefix+":sendWapPush",
@@ -1245,7 +1245,7 @@
                                             if (localWapPushRequest==null){
                                                  throw new org.apache.axis2.databinding.ADBException("wapPushRequest cannot be null!!");
                                             }
-                                           localWapPushRequest.serialize(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local","wapPushRequest"),
+                                           localWapPushRequest.serialize(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local","wapPushRequest"),
                                                xmlWriter);
                                         
                     xmlWriter.writeEndElement();
@@ -1254,7 +1254,7 @@
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
-            if(namespace.equals("http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local")){
+            if(namespace.equals("http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local")){
                 return "ns5";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
@@ -1433,7 +1433,7 @@
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
                 
-                            elementList.add(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local",
+                            elementList.add(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local",
                                                                       "wapPushRequest"));
                             
                             
@@ -1520,7 +1520,7 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local","wapPushRequest").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local","wapPushRequest").equals(reader.getName())){
                                 
                                                 object.setWapPushRequest(WapPushReqData.Factory.parse(reader));
                                               
@@ -2242,7 +2242,7 @@
         implements org.apache.axis2.databinding.ADBBean{
         
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local",
+                "http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local",
                 "sendWapPush",
                 "ns5");
 
@@ -2321,7 +2321,7 @@
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
-            if(namespace.equals("http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local")){
+            if(namespace.equals("http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local")){
                 return "ns5";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
@@ -2544,7 +2544,7 @@
                 while(!reader.isEndElement()) {
                     if (reader.isStartElement() ){
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local","sendWapPush").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local","sendWapPush").equals(reader.getName())){
                                 
                                                 object.setSendWapPush(SendWapPush.Factory.parse(reader));
                                             
@@ -3605,7 +3605,7 @@
 
               
                   if (
-                  "http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local".equals(namespaceURI) &&
+                  "http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local".equals(namespaceURI) &&
                   "sendWapPush".equals(typeName)){
                    
                             return  SendWapPush.Factory.parse(reader);
@@ -3615,7 +3615,7 @@
 
               
                   if (
-                  "http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0".equals(namespaceURI) &&
+                  "http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0".equals(namespaceURI) &&
                   "WapPushReqData".equals(typeName)){
                    
                             return  WapPushReqData.Factory.parse(reader);
@@ -3635,7 +3635,7 @@
 
               
                   if (
-                  "http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local".equals(namespaceURI) &&
+                  "http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local".equals(namespaceURI) &&
                   "sendWapPushResponse".equals(typeName)){
                    
                             return  SendWapPushResponse.Factory.parse(reader);
@@ -3655,7 +3655,7 @@
 
               
                   if (
-                  "http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0".equals(namespaceURI) &&
+                  "http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0".equals(namespaceURI) &&
                   "WapPushRespData".equals(typeName)){
                    
                             return  WapPushRespData.Factory.parse(reader);
@@ -3673,7 +3673,7 @@
         implements org.apache.axis2.databinding.ADBBean{
         
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local",
+                "http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local",
                 "sendWapPushResponse",
                 "ns5");
 
@@ -3752,7 +3752,7 @@
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
-            if(namespace.equals("http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local")){
+            if(namespace.equals("http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local")){
                 return "ns5";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
@@ -3975,7 +3975,7 @@
                 while(!reader.isEndElement()) {
                     if (reader.isStartElement() ){
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local","sendWapPushResponse").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local","sendWapPushResponse").equals(reader.getName())){
                                 
                                                 object.setSendWapPushResponse(SendWapPushResponse.Factory.parse(reader));
                                             
@@ -4351,7 +4351,7 @@
         implements org.apache.axis2.databinding.ADBBean{
         /* This type was generated from the piece of schema that had
                 name = WapPushRespData
-                Namespace URI = http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0
+                Namespace URI = http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0
                 Namespace Prefix = ns4
                 */
             
@@ -4431,7 +4431,7 @@
                   if (serializeType){
                
 
-                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0");
+                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0");
                    if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
                            namespacePrefix+":WapPushRespData",
@@ -4469,7 +4469,7 @@
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
-            if(namespace.equals("http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0")){
+            if(namespace.equals("http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0")){
                 return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
@@ -4779,7 +4779,7 @@
         implements org.apache.axis2.databinding.ADBBean{
         /* This type was generated from the piece of schema that had
                 name = sendWapPushResponse
-                Namespace URI = http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local
+                Namespace URI = http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local
                 Namespace Prefix = ns5
                 */
             
@@ -4859,7 +4859,7 @@
                   if (serializeType){
                
 
-                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local");
+                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local");
                    if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
                            namespacePrefix+":sendWapPushResponse",
@@ -4876,7 +4876,7 @@
                                             if (localWapPushResponse==null){
                                                  throw new org.apache.axis2.databinding.ADBException("wapPushResponse cannot be null!!");
                                             }
-                                           localWapPushResponse.serialize(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local","wapPushResponse"),
+                                           localWapPushResponse.serialize(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local","wapPushResponse"),
                                                xmlWriter);
                                         
                     xmlWriter.writeEndElement();
@@ -4885,7 +4885,7 @@
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
-            if(namespace.equals("http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local")){
+            if(namespace.equals("http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local")){
                 return "ns5";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
@@ -5064,7 +5064,7 @@
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
                 
-                            elementList.add(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local",
+                            elementList.add(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local",
                                                                       "wapPushResponse"));
                             
                             
@@ -5151,7 +5151,7 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local","wapPushResponse").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local","wapPushResponse").equals(reader.getName())){
                                 
                                                 object.setWapPushResponse(WapPushRespData.Factory.parse(reader));
                                               

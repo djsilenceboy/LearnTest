@@ -6,7 +6,7 @@
 //
 
 
-package com.singtel.schema.example_test.local;
+package com.djs.schema.example_test.local;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

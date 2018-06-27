@@ -49,7 +49,7 @@
                    __operation = new org.apache.axis2.description.OutInAxisOperation();
                 
 
-            __operation.setName(new javax.xml.namespace.QName("http://singtel.com/ndp/ext/example_test/v1_0/interface", "sendData"));
+            __operation.setName(new javax.xml.namespace.QName("http://djs.com/some/example_test/v1_0/interface", "sendData"));
 	    _service.addOperation(__operation);
 	    
 
@@ -159,7 +159,7 @@
               org.apache.axis2.context.MessageContext _messageContext = null;
               try{
                org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[0].getName());
-              _operationClient.getOptions().setAction("http://singtel.com/ndp/ext/example_test/v1_0/interface/SendDataPort/sendDataRequest");
+              _operationClient.getOptions().setAction("http://djs.com/some/example_test/v1_0/interface/SendDataPort/sendDataRequest");
               _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
               
@@ -179,7 +179,7 @@
                                                     data,
                                                     address,
                                                     dummyWrappedType,
-                                                    optimizeContent(new javax.xml.namespace.QName("http://singtel.com/ndp/ext/example_test/v1_0/interface",
+                                                    optimizeContent(new javax.xml.namespace.QName("http://djs.com/some/example_test/v1_0/interface",
                                                     "sendData")));
                                                 
         //adding SOAP soap_headers
@@ -303,7 +303,7 @@
         implements org.apache.axis2.databinding.ADBBean{
         
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://singtel.com/schema/example_test/local",
+                "http://djs.com/schema/example_test/local",
                 "sendDataRequest",
                 "ns2");
 
@@ -382,7 +382,7 @@
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
-            if(namespace.equals("http://singtel.com/schema/example_test/local")){
+            if(namespace.equals("http://djs.com/schema/example_test/local")){
                 return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
@@ -605,7 +605,7 @@
                 while(!reader.isEndElement()) {
                     if (reader.isStartElement() ){
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://singtel.com/schema/example_test/local","sendDataRequest").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://djs.com/schema/example_test/local","sendDataRequest").equals(reader.getName())){
                                 
                                                 object.setSendDataRequest(SendDataRequest.Factory.parse(reader));
                                             
@@ -2347,7 +2347,7 @@
 
               
                   if (
-                  "http://singtel.com/schema/example_test/local".equals(namespaceURI) &&
+                  "http://djs.com/schema/example_test/local".equals(namespaceURI) &&
                   "sendDataResponse".equals(typeName)){
                    
                             return  SendDataResponse.Factory.parse(reader);
@@ -2377,7 +2377,7 @@
 
               
                   if (
-                  "http://singtel.com/schema/example_test/local".equals(namespaceURI) &&
+                  "http://djs.com/schema/example_test/local".equals(namespaceURI) &&
                   "sendDataRequest".equals(typeName)){
                    
                             return  SendDataRequest.Factory.parse(reader);
@@ -2395,7 +2395,7 @@
         implements org.apache.axis2.databinding.ADBBean{
         /* This type was generated from the piece of schema that had
                 name = sendDataResponse
-                Namespace URI = http://singtel.com/schema/example_test/local
+                Namespace URI = http://djs.com/schema/example_test/local
                 Namespace Prefix = ns2
                 */
             
@@ -2445,7 +2445,7 @@
                   if (serializeType){
                
 
-                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://singtel.com/schema/example_test/local");
+                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://djs.com/schema/example_test/local");
                    if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
                            namespacePrefix+":sendDataResponse",
@@ -2465,7 +2465,7 @@
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
-            if(namespace.equals("http://singtel.com/schema/example_test/local")){
+            if(namespace.equals("http://djs.com/schema/example_test/local")){
                 return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
@@ -2747,7 +2747,7 @@
         implements org.apache.axis2.databinding.ADBBean{
         /* This type was generated from the piece of schema that had
                 name = sendDataRequest
-                Namespace URI = http://singtel.com/schema/example_test/local
+                Namespace URI = http://djs.com/schema/example_test/local
                 Namespace Prefix = ns2
                 */
             
@@ -2857,7 +2857,7 @@
                   if (serializeType){
                
 
-                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://singtel.com/schema/example_test/local");
+                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://djs.com/schema/example_test/local");
                    if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
                            namespacePrefix+":sendDataRequest",
@@ -2871,7 +2871,7 @@
                
                    }
                
-                                    namespace = "http://singtel.com/schema/example_test/local";
+                                    namespace = "http://djs.com/schema/example_test/local";
                                     writeStartElement(null, namespace, "data", xmlWriter);
                              
 
@@ -2889,7 +2889,7 @@
                                     
                                    xmlWriter.writeEndElement();
                              
-                                    namespace = "http://singtel.com/schema/example_test/local";
+                                    namespace = "http://djs.com/schema/example_test/local";
                                     writeStartElement(null, namespace, "address", xmlWriter);
                              
 
@@ -2913,7 +2913,7 @@
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
-            if(namespace.equals("http://singtel.com/schema/example_test/local")){
+            if(namespace.equals("http://djs.com/schema/example_test/local")){
                 return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
@@ -3092,7 +3092,7 @@
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
                 
-                                      elementList.add(new javax.xml.namespace.QName("http://singtel.com/schema/example_test/local",
+                                      elementList.add(new javax.xml.namespace.QName("http://djs.com/schema/example_test/local",
                                                                       "data"));
                                  
                                         if (localData != null){
@@ -3101,7 +3101,7 @@
                                            throw new org.apache.axis2.databinding.ADBException("data cannot be null!!");
                                         }
                                     
-                                      elementList.add(new javax.xml.namespace.QName("http://singtel.com/schema/example_test/local",
+                                      elementList.add(new javax.xml.namespace.QName("http://djs.com/schema/example_test/local",
                                                                       "address"));
                                  
                                         if (localAddress != null){
@@ -3188,7 +3188,7 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://singtel.com/schema/example_test/local","data").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://djs.com/schema/example_test/local","data").equals(reader.getName())){
                                 
                                     java.lang.String content = reader.getElementText();
                                     
@@ -3207,7 +3207,7 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://singtel.com/schema/example_test/local","address").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://djs.com/schema/example_test/local","address").equals(reader.getName())){
                                 
                                     java.lang.String content = reader.getElementText();
                                     
@@ -3590,7 +3590,7 @@
         implements org.apache.axis2.databinding.ADBBean{
         
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://singtel.com/schema/example_test/local",
+                "http://djs.com/schema/example_test/local",
                 "sendDataResponse",
                 "ns2");
 
@@ -3669,7 +3669,7 @@
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
-            if(namespace.equals("http://singtel.com/schema/example_test/local")){
+            if(namespace.equals("http://djs.com/schema/example_test/local")){
                 return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
@@ -3892,7 +3892,7 @@
                 while(!reader.isEndElement()) {
                     if (reader.isStartElement() ){
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://singtel.com/schema/example_test/local","sendDataResponse").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://djs.com/schema/example_test/local","sendDataResponse").equals(reader.getName())){
                                 
                                                 object.setSendDataResponse(SendDataResponse.Factory.parse(reader));
                                             

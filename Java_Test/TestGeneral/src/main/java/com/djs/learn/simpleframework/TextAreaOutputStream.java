@@ -14,7 +14,6 @@ import javax.swing.JTextArea;
  * <li>2008-03-24 / Du Jiang : Creation
  * </ul>
  * 
- * @author Du Jiang
  * @version 1.0.0.0
  */
 public class TextAreaOutputStream extends OutputStream

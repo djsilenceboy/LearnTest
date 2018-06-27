@@ -12,12 +12,12 @@ import javax.xml.ws.handler.PortInfo;
 
 import org.apache.log4j.Logger;
 
-import com.singtel.ndp.ext.example_test.v1_0.service.PolicyException;
-import com.singtel.ndp.ext.example_test.v1_0.service.SendDataPort;
-import com.singtel.ndp.ext.example_test.v1_0.service.SendDataService;
-import com.singtel.ndp.ext.example_test.v1_0.service.ServiceException;
-import com.singtel.schema.example_test.local.SendDataRequest;
-import com.singtel.schema.example_test.local.SendDataResponse;
+import com.djs.sample.ext.example_test.v1_0.service.PolicyException;
+import com.djs.sample.ext.example_test.v1_0.service.SendDataPort;
+import com.djs.sample.ext.example_test.v1_0.service.SendDataService;
+import com.djs.sample.ext.example_test.v1_0.service.ServiceException;
+import com.djs.schema.example_test.local.SendDataRequest;
+import com.djs.schema.example_test.local.SendDataResponse;
 
 public class BExampleTestTest
 {
@@ -34,7 +34,7 @@ public class BExampleTestTest
 		try
 		{
 			svc =
-			      new SendDataService( new URL( GeneralDefines.makeWsdlUrl( urlPart ) ), new QName( "http://singtel.com/ndp/ext/example_test/v1_0/service",
+			      new SendDataService( new URL( GeneralDefines.makeWsdlUrl( urlPart ) ), new QName( "http://djs.com/some/example_test/v1_0/service",
 			              "SendDataService" ) );
 
 			svc.setHandlerResolver( new HandlerResolver()

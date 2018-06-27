@@ -225,8 +225,6 @@ HashSet: [[i=100, str=AA]]
 <HashSet> contains(new [3]): true
 ============================================================
  * </pre>
- *
- * @author dujiang
  */
 public class TestEqual
 {

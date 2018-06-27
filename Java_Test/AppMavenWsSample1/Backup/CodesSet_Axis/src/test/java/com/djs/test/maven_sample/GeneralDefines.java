@@ -15,9 +15,9 @@ public class GeneralDefines
 	public static final int USER_INDEX = 0;
 
 	public static final String [] USER_IDS = new String []
-	{ "app_ndp_test_user", "lbsE2e", "lbsE2eAds", "tester1" };
+	{ "app_test_user", "lbsE2e", "lbsE2eAds", "tester1" };
 	public static final String [] PASSWORDS = new String []
-	{ "app_ndp_test_user", "lbsE2e", "lbsE2eAds", "tester1" };
+	{ "app_test_user", "lbsE2e", "lbsE2eAds", "tester1" };
 
 	// Change this index for different host.
 	public static final int HOST_INDEX = 0;
@@ -66,8 +66,8 @@ public class GeneralDefines
 		<soapenv:Header>
 		 <ns1:Security soapenv:actor="http://schemas.xmlsoap.org/soap/actor/next" soapenv:mustUnderstand="0" xmlns:ns1="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
 		    <ns1:UsernameToken>
-		       <ns1:Username>app_ndp_test_user</ns1:Username>
-		       <ns1:Password>app_ndp_test_user</ns1:Password>
+		       <ns1:Username>app_test_user</ns1:Username>
+		       <ns1:Password>app_test_user</ns1:Password>
 		    </ns1:UsernameToken>
 		 </ns1:Security>
 		</soapenv:Header>
@@ -113,8 +113,8 @@ public class GeneralDefines
 		<soapenv:Header>
 		 <ns1:Security soapenv:actor="http://schemas.xmlsoap.org/soap/actor/next" soapenv:mustUnderstand="0" xmlns:ns1="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
 		    <ns1:UsernameToken>
-		       <ns1:Username>app_ndp_test_user</ns1:Username>
-		       <ns1:Password>app_ndp_test_user</ns1:Password>
+		       <ns1:Username>app_test_user</ns1:Username>
+		       <ns1:Password>app_test_user</ns1:Password>
 		    </ns1:UsernameToken>
 		 </ns1:Security>
 		 <soapenv:session soapenv:actor="http://schemas.xmlsoap.org/soap/actor/next" soapenv:mustUnderstand="0">
@@ -122,7 +122,7 @@ public class GeneralDefines
 		 </soapenv:session>
 		</soapenv:Header>
 		<soapenv:Body>
-		 <sendDataRequest xmlns="http://singtel.com/schema/example_test/local">
+		 <sendDataRequest xmlns="http://djs.com/schema/example_test/local">
 		    <data>6512345678</data>
 		    <address>tel:6512345678</address>
 		 </sendDataRequest>

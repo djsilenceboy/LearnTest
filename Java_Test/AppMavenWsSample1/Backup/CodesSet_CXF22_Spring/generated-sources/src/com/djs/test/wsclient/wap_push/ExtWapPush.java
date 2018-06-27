@@ -15,16 +15,16 @@ import javax.xml.ws.ResponseWrapper;
  * 
  */
  
-@WebService(targetNamespace = "http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/interface", name = "ExtWapPush")
+@WebService(targetNamespace = "http://www.csapi.org/wsdl/parlayx/djs/sample/ext/wappush/v1_0/interface", name = "ExtWapPush")
 @XmlSeeAlso({org.csapi.schema.parlayx.common.v2_1.ObjectFactory.class, ObjectFactory.class})
 public interface ExtWapPush {
 
-    @WebResult(name = "wapPushResponse", targetNamespace = "http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local")
-    @RequestWrapper(localName = "sendWapPush", targetNamespace = "http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local", className = "com.djs.learn.wsclient.wap_push.SendWapPush")
+    @WebResult(name = "wapPushResponse", targetNamespace = "http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local")
+    @RequestWrapper(localName = "sendWapPush", targetNamespace = "http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local", className = "com.djs.learn.wsclient.wap_push.SendWapPush")
     @WebMethod
-    @ResponseWrapper(localName = "sendWapPushResponse", targetNamespace = "http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local", className = "com.djs.learn.wsclient.wap_push.SendWapPushResponse")
+    @ResponseWrapper(localName = "sendWapPushResponse", targetNamespace = "http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local", className = "com.djs.learn.wsclient.wap_push.SendWapPushResponse")
     public com.djs.learn.wsclient.wap_push.WapPushRespData sendWapPush(
-        @WebParam(name = "wapPushRequest", targetNamespace = "http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local")
+        @WebParam(name = "wapPushRequest", targetNamespace = "http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local")
         com.djs.learn.wsclient.wap_push.WapPushReqData wapPushRequest
     ) throws PolicyException, ServiceException;
 }

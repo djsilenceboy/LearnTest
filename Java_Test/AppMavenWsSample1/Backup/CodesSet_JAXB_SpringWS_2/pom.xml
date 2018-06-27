@@ -33,8 +33,8 @@
 							<schemaDirectory>src/main/wsdl</schemaDirectory>
 							<schemaIncludes>
 								<include>session_manager_service.wsdl</include>
-								<include>ndp_ext_example_test_interface.wsdl</include>
-								<include>ndp_ext_parlayx_wappush_interface_1_0.wsdl</include>
+								<include>some_example_test_interface.wsdl</include>
+								<include>some_parlayx_wappush_interface_1_0.wsdl</include>
 							</schemaIncludes>
 							<generateDirectory>${project.build.directory}/generated-sources/src</generateDirectory>
 							<forceRegenerate>true</forceRegenerate>

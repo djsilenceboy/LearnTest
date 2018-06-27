@@ -84,7 +84,7 @@ I don't want to show you each details with pictures, you can find them by Google
     JkWorkersFile "<Tomcat 6.0>\conf\workers.properties"
     JkLogFile "<Apache2.4>\logs\mod_jk.log"
     # JkAutoAlias when WebServices location is different from Website location.
-    JkAutoAlias "D:\WorkSingTel\MyWebServices"
+    JkAutoAlias "D:\WorkCompany\MyWebServices"
     # All requests go to ajp13 by default.
     JkAutoAlias "<WebServices>"
     JkMount /* ajp13

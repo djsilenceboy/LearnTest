@@ -39,7 +39,7 @@ public class CWapPushTest
 		{
 			svc =
 			      new WapPushService( new URL( GeneralDefines.makeWsdlUrl( urlPart ) ), new QName(
-			              "http://www.csapi.org/wsdl/parlayx/singtel/ndp/ext/wappush/v1_0/service", "WapPushService" ) );
+			              "http://www.csapi.org/wsdl/parlayx/djs/sample/ext/wappush/v1_0/service", "WapPushService" ) );
 
 			svc.setHandlerResolver( new HandlerResolver()
 			{

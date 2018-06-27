@@ -7,7 +7,7 @@
 
 package com.djs.learn.wsclient.wap_push;
 
-public class SendWapPushBindingStub extends org.apache.axis.client.Stub implements org.csapi.www.wsdl.parlayx.singtel.ndp.ext.wappush.v1_0._interface.ExtWapPush {
+public class SendWapPushBindingStub extends org.apache.axis.client.Stub implements org.csapi.www.wsdl.parlayx.djs.sample.ext.wappush.v1_0._interface.ExtWapPush {
     private java.util.Vector cachedSerClasses = new java.util.Vector();
     private java.util.Vector cachedSerQNames = new java.util.Vector();
     private java.util.Vector cachedSerFactories = new java.util.Vector();
@@ -25,11 +25,11 @@ public class SendWapPushBindingStub extends org.apache.axis.client.Stub implemen
         org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("sendWapPush");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local", "wapPushRequest"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0", "WapPushReqData"), org.csapi.www.schema.parlayx.singtel.ndp.ext.wappush.v1_0.WapPushReqData.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local", "wapPushRequest"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0", "WapPushReqData"), org.csapi.www.schema.parlayx.djs.sample.ext.wappush.v1_0.WapPushReqData.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0", "WapPushRespData"));
-        oper.setReturnClass(org.csapi.www.schema.parlayx.singtel.ndp.ext.wappush.v1_0.WapPushRespData.class);
-        oper.setReturnQName(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local", "wapPushResponse"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0", "WapPushRespData"));
+        oper.setReturnClass(org.csapi.www.schema.parlayx.djs.sample.ext.wappush.v1_0.WapPushRespData.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local", "wapPushResponse"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
@@ -91,16 +91,16 @@ public class SendWapPushBindingStub extends org.apache.axis.client.Stub implemen
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0", "WapPushReqData");
+            qName = new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0", "WapPushReqData");
             cachedSerQNames.add(qName);
-            cls = org.csapi.www.schema.parlayx.singtel.ndp.ext.wappush.v1_0.WapPushReqData.class;
+            cls = org.csapi.www.schema.parlayx.djs.sample.ext.wappush.v1_0.WapPushReqData.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0", "WapPushRespData");
+            qName = new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0", "WapPushRespData");
             cachedSerQNames.add(qName);
-            cls = org.csapi.www.schema.parlayx.singtel.ndp.ext.wappush.v1_0.WapPushRespData.class;
+            cls = org.csapi.www.schema.parlayx.djs.sample.ext.wappush.v1_0.WapPushRespData.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
@@ -171,7 +171,7 @@ public class SendWapPushBindingStub extends org.apache.axis.client.Stub implemen
         }
     }
 
-    public org.csapi.www.schema.parlayx.singtel.ndp.ext.wappush.v1_0.WapPushRespData sendWapPush(org.csapi.www.schema.parlayx.singtel.ndp.ext.wappush.v1_0.WapPushReqData wapPushRequest) throws java.rmi.RemoteException, org.csapi.www.schema.parlayx.common.v2_1.PolicyException, org.csapi.www.schema.parlayx.common.v2_1.ServiceException {
+    public org.csapi.www.schema.parlayx.djs.sample.ext.wappush.v1_0.WapPushRespData sendWapPush(org.csapi.www.schema.parlayx.djs.sample.ext.wappush.v1_0.WapPushReqData wapPushRequest) throws java.rmi.RemoteException, org.csapi.www.schema.parlayx.common.v2_1.PolicyException, org.csapi.www.schema.parlayx.common.v2_1.ServiceException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -183,7 +183,7 @@ public class SendWapPushBindingStub extends org.apache.axis.client.Stub implemen
         _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/singtel/ndp/ext/wappush/v1_0/local", "sendWapPush"));
+        _call.setOperationName(new javax.xml.namespace.QName("http://www.csapi.org/schema/parlayx/djs/sample/ext/wappush/v1_0/local", "sendWapPush"));
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -195,9 +195,9 @@ public class SendWapPushBindingStub extends org.apache.axis.client.Stub implemen
         else {
             extractAttachments(_call);
             try {
-                return (org.csapi.www.schema.parlayx.singtel.ndp.ext.wappush.v1_0.WapPushRespData) _resp;
+                return (org.csapi.www.schema.parlayx.djs.sample.ext.wappush.v1_0.WapPushRespData) _resp;
             } catch (java.lang.Exception _exception) {
-                return (org.csapi.www.schema.parlayx.singtel.ndp.ext.wappush.v1_0.WapPushRespData) org.apache.axis.utils.JavaUtils.convert(_resp, org.csapi.www.schema.parlayx.singtel.ndp.ext.wappush.v1_0.WapPushRespData.class);
+                return (org.csapi.www.schema.parlayx.djs.sample.ext.wappush.v1_0.WapPushRespData) org.apache.axis.utils.JavaUtils.convert(_resp, org.csapi.www.schema.parlayx.djs.sample.ext.wappush.v1_0.WapPushRespData.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {

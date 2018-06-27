@@ -39,7 +39,7 @@ public class SendDataServiceLocator extends org.apache.axis.client.Service imple
         SendDataPortWSDDServiceName = name;
     }
 
-    public com.singtel.ndp.ext.example_test.v1_0._interface.SendDataPort getSendDataPort() throws javax.xml.rpc.ServiceException {
+    public com.djs.sample.ext.example_test.v1_0._interface.SendDataPort getSendDataPort() throws javax.xml.rpc.ServiceException {
        java.net.URL endpoint;
         try {
             endpoint = new java.net.URL(SendDataPort_address);
@@ -50,7 +50,7 @@ public class SendDataServiceLocator extends org.apache.axis.client.Service imple
         return getSendDataPort(endpoint);
     }
 
-    public com.singtel.ndp.ext.example_test.v1_0._interface.SendDataPort getSendDataPort(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
+    public com.djs.sample.ext.example_test.v1_0._interface.SendDataPort getSendDataPort(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
         try {
             com.djs.learn.wsclient.example_test.SendDataBindingStub _stub = new com.djs.learn.wsclient.example_test.SendDataBindingStub(portAddress, this);
             _stub.setPortName(getSendDataPortWSDDServiceName());
@@ -72,7 +72,7 @@ public class SendDataServiceLocator extends org.apache.axis.client.Service imple
      */
     public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         try {
-            if (com.singtel.ndp.ext.example_test.v1_0._interface.SendDataPort.class.isAssignableFrom(serviceEndpointInterface)) {
+            if (com.djs.sample.ext.example_test.v1_0._interface.SendDataPort.class.isAssignableFrom(serviceEndpointInterface)) {
                 com.djs.learn.wsclient.example_test.SendDataBindingStub _stub = new com.djs.learn.wsclient.example_test.SendDataBindingStub(new java.net.URL(SendDataPort_address), this);
                 _stub.setPortName(getSendDataPortWSDDServiceName());
                 return _stub;
@@ -105,7 +105,7 @@ public class SendDataServiceLocator extends org.apache.axis.client.Service imple
     }
 
     public javax.xml.namespace.QName getServiceName() {
-        return new javax.xml.namespace.QName("http://singtel.com/ndp/ext/example_test/v1_0/service", "SendDataService");
+        return new javax.xml.namespace.QName("http://djs.com/some/example_test/v1_0/service", "SendDataService");
     }
 
     private java.util.HashSet ports = null;
@@ -113,7 +113,7 @@ public class SendDataServiceLocator extends org.apache.axis.client.Service imple
     public java.util.Iterator getPorts() {
         if (ports == null) {
             ports = new java.util.HashSet();
-            ports.add(new javax.xml.namespace.QName("http://singtel.com/ndp/ext/example_test/v1_0/service", "SendDataPort"));
+            ports.add(new javax.xml.namespace.QName("http://djs.com/some/example_test/v1_0/service", "SendDataPort"));
         }
         return ports.iterator();
     }

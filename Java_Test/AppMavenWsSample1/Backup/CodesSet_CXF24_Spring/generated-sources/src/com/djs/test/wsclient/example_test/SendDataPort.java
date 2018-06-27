@@ -13,15 +13,15 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * Generated source version: 2.4.4
  * 
  */
-@WebService(targetNamespace = "http://singtel.com/ndp/ext/example_test/v1_0/interface", name = "SendDataPort")
+@WebService(targetNamespace = "http://djs.com/some/example_test/v1_0/interface", name = "SendDataPort")
 @XmlSeeAlso({org.csapi.schema.parlayx.common.v2_1.ObjectFactory.class, ObjectFactory.class})
 @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
 public interface SendDataPort {
 
-    @WebResult(name = "sendDataResponse", targetNamespace = "http://singtel.com/schema/example_test/local", partName = "result")
+    @WebResult(name = "sendDataResponse", targetNamespace = "http://djs.com/schema/example_test/local", partName = "result")
     @WebMethod
     public SendDataResponse sendData(
-        @WebParam(partName = "parameters", name = "sendDataRequest", targetNamespace = "http://singtel.com/schema/example_test/local")
+        @WebParam(partName = "parameters", name = "sendDataRequest", targetNamespace = "http://djs.com/schema/example_test/local")
         SendDataRequest parameters
     ) throws ServiceException, PolicyException;
 }

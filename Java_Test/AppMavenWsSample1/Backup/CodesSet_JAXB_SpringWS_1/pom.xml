@@ -52,7 +52,7 @@
 							<target>${java-api.version}</target>
 							<schemaDirectory>${basedir}/src/main/wsdl</schemaDirectory>
 							<schemaIncludes>
-								<include>ndp_ext_example_test_interface.wsdl</include>
+								<include>some_example_test_interface.wsdl</include>
 							</schemaIncludes>
 							<generateDirectory>${project.build.directory}/generated-sources/src</generateDirectory>
 							<generatePackage>com.djs.learn.wsclient.example_test</generatePackage>
@@ -71,7 +71,7 @@
 							<target>${java-api.version}</target>
 							<schemaDirectory>${basedir}/src/main/wsdl</schemaDirectory>
 							<schemaIncludes>
-								<include>ndp_ext_parlayx_wappush_interface_1_0.wsdl</include>
+								<include>some_parlayx_wappush_interface_1_0.wsdl</include>
 							</schemaIncludes>
 							<generateDirectory>${project.build.directory}/generated-sources/src</generateDirectory>
 							<generatePackage>com.djs.learn.wsclient.wap_push</generatePackage>
