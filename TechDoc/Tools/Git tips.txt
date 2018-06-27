@@ -469,6 +469,7 @@ Check full log.
 Full log with diff.
 
 > git log -p
+> git log -p <File>
 ------------------------------------------------------------
 One line with short SHA-1.
 
@@ -508,12 +509,16 @@ Rewrite branch and history
 ------------------------------------------------------------
 > git filter-branch
 ------------------------------------------------------------
-Remove file from history.
+https://help.github.com/articles/removing-sensitive-data-from-a-repository/
+----------------------------------------
+1. Remove file from history.
 
 > git filter-branch --index-filter 'git rm --cached --ignore-unmatch <PathToFile>' HEAD
 > git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch <PathToFile>' --prune-empty --tag-name-filter cat -- --all
 
 For Windows, use double quota.
+----------------------------------------
+2. Push changes back to origin.
 
 > git push origin --force --all
 > git push origin --force --tags
