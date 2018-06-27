@@ -15,7 +15,7 @@
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
 			<property name="hibernate.connection.password" value="admin" />
 			<property name="hibernate.connection.url" value="jdbc:mysql://192.168.0.36:3306/test" />
-			<property name="hibernate.connection.username" value="root" />
+			<property name="hibernate.connection.username" value="tester" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
 			<property name="hibernate.generate_statistics" value="true" />
 			<property name="hibernate.format_sql" value="true" />
