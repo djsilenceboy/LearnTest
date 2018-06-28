@@ -363,6 +363,12 @@ Reset back to a commit and discard uncommited files.
 Reset modified and unstaged files to origin content.
 
 > git checkout -- <FileName>
+------------------------------------------------------------
+To fully reset local copy.
+
+> git fetch --all
+> git reset --hard origin/master
+> git pull origin master
 ================================================================================
 Clean
 ------------------------------------------------------------

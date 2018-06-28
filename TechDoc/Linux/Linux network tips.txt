@@ -146,6 +146,11 @@ If changed, restart network service to make it work.
 
 ]# service network restart
 ------------------------------------------------------------
+Check gateway.
+
+]# ip route | grep default
+default via <Gateway_IP> dev eth0
+------------------------------------------------------------
 Check route.
 
 ]# route
