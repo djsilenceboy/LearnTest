@@ -103,7 +103,6 @@ class Constants_YahooCurrency(Constants_Base):
     CURRENCY_INFO_TO_SYMBOL = "To symbol"
 
     SECTION_EXCHANGE_INFO = "Exchange info"
-    EXCHANGE_INFO_RATE = "Rate"
     EXCHANGE_INFO_VALUE = "Value"
     EXCHANGE_INFO_TIME = "Time"
 

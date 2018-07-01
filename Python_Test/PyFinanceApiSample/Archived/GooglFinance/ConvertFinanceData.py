@@ -9,8 +9,6 @@ Update log: (date / version / author : comments)
 2017-12-10 / 1.0.0 / Du Jiang : Support Yahoo Finance stock
                                 Support Yahoo Finance currency
 2017-12-13 / 2.0.0 / Du Jiang : Combined support Fundsupermart fund and Google Finance stock / currency.
-2018-07-01 / 3.0.0 / Du Jiang : Remove Google Finance (Deprecated)
-                                Support XE currency
 '''
 
 from collections import OrderedDict
@@ -58,6 +56,18 @@ class Constants_FundsupermartFund(Constants_Base):
     HISTORICAL_PRICE_FILTER = ["1 YR High", "1 YR Low"]
     RELEVANT_CHARGES_FILTER = [
         "Annual Expense Ratio", "Annual Management Charge"]
+
+
+class Constants_GoogleStock(Constants_Base):
+    STOCK_INFO = "Stock info"
+    STOCK_INFO_NAME = "Name"
+    STOCK_INFO_EXCHANGE = "Exchange"
+    STOCK_INFO_TICKER = "Ticker"
+
+    MARKET_INFO = "Market info"
+
+    MARKET_INFO_FILTER = ["52 week high", "52 week low",
+                          "Beta", "Currency", "P/E", "Price"]
 
 
 class Constants_YahooStock(Constants_Base):
@@ -111,6 +121,8 @@ def process_inventory_list():
 
         if __data_type == 0:
             __Constants = Constants_FundsupermartFund
+        elif __data_type == 1:
+            __Constants = Constants_GoogleStock
         elif __data_type == 2:
             __Constants = Constants_YahooStock
         else:  # __data_type == 3:
@@ -166,6 +178,25 @@ def process_inventory_list():
                     if item_key in __Constants.RELEVANT_CHARGES_FILTER:
                         if item_value == "-":
                             item_value = ""
+                        record[item_key] = item_value
+                        if add_field_name:
+                            field_names.append(item_key)
+            elif __data_type == 1:
+                record[__Constants.STOCK_INFO_NAME] = record_value[__Constants.INVENTORY_DATA][__Constants.STOCK_INFO][__Constants.STOCK_INFO_NAME]
+                record[__Constants.STOCK_INFO_EXCHANGE] = record_value[__Constants.INVENTORY_DATA][__Constants.STOCK_INFO][__Constants.STOCK_INFO_EXCHANGE]
+                record[__Constants.STOCK_INFO_TICKER] = record_value[__Constants.INVENTORY_DATA][__Constants.STOCK_INFO][__Constants.STOCK_INFO_TICKER]
+
+                if add_field_name:
+                    field_names.append(__Constants.STOCK_INFO_NAME)
+                    field_names.append(__Constants.STOCK_INFO_EXCHANGE)
+                    field_names.append(__Constants.STOCK_INFO_TICKER)
+
+                # Following iteration must be sorted for adding field names in
+                # correct order.
+
+                for item_key, item_value in sorted(record_value[__Constants.INVENTORY_DATA][__Constants.MARKET_INFO].items()):
+                    if item_key in __Constants.MARKET_INFO_FILTER:
+                        print(item_key, "=", item_value)
                         record[item_key] = item_value
                         if add_field_name:
                             field_names.append(item_key)
@@ -260,7 +291,7 @@ Usage:
 
 Options:
 -h : Show help.
--d <DataType> : Finance data type. Compulsory, Value [0: Fundsupermart fund, 2: Yahoo Finance stock, 3: Currency].
+-d <DataType> : Finance data type. Compulsory, Value [0: Fundsupermart fund, 1: Google Finance stock, 2: Yahoo Finance stock, 3: Currency].
 -i <FilePath> : Environment info file path (CSV). Compulsory.
 -o <FilePath> : Result output file path (JSON). Optional, output to screen by default.
 ''')
@@ -328,7 +359,7 @@ def main(argv):
         if (__data_type is None) or (__json_file_path is None):
             __show_usage, __exit_code, __error_message = True, - \
                 4, "Missing compulsory command line option."
-        elif not (__data_type in [0, 2, 3]):
+        elif (__data_type < 0) or (__data_type > 3):
             __show_usage, __exit_code, __error_message = True, -5, "Wrong value for -d."
 
     if not __show_usage:

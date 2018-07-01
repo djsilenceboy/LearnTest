@@ -19,8 +19,6 @@ Update log: (date / version / author : comments)
 2017-11-07 / 1.3.0 / Du Jiang : Support Google Finance currency
 2017-12-13 / 2.0.0 / Du Jiang : Support PhantomJS
                                 Combined support Fundsupermart fund and Google Finance stock / currency.
-2018-07-01 / 3.0.0 / Du Jiang : Remove Google Finance (Deprecated)
-                                Support XE currency
 '''
 
 from concurrent.futures import ThreadPoolExecutor
@@ -122,18 +120,20 @@ class Constants_GoogleStock(Constants_Base):
     MARKET_INFO_VOLUME = "Volume"
 
 
-class Constants_XeCurrency(Constants_Base):
-    API_URL = "https://www.xe.com/currencyconverter/convert/?Amount=1&From={0}&To={1}"
+class Constants_GoogleCurrency(Constants_Base):
+    API_URL = "https://finance.google.com/finance?q={0}"
 
     COLUMN_NAME = "Name"
     COLUMN_FROM_SYMBOL = "From symbol"
     COLUMN_TO_SYMBOL = "To symbol"
 
     SECTION_CURRENCY_INFO = "Currency info"
+    CURRENCY_INFO_NAME = "Name"
     CURRENCY_INFO_FROM_SYMBOL = "From symbol"
     CURRENCY_INFO_TO_SYMBOL = "To symbol"
 
     SECTION_EXCHANGE_INFO = "Exchange info"
+    EXCHANGE_INFO_RATE = "Rate"
     EXCHANGE_INFO_VALUE = "Value"
     EXCHANGE_INFO_TIME = "Time"
 
@@ -180,9 +180,8 @@ def check_page_loaded(browser):
         try:
             if __data_type == 0:
                 target_section = browser.find_element_by_id("factsheet")
-            else:  # __data_type == 1:
-                target_section = browser.find_element_by_class_name(
-                    "uccResultUnit")
+            else:  # (__data_type == 1) or (__data_type == 2):
+                target_section = browser.find_element_by_id("appbar")
 
             print("target_section =", target_section)
 
@@ -194,7 +193,6 @@ def check_page_loaded(browser):
         except Exception as e:
             print("Check page loaded: Count {0}: Exception = {1}".format(
                 i, e))
-            # browser.save_screenshot('screen' + str(i) + '.png')
             # If reach max try.
             if (i + 1) == __Constants.WAIT_PAGE_LOAD_MAX_TRY:
                 raise e
@@ -245,27 +243,26 @@ def parse_get_data_fundsupoermart_fund(browser, results):
             element_data = element_section.text.splitlines()
             print("element_data =", element_data)
 
-            if len(element_data) > 1:
-                if "Risk Rating" in element_data[1]:
-                    item_data = element_data[1].split(":")
-                    item_key = item_data[0].strip()
-                    item_values = [item.strip()
-                                   for item in item_data[1].split("-")]
-                    results[__Constants.SECTION_BANNER_INFO][item_key] = item_values[0]
-                    results[__Constants.SECTION_BANNER_INFO][item_key +
-                                                             " Description"] = item_values[1]
-                elif "NAV Price" in element_data[1]:
-                    loc = element_data[1].find("(")
-                    item_key = element_data[1][:loc].strip()
-                    item_value = element_data[1][loc + 1:-1]
-                    results[__Constants.SECTION_BANNER_INFO][item_key] = element_data[0]
-                    results[__Constants.SECTION_BANNER_INFO][item_key +
-                                                             " Date"] = item_value
-                else:
-                    results[__Constants.SECTION_BANNER_INFO][element_data[1]
-                                                             ] = element_data[0]
+            if "Risk Rating" in element_data[1]:
+                item_data = element_data[1].split(":")
+                item_key = item_data[0].strip()
+                item_values = [item.strip()
+                               for item in item_data[1].split("-")]
+                results[__Constants.SECTION_BANNER_INFO][item_key] = item_values[0]
+                results[__Constants.SECTION_BANNER_INFO][item_key +
+                                                         " Description"] = item_values[1]
+            elif "NAV Price" in element_data[1]:
+                loc = element_data[1].find("(")
+                item_key = element_data[1][:loc].strip()
+                item_value = element_data[1][loc + 1:-1]
+                results[__Constants.SECTION_BANNER_INFO][item_key] = element_data[0]
+                results[__Constants.SECTION_BANNER_INFO][item_key +
+                                                         " Date"] = item_value
+            elif len(element_data) > 1:
+                results[__Constants.SECTION_BANNER_INFO][element_data[1]
+                                                         ] = element_data[0]
             else:
-                results[__Constants.SECTION_BANNER_INFO][element_data[0]
+                results[__Constants.SECTION_BANNER_INFO][element_data[1]
                                                          ] = ""
 
         results[__Constants.SECTION_OFFER_TO_BID_INFO] = {}
@@ -401,7 +398,7 @@ def parse_get_data_fundsupoermart_fund(browser, results):
         raise e
 
 
-def parse_get_data_xe_currency(browser, results):
+def parse_get_data_google_stock(browser, results):
     '''
     Open URL and get data.
 
@@ -410,32 +407,237 @@ def parse_get_data_xe_currency(browser, results):
     '''
 
     try:
-        # ration section.
+        # Appbar section.
 
         try:
-            ratio_section = browser.find_element_by_class_name("uccResultUnit")
-            print("ratio_section =", ratio_section)
+            appbar_section = browser.find_element_by_id("appbar")
+            print("appbar_section =", appbar_section)
         except Exception:
-            raise Exception("Cannot find ratio_section.")
+            raise Exception("Cannot find appbar_section.")
 
-        ratio = ratio_section.text.split()
-        print("ratio =", ratio)
+        results[__Constants.SECTION_STOCK_INFO] = {}
+
+        try:
+            stock_info_name_section = appbar_section.find_element_by_class_name(
+                "appbar-snippet-primary")
+            print("stock_info_name_section =", stock_info_name_section)
+        except Exception:
+            raise Exception("Cannot find stock_info_name_section.")
+
+        stock_info_name = stock_info_name_section.text
+        print("stock_info_name =", stock_info_name)
+        results[__Constants.SECTION_STOCK_INFO][__Constants.STOCK_INFO_NAME] = stock_info_name
+
+        try:
+            stock_exchange_ticker_section = appbar_section.find_element_by_class_name(
+                "appbar-snippet-secondary")
+            print("stock_exchange_ticker_section =",
+                  stock_exchange_ticker_section)
+        except Exception:
+            raise Exception("Cannot find stock_exchange_ticker_section.")
+
+        stock_exchange_ticker = stock_exchange_ticker_section.text
+        print("stock_exchange_ticker =", stock_exchange_ticker)
+        stock_exchange_ticker = stock_exchange_ticker[1:-1].split(":")
+        results[__Constants.SECTION_STOCK_INFO][__Constants.STOCK_INFO_EXCHANGE] = stock_exchange_ticker[0]
+        results[__Constants.SECTION_STOCK_INFO][__Constants.STOCK_INFO_TICKER] = stock_exchange_ticker[1]
+
+        # App section.
+
+        try:
+            app_section = browser.find_element_by_id("app")
+            print("app_section =", app_section)
+        except Exception:
+            raise Exception("Cannot find app_section.")
+
+        results[__Constants.SECTION_MARKET_INFO] = {}
+
+        try:
+            price_info_section = app_section.find_element_by_id("price-panel")
+            print("price_info_section =", price_info_section)
+        except Exception:
+            raise Exception("Cannot find price_info_section.")
+
+        try:
+            price_section = price_info_section.find_element_by_class_name("pr")
+            print("price_section =", price_section)
+        except Exception:
+            raise Exception("Cannot find price_section.")
+
+        results[__Constants.SECTION_MARKET_INFO][__Constants.MARKET_INFO_PRICE] = price_section.text
+
+        try:
+            currency_section = price_info_section.find_element_by_class_name(
+                "mdata-dis")
+            print("currency_section =", currency_section)
+        except Exception:
+            raise Exception("Cannot find currency_section.")
+
+        results[__Constants.SECTION_MARKET_INFO][__Constants.MARKET_INFO_CURRENCY] = currency_section.text[-3:]
+
+        try:
+            misc_info_section = app_section.find_element_by_class_name(
+                "snap-panel-and-plusone")
+            print("misc_info_section =", misc_info_section)
+        except Exception:
+            raise Exception("Cannot find misc_info_section.")
+
+        try:
+            table_entry_sections = misc_info_section.find_elements_by_tag_name(
+                "tr")
+            print("table_entry_sections =", table_entry_sections)
+        except Exception:
+            raise Exception("Cannot find table_entry_section.")
+
+        for table_entry_section in table_entry_sections:
+            print("table_entry_section =", table_entry_section.text)
+            try:
+                key_section = table_entry_section.find_element_by_class_name(
+                    "key")
+                print("key_section =", key_section.text)
+                value_section = table_entry_section.find_element_by_class_name(
+                    "val")
+                print("value_section =", value_section.text)
+            except Exception:
+                raise Exception("Cannot find key/value section.")
+
+            key = key_section.text.strip()
+            value = value_section.text.strip()
+            if value == "-":
+                value = ""
+
+            if key == __Constants.MARKET_INFO_52WEEK:
+                if value:
+                    values = value.split("-")
+                else:
+                    values = ["", ""]
+                print("values =", values)
+                results[__Constants.SECTION_MARKET_INFO][__Constants.MARKET_INFO_52WEEK_LOW] = values[0].strip(
+                )
+                results[__Constants.SECTION_MARKET_INFO][__Constants.MARKET_INFO_52WEEK_HIGH] = values[1].strip(
+                )
+            elif key == __Constants.MARKET_INFO_RANGE:
+                if value:
+                    values = value.split("-")
+                else:
+                    values = ["", ""]
+                print("values =", values)
+                results[__Constants.SECTION_MARKET_INFO][__Constants.MARKET_INFO_RANGE_LOW] = values[0].strip(
+                )
+                results[__Constants.SECTION_MARKET_INFO][__Constants.MARKET_INFO_RANGE_HIGH] = values[1].strip(
+                )
+            elif key == __Constants.MARKET_INFO_DIVIDEND_YIELD:
+                if value:
+                    values = value.split("/")
+                    if len(values) == 1:
+                        values = [values[0], ""]
+                else:
+                    values = ["", ""]
+                results[__Constants.SECTION_MARKET_INFO][__Constants.MARKET_INFO_DIVIDEND] = values[0].strip(
+                )
+                results[__Constants.SECTION_MARKET_INFO][__Constants.MARKET_INFO_YIELD] = values[1].strip(
+                )
+            elif key == __Constants.MARKET_INFO_VOLUMES:
+                if value:
+                    values = value.split("/")
+                    if len(values) == 1:
+                        values = [values[0], ""]
+                else:
+                    values = ["", ""]
+                results[__Constants.SECTION_MARKET_INFO][__Constants.MARKET_INFO_VOLUME] = values[0].strip(
+                )
+                results[__Constants.SECTION_MARKET_INFO][__Constants.MARKET_INFO_AVG_VOLUME] = values[1].strip(
+                )
+            else:
+                results[__Constants.SECTION_MARKET_INFO][key] = value
+
+        print("Get stock data: ok.")
+        print("-" * 40)
+    except Exception as e:
+        print("Get stock data: Exception = {0}".format(e))
+        raise e
+
+
+def parse_get_data_google_currency(browser, results):
+    '''
+    Open URL and get data.
+
+    @param browser : Selenium handle.
+    @param results : Dict with return results.
+    '''
+
+    try:
+        # Appbar section.
+
+        try:
+            appbar_section = browser.find_element_by_id("appbar")
+            print("appbar_section =", appbar_section)
+        except Exception:
+            raise Exception("Cannot find appbar_section.")
 
         results[__Constants.SECTION_CURRENCY_INFO] = {}
-        results[__Constants.SECTION_EXCHANGE_INFO] = {}
-
-        if len(ratio) == 5:
-            results[__Constants.SECTION_CURRENCY_INFO][__Constants.CURRENCY_INFO_FROM_SYMBOL] = ratio[1]
-            results[__Constants.SECTION_CURRENCY_INFO][__Constants.CURRENCY_INFO_TO_SYMBOL] = ratio[4]
-            results[__Constants.SECTION_EXCHANGE_INFO][__Constants.EXCHANGE_INFO_VALUE] = ratio[3]
 
         try:
-            time_section = browser.find_element_by_class_name("resultTime")
-            print("time_section =", ratio_section)
-            print("time =", time_section.text)
-            results[__Constants.SECTION_EXCHANGE_INFO][__Constants.EXCHANGE_INFO_TIME] = time_section.text
+            currency_info_name_section = appbar_section.find_element_by_class_name(
+                "appbar-snippet-primary")
+            print("currency_info_name_section =", currency_info_name_section)
         except Exception:
-            pass
+            raise Exception("Cannot find currency_info_name_section.")
+
+        currency_info_name = currency_info_name_section.text
+        print("currency_info_name =", currency_info_name)
+        results[__Constants.SECTION_CURRENCY_INFO][__Constants.CURRENCY_INFO_NAME] = currency_info_name
+
+        try:
+            currency_from_to_symbols_section = appbar_section.find_element_by_class_name(
+                "appbar-snippet-secondary")
+            print("currency_from_to_symbols_section =",
+                  currency_from_to_symbols_section)
+        except Exception:
+            raise Exception(
+                "Cannot find currency_from_to_symbols_section.")
+
+        currency_from_to_symbols = currency_from_to_symbols_section.text
+        print("currency_from_to_symbols =", currency_from_to_symbols)
+
+        results[__Constants.SECTION_CURRENCY_INFO][__Constants.CURRENCY_INFO_FROM_SYMBOL] = currency_from_to_symbols[1:4]
+        results[__Constants.SECTION_CURRENCY_INFO][__Constants.CURRENCY_INFO_TO_SYMBOL] = currency_from_to_symbols[4:-1]
+
+        # App section.
+
+        try:
+            app_section = browser.find_element_by_id("app")
+            print("app_section =", app_section)
+        except Exception:
+            raise Exception("Cannot find app_section.")
+
+        results[__Constants.SECTION_EXCHANGE_INFO] = {}
+
+        try:
+            value_info_section = app_section.find_element_by_id(
+                "currency_value")
+            print("value_info_section =", value_info_section)
+        except Exception:
+            raise Exception("Cannot find value_info_section.")
+
+        try:
+            rate_section = value_info_section.find_element_by_class_name("pr")
+            print("rate_section =", rate_section)
+        except Exception:
+            raise Exception("Cannot find rate_section.")
+
+        results[__Constants.SECTION_EXCHANGE_INFO][__Constants.EXCHANGE_INFO_RATE] = rate_section.text
+        results[__Constants.SECTION_EXCHANGE_INFO][__Constants.EXCHANGE_INFO_VALUE] = rate_section.text.split("=")[1].strip().split(" ")[
+            0].strip()
+
+        try:
+            time_section = value_info_section.find_element_by_class_name(
+                "time")
+            print("time_section =", time_section)
+        except Exception:
+            raise Exception("Cannot find time_section.")
+
+        results[__Constants.SECTION_EXCHANGE_INFO][__Constants.EXCHANGE_INFO_TIME] = time_section.text
 
         print("Get currency data: ok.")
         print("-" * 40)
@@ -472,15 +674,41 @@ def inspect_inventory(record):
         result[__Constants.RECORD][__Constants.FUND_ID] = fund_id
 
         url = __Constants.API_URL.format(fund_id)
-    else:  # __data_type == 1:
-        parse_get_data = parse_get_data_xe_currency
+    elif __data_type == 1:
+        parse_get_data = parse_get_data_google_stock
+
+        stock_info_name, stock_info_exchange, stock_info_ticker = record
+        stock_info_name = stock_info_name.strip()
+        stock_info_exchange = stock_info_exchange.strip()
+        stock_info_ticker = stock_info_ticker.strip()
+        print("stock_info_name =", stock_info_name)
+        print("stock_info_exchange =", stock_info_exchange)
+        print("stock_info_ticker =", stock_info_ticker)
+        inventory_id = stock_info_ticker
+
+        results[inventory_id] = {}
+        result = results[inventory_id]
+
+        result[__Constants.RECORD] = {}
+        result[__Constants.RECORD][__Constants.COLUMN_NAME] = stock_info_name
+        result[__Constants.RECORD][__Constants.COLUMN_EXCHANGE] = stock_info_exchange
+        result[__Constants.RECORD][__Constants.COLUMN_TICKER] = stock_info_ticker
+
+        if stock_info_exchange:
+            url = __Constants.API_URL.format("{0}:{1}".format(
+                stock_info_exchange, stock_info_ticker))
+        else:
+            url = __Constants.API_URL.format(stock_info_ticker)
+    else:  # __data_type == 2:
+        parse_get_data = parse_get_data_google_currency
 
         currency_info_from_symbol, currency_info_to_symbol = record
         currency_info_from_symbol = currency_info_from_symbol.strip()
         currency_info_to_symbol = currency_info_to_symbol.strip()
         print("currency_info_from_symbol =", currency_info_from_symbol)
         print("currency_info_to_symbol =", currency_info_to_symbol)
-        inventory_id = currency_info_from_symbol + currency_info_to_symbol
+        currency_info_symbols = currency_info_from_symbol + currency_info_to_symbol
+        inventory_id = currency_info_symbols
 
         results[inventory_id] = {}
         result = results[inventory_id]
@@ -489,8 +717,7 @@ def inspect_inventory(record):
         result[__Constants.RECORD][__Constants.COLUMN_FROM_SYMBOL] = currency_info_from_symbol
         result[__Constants.RECORD][__Constants.COLUMN_TO_SYMBOL] = currency_info_to_symbol
 
-        url = __Constants.API_URL.format(
-            currency_info_from_symbol, currency_info_to_symbol)
+        url = __Constants.API_URL.format(currency_info_symbols)
 
     print("url =", url)
     result[__Constants.URL] = url
@@ -563,8 +790,10 @@ def process_inventory_list():
 
     if __data_type == 0:
         __Constants = Constants_FundsupermartFund
-    else:  # __data_type == 1:
-        __Constants = Constants_XeCurrency
+    elif __data_type == 1:
+        __Constants = Constants_GoogleStock
+    else:  # __data_type == 2:
+        __Constants = Constants_GoogleCurrency
 
     results = {}
 
@@ -636,7 +865,7 @@ Usage:
 
 Options:
 -h : Show help.
--d <DataType> : Finance data type. Compulsory, Value [0: Fundsupermart fund, 1: XE currency].
+-d <DataType> : Finance data type. Compulsory, Value [0: Fundsupermart fund, 1: Google Finance stock, 2: Google Finance currency].
 -i <FilePath> : Environment info file path (CSV). Compulsory.
 -o <FilePath> : Result output file path (JSON). Optional, output to screen by default.
 -c <Number> : Concurrent max workers to process records. Optional, Value [1, 10], 5 by default.
@@ -648,7 +877,9 @@ Notes:
 Inventory info file format sample (With header line):
 1. Fundsupermart fund
 Fund name,Fund ID
-2. XE currency
+2. Google stock 
+Name,Exchange,Ticker
+3. Google currency
 From symbol,To symbol
 
 Notes:
@@ -738,7 +969,7 @@ def main(argv):
         if (__data_type is None) or (__inventory_info_file_path is None) or (__web_driver_file_path is None):
             __show_usage, __exit_code, __error_message = True, - \
                 4, "Missing compulsory command line option."
-        elif (__data_type < 0) or (__data_type > 1):
+        elif (__data_type < 0) or (__data_type > 2):
             __show_usage, __exit_code, __error_message = True, -5, "Wrong value for -d."
         elif (__concurrent_max_workers < 1) or (__concurrent_max_workers > 10):
             __show_usage, __exit_code, __error_message = True, -6, "Wrong value for -c."
