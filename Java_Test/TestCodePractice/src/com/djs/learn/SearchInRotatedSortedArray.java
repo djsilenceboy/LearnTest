@@ -7,35 +7,51 @@ public class SearchInRotatedSortedArray
 {
 	public int internal_search(int[] nums, int startPos, int endPos, int target){
 		int index = -1;
+		boolean furtherCheck = false;
+		boolean firstHalf = true;
 
-		if (startPos == endPos) {
+		if (startPos == endPos) { // Only 1 element.
 			if (nums[startPos] == target) index = startPos;
 		} else if (startPos < endPos) {
 			int midPos = (endPos + startPos) / 2;
-			if (nums[midPos] == target) {
+			if (nums[midPos] == target) { // Mid element is target.
 				index = midPos;
 			} else if (target < nums[midPos]) {
-				if (nums[startPos] >= nums[midPos]) {
+				furtherCheck = true;
+
+				if (nums[startPos] > nums[midPos]) {
 					// 1st half: target inside, Pivot inside, target before Pivot.
-					// startPos, midPos - 1
+					firstHalf = true;
 				} else if (target >= nums[startPos]) {
 					// 1st half: target inside, Pivot not inside, target after Pivot.
-					// startPos, midPos - 1
+					firstHalf = true;
 				} else {
 					// 2nd half: target inside, Pivot may inside.
-					// midPos + 1, endPos
+					firstHalf = false;
 				}
 			} else // target > nums[midPos]
 			{
-				if (nums[endPos] <= nums[midPos]) {
+				furtherCheck = true;
+
+				if (nums[endPos] < nums[midPos]) {
 					// 2nd half: target inside, Pivot inside, target after Pivot.
-					// midPos + 1, endPos
+					firstHalf = false;
 				} else if (target <= nums[endPos]) {
 					// 2nd half: target inside, Pivot not inside, target before Pivot.
-					// midPos + 1, endPos
+					firstHalf = false;
 				} else {
 					// 1st half: target inside, Pivot may inside.
+					firstHalf = true;
+				}
+			}
+
+			if (furtherCheck) {
+				if (firstHalf) {
 					// startPos, midPos - 1
+					index = internal_search(nums, startPos, midPos - 1, target);
+				} else {
+					// midPos + 1, endPos
+					index = internal_search(nums, midPos + 1, endPos, target);
 				}
 			}
 		}
@@ -75,6 +91,11 @@ public class SearchInRotatedSortedArray
 		{
 			int[] nums = {4, 5, 6, 7, 0, 1, 2};
 			solution.test_search_1(nums, 3);
+		}
+
+		{
+			int[] nums = {3, 1};
+			solution.test_search_1(nums, 1);
 		}
 	}
 }

@@ -85,30 +85,30 @@ public class LongestValidParentheses
 	}
 
 	/*
-// 2
-(()
-11
-  2
+	// 2
+	(()
+	11
+	2
 
-// 4
-)()())
- 3 2
-0 1 22
+	// 4
+	)()())
+	3 2
+	0 1 22
 
-// 2
-()(()
-2 11
- 1  3
+	// 2
+	()(()
+	2 11
+	1  3
 
-// 2
-)())()
- 3  1
-0 11 2
+	// 2
+	)())()
+	3  1
+	0 11 2
 
-// 6
-(()())
-33 2
-  2 33
+	// 6
+	(()())
+	33 2
+	2 33
 	*/
 	private int longestValidParentheses_3(String s){
 		int[] weight = new int[s.length()];
@@ -134,7 +134,7 @@ public class LongestValidParentheses
 	public void test_longestValidParentheses_1(String s){
 		System.out.println("Input = " + s);
 		long startTime = System.currentTimeMillis();
-		int result = longestValidParentheses(s);
+		int result = longestValidParentheses_2(s);
 		long stopTime = System.currentTimeMillis();
 		System.out.println("Result = " + result);
 		System.out.println("Time (ms) = " + (stopTime - startTime + 1));
