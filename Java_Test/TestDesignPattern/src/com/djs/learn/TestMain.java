@@ -196,7 +196,7 @@ public class TestMain
 	}
 
 	public void testInterpreter(){
-		System.out.println("Test pattern: Behavioral / Interpreter (Translater)\n");
+		System.out.println("Test pattern: Behavioral / Interpreter (Translator)\n");
 
 		ContextData contextData = new ContextData();
 		contextData.setContext("Cat");
@@ -277,7 +277,7 @@ public class TestMain
 	}
 
 	public void testObserver(){
-		System.out.println("Test pattern: Behavioral / Observer (Publishe-Subscribe, Dependents)\n");
+		System.out.println("Test pattern: Behavioral / Observer (Publish-Subscribe, Dependents)\n");
 
 		Subject subject = new Subject();
 
@@ -346,7 +346,7 @@ public class TestMain
 
 	public void testBridge(){
 		System.out
-		        .println("Test pattern: Structural / Bridge (Handle/Body, Unified interface with different implementaion, Separate interface and implementaion)\n");
+		        .println("Test pattern: Structural / Bridge (Handle/Body, Unified interface with different implementation, Separate interface and implementation)\n");
 
 		BridgeInterface bridge = new Bridge();
 
