@@ -71,8 +71,11 @@ class Constants_YahooStock(Constants_Base):
     MARKET_INFO_FIELD_PE_OLD = "PE Ratio (TTM)"
     MARKET_INFO_FIELD_PE_NEW = "P/E"
 
+    MARKET_INFO_FIELD_BETA_OLD = "Beta (3y)"
+    MARKET_INFO_FIELD_BETA_NEW = "Beta"
+
     MARKET_INFO_FILTER = ["52 week high", "52 week low",
-                          "Beta", "Currency", MARKET_INFO_FIELD_PE_OLD, "Price"]
+                          MARKET_INFO_FIELD_BETA_NEW, MARKET_INFO_FIELD_BETA_OLD, "Currency", MARKET_INFO_FIELD_PE_OLD, "Price"]
 
 
 class Constants_Currency(Constants_Base):
@@ -186,6 +189,8 @@ def process_inventory_list():
                     if item_key in __Constants.MARKET_INFO_FILTER:
                         if item_key == __Constants.MARKET_INFO_FIELD_PE_OLD:
                             item_key = __Constants.MARKET_INFO_FIELD_PE_NEW
+                        elif item_key == __Constants.MARKET_INFO_FIELD_BETA_OLD:
+                            item_key = __Constants.MARKET_INFO_FIELD_BETA_NEW
                         print(item_key, "=", item_value)
                         record[item_key] = item_value
                         if add_field_name:
