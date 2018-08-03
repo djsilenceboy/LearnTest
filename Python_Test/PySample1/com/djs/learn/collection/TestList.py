@@ -65,6 +65,18 @@ print("fruits2[] =", fruits2)
 
 print("-" * 40)
 
+aa = [[num for num in range(10)] for i in range(10)]
+print("aa[[]] =")
+for x in aa:
+    print(x)
+
+bb = aa[:]
+print("bb[[]] =")
+for x in bb:
+    print(x)
+
+print("-" * 40)
+
 vegetable_names = "carrots, potatoes, onions, leeks, celery"
 print("vegetable_names =", vegetable_names)
 vegetables = vegetable_names.split(", ")

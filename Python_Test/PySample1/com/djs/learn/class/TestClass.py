@@ -24,11 +24,14 @@ class MyClass(object):
         MyClass.count += 1
         print("{0} instance {1} created.".format(
             self.__class__.__name__, self.count))
+        print("self.__value =", self.__value)
 
     def a_method(self, aValue):
+        print("self.__value =", self.__value)
         self.__value *= aValue
         print("{0}.a_method(value = {1})".format(
-            self.__class__.__name__, self.__value))
+            self.__class__.__name__, aValue))
+        print("self.__value =", self.__value)
 
     def __del__(self):
         print("{0} instance {1} deleted.".format(

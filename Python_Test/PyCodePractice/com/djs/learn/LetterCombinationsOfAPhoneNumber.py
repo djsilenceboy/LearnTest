@@ -1,6 +1,4 @@
 '''
-Created on Mar 27, 2018
-
 @author: Du Jiang
 '''
 
