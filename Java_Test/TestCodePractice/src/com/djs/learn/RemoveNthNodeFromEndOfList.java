@@ -1,6 +1,7 @@
 
 package com.djs.learn;
 
+// https://leetcode.com/problems/remove-nth-node-from-end-of-list/description/
 public class RemoveNthNodeFromEndOfList
 {
 	static class ListNode

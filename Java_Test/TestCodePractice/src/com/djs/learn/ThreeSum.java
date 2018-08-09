@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+// https://leetcode.com/problems/3sum/description/
 public class ThreeSum
 {
 	private void checkThreeSum(Map<Integer, List<Integer>> result, Map<Integer, Set<Integer>> checkedRange, int[] nums, int i, int j){

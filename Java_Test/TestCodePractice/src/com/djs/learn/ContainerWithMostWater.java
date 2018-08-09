@@ -3,6 +3,7 @@ package com.djs.learn;
 
 import java.util.Arrays;
 
+// https://leetcode.com/problems/container-with-most-water/description/
 public class ContainerWithMostWater
 {
 	public int maxArea_1(int[] height){
@@ -76,6 +77,46 @@ public class ContainerWithMostWater
 		return max_area;
 	}
 
+	public void test_maxArea_1(int[] height){
+		// System.out.println("Height = " + Arrays.toString(height));
+		long startTime = System.currentTimeMillis();
+		int result = maxArea_1(height);
+		long stopTime = System.currentTimeMillis();
+		System.out.println("Result = " + result);
+		System.out.println("Time (ms) = " + (stopTime - startTime + 1));
+		System.out.println("----------------------------------------");
+	}
+
+	public void test_maxArea_2(int[] height){
+		// System.out.println("Height = " + Arrays.toString(height));
+		long startTime = System.currentTimeMillis();
+		int result = maxArea_2(height);
+		long stopTime = System.currentTimeMillis();
+		System.out.println("Result = " + result);
+		System.out.println("Time (ms) = " + (stopTime - startTime + 1));
+		System.out.println("----------------------------------------");
+	}
+
+	public void test_maxArea_3(int[] height){
+		// System.out.println("Height = " + Arrays.toString(height));
+		long startTime = System.currentTimeMillis();
+		int result = maxArea_3(height);
+		long stopTime = System.currentTimeMillis();
+		System.out.println("Result = " + result);
+		System.out.println("Time (ms) = " + (stopTime - startTime + 1));
+		System.out.println("----------------------------------------");
+	}
+
+	public void test_maxArea_4(int[] height){
+		// System.out.println("Height = " + Arrays.toString(height));
+		long startTime = System.currentTimeMillis();
+		int result = maxArea_4(height);
+		long stopTime = System.currentTimeMillis();
+		System.out.println("Result = " + result);
+		System.out.println("Time (ms) = " + (stopTime - startTime + 1));
+		System.out.println("----------------------------------------");
+	}
+
 	public static void main(String[] args){
 		ContainerWithMostWater solution = new ContainerWithMostWater();
 
@@ -84,38 +125,11 @@ public class ContainerWithMostWater
 			height[i] = height.length - i;
 		}
 
-		System.out.println(Arrays.toString(height));
+		System.out.println("Height = " + Arrays.toString(height));
 
-		{
-			long startTime = System.currentTimeMillis();
-			int result = solution.maxArea_1(height);
-			long stopTime = System.currentTimeMillis();
-			System.out.println("Result = " + result);
-			System.out.println("Time (ms) = " + (stopTime - startTime + 1));
-		}
-
-		{
-			long startTime = System.currentTimeMillis();
-			int result = solution.maxArea_2(height);
-			long stopTime = System.currentTimeMillis();
-			System.out.println("Result = " + result);
-			System.out.println("Time (ms) = " + (stopTime - startTime + 1));
-		}
-
-		{
-			long startTime = System.currentTimeMillis();
-			int result = solution.maxArea_3(height);
-			long stopTime = System.currentTimeMillis();
-			System.out.println("Result = " + result);
-			System.out.println("Time (ms) = " + (stopTime - startTime + 1));
-		}
-
-		{
-			long startTime = System.currentTimeMillis();
-			int result = solution.maxArea_4(height);
-			long stopTime = System.currentTimeMillis();
-			System.out.println("Result = " + result);
-			System.out.println("Time (ms) = " + (stopTime - startTime + 1));
-		}
+		solution.test_maxArea_1(height);
+		solution.test_maxArea_2(height);
+		solution.test_maxArea_3(height);
+		solution.test_maxArea_4(height);
 	}
 }

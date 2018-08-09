@@ -1,0 +1,31 @@
+================================================================================
+https://leetcode.com/problems/swap-nodes-in-pairs/description/
+================================================================================
+Test
+------------------------------------------------------------
+Java
+Accepted
+
+class Solution {
+    public ListNode swapPairs(ListNode head) {
+		ListNode result = new ListNode(-1);
+		result.next = head;
+		ListNode a = result;
+		ListNode b = (a.next != null) ? a.next.next : null;
+
+		while (b != null) {
+			ListNode temp = a.next;
+			a.next = b;
+			temp.next = b.next;
+			b.next = temp;
+			a = temp;
+			b = (a.next != null) ? a.next.next : null;
+		}
+
+		return result.next;
+    }
+}
+================================================================================
+Other solutions
+------------------------------------------------------------
+================================================================================

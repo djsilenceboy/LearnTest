@@ -1,0 +1,57 @@
+================================================================================
+https://leetcode.com/problems/3sum/description/
+================================================================================
+Test
+------------------------------------------------------------
+Java
+Time Limit Exceeded.
+
+class Solution {
+	private void checkThreeSum(Map<Integer, List<Integer>> result, Map<Integer, Set<Integer>> checkedRange, int[] nums, int i, int j){
+		Set<Integer> range = checkedRange.get(i);
+		if ((range != null) && range.contains(j)) {
+			return;
+		}
+
+		if (i + 1 < j) {
+			for (int k = i + 1; k < j; k++) {
+				if (nums[i] + nums[k] + nums[j] == 0) {
+					List<Integer> sample = Arrays.asList(nums[i], nums[k], nums[j]);
+					result.put(sample.hashCode(), sample);
+					break;
+				}
+			}
+
+			if (range == null) {
+				Set<Integer> subList = new HashSet<Integer>();
+				subList.add(j);
+				checkedRange.put(i, subList);
+			} else {
+				range.add(j);
+			}
+
+			while ((i + 1 < j) && (nums[i] == nums[i + 1]))
+				i++;
+			while ((i < j - 1) && (nums[j - 1] == nums[j]))
+				j--;
+
+			checkThreeSum(result, checkedRange, nums, i + 1, j);
+			checkThreeSum(result, checkedRange, nums, i, j - 1);
+		}
+	}
+
+	public List<List<Integer>> threeSum_1(int[] nums){
+		Map<Integer, List<Integer>> result = new HashMap<Integer, List<Integer>>();
+		Map<Integer, Set<Integer>> checkedRange = new HashMap<Integer, Set<Integer>>();
+		int i = 0, j = nums.length - 1;
+
+		Arrays.sort(nums);
+		checkThreeSum(result, checkedRange, nums, i, j);
+
+		return new ArrayList<List<Integer>>(result.values());
+	}
+}
+================================================================================
+Other solutions
+------------------------------------------------------------
+================================================================================

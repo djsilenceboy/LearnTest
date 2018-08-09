@@ -3,63 +3,73 @@ package com.djs.learn;
 
 import java.util.Arrays;
 
+// https://leetcode.com/problems/first-missing-positive/description/
 public class FirstMissingPositive
 {
 	public int firstMissingPositive(int[] nums){
 		int size = nums.length;
-		boolean some_out_of_range = false;
-		int result = -1;
+		int result = 1;
 
-		do {
-			some_out_of_range = false;
-			result = -1;
-			for (int i = 0; i < size; i++) {
-				if ((nums[i] <= 0) || (nums[i] > size)) {
-					nums[i] = Integer.MAX_VALUE;
-					some_out_of_range = true;
-				}
-				if (nums[i] > result) result = nums[i];
-			}
+		// The valid value in the array should be [1, size -1].
 
-			System.out.println("oor = " + some_out_of_range);
-			System.out.println("Result = " + result);
-
-			if (some_out_of_range) {
-				int lower = 0, upper = size - 1;
-				while (lower < upper) {
-					while ((lower < upper) && (nums[lower] != Integer.MAX_VALUE))
-						lower++;
-					while ((upper >= 0) && (nums[upper] == Integer.MAX_VALUE)) {
-						upper--;
-						size--;
-					}
-					if (lower < upper) {
-						nums[lower] = nums[upper];
-						nums[upper] = Integer.MAX_VALUE;
-					}
-				}
-
-				System.out.println("Size = " + size);
-				System.out.println("Nums = " + Arrays.toString(nums));
-			}
-		} while (some_out_of_range);
-
+		// Check each element:
+		// If its value is not correct element, and not duplicated one, exchange it with correct element.
+		// Then continue check exchanged value until no more move.
 		for (int i = 0; i < size; i++) {
-			int j = i;
-			int index = nums[j] - 1;
-			while (index != j) {
+			int index = nums[i] - 1;
+			while ((index >= 0) && (index < size) && (index != i) && (nums[i] != nums[index])) {
 				int temp = nums[index];
-				nums[index] = nums[j];
-				nums[j] = temp;
-				index = nums[j] - 1;
+				nums[index] = nums[i];
+				nums[i] = temp;
+				index = nums[i] - 1;
 			}
 		}
 
-		System.out.println("Nums = " + Arrays.toString(nums));
+		// Find the max continuous element.
+		for (int i = 0; i < size; i++) {
+			if (nums[i] - 1 != i) break;
+			result++;
+		}
 
-		if (result == -1) result = 1;
-		else result++;
-		System.out.println("Final result = " + result);
+		return result;
+	}
+
+	public int firstMissingPositive_1(int[] nums){
+		int size = nums.length;
+		int result = 1;
+
+		// The valid value in the array should be [1, size -1].
+
+		// Reset value to 0 for (, 0] and (size, ).
+		for (int i = 0; i < size; i++) {
+			if ((nums[i] <= 0) || (nums[i] > size)) {
+				nums[i] = 0;
+			}
+		}
+
+		// Check each element:
+		// If its value is not correct element, and not duplicated one, exchange it with correct element.
+		// Then continue check exchanged value until no more move.
+		for (int i = 0; i < size; i++) {
+			int index = nums[i] - 1;
+			while ((index >= 0) && (index != i) && (nums[i] != nums[index])) {
+				int temp = nums[index];
+				nums[index] = nums[i];
+				nums[i] = temp;
+				index = nums[i] - 1;
+			}
+		}
+
+		// Reset value to 0 for all duplicated elements, which cannot move to correct place.
+		for (int i = 0; i < size; i++) {
+			if (nums[i] - 1 != i) nums[i] = 0;
+		}
+
+		// Find the max continuous element, which is not 0.
+		for (int i = 0; i < size; i++) {
+			if (nums[i] == 0) break;
+			result++;
+		}
 
 		return result;
 	}

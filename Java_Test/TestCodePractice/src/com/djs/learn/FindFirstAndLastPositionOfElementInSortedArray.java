@@ -3,6 +3,7 @@ package com.djs.learn;
 
 import java.util.Arrays;
 
+// https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/description/
 public class FindFirstAndLastPositionOfElementInSortedArray
 {
 	public int[] internal_searchRange_1(int[] nums, int startPos, int endPos, int target){

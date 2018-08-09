@@ -3,6 +3,7 @@ package com.djs.learn;
 
 import java.util.ArrayDeque;
 
+// https://leetcode.com/problems/longest-valid-parentheses/description/
 public class LongestValidParentheses
 {
 	private int longestValidParentheses_1x(String s){
@@ -89,22 +90,22 @@ public class LongestValidParentheses
 	(()
 	11
 	2
-
+	
 	// 4
 	)()())
 	3 2
 	0 1 22
-
+	
 	// 2
 	()(()
 	2 11
 	1  3
-
+	
 	// 2
 	)())()
 	3  1
 	0 11 2
-
+	
 	// 6
 	(()())
 	33 2
