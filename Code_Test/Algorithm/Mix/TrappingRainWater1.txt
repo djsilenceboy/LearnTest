@@ -4,9 +4,117 @@ https://leetcode.com/problems/trapping-rain-water/description/
 Test
 ------------------------------------------------------------
 Java
+Correct, but Time Limit Exceeded.
 
 class Solution {
+	public int trap(int[] height){
+		int result = 0;
+		int rangeLow = -1, rangeHigh = -1;
 
+		// Find first non 0 element.
+		for (int i = 0; i < height.length; i++)
+			if (height[i] > 0) {
+				rangeLow = i;
+				break;
+			}
+
+		// Find last non 0 element.
+		for (int i = height.length - 1; i >= 0; i--)
+			if (height[i] > 0) {
+				rangeHigh = i;
+				break;
+			}
+
+		// Remove line by line from bottom to up.
+		while (rangeLow + 1 < rangeHigh) {
+			int tempRangeLow = -1, tempRangeHigh = -1;
+			int sectionLowIndex = -1;
+			for (int i = rangeLow; i <= rangeHigh; i++) {
+				if (height[i] > 0) {
+					// If there is left wall.
+					if (sectionLowIndex >= 0) {
+						// Add one line area.
+						result += (i - sectionLowIndex - 1);
+					}
+					// Mark this right wall as new left wall.
+					sectionLowIndex = i;
+					// Remove one line.
+					height[i]--;
+					if (height[i] > 0) {
+						if (tempRangeLow < 0) tempRangeLow = i;
+						if (tempRangeHigh < i) tempRangeHigh = i;
+					}
+				}
+			}
+
+			// Shrink range.
+			rangeLow = tempRangeLow;
+			rangeHigh = tempRangeHigh;
+		}
+
+		return result;
+	}
+}
+------------------------------------------------------------
+Java
+Correct, but Time Limit Exceeded.
+
+class Solution {
+	public int trap(int[] height){
+		if (height.length <= 2) return 0;
+
+		int result = 0;
+		int rangeLow = -1, rangeHigh = -1;
+
+		// Find first non 0 element.
+		for (int i = 0; i < height.length; i++)
+			if (height[i] > 0) {
+				rangeLow = i;
+				break;
+			}
+
+		// Find last non 0 element.
+		for (int i = height.length - 1; i >= 0; i--)
+			if (height[i] > 0) {
+				rangeHigh = i;
+				break;
+			}
+
+		// Remove lines by lines from bottom to up.
+		while (rangeLow + 1 < rangeHigh) {
+			int commonMin = Integer.MAX_VALUE;
+			for (int i = rangeLow; i <= rangeHigh; i++) {
+				if (height[i] < commonMin) commonMin = height[i];
+			}
+
+			int tempRangeLow = -1, tempRangeHigh = -1;
+			int sectionLowIndex = -1;
+			for (int i = rangeLow; i <= rangeHigh; i++) {
+				height[i] -= commonMin;
+				if (height[i] > 0) {
+					// If there is left wall.
+					if (sectionLowIndex >= 0) {
+						// Add one line area.
+						result += (i - sectionLowIndex - 1);
+					}
+					// Mark this right wall as new left wall.
+					sectionLowIndex = i;
+					// Remove one line.
+					height[i]--;
+					if (height[i] > 0) {
+						if (tempRangeLow < 0) tempRangeLow = i;
+						if (tempRangeHigh < i) tempRangeHigh = i;
+					}
+				}
+			}
+
+			// Shrink range.
+			rangeLow = tempRangeLow;
+			rangeHigh = tempRangeHigh;
+		}
+
+		return result;
+	}
 }
 ================================================================================
 Other solutions
