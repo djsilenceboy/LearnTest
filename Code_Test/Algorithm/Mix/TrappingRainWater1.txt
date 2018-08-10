@@ -116,6 +116,57 @@ class Solution {
 		return result;
 	}
 }
+------------------------------------------------------------
+Java
+Accepted.
+
+class Solution {
+	public int trap(int[] height){
+		if (height.length <= 2) return 0;
+
+		int result = 0;
+		int leftIndex = -1;
+		int currentIndex = 0;
+
+		while (currentIndex < height.length) {
+			if (height[currentIndex] > 0) {
+				if (leftIndex < 0) {
+					leftIndex = currentIndex;
+				} else if (height[leftIndex] <= height[currentIndex]) {
+					int regionArea = height[leftIndex] * (currentIndex - leftIndex - 1);
+					for (int j = leftIndex + 1; j < currentIndex; j++) {
+						regionArea -= height[j];
+					}
+					result += regionArea;
+					leftIndex = currentIndex;
+				}
+			}
+			currentIndex++;
+		}
+
+		if (leftIndex < height.length - 2) {
+			int rightIndex = -1;
+			currentIndex = height.length - 1;
+			while (currentIndex >= leftIndex) {
+				if (height[currentIndex] > 0) {
+					if (rightIndex < 0) {
+						rightIndex = currentIndex;
+					} else if (height[currentIndex] >= height[rightIndex]) {
+						int regionArea = height[rightIndex] * (rightIndex - currentIndex - 1);
+						for (int j = rightIndex - 1; j > currentIndex; j--) {
+							regionArea -= height[j];
+						}
+						result += regionArea;
+						rightIndex = currentIndex;
+					}
+				}
+				currentIndex--;
+			}
+		}
+
+		return result;
+	}
+}
 ================================================================================
 Other solutions
 ------------------------------------------------------------
