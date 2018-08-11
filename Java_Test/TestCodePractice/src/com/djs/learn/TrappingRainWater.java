@@ -127,16 +127,28 @@ public class TrappingRainWater
 		int leftIndex = -1;
 		int currentIndex = 0;
 
+		// Use stack-like method.
+
+		// First round, check from left to right.
+		// Find a left wall, then find a right wall >= left wall.
+		// If found, calculate its trapped area.
 		while (currentIndex < height.length) {
+
 			if (height[currentIndex] > 0) {
+				// If first time to find left wall, just keep left index.
+				// If left wall >= current wall, pass.
 				if (leftIndex < 0) {
 					leftIndex = currentIndex;
 				} else if (height[leftIndex] <= height[currentIndex]) {
+					// If left wall <= current wall.
+					// Calculate full area first, a square.
 					int regionArea = height[leftIndex] * (currentIndex - leftIndex - 1);
+					// Subtract all lower walls in between.
 					for (int j = leftIndex + 1; j < currentIndex; j++) {
 						regionArea -= height[j];
 					}
 					result += regionArea;
+					// Keep current wall as new left wall.
 					leftIndex = currentIndex;
 				}
 			}
@@ -146,6 +158,10 @@ public class TrappingRainWater
 			System.out.println("Height = " + Arrays.toString(height));
 		}
 
+		// If there is remained part, which are all < left wall.
+		// Second round, check from right to left (the last left wall from 1st round).
+		// Find a right wall, then find a left wall >= right wall.
+		// If found, calculate its trapped area.
 		if (leftIndex < height.length - 2) {
 			int rightIndex = -1;
 			currentIndex = height.length - 1;
