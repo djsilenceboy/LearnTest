@@ -1,0 +1,45 @@
+================================================================================
+https://leetcode.com/problems/permutations/description/
+================================================================================
+Test
+------------------------------------------------------------
+Java
+Accepted.
+
+class Solution {
+	public List<List<Integer>> permute(List<Integer> nums){
+		List<List<Integer>> result = new ArrayList<List<Integer>>();
+		int size = nums.size();
+		if (size == 1) {
+			result.add(nums);
+		} else {
+			// For each element, keep that element and find combination of remained elements.
+			// Then combine that element (as leading) with each of combinations of remained elements.
+			for (int i = 0; i < size; i++) {
+				List<Integer> newClone = new ArrayList<>(nums);
+				int temp = newClone.remove(i);
+				List<List<Integer>> subResult = permute(newClone);
+				for (List<Integer> combination : subResult) {
+					combination.add(0, temp);
+					result.add(combination);
+				}
+			}
+		}
+
+		return result;
+	}
+
+	public List<List<Integer>> permute(int[] nums){
+		List<Integer> temp = new ArrayList<Integer>();
+
+		for (int i = 0; i < nums.length; i++) {
+			temp.add(nums[i]);
+		}
+
+		return permute(temp);
+	}
+}
+================================================================================
+Other solutions
+------------------------------------------------------------
+================================================================================
