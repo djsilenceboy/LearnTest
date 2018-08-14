@@ -144,7 +144,7 @@ void dijkstra(int *pdata, int size, int startVertex)
 			{
 				tempWeight = *(pdata + selectedVertex * size + i);
 
-				if (vertexWeight[selectedVertex] + tempWeight < vertexWeight[i])
+				if ((tempWeight < MAX_INT) && (vertexWeight[selectedVertex] + tempWeight < vertexWeight[i]))
 				{
 					vertexWeight[i] = vertexWeight[selectedVertex] + tempWeight;
 					vertexParent[i] = selectedVertex;
