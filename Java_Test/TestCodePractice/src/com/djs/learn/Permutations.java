@@ -12,7 +12,7 @@ public class Permutations
 		// System.out.println("Nums = " + nums);
 		List<List<Integer>> result = new ArrayList<List<Integer>>();
 		int size = nums.size();
-		if (size == 1) {
+		if (size <= 1) {
 			result.add(nums);
 		} else {
 			// For each element, keep that element and find combination of remained elements.
