@@ -182,7 +182,7 @@ def check_page_loaded(browser):
                 target_section = browser.find_element_by_id("factsheet")
             else:  # __data_type == 1:
                 target_section = browser.find_element_by_class_name(
-                    "uccResultUnit")
+                    "converterresult-unitConversion")
 
             print("target_section =", target_section)
 
@@ -413,7 +413,8 @@ def parse_get_data_xe_currency(browser, results):
         # ration section.
 
         try:
-            ratio_section = browser.find_element_by_class_name("uccResultUnit")
+            ratio_section = browser.find_element_by_class_name(
+                "converterresult-unitConversion")
             print("ratio_section =", ratio_section)
         except Exception:
             raise Exception("Cannot find ratio_section.")

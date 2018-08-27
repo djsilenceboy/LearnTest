@@ -16,7 +16,7 @@ public class TestMainV7
 		// Compiling error: "The exception FileNotFoundException is already caught by the alternative IOException"
 		/*
 		try {
-
+		
 		} catch (FileNotFoundException | IOException e) {
 		}
 		*/
@@ -26,7 +26,7 @@ public class TestMainV7
 		// Compiling error: "Unreachable catch block for IOException. This exception is never thrown from the try statement body"
 		/*
 		try {
-		
+
 		} catch (IOException e) {
 			throw e;
 		}
@@ -168,6 +168,7 @@ class ResourceD implements Closeable
 		this.id = id;
 	}
 
+	@Override
 	public void close() throws IOException{
 		throw new IOException("ResourceC(" + id + ")");
 	}
@@ -181,6 +182,8 @@ class ResourceE implements Closeable
 		this.id = id;
 	}
 
+	// "throws Exception" can be omitted.
+	@Override
 	public void close(){
 		System.out.println("ResourceE::Close(" + id + ")");
 	}
