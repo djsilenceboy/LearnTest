@@ -251,6 +251,18 @@ Security Onion
 
 https://securityonion.net/
 ================================================================================
+Logger tool
+
+https://medium.com/@janetcpatterson/top-10-free-keyloggers-for-windows-a2a6b7f9130
+------------------------------------------------------------
+Key Logger Free
+
+http://www.key-logger-free.com/
+------------------------------------------------------------
+Spyrix Keylogger (Free Trial)
+
+http://www.spyrix.com/spyrix-free-keylogger.php
+================================================================================
 Privacy tool
 ------------------------------------------------------------
 Tor (The Onion Router)
