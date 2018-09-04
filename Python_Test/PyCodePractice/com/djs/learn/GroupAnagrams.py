@@ -1,10 +1,8 @@
-================================================================================
+'''
+@author: Du Jiang
 https://leetcode.com/problems/group-anagrams/description/
-================================================================================
-Test
-------------------------------------------------------------
-Python
-Accepted.
+'''
+
 
 class Solution:
     def groupAnagrams(self, strs):
@@ -22,12 +20,8 @@ class Solution:
                 intermediate[key] = [str]
 
         return [item for item in intermediate.values()]
-------------------------------------------------------------
-Python
-Accepted.
 
-class Solution:
-    def groupAnagrams(self, strs):
+    def groupAnagrams_2(self, strs):
         """
         :type strs: List[str]
         :rtype: List[List[str]]
@@ -41,7 +35,29 @@ class Solution:
                 intermediate[key] = [str]
 
         return list(intermediate.values())
-================================================================================
-Other solutions
-------------------------------------------------------------
-================================================================================
+
+
+def test(strs):
+    solution = Solution()
+    result = solution.groupAnagrams(strs)
+    print("result =", result)
+    print("-" * 80)
+
+
+def test_2(strs):
+    solution = Solution()
+    result = solution.groupAnagrams_2(strs)
+    print("result =", result)
+    print("-" * 80)
+
+
+def main():
+    # [["ate","eat","tea"], ["nat","tan"], ["bat"]]
+    strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+    test(strs)
+
+    test_2(strs)
+
+
+if __name__ == '__main__':
+    main()
