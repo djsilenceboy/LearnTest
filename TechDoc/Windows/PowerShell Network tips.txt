@@ -35,4 +35,6 @@ Test remote connection.
 > Test-Connection -ComputerName <HostName_Or_IP>
 
 Win32_PingStatus wrappers Test-Connection.
+------------------------------------------------------------
+> New-Object System.Net.Sockets.TcpClient("<HostName_Or_IP>", Port)
 ================================================================================

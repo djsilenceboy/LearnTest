@@ -46,6 +46,12 @@ print("letters1 =", letters1)
 letters2 = set(words)
 print("letters2 =", letters2)
 
+letters2.remove('y')
+print("letters2 =", letters2)
+
+letters2.add('Y')
+print("letters2 =", letters2)
+
 print("-------------------- Dict --------------------")
 
 blank_dict1 = {}
