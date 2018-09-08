@@ -1,16 +1,13 @@
-================================================================================
+'''
+@author: Du Jiang
 https://leetcode.com/problems/n-queens/description/
-================================================================================
-Test
-------------------------------------------------------------
-Python
-Accepted.
+'''
+
 
 class Solution:
-    def innerSolveNQueens(self, n, positions, rowNum, validColumns):
+    def innerTotalNQueens(self, n, positions, rowNum, validColumns):
         if rowNum == n:
-            self.result.append(["." * positions[i] + "Q" + "." *
-                                (n - 1 - positions[i]) for i in range(n)])
+            self.result += 1
             return
 
         for column in range(n):
@@ -27,23 +24,56 @@ class Solution:
             if valid:
                 positions[rowNum] = column
                 validColumns.remove(column)
-                self.innerSolveNQueens(
+                self.innerTotalNQueens(
                     n, positions, rowNum + 1, validColumns)
                 validColumns.add(column)
 
-    def solveNQueens(self, n):
+    def totalNQueens(self, n):
         """
         :type n: int
-        :rtype: List[List[str]]
+        :rtype: int
         """
-        self.result = []
+        self.result = 0
         validColumns = {i for i in range(n)}
         positions = [-1 for i in range(n)]
 
-        self.innerSolveNQueens(n, positions, 0, validColumns)
+        self.innerTotalNQueens(n, positions, 0, validColumns)
 
         return self.result
-================================================================================
-Other solutions
-------------------------------------------------------------
-================================================================================
+
+
+def test(n):
+    solution = Solution()
+    print("n =", n)
+    result = solution.totalNQueens(n)
+    print("result =", result)
+    print("-" * 80)
+
+
+def main():
+    # 2
+    test(4)
+    # 10
+    test(5)
+    # 4
+    test(6)
+    # 40
+    test(7)
+    # 92
+    test(8)
+    # 352
+    test(9)
+    # 724
+    test(10)
+    # 2,680
+    test(11)
+    # 14,200
+    test(12)
+    # 73,712
+    test(13)
+    # 365,596
+    test(14)
+
+
+if __name__ == '__main__':
+    main()

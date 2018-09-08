@@ -7,14 +7,8 @@ https://leetcode.com/problems/n-queens/description/
 class Solution:
     def innerSolveNQueens(self, n, positions, rowNum, validColumns):
         if rowNum == n:
-            oneMatch = []
-            for i in range(n):
-                line = ["." for k in range(n)]
-                for j in range(n):
-                    if positions[i] == j:
-                        line[j] = "Q"
-                oneMatch.append("".join(line))
-            self.result.append(oneMatch)
+            self.result.append(["." * positions[i] + "Q" + "." *
+                                (n - 1 - positions[i]) for i in range(n)])
             return
 
         for column in range(n):
@@ -73,6 +67,14 @@ def main():
     test(9)
     # 724
     test(10)
+    # 2,680
+    test(11)
+    # 14,200
+    test(12)
+    # 73,712
+    test(13)
+    # 365,596
+    test(14)
 
 
 if __name__ == '__main__':
