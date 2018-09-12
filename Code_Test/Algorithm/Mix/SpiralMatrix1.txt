@@ -1,0 +1,52 @@
+================================================================================
+https://leetcode.com/problems/spiral-matrix/description/
+================================================================================
+Test
+------------------------------------------------------------
+Java
+Accepted.
+
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+	List<Integer> spiralOrder(int[][] matrix){
+		List<Integer> result = new ArrayList<>();
+		int[] direction_x = {1, 0, -1, 0};
+		int[] direction_y = {0, 1, 0, -1};
+		int m = matrix.length;
+		if (m == 0) return result;
+		int n = matrix[0].length;
+		int size = m * n;
+		int min_x = 0, max_x = n - 1, min_y = 1, max_y = m - 1;
+		int current_direction = 0, x = 0, y = 0;
+
+		for (int counter = 0; counter < size; counter++) {
+			result.add(matrix[y][x]);
+
+			if ((current_direction == 0) && (x >= max_x)) {
+				current_direction++;
+				max_x--;
+			}
+			if ((current_direction == 1) && (y >= max_y)) {
+				current_direction++;
+				max_y--;
+			}
+			if ((current_direction == 2) && (x <= min_x)) {
+				current_direction++;
+				min_x++;
+			}
+			if ((current_direction == 3) && (y <= min_y)) {
+				current_direction = 0;
+				min_y++;
+			}
+
+			x += direction_x[current_direction];
+			y += direction_y[current_direction];
+		}
+
+		return result;
+    }
+}
+================================================================================
+Other solutions
+------------------------------------------------------------
+================================================================================

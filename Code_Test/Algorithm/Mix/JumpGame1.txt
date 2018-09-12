@@ -1,0 +1,46 @@
+================================================================================
+https://leetcode.com/problems/jump-game/description/
+================================================================================
+Test
+------------------------------------------------------------
+Java
+
+class Solution {
+	public boolean canJump(int[] nums) {
+		boolean result = false;
+		int startPos = 0;
+		int farEndPos = startPos + nums[startPos];
+		int lastFarEndPos = startPos + 1;
+
+		// From current position, for each new position it can jump (but not reach end yet),
+		// find the one, which can further (next) jump most far.
+		while ((startPos < farEndPos) && (farEndPos < nums.length - 1)) {
+			int newStartPos = -1;
+			int tempMaxJump = -1;
+
+			// Find next position, which can further jump most far.
+			// Note that, the part between startPos and lastFarEndPos had been checked in previous round.
+			for (int i = lastFarEndPos; i <= farEndPos; i++) {
+				int tempJump = i + nums[i];
+				if (tempJump > tempMaxJump) {
+					tempMaxJump = tempJump;
+					newStartPos = i;
+				}
+			}
+
+			lastFarEndPos = farEndPos;
+			startPos = newStartPos;
+			farEndPos = startPos + nums[startPos];
+		}
+
+		if ((startPos <= nums.length - 1) && (farEndPos >= nums.length - 1)) {
+			result = true;
+		}
+
+		return result;
+	}
+}
+================================================================================
+Other solutions
+------------------------------------------------------------
+================================================================================
