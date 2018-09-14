@@ -14,6 +14,7 @@ public class Permutations
 		int size = nums.size();
 		if (size <= 1) {
 			result.add(nums);
+			return result;
 		} else {
 			// For each element, keep that element and find combination of remained elements.
 			// Then combine that element (as leading) with each of combinations of remained elements.

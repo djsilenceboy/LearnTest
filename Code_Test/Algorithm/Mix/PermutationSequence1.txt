@@ -1,27 +1,44 @@
 ================================================================================
-https://leetcode.com/problems/permutations-ii/description/
+https://leetcode.com/problems/permutation-sequence/description/
 ================================================================================
 Test
 ------------------------------------------------------------
 Java
-Accepted.
+Working, but Time Limit Exceeded.
 
 class Solution {
-	public List<List<Integer>> permute(List<Integer> nums){
+	private int counter;
+	private List<Integer> kCombination;
+
+	public List<List<Integer>> permute(List<Integer> nums, int n, int k){
 		List<List<Integer>> result = new ArrayList<List<Integer>>();
 		List<List<Integer>> result2 = new ArrayList<List<Integer>>();
 		int size = nums.size();
 		if (size <= 1) {
-			result.add(nums);
+			if (size == n) {
+				kCombination = nums;
+				return null;
+			} else {
+				result.add(nums);
+				return result;
+			}
 		} else {
 			// For each element, keep that element and find combination of remained elements.
 			// Then combine that element (as leading) with each of combinations of remained elements.
 			for (int i = 0; i < size; i++) {
 				List<Integer> newClone = new ArrayList<>(nums);
 				int temp = newClone.remove(i);
-				List<List<Integer>> subResult = permute(newClone);
+				List<List<Integer>> subResult = permute(newClone, n, k);
 				for (List<Integer> combination : subResult) {
 					combination.add(0, temp);
+					if (combination.size() == n) {
+						counter++;
+						// System.out.println("K, Combination = " + k + ", " + combination);
+						if (counter == k) {
+							kCombination = combination;
+							return null;
+						}
+					}
 					result2.add(combination);
 				}
 			}
@@ -34,14 +51,23 @@ class Solution {
 		return result;
 	}
 
-	public List<List<Integer>> permuteUnique(int[] nums){
+	public String getPermutation(int n, int k){
+		String result = "";
 		List<Integer> temp = new ArrayList<Integer>();
+		counter = 0;
+		kCombination = null;
 
-		for (int i = 0; i < nums.length; i++) {
-			temp.add(nums[i]);
+		for (int i = 0; i < n; i++) {
+			temp.add(i + 1);
 		}
 
-		return permute(temp);
+		permute(temp, n, k);
+
+		for (Integer i : kCombination) {
+			result += i;
+		}
+
+		return result;
 	}
 }
 ================================================================================

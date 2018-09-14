@@ -3,9 +3,7 @@ package com.djs.learn;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 // https://leetcode.com/problems/permutations-ii/description/
 public class PermutationsII
@@ -13,10 +11,11 @@ public class PermutationsII
 	public List<List<Integer>> permute(List<Integer> nums){
 		// System.out.println("Nums = " + nums);
 		List<List<Integer>> result = new ArrayList<List<Integer>>();
-		Set<List<Integer>> result2 = new HashSet<List<Integer>>();
+		List<List<Integer>> result2 = new ArrayList<List<Integer>>();
 		int size = nums.size();
 		if (size <= 1) {
 			result.add(nums);
+			return result;
 		} else {
 			// For each element, keep that element and find combination of remained elements.
 			// Then combine that element (as leading) with each of combinations of remained elements.
