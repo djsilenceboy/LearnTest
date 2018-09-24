@@ -412,6 +412,7 @@ def parse_get_data_xe_currency(browser, results):
     try:
         # ration section.
 
+        ''''
         try:
             ratio_section = browser.find_element_by_class_name(
                 "converterresult-unitConversion")
@@ -429,10 +430,39 @@ def parse_get_data_xe_currency(browser, results):
             results[__Constants.SECTION_CURRENCY_INFO][__Constants.CURRENCY_INFO_FROM_SYMBOL] = ratio[1]
             results[__Constants.SECTION_CURRENCY_INFO][__Constants.CURRENCY_INFO_TO_SYMBOL] = ratio[4]
             results[__Constants.SECTION_EXCHANGE_INFO][__Constants.EXCHANGE_INFO_VALUE] = ratio[3]
+        '''
+
+        try:
+            fromCurrency = browser.find_element_by_class_name(
+                "converterresult-fromCurrency")
+            print("fromCurrency =", fromCurrency.text)
+        except Exception:
+            raise Exception("Cannot find fromCurrency.")
+
+        try:
+            toCurrency = browser.find_element_by_class_name(
+                "converterresult-toCurrency")
+            print("toCurrency =", toCurrency.text)
+        except Exception:
+            raise Exception("Cannot find toCurrency.")
+
+        try:
+            toAmount = browser.find_element_by_class_name(
+                "converterresult-toAmount")
+            print("toAmount =", toAmount.text)
+        except Exception:
+            raise Exception("Cannot find toAmount.")
+
+        results[__Constants.SECTION_CURRENCY_INFO] = {}
+        results[__Constants.SECTION_EXCHANGE_INFO] = {}
+
+        results[__Constants.SECTION_CURRENCY_INFO][__Constants.CURRENCY_INFO_FROM_SYMBOL] = fromCurrency.text
+        results[__Constants.SECTION_CURRENCY_INFO][__Constants.CURRENCY_INFO_TO_SYMBOL] = toCurrency.text
+        results[__Constants.SECTION_EXCHANGE_INFO][__Constants.EXCHANGE_INFO_VALUE] = toAmount.text
 
         try:
             time_section = browser.find_element_by_class_name("resultTime")
-            print("time_section =", ratio_section)
+            print("time_section =", time_section)
             print("time =", time_section.text)
             results[__Constants.SECTION_EXCHANGE_INFO][__Constants.EXCHANGE_INFO_TIME] = time_section.text
         except Exception:
