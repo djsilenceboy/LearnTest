@@ -55,7 +55,7 @@ class Constants_Base(object):
 
     WAIT_PAGE_LOAD_MAX_TRY = 10
     # Seconds.
-    WAIT_TIME_LOAD_PAGE = 3
+    WAIT_TIME_LOAD_PAGE = 5
     WAIT_TIME_VIEW_PAGE = 1
 
     RESULT = "Result"

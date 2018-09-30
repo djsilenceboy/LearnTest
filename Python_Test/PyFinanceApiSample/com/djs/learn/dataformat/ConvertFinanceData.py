@@ -143,7 +143,11 @@ def process_inventory_list():
 
                 for item_key, item_value in sorted(record_value[__Constants.INVENTORY_DATA][__Constants.SECTION_BANNER_INFO].items()):
                     if item_key == "Latest NAV Price":
-                        item_value = item_value.split(" ")[1].strip()
+                        item_values = item_value.split(" ")
+                        if len(item_values) > 1:
+                            item_value = item_values[1].strip()
+                        else:
+                            item_value = 0
 
                     record[item_key] = item_value
                     if add_field_name:
