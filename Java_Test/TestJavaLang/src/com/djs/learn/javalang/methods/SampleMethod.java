@@ -9,6 +9,7 @@ public class SampleMethod
 		System.out.println(SampleMethod.class.getName() + ":SampleMethod()");
 	}
 
+	// A method with same name as constructor.
 	public void SampleMethod(){
 		System.out.println(SampleMethod.class.getName() + ":void SampleMethod()");
 	}

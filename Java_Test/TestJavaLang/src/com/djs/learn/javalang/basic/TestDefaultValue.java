@@ -5,11 +5,6 @@ import java.util.Arrays;
 
 public class TestDefaultValue
 {
-	public int $one;
-	public int o$ne;
-	public int _one;
-	public int o_ne;
-
 	public int intDefaultValue;
 	public float floatDefaultValue;
 	public double doubleDefaultValue;

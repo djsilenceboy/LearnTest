@@ -3,7 +3,20 @@ package com.djs.learn.javalang.basic;
 
 /**
  * <pre>
+============================================================
+1538466981026:com.djs.learn.javalang.basic.Sample:constructor: name = Tom
+1538466981026:com.djs.learn.javalang.basic.Sample:constructor: name = Jerry
+1538466981026:com.djs.learn.javalang.basic.Sample:constructor: name = Mary
+--------------------
+1538466981026:gc
+1538466981042:com.djs.learn.javalang.basic.Sample:finalize: name = Tom
+1538466981152:gc
+1538466981152:com.djs.learn.javalang.basic.Sample:finalize: name = Jerry
+============================================================
  * </pre>
+ *
+ * gc() may not run even called.
+ * finalize() may not be called when application finished.
  */
 public class TestGC
 {

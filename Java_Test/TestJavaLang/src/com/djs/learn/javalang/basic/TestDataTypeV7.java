@@ -42,12 +42,14 @@ public class TestDataTypeV7
 		int anInt2 = 0B10100001010001011010000101000101; // The B can be upper or lower case.
 		// A 64-bit 'long' value. Note the "L" suffix:
 		long aLong = 0b1010000101000101101000010100010110100001010001011010000101000101L;
+		double aDouble = 0b10100001010001011010000101000101;
 
 		System.out.println("aByte = " + aByte);
 		System.out.println("aShort = " + aShort);
 		System.out.println("anInt1 = " + anInt1);
 		System.out.println("anInt2 = " + anInt2);
 		System.out.println("aLong = " + aLong);
+		System.out.println("aDouble = " + aDouble);
 
 		System.out.println("----------------------------------------");
 

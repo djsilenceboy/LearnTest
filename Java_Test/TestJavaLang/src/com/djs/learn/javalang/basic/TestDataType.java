@@ -13,6 +13,35 @@ import java.util.Random;
 
 public class TestDataType
 {
+	public void testHexDecimal(){
+		System.out.println("Test: Hex Decimal");
+
+		byte aByte = 0x1F;
+		short aShort = 0x1F;
+		int anInt = 0x1F;
+		long aLong = 0x1F;
+		double aDouble = 0x1F;
+
+		System.out.println("aByte = " + aByte);
+		System.out.println("aShort = " + aShort);
+		System.out.println("anInt1 = " + anInt);
+		System.out.println("aLong = " + aLong);
+		System.out.println("aDouble = " + aDouble);
+
+		System.out.println("----------------------------------------");
+
+		switch (0x1F){
+			case 0x1F:
+				System.out.println("0x1F");
+			break;
+			case 0x2F:
+				System.out.println("0x2F");
+			break;
+			default:
+				System.out.println("0xFF");
+		}
+	}
+
 	public void testShiftRandom(){
 		System.out.println("Test: Shift Rnd");
 
@@ -55,6 +84,9 @@ public class TestDataType
 		int[] data2 = {11, 12, 13};
 		// Cannot be "-1".
 		// System.out.println("Array2[-1] = " + data2[-1]);
+
+		int[] data3[] = {{11, 12, 13}, {21, 22}, {31, 32, 33, 34}};
+		System.out.println("Array3 = " + Arrays.deepToString(data3));
 
 		List<String> list = new ArrayList<String>();
 		list.add("Hello");
@@ -190,6 +222,9 @@ public class TestDataType
 
 	public static void main(String[] args){
 		TestDataType test = new TestDataType();
+
+		System.out.println("============================================================");
+		test.testHexDecimal();
 
 		System.out.println("============================================================");
 		test.testShiftRandom();
