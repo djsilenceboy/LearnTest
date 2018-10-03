@@ -4,20 +4,101 @@ package com.djs.learn.javalang.basic;
 public class TestPrimaryDataType
 {
 	// Test default value for class level.
-	long defaultLongVal;
-	int defaultIntVal;
-	short defaultShortVal;
 	byte defaultByteVal;
+	short defaultShortVal;
+	char defaultCharVal;
+	int defaultIntVal;
+	long defaultLongVal;
 	int[] defaultIntArrayVale;
 
 	public void testDefaultValue(){
 		System.out.println("Test: Default value (Class level)");
 
-		System.out.println("long = " + defaultLongVal);
-		System.out.println("int = " + defaultIntVal);
-		System.out.println("short = " + defaultShortVal);
 		System.out.println("byte = " + defaultByteVal);
+		System.out.println("short = " + defaultShortVal);
+		System.out.println("char = " + defaultCharVal);
+		System.out.println("int = " + defaultIntVal);
+		System.out.println("long = " + defaultLongVal);
 		System.out.println("int [] = " + defaultIntArrayVale);
+	}
+
+	public void testCastValue(){
+		System.out.println("Test: Cast");
+
+		// byte/short/char are promoted to int for arithmetic operation.
+
+		{
+			byte b1 = 1, b2 = 2;
+			byte b3 = (byte)(b1 + b2);
+			short s1 = (short)(b1 + b2);
+			int i1 = b1 + b2;
+			float f1 = b1 + b2;
+			double d1 = b1 + b2;
+		}
+
+		{
+			short s1 = 1, s2 = 2;
+			short s3 = (short)(s1 + s2);
+			byte b1 = (byte)(s1 + s2);
+			int i1 = s1 + s2;
+			float f1 = s1 + s2;
+			double d1 = s1 + s2;
+		}
+
+		{
+			char c1 = 1, c2 = 2;
+			char c3 = (char)(c1 + c2);
+			byte b1 = (byte)(c1 + c2);
+			int i1 = c1 + c2;
+			float f1 = c1 + c2;
+			double d1 = c1 + c2;
+		}
+
+		{
+			int i1 = 1, i2 = 2;
+			int i3 = i1 + i2;
+			byte b1 = (byte)(i1 + i2);
+			short s1 = (short)(i1 + i2);
+			long l1 = i1 + i2;
+			float f1 = i1 + i2;
+			double d1 = i1 + i2;
+		}
+
+		{
+			float f1 = 1, f2 = 2;
+			float f3 = f1 + f2;
+			byte b1 = (byte)(f1 + f2);
+			short s1 = (short)(f1 + f2);
+			int i1 = (int)(f1 + f2);
+			long l1 = (long)(f1 + f2);
+			double d1 = f1 + f2;
+		}
+
+		{
+			// When using compound assignment, no need to cast int to byte/short.
+
+			byte b1 = 1;
+			byte b2 = 2;
+			b2 += b1;
+
+			short s1 = 1;
+			short s2 = 2;
+			s2 += s1;
+		}
+
+		{
+			byte b1 = (byte)256;
+			short s1 = (short)65536;
+			int i1 = (int)9123456789L;
+			long l1 = 1;
+			long l2 = 9123456789L;
+
+			System.out.println("Byte cast: 256 -> " + b1);
+			System.out.println("Short cast: 65536 -> " + s1);
+			System.out.println("Int cast: 9123456789 -> " + i1);
+			System.out.println("Long: " + l2);
+		}
+
 	}
 
 	public void testBoolean(){
@@ -50,19 +131,19 @@ public class TestPrimaryDataType
 	public void testWideningPrimitiveConversion(){
 		/*
 		5.1.2. Widening Primitive Conversion
-		
+
 		19 specific conversions on primitive types are called the widening primitive conversions:
-		
+
 		byte to short, int, long, float, or double
-		
+
 		short to int, long, float, or double
-		
+
 		char to int, long, float, or double
-		
+
 		int to long, float, or double
-		
+
 		long to float or double
-		
+
 		float to double
 		 */
 		System.out.println("Test: Widening Primitive Conversion");
@@ -83,19 +164,19 @@ public class TestPrimaryDataType
 	public void testNarrowingPrimitiveConversion(){
 		/*
 		5.1.3. Narrowing Primitive Conversion
-		
+
 		22 specific conversions on primitive types are called the narrowing primitive conversions:
-		
+
 		short to byte or char
-		
+
 		char to byte or short
-		
+
 		int to byte, short, or char
-		
+
 		long to byte, short, char, or int
-		
+
 		float to byte, short, char, int, or long
-		
+
 		double to byte, short, char, int, long, or float
 		*/
 		System.out.println("Test: Narrowing Primitive Conversion");
@@ -169,6 +250,9 @@ public class TestPrimaryDataType
 
 		System.out.println("============================================================");
 		test.testDefaultValue();
+
+		System.out.println("============================================================");
+		test.testCastValue();
 
 		System.out.println("============================================================");
 		test.testBoolean();

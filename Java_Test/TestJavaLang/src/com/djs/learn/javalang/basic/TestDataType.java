@@ -88,6 +88,9 @@ public class TestDataType
 		int[] data3[] = {{11, 12, 13}, {21, 22}, {31, 32, 33, 34}};
 		System.out.println("Array3 = " + Arrays.deepToString(data3));
 
+		int data4_1[] = {11, 12, 13}, data4_2 = 4;
+		int[] data5_1 = {11, 12, 13}, data5_2 = {11, 12, 13};
+
 		List<String> list = new ArrayList<String>();
 		list.add("Hello");
 		list.add("Ok");

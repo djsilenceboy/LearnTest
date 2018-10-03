@@ -79,6 +79,44 @@ public class TestFlowControl
 		}
 	}
 
+	public void testSwitchFalldown(){
+		{
+			int index = 2;
+
+			switch (index){
+				case 0:
+					System.out.println(0);
+				case 1:
+					System.out.println(1);
+				case 2:
+					System.out.println(2);
+				case 3:
+					System.out.println(3);
+				default:
+					System.out.println("Unknown");
+			}
+		}
+
+		System.out.println("----------------------------------------");
+
+		{
+			// There is no particular order for default and case
+			int index = 2;
+
+			switch (index){
+				case 0:
+					System.out.println(0);
+				default:
+					System.out.println("Unknown");
+				case 1:
+					System.out.println(1);
+				break;
+				case 3:
+					System.out.println(3);
+			}
+		}
+	}
+
 	public void testFor(){
 		String[] names = {"Tom", "Jerry", "Mary"};
 		String result = null;
@@ -108,7 +146,6 @@ public class TestFlowControl
 
 		i = 5;
 
-		loop1:
 		while (i-- > 0) {
 			for (int j = 0; j < 5; j++) {
 				if (j == 2) {
@@ -123,11 +160,11 @@ public class TestFlowControl
 
 		i = 5;
 
-		loop1:
+		loop2:
 		while (i-- > 0) {
 			for (int j = 0; j < 5; j++) {
 				if (j == 2) {
-					continue loop1;
+					continue loop2;
 				}
 
 				System.out.println("i, j = " + i + ", " + j);
@@ -138,7 +175,6 @@ public class TestFlowControl
 
 		i = 5;
 
-		loop1:
 		while (i-- > 0) {
 			for (int j = 0; j < 5; j++) {
 				if (j == 2) {
@@ -166,6 +202,10 @@ public class TestFlowControl
 		System.out.println("============================================================");
 
 		testMain.testSwitch();
+
+		System.out.println("============================================================");
+
+		testMain.testSwitchFalldown();
 
 		System.out.println("============================================================");
 

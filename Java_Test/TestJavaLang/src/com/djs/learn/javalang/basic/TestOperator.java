@@ -79,6 +79,14 @@ public class TestOperator
 		System.out.println("a || b = " + (a || b));
 	}
 
+	public void test6(){
+		int i = 1;
+		System.out.println("i = " + i);
+		i = i++;
+		i = i++;
+		System.out.println("i = " + i);
+	}
+
 	public static void main(String[] args){
 		TestOperator test = new TestOperator();
 
@@ -101,6 +109,10 @@ public class TestOperator
 		System.out.println("----------------------------------------");
 
 		test.test5();
+
+		System.out.println("----------------------------------------");
+
+		test.test6();
 
 		System.out.println("============================================================");
 	}
