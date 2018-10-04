@@ -3,6 +3,7 @@ package com.djs.learn.javalang.collections;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,6 +20,65 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Vector;
 
+/**
+ * <pre>
+============================================================
+java.util.ArrayList = [null, Cat, null, Dog, 7]
+java.util.ArrayList = [null, Cat, null, Dog]
+java.util.LinkedList = [null, Cat, null, Dog]
+java.util.Vector = [null, Cat, null, Dog]
+java.util.Stack = [null, Cat, null, Dog]
+============================================================
+java.util.ArrayList = [1, null]
+----------------------------------------
+Exception = java.lang.NullPointerException
+----------------------------------------
+1
+Exception = java.lang.NullPointerException
+----------------------------------------
+Array = [1, 2, 3]
+java.util.Arrays$ArrayList = [1, 2, 3]
+Array = [1, 4, 3]
+java.util.Arrays$ArrayList = [1, 4, 3]
+Exception = java.lang.UnsupportedOperationException
+Exception = java.lang.UnsupportedOperationException
+============================================================
+java.util.HashSet = [null, Cat, Dog]
+java.util.LinkedHashSet = [null, Cat, Dog]
+java.util.TreeSet = [Cat, Dog]
+============================================================
+java.util.HashMap = {null=null, Vehicle=Car, Animal=Dog}
+java.util.LinkedHashMap = {null=null, Animal=Dog}
+java.util.TreeMap = {Animal=Dog}
+java.util.Hashtable = {Animal=Dog}
+============================================================
+java.util.ArrayDeque = [Cat1, Dog2]
+java.util.ArrayDeque = [Dog2]
+java.util.LinkedList = [Cat, Dog]
+java.util.LinkedList = [Dog]
+============================================================
+java.util.ArrayDeque = [Cat1, Dog2]
+java.util.ArrayDeque = [Dog2]
+java.util.ArrayDeque = [Mice3, Dog2]
+java.util.ArrayDeque = [Dog2]
+java.util.LinkedList = [Cat, Dog]
+java.util.LinkedList = [Dog]
+java.util.LinkedList = [Mice, Dog]
+============================================================
+Item = 0, 0, 10
+Item = 1, 1, 9
+Item = 2, 2, 8
+Item = 3, 3, 7
+Item = 4, 4, 6
+Item = 5, 5, 5
+Item = 6, 6, 4
+Item = 7, 7, 3
+Item = 8, 8, 2
+Item = 9, 9, 1
+Top = 9, 9
+============================================================
+ * </pre>
+ */
 public class TestMain
 {
 	public void testList(){
@@ -45,6 +105,8 @@ public class TestMain
 			list.add("Cat");
 			list.add(null);
 			list.add("Dog");
+			// Not working.
+			// list.add(8);
 
 			System.out.println(list.getClass().getName() + " = " + list);
 		}
@@ -88,6 +150,62 @@ public class TestMain
 			list.add("Dog");
 
 			System.out.println(list.getClass().getName() + " = " + list);
+		}
+	}
+
+	public void testIntegerList(){
+		{
+			List<Integer> list = new ArrayList<Integer>();
+			list.add(1);
+			list.add(null);
+			System.out.println(list.getClass().getName() + " = " + list);
+
+			System.out.println("----------------------------------------");
+
+			try {
+				int i = list.get(1);
+			} catch (Exception e) {
+				System.out.println("Exception = " + e);
+			}
+
+			System.out.println("----------------------------------------");
+
+			try {
+				for (int i : list) {
+					System.out.println(i);
+				}
+			} catch (Exception e) {
+				System.out.println("Exception = " + e);
+			}
+		}
+
+		System.out.println("----------------------------------------");
+
+		{
+			// Backed list.
+			// It should be an Object array.
+			// The new list refers to the same array space.
+			// It can change element, but cannot add or delete element.
+
+			Integer[] arr = {1, 2, 3};
+			List<Integer> list = Arrays.asList(arr);
+			System.out.println("Array = " + Arrays.toString(arr));
+			System.out.println(list.getClass().getName() + " = " + list);
+			list.set(1, 4);
+			System.out.println("Array = " + Arrays.toString(arr));
+			System.out.println(list.getClass().getName() + " = " + list);
+
+			try {
+				list.remove(1);
+			} catch (Exception e) {
+				System.out.println("Exception = " + e);
+			}
+
+			try {
+				list.add(4);
+			} catch (Exception e) {
+				System.out.println("Exception = " + e);
+			}
 		}
 	}
 
@@ -285,7 +403,12 @@ public class TestMain
 	public static void main(String[] args){
 		TestMain testMain = new TestMain();
 
+		System.out.println("============================================================");
+
 		testMain.testList();
+		System.out.println("============================================================");
+
+		testMain.testIntegerList();
 		System.out.println("============================================================");
 
 		testMain.testSet();
