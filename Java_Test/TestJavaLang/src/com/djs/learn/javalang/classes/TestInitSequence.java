@@ -1,5 +1,5 @@
 
-package com.djs.learn.javalang.basic;
+package com.djs.learn.javalang.classes;
 
 /**
  * <pre>

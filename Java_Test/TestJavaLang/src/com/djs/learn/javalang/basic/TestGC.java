@@ -60,14 +60,14 @@ class SampleGC
 	private String name;
 
 	public SampleGC(String name){
-		System.out.println(System.currentTimeMillis() + ":" + Sample.class.getName() + ":constructor: name = " + name);
+		System.out.println(System.currentTimeMillis() + ":" + SampleGC.class.getName() + ":constructor: name = " + name);
 
 		this.name = name;
 	}
 
 	@Override
 	protected void finalize() throws Throwable{
-		System.out.println(System.currentTimeMillis() + ":" + Sample.class.getName() + ":finalize: name = " + name);
+		System.out.println(System.currentTimeMillis() + ":" + SampleGC.class.getName() + ":finalize: name = " + name);
 
 		super.finalize();
 	}
