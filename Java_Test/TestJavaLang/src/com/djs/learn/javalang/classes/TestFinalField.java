@@ -1,10 +1,6 @@
 
 package com.djs.learn.javalang.classes;
 
-/**
- * <pre>
- * </pre>
- */
 public class TestFinalField
 {
 	public static final String nameA = "nameA";
