@@ -1,13 +1,13 @@
 
 package com.djs.learn.classtag.interfacetag;
 
-public interface InterfaceParentBV8
+public interface InterfaceParentDV8
 {
 	default String getName(){
-		return "InterfaceParentBV8";
+		return "InterfaceParentCV8";
 	}
 
 	static int getCode(){
-		return 111;
+		return 222;
 	}
 }

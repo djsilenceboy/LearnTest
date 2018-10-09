@@ -4,14 +4,25 @@ package com.djs.learn.javalang.classes;
 /**
  * <pre>
 ============================================================
-Tag = LevelC
-Tag = LevelC
-Tag = LevelC
+LevelC, PlaceC, NameB
+----------------------------------------
+LevelC, PlaceC, NameB
+----------------------------------------
+LevelC, PlaceC, NameB
 ============================================================
-Tag = LevelB
-Tag = LevelB
+Place = PlaceC
+----------------------------------------
+Place = PlaceB
+----------------------------------------
+Place = PlaceA
 ============================================================
+LevelC, PlaceC, NameB
 Super Tag = LevelB
+----------------------------------------
+LevelB, PlaceB, NameB
+Super Tag = LevelA
+----------------------------------------
+LevelA, PlaceA, NameA
 ============================================================
  * </pre>
  */
@@ -19,6 +30,7 @@ public class TestOverride
 {
 	public static void main(String[] args){
 		System.out.println("============================================================");
+		System.out.println("Test: Override method");
 
 		{
 			LevelC levelC = new LevelC();
@@ -36,6 +48,7 @@ public class TestOverride
 		}
 
 		System.out.println("============================================================");
+		System.out.println("Test: Hide static");
 
 		{
 			LevelC.printS();
@@ -50,6 +63,7 @@ public class TestOverride
 		}
 
 		System.out.println("============================================================");
+		System.out.println("Test: Hide variable and super varialble");
 
 		{
 			LevelC levelC = new LevelC();
@@ -73,73 +87,59 @@ public class TestOverride
 class LevelA
 {
 	String tag = "LevelA";
-	static String tags = "LevelAs";
-
-	private String name = "LevelA";
+	static String place = "PlaceA";
+	private String name = "NameA";
 
 	void print(){
-		System.out.println("Tag = " + tag);
-		System.out.println("Tags = " + tags);
-		System.out.println("Name = " + name);
+		System.out.println(tag + ", " + place + ", " + name);
 	}
 
 	static void printS(){
-		System.out.println("Tags = " + tags);
+		System.out.println("Place = " + place);
 	}
 
 	void printA(){
-		System.out.println("Tag = " + tag);
-		System.out.println("Tags = " + tags);
-		System.out.println("Name = " + name);
+		System.out.println(tag + ", " + place + ", " + name);
 	}
 }
 
 class LevelB extends LevelA
 {
 	String tag = "LevelB";
-	static String tags = "LevelBs";
-
-	String name = "LevelB";
+	static String place = "PlaceB";
+	String name = "NameB";
 
 	@Override
 	void print(){
-		System.out.println("Tag = " + tag);
-		System.out.println("Tags = " + tags);
-		System.out.println("Name = " + name);
+		System.out.println(tag + ", " + place + ", " + name);
 	}
 
 	static void printS(){
-		System.out.println("Tags = " + tags);
+		System.out.println("Place = " + place);
 	}
 
 	void printB(){
-		System.out.println("Tag = " + tag);
-		System.out.println("Tags = " + tags);
+		System.out.println(tag + ", " + place + ", " + name);
 		System.out.println("Super Tag = " + super.tag);
-		System.out.println("Name = " + name);
 	}
 }
 
 class LevelC extends LevelB
 {
 	String tag = "LevelC";
-	static String tags = "LevelCs";
+	static String place = "PlaceC";
 
 	@Override
 	void print(){
-		System.out.println("Tag = " + tag);
-		System.out.println("Tags = " + tags);
-		System.out.println("Name = " + name);
+		System.out.println(tag + ", " + place + ", " + name);
 	}
 
 	static void printS(){
-		System.out.println("Tags = " + tags);
+		System.out.println("Place = " + place);
 	}
 
 	void printC(){
-		System.out.println("Tag = " + tag);
-		System.out.println("Tags = " + tags);
+		System.out.println(tag + ", " + place + ", " + name);
 		System.out.println("Super Tag = " + super.tag);
-		System.out.println("Name = " + name);
 	}
 }

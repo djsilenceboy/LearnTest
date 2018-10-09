@@ -4,7 +4,7 @@ package com.djs.learn.classtag.abstracttag;
 /*
  * In Abstract class:
  * Function can be overridden.
- * Variable cannot be overwrite.
+ * Variable cannot be overridden.
  * Function will only find variable defined in same or previous level of class.
  */
 public class CompleteParentA extends AbstractParentA

@@ -1,9 +1,9 @@
 
 package com.djs.learn.classtag.interfacetag;
 
-public class ImplementParentBV8 implements InterfaceParentBV8
+public class ImplementParentCV8 implements InterfaceParentCV8
 {
-	public ImplementParentBV8(){
+	public ImplementParentCV8(){
 		System.out.println("ImplementParentB:ImplementParentBV8");
 	}
 }
