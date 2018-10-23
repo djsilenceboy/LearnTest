@@ -8,10 +8,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # This message will run when all other completed.
   config.vm.post_up_message = "This is vagrant test sample."
 
-  # Use private network, only support DHCP with mask 172.28.128.255.
-  # Internally, they can access each other by SSH port 22.
-  # Disable auto config, and assign fixed IP 192.168.10.XX.
-  config.vm.network "private_network", type: "dhcp", auto_config: false
+  # Adapter 1: Use default network NAT with DHCP.
+  # Netmask 10.0.2.0/24; Always assign IP address 10.0.2.15
+  # Host cannot access them. They cannot access each other.
+
+  # Adapter 2: Use private network Host-Only with fixed IP in same subnet.
+  # Netmask 192.168.10.0/24
+  # Host can access them.
+  # They can access each other, host and Internet.
 
   # Global config.
   # Install package for ifconfig.
@@ -25,20 +29,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   END
 
 
-  config.vm.define "ansibleep3" do |ansibleep3|
-    ansibleep3.vm.provider "virtualbox" do |vb|
-      vb.name = "Vagrant_AnsibleEp3"
+  config.vm.define "vagrantep3" do |vagrantep3|
+    vagrantep3.vm.provider "virtualbox" do |vb|
+      vb.name = "Vagrant_vagrantep3"
     end
-    ansibleep3.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.10.51 netmask 255.255.255.0 up"
+    vagrantep3.vm.network "private_network", ip: "192.168.10.13"
     # Default SSH port 2222.
   end
 
 
-  config.vm.define "ansibleep4" do |ansibleep4|
-    ansibleep4.vm.provider "virtualbox" do |vb|
-      vb.name = "Vagrant_AnsibleEp4"
+  config.vm.define "vagrantep4" do |vagrantep4|
+    vagrantep4.vm.provider "virtualbox" do |vb|
+      vb.name = "Vagrant_vagrantep4"
     end
-    ansibleep4.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.10.52 netmask 255.255.255.0 up"
+    vagrantep4.vm.network "private_network", ip: "192.168.10.14"
     # Default SSH port 2200.
   end
 end

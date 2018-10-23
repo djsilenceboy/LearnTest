@@ -8,8 +8,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # This message will run when all other completed.
   config.vm.post_up_message = "This is vagrant test sample."
 
-  # Use private network, only support DHCP with mask 172.28.128.255.
-  # Internally, they can access each other by SSH port 22.
+  # Adapter 1: Use default network NAT with DHCP.
+  # Netmask 10.0.2.0/24; Always assign IP address 10.0.2.15
+  # Host cannot access them. They cannot access each other.
+
+  # Adapter 2: Use private network Host-Only with DHCP.
+  # Netmask 172.28.128.0/24
+  # Host can access them.
+  # They can access each other, host and Internet.
   config.vm.network "private_network", type: "dhcp"
 
   # Global config.
@@ -26,7 +32,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "vagrantep3" do |vagrantep3|
     vagrantep3.vm.provider "virtualbox" do |vb|
-      vb.name = "Vagrant_AnsibleEp3"
+      vb.name = "Vagrant_vagrantep3"
     end
     # Default SSH port 2222.
   end
@@ -34,7 +40,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "vagrantep4" do |vagrantep4|
     vagrantep4.vm.provider "virtualbox" do |vb|
-      vb.name = "Vagrant_AnsibleEp4"
+      vb.name = "Vagrant_vagrantep4"
     end
     # Default SSH port 2200.
   end

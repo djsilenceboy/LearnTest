@@ -12,10 +12,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Netmask 10.0.2.0/24; Always assign IP address 10.0.2.15
   # Host cannot access them. They cannot access each other.
 
-  # Adapter 2: Use private network Host-Only with fixed IP in same subnet.
+  # Adapter 2: Use private network Host-Only with manual config fixed IP.
   # Netmask 192.168.10.0/24
-  # Host can access them.
-  # They can access each other, host and Internet.
+  # Host cannot access them.
+  # They cannot access each other, need to config more.
+  # They can access host and Internet.
+  config.vm.network "private_network", type: "dhcp", auto_config: false
 
   # Global config.
   # Install package for ifconfig.
@@ -33,7 +35,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vagrantep3.vm.provider "virtualbox" do |vb|
       vb.name = "Vagrant_vagrantep3"
     end
-    vagrantep3.vm.network "private_network", ip: "192.168.10.13"
+    vagrantep3.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.10.13 netmask 255.255.255.0 up"
     # Default SSH port 2222.
   end
 
@@ -42,7 +44,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vagrantep4.vm.provider "virtualbox" do |vb|
       vb.name = "Vagrant_vagrantep4"
     end
-    vagrantep4.vm.network "private_network", ip: "192.168.10.14"
+    vagrantep4.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.10.14 netmask 255.255.255.0 up"
     # Default SSH port 2200.
   end
 end
