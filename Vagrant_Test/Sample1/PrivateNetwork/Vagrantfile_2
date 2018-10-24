@@ -34,6 +34,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vagrantep3.vm.provider "virtualbox" do |vb|
       vb.name = "Vagrant_vagrantep3"
     end
+    vagrantep3.vm.hostname = "vagrantep3.djsilenceboy.com"
     # Default SSH port 2222.
   end
 
@@ -42,6 +43,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vagrantep4.vm.provider "virtualbox" do |vb|
       vb.name = "Vagrant_vagrantep4"
     end
+    vagrantep4.vm.hostname = "vagrantep4.djsilenceboy.com"
     # Default SSH port 2200.
   end
 end
