@@ -27,32 +27,24 @@ If using different version of files, remember to update the shell scripts.
 ================================================================================
 This config file:
 
-1. Use DHCP gateway.
-  config.vm.network "public_network", use_dhcp_assigned_default_route: true
+1.
+  # Adapter 2: Use private network Host-Only with fixed IP in same subnet.
+  # Netmask 192.168.10.0/24
+  # Host can access them.
+  # They can access each other, host and Internet.
 
-2. But not use DHCP IP, will configure IP manually.
-  config.vm.network "public_network", auto_config: false
-
-3. Map a local folder as default "/vagrant" folder. Please change it accordingly.
+2. Map a local folder as default "/vagrant" folder. Please change it accordingly.
   config.vm.synced_folder "F:/Download/Shared", "/vagrant", owner: "root", group: "root"
 
-4. Install software.
+3. Install software.
   config.vm.provision "shell", path: "Scripts/Prepare_Yum.sh"
   config.vm.provision "shell", path: "Scripts/Prepare_Python.sh"
   config.vm.provision "shell", path: "Scripts/Prepare_System.sh"
 
-5. Also enable SSH password login.
+4. Also enable SSH password login.
   config.vm.provision "shell", inline: <<-END
     sudo sed -i "/^PasswordAuthentication.*$/d" /etc/ssh/sshd_config
     sudo sed -i "/^#PasswordAuthentication.*$/a PasswordAuthentication yes" /etc/ssh/sshd_config
     sudo systemctl restart sshd
   END
-
-6. To determine the default network interface,
-a) not add that "ifconfig" line first;
-b) start VM and "vagrant ssh" login;
-c) use "ip a" to find the default network interface, such as "eth1" or "enp0s8".
-
-7. Configure IP manually. Please change network interface, IP and netmask accordingly.
-    ansibleCentOS.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.41 netmask 255.255.255.0 up"
 ================================================================================

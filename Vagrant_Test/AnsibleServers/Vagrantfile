@@ -8,10 +8,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # This message will run when all other completed.
   config.vm.post_up_message = "Test environment for Ansible servers."
 
-  # Use DHCP gateway.
-  config.vm.network "public_network", use_dhcp_assigned_default_route: true
-  # Not use DHCP IP, will configure IP manually.
-  config.vm.network "public_network", auto_config: false
+  # Adapter 2: Use private network Host-Only with fixed IP in same subnet.
+  # Netmask 192.168.10.0/24
+  # Host can access them.
+  # They can access each other, host and Internet.
 
   # This is default folder mapping.
   config.vm.synced_folder "F:/Download/Shared", "/vagrant", owner: "root", group: "root"
@@ -30,7 +30,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "ansibleCentOS" do |ansibleCentOS|
     ansibleCentOS.vm.provider "virtualbox" do |vb|
-      vb.name = "Vagrant_AnsibleCentOS"
+      vb.name = "Vagrant_ansibleCentOS"
       # Default is 1024M.
       vb.memory = 4096
       # Default is 1 CPU.
@@ -39,16 +39,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     ansibleCentOS.vm.hostname = "centos.djsilenceboy.com"
-
-    # Local provision will run after global provision.
-    # Configure IP manually.
-    ansibleCentOS.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.41 netmask 255.255.255.0 up"
+    ansibleCentOS.vm.network "private_network", ip: "192.168.10.10"
   end
 
 
   config.vm.define "ansibleDbServer" do |ansibleDbServer|
     ansibleDbServer.vm.provider "virtualbox" do |vb|
-      vb.name = "Vagrant_AnsibleDbServer"
+      vb.name = "Vagrant_ansibleDbServer"
       # Default is 1024M.
       vb.memory = 2048
       # Default is 1 CPU.
@@ -56,16 +53,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     ansibleDbServer.vm.hostname = "db.djsilenceboy.com"
-
-    # Local provision will run after global provision.
-    # Configure IP manually.
-    ansibleDbServer.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.42 netmask 255.255.255.0 up"
+    ansibleDbServer.vm.network "private_network", ip: "192.168.10.11"
   end
 
 
   config.vm.define "ansibleApplicationServer" do |ansibleApplicationServer|
     ansibleApplicationServer.vm.provider "virtualbox" do |vb|
-      vb.name = "Vagrant_AnsibleApplicationServer"
+      vb.name = "Vagrant_ansibleApplicationServer"
       # Default is 1024M.
       vb.memory = 3072
       # Default is 1 CPU.
@@ -73,16 +67,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     ansibleApplicationServer.vm.hostname = "appsvr.djsilenceboy.com"
-
-    # Local provision will run after global provision.
-    # Configure IP manually.
-    ansibleApplicationServer.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.43 netmask 255.255.255.0 up"
+    ansibleApplicationServer.vm.network "private_network", ip: "192.168.10.12"
   end
 
 
   config.vm.define "ansibleJbossServer" do |ansibleJbossServer|
     ansibleJbossServer.vm.provider "virtualbox" do |vb|
-      vb.name = "Vagrant_AnsibleJbossServer"
+      vb.name = "Vagrant_ansibleJbossServer"
       # Default is 1024M.
       vb.memory = 3072
       # Default is 1 CPU.
@@ -90,16 +81,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     ansibleJbossServer.vm.hostname = "jboss.djsilenceboy.com"
-
-    # Local provision will run after global provision.
-    # Configure IP manually.
-    ansibleJbossServer.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.44 netmask 255.255.255.0 up"
+    ansibleJbossServer.vm.network "private_network", ip: "192.168.10.13"
   end
 
 
   config.vm.define "ansibleWebServer" do |ansibleWebServer|
     ansibleWebServer.vm.provider "virtualbox" do |vb|
-      vb.name = "Vagrant_AnsibleWebServer"
+      vb.name = "Vagrant_ansibleWebServer"
       # Default is 1024M.
       vb.memory = 2048
       # Default is 1 CPU.
@@ -107,16 +95,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     ansibleWebServer.vm.hostname = "web.djsilenceboy.com"
-
-    # Local provision will run after global provision.
-    # Configure IP manually.
-    ansibleWebServer.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.45 netmask 255.255.255.0 up"
+    ansibleWebServer.vm.network "private_network", ip: "192.168.10.14"
   end
 
 
   config.vm.define "ansibleDockerServer" do |ansibleDockerServer|
     ansibleDockerServer.vm.provider "virtualbox" do |vb|
-      vb.name = "Vagrant_AnsibleDockerServer"
+      vb.name = "Vagrant_ansibleDockerServer"
       # Default is 1024M.
       vb.memory = 3072
       # Default is 1 CPU.
@@ -124,16 +109,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     ansibleDockerServer.vm.hostname = "docker.djsilenceboy.com"
-
-    # Local provision will run after global provision.
-    # Configure IP manually.
-    ansibleDockerServer.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.46 netmask 255.255.255.0 up"
+    ansibleDockerServer.vm.network "private_network", ip: "192.168.10.15"
   end
 
 
   config.vm.define "ansibleDockerServer2" do |ansibleDockerServer2|
     ansibleDockerServer2.vm.provider "virtualbox" do |vb|
-      vb.name = "Vagrant_AnsibleDockerServer2"
+      vb.name = "Vagrant_ansibleDockerServer2"
       # Default is 1024M.
       vb.memory = 3072
       # Default is 1 CPU.
@@ -141,9 +123,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     ansibleDockerServer2.vm.hostname = "docker2.djsilenceboy.com"
-
-    # Local provision will run after global provision.
-    # Configure IP manually.
-    ansibleDockerServer2.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.47 netmask 255.255.255.0 up"
+    ansibleDockerServer2.vm.network "private_network", ip: "192.168.10.16"
   end
 end

@@ -39,7 +39,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.name = "Vagrant_vagrantep1"
     end
     vagrantep1.vm.hostname = "vagrantep1.djsilenceboy.com"
-    vagrantep1.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.11 netmask 255.255.255.0 up"
+    vagrantep1.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.51 netmask 255.255.255.0 up"
   end
 
   config.vm.define "vagrantep2" do |vagrantep2|
@@ -47,6 +47,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.name = "Vagrant_vagrantep2"
     end
     vagrantep2.vm.hostname = "vagrantep2.djsilenceboy.com"
-    vagrantep2.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.12 netmask 255.255.255.0 up"
+    vagrantep2.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.52 netmask 255.255.255.0 up"
   end
 end

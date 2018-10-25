@@ -8,10 +8,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # This message will run when all other completed.
   config.vm.post_up_message = "Test environment for Kali Linux."
 
-  # Use DHCP gateway.
-  config.vm.network "public_network", use_dhcp_assigned_default_route: true
-  # Not use DHCP IP, will configure IP manually.
-  config.vm.network "public_network", auto_config: false
+  # Adapter 2: Use private network Host-Only with fixed IP in same subnet.
+  # Netmask 192.168.10.0/24
+  # Host can access them.
+  # They can access each other, host and Internet.
 
   config.vm.define "kaliLinux" do |kaliLinux|
     kaliLinux.vm.provider "virtualbox" do |vb|
@@ -22,5 +22,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.cpus = 2
       vb.gui = true
     end
+    kaliLinux.vm.network "private_network", ip: "192.168.10.81"
   end
 end

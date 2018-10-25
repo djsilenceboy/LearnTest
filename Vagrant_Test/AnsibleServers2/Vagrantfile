@@ -8,10 +8,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # This message will run when all other completed.
   config.vm.post_up_message = "Test environment for Ansible servers."
 
-  # Use DHCP gateway.
-  config.vm.network "public_network", use_dhcp_assigned_default_route: true
-  # Not use DHCP IP, will configure IP manually.
-  config.vm.network "public_network", auto_config: false
+  # Adapter 2: Use private network Host-Only with fixed IP in same subnet.
+  # Netmask 192.168.10.0/24
+  # Host can access them.
+  # They can access each other, host and Internet.
 
   # This is default folder mapping.
   config.vm.synced_folder "F:/Download/Shared", "/vagrant", owner: "root", group: "root"
@@ -32,7 +32,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "ansibleUbuntu" do |ansibleUbuntu|
     ansibleUbuntu.vm.provider "virtualbox" do |vb|
-      vb.name = "Vagrant_AnsibleUbuntu"
+      vb.name = "Vagrant_ansibleUbuntu"
       # Default is 1024M.
       vb.memory = 4096
       # Default is 1 CPU.
@@ -41,13 +41,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     ansibleUbuntu.vm.hostname = "ubuntu.djsilenceboy.com"
+    ansibleUbuntu.vm.network "private_network", ip: "192.168.10.71"
 
     # Local provision will run after global provision.
-    # Configure IP manually.
-    ansibleUbuntu.vm.provision "shell", run: "always", inline: "ifconfig enp0s8 192.168.0.61 netmask 255.255.255.0 up"
-    # Configure default gateway.
-    ansibleUbuntu.vm.provision "shell", run: "always", inline: "route add default gw 192.168.0.1 enp0s8"
-    # Configure DNS.
+    # Re-configure DNS.
     ansibleUbuntu.vm.provision "shell", run: "always", inline: "resolvconf -u"
   end
 end

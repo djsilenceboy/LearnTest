@@ -4,7 +4,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Use the same SSH key for each VM.
   config.ssh.insert_key = false
   config.vm.box = "centos/7"
-  # All use localhost/127.0.0.1, but with different port forwarding.
+
+  # This message will run when all other completed.
+  config.vm.post_up_message = "This is vagrant test sample."
+
+  # Adapter 1: Use default network NAT with DHCP.
+  # Netmask 10.0.2.0/24; Always assign IP address 10.0.2.15
+  # Host cannot access them.
+  # They cannot access each other and Internet.
+  # They can access host.
 
   # Global config.
   # Enable password login.
@@ -16,16 +24,28 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   END
 
 
-  config.vm.define "ansibleep1" do |ansibleep1|
-    ansibleep1.vm.network "forwarded_port", guest: 80, host: 9080
-    ansibleep1.vm.network "forwarded_port", guest: 443, host: 9443
-    # Default SSH port 2222.
+  config.vm.define "vagrantep5" do |vagrantep5|
+    vagrantep5.vm.provider "virtualbox" do |vb|
+      vb.name = "Vagrant_vagrantep5"
+    end
+    vagrantep5.vm.hostname = "vagrantep5.djsilenceboy.com"
+    # Forward port Guest 80 -> Host localhost:9080.
+    vagrantep5.vm.network "forwarded_port", guest: 80, host: 9080
+    # Forward port Guest 80 -> Host localhost:9443.
+    vagrantep5.vm.network "forwarded_port", guest: 443, host: 9443
+    # Default host to guest SSH port localhost:2222.
   end
 
 
-  config.vm.define "ansibleep2" do |ansibleep2|
-    ansibleep2.vm.network "forwarded_port", guest: 80, host: 9081
-    ansibleep2.vm.network "forwarded_port", guest: 443, host: 9444
-    # Default SSH port 2200.
+  config.vm.define "vagrantep6" do |vagrantep6|
+    vagrantep6.vm.provider "virtualbox" do |vb|
+      vb.name = "Vagrant_vagrantep6"
+    end
+    vagrantep6.vm.hostname = "vagrantep6.djsilenceboy.com"
+    # Forward port Guest 80 -> Host localhost:9081.
+    vagrantep6.vm.network "forwarded_port", guest: 80, host: 9081
+    # Forward port Guest 80 -> Host localhost:9444.
+    vagrantep6.vm.network "forwarded_port", guest: 443, host: 9444
+    # Default host to guest SSH port localhost:2200.
   end
 end

@@ -8,10 +8,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # This message will run when all other completed.
   config.vm.post_up_message = "Test environment for vagrant servers."
 
-  # Use DHCP gateway.
-  config.vm.network "public_network", use_dhcp_assigned_default_route: true
-  # Not use DHCP IP, will configure IP manually.
-  config.vm.network "public_network", auto_config: false
+  # Adapter 2: Use private network Host-Only with fixed IP in same subnet.
+  # Netmask 192.168.10.0/24
+  # Host can access them.
+  # They can access each other, host and Internet.
 
   # This is default folder mapping.
   config.vm.synced_folder "F:/Download/Shared", "/vagrant", owner: "root", group: "root"
@@ -32,7 +32,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "vagrantDbServer" do |vagrantDbServer|
     vagrantDbServer.vm.provider "virtualbox" do |vb|
-      vb.name = "Vagrant_VagrantDbServer"
+      vb.name = "Vagrant_vagrantDbServer"
       # Default is 1024M.
       vb.memory = 2048
       # Default is 1 CPU.
@@ -40,11 +40,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     vagrantDbServer.vm.hostname = "db.djsilenceboy.com"
+    vagrantDbServer.vm.network "private_network", ip: "192.168.10.61"
 
     # Local provision will run after global provision.
-    # Configure IP manually.
-    vagrantDbServer.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.52 netmask 255.255.255.0 up"
-
     vagrantDbServer.vm.provision "shell", path: "Scripts/Install_PostgreSQL.sh"
     # It requires to config after VM created.
     vagrantDbServer.vm.provision "shell", path: "Scripts/Install_MySQL.sh"
@@ -56,7 +54,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "vagrantApplicationServer" do |vagrantApplicationServer|
     vagrantApplicationServer.vm.provider "virtualbox" do |vb|
-      vb.name = "Vagrant_VagrantApplicationServer"
+      vb.name = "Vagrant_vagrantApplicationServer"
       # Default is 1024M.
       vb.memory = 3072
       # Default is 1 CPU.
@@ -64,11 +62,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     vagrantApplicationServer.vm.hostname = "appsvr.djsilenceboy.com"
+    vagrantApplicationServer.vm.network "private_network", ip: "192.168.10.62"
 
     # Local provision will run after global provision.
-    # Configure IP manually.
-    vagrantApplicationServer.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.53 netmask 255.255.255.0 up"
-
     vagrantApplicationServer.vm.provision "shell", path: "Scripts/Prepare_Development.sh"
     vagrantApplicationServer.vm.provision "shell", path: "Scripts/Install_Ansible.sh"
     vagrantApplicationServer.vm.provision "shell", path: "Scripts/Install_httpd.sh"
@@ -79,7 +75,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "vagrantJbossServer" do |vagrantJbossServer|
     vagrantJbossServer.vm.provider "virtualbox" do |vb|
-      vb.name = "Vagrant_VagrantJbossServer"
+      vb.name = "Vagrant_vagrantJbossServer"
       # Default is 1024M.
       vb.memory = 3072
       # Default is 1 CPU.
@@ -87,11 +83,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     vagrantJbossServer.vm.hostname = "jboss.djsilenceboy.com"
+    vagrantJbossServer.vm.network "private_network", ip: "192.168.10.63"
 
     # Local provision will run after global provision.
-    # Configure IP manually.
-    vagrantJbossServer.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.54 netmask 255.255.255.0 up"
-
     vagrantJbossServer.vm.provision "shell", path: "Scripts/Prepare_Development.sh"
     vagrantJbossServer.vm.provision "shell", path: "Scripts/Install_JBossEAP.sh"
   end
