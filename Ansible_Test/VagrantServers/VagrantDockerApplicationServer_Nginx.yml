@@ -1,0 +1,16 @@
+---
+- name: Install Nginx
+  hosts: VagrantDockerApplicationServer
+  become: True
+  tasks:
+    - name: Pull image
+      docker_image:
+        name: nginx
+
+    - name: Create container
+      docker_container:
+        name: webfrontend
+        image: nginx
+        state: started
+        published_ports:
+          - "8070:80"

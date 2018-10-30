@@ -1,10 +1,13 @@
 #!/bin/bash
 
-echo "Install JBoss EAP."
+echo "Install JBoss EAP v7.1."
+
+# Download file, need login.
+# https://developers.redhat.com/download-manager/file/jboss-eap-7.1.0-installer.jar
 
 # Install.
-cd /vagrant
-java -jar jboss-eap-7.0.0-installer.jar auto.xml
+cd /tmp
+java -jar jboss-eap-7.1.0-installer.jar auto.xml
 
 # Config as a Service
 cp /opt/eap7/bin/init.d/jboss-eap.conf /etc/default
@@ -23,13 +26,19 @@ chkconfig jboss-eap-rhel.sh on
 systemctl start jboss-eap-rhel
 sleep 5
 
+# Download JDBC drivers.
+cd /tmp
+curl -L -o mysql-connector-java-8.0.13.jar http://central.maven.org/maven2/mysql/mysql-connector-java/8.0.13/mysql-connector-java-8.0.13.jar
+curl -L -o ojdbc6-11.2.0.4.0-atlassian-hosted.jar https://packages.atlassian.com/maven-3rdparty/com/oracle/ojdbc6/11.2.0.4.0-atlassian-hosted/ojdbc6-11.2.0.4.0-atlassian-hosted.jar
+curl -L -o postgresql-42.2.5.jar https://jdbc.postgresql.org/download/postgresql-42.2.5.jar
+
 # Add JDBC drivers.
 /opt/eap7/bin/jboss-cli.sh << EOF
-module add --name=com.mysql --slot=main --resources=/vagrant/JDBC_Drivers/mysql-connector-java-5.1.41-bin.jar --dependencies=javax.api,javax.transaction.api
+module add --name=com.mysql --slot=main --resources=/tmp/mysql-connector-java-8.0.13.jar --dependencies=javax.api,javax.transaction.api
 
-module add --name=oracle.jdbc --slot=main --resources=/vagrant/JDBC_Drivers/ojdbc6-11.2.0.4.jar --dependencies=javax.api,javax.transaction.api
+module add --name=oracle.jdbc --slot=main --resources=/tmp/ojdbc6-11.2.0.4.0-atlassian-hosted.jar --dependencies=javax.api,javax.transaction.api
 
-module add --name=org.postgresql --slot=main --resources=/vagrant/JDBC_Drivers/postgresql-42.0.0.jar --dependencies=javax.api,javax.transaction.api
+module add --name=org.postgresql --slot=main --resources=/tmp/postgresql-42.2.5.jar --dependencies=javax.api,javax.transaction.api
 
 connect
 

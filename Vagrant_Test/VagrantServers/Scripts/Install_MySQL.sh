@@ -1,10 +1,11 @@
 #!/bin/bash
 
-echo "Install MySQL."
+echo "Install MySQL v5.7."
 
-# Install Repo and DB.
-cd /vagrant
-yum localinstall -y mysql57-community-release-el7-9.noarch.rpm
+# Add Repo.
+yum install -y https://repo.mysql.com/yum/mysql-5.7-community/el/7/x86_64/mysql57-community-release-el7-10.noarch.rpm
+
+# Install.
 yum install -y mysql-community-server
 
 # Enable and start service.
@@ -24,8 +25,10 @@ echo "Init Password = "\$InitPassword
 # User / Password: root / P@ssw0rd
 # Database: mysql
 echo "Change initial password."
-echo "Run: mysql -u root -p"
-echo "Then run: ALTER USER root@localhost IDENTIFIED BY \"P@ssw0rd\";"
+echo "Login mysql console:"
+echo "$ mysql -u root -p"
+echo "Then change to new password:"
+echo "> ALTER USER root@localhost IDENTIFIED BY \"P@ssw0rd\";"
 EOF
 
 cat > /tmp/MySQL_Config_2.sh << EOF

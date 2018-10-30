@@ -1,11 +1,11 @@
 ---
-- name: Install MongoDB v3.4
+- name: Install MongoDB v4.0
   hosts: VagrantDbServer
   become: True
   vars:
     local_config_file_path: files
     remote_temp_path: /tmp
-    mongo_repo_file: mongodb-org-3.4.repo
+    mongo_repo_file: mongodb-org-4.0.repo
     mongo_config_file: Mongo_Create.sh
   tasks:
     - name: Copy Repo file to remote
@@ -20,7 +20,7 @@
         update_cache: yes
 
     - name: Enable remote access
-      shell: sed -i "s/\(^.*bindIp.*$\)/#\1/g" /etc/mongod.conf
+      shell: sed -i "s/127\.0\.0\.1/0\.0\.0\.0/g" /etc/mongod.conf
 
     - name: Enable and start service
       service:

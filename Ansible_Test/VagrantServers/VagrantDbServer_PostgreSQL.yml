@@ -1,39 +1,45 @@
 ---
-- name: Install PostgreSQL v9.5
+- name: Install PostgreSQL v9.6
   hosts: VagrantDbServer
   become: True
   tasks:
     - name: Install repo
       yum:
-        name: http://yum.postgresql.org/9.5/redhat/rhel-7-x86_64/pgdg-centos95-9.5-3.noarch.rpm
+        name: http://yum.postgresql.org/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
 
     - name: Install DB 1
       yum:
-        name: postgresql95-server
+        name: postgresql96
         state: latest
         update_cache: yes
 
     - name: Install DB 2
       yum:
-        name: postgresql95-contrib
+        name: postgresql96-server
+        state: latest
+        update_cache: yes
+
+    - name: Install DB 3
+      yum:
+        name: postgresql96-contrib
         state: latest
         update_cache: yes
 
     - name: Initial DB
-      shell: /usr/pgsql-9.5/bin/postgresql95-setup initdb
+      shell: /usr/pgsql-9.6/bin/postgresql96-setup initdb
 
     - name: Enable remote access 1
-      shell: sed -i '/.*listen_addresses.*/ a\listen_addresses = '"'"'*'"'" /var/lib/pgsql/9.5/data/postgresql.conf
+      shell: sed -i '/.*listen_addresses.*/ a\listen_addresses = '"'"'*'"'" /var/lib/pgsql/9.6/data/postgresql.conf
 
     - name: Enable remote access 2
-      shell: sed -i 's/^local.*$/local   all             all                                     trust/g' /var/lib/pgsql/9.5/data/pg_hba.conf
+      shell: sed -i 's/^local.*$/local   all             all                                     trust/g' /var/lib/pgsql/9.6/data/pg_hba.conf
 
     - name: Enable remote access 3
-      shell: sed -i '$ a\host    all             all             192.168.0.1/24          md5' /var/lib/pgsql/9.5/data/pg_hba.conf
+      shell: sed -i '$ a\host    all             all             192.168.0.1/16          md5' /var/lib/pgsql/9.6/data/pg_hba.conf
 
     - name: Enable and start service
       service:
-        name: postgresql-9.5
+        name: postgresql-9.6
         enabled: yes
         state: started
 

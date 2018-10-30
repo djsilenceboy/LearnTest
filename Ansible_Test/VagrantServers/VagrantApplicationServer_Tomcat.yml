@@ -1,14 +1,14 @@
 ---
-- name: Install Tomcat v8.0
+- name: Install Tomcat v9.0
   hosts: VagrantApplicationServer
   become: True
   vars:
-    local_installation_file_path: /cygdrive/f/Download/Shared
+    tomecat_version: 9.0.12
     local_config_file_path: files
     remote_temp_path: /tmp
-    tomcat_installation_file: apache-tomcat-8.0.39.zip
+    tomcat_installation_file: "apache-tomcat-{{ tomecat_version }}.zip"
     tomcat_installation_parentfolder: /opt
-    tomcat_installation_tempfolder: apache-tomcat-8.0.39
+    tomcat_installation_tempfolder: "apache-tomcat-{{ tomecat_version }}"
     tomcat_installation_folder: tomcat
     service_file: tomcat.service
   tasks:
@@ -28,10 +28,14 @@
         append: yes
         state: present
 
-    - name: Copy installation file to remote
-      copy:
-        src: "{{ local_installation_file_path }}/{{ tomcat_installation_file }}"
+    - name: Download files
+      get_url:
+        url: "https://www-us.apache.org/dist/tomcat/tomcat-9/v{{ tomecat_version }}/bin/{{ item }}"
         dest: "{{ remote_temp_path }}"
+      with_items:
+        - "{{ tomcat_installation_file }}"
+        - extras/catalina-jmx-remote.jar
+        - extras/catalina-ws.jar
 
     - name: Unzip installation file
       unarchive:
@@ -42,10 +46,8 @@
     - name: Rename installation folder
       shell: chdir="{{ tomcat_installation_parentfolder }}" mv "{{ tomcat_installation_tempfolder }}" "{{ tomcat_installation_folder }}"
 
-    - name: Copy plugin/addon files to remote
-      copy:
-        src: "{{ local_installation_file_path }}/{{ item }}"
-        dest: "{{ tomcat_installation_parentfolder }}/{{ tomcat_installation_folder }}/lib"
+    - name: Move extra files to installation folder
+      command: mv "{{ remote_temp_path }}/{{ item }}" "{{ tomcat_installation_parentfolder }}/{{ tomcat_installation_folder }}/lib"
       with_items:
         - catalina-jmx-remote.jar
         - catalina-ws.jar
@@ -69,7 +71,10 @@
         - {src: "{{ tomcat_installation_parentfolder }}/{{ tomcat_installation_folder }}/logs", dest: "/var/log/tomcat"}
 
     - name: Add admin user
-      shell: sed -i '/<\/tomcat-users>/ i\  <user name="admin" password="P@ssw0rd" roles="admin-gui,manager-gui"/>' /etc/tomcat/tomcat-users.xml
+      shell: sed -i '/<\/tomcat-users>/ i\  <user username="admin" password="P@ssw0rd" roles="manager-gui,manager-status,manager-script"/>' /etc/tomcat/tomcat-users.xml
+
+    - name: Enable remote access console (from 192.168.0.0/16)
+      shell: sed -i 's/\(^.*0:1\)\(.*$\)/\1|192\\.168\\.\\d+\\.\\d+\2/g' /opt/tomcat/webapps/manager/META-INF/context.xml
 
     - name: Copy service file to remote
       copy:

@@ -1,21 +1,25 @@
 #!/bin/bash
 
-echo "Install Tomcat."
+echo "Install Tomcat v9.0."
 
 # Prepare Linux group and user.
 groupadd tomcat
 useradd -M -s /bin/nologin -g tomcat -d /opt/tomcat tomcat
 usermod -a -G tomcat root
 
-# Unzip/install Tomcat.
-cd /vagrant
-unzip apache-tomcat-8.0.39.zip -d /opt
-cd /opt
-mv apache-tomcat-8.0.39 tomcat
+# Download file.
+cd /tmp
+curl -L -o apache-tomcat-9.0.12.zip https://www-us.apache.org/dist/tomcat/tomcat-9/v9.0.12/bin/apache-tomcat-9.0.12.zip
+curl -L -o catalina-jmx-remote.jar https://www-us.apache.org/dist/tomcat/tomcat-9/v9.0.12/bin/extras/catalina-jmx-remote.jar
+curl -L -o catalina-ws.jar https://www-us.apache.org/dist/tomcat/tomcat-9/v9.0.12/bin/extras/catalina-ws.jar
 
-# Some plugin/addon.
-cd /vagrant
-cp catalina-jmx-remote.jar catalina-ws.jar /opt/tomcat/lib
+# Unzip/install Tomcat.
+unzip /tmp/apache-tomcat-9.0.12.zip -d /opt
+cd /opt
+mv apache-tomcat-9.0.12 tomcat
+
+# Some extra.
+mv /tmp/catalina-jmx-remote.jar /tmp/catalina-ws.jar /opt/tomcat/lib
 
 # Change main folder privilege.
 cd /opt
@@ -30,10 +34,9 @@ ln -s /opt/tomcat/logs /var/log/tomcat
 
 # Add admin user.
 # User / Password: admin / P@ssw0rd
-# <tomcat-users>
-#  <user name="admin" password="P@ssw0rd" roles="admin-gui,manager-gui"/>
-# </tomcat-users>
-sed -i '/<\/tomcat-users>/ i\  <user name="admin" password="P@ssw0rd" roles="admin-gui,manager-gui"/>' /etc/tomcat/tomcat-users.xml
+sed -i '/<\/tomcat-users>/ i\  <user username="admin" password="P@ssw0rd" roles="manager-gui,manager-status,manager-script"/>' /etc/tomcat/tomcat-users.xml
+# Enable remote access console (from 192.168.0.0/16).
+sed -i 's/\(^.*0:1\)\(.*$\)/\1|192\\.168\\.\\d+\\.\\d+\2/g' /opt/tomcat/webapps/manager/META-INF/context.xml
 
 # Create Linux service.
 cat > /etc/systemd/system/tomcat.service << EOF
@@ -45,15 +48,16 @@ After=syslog.target network.target
 [Service]
 Type=forking
 
-Environment=JAVA_HOME=/usr/lib/jvm/jre
-Environment=CATALINA_PID=/opt/tomcat/temp/tomcat.pid
-Environment=CATALINA_HOME=/opt/tomcat/
-Environment=CATALINA_BASE=/opt/tomcat/
+Environment='JAVA_HOME=/usr/lib/jvm/jre'
+Environment='JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/urandom'
+
+Environment='CATALINA_PID=/opt/tomcat/temp/tomcat.pid'
+Environment='CATALINA_HOME=/opt/tomcat/'
+Environment='CATALINA_BASE=/opt/tomcat/'
 Environment='CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC'
-Environment='JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom'
 
 ExecStart=/opt/tomcat/bin/startup.sh
-ExecStop=/bin/kill -15 $MAINPID
+ExecStop=/opt/tomcat/bin/shutdown.sh
 
 User=tomcat
 Group=tomcat

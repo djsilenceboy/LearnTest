@@ -1,6 +1,6 @@
 ---
 - name: Install Docker
-  hosts: VagrantDockerServer*
+  hosts: VagrantDocker*
   become: True
   tasks:
     - name: Install Yum repo
@@ -26,7 +26,7 @@
         seconds: 5
 
     - name: Download Docker Compose
-      shell: curl -L https://github.com/docker/compose/releases/download/1.17.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+      shell: curl -L https://github.com/docker/compose/releases/download/1.23.0-rc3/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 
     - name: Change mode of file
       shell: chmod +x /usr/local/bin/docker-compose

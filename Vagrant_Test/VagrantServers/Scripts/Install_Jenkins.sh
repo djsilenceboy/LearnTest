@@ -13,9 +13,9 @@ chmod o+rx jenkins
 # Add config in Tomcat service.
 sed -i '/.*JAVA_OPTS.*/ a\Environment=JENKINS_HOME=/opt/jenkins' /etc/systemd/system/tomcat.service
 
-# Install.
-cd /vagrant
-cp jenkins.war /opt/tomcat/webapps
+# Download file.
+cd /opt/tomcat/webapps
+curl -L -o jenkins.war http://mirrors.jenkins.io/war-stable/latest/jenkins.war
 
 # Change privileges.
 cd /opt/tomcat/webapps

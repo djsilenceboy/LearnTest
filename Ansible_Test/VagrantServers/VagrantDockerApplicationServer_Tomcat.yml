@@ -1,0 +1,16 @@
+---
+- name: Install Tomcat v9.0
+  hosts: VagrantDockerApplicationServer
+  become: True
+  tasks:
+    - name: Pull image
+      docker_image:
+        name: tomcat:9
+
+    - name: Create container
+      docker_container:
+        name: tomcat
+        image: tomcat:9
+        state: started
+        published_ports:
+          - "8080:8080"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <AutomatedInstallation langpack="eng">
 <productName>EAP</productName>
-<productVersion>7.0.0</productVersion>
+<productVersion>7.1.0</productVersion>
 <com.izforge.izpack.panels.HTMLLicencePanel id="HTMLLicencePanel"/>
 <com.izforge.izpack.panels.TargetPanel id="DirectoryPanel">
 <installpath>/opt/eap7</installpath>

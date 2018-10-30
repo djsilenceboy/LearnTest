@@ -14,7 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # They can access each other, host and Internet.
 
   # This is default folder mapping.
-  config.vm.synced_folder "F:/Download/Shared", "/vagrant", owner: "root", group: "root"
+  # config.vm.synced_folder "./Temp", "/vagrant", owner: "root", group: "root"
 
   # Global config.
   # Install package for ifconfig.
@@ -85,17 +85,31 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
 
-  config.vm.define "ansibleWebServer" do |ansibleWebServer|
-    ansibleWebServer.vm.provider "virtualbox" do |vb|
-      vb.name = "Vagrant_ansibleWebServer"
+  config.vm.define "ansibleDockerDbServer" do |ansibleDockerDbServer|
+    ansibleDockerDbServer.vm.provider "virtualbox" do |vb|
+      vb.name = "Vagrant_ansibleDockerDbServer"
       # Default is 1024M.
       vb.memory = 2048
       # Default is 1 CPU.
       vb.cpus = 2
     end
 
-    ansibleWebServer.vm.hostname = "web.djsilenceboy.com"
-    ansibleWebServer.vm.network "private_network", ip: "192.168.10.14"
+    ansibleDockerDbServer.vm.hostname = "dockerdb.djsilenceboy.com"
+    ansibleDockerDbServer.vm.network "private_network", ip: "192.168.10.14"
+  end
+
+
+  config.vm.define "ansibleDockerApplicationServer" do |ansibleDockerApplicationServer|
+    ansibleDockerApplicationServer.vm.provider "virtualbox" do |vb|
+      vb.name = "Vagrant_ansibleDockerApplicationServer"
+      # Default is 1024M.
+      vb.memory = 3072
+      # Default is 1 CPU.
+      vb.cpus = 2
+    end
+
+    ansibleDockerApplicationServer.vm.hostname = "dockerappsvr.djsilenceboy.com"
+    ansibleDockerApplicationServer.vm.network "private_network", ip: "192.168.10.15"
   end
 
 
@@ -109,7 +123,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     ansibleDockerServer.vm.hostname = "docker.djsilenceboy.com"
-    ansibleDockerServer.vm.network "private_network", ip: "192.168.10.15"
+    ansibleDockerServer.vm.network "private_network", ip: "192.168.10.16"
   end
 
 
@@ -123,6 +137,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     ansibleDockerServer2.vm.hostname = "docker2.djsilenceboy.com"
-    ansibleDockerServer2.vm.network "private_network", ip: "192.168.10.16"
+    ansibleDockerServer2.vm.network "private_network", ip: "192.168.10.17"
   end
 end

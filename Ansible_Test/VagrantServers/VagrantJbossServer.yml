@@ -1,20 +1,14 @@
 ---
-- name: Install JBoss EAP v7.0
+- name: Install JBoss EAP v7.1
   hosts: VagrantJbossServer
   become: True
   vars:
-    local_installation_file_path: /cygdrive/f/Download/Shared
+    eap_version: 7.1.0
     local_config_file_path: files
     remote_temp_path: /tmp
-    jboss_installation_file: jboss-eap-7.0.0-installer.jar
-    local_jdbc_file_path: /cygdrive/f/Download/Shared/JDBC_Drivers
+    jboss_installation_file: "jboss-eap-{{ eap_version }}-installer.jar"
     jboss_config_file: JBoss_AddJDBCDrivers.sh
   tasks:
-    - name: Copy installation file to remote
-      copy:
-        src: "{{ local_installation_file_path }}/{{ jboss_installation_file }}"
-        dest: "{{ remote_temp_path }}"
-
     - name: Copy installation config files to remote
       copy:
         src: "{{ item }}"
@@ -23,7 +17,7 @@
         - "{{ local_config_file_path }}/auto.xml*"
 
     - name: Install application
-      shell: chdir="{{ remote_temp_path }}" java -jar jboss-eap-7.0.0-installer.jar auto.xml
+      shell: chdir="{{ remote_temp_path }}" java -jar {{ jboss_installation_file }} auto.xml
 
     - name: Config as a Service 1
       shell: cp /opt/eap7/bin/init.d/jboss-eap.conf /etc/default
@@ -57,13 +51,6 @@
     - name: Sleep
       pause:
         seconds: 5
-
-    - name: Copy JDBC driver files to remote
-      copy:
-        src: "{{ item }}"
-        dest: "{{ remote_temp_path }}/"
-      with_fileglob:
-        - "{{ local_jdbc_file_path }}/*"
 
     - name: Copy config file to remote
       copy:

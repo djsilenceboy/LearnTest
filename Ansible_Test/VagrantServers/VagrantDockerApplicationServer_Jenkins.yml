@@ -1,0 +1,19 @@
+---
+- name: Install Jenkins
+  hosts: VagrantDockerApplicationServer
+  become: True
+  tasks:
+    - name: Pull image
+      docker_image:
+        name: jenkins/jenkins
+
+    - name: Create container
+      docker_container:
+        name: jenkins
+        image: jenkins/jenkins
+        state: started
+        published_ports:
+          - "8090:8080"
+          - "50000:50000"
+        volumes:
+          - /opt/jenkins:/var/jenkins_home

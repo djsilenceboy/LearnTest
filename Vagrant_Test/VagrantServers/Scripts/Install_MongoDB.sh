@@ -1,22 +1,22 @@
 #!/bin/bash
 
-echo "Install MongoDB."
+echo "Install MongoDB v4.0."
 
 # Add Repo.
-cat > /etc/yum.repos.d/mongodb-org-3.4.repo << EOF
-[mongodb-org-3.4]
+cat > /etc/yum.repos.d/mongodb-org-4.0.repo << EOF
+[mongodb-org-4.0]
 name=MongoDB Repository
-baseurl=https://repo.mongodb.org/yum/redhat/7/mongodb-org/3.4/x86_64/
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.0/x86_64/
 gpgcheck=1
 enabled=1
-gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc
+gpgkey=https://www.mongodb.org/static/pgp/server-4.0.asc
 EOF
 
 # Install.
 yum install -y mongodb-org
 
 # Enable remote access.
-sed -i "s/\(^.*bindIp.*$\)/#\1/g" /etc/mongod.conf
+sed -i "s/127\.0\.0\.1/0\.0\.0\.0/g" /etc/mongod.conf
 
 # Enable and start service.
 systemctl enable mongod

@@ -14,7 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # They can access each other, host and Internet.
 
   # This is default folder mapping.
-  config.vm.synced_folder "F:/Download/Shared", "/vagrant", owner: "root", group: "root"
+  # config.vm.synced_folder "./Temp", "/vagrant", owner: "root", group: "root"
 
   # Install software.
   config.vm.provision "shell", path: "Scripts/Prepare_Yum.sh"
@@ -87,6 +87,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Local provision will run after global provision.
     vagrantJbossServer.vm.provision "shell", path: "Scripts/Prepare_Development.sh"
-    vagrantJbossServer.vm.provision "shell", path: "Scripts/Install_JBossEAP.sh"
+    # vagrantJbossServer.vm.provision "shell", path: "Scripts/Install_JBossEAP.sh"
   end
 end

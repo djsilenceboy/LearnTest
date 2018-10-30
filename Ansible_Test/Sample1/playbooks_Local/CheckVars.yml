@@ -1,0 +1,14 @@
+---
+- name: Test vars.
+  hosts: 127.0.0.1
+  connection: local
+  vars:
+    cat: Tom
+    mouse: Jerry
+    cartoon: "{{ cat }} and {{ mouse }}"
+    news: "Today has {{ cartoon }}"
+  tasks:
+    - debug: var=cat
+    - debug: var=mouse
+    - debug: var=cartoon
+    - debug: var=news

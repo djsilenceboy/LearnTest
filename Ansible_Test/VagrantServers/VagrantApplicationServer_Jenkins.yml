@@ -3,7 +3,6 @@
   hosts: VagrantApplicationServer
   become: True
   vars:
-    local_installation_file_path: /cygdrive/f/Download/Shared
     jenkins_installation_file: jenkins.war
     tomcat_folder: /opt/tomcat/webapps
     jenkins_folder: /opt/jenkins
@@ -20,9 +19,9 @@
     - name: Add config in Tomcat service
       shell: sed -i '/.*JAVA_OPTS.*/ a\Environment=JENKINS_HOME=/opt/jenkins' /etc/systemd/system/tomcat.service
 
-    - name: Copy installation file to remote
-      copy:
-        src: "{{ local_installation_file_path }}/{{ jenkins_installation_file }}"
+    - name: Download file
+      get_url:
+        url: "http://mirrors.jenkins.io/war-stable/latest/{{ jenkins_installation_file }}"
         dest: "{{ tomcat_folder }}"
 
     - name: Change privileges
