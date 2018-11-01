@@ -1,10 +1,10 @@
 ---
 - name: Install Tomcat v9.0
-  hosts: VagrantApplicationServer
+  hosts: all
   become: True
   vars:
     tomecat_version: 9.0.12
-    local_config_file_path: files
+    local_config_file_path: ../files
     remote_temp_path: /tmp
     tomcat_installation_file: "apache-tomcat-{{ tomecat_version }}.zip"
     tomcat_installation_parentfolder: /opt

@@ -1,6 +1,6 @@
 ---
 - name: Install httpd
-  hosts: VagrantApplicationServer
+  hosts: all
   become: True
   tasks:
     - name: Install application

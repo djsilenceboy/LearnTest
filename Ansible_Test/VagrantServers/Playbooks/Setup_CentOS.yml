@@ -1,6 +1,6 @@
 ---
-- name: Setup Linux environment
-  hosts: VagrantServers
+- name: Setup CentOS environment
+  hosts: all
   become: True
   tasks:
     - name: Upgrade all packages

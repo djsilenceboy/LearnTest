@@ -1,6 +1,6 @@
 ---
 - name: Install PostgreSQL v9.6
-  hosts: VagrantDbServer
+  hosts: all
   become: True
   tasks:
     - name: Install repo

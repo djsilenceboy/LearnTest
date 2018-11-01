@@ -17,8 +17,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # config.vm.synced_folder "./Temp", "/vagrant", owner: "root", group: "root"
 
   # Global config.
-  # Install package for ifconfig.
-  config.vm.provision "shell", inline: "sudo yum install -y net-tools"
   # Enable password login.
   config.vm.provision "shell", inline: <<-END
     # Testing: sudo sed "/^PasswordAuthentication.*$/d; /^#PasswordAuthentication.*$/a PasswordAuthentication yes" /etc/ssh/sshd_config

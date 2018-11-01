@@ -1,9 +1,9 @@
 ---
 - name: Install MySQL v5.7
-  hosts: VagrantDbServer
+  hosts: all
   become: True
   vars:
-    local_config_file_path: files
+    local_config_file_path: ../files
     remote_temp_path: /tmp
   tasks:
     - name: Install repo

@@ -1,60 +1,126 @@
 ================================================================================
 Setup for CentOS 7
 ================================================================================
-Step 1: General installations for all servers.
+Installations for each server.
 ------------------------------------------------------------
-Process for all servers.
+ansible-playbook -l VagrantCentOS VagrantCentOS.yml -vvv
 
-ansible-playbook VagrantServers.yml -vvv
-------------------------------------------------------------
-Process for each server.
+ansible-playbook -l VagrantDbServer VagrantDbServer.yml -vvv
+ansible-playbook -l VagrantApplicationServer VagrantApplicationServer.yml -vvv
+ansible-playbook -l VagrantJbossServer VagrantJbossServer.yml -vvv
 
-ansible-playbook -l VagrantDbServer VagrantServers.yml -vvv
-ansible-playbook -l VagrantApplicationServer VagrantServers.yml -vvv
-ansible-playbook -l VagrantJbossServer VagrantServers.yml -vvv
-ansible-playbook -l VagrantWebServer VagrantServers.yml -vvv
-ansible-playbook -l VagrantDockerServer VagrantServers.yml -vvv
-ansible-playbook -l VagrantDockerServer2 VagrantServers.yml -vvv
-================================================================================
-Step 2: Special installations for each server.
-------------------------------------------------------------
-Process for each server.
+ansible-playbook -l VagrantDockerDbServer VagrantDockerDbServer.yml -vvv
+ansible-playbook -l VagrantDockerApplicationServer VagrantDockerApplicationServer.yml -vvv
 
-ansible-playbook VagrantDbServer.yml -vvv
-ansible-playbook VagrantApplicationServer.yml -vvv
-ansible-playbook VagrantJbossServer.yml -vvv
-ansible-playbook VagrantWebServer.yml -vvv
 ansible-playbook -l VagrantDockerServer VagrantDockerServer.yml -vvv
 ansible-playbook -l VagrantDockerServer2 VagrantDockerServer.yml -vvv
 ================================================================================
-Step 2: Special installations for each server. (For debug purpose)
+Step by step installations for each server. (For debugging)
 ------------------------------------------------------------
-Detailed process for DB server.
+VagrantCentOS
 
-ansible-playbook VagrantDbServer_PostgreSQL.yml -vvv
-ansible-playbook VagrantDbServer_MySQL.yml -vvv
-ansible-playbook VagrantDbServer_MongoDB.yml -vvv
+ansible-playbook -l VagrantCentOS Playbooks/Setup_CentOS.yml -vvv
+ansible-playbook -l VagrantCentOS Playbooks/Install_Development.yml -vvv
+ansible-playbook -l VagrantCentOS Playbooks/Install_Desktop.yml -vvv
 ------------------------------------------------------------
-Detailed process for Application server.
+VagrantDbServer
 
-ansible-playbook VagrantApplicationServer_Development.yml -vvv
-ansible-playbook VagrantApplicationServer_Ansible.yml -vvv
-ansible-playbook VagrantApplicationServer_httpd.yml -vvv
-ansible-playbook VagrantApplicationServer_Tomcat.yml -vvv
-ansible-playbook VagrantApplicationServer_Jenkins.yml -vvv
+ansible-playbook -l VagrantDbServer Playbooks/Setup_CentOS.yml -vvv
+ansible-playbook -l VagrantDbServer Playbooks/Install_Development.yml -vvv
+ansible-playbook -l VagrantDbServer Playbooks/Install_PostgreSQL.yml -vvv
+ansible-playbook -l VagrantDbServer Playbooks/Install_MySQL.yml -vvv
+ansible-playbook -l VagrantDbServer Playbooks/Install_MongoDB.yml -vvv
+------------------------------------------------------------
+VagrantApplicationServer
+
+ansible-playbook -l VagrantApplicationServer Playbooks/Setup_CentOS.yml -vvv
+ansible-playbook -l VagrantApplicationServer Playbooks/Install_Development.yml -vvv
+ansible-playbook -l VagrantApplicationServer Playbooks/Install_Ansible.yml -vvv
+ansible-playbook -l VagrantApplicationServer Playbooks/Install_httpd.yml -vvv
+ansible-playbook -l VagrantApplicationServer Playbooks/Install_Tomcat.yml -vvv
+ansible-playbook -l VagrantApplicationServer Playbooks/Install_Tomcat_Jenkins.yml -vvv
+------------------------------------------------------------
+VagrantJbossServer
+
+ansible-playbook -l VagrantJbossServer Playbooks/Setup_CentOS.yml -vvv
+ansible-playbook -l VagrantJbossServer Playbooks/Install_Development.yml -vvv
+ansible-playbook -l VagrantJbossServer Playbooks/Install_JbossEAP.yml -vvv
+------------------------------------------------------------
+VagrantDockerDbServer
+------------------------------------------------------------
+VagrantDockerApplicationServer
+
+ansible-playbook VagrantDockerApplicationServer_Development.yml -vvv
+ansible-playbook VagrantDockerApplicationServer_Nginx.yml -vvv
+ansible-playbook VagrantDockerApplicationServer_Tomcat.yml -vvv
+ansible-playbook VagrantDockerApplicationServer_Jenkins.yml -vvv
+ansible-playbook VagrantDockerApplicationServer_JBoss.yml -vvv
+------------------------------------------------------------
+VagrantDockerServer
+
+ansible-playbook -l VagrantDockerServer Playbooks/Setup_CentOS.yml -vvv
+ansible-playbook -l VagrantDockerServer Playbooks/Install_Development.yml -vvv
+ansible-playbook -l VagrantDockerServer Playbooks/Install_Docker.yml -vvv
+------------------------------------------------------------
+VagrantDockerServer2
+
+ansible-playbook -l VagrantDockerServer2 Playbooks/Setup_CentOS.yml -vvv
+ansible-playbook -l VagrantDockerServer2 Playbooks/Install_Development.yml -vvv
+ansible-playbook -l VagrantDockerServer2 Playbooks/Install_Docker.yml -vvv
 ================================================================================
 There is "files" for configuration and script files.
 
 Check and update those files for such as IP, user name and password, etc.
 ================================================================================
-For JBoss EAP.
+For VagrantJbossServer.
 
-Download file, need login.
+1. Download file (need login).
 https://developers.redhat.com/download-manager/file/jboss-eap-7.1.0-installer.jar
 
-Upload to "/tmp" on VM.
-Then run:
-ansible-playbook VagrantJbossServer.yml -vvv
+2. Upload to "/tmp" on VM.
+
+3. Run playbooks.
+================================================================================
+
+
+================================================================================
+PostgreSQL v9.6 (Linux)
+
+Server: 192.168.10.11
+Port: 5432
+User name / Password: postgres / <NotSet> (admin)
+User name / Password: tester / P@ssw0rd
+------------------------------------------------------------
+Database: test
+JDBC: jdbc:postgresql://192.168.10.11:5432/test
+================================================================================
+MySQL v5.7 (Linux)
+
+Server: 192.168.10.11
+Port: 3306
+User name / Password: root / P@ssw0rd (admin)
+User name / Password: tester / P@ssw0rd
+------------------------------------------------------------
+Schema/Database: test
+JDBC: jdbc:mysql://192.168.10.11:3306/test
+================================================================================
+MongoDB v4.0 (Linux)
+
+Server: 192.168.10.11
+Port: 27017
+------------------------------------------------------------
+DB: admin
+
+User name / Password: root / P@ssw0rd
+Roles: [{role: "root", db: "admin"}]
+
+User name / Password: admin / P@ssw0rd
+Roles: [{role: "userAdminAnyDatabase", db: "admin"}]
+------------------------------------------------------------
+DB: test
+
+User name / Password: tester / P@ssw0rd
+Roles: [{role: "dbOwner", db: "test"}]
 ================================================================================
 
 ================================================================================
@@ -102,44 +168,4 @@ Nginx (Linux, Docker)
 Server: 192.168.10.14
 Port: 8000
 Web console: http://192.168.10.14:8000
-================================================================================
-
-================================================================================
-PostgreSQL v9.6 (Linux)
-
-Server: 192.168.10.11
-Port: 5432
-User name / Password: postgres / <NotSet> (admin)
-User name / Password: tester / P@ssw0rd
-------------------------------------------------------------
-Database: test
-JDBC: jdbc:postgresql://192.168.10.11:5432/test
-================================================================================
-MySQL v5.7 (Linux)
-
-Server: 192.168.10.11
-Port: 3306
-User name / Password: root / P@ssw0rd (admin)
-User name / Password: tester / P@ssw0rd
-------------------------------------------------------------
-Schema/Database: test
-JDBC: jdbc:mysql://192.168.10.11:3306/test
-================================================================================
-MongoDB v4.0 (Linux)
-
-Server: 192.168.10.11
-Port: 27017
-------------------------------------------------------------
-DB: admin
-
-User name / Password: root / P@ssw0rd
-Roles: [{role: "root", db: "admin"}]
-
-User name / Password: admin / P@ssw0rd
-Roles: [{role: "userAdminAnyDatabase", db: "admin"}]
-------------------------------------------------------------
-DB: test
-
-User name / Password: tester / P@ssw0rd
-Roles: [{role: "dbOwner", db: "test"}]
 ================================================================================

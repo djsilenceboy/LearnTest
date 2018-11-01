@@ -1,6 +1,6 @@
 ---
 - name: Install Jenkins
-  hosts: VagrantApplicationServer
+  hosts: all
   become: True
   vars:
     jenkins_installation_file: jenkins.war

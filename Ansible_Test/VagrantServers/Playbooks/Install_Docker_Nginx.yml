@@ -1,6 +1,6 @@
 ---
 - name: Install Nginx
-  hosts: VagrantDockerApplicationServer
+  hosts: all
   become: True
   tasks:
     - name: Pull image

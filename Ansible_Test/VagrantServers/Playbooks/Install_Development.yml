@@ -1,6 +1,6 @@
 ---
 - name: Install development tools
-  hosts: VagrantApplicationServer
+  hosts: all
   become: True
   tasks:
     - name: Install development group

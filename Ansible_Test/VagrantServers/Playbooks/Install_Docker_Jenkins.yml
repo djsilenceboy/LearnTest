@@ -1,6 +1,6 @@
 ---
 - name: Install Jenkins
-  hosts: VagrantDockerApplicationServer
+  hosts: all
   become: True
   tasks:
     - name: Pull image
