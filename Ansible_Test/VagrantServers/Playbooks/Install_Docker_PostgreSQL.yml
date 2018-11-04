@@ -1,0 +1,24 @@
+---
+- name: Install PostgreSQL
+  hosts: all
+  become: True
+  tasks:
+    - name: Pull image
+      docker_image:
+        name: postgres
+
+    - name: Create container
+      docker_container:
+        name: postgres
+        image: postgres
+        state: started
+        env:
+          POSTGRES_USER: tester
+          POSTGRES_PASSWORD: P@ssw0rd
+          POSTGRES_DB: test
+          PGDATA: /var/lib/postgresql/data/pgdata
+        published_ports:
+          - "5432:5432"
+        volumes:
+          - /opt/postgresql/pgdata:/var/lib/postgresql/data/pgdata
+        restart_policy: always

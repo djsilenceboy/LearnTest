@@ -33,3 +33,6 @@
 
     - name: Add Docker Compose path to sudo
       shell: sed -i "s/^Defaults.*:\/usr\/bin$/&:\/usr\/local\/bin/g" /etc/sudoers
+
+    - name: Install Python module docker-py
+      shell: pip install docker-py

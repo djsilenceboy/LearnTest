@@ -14,3 +14,4 @@
         state: started
         published_ports:
           - "8070:80"
+        restart_policy: always

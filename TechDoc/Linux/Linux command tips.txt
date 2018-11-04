@@ -363,3 +363,13 @@ Display in bytes.
 
 ]$ xxd -g 1 <File>
 ================================================================================
+exec and eval
+------------------------------------------------------------
+Without exec, run in child process.
+]$ echo $$; ls -l /proc/self; echo $$
+
+With exec, run in same process.
+]$ echo $$; exec ls -l /proc/self
+------------------------------------------------------------
+"eval <String>" will expand String first, then run it as command.
+================================================================================

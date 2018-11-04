@@ -1,0 +1,24 @@
+---
+- name: Install MySQL v5.7
+  hosts: all
+  become: True
+  tasks:
+    - name: Pull image
+      docker_image:
+        name: mysql:5.7
+
+    - name: Create container
+      docker_container:
+        name: mysql
+        image: mysql:5.7
+        state: started
+        env:
+          MYSQL_ROOT_PASSWORD: P@ssw0rd
+          MYSQL_USER: tester
+          MYSQL_PASSWORD: P@ssw0rd
+          MYSQL_DATABASE: test
+        published_ports:
+          - "3306:3306"
+        volumes:
+          - /opt/mysql/data:/var/lib/mysql
+        restart_policy: always

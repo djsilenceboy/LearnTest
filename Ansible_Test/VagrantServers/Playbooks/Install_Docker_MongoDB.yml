@@ -1,0 +1,40 @@
+---
+- name: Install MongoDB
+  hosts: all
+  become: True
+  tasks:
+    - name: Pull image
+      docker_image:
+        name: mongo
+
+    - name: Create container
+      docker_container:
+        name: mongo
+        image: mongo
+        state: started
+        env:
+          MONGO_INITDB_ROOT_USERNAME: root
+          MONGO_INITDB_ROOT_PASSWORD: P@ssw0rd
+        published_ports:
+          - "27017:27017"
+        volumes:
+          - /opt/mongo/data:/data/db
+        restart_policy: always
+
+    - name: Pull image
+      docker_image:
+        name: mongo-express
+
+    - name: Create container
+      docker_container:
+        name: mongo-express
+        image: mongo-express
+        state: started
+        links:
+          - "mongo:mongo"
+        env:
+          ME_CONFIG_MONGODB_ADMINUSERNAME: root
+          ME_CONFIG_MONGODB_ADMINPASSWORD: P@ssw0rd
+        published_ports:
+          - "8081:8081"
+        restart_policy: always

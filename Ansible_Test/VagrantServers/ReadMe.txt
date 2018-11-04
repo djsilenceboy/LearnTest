@@ -47,14 +47,19 @@ ansible-playbook -l VagrantJbossServer Playbooks/Install_Development.yml -vvv
 ansible-playbook -l VagrantJbossServer Playbooks/Install_JbossEAP.yml -vvv
 ------------------------------------------------------------
 VagrantDockerDbServer
+
+ansible-playbook -l VagrantDockerDbServer VagrantDockerServer.yml -vvv
+ansible-playbook -l VagrantDockerDbServer Playbooks/Install_Docker_PostgreSQL.yml -vvv
+ansible-playbook -l VagrantDockerDbServer Playbooks/Install_Docker_MySQL.yml -vvv
+ansible-playbook -l VagrantDockerDbServer Playbooks/Install_Docker_MongoDB.yml -vvv
 ------------------------------------------------------------
 VagrantDockerApplicationServer
 
-ansible-playbook VagrantDockerApplicationServer_Development.yml -vvv
-ansible-playbook VagrantDockerApplicationServer_Nginx.yml -vvv
-ansible-playbook VagrantDockerApplicationServer_Tomcat.yml -vvv
-ansible-playbook VagrantDockerApplicationServer_Jenkins.yml -vvv
-ansible-playbook VagrantDockerApplicationServer_JBoss.yml -vvv
+ansible-playbook -l VagrantDockerApplicationServer VagrantDockerServer.yml -vvv
+ansible-playbook -l VagrantDockerApplicationServer Playbooks/Install_Docker_Nginx.yml -vvv
+ansible-playbook -l VagrantDockerApplicationServer Playbooks/Install_Docker_Tomcat.yml -vvv
+ansible-playbook -l VagrantDockerApplicationServer Playbooks/Install_Docker_Jenkins.yml -vvv
+ansible-playbook -l VagrantDockerApplicationServer Playbooks/Install_Docker_JBoss_Wildfly.yml -vvv
 ------------------------------------------------------------
 VagrantDockerServer
 
@@ -163,9 +168,77 @@ Admin portal
 
 http://192.168.10.13:9990/console
 ================================================================================
-Nginx (Linux, Docker)
+
+================================================================================
+PostgreSQL v9.x (Linux, Docker)
 
 Server: 192.168.10.14
-Port: 8000
-Web console: http://192.168.10.14:8000
+Port: 5432
+User name / Password: tester / P@ssw0rd (admin)
+------------------------------------------------------------
+Database: test
+JDBC: jdbc:postgresql://192.168.10.14:5432/test
+================================================================================
+MySQL v5.7 (Linux, Docker)
+
+Server: 192.168.10.14
+Port: 3306
+User name / Password: root / P@ssw0rd (admin)
+User name / Password: tester / P@ssw0rd
+------------------------------------------------------------
+Schema/Database: test
+JDBC: jdbc:mysql://192.168.10.14:3306/test
+================================================================================
+MongoDB (Linux, Docker)
+
+Server: 192.168.10.14
+Port: 27017
+------------------------------------------------------------
+DB: admin
+
+User name / Password: root / P@ssw0rd
+Roles: [{role: "root", db: "admin"}]
+------------------------------------------------------------
+Admin portal
+
+http://192.168.10.14:8081/
+================================================================================
+
+================================================================================
+Nginx (Linux, Docker)
+
+Server: 192.168.10.15
+Port: 8070
+Web console: http://192.168.10.15:8070
+================================================================================
+Apache Tomcat v9.0.x (Linux, Docker)
+
+Server: 192.168.10.15
+Port: 8080
+Port: 8082
+Web console: http://192.168.10.15:8080
+             http://192.168.10.15:8082
+
+Admin user / Password: admin / P@ssw0rd
+Roles: admin-gui,manager-gui
+================================================================================
+Jenkins v2.x.x (Linux, Docker)
+
+Server: 192.168.10.15
+
+Web console: http://192.168.10.15:8090/jenkins
+================================================================================
+JBoss Wildfly (Linux, Docker)
+
+Server: 192.168.10.15
+
+Admin user / Password: admin / P@ssw0rd
+
+Port:
+http / 8100
+management-http / 9990
+------------------------------------------------------------
+Admin portal
+
+http://192.168.10.15:9990/console
 ================================================================================

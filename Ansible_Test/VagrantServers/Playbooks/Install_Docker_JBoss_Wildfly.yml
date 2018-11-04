@@ -18,3 +18,4 @@
         volumes:
           - /opt/jboss/wildfly/standalone/deployments:/opt/jboss/wildfly/standalone/deployments
         command: /opt/jboss/wildfly/bin/standalone.sh -bmanagement 0.0.0.0
+        restart_policy: always

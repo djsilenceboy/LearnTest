@@ -2,6 +2,11 @@
 - name: Install Tomcat v9.0
   hosts: all
   become: True
+  vars:
+    tomecat_version: 9.0.12
+    remote_temp_path: /tmp
+    tomcat_installation_parentfolder: /opt
+    tomcat_installation_folder: tomcat
   tasks:
     - name: Pull image
       docker_image:
@@ -12,11 +17,34 @@
         name: tomcat
         image: tomcat:9
         state: started
-        env:
-          JPDA_ADDRESS: 8000
-          JPDA_TRANSPORT: dt_socket
         published_ports:
           - "8080:8080"
-          - "8082:8000"
-        volumes:
-          - /opt/tomcat/webapps:/opt/tomcat/webapps
+          - "8089:8009"
+        restart_policy: always
+
+    - name: Download files
+      get_url:
+        url: "https://www-us.apache.org/dist/tomcat/tomcat-9/v{{ tomecat_version }}/bin/extras/{{ item }}"
+        dest: "{{ remote_temp_path }}"
+      with_items:
+        - catalina-jmx-remote.jar
+        - catalina-ws.jar
+
+    - name: Upload files into container
+      shell: docker cp "{{ remote_temp_path }}/{{ item }}" tomcat:/usr/local/tomcat/lib
+      with_items:
+        - catalina-jmx-remote.jar
+        - catalina-ws.jar
+
+    - name: Add admin user
+      shell: docker exec -t tomcat bash -c 'sed -i '"'"'/<\/tomcat-users>/ i\  <user username="admin" password="P@ssw0rd" roles="manager-gui,manager-status,manager-script"/>'"'"' /usr/local/tomcat/conf/tomcat-users.xml'
+
+    - name: Enable remote access console (from 192.168.0.0/16)
+      shell: docker exec -t tomcat bash -c 'sed -i '"'"'s/\(^.*0:1\)\(.*$\)/\1|192\\.168\\.\\d+\\.\\d+\2/g'"'"' /usr/local/tomcat/webapps/manager/META-INF/context.xml'
+
+    - name: Restart container
+      docker_container:
+        name: tomcat
+        image: tomcat:9
+        state: started
+        restart: yes
