@@ -1,0 +1,100 @@
+================================================================================
+Chocolatey
+================================================================================
+Some intro
+https://lifehacker.com/install-and-update-all-your-windows-apps-at-once-with-t-1827588626
+================================================================================
+Install
+https://chocolatey.org/install
+------------------------------------------------------------
+Install with PowerShell (Admin)
+
+Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+------------------------------------------------------------
+Upgrade
+
+choco upgrade -y chocolatey
+================================================================================
+Chocolatey GUI
+https://chocolatey.org/packages/ChocolateyGUI
+------------------------------------------------------------
+choco install -y chocolateygui
+choco upgrade -y chocolateygui
+================================================================================
+Some suggested software
+
+(Better reboot after installing WMF, .NET and Runtimes)
+----------------------------------------
+Windows Management Framework v5.1
+
+choco install -y powershell
+------------------------------------------------------------
+Microsoft .NET Framework v4.7.2
+
+choco install -y dotnet4.7.1
+----------------------------------------
+ConEmu
+
+choco install -y conemu
+----------------------------------------
+Notepad++
+
+choco install -y notepadplusplus
+----------------------------------------
+7-Zip
+
+choco install -y 7zip
+----------------------------------------
+VC 2005 SP1 Runtimes
+
+choco install -y vcredist2005
+----------------------------------------
+VC 2008 SP1 Runtimes
+
+choco install -y vcredist2008
+----------------------------------------
+VC 2010 SP1 Runtimes
+
+choco install -y vcredist2010
+----------------------------------------
+VC 2012 SP4 Runtimes
+
+choco install -y vcredist2012
+----------------------------------------
+VC 2013 Runtimes
+
+choco install -y vcredist2013
+----------------------------------------
+VC 2015 Runtimes
+
+choco install -y vcredist2015
+----------------------------------------
+VC 2017 Runtimes
+
+choco install -y vcredist140
+----------------------------------------
+JDK/JRE v8
+
+choco install -y javaruntime
+choco install -y jdk8
+----------------------------------------
+DirectX Jun 2010
+
+choco install -y directx
+----------------------------------------
+Google Chrome
+
+choco install -y googlechrome
+
+("chrome://flags/" page, find the section for "Save Page as MHTML")
+----------------------------------------
+FireFox
+
+choco install -y firefox
+
+(Add-on: Save Page WE)
+----------------------------------------
+Adobe Reader DC
+
+choco install -y adobereader
+================================================================================
