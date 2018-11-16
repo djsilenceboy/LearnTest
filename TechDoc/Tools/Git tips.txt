@@ -296,7 +296,21 @@ Add files to be tracked (if not tracked yet) and to staging.
 
 > git add <FileName>
 
+Add all new files in current folder.
+
 > git add *
+----------------------------------------
+Add all changes (new files, modified files, delete files).
+
+> git add -A
+
+Add changes (new files, modified files) only.
+
+> git add .
+
+Add changes (modified files, delete files) only.
+
+> git add -u
 ------------------------------------------------------------
 Remove file from staging, but preserve its content.
 
