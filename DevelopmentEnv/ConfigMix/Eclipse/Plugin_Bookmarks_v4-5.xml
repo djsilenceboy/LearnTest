@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bookmarks>
+   <site url="http://download.eclipse.org/tools/cdt/releases/8.8" selected="true" name="CDT"/>
+   <site url="http://eclipse-cs.sourceforge.net/update" selected="true" name="Checkstyle"/>
+   <site url="http://findbugs.cs.umd.edu/eclipse" selected="true" name="FindBugs (Static Code Analysis)"/>
+   <site url="http://download.jboss.org/jbosstools/updates/stable/" selected="false" name="JBoss Tools"/>
+   <site url="http://download.eclipse.org/releases/mars" selected="true" name="Mars"/>
+   <site url="http://sourceforge.net/projects/pmd/files/pmd-eclipse/update-site/" selected="true" name="PMD (Static Code Analysis)"/>
+   <site url="http://pydev.org/updates" selected="true" name="PyDev: Python IDE"/>
+   <site url="http://dist.springsource.com/release/TOOLS/update/e4.5" selected="true" name="Spring Tool Suite (STS)"/>
+   <site url="http://download.eclipse.org/eclipse/updates/4.5" selected="true" name="The Eclipse Project Updates"/>
+   <site url="http://download.eclipse.org/webtools/repository/mars" selected="true" name="The Eclipse Web Tools Platform (WTP) software repository"/>
+   <site url="http://subclipse.tigris.org/update_1.12.x" selected="true" name="Tigris subclipse (SVN)"/>
+</bookmarks>

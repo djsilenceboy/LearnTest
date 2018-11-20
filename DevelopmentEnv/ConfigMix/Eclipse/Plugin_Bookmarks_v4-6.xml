@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bookmarks>
+   <site url="http://download.eclipse.org/tools/cdt/releases/9.2" selected="false" name="CDT"/>
+   <site url="http://eclipse-cs.sf.net/update/" selected="true" name="Checkstyle"/>
+   <site url="https://dl.google.com/eclipse/plugin/4.6/" selected="true" name="Google App Engine"/>
+   <site url="http://download.eclipse.org/linuxtools/update" selected="false" name="Linux Tools"/>
+   <site url="http://download.eclipse.org/linuxtools/update-docker" selected="false" name="Linux Tools Docker Tooling"/>
+   <site url="http://download.eclipse.org/releases/neon" selected="true" name="Neon"/>
+   <site url="https://dl.bintray.com/pmd/pmd-eclipse-plugin/updates/" selected="true" name="PMD (Static Code Analysis)"/>
+   <site url="http://www.pydev.org/updates/" selected="true" name="PyDev: Python IDE"/>
+   <site url="http://dist.springsource.com/release/TOOLS/update/e4.6/" selected="true" name="Spring Tool Suite"/>
+   <site url="http://download.eclipse.org/eclipse/updates/4.6" selected="true" name="The Eclipse Project Updates"/>
+   <site url="http://download.eclipse.org/webtools/repository/neon" selected="true" name="The Eclipse Web Tools Platform (WTP) software repository"/>
+</bookmarks>

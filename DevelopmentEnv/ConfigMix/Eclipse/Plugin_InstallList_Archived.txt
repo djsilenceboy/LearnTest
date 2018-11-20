@@ -1,0 +1,160 @@
+================================================================================
+2015.12.29
+================================================================================
+Eclipse
+------------------------------------------------------------
+Mars (Eclipse 4.5)
+
+http://download.eclipse.org/releases/mars
+
+(Include "Collaboration": Mylyn Hudson/C/C++/Git/PHP)
+(Exclude "Collaboration": Subversive, using Tigris subclipse)
+(Include "General Purpose Tools": API Tools Execution, ChangeLog, Swing, SWT)
+(Include "Performance...": Memory Analyzer)
+(Include "Programming Languages": C/C++(CDT), Code Recommender, PHP(PDT), Dynamic Languages Toolkit - Ruby)
+
+(Using Check Update to do this)
+http://download.eclipse.org/eclipse/updates/4.5
+------------------------------------------------------------
+Luna (Eclipse 4.4)
+
+http://download.eclipse.org/releases/luna
+
+(Include "Application Development Frameworks": All)
+(Include "Collaboration": Command Line Interface for Java of Git, Mylyn Hudson/C/C++/Git)
+(Exclude "Collaboration": Subversive, using Tigris subclipse)
+(Include "General Purpose Tools": API Tools Execution, ChangeLog, Dynamic Languages Toolkit, Memory Analyer, Swing, SWT)
+(Include "Modeling": XSD - XML Schema Definition SDK)
+(Include "Programming Languages": C/C++(CDT), Code Recommender, PHP(PDT) )
+(Include "Web, XML, Java EE and OSGi": All)
+
+(Using Check Update to do this)
+http://download.eclipse.org/eclipse/updates/4.4
+------------------------------------------------------------
+Kepler (Eclipse 4.3)
+
+http://download.eclipse.org/releases/kepler
+
+(Include "Application Development Frameworks": All)
+(Include "Collaboration": Command Line Interface for Java of Git, Mylyn Context Hudson/C/C++/Git)
+(Exclude "Collaboration": Subversive, using Tigris subclipse)
+(Include "General Purpose Tools": API Tools Execution, ChangeLog, Dynamic Languages Toolkit, Memory Analyer, Swing, SWT)
+(Include "Modeling": XSD - XML Schema Definition SDK)
+(Include "Programming Languages": C/C++(CDT), Code Recommender, PHP(PDT) )
+(Include "Web, XML, Java EE and OSGi": All)
+
+(Using Check Update to do this)
+http://download.eclipse.org/eclipse/updates/4.3
+------------------------------------------------------------
+m2eclipse (Maven)
+
+(Can be updated from Eclipse main update site)
+
+(For Eclipse 4.x)
+http://download.eclipse.org/technology/m2e/releases
+------------------------------------------------------------
+Tigris subclipse (SVN) (Recommended)
+
+(Install "Subclipse": All)
+(Exclude "SVNKit": All)
+
+http://subclipse.tigris.org/update_1.12.x
+(requires Subversion 1.9.x)
+
+http://subclipse.tigris.org/update_1.10.x
+(requires Subversion 1.8.x)
+
+http://subclipse.tigris.org/update_1.8.x
+(requires Subversion 1.7.x)
+================================================================================
+PyDev: Python IDE for Eclipse (Recommended)
+(Cannot coexist with Aptana <= 3.6.0)
+
+http://pydev.org/updates
+------------------------------------------------------------
+Aptana Studio: Ruby IDE for Eclipse (Recommended)
+(Aptana <= 3.6.0 Cannot coexist with PyDev)
+
+v3.6.0
+http://download.aptana.com/studio3/plugin/install
+v3.6.1
+http://preview.appcelerator.com/aptana/studio3/standalone/update/beta/
+------------------------------------------------------------
+Spring Tool Suite (STS) (Recommended)
+(http://spring.io/tools/sts/all)
+
+(For Eclipse 4.5)
+http://dist.springsource.com/release/TOOLS/update/e4.5
+(Install "Core / Spring IDE": All)
+(Install "Extensions / Spring IDE": All)
+(Install "Integrations / Spring IDE": All)
+
+(For Eclipse 4.4)
+http://dist.springsource.com/release/TOOLS/update/e4.4
+(Install "Core / Spring IDE": All)
+(Install "Extensions / Spring IDE": All)
+(Install "Integrations / Spring IDE": All)
+
+(For Eclipse 4.3)
+http://dist.springsource.com/release/TOOLS/update/e4.3
+(Install "Core / Spring IDE": All)
+(Install "Extensions / Spring IDE": All)
+(Install "Integrations / Spring IDE": All)
+------------------------------------------------------------
+UMLet (Recommended)
+
+http://www.umlet.com/changes.htm
+------------------------------------------------------------
+PMD (Static Code Analysis) (Recommended)
+
+http://sourceforge.net/projects/pmd/files/pmd-eclipse/update-site/
+------------------------------------------------------------
+Checkstyle (Recommended)
+
+http://eclipse-cs.sourceforge.net/update
+------------------------------------------------------------
+FindBugs (Static Code Analysis) (Recommended)
+
+http://findbugs.cs.umd.edu/eclipse
+================================================================================
+Google App Engine (Optional)
+
+https://dl.google.com/eclipse/plugin/4.5
+------------------------------------------------------------
+JBoss Tools (Optional)
+
+(For Eclipse 4.x)
+http://download.jboss.org/jbosstools/updates/stable/
+(Install "Abridged JBoss Tools": All)
+(Install "Additional JBoss Tools": JBoss Tools Common - Mylyn)
+================================================================================
+AspectJ Development Tools (Less Optional)
+
+(For Eclipse 4.3)
+http://download.eclipse.org/tools/ajdt/43/update/
+------------------------------------------------------------
+EclEmma (Java Code Coverage) (Less Optional)
+
+http://update.eclemma.org/
+------------------------------------------------------------
+Atlassian Connector (JIRA) (Less Optional)
+
+(Note that: conflict with Papyrus UML)
+
+(3.2.x For JIRA 5.0 and newer)
+http://update.atlassian.com/atlassian-eclipse-plugin/rest/e3.7
+
+(3.0.x For JIRA 3.13.x and newer):
+http://update.atlassian.com/atlassian-eclipse-plugin/e3.6
+------------------------------------------------------------
+Papyrus UML (Less Optional)
+
+(Can be updated from Eclipse main update site)
+(Note that: conflict with Atlassian Connector)
+------------------------------------------------------------
+PDT tools formatter (Less Optional)
+
+(PDT has own formatter.)
+
+http://de.sourceforge.jp/projects/pdt-tools/releases/
+================================================================================

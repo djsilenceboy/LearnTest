@@ -1,0 +1,91 @@
+================================================================================
+2018.11
+
+Eclipse 4.9 (SimRel)
+================================================================================
+SimRel
+
+Plugin URL: http://download.eclipse.org/releases/2018-09
+
+(
+Include
+"Collaboration": Dynamic Languages Toolkit, GitHub, Git, Jenkins, C/C++
+"General Purpose Tools": API Tools Execution, ChangeLog, Docker Tooling, Dynamic Languages Toolkit Core Frameworks, m2e (Maven), Man Page Viewer, Vagrant Tooling
+"Modeling": Papyrus UML
+"Performance, Profiling and Tracing Tools": Memory Analyzer, Pcap Analysis
+"Programming Languages": C/C++ Autotools, C/C++ Development Tools (CDT), C/C++ Library API Document Hover Help, C/C++ Visual C++ Support, Code Recommenders Snipmatch, Javadocs Help Feature, JDT Docker Launcher
+"Web, XML, Java EE and OSGi": Dali Java Persistence Tools - JPA Diagram Editor
+)
+------------------------------------------------------------
+Eclipse itself
+
+Plugin URL: http://download.eclipse.org/eclipse/updates/4.9/
+
+(
+Include
+"Eclipse Tests, Tools...": Eclipse Test Framework
+)
+================================================================================
+PyDev: Python IDE (Recommended)
+
+Plugin URL: http://www.pydev.org/updates/
+
+(Include: All)
+------------------------------------------------------------
+GoClipse: Go IDE (Recommended)
+
+Plugin URL: http://goclipse.github.io/releases/
+
+(Include: GoClipse only)
+------------------------------------------------------------
+Spring Tool Suite (STS) (Recommended)
+
+Portal: http://spring.io/tools/sts/all
+Plugin URL: http://download.springsource.com/release/TOOLS/update/e4.9/
+
+(
+Install
+"Core / Eclipse Integration Commons": All
+"Core / Spring IDE": All
+"Extensions / Spring IDE": All
+"Integrations / Spring IDE": All
+)
+------------------------------------------------------------
+PMD (Static Code Analysis) (Recommended)
+
+Portal: https://pmd.github.io/
+Plugin URL: https://dl.bintray.com/pmd/pmd-eclipse-plugin/updates/
+
+(
+Install
+"PMD for Eclipse": All
+)
+------------------------------------------------------------
+Checkstyle (Recommended)
+
+Portal: https://checkstyle.org/eclipse-cs/#!/
+Plugin URL: https://checkstyle.org/eclipse-cs/update/
+
+(
+Install
+"Checkstyle": Eclipse Checkstyle Plug-in
+)
+================================================================================
+Google Cloud Tools for Eclipse (Optional)
+
+Plugin URL: http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=3321165
+================================================================================
+JBoss Tools (Less Optional)
+
+Plugin URL: http://download.jboss.org/jbosstools/photon/stable/updates/
+
+(
+Install
+"Abridged JBoss Tools": All
+"Additional JBoss Tools": JBoss Tools Common - Mylyn
+)
+------------------------------------------------------------
+UMLet (Less Optional)
+
+Download URL: http://www.umlet.com/changes.htm
+================================================================================

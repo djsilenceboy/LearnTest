@@ -1,0 +1,130 @@
+================================================================================
+2017.03.19
+
+Eclipse 4.6 (Neon)
+================================================================================
+Eclipse
+------------------------------------------------------------
+Neon
+
+Plugin URL: http://download.eclipse.org/releases/neon/
+
+(
+Include
+"Collaboration": Dynamic Languages Toolkit, Git Team Provider, GitHub, Jenkins, C/C++, Git, PHP, Subversive SVN Team Provider
+"General Purpose Tools": API Tools Execution, Gradle, ChangeLog, Docker Tooling, Dynamic Languages Toolkit Core Frameworks, m2e (Maven)
+"Modeling": Papyrus UML
+"Performance, Profiling and Tracing Tools": Memory Analyzer
+"Programming Languages": C/C++ Autotools, C/C++ Development Tools (CDT), C/C++ Library API Document Hover Help, C/C++ Visual C++ Support, Code Recommenders Snipmatch, PHP Development Tools (PDT), PHP Smart Import
+"Web, XML, Java EE and OSGi": Dali Java Persistence Tools - JPA Diagram Editor
+
+Exclude
+"Collaboration": Subversive SVN Team Provider Localization / Sources
+)
+------------------------------------------------------------
+Eclipse itself
+
+Plugin URL: http://download.eclipse.org/eclipse/updates/4.6/
+
+(
+Include
+"Eclipse Tests, Tools...": Eclipse Test Framework
+)
+------------------------------------------------------------
+The Eclipse Web Tools Platform (WTP)
+
+(Already installed with JEE package.)
+
+(For Eclipse)
+Plugin URL: http://download.eclipse.org/webtools/repository/neon/
+------------------------------------------------------------
+M2Eclipse (Maven) (Recommended)
+
+(Install from Eclipse main update site)
+------------------------------------------------------------
+Tigris Subclipse (SVN) (Recommended)
+
+(Install from Eclipse main update site)
+
+Portal: https://github.com/subclipse/subclipse/wiki
+Plugin URL: https://dl.bintray.com/subclipse/releases/subclipse/latest/
+------------------------------------------------------------
+Papyrus UML (Recommended)
+
+(Install from Eclipse main update site)
+
+Plugin URL: http://download.eclipse.org/modeling/mdt/papyrus/updates/releases/neon
+================================================================================
+PyDev: Python IDE (Recommended)
+
+Plugin URL: http://www.pydev.org/updates/
+
+(Include: All)
+------------------------------------------------------------
+GoClipse: Go IDE (Recommended)
+
+Plugin URL: http://goclipse.github.io/releases/
+
+(Include: GoClipse only)
+------------------------------------------------------------
+Spring Tool Suite (STS) (Recommended)
+
+Portal: http://spring.io/tools/sts/all
+
+(For Eclipse)
+Plugin URL: http://dist.springsource.com/release/TOOLS/update/e4.6/
+
+(
+Install
+"Core / Eclipse Integration Commons": All
+"Core / Eclipse Integration for Gradle": All
+"Core / Spring IDE": All
+"Extensions / Spring IDE": All
+"Integrations / Spring IDE": All
+)
+------------------------------------------------------------
+PMD (Static Code Analysis) (Recommended)
+
+Portal: https://pmd.github.io/
+Plugin URL: https://dl.bintray.com/pmd/pmd-eclipse-plugin/updates/
+
+(
+Install
+"PMD for Eclipse 4": All
+)
+------------------------------------------------------------
+Checkstyle (Recommended)
+
+Portal: http://eclipse-cs.sf.net
+Plugin URL: http://eclipse-cs.sf.net/update/
+
+(
+Install
+"Checkstyle": Eclipse Checkstyle Plug-in
+)
+================================================================================
+Google App Engine (Optional)
+
+(For Eclipse)
+Plugin URL: https://dl.google.com/eclipse/plugin/4.6/
+
+(
+Install
+"Google Plugin for Eclipse": Google App Engine Maven Integration, Google App Engine for Eclipse 4.x
+)
+================================================================================
+JBoss Tools (Less Optional)
+
+(For Eclipse)
+http://download.jboss.org/jbosstools/neon/stable/updates/
+
+(
+Install
+"Abridged JBoss Tools": All
+"Additional JBoss Tools": JBoss Tools Common - Mylyn
+)
+------------------------------------------------------------
+UMLet (Less Optional)
+
+Download URL: http://www.umlet.com/changes.htm
+================================================================================
