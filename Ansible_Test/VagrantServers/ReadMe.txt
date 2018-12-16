@@ -59,6 +59,7 @@ ansible-playbook -l VagrantDockerApplicationServer VagrantDockerServer.yml -vvv
 ansible-playbook -l VagrantDockerApplicationServer Playbooks/Install_Docker_Nginx.yml -vvv
 ansible-playbook -l VagrantDockerApplicationServer Playbooks/Install_Docker_Tomcat.yml -vvv
 ansible-playbook -l VagrantDockerApplicationServer Playbooks/Install_Docker_Jenkins.yml -vvv
+ansible-playbook -l VagrantDockerApplicationServer Playbooks/Install_Docker_TeamCity.yml -vvv
 ansible-playbook -l VagrantDockerApplicationServer Playbooks/Install_Docker_JBoss_Wildfly.yml -vvv
 ------------------------------------------------------------
 VagrantDockerServer
@@ -227,6 +228,14 @@ Jenkins v2.x.x (Linux, Docker)
 Server: 192.168.10.15
 
 Web console: http://192.168.10.15:8090/jenkins
+================================================================================
+TeamCity (Linux, Docker)
+
+Server: 192.168.10.15
+
+Web console: http://192.168.10.15:8111/
+
+Admin user / Password: admin / P@ssw0rd
 ================================================================================
 JBoss Wildfly (Linux, Docker)
 

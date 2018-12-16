@@ -1,0 +1,35 @@
+---
+- name: Install TeamCity
+  hosts: all
+  become: True
+  tasks:
+    - name: Pull image for server
+      docker_image:
+        name: jetbrains/teamcity-server
+
+    - name: Create container for server
+      docker_container:
+        name: teamcity-server
+        image: jetbrains/teamcity-server
+        state: started
+        published_ports:
+          - "8111:8111"
+        volumes:
+          - /opt/teamcity_server/data:/data/teamcity_server/datadir
+          - /opt/teamcity_server/logs:/opt/teamcity/logs
+        restart_policy: always
+
+    - name: Pull image for agent
+      docker_image:
+        name: jetbrains/teamcity-agent
+
+    - name: Create container for agent
+      docker_container:
+        name: teamcity-agent
+        image: jetbrains/teamcity-agent
+        state: started
+        env:
+          SERVER_URL: http://192.168.10.15:8111/
+        volumes:
+          - /opt/teamcity_agent/conf:/data/teamcity_agent/conf
+        restart_policy: always

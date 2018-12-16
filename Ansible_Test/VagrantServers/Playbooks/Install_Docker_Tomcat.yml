@@ -3,7 +3,7 @@
   hosts: all
   become: True
   vars:
-    tomecat_version: 9.0.12
+    tomecat_version: 9.0.14
     remote_temp_path: /tmp
     tomcat_installation_parentfolder: /opt
     tomcat_installation_folder: tomcat
