@@ -71,6 +71,15 @@ Install
 "Checkstyle": Eclipse Checkstyle Plug-in
 )
 ================================================================================
+EGit (Optional)
+
+Plugin URL: http://download.eclipse.org/egit/updates
+            http://download.eclipse.org/egit/github/updates (More only for 4.9)
+(
+Already included in SimRel Plugin URL,
+but SimRel Plugin URL not having "Java implementation of Git"
+)
+------------------------------------------------------------
 Google Cloud Tools for Eclipse (Optional)
 
 Plugin URL: http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=3321165
