@@ -13,6 +13,8 @@ ansible-playbook -l VagrantDockerDbServer VagrantDockerDbServer.yml -vvv
 ansible-playbook -l VagrantDockerApplicationServer VagrantDockerApplicationServer.yml -vvv
 
 ansible-playbook -l VagrantDockerServer VagrantDockerServer.yml -vvv
+ansible-playbook -l VagrantDockerServer VagrantDockerServerEx.yml -vvv
+
 ansible-playbook -l VagrantDockerServer2 VagrantDockerServer.yml -vvv
 ================================================================================
 Step by step installations for each server. (For debugging)
@@ -67,6 +69,8 @@ VagrantDockerServer
 ansible-playbook -l VagrantDockerServer Playbooks/Setup_CentOS.yml -vvv
 ansible-playbook -l VagrantDockerServer Playbooks/Install_Development.yml -vvv
 ansible-playbook -l VagrantDockerServer Playbooks/Install_Docker.yml -vvv
+
+ansible-playbook -l VagrantDockerServer Playbooks/Install_Docker_Registry.yml -vvv
 ------------------------------------------------------------
 VagrantDockerServer2
 
@@ -87,7 +91,15 @@ https://developers.redhat.com/download-manager/file/jboss-eap-7.1.0-installer.ja
 
 3. Run playbooks.
 ================================================================================
+For VagrantDockerServer2
 
+]$ sudo vi /etc/hosts
+192.168.10.16    docker.djsilenceboy.com
+
+]$ sudo mkdir -p /etc/docker/certs.d/docker.djsilenceboy.com:5000
+]$ sudo vi /etc/docker/certs.d/docker.djsilenceboy.com:5000/ca.crt
+(Paste contents of "docker_registry.crt" from VagrantDockerServer.)
+================================================================================
 
 ================================================================================
 PostgreSQL v9.6 (Linux)

@@ -1,0 +1,2 @@
+---
+- include: Playbooks/Install_Docker_Registry.yml

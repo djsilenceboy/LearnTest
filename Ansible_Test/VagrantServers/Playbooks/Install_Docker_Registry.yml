@@ -1,0 +1,56 @@
+---
+- name: Install Docker Registry
+  hosts: all
+  become: True
+  tasks:
+    - name: Create data folder
+      file:
+        path: /opt/docker/registry
+        state: directory
+        mode: 0755
+
+    - name: Create subfolder for certs
+      file:
+        path: /opt/docker/registry/certs
+        state: directory
+        mode: 0755
+
+    - name: Create subfolder for repo
+      file:
+        path: /opt/docker/registry/repo
+        state: directory
+        mode: 0755
+
+    - name: Get hostname
+      shell: hostname
+      register: result
+
+    - name: Generate certificate
+      shell: openssl req -x509 -nodes -days 365 -sha256 -newkey rsa:2048 -keyout docker_registry.key -out docker_registry.crt -subj "/C=SG/ST=Singapore/L=Singapore/O=User/CN={{ result.stdout }}"
+      args:
+        chdir: /opt/docker/registry/certs
+
+    - name: Download certificate
+      fetch:
+        src: /opt/docker/registry/certs/docker_registry.crt
+        dest: ../../Temp/docker_registry.crt
+        flat: yes
+
+    - name: Pull image
+      docker_image:
+        name: registry:2
+
+    - name: Create container
+      docker_container:
+        name: registry
+        image: registry:2
+        state: started
+        published_ports:
+          - "5000:5000"
+        env:
+          REGISTRY_HTTP_TLS_CERTIFICATE: /certs/docker_registry.crt
+          REGISTRY_HTTP_TLS_KEY: /certs/docker_registry.key
+        volumes:
+          - /opt/docker/registry/certs:/certs
+          - /opt/docker/registry/repo:/var/lib/registry
+        restart_policy: always

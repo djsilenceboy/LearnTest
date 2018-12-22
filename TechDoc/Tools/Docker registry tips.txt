@@ -1,29 +1,30 @@
 ================================================================================
-Docker registry
-
-Install Docker registry
+Docker Registry
+================================================================================
+Install Docker registry on server VM.
 ------------------------------------------------------------
 Create folder.
 
-]# mkdir -p /docker/registry
-]# mkdir -p /docker/registry/certs
-]# mkdir -p /docker/registry/repo
+]# mkdir -p /opt/docker/registry
+]# mkdir -p /opt/docker/registry/certs
+]# mkdir -p /opt/docker/registry/repo
 ------------------------------------------------------------
 Generate certificate.
+To enable remote https access. Otherwise, only localhost access.
 
-]# cd /docker/registry/certs
+]# cd /opt/docker/registry/certs
 
-]# openssl req -x509 -nodes -days 365 -sha256 -newkey rsa:2048 -keyout docker_registry.key -out docker_registry.crt -subj "/C=SG/ST=Singapore/L=Singapore/O=djsilenceboy/CN=`hostname`"
+]# openssl req -x509 -nodes -days 365 -sha256 -newkey rsa:2048 -keyout docker_registry.key -out docker_registry.crt -subj "/C=SG/ST=Singapore/L=Singapore/O=User/CN=`hostname`"
 ------------------------------------------------------------
 Load image and create container by Docker Engine.
 
-]# docker run -d -p 5000:5000 --restart=always --name registry -v /docker/registry/certs:/certs -v /docker/registry/repo:/var/lib/registry -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/docker_registry.crt -e REGISTRY_HTTP_TLS_KEY=/certs/docker_registry.key registry:2
-------------------------------------------------------------
+]# docker run -d -p 5000:5000 --restart=always --name registry -v /opt/docker/registry/certs:/certs -v /opt/docker/registry/repo:/var/lib/registry -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/opt/docker_registry.crt -e REGISTRY_HTTP_TLS_KEY=/certs/opt/docker_registry.key registry:2
+================================================================================
 Load image and create container by Docker Compose.
-
+------------------------------------------------------------
 Generate yml.
 
-]# cd /docker/registry
+]# cd /opt/docker/registry
 ]# vi docker-compose.yml
 ----------------------------------------
 registry:
@@ -32,11 +33,63 @@ registry:
   ports:
     - 5000:5000
   environment:
-    REGISTRY_HTTP_TLS_CERTIFICATE: /certs/docker_registry.crt
-    REGISTRY_HTTP_TLS_KEY: /certs/docker_registry.key
+    REGISTRY_HTTP_TLS_CERTIFICATE: /certs/opt/docker_registry.crt
+    REGISTRY_HTTP_TLS_KEY: /certs/opt/docker_registry.key
   volumes:
-    - /docker/registry/certs:/certs
-    - /docker/registry/repo:/var/lib/registry
-----------------------------------------
+    - /opt/docker/registry/certs:/certs
+    - /opt/docker/registry/repo:/var/lib/registry
+------------------------------------------------------------
 ]# docker-compose up -d
+================================================================================
+List all repositories.
+
+]# curl -k -X GET https://<DR_HostName>:5000/v2/_catalog
+------------------------------------------------------------
+List all tags for a repository.
+
+]# curl -k -X GET https://<DR_HostName>:5000/v2/<RepositoryName>/tags/list
+================================================================================
+Setup on client VM.
+------------------------------------------------------------
+If not use DNS, add DR host.
+
+]# vi /etc/hosts
+<DR_IP>  <DR_HostName>
+
+Sample:
+192.168.0.15     dr.sample.com
+------------------------------------------------------------
+Copy certificate from DR server.
+
+/tmp/docker_registry.crt
+------------------------------------------------------------
+Install certificate.
+
+sudo mkdir -p /etc/docker/certs.d/<DR_HostName>:5000
+sudo cp /tmp/docker_registry.crt /etc/docker/certs.d/<DR_HostName>:5000/ca.crt
+
+Sample:
+sudo mkdir -p /etc/docker/certs.d/dr.sample.com:5000
+sudo cp /tmp/docker_registry.crt /etc/docker/certs.d/dr.sample.com:5000/ca.crt
+================================================================================
+Test on client VM.
+------------------------------------------------------------
+Use busybox as example.
+
+]# docker pull busybox
+]# docker tag busybox dr.sample.com:5000/my-busybox
+]# docker push dr.sample.com:5000/my-busybox
+----------------------------------------
+Check DR repo.
+
+]# curl -k -X GET https://dr.sample.com:5000/v2/_catalog
+{"repositories":["my-busybox"]}
+
+]# curl -k -X GET https://dr.sample.com:5000/v2/my-busybox/tags/list
+{"name":"my-busybox","tags":["latest"]}
+----------------------------------------
+Remove local image, and pull it again from DR.
+
+]# docker rmi dr.sample.com:5000/my-busybox
+]# docker pull dr.sample.com:5000/my-busybox
 ================================================================================

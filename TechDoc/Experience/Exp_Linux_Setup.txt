@@ -1,0 +1,114 @@
+================================================================================
+Install packages
+--------------------------------------------------
+For all:
+
+]# yum update -y
+
+]# yum install -y zip unzip
+]# yum install -y net-tools
+]# yum install -y bind-utils
+]# yum install -y cifs-utils
+]# yum install -y bridge-utils
+]# yum install -y yum-utils
+
+]# yum install -y lvm2
+]# yum install -y openldap-clients
+]# yum install -y perl
+]# yum install -y traceroute
+]# yum install -y screen
+]# yum install -y whois
+
+or
+
+]# yum install -y zip unzip net-tools bind-utils cifs-utils bridge-utils yum-utils lvm2 openldap-clients perl traceroute screen whois
+----------------------------------------
+For GUI:
+
+]# yum groupinstall -y 'Server with GUI'
+]# yum install -y tigervnc-server
+--------------------------------------------------
+For Gnome only:
+
+]# yum groupinstall -y 'X Window System' 'GNOME'
+--------------------------------------------------
+Suggested to reboot once.
+================================================================================
+Optional:
+------------------------------------------------------------
+Enable/Start
+
+]# systemctl enable ipset
+]# systemctl start ipset
+]# systemctl status ipset
+
+]# systemctl enable iptables
+]# systemctl start iptables
+]# systemctl status iptables
+------------------------------------------------------------
+Stop/Disable
+
+]# systemctl stop ipset
+]# systemctl disable ipset
+]# systemctl status ipset
+
+]# systemctl stop iptables
+]# systemctl disable iptables
+]# systemctl status iptables
+================================================================================
+Add DNS and hosts
+
+(Only add if host name cannot be found by DNS.)
+
+]# vi /etc/hosts
+================================================================================
+Start VNC
+
+":1" for port 5901, ":2" for port 5902.
+
+]# vncserver :1
+password: P@ssw0rd
+
+]# echo P@ssw0rd | vncpasswd -f
+
+]# vncpasswd
+password: P@ssw0rd
+
+]# vncserver -kill :1
+------------------------------------------------------------
+Optional to start VNC as service
+
+]# cp /usr/lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@.service
+]# vim /etc/systemd/system/vncserver@.service
+ExecStart=/usr/sbin/runuser -l root -c "/usr/bin/vncserver %i"
+PIDFile=/root/.vnc/%H%i.pid
+
+]# systemctl daemon-reload
+]# vncpasswd
+enter password: P@ssw0rd
+
+]# systemctl start vncserver@:1.service
+]# systemctl enable vncserver@:1.service
+================================================================================
+Config sudo
+------------------------------------------------------------
+]# visudo
+
+Allow root to run any commands anywhere:
+
+root    ALL=(ALL)       ALL
+
+Allow sudo user to run any commands anywhere:
+
+<IndividualUserName> ALL=(ALL) NOPASSWD: ALL
+
+Add "/usr/local/bin" path:
+
+Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin
+------------------------------------------------------------
+# Append ":/usr/local/bin" to line: "Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin".
+
+sudo grep "secure_path" /etc/sudoers
+sudo sed -i "s/^Defaults.*:\/usr\/bin$/&:\/usr\/local\/bin/g" /etc/sudoers
+sudo grep "secure_path" /etc/sudoers
+================================================================================
