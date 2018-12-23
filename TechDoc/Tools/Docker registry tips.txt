@@ -1,5 +1,8 @@
 ================================================================================
 Docker Registry
+
+https://docs.docker.com/registry/
+https://docs.docker.com/registry/spec/api/
 ================================================================================
 Install Docker registry on server VM.
 ------------------------------------------------------------
@@ -18,7 +21,7 @@ To enable remote https access. Otherwise, only localhost access.
 ------------------------------------------------------------
 Load image and create container by Docker Engine.
 
-]# docker run -d -p 5000:5000 --restart=always --name registry -v /opt/docker/registry/certs:/certs -v /opt/docker/registry/repo:/var/lib/registry -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/opt/docker_registry.crt -e REGISTRY_HTTP_TLS_KEY=/certs/opt/docker_registry.key registry:2
+]# docker run -d -p 5000:5000 --restart=always --name registry -v /opt/docker/registry/certs:/certs -v /opt/docker/registry/repo:/var/lib/registry -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/opt/docker_registry.crt -e REGISTRY_HTTP_TLS_KEY=/certs/opt/docker_registry.key -e REGISTRY_STORAGE_DELETE_ENABLED=true registry:2
 ================================================================================
 Load image and create container by Docker Compose.
 ------------------------------------------------------------
@@ -35,6 +38,7 @@ registry:
   environment:
     REGISTRY_HTTP_TLS_CERTIFICATE: /certs/opt/docker_registry.crt
     REGISTRY_HTTP_TLS_KEY: /certs/opt/docker_registry.key
+    REGISTRY_STORAGE_DELETE_ENABLED: true
   volumes:
     - /opt/docker/registry/certs:/certs
     - /opt/docker/registry/repo:/var/lib/registry
@@ -47,7 +51,22 @@ List all repositories.
 ------------------------------------------------------------
 List all tags for a repository.
 
-]# curl -k -X GET https://<DR_HostName>:5000/v2/<RepositoryName>/tags/list
+]# curl -i -k -X GET https://<DR_HostName>:5000/v2/<RepositoryName>/tags/list
+------------------------------------------------------------
+List manifest of a tag of a repository.
+
+]# curl -i -k -X GET https://<DR_HostName>:5000/v2/<RepositoryName>/manifests/<Tag>
+----------------------------------------
+To get the Digest generated when pushing the image.
+
+]# curl -i -k -H "Accept: application/vnd.docker.distribution.manifest.v2+json" -X GET https://<DR_HostName>:5000/v2/<RepositoryName>/manifests/<Tag>
+Docker-Content-Digest: sha256:xxxxx
+------------------------------------------------------------
+Delete a tag of a repository.
+
+]# curl -i -k -X DELETE https://<DR_HostName>:5000/v2/<RepositoryName>/manifests/<Digest>
+
+<Digest>: The one generated when pushing the image.
 ================================================================================
 Setup on client VM.
 ------------------------------------------------------------
@@ -57,7 +76,7 @@ If not use DNS, add DR host.
 <DR_IP>  <DR_HostName>
 
 Sample:
-192.168.0.15     dr.sample.com
+192.168.0.16     docker.djsilenceboy.com
 ------------------------------------------------------------
 Copy certificate from DR server.
 
@@ -69,27 +88,41 @@ sudo mkdir -p /etc/docker/certs.d/<DR_HostName>:5000
 sudo cp /tmp/docker_registry.crt /etc/docker/certs.d/<DR_HostName>:5000/ca.crt
 
 Sample:
-sudo mkdir -p /etc/docker/certs.d/dr.sample.com:5000
-sudo cp /tmp/docker_registry.crt /etc/docker/certs.d/dr.sample.com:5000/ca.crt
+sudo mkdir -p /etc/docker/certs.d/docker.djsilenceboy.com:5000
+sudo cp /tmp/docker_registry.crt /etc/docker/certs.d/docker.djsilenceboy.com:5000/ca.crt
 ================================================================================
 Test on client VM.
 ------------------------------------------------------------
 Use busybox as example.
 
 ]# docker pull busybox
-]# docker tag busybox dr.sample.com:5000/my-busybox
-]# docker push dr.sample.com:5000/my-busybox
+]# docker tag busybox docker.djsilenceboy.com:5000/my-busybox
+]# docker push docker.djsilenceboy.com:5000/my-busybox
+
+The push refers to repository [docker.djsilenceboy.com:5000/my-busybox]
+8a788232037e: Pushed
+latest: digest: sha256:915f390a8912e16d4beb8689720a17348f3f6d1a7b659697df850ab625ea29d5 size: 527
+
+(This is the digest to be used for deletion!)
 ----------------------------------------
 Check DR repo.
 
-]# curl -k -X GET https://dr.sample.com:5000/v2/_catalog
+]# curl -i -k -X GET https://docker.djsilenceboy.com:5000/v2/_catalog
 {"repositories":["my-busybox"]}
 
-]# curl -k -X GET https://dr.sample.com:5000/v2/my-busybox/tags/list
+]# curl -i -k -X GET https://docker.djsilenceboy.com:5000/v2/my-busybox/tags/list
 {"name":"my-busybox","tags":["latest"]}
+
+]# curl -i -k -H "Accept: application/vnd.docker.distribution.manifest.v2+json" -X GET https://docker.djsilenceboy.com:5000/v2/my-busybox/manifests/latest
+Docker-Content-Digest: sha256:915f390a8912e16d4beb8689720a17348f3f6d1a7b659697df850ab625ea29d5
 ----------------------------------------
 Remove local image, and pull it again from DR.
 
-]# docker rmi dr.sample.com:5000/my-busybox
-]# docker pull dr.sample.com:5000/my-busybox
+]# docker rmi docker.djsilenceboy.com:5000/my-busybox
+]# docker pull docker.djsilenceboy.com:5000/my-busybox
+----------------------------------------
+Delete image from DR.
+
+]# curl -i -k -X DELETE https://docker.djsilenceboy.com:5000/v2/my-busybox/manifests/sha256:915f390a8912e16d4beb8689720a17348f3f6d1a7b659697df850ab625ea29d5
+HTTP/1.1 202 Accepted
 ================================================================================

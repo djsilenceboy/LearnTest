@@ -1,0 +1,26 @@
+---
+- name: Enable Docker Remote Access
+  hosts: all
+  become: True
+  tasks:
+    - name: Create config folder
+      file:
+        path: /etc/systemd/system/docker.service.d
+        state: directory
+        mode: 0755
+
+    - name: Create config file
+      blockinfile:
+        path: /etc/systemd/system/docker.service.d/docker.conf
+        create: yes
+        mode: 0644
+        block: |
+          [Service]
+          ExecStart=
+          ExecStart=/usr/bin/dockerd -H unix://var/run/docker.sock -H tcp://0.0.0.0:2375
+
+    - name: Restart service
+      systemd:
+        name: docker
+        daemon_reload: yes
+        state: restarted

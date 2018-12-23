@@ -50,6 +50,7 @@
         env:
           REGISTRY_HTTP_TLS_CERTIFICATE: /certs/docker_registry.crt
           REGISTRY_HTTP_TLS_KEY: /certs/docker_registry.key
+          REGISTRY_STORAGE_DELETE_ENABLED: true
         volumes:
           - /opt/docker/registry/certs:/certs
           - /opt/docker/registry/repo:/var/lib/registry

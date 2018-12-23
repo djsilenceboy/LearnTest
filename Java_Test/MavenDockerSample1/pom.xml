@@ -1,0 +1,49 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.djs.learn</groupId>
+	<artifactId>maven_docker_sample</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>maven_docker_test</name>
+
+
+	<properties>
+		<baseimage.name>busybox</baseimage.name>
+		<!-- Use an old version for testing, it seems not working. -->
+		<baseimage.version>1.28</baseimage.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<!-- https://github.com/fabric8io/docker-maven-plugin -->
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.28.0</version>
+
+				<configuration>
+					<dockerHost>http://192.168.10.17:2375</dockerHost>
+					<pushRegistry>docker.djsilenceboy.com:5000</pushRegistry>
+					<images>
+						<image>
+							<name>%a:%v</name>
+							<build>
+							</build>
+						</image>
+					</images>
+				</configuration>
+
+				<executions>
+					<execution>
+						<id>CreateNewImage</id>
+						<phase>package</phase>
+						<goals>
+							<goal>build</goal>
+							<goal>push</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

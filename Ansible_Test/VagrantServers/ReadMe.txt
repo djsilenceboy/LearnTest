@@ -13,9 +13,11 @@ ansible-playbook -l VagrantDockerDbServer VagrantDockerDbServer.yml -vvv
 ansible-playbook -l VagrantDockerApplicationServer VagrantDockerApplicationServer.yml -vvv
 
 ansible-playbook -l VagrantDockerServer VagrantDockerServer.yml -vvv
-ansible-playbook -l VagrantDockerServer VagrantDockerServerEx.yml -vvv
+ansible-playbook -l VagrantDockerServer Playbooks/Enable_Docker_RemoteAccess.yml -vvv
+ansible-playbook -l VagrantDockerServer Playbooks/Install_Docker_Registry.yml -vvv
 
 ansible-playbook -l VagrantDockerServer2 VagrantDockerServer.yml -vvv
+ansible-playbook -l VagrantDockerServer2 Playbooks/Enable_Docker_RemoteAccess.yml -vvv
 ================================================================================
 Step by step installations for each server. (For debugging)
 ------------------------------------------------------------
@@ -69,7 +71,7 @@ VagrantDockerServer
 ansible-playbook -l VagrantDockerServer Playbooks/Setup_CentOS.yml -vvv
 ansible-playbook -l VagrantDockerServer Playbooks/Install_Development.yml -vvv
 ansible-playbook -l VagrantDockerServer Playbooks/Install_Docker.yml -vvv
-
+ansible-playbook -l VagrantDockerServer Playbooks/Enable_Docker_RemoteAccess.yml -vvv
 ansible-playbook -l VagrantDockerServer Playbooks/Install_Docker_Registry.yml -vvv
 ------------------------------------------------------------
 VagrantDockerServer2
@@ -77,6 +79,7 @@ VagrantDockerServer2
 ansible-playbook -l VagrantDockerServer2 Playbooks/Setup_CentOS.yml -vvv
 ansible-playbook -l VagrantDockerServer2 Playbooks/Install_Development.yml -vvv
 ansible-playbook -l VagrantDockerServer2 Playbooks/Install_Docker.yml -vvv
+ansible-playbook -l VagrantDockerServer2 Playbooks/Enable_Docker_RemoteAccess.yml -vvv
 ================================================================================
 There is "files" for configuration and script files.
 
@@ -92,13 +95,23 @@ https://developers.redhat.com/download-manager/file/jboss-eap-7.1.0-installer.ja
 3. Run playbooks.
 ================================================================================
 For VagrantDockerServer2
+------------------------------------------------------------
+From VagrantDockerServer, get cert.
+
+]$ cat /opt/docker/registry/certs/docker_registry.crt
+------------------------------------------------------------
+On VagrantDockerServer2.
+
+Add VagrantDockerServer host.
 
 ]$ sudo vi /etc/hosts
 192.168.10.16    docker.djsilenceboy.com
+----------------------------------------
+Create cert file.
 
 ]$ sudo mkdir -p /etc/docker/certs.d/docker.djsilenceboy.com:5000
 ]$ sudo vi /etc/docker/certs.d/docker.djsilenceboy.com:5000/ca.crt
-(Paste contents of "docker_registry.crt" from VagrantDockerServer.)
+(Paste cert of "docker_registry.crt")
 ================================================================================
 
 ================================================================================
