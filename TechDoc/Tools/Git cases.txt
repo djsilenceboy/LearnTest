@@ -1,0 +1,34 @@
+================================================================================
+Delete commit locally and remotely
+------------------------------------------------------------
+It is suggested to ONLY rebase local branch,
+and not rebase branch already pushed/shared to remote.
+But it does can rebase branch remotely.
+------------------------------------------------------------
+Rebase locally first (pick some commits).
+
+From logs, find unwanted commits.
+
+$ git log --pretty=oneline --abbrev-commit
+
+Rebase interactively, show latest <n> commits, which including unwanted commit(s).
+
+$ git rebase -i HEAD~<n>
+
+It will open a vi editor.
+Change unwanted commit(s) from "pick" to "drop".
+Then "wq" save and quit editor.
+Rebase will continue and complete.
+
+Check log again, unwanted commit(s) removed.
+
+$ git log --pretty=oneline --abbrev-commit
+------------------------------------------------------------
+Rebase locally first (several lastest commits).
+
+$ git reset --hard <Last_Wanted_Commit_ID>
+------------------------------------------------------------
+Push rebased results to remote.
+
+$ git push --force
+================================================================================
