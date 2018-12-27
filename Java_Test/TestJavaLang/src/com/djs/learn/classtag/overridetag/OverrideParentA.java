@@ -1,6 +1,8 @@
 
 package com.djs.learn.classtag.overridetag;
 
+import java.io.IOException;
+
 public class OverrideParentA
 {
 	public String name = "OverrideParentA";
@@ -35,5 +37,25 @@ public class OverrideParentA
 		System.out.println("OverrideParentA:testReturn2");
 
 		return 10;
+	}
+
+	public void testInput(Number num){
+		System.out.println("OverrideParentA:testInput");
+	}
+
+	public void testInput2(Integer num){
+		System.out.println("OverrideParentA:testInput2");
+	}
+
+	public void testException(){
+		System.out.println("OverrideParentA:testException");
+	}
+
+	public void testException2() throws Exception{
+		System.out.println("OverrideParentA:testException2");
+	}
+
+	public void testException3() throws IOException{
+		System.out.println("OverrideParentA:testException3");
 	}
 }

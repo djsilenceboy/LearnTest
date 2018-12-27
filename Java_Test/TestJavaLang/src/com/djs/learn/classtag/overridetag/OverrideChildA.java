@@ -36,13 +36,33 @@ public class OverrideChildA extends OverrideParentA
 		return new Integer(10);
 	}
 
-	// Illegal.
-	/*
 	@Override
-	public int testReturn2(){
-		System.out.println("OverrideChildA:testReturn2");
-
-		return 10;
+	public void testInput(Number num){
+		System.out.println("OverrideParentA:testInput");
 	}
-	*/
+
+	// It is overload, not override "OverrideParentA:testInput".
+	public void testInput(Integer num){
+		System.out.println("OverrideChildB:testInput");
+	}
+
+	@Override
+	public void testInput2(Integer num){
+		System.out.println("OverrideParentA:testInput2");
+	}
+
+	// It is overload, not override "OverrideParentA:testInput2".
+	public void testInput2(Number num){
+		System.out.println("OverrideChildB:testInput2");
+	}
+
+	@Override
+	public void testException(){
+		System.out.println("OverrideChildB:testException");
+	}
+
+	@Override
+	public void testException2(){
+		System.out.println("OverrideChildB:testException2");
+	}
 }
