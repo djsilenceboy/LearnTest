@@ -13,11 +13,7 @@ ansible-playbook -l VagrantDockerDbServer VagrantDockerDbServer.yml -vvv
 ansible-playbook -l VagrantDockerApplicationServer VagrantDockerApplicationServer.yml -vvv
 
 ansible-playbook -l VagrantDockerServer VagrantDockerServer.yml -vvv
-ansible-playbook -l VagrantDockerServer Playbooks/Enable_Docker_RemoteAccess.yml -vvv
-ansible-playbook -l VagrantDockerServer Playbooks/Install_Docker_Registry.yml -vvv
-
-ansible-playbook -l VagrantDockerServer2 VagrantDockerServer.yml -vvv
-ansible-playbook -l VagrantDockerServer2 Playbooks/Enable_Docker_RemoteAccess.yml -vvv
+ansible-playbook -l VagrantDockerServer2 VagrantDockerServer2.yml -vvv
 ================================================================================
 Step by step installations for each server. (For debugging)
 ------------------------------------------------------------
@@ -52,14 +48,14 @@ ansible-playbook -l VagrantJbossServer Playbooks/Install_JbossEAP.yml -vvv
 ------------------------------------------------------------
 VagrantDockerDbServer
 
-ansible-playbook -l VagrantDockerDbServer VagrantDockerServer.yml -vvv
+ansible-playbook -l VagrantDockerDbServer VagrantDockerServerBasic.yml -vvv
 ansible-playbook -l VagrantDockerDbServer Playbooks/Install_Docker_PostgreSQL.yml -vvv
 ansible-playbook -l VagrantDockerDbServer Playbooks/Install_Docker_MySQL.yml -vvv
 ansible-playbook -l VagrantDockerDbServer Playbooks/Install_Docker_MongoDB.yml -vvv
 ------------------------------------------------------------
 VagrantDockerApplicationServer
 
-ansible-playbook -l VagrantDockerApplicationServer VagrantDockerServer.yml -vvv
+ansible-playbook -l VagrantDockerApplicationServer VagrantDockerServerBasic.yml -vvv
 ansible-playbook -l VagrantDockerApplicationServer Playbooks/Install_Docker_Nginx.yml -vvv
 ansible-playbook -l VagrantDockerApplicationServer Playbooks/Install_Docker_Tomcat.yml -vvv
 ansible-playbook -l VagrantDockerApplicationServer Playbooks/Install_Docker_Jenkins.yml -vvv
@@ -68,17 +64,13 @@ ansible-playbook -l VagrantDockerApplicationServer Playbooks/Install_Docker_JBos
 ------------------------------------------------------------
 VagrantDockerServer
 
-ansible-playbook -l VagrantDockerServer Playbooks/Setup_CentOS.yml -vvv
-ansible-playbook -l VagrantDockerServer Playbooks/Install_Development.yml -vvv
-ansible-playbook -l VagrantDockerServer Playbooks/Install_Docker.yml -vvv
+ansible-playbook -l VagrantDockerServer VagrantDockerServerBasic.yml -vvv
 ansible-playbook -l VagrantDockerServer Playbooks/Enable_Docker_RemoteAccess.yml -vvv
 ansible-playbook -l VagrantDockerServer Playbooks/Install_Docker_Registry.yml -vvv
 ------------------------------------------------------------
 VagrantDockerServer2
 
-ansible-playbook -l VagrantDockerServer2 Playbooks/Setup_CentOS.yml -vvv
-ansible-playbook -l VagrantDockerServer2 Playbooks/Install_Development.yml -vvv
-ansible-playbook -l VagrantDockerServer2 Playbooks/Install_Docker.yml -vvv
+ansible-playbook -l VagrantDockerServer2 VagrantDockerServerBasic.yml -vvv
 ansible-playbook -l VagrantDockerServer2 Playbooks/Enable_Docker_RemoteAccess.yml -vvv
 ================================================================================
 There is "files" for configuration and script files.

@@ -1,4 +1,3 @@
 ---
 - include: VagrantDockerServerBasic.yml
 - include: Playbooks/Enable_Docker_RemoteAccess.yml -vvv
-- include: Playbooks/Install_Docker_Registry.yml -vvv

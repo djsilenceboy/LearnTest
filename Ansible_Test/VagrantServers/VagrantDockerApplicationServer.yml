@@ -1,5 +1,5 @@
 ---
-- include: VagrantDockerServer.yml
+- include: VagrantDockerServerBasic.yml
 - include: Playbooks/Install_Docker_Nginx.yml
 - include: Playbooks/Install_Docker_Tomcat.yml
 - include: Playbooks/Install_Docker_Jenkins.yml

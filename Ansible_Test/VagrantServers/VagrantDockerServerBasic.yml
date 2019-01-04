@@ -1,0 +1,4 @@
+---
+- include: Playbooks/Setup_CentOS.yml
+- include: Playbooks/Install_Development.yml
+- include: Playbooks/Install_Docker.yml

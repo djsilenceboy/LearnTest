@@ -1,0 +1,55 @@
+================================================================================
+Kubernates
+================================================================================
+Minikube (Setup local cluster)
+------------------------------------------------------------
+https://github.com/kubernetes/minikube/
+https://github.com/kubernetes/kubernetes/
+
+(Require such as VirtulBox.)
+------------------------------------------------------------
+Download (for Windows)
+
+Must create following folder in driver C!
+md c:\Minikube
+
+Download
+https://storage.googleapis.com/minikube/releases/v0.32.0/minikube-windows-amd64
+Rename "minikube-windows-amd64" to "minikube.exe".
+
+Download
+https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/windows/amd64/kubectl.exe
+or
+https://dl.k8s.io/v1.13.0/kubernetes-client-windows-amd64.tar.gz
+
+Copy both "minikube.exe" and "kubectl.exe" into "c:\Minikube".
+------------------------------------------------------------
+Download (for Linux)
+
+sudo curl -L -o /usr/local/bin/minikube https://storage.googleapis.com/minikube/releases/v0.32.0/minikube-linux-amd64
+sudo chmod +x /usr/local/bin/minikube
+sudo sed -i "s/^Defaults.*:\/usr\/bin$/&:\/usr\/local\/bin/g" /etc/sudoers
+------------------------------------------------------------
+Start local cluster
+
+minikube start
+================================================================================
+k8s (Setup local cluster for Linux)
+------------------------------------------------------------
+https://get.k8s.io/
+
+(Require such as VirtulBox.)
+------------------------------------------------------------
+Usage:
+
+wget -q -O - https://get.k8s.io | bash
+curl -fsSL https://get.k8s.io | bash
+================================================================================
+minikube start
+minikube status
+minikube stop
+minikube delete
+================================================================================
+kubectl get nodes
+kubectl get pods
+================================================================================

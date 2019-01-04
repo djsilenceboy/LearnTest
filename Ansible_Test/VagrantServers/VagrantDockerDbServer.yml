@@ -1,5 +1,5 @@
 ---
-- include: VagrantDockerServer.yml
+- include: VagrantDockerServerBasic.yml
 - include: Playbooks/Install_Docker_PostgreSQL.yml
 - include: Playbooks/Install_Docker_MySQL.yml
 - include: Playbooks/Install_Docker_MongoDB.yml

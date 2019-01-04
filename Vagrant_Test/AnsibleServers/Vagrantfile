@@ -45,7 +45,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansibleDbServer.vm.provider "virtualbox" do |vb|
       vb.name = "Vagrant_ansibleDbServer"
       # Default is 1024M.
-      vb.memory = 2048
+      vb.memory = 3072
       # Default is 1 CPU.
       vb.cpus = 2
     end
@@ -87,7 +87,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansibleDockerDbServer.vm.provider "virtualbox" do |vb|
       vb.name = "Vagrant_ansibleDockerDbServer"
       # Default is 1024M.
-      vb.memory = 2048
+      vb.memory = 3072
       # Default is 1 CPU.
       vb.cpus = 2
     end
@@ -115,7 +115,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansibleDockerServer.vm.provider "virtualbox" do |vb|
       vb.name = "Vagrant_ansibleDockerServer"
       # Default is 1024M.
-      vb.memory = 3072
+      vb.memory = 2048
       # Default is 1 CPU.
       vb.cpus = 2
     end
@@ -129,7 +129,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansibleDockerServer2.vm.provider "virtualbox" do |vb|
       vb.name = "Vagrant_ansibleDockerServer2"
       # Default is 1024M.
-      vb.memory = 3072
+      vb.memory = 2048
       # Default is 1 CPU.
       vb.cpus = 2
     end

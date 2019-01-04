@@ -26,7 +26,7 @@
         seconds: 5
 
     - name: Download Docker Compose
-      shell: curl -L https://github.com/docker/compose/releases/download/1.23.0-rc3/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+      shell: curl -L -o /usr/local/bin/docker-compose https://github.com/docker/compose/releases/download/1.23.0-rc3/docker-compose-`uname -s`-`uname -m`
 
     - name: Change mode of file
       shell: chmod +x /usr/local/bin/docker-compose
