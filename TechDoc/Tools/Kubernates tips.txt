@@ -8,10 +8,10 @@ https://github.com/kubernetes/kubernetes/
 
 (Require such as VirtulBox.)
 ------------------------------------------------------------
-Download (for Windows)
+Download (for Windows).
 
 Must create following folder in driver C!
-md c:\Minikube
+> md c:\Minikube
 
 Download
 https://storage.googleapis.com/minikube/releases/v0.32.0/minikube-windows-amd64
@@ -24,17 +24,17 @@ https://dl.k8s.io/v1.13.0/kubernetes-client-windows-amd64.tar.gz
 
 Copy both "minikube.exe" and "kubectl.exe" into "c:\Minikube".
 ------------------------------------------------------------
-Download (for Linux)
+Download (for Linux).
 
-sudo curl -L -o /usr/local/bin/minikube https://storage.googleapis.com/minikube/releases/v0.32.0/minikube-linux-amd64
-sudo chmod +x /usr/local/bin/minikube
-sudo sed -i "s/^Defaults.*:\/usr\/bin$/&:\/usr\/local\/bin/g" /etc/sudoers
+$ sudo curl -L -o /usr/local/bin/minikube https://storage.googleapis.com/minikube/releases/v0.32.0/minikube-linux-amd64
+$ sudo chmod +x /usr/local/bin/minikube
+$ sudo sed -i "s/^Defaults.*:\/usr\/bin$/&:\/usr\/local\/bin/g" /etc/sudoers
 ------------------------------------------------------------
-Start local cluster
+Start local cluster.
 
-minikube start
+$ minikube start
 ================================================================================
-k8s (Setup local cluster for Linux)
+k8s (Setup local cluster on Linux PC)
 ------------------------------------------------------------
 https://get.k8s.io/
 
@@ -42,14 +42,70 @@ https://get.k8s.io/
 ------------------------------------------------------------
 Usage:
 
-wget -q -O - https://get.k8s.io | bash
-curl -fsSL https://get.k8s.io | bash
+$ wget -q -O - https://get.k8s.io | bash
+$ curl -fsSL https://get.k8s.io | bash
 ================================================================================
-minikube start
-minikube status
-minikube stop
-minikube delete
+Minikube manage local cluster.
+
+$ minikube start
+$ minikube status
+$ minikube stop
+$ minikube delete
+------------------------------------------------------------
+Get IP.
+
+$ minikube ip
+------------------------------------------------------------
+Show dashboard.
+
+$ minikube dashboard
+------------------------------------------------------------
+$ minikube addons list
+$ minikube addons enable ingress
 ================================================================================
-kubectl get nodes
-kubectl get pods
+Master VM
+------------------------------------------------------------
+Check service.
+
+$ systemctl status kubelet
 ================================================================================
+Kubectl manage cluster.
+
+$ kubectl get all
+$ kubectl get nodes
+$ kubectl get pods
+$ kubectl get deploy
+
+$ kubectl config view
+
+$ kubectl explain service
+$ kubectl explain pods
+
+$ kubectl run <DeployName> --image=<Image:Tag>
+$ kubectl delete deploy <DeployName>
+
+$ kubectl rollout history deploy <DeployName>
+================================================================================
+Create/update by YAML.
+
+$ kubectl create -f xxx.yaml
+================================================================================
+Proxy
+
+$kubectl proxy
+
+Open: http://localhost:8001/api/v1/proxy/namespaes/default/services
+================================================================================
+Sample
+------------------------------------------------------------
+$ kubectl run myshell --image=busybox --command -- sh -c "sleep 10"
+$ kubectl get pods
+
+NAME                       READY   STATUS      RESTARTS   AGE
+myshell-5d6b5787d4-9w9fz   0/1     Completed   1          45s
+------------------------------------------------------------
+$ kubectl run ghost --image=ghost
+$ kubectl get deploy/ghost                                                        
+
+NAME    DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE                         
+ghost   1         1         1            1           75s                           ================================================================================

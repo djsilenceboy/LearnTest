@@ -70,6 +70,14 @@ Plugin URL: https://checkstyle.org/eclipse-cs/update/
 Install
 "Checkstyle": Eclipse Checkstyle Plug-in
 )
+------------------------------------------------------------
+SonarLint (Recommended)
+
+Installed from Eclipse Marketplace.
+------------------------------------------------------------
+Darkest Dark Theme with DevStyle (Recommended)
+
+Installed from Eclipse Marketplace.
 ================================================================================
 EGit (Optional)
 
