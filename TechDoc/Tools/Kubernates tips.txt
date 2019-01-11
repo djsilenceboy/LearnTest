@@ -69,19 +69,42 @@ Check service.
 
 $ systemctl status kubelet
 ================================================================================
-Kubectl manage cluster.
+Kubectl manage cluster
+------------------------------------------------------------
+Get info.
 
 $ kubectl get all
+$ kubectl get deploy
 $ kubectl get nodes
 $ kubectl get pods
-$ kubectl get deploy
+$ kubectl get pods --show-labels
+$ kubectl get pods --show-labels --selector app=fancy
+$ kubectl get pods <ResourceCategory/ResourceName>
+$ kubectl get pods <ResourceCategory/ResourceName> -o yaml
+------------------------------------------------------------
+Get config and service details.
 
 $ kubectl config view
 
 $ kubectl explain service
 $ kubectl explain pods
+------------------------------------------------------------
+Get resource details.
+
+$ kubectl describe <ResourceCategory/ResourceName>
+$ kubectl logs <ResourceCategory/ResourceName>
+------------------------------------------------------------
+Run command in container.
+
+$ kubectl exec <PodName> -it -- bash
+(Default to use 1st container.)
+$ kubectl exec <PodName> [-c <ContainerName>] -it -- bash
+------------------------------------------------------------
+Deployment.
 
 $ kubectl run <DeployName> --image=<Image:Tag>
+(Default to use namespace "Default".)
+$ kubectl run <DeployName> --image=<Image:Tag> --namespace <NameSpace>
 $ kubectl delete deploy <DeployName>
 
 $ kubectl rollout history deploy <DeployName>
