@@ -1,0 +1,112 @@
+================================================================================
+Minikube (Setup local cluster)
+------------------------------------------------------------
+https://github.com/kubernetes/minikube/
+(Require such as VirtulBox.)
+------------------------------------------------------------
+Download (for Windows).
+
+Must create following folder in driver C!
+> md c:\Minikube
+
+Download
+https://storage.googleapis.com/minikube/releases/v0.32.0/minikube-windows-amd64
+Rename "minikube-windows-amd64" to "minikube.exe".
+
+Download
+https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/windows/amd64/kubectl.exe
+or
+https://dl.k8s.io/v1.13.0/kubernetes-client-windows-amd64.tar.gz
+
+Copy both "minikube.exe" and "kubectl.exe" into "c:\Minikube".
+------------------------------------------------------------
+Download (for Linux).
+
+$ sudo curl -L -o /usr/local/bin/minikube https://storage.googleapis.com/minikube/releases/v0.32.0/minikube-linux-amd64
+$ sudo chmod +x /usr/local/bin/minikube
+$ sudo sed -i "s/^Defaults.*:\/usr\/bin$/&:\/usr\/local\/bin/g" /etc/sudoers
+------------------------------------------------------------
+Start local cluster.
+
+$ minikube start
+================================================================================
+Minikube manage local cluster.
+
+$ minikube start
+$ minikube status
+$ minikube stop
+$ minikube delete
+------------------------------------------------------------
+Get IP.
+
+$ minikube ip
+(Default is 192.168.99.100)
+------------------------------------------------------------
+Show dashboard.
+
+$ minikube dashboard
+------------------------------------------------------------
+$ minikube addons list
+$ minikube addons enable ingress
+$ minikube addons enable heapster
+================================================================================
+
+================================================================================
+k8s (Setup local cluster on Linux PC)
+------------------------------------------------------------
+https://github.com/kubernetes/k8s.io
+https://get.k8s.io/
+(Require such as VirtulBox.)
+------------------------------------------------------------
+Usage:
+
+$ wget -q -O - https://get.k8s.io | bash
+$ curl -fsSL https://get.k8s.io | bash
+================================================================================
+
+================================================================================
+Helm
+------------------------------------------------------------
+https://github.com/helm/helm
+
+Release
+https://github.com/helm/helm/releases/latest
+------------------------------------------------------------
+Init.
+Before init, make sure tiller binary is also in same folder, and the cluster is up.
+
+$ helm init
+------------------------------------------------------------
+List repo.
+
+$ helm repo list
+
+NAME    URL
+stable  https://kubernetes-charts.storage.googleapis.com
+local   http://127.0.0.1:8879/charts
+------------------------------------------------------------
+Search chart/package.
+
+$ helm search <PackageKeyword>
+
+Sample:
+
+$ helm search redis
+------------------------------------------------------------
+Install chart/package.
+
+$ helm install <PackageName>
+
+Sample:
+
+$ helm install stable/redis
+------------------------------------------------------------
+List installed chart/package.
+
+$ helm ls
+------------------------------------------------------------
+Create chart/package.
+
+$ helm create <PackageName/Folder>
+$ helm install <PackageFolder>
+================================================================================
