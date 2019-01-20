@@ -111,7 +111,8 @@ $ kubectl run ghost --image=ghost
 $ kubectl get deploy/ghost
 
 NAME    DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-ghost   1         1         1            1           75s                           ================================================================================
+ghost   1         1         1            1           75s
+================================================================================
 Sample
 ------------------------------------------------------------
 $ kubectl get pv

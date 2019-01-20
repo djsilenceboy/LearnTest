@@ -1,0 +1,16 @@
+output:
+  logstash:
+    enabled: true
+    hosts:
+      - dj_test_logstash:5044
+    timeout: 15
+
+filebeat:
+  prospectors:
+    - input_type: log
+      paths:
+        - /containers/log/dmesg
+        - /containers/log/secure
+    - input_type: log
+      paths:
+        - /containers/log/messages

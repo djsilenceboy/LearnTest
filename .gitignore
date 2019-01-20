@@ -54,6 +54,7 @@
 
 
 # For Vagrant.
+/Docker_Test/**/.vagrant/
 /Vagrant_Test/**/.vagrant/
 /Vagrant_Test/**/*.log
 

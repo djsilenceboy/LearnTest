@@ -1,0 +1,69 @@
+================================================================================
+Docker with release 5.6
+
+https://github.com/elastic/elasticsearch/tree/5.6
+https://github.com/elastic/kibana/tree/5.6
+https://github.com/elastic/logstash-docker/tree/5.6
+https://github.com/elastic/beats-docker/tree/5.6
+------------------------------------------------------------
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/setup.html
+https://www.elastic.co/guide/en/kibana/5.6/setup.html
+https://www.elastic.co/guide/en/logstash/5.6/setup-logstash.html
+https://www.elastic.co/guide/en/beats/filebeat/5.6/filebeat-getting-started.html
+------------------------------------------------------------
+https://github.com/deviantony/docker-elk
+
+https://elk-docker.readthedocs.io/
+https://github.com/spujadas/elk-docker
+
+https://www.cnblogs.com/klvchen/p/9268510.html
+================================================================================
+Download rpm file
+https://www.elastic.co/downloads/past-releases
+------------------------------------------------------------
+https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.2.rpm
+https://artifacts.elastic.co/downloads/kibana/kibana-5.6.2-x86_64.rpm
+https://artifacts.elastic.co/downloads/logstash/logstash-5.6.2.rpm
+
+https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-5.6.2-x86_64.rpm
+================================================================================
+$ vagrant rsync-auto
+================================================================================
+Custom network
+------------------------------------------------------------
+sudo docker network create dj_test_elk
+sudo docker network ls | grep elk
+sudo docker network rm dj_test_elk
+================================================================================
+Elasticsearch
+------------------------------------------------------------
+sudo docker build -t dj_test_elasticsearch -f Dockerfile_Elasticsearch .
+sudo docker create -it --net dj_test_elk -p 9200:9200 -p 9300:9300 --name dj_test_elasticsearch dj_test_elasticsearch
+sudo docker start dj_test_elasticsearch
+sudo docker exec -it dj_test_elasticsearch bash -l
+
+sudo docker rm -f dj_test_elasticsearch
+sudo docker rmi dj_test_elasticsearch
+------------------------------------------------------------
+http://192.168.10.17:9200
+================================================================================
+Logstash
+------------------------------------------------------------
+sudo docker build -t dj_test_logstash -f Dockerfile_Logstash .
+sudo docker create -it --net dj_test_elk -p 9600:9600 -p 5044:5044 --name dj_test_logstash dj_test_logstash
+sudo docker start dj_test_logstash
+sudo docker exec -it dj_test_logstash bash -l
+
+sudo docker rm -f dj_test_logstash
+sudo docker rmi dj_test_logstash
+================================================================================
+Filebeat
+------------------------------------------------------------
+sudo docker build -t dj_test_filebeat -f Dockerfile_Filebeat .
+sudo docker create -it --net dj_test_elk -v /var/log:/containers/log:ro --name dj_test_filebeat dj_test_filebeat
+sudo docker start dj_test_filebeat
+sudo docker exec -it dj_test_filebeat bash -l
+
+sudo docker rm -f dj_test_filebeat
+sudo docker rmi dj_test_filebeat
+================================================================================

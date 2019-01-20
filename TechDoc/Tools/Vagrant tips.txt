@@ -175,6 +175,12 @@ Use DHCP first, to find out the actually interface name. Because it may not be "
   config.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.0.10 netmask 255.255.255.0 up"
 ================================================================================
 Auto mount local current path to "/vagrant" inside container.
+Default type is rsync__auto enabled.
+------------------------------------------------------------
+Auto rsync contens in synced_folder.
+(! This command does not exit until an interrupt is received.)
+
+$ vagrant rsync-auto
 ================================================================================
 Provisioner
 ------------------------------------------------------------

@@ -145,6 +145,7 @@ Check loaded images.
 Check image's build history.
 
 ]# docker history <Image[:Tag]>
+]# docker history --no-trunc --format "{{.CreatedBy}}" <Image[:Tag]>
 ------------------------------------------------------------
 Delete loaded images.
 
@@ -259,6 +260,7 @@ Check all container.
 
 ]# docker ps -a
 ]# docker ps --all
+]# docker ps -a -q
 
 Options:
 -l: Show the latest created container (includes all states)
@@ -364,6 +366,10 @@ Check config env.
 It is a string separated with ", ", so can "split" into an array by ", ".
 
 ]# docker inspect -f '{{split (join .Config.Env ", ") ", "}}' <ContainerNameOrId>
+----------------------------------------
+Check full command.
+
+docker inspect -f "{{.Name}} {{.Path}} {{.Args}}" <ContainerNameOrId>
 ------------------------------------------------------------
 Check opened port of container
 
