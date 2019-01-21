@@ -2,15 +2,15 @@ output:
   logstash:
     enabled: true
     hosts:
-      - dj_test_logstash:5044
+      - my-test-logstash:5044
     timeout: 15
 
 filebeat:
   prospectors:
     - input_type: log
       paths:
-        - /containers/log/dmesg
-        - /containers/log/secure
+        - /host/log/dmesg
+        - /host/log/secure
     - input_type: log
       paths:
-        - /containers/log/messages
+        - /host/log/messages

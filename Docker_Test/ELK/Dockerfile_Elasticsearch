@@ -53,8 +53,6 @@ RUN chown -R elasticsearch:elasticsearch /var/lib/elasticsearch && \
     chown -R elasticsearch:elasticsearch /var/run/elasticsearch && \
     chmod -R a+rw /var/run/elasticsearch
 
-USER elasticsearch
-
 RUN set -x && \
     ls -ld /etc/elasticsearch && \
     ls -l /etc/elasticsearch && \
@@ -62,6 +60,8 @@ RUN set -x && \
     ls -l /usr/share/elasticsearch && \
     ls -l /usr/share/elasticsearch/bin/es-docker && \
     ls -l /usr/share/elasticsearch/config
+
+USER elasticsearch
 
 EXPOSE 9200 9300
 
