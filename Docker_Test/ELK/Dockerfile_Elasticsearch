@@ -28,6 +28,7 @@ RUN set -ex && \
         mkdir -p "$esdirs"; \
     done
 
+# To fix a bug in release 5.x.
 RUN ln -s /etc/elasticsearch /usr/share/elasticsearch/config
 
 # Install the ingest-{agent,geoip} modules required for Filebeat

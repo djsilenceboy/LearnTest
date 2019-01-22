@@ -1,3 +1,10 @@
+# For some installation, may need to set this default values.
+path:
+  home: /usr/share/filebeat
+  config: /etc/filebeat
+  data: /data/filebeat
+  logs: /var/log/filebeat
+
 output:
   logstash:
     enabled: true

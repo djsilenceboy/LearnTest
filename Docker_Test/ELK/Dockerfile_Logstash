@@ -26,6 +26,7 @@ ENV ELASTIC_CONTAINER true
 ENV PATH=/usr/share/logstash/bin:$PATH
 
 WORKDIR /usr/share/logstash
+# To fix a bug in release 5.x.
 RUN ln -s /etc/logstash /usr/share/logstash/config
 
 # Provide a minimal configuration, so that simple invocations will provide

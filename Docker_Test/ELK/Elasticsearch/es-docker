@@ -38,4 +38,4 @@ done < <(env)
 # will run in.
 export ES_JAVA_OPTS="-Des.cgroups.hierarchy.override=/ $ES_JAVA_OPTS"
 
-exec bin/elasticsearch "${es_opts[@]}"
+exec elasticsearch "${es_opts[@]}"

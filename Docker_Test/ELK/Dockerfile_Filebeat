@@ -24,4 +24,6 @@ RUN chmod 644 /etc/filebeat/filebeat.yml
 #     ls -ld /usr/share/filebeat && \
 #     ls -l /usr/share/filebeat
 
-CMD ["/etc/init.d/filebeat", "start"]
+# Docker does not have full systemctl/init.d.
+# CMD ["/etc/init.d/filebeat", "start"]
+CMD ["filebeat", "-e", "-c", "/etc/filebeat/filebeat.yml"]
