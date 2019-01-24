@@ -36,6 +36,10 @@ https://artifacts.elastic.co/downloads/elasticsearch-plugins/ingest-user-agent/i
 ================================================================================
 $ vagrant rsync-auto
 ================================================================================
+Host VM
+------------------------------------------------------------
+sudo sysctl -w vm.max_map_count=262144
+================================================================================
 Custom network
 ------------------------------------------------------------
 sudo docker network create my-test-elk
@@ -46,6 +50,7 @@ Elasticsearch
 ------------------------------------------------------------
 sudo docker build -t my-test-elasticsearch -f Dockerfile_Elasticsearch .
 sudo docker create -it --net my-test-elk -p 9200:9200 -p 9300:9300 --name my-test-elasticsearch my-test-elasticsearch
+sudo docker create -it --net my-test-elk -p 9200:9200 -p 9300:9300 --cap-add=IPC_LOCK --ulimit memlock=-1:-1 --ulimit nofile=65536:65536 --ulimit nproc=2048:2048 --name my-test-elasticsearch my-test-elasticsearch
 sudo docker start my-test-elasticsearch
 sudo docker logs -f my-test-elasticsearch
 sudo docker exec -it my-test-elasticsearch bash -l
@@ -83,6 +88,7 @@ Filebeat
 ------------------------------------------------------------
 sudo docker build -t my-test-filebeat -f Dockerfile_Filebeat .
 sudo docker create -it --net my-test-elk -v /var/log:/host/log:ro --name my-test-filebeat my-test-filebeat
+sudo docker create -it --net my-test-elk -v /var/log:/host/log:z --name my-test-filebeat my-test-filebeat
 sudo docker start my-test-filebeat
 sudo docker logs -f my-test-filebeat
 sudo docker exec -it my-test-filebeat bash -l
