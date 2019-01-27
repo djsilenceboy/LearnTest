@@ -1,0 +1,98 @@
+================================================================================
+Docker with release 5.6
+
+https://github.com/elastic/elasticsearch-docker/tree/5.6
+https://github.com/elastic/kibana-docker/tree/5.6
+https://github.com/elastic/logstash-docker/tree/5.6
+https://github.com/elastic/beats-docker/tree/5.6
+------------------------------------------------------------
+https://www.elastic.co/guide/en/elasticsearch/reference/5.6/setup.html
+https://www.elastic.co/guide/en/kibana/5.6/setup.html
+https://www.elastic.co/guide/en/logstash/5.6/setup-logstash.html
+https://www.elastic.co/guide/en/beats/filebeat/5.6/filebeat-getting-started.html
+
+https://www.elastic.co/blog/should-i-use-logstash-or-elasticsearch-ingest-nodes
+https://www.elastic.co/guide/en/elasticsearch/plugins/5.6/plugin-management-custom-url.html
+https://www.elastic.co/guide/en/elasticsearch/plugins/5.6/ingest.html
+------------------------------------------------------------
+https://github.com/deviantony/docker-elk
+
+https://elk-docker.readthedocs.io/
+https://github.com/spujadas/elk-docker
+
+https://www.cnblogs.com/klvchen/p/9268510.html
+================================================================================
+Download rpm file
+https://www.elastic.co/downloads/past-releases
+------------------------------------------------------------
+https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.2.rpm
+https://artifacts.elastic.co/downloads/kibana/kibana-5.6.2-x86_64.rpm
+https://artifacts.elastic.co/downloads/logstash/logstash-5.6.2.rpm
+
+https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-5.6.2-x86_64.rpm
+
+https://artifacts.elastic.co/downloads/elasticsearch-plugins/ingest-geoip/ingest-geoip-5.6.2.zip
+https://artifacts.elastic.co/downloads/elasticsearch-plugins/ingest-user-agent/ingest-user-agent-5.6.2.zip
+================================================================================
+
+================================================================================
+Host VM
+------------------------------------------------------------
+sudo sysctl -w vm.max_map_count=262144
+================================================================================
+Custom network
+------------------------------------------------------------
+sudo docker network create my-test-elk
+sudo docker network ls | grep elk
+sudo docker network rm my-test-elk
+================================================================================
+Elasticsearch
+------------------------------------------------------------
+sudo docker build -t my-test-elasticsearch -f Dockerfile_Elasticsearch .
+sudo docker create -it --net my-test-elk -p 9200:9200 -p 9300:9300 --name my-test-elasticsearch my-test-elasticsearch
+sudo docker create -it --net my-test-elk -p 9200:9200 -p 9300:9300 --cap-add=IPC_LOCK --ulimit memlock=-1:-1 --ulimit nofile=65536:65536 --ulimit nproc=2048:2048 --name my-test-elasticsearch my-test-elasticsearch
+sudo docker start my-test-elasticsearch
+sudo docker logs -f my-test-elasticsearch
+sudo docker exec -it my-test-elasticsearch bash -l
+
+sudo docker rm -f my-test-elasticsearch
+sudo docker rmi my-test-elasticsearch
+------------------------------------------------------------
+http://192.168.10.17:9200
+================================================================================
+Kibana
+------------------------------------------------------------
+sudo docker build -t my-test-kibana -f Dockerfile_Kibana .
+sudo docker create -it --net my-test-elk -p 5601:5601 --name my-test-kibana my-test-kibana
+sudo docker start my-test-kibana
+sudo docker logs -f my-test-kibana
+sudo docker exec -it my-test-kibana bash -l
+
+sudo docker rm -f my-test-kibana
+sudo docker rmi my-test-kibana
+------------------------------------------------------------
+http://192.168.10.17:5601
+================================================================================
+Logstash
+------------------------------------------------------------
+sudo docker build -t my-test-logstash -f Dockerfile_Logstash .
+sudo docker create -it --net my-test-elk -p 9600:9600 -p 5044:5044 --name my-test-logstash my-test-logstash
+sudo docker start my-test-logstash
+sudo docker logs -f my-test-logstash
+sudo docker exec -it my-test-logstash bash -l
+
+sudo docker rm -f my-test-logstash
+sudo docker rmi my-test-logstash
+================================================================================
+Filebeat
+------------------------------------------------------------
+sudo docker build -t my-test-filebeat -f Dockerfile_Filebeat .
+sudo docker create -it --net my-test-elk -v /var/log:/host/log:ro --name my-test-filebeat my-test-filebeat
+sudo docker create -it --net my-test-elk -v /var/log:/host/log:z --name my-test-filebeat my-test-filebeat
+sudo docker start my-test-filebeat
+sudo docker logs -f my-test-filebeat
+sudo docker exec -it my-test-filebeat bash -l
+
+sudo docker rm -f my-test-filebeat
+sudo docker rmi my-test-filebeat
+================================================================================

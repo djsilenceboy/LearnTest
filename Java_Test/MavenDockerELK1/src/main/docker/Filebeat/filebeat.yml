@@ -1,0 +1,23 @@
+# For some installation, may need to set this default values.
+path:
+  home: /usr/share/filebeat
+  config: /etc/filebeat
+  data: /data/filebeat
+  logs: /var/log/filebeat
+
+output:
+  logstash:
+    enabled: true
+    hosts:
+      - my-test-logstash:5044
+    timeout: 15
+
+filebeat:
+  prospectors:
+    - input_type: log
+      paths:
+        - /host/log/dmesg
+        - /host/log/secure
+    - input_type: log
+      paths:
+        - /host/log/messages

@@ -1,0 +1,69 @@
+FROM centos:7
+
+RUN yum update -y && \
+    yum install -y java-1.8.0-openjdk wget which && \
+    yum clean all
+
+# RUN set -x && \
+#     ls -l /usr/bin/java && \
+#     ls -l /etc/alternatives && \
+#     ls -l /usr/lib/jvm
+
+ENV JAVA_HOME=/etc/alternatives/jre
+ENV PATH=$JAVA_HOME/bin:$PATH
+
+# Provide a non-root user to run the process.
+RUN useradd -M -d /usr/share/elasticsearch elasticsearch
+
+# Install Elasticsearch.
+RUN rpm -ivh --nodeps https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.2.rpm
+
+ENV ELASTIC_CONTAINER true
+ENV PATH /usr/share/elasticsearch/bin:$PATH
+
+WORKDIR /usr/share/elasticsearch
+
+RUN set -ex && \
+    for esdirs in data logs; do \
+        mkdir -p "$esdirs"; \
+    done
+
+# To fix a bug in release 5.x.
+RUN ln -s /etc/elasticsearch /usr/share/elasticsearch/config
+
+# Install the ingest-{agent,geoip} modules required for Filebeat
+RUN for PLUGIN in ingest-user-agent ingest-geoip; do \
+        elasticsearch-plugin install --batch "$PLUGIN"; \
+    done
+
+COPY elasticsearch.yml config/elasticsearch.yml
+COPY log4j2.properties config/log4j2.properties
+COPY es-docker bin/es-docker
+RUN chmod 0750 bin/es-docker
+
+RUN chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/ && \
+    chmod -R a+rw /usr/share/elasticsearch && \
+    find /usr/share/elasticsearch -type d -exec chmod g+s {} \;
+
+RUN chown -R elasticsearch:elasticsearch /etc/elasticsearch/ && \
+    chmod -R a+r /etc/elasticsearch && \
+    find /etc/elasticsearch -type d -exec chmod g+s {} \;
+
+RUN chown -R elasticsearch:elasticsearch /var/lib/elasticsearch && \
+    chmod -R a+rw /var/lib/elasticsearch && \
+    chown -R elasticsearch:elasticsearch /var/run/elasticsearch && \
+    chmod -R a+rw /var/run/elasticsearch
+
+RUN set -x && \
+    ls -ld /etc/elasticsearch && \
+    ls -l /etc/elasticsearch && \
+    ls -ld /usr/share/elasticsearch && \
+    ls -l /usr/share/elasticsearch && \
+    ls -l /usr/share/elasticsearch/bin/es-docker && \
+    ls -l /usr/share/elasticsearch/config
+
+USER elasticsearch
+
+EXPOSE 9200 9300
+
+CMD ["/bin/bash", "bin/es-docker"]

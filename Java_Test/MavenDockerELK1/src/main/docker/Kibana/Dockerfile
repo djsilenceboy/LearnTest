@@ -1,0 +1,47 @@
+FROM centos:7
+
+RUN yum update -y && \
+    yum install -y fontconfig freetype && \
+    yum clean all
+
+# Provide a non-root user to run the process.
+RUN useradd -M -d /usr/share/kibana kibana
+
+# Install Kibana.
+RUN rpm -ivh --nodeps https://artifacts.elastic.co/downloads/kibana/kibana-5.6.2-x86_64.rpm
+
+# RUN set -x && \
+#     ls -ld /etc/kibana && \
+#     ls -l /etc/kibana && \
+#     ls -ld /usr/share/kibana && \
+#     ls -l /usr/share/kibana
+
+ENV ELASTIC_CONTAINER true
+ENV PATH=/usr/share/kibana/bin:$PATH
+
+ADD kibana.yml /etc/kibana/kibana.yml
+ADD kibana-docker /usr/local/bin/kibana-docker
+
+RUN chown -R kibana:kibana /usr/share/kibana/ && \
+    chmod -R a+rw /usr/share/kibana && \
+    find /usr/share/kibana -type d -exec chmod g+s {} \;
+
+RUN chown -R kibana:kibana /etc/kibana/ && \
+    chmod -R a+r /etc/kibana && \
+    find /etc/kibana -type d -exec chmod g+s {} \;
+
+RUN chmod a+rx /usr/local/bin/kibana-docker
+
+RUN set -x && \
+    ls -ld /etc/kibana && \
+    ls -l /etc/kibana && \
+    ls -ld /usr/share/kibana && \
+    ls -l /usr/share/kibana && \
+    ls -l /usr/local/bin/kibana-docker
+
+WORKDIR /usr/share/kibana
+USER kibana
+
+EXPOSE 5601
+
+CMD ["/bin/bash", "/usr/local/bin/kibana-docker"]
