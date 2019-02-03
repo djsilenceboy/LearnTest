@@ -2,49 +2,91 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.djs.learn</groupId>
-	<artifactId>maven_docker_sample</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>maven_docker_test</name>
+	<artifactId>maven-docker-sample</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>maven-docker-sample</name>
 
 	<properties>
-		<baseimage.name>busybox</baseimage.name>
+		<log4j.version>2.11.1</log4j.version>
+		<junit.version>4.12</junit.version>
+		<baseimage.name>centos</baseimage.name>
+		<baseimage.version>7</baseimage.version>
+		
+		<!-- baseimage.name>busybox</baseimage.name -->
 		<!-- Use an old version for testing. It seems not working for docker-maven-plugin! But it works for maven-resources-plugin. -->
-		<baseimage.version>1.28</baseimage.version>
+		<!-- baseimage.version>1.28</baseimage.version -->
 	</properties>
 
 	<build>
+		<!-- Support final name include a sub-folder. -->
+		<finalName>finalJar/${project.artifactId}-New-${project.version}</finalName>
 		<plugins>
 			<plugin>
+				<!-- Copy all in src docker folder to target dockerbuild. -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.1.0</version>
 				<executions>
 					<execution>
-						<id>copy-resources</id>
-						<phase>compile</phase>
+						<id>docker-copy-resources</id>
+						<phase>package</phase>
 						<goals>
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<overwrite>true</overwrite>
-							<!-- It must be a new folder only for 2nd image. -->
-							>
-							<outputDirectory>${project.build.directory}/docker2</outputDirectory>
 							<resources>
 								<resource>
 									<directory>${project.basedir}/src/main/docker</directory>
-									<includes>
-										<include>Dockerfile</include>
-									</includes>
 									<filtering>true</filtering>
 								</resource>
 							</resources>
+							<outputDirectory>${project.build.directory}/dockerbuild</outputDirectory>
+							<overwrite>true</overwrite>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<!-- Copy generated jar file to target dockerbuild. -->
+						<id>docker-copy-build</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/dockerbuild</outputDirectory>
+							<overWriteIfNewer>true</overWriteIfNewer>
+							<artifactItems>
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>${project.artifactId}</artifactId>
+									<version>${project.version}</version>
+									<type>${project.packaging}</type>
+									<destFileName>${project.build.finalName}.${project.packaging}</destFileName>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+					<execution>
+						<!-- Copy runtime jar files to target dockerbuild. -->
+						<id>docker-copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/dockerbuild/jars</outputDirectory>
+							<overWriteIfNewer>true</overWriteIfNewer>
+							<includeScope>runtime</includeScope>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
 			<plugin>
 				<!-- https://github.com/fabric8io/docker-maven-plugin -->
+				<!-- Run docker build based on dockerbuild. -->
 				<groupId>io.fabric8</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
 				<version>0.28.0</version>
@@ -53,14 +95,9 @@
 					<pushRegistry>docker.djsilenceboy.com:5000</pushRegistry>
 					<images>
 						<image>
-							<name>%a_1:%v</name>
+							<name>%a:%v</name>
 							<build>
-							</build>
-						</image>
-						<image>
-							<name>%a_2:%v</name>
-							<build>
-								<dockerFileDir>${project.build.directory}/docker2</dockerFileDir>
+								<dockerFileDir>${project.build.directory}/dockerbuild</dockerFileDir>
 							</build>
 						</image>
 					</images>
@@ -71,7 +108,7 @@
 						<phase>pre-integration-test</phase>
 						<goals>
 							<goal>build</goal>
-							<goal>push</goal>
+							<!-- goal>push</goal -->
 						</goals>
 					</execution>
 					<execution>
@@ -85,4 +122,23 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 </project>

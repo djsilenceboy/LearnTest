@@ -1,0 +1,26 @@
+©¸©¤target
+    ©À©¤docker
+    ©¦  ©¦  build.timestamp
+    ©¦  ©¦  
+    ©¦  ©¸©¤maven-docker-sample
+    ©¦      ©¸©¤1.0.0-SNAPSHOT
+    ©¦          ©À©¤build
+    ©¦          ©¦      Dockerfile
+    ©¦          ©¦      
+    ©¦          ©À©¤tmp
+    ©¦          ©¦      docker-build.tar
+    ©¦          ©¦      
+    ©¦          ©¸©¤work
+    ©À©¤dockerbuild
+    ©¦  ©¦  Dockerfile
+    ©¦  ©¦  ReadMe.txt
+    ©¦  ©¦  
+    ©¦  ©À©¤finalJar
+    ©¦  ©¦      maven-docker-sample-New-1.0.0-SNAPSHOT.jar
+    ©¦  ©¦      
+    ©¦  ©¸©¤jars
+    ©¦          log4j-api-2.11.1.jar
+    ©¦          log4j-core-2.11.1.jar
+    ©¦          
+    ©À©¤finalJar
+    ©¦      maven-docker-sample-New-1.0.0-SNAPSHOT.jar

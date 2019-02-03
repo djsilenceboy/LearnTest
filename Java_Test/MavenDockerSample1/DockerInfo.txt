@@ -1,0 +1,11 @@
+================================================================================
+Docker image/container
+------------------------------------------------------------
+sudo docker create -it --name my-maven-docker-sample maven-docker-sample:1.0.0-SNAPSHOT
+sudo docker start my-maven-docker-sample
+sudo docker logs -f my-maven-docker-sample
+sudo docker exec -it my-maven-docker-sample bash -l
+
+sudo docker rm -f my-maven-docker-sample
+sudo docker rmi my-maven-docker-sample
+================================================================================
