@@ -13,15 +13,30 @@ Push the new image to anotehr Docker Registry "docker.djsilenceboy.com:5000".
 ================================================================================
 To enable remote access of Docker Engine.
 ------------------------------------------------------------
-sudo mkdir -p /etc/systemd/system/docker.service.d
-sudo vi /etc/systemd/system/docker.service.d/docker.conf
+]$ sudo mkdir -p /etc/systemd/system/docker.service.d
+]$ sudo vi /etc/systemd/system/docker.service.d/docker.conf
 ----------------------------------------
 [Service]
 ExecStart=
 ExecStart=/usr/bin/dockerd -H unix://var/run/docker.sock -H tcp://0.0.0.0:2375
 ----------------------------------------
-sudo systemctl daemon-reload
-sudo systemctl restart docker
+]$ sudo systemctl daemon-reload
+]$ sudo systemctl restart docker
+================================================================================
+To change Virtual memory for VM.
+------------------------------------------------------------
+Change in runtime.
+
+]$ sudo sysctl -w vm.max_map_count=262144
+----------------------------------------
+Change permanently.
+
+]$ sudo vi /etc/sysctl.conf
+vm.max_map_count=262144
+
+And:
+
+]$ sudo reboot
 ================================================================================
 To use host name for Push Registry.
 ------------------------------------------------------------
@@ -31,9 +46,11 @@ Add following host into "C:\Windows\System32\drivers\etc" of develop PC:
 ================================================================================
 To test
 ------------------------------------------------------------
-mvn docker:build docker:push
+]$ mvn clean docker:build
 or
-mvn package
+]$ mvn clean docker:build docker:push
+or
+]$ mvn clean verify
 ================================================================================
 
 ================================================================================
@@ -74,4 +91,42 @@ curl -i -k -X DELETE https://localhost:5000/v2/maven_docker_sample_1/manifests/<
 curl -i -k -X DELETE https://localhost:5000/v2/maven_docker_sample_2/manifests/<Digest>
 
 <Digest>: The one generated when pushing the image.
+================================================================================
+
+================================================================================
+sudo docker network create my-test-elk
+sudo docker network ls | grep elk
+sudo docker network rm my-test-elk
+------------------------------------------------------------
+sudo docker start my-test-elasticsearch-1
+sudo docker logs -f my-test-elasticsearch-1
+sudo docker exec -it my-test-elasticsearch-1 bash -l
+
+sudo docker rm -f my-test-elasticsearch-1
+sudo docker rmi my-test-elasticsearch
+------------------------------------------------------------
+sudo docker start my-test-kibana-1
+sudo docker logs -f my-test-kibana-1
+sudo docker exec -it my-test-kibana-1 bash -l
+
+sudo docker rm -f my-test-kibana-1
+sudo docker rmi my-test-kibana
+------------------------------------------------------------
+sudo docker start my-test-logstash-1
+sudo docker logs -f my-test-logstash-1
+sudo docker exec -it my-test-logstash-1 bash -l
+
+sudo docker rm -f my-test-logstash-1
+sudo docker rmi my-test-logstash
+------------------------------------------------------------
+sudo docker start my-test-filebeat-1
+sudo docker logs -f my-test-filebeat-1
+sudo docker exec -it my-test-filebeat-1 bash -l
+
+sudo docker rm -f my-test-filebeat-1
+sudo docker rmi my-test-filebeat
+------------------------------------------------------------
+Portal:
+
+http://192.168.10.17:5601
 ================================================================================

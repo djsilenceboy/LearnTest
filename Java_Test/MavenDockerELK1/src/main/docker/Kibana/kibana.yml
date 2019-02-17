@@ -1,9 +1,10 @@
 ---
 # Default Kibana configuration from kibana-docker.
+# "elasticsearch.url" can be overided by ENV variable "ELASTICSEARCH_URL".
 
 server.name: kibana
 server.host: "0"
-elasticsearch.url: http://my-test-elasticsearch:9200
+elasticsearch.url: http://localhost:9200
 elasticsearch.username: elastic
 elasticsearch.password: changeme
 xpack.monitoring.ui.container.elasticsearch.enabled: true

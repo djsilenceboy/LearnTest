@@ -1,4 +1,5 @@
 # For some installation, may need to set this default values.
+# This file can use ENV variables directly.
 path:
   home: /usr/share/filebeat
   config: /etc/filebeat
@@ -9,7 +10,7 @@ output:
   logstash:
     enabled: true
     hosts:
-      - my-test-logstash:5044
+      - "${LOGSTASH_URL}"
     timeout: 15
 
 filebeat:

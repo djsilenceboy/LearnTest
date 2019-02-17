@@ -7,9 +7,16 @@
 	<name>maven_docker_elk</name>
 
 	<properties>
-		<baseimage.name>busybox</baseimage.name>
-		<!-- Use an old version for testing. It seems not working for docker-maven-plugin! But it works for maven-resources-plugin. -->
-		<baseimage.version>1.28</baseimage.version>
+		<docker.host.ip>192.168.10.17</docker.host.ip>
+		<customer.network.name>my-test-elk</customer.network.name>
+		<elasticsearch.image.name>my-test-elasticsearch</elasticsearch.image.name>
+		<kibana.image.name>my-test-kibana</kibana.image.name>
+		<logstash.image.name>my-test-logstash</logstash.image.name>
+		<filebeat.image.name>my-test-filebeat</filebeat.image.name>
+		<elasticsearch.container.name>${elasticsearch.image.name}-1</elasticsearch.container.name>
+		<kibana.container.name>${kibana.image.name}-1</kibana.container.name>
+		<logstash.container.name>${logstash.image.name}-1</logstash.container.name>
+		<filebeat.container.name>${filebeat.image.name}-1</filebeat.container.name>
 	</properties>
 
 	<build>
@@ -20,26 +27,26 @@
 				<artifactId>docker-maven-plugin</artifactId>
 				<version>0.28.0</version>
 				<configuration>
-					<dockerHost>http://192.168.10.17:2375</dockerHost>
+					<dockerHost>http://${docker.host.ip}:2375</dockerHost>
 					<pushRegistry>docker.djsilenceboy.com:5000</pushRegistry>
 					<autoCreateCustomNetworks>true</autoCreateCustomNetworks>
 					<keepContainer>true</keepContainer>
 					<keepRunning>true</keepRunning>
 					<images>
 						<image>
-							<name>my-test-elasticsearch</name>
+							<name>${elasticsearch.image.name}</name>
 							<build>
 								<dockerFileDir>Elasticsearch</dockerFileDir>
 							</build>
 							<run>
-								<containerNamePattern>%n</containerNamePattern>
+								<containerNamePattern>${elasticsearch.container.name}</containerNamePattern>
 								<network>
 									<mode>custom</mode>
-									<name>my-test-elk</name>
+									<name>${customer.network.name}</name>
 								</network>
 								<ports>
-									<port>9200:9200</port>
-									<port>9300:9300</port>
+									<port>${elasticsearch.rest.port}:9200</port>
+									<port>${elasticsearch.native.port}:9300</port>
 								</ports>
 								<capAdd>
 									<add>IPC_LOCK</add>
@@ -64,60 +71,66 @@
 							</run>
 						</image>
 						<image>
-							<name>my-test-kibana</name>
+							<name>${kibana.image.name}</name>
 							<build>
 								<dockerFileDir>Kibana</dockerFileDir>
 							</build>
 							<run>
-								<containerNamePattern>%n</containerNamePattern>
+								<containerNamePattern>${kibana.container.name}</containerNamePattern>
+								<env>
+									<!-- If Kibana does not join the same customer network of Elasticsearch, it must pass in the IP and port of the host of Elasticsearch container. -->>
+									<ELASTICSEARCH_URL>http://${elasticsearch.container.name}:9200</ELASTICSEARCH_URL>
+								</env>
 								<network>
 									<mode>custom</mode>
-									<name>my-test-elk</name>
+									<name>${customer.network.name}</name>
 								</network>
 								<ports>
 									<port>5601:5601</port>
 								</ports>
-								<dependsOn>
-									<container>my-test-elasticsearch</container>
-								</dependsOn>
 								<wait>
 									<time>5000</time>
 								</wait>
 							</run>
 						</image>
 						<image>
-							<name>my-test-logstash</name>
+							<name>${logstash.image.name}</name>
 							<build>
 								<dockerFileDir>Logstash</dockerFileDir>
 							</build>
 							<run>
-								<containerNamePattern>%n</containerNamePattern>
+								<containerNamePattern>${logstash.container.name}</containerNamePattern>
+								<env>
+									<!-- If Logstash does not join the same customer network of Elasticsearch, it must pass in the IP and port of the host of Elasticsearch container. -->>
+									<ELASTICSEARCH_URL>${elasticsearch.container.name}:9200</ELASTICSEARCH_URL>
+								</env>
 								<network>
 									<mode>custom</mode>
-									<name>my-test-elk</name>
+									<name>${customer.network.name}</name>
 								</network>
 								<ports>
-									<port>9600:9600</port>
-									<port>5044:5044</port>
+									<port>${logstash.rest.port}:9600</port>
+									<port>${logstash.beats.port}:5044</port>
 								</ports>
-								<dependsOn>
-									<container>my-test-elasticsearch</container>
-								</dependsOn>
 								<wait>
 									<time>5000</time>
 								</wait>
 							</run>
 						</image>
 						<image>
-							<name>my-test-filebeat</name>
+							<name>${filebeat.image.name}</name>
 							<build>
 								<dockerFileDir>Filebeat</dockerFileDir>
 							</build>
 							<run>
-								<containerNamePattern>%n</containerNamePattern>
+								<containerNamePattern>${filebeat.container.name}</containerNamePattern>
+								<env>
+									<!-- If Filebeat does not join the same customer network of Logstash, it must pass in the IP and port of the host of Logstash container. -->>
+									<LOGSTASH_URL>${logstash.container.name}:5044</LOGSTASH_URL>
+								</env>
 								<network>
 									<mode>custom</mode>
-									<name>my-test-elk</name>
+									<name>${customer.network.name}</name>
 								</network>
 								<volumes>
 									<bind>
@@ -125,9 +138,6 @@
 										<!-- volume>/var/log:/host/log:z</volume -->
 									</bind>
 								</volumes>
-								<dependsOn>
-									<container>my-test-logstash</container>
-								</dependsOn>
 								<wait>
 									<time>5000</time>
 								</wait>

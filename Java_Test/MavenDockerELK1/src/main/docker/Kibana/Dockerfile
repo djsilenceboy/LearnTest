@@ -19,8 +19,8 @@ RUN rpm -ivh --nodeps https://artifacts.elastic.co/downloads/kibana/kibana-5.6.2
 ENV ELASTIC_CONTAINER true
 ENV PATH=/usr/share/kibana/bin:$PATH
 
-ADD kibana.yml /etc/kibana/kibana.yml
-ADD kibana-docker /usr/local/bin/kibana-docker
+COPY kibana.yml /etc/kibana/kibana.yml
+COPY kibana-docker /usr/local/bin/kibana-docker
 
 RUN chown -R kibana:kibana /usr/share/kibana/ && \
     chmod -R a+rw /usr/share/kibana && \
