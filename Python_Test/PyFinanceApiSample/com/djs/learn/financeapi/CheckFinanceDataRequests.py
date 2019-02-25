@@ -6,11 +6,11 @@ Update log: (date / version / author : comments)
                                 Support Yahoo Finance stock
 2017-12-10 / 1.1.0 / Du Jiang : Support Yahoo Finance currency
 2017-12-13 / 2.0.0 / Du Jiang : Combined support Yahoo Finance stock / currency.
-                                
+
 Notes:
 1. It requires 3rd parth python lib (at least): requests.
 2. When using Selenium, the webdriver.Firefox.get() does not return, always timeout.
-3. Those page load detection methods are all not working. 
+3. Those page load detection methods are all not working.
 '''
 
 from concurrent.futures import ThreadPoolExecutor
@@ -24,7 +24,6 @@ from time import localtime, strftime, time
 
 from bs4 import BeautifulSoup
 import requests
-
 
 # Global variables.
 # The value can be updated by command line options.
@@ -124,7 +123,7 @@ def check_url(url):
         try:
             headers = {
                 "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0"}
-            response = requests.get(url, headers=headers, timeout=5)
+            response = requests.get(url, headers = headers, timeout = 5)
             # print("response =", response)
             print("response.status_code =", response.status_code)
 
@@ -232,7 +231,7 @@ def parse_get_data_yahoo_stock(parsed_http_response, results):
 
         try:
             price_section = parsed_http_response.find(
-                "span", {"data-reactid": 35})
+                "span", {"data-reactid": 34, "class": "Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)"})
 
             if not price_section:
                 raise
@@ -396,7 +395,7 @@ def inspect_inventory(record):
     '''
     Inspect inventory info page.
 
-    @param record: [Stock name, Exchange, Ticker], [Currency from_symbol, To symbol] 
+    @param record: [Stock name, Exchange, Ticker], [Currency from_symbol, To symbol]
     @return : Dict with return results.
     '''
 
@@ -524,7 +523,7 @@ def process_inventory_list():
         print("-" * 80)
 
         # Inspect inventory concurrently.
-        with ThreadPoolExecutor(max_workers=__concurrent_max_workers) as executor:
+        with ThreadPoolExecutor(max_workers = __concurrent_max_workers) as executor:
             # Wait for result to return.
             for record, result in zip(records, executor.map(inspect_inventory, records)):
                 results[__Constants.INVENTORIES].update(result)
@@ -549,12 +548,12 @@ def process_inventory_list():
             with open(__result_output_file_path, "w") as result_file:
                 print('result_file =', result_file)
                 # Output file as JSON format.
-                json.dump(results, result_file, indent=4, sort_keys=True)
+                json.dump(results, result_file, indent = 4, sort_keys = True)
         except Exception as e:
             print("Output process results: Exception = {0}".format(e))
     else:
         # Output screen as JSON format.
-        print(json.dumps(results, indent=4, sort_keys=True))
+        print(json.dumps(results, indent = 4, sort_keys = True))
 
     print("-" * 100)
 
@@ -578,7 +577,7 @@ Options:
 
 Notes:
 Inventory info file format sample (With header line):
-1. Yahoo stock 
+1. Yahoo stock
 Name,Exchange,Ticker
 2. Yahoo currency
 From symbol,To symbol
@@ -633,11 +632,11 @@ def main(argv):
                 elif opt == "-c":
                     __concurrent_max_workers = int(arg)
                 else:
-                    __show_usage, __exit_code, __error_message = True, - \
+                    __show_usage, __exit_code, __error_message = True, -\
                         2, "Unknown command line option."
         except Exception as e:
             print("Parse command options: Exception = {0}".format(e))
-            __show_usage, __exit_code, __error_message = True, - \
+            __show_usage, __exit_code, __error_message = True, -\
                 3, "Wrong value for command line option."
 
     print("show_usage =", __show_usage)
@@ -649,7 +648,7 @@ def main(argv):
     # Check options are valid.
     if not __show_usage:
         if (__data_type is None) or (__inventory_info_file_path is None):
-            __show_usage, __exit_code, __error_message = True, - \
+            __show_usage, __exit_code, __error_message = True, -\
                 4, "Missing compulsory command line option."
         elif (__data_type < 0) or (__data_type > 2):
             __show_usage, __exit_code, __error_message = True, -5, "Wrong value for -d."
