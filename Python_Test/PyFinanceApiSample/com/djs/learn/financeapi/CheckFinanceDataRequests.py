@@ -23,6 +23,7 @@ import sys
 from time import localtime, strftime, time
 
 from bs4 import BeautifulSoup
+from lxml import html
 import requests
 
 # Global variables.
@@ -135,11 +136,12 @@ def check_url(url):
                 response.raise_for_status()
 
             # There is non-printable characters for Yahoo page.
-            # print("text_data =\n", ascii(http_response.text))
+            # print("text_data =\n", ascii(response.text))
             # There is error while parasing yahoo page.
-            # print("json_data =\n", http_response.json())
+            # print("json_data =\n", response.json())
 
-            parsed_data = BeautifulSoup(response.text, "lxml-xml")
+            # parsed_data = BeautifulSoup(response.text, "lxml-xml")
+            parsed_data = BeautifulSoup(response.text, "html.parser")
             # print("parsed_data =\n", parsed_data)
 
             if __data_type == 0:
