@@ -38,10 +38,13 @@ The samples for Docker. The testing VM is prepared by Vagrant and Ansible.
 Refer to Vagrant_Test/AnsibleServers and Ansible_Test/VagrantServers.
 
 # GoogleAE_Test
-The sample for Google Application Engine. Deprecated.
+The samples for Google Application Engine. Deprecated.
+
+# Java_Learn
+The samples for Java/JavaEE.
 
 # Java_Test
-The sample for Java/JavaEE.
+The samples for Java/JavaEE.
 
 General purpose:
 * TestJavaLang : Samples for JDK 6 / 7 / 8.
@@ -59,13 +62,13 @@ Special purpose:
 * Hibernate : AppHibernateSample1
 
 # MsOffice_Test
-The sample for Microsoft Office. Mostly for Excel and PowerPoint. Deprecated.
+The samples for Microsoft Office. Mostly for Excel and PowerPoint. Deprecated.
 
 # PowerShell_Test
-The sample for PowerShell 3 / 4 / 5.
+The samples for PowerShell 3 / 4 / 5.
 
 # Python_Test
-The sample for Python.
+The samples for Python.
 
 General purpose:
 * PySample1 : Samples and useful snippets for Python 3.
@@ -76,10 +79,10 @@ Special purpose:
 * AppPyWsSample1: Sample for Web Service client.
 
 # Ruby_Test
-The sample for Ruby.
+The samples for Ruby.
 
 # Shell_Test
-The sample for UNIX shell scripting (RHEL / CentOS / Cygwin).
+The samples for UNIX shell scripting (RHEL / CentOS / Cygwin).
 
 # SoapUI_Test
 The sample for SoapUI.

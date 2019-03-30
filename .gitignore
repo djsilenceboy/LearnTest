@@ -27,6 +27,15 @@
 /GoogleAE_Test/**/ztest/log/
 /GoogleAE_Test/**/*.class
 
+# For Eclipse, Java.
+/Java_Learn/**/.metadata/
+/Java_Learn/**/bin/
+/Java_Learn/**/build/
+/Java_Learn/**/dist/
+/Java_Learn/**/gen/
+/Java_Learn/**/target/
+/Java_Learn/**/ztest/log/
+/Java_Learn/**/*.class
 
 # For Eclipse, Java.
 /Java_Test/**/.metadata/
