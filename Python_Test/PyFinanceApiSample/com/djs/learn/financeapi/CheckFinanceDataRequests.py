@@ -362,7 +362,7 @@ def parse_get_data_yahoo_currency(parsed_http_response, results):
 
         try:
             value_section = parsed_http_response.find(
-                "span", {"data-reactid": 35})
+                "span", {"data-reactid": 34, "class": "Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)"})
 
             if not value_section:
                 raise
