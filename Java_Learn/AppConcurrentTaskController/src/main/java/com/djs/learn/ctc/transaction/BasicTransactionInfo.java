@@ -56,31 +56,6 @@ public class BasicTransactionInfo
 	}
 
 	/**
-	 * Get transaction status text.
-	 *
-	 * @return String
-	 */
-	public static String getTransactionStatusText(TransactionStatus status){
-		String temp = null;
-
-		if (status == TransactionStatus.WAITING) {
-			temp = "Waiting";
-		} else if (status == TransactionStatus.PROCESSING) {
-			temp = "Processing";
-		} else if (status == TransactionStatus.SUCCEEDED) {
-			temp = "Succeeded";
-		} else if (status == TransactionStatus.FAILED) {
-			temp = "Failed";
-		} else if (status == TransactionStatus.CLOSED) {
-			temp = "Closed";
-		} else {
-			temp = "Invalid";
-		}
-
-		return temp;
-	}
-
-	/**
 	 * Set transaction ID.
 	 *
 	 * @param id
@@ -170,7 +145,7 @@ public class BasicTransactionInfo
 		transactionStatus = status;
 
 		if (log.isTraceEnabled()) {
-			log.trace("Transaction ID " + transactionId + ": Transaction status = " + status + "<" + getTransactionStatusText(status) + ">");
+			log.trace("Transaction ID " + transactionId + ": Transaction status = " + status + "<" + status.getDescription() + ">");
 		}
 	}
 
@@ -216,7 +191,7 @@ public class BasicTransactionInfo
 		line.append(", Transaction status:");
 		line.append(transactionStatus);
 		line.append("<");
-		line.append(getTransactionStatusText(transactionStatus));
+		line.append(transactionStatus.getDescription());
 		line.append(">");
 
 		return line.toString();
@@ -240,7 +215,7 @@ public class BasicTransactionInfo
 		line.append(",");
 		line.append(transactionStatus);
 		line.append("<");
-		line.append(getTransactionStatusText(transactionStatus));
+		line.append(transactionStatus.getDescription());
 		line.append(">");
 
 		return line.toString();

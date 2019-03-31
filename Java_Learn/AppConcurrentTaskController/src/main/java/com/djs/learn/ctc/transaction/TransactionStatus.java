@@ -15,5 +15,20 @@ package com.djs.learn.ctc.transaction;
  */
 public enum TransactionStatus
 {
-	INVALID, WAITING, PROCESSING, SUCCEEDED, FAILED, CLOSED
+	INVALID("Invalid"), WAITING("Waiting"), PROCESSING("Processing"), SUCCEEDED("Succeeded"), FAILED("Failed"), CLOSED("Closed");
+
+	private final String description;
+
+	private TransactionStatus(String description){
+		this.description = description;
+	}
+
+	/**
+	 * Get description.
+	 *
+	 * @return String
+	 */
+	public String getDescription(){
+		return description;
+	}
 }

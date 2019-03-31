@@ -304,7 +304,7 @@ public class TransactionThroughputControl
 			temp.append("Token = ");
 			temp.append(token);
 			temp.append(" <");
-			temp.append(BasicTransactionThroughputInfo.getTransactionTokenText(token));
+			temp.append(token.getDescription());
 			temp.append(">");
 
 			log.trace(temp);

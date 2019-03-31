@@ -142,27 +142,6 @@ public class BasicTransactionThroughputInfo implements Cloneable
 		destination.currentTransactionsPerPeriod = currentTransactionsPerPeriod;
 	}
 
-	/**
-	 * Get transaction token text.
-	 *
-	 * @return String
-	 */
-	public static String getTransactionTokenText(TransactionToken token){
-		String temp = null;
-
-		if (token == TransactionToken.AVAILABLE) {
-			temp = "Available";
-		} else if (token == TransactionToken.MAX_TRANSACTIONS) {
-			temp = "Max transactions";
-		} else if (token == TransactionToken.MAX_THROUGHPUT) {
-			temp = "Max throughput";
-		} else {
-			temp = "Invalid";
-		}
-
-		return temp;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()

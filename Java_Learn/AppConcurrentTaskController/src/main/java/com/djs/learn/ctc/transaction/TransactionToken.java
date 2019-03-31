@@ -13,5 +13,20 @@ package com.djs.learn.ctc.transaction;
  */
 public enum TransactionToken
 {
-	INVALID, AVAILABLE, MAX_TRANSACTIONS, MAX_THROUGHPUT
+	INVALID("Invalid"), AVAILABLE("Available"), MAX_TRANSACTIONS("Max transactions"), MAX_THROUGHPUT("Max throughput");
+
+	private final String description;
+
+	private TransactionToken(String description){
+		this.description = description;
+	}
+
+	/**
+	 * Get description.
+	 *
+	 * @return String
+	 */
+	public String getDescription(){
+		return description;
+	}
 }

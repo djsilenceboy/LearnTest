@@ -1,0 +1,34 @@
+Configuration:
+  name: YAMLConfigTest
+
+  Properties:
+    property:
+    - name: FileName
+      value: target/app.log
+    - name: CommonPattern
+      value: "<%d{yyyy.MM.dd HH:mm:ss.SSS}>{%-5p}[%c:%M] %m%n"
+
+  Appenders:
+    Console:
+      name: Console
+      PatternLayout:
+        Pattern: ${CommonPattern}
+    File:
+      name: File
+      fileName: ${FileName}
+      PatternLayout:
+        Pattern: ${CommonPattern}
+
+  Loggers:
+    logger:
+      - name: com.djs.learn.ctc
+        level: debug
+        additivity: false
+        AppenderRef:
+          - ref: Console
+          - ref: File
+    Root:
+      level: error
+      AppenderRef:
+        - ref: Console
+        - ref: File
