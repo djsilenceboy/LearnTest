@@ -1,0 +1,36 @@
+Configuration:
+  status: warn
+  name: YAMLConfigTest
+  properties:
+    property:
+      name: filename
+      value: target/app.log
+  thresholdFilter:
+    level: debug
+  appenders:
+    Console:
+      name: STDOUT
+      PatternLayout:
+        Pattern: "%m%n"
+    File:
+      name: File
+      fileName: ${filename}
+      PatternLayout:
+        Pattern: "%d %p %C{1.} [%t] %m%n"
+      Filters:
+        ThresholdFilter:
+          level: error
+
+  Loggers:
+    logger:
+      - name: com.djs.learn.ctc
+        level: debug
+        additivity: false
+        AppenderRef:
+          ref: STDOUT
+          ref: File
+    Root:
+      level: error
+      AppenderRef:
+        ref: STDOUT
+        ref: File
