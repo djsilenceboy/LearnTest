@@ -1,6 +1,9 @@
 
 package com.djs.learn.ctc.transaction;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,17 +24,17 @@ public class BasicTransactionInfo
 	 */
 	private long transactionId;
 	/**
-	 * Transaction start time in millisecond.
+	 * Transaction start time.
 	 */
-	private long transactionStartTime;
+	private LocalDateTime transactionStartTime;
 	/**
-	 * Transaction stop time in millisecond.
+	 * Transaction stop time.
 	 */
-	private long transactionStopTime;
+	private LocalDateTime transactionStopTime;
 	/**
-	 * Transaction duration time in millisecond.
+	 * Transaction duration.
 	 */
-	private long transactionDurationTime;
+	private Duration transactionDuration;
 	/**
 	 * Transaction status.
 	 */
@@ -49,9 +52,9 @@ public class BasicTransactionInfo
 	 */
 	public void reset(){
 		transactionId = -1;
-		transactionStartTime = -1;
-		transactionStopTime = -1;
-		transactionDurationTime = -1;
+		transactionStartTime = null;
+		transactionStopTime = null;
+		transactionDuration = null;
 		transactionStatus = TransactionStatus.INVALID;
 	}
 
@@ -78,22 +81,22 @@ public class BasicTransactionInfo
 	 * Set transaction start time.
 	 *
 	 * @param time
-	 *        long, in milliseconds, "-1" means current time.
+	 *        LocalDateTime, null means current time.
 	 */
-	public synchronized void setTransactionStartTime(long time){
-		transactionStartTime = (time >= 0) ? time : System.currentTimeMillis();
+	public synchronized void setTransactionStartTime(LocalDateTime time){
+		transactionStartTime = (time != null) ? time : LocalDateTime.now();
 
 		if (log.isTraceEnabled()) {
-			log.trace("Transaction ID " + transactionId + ": Transaction start time (ms) = " + transactionStartTime);
+			log.trace("Transaction ID " + transactionId + ": Transaction start time = " + transactionStartTime);
 		}
 	}
 
 	/**
 	 * Get transaction start time.
 	 *
-	 * @return long - Transaction start time in milliseconds.
+	 * @return LocalDateTime - Transaction start time.
 	 */
-	public long getTransactionStartTime(){
+	public LocalDateTime getTransactionStartTime(){
 		return transactionStartTime;
 	}
 
@@ -101,38 +104,42 @@ public class BasicTransactionInfo
 	 * Set transaction stop time.
 	 *
 	 * @param time
-	 *        long, in milliseconds, "-1" means current time.
+	 *        LocalDateTime, null means current time.
 	 */
-	public synchronized void setTransactionStopTime(long time) throws Exception{
-		transactionStopTime = (time >= 0) ? time : System.currentTimeMillis();
-		transactionDurationTime = transactionStopTime - getTransactionStartTime() + 1;
-
-		if (log.isTraceEnabled()) {
-			log.trace("Transaction ID " + transactionId + ": Transaction stop time (ms) = " + transactionStopTime);
-			log.trace("Transaction ID " + transactionId + ": Transaction duration time (ms) = " + transactionDurationTime);
+	public synchronized void setTransactionStopTime(LocalDateTime time) throws Exception{
+		if (transactionStartTime == null) {
+			throw new Exception("Transaction must have start time first.");
 		}
 
-		if (transactionDurationTime < 0) {
-			throw new Exception("Transaction end time must >= transaction start time.");
+		transactionStopTime = (time != null) ? time : LocalDateTime.now();
+		transactionDuration = Duration.between(transactionStartTime, transactionStopTime);
+
+		if (log.isTraceEnabled()) {
+			log.trace("Transaction ID " + transactionId + ": Transaction stop time = " + transactionStopTime);
+			log.trace("Transaction ID " + transactionId + ": Transaction duration (ms) = " + transactionDuration.toMillis());
+		}
+
+		if (transactionDuration.isNegative()) {
+			throw new Exception("Transaction stop time must >= transaction start time.");
 		}
 	}
 
 	/**
 	 * Get transaction stop time.
 	 *
-	 * @return long - Transaction stop time in milliseconds.
+	 * @return LocalDateTime - Transaction stop time.
 	 */
-	public long getTransactionStopTime(){
+	public LocalDateTime getTransactionStopTime(){
 		return transactionStopTime;
 	}
 
 	/**
-	 * Get transaction duration time.
+	 * Get transaction duration.
 	 *
-	 * @return long - Transaction duration time in milliseconds.
+	 * @return Duration - Transaction duration.
 	 */
-	public long getTransactionDurationTime(){
-		return transactionDurationTime;
+	public Duration getTransactionDuration(){
+		return transactionDuration;
 	}
 
 	/**
@@ -186,8 +193,8 @@ public class BasicTransactionInfo
 		line.append(transactionStartTime);
 		line.append(", Transaction stop time:");
 		line.append(transactionStopTime);
-		line.append(", Transaction duration time:");
-		line.append(transactionDurationTime);
+		line.append(", Transaction duration:");
+		line.append((transactionDuration == null) ? -1 : transactionDuration.toMillis());
 		line.append(", Transaction status:");
 		line.append(transactionStatus);
 		line.append("<");
@@ -211,7 +218,7 @@ public class BasicTransactionInfo
 		line.append(",");
 		line.append(transactionStopTime);
 		line.append(",");
-		line.append(transactionDurationTime);
+		line.append((transactionDuration == null) ? -1 : transactionDuration.toMillis());
 		line.append(",");
 		line.append(transactionStatus);
 		line.append("<");

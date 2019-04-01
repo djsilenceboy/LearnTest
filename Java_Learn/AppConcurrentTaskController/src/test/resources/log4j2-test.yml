@@ -22,7 +22,7 @@ Configuration:
   Loggers:
     logger:
       - name: com.djs.learn.ctc
-        level: debug
+        level: trace
         additivity: false
         AppenderRef:
           - ref: Console
