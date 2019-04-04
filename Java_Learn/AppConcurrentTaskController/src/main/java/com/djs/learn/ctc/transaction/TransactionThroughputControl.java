@@ -1,6 +1,10 @@
 
 package com.djs.learn.ctc.transaction;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,11 +27,7 @@ public class TransactionThroughputControl
 	 * Constructor.
 	 */
 	public TransactionThroughputControl(){
-		if (log.isTraceEnabled()) {
-			log.trace("Enter...");
-		}
-
-		btti = new BasicTransactionThroughputInfo();
+		this(new BasicTransactionThroughputInfo());
 	}
 
 	/**
@@ -78,18 +78,18 @@ public class TransactionThroughputControl
 	 * Set transactions period time.
 	 *
 	 * @param time
-	 *        long, in milliseconds, >= 1.
+	 *        Duration, in milliseconds, >= 1.
 	 * @throws Exception
 	 */
-	public synchronized void setTransactionPeriodTime(long time) throws Exception{
-		if (time > 0) {
+	public synchronized void setTransactionPeriodTime(Duration time) throws Exception{
+		if ((time != null) && (time.toMillis() > 0)) {
 			btti.setTransactionPeriodTime(time);
 
 			if (log.isDebugEnabled()) {
 				log.debug("Transaction period time = " + btti.getTransactionPeriodTime());
 			}
 		} else {
-			throw new Exception("Transaction period time must >= 1.");
+			throw new Exception("Transaction period time must > 0.");
 		}
 	}
 
@@ -117,13 +117,14 @@ public class TransactionThroughputControl
 	 */
 	public synchronized void startControl(){
 		// Start from multiple of TransactionPeriodTime.
-		btti.setStartTime((System.currentTimeMillis() / btti.getTransactionPeriodTime()) * btti.getTransactionPeriodTime());
+		Instant currentTime = Instant.now();
+		btti.setStartTime(Instant.ofEpochMilli(currentTime.toEpochMilli() - currentTime.toEpochMilli() % btti.getTransactionPeriodTime().toMillis()));
 		btti.setTotalTransactions(0);
 		btti.setEffectivePeriods(0);
 		btti.setCurrentThroughput(0);
 
 		if (log.isInfoEnabled()) {
-			log.info("Start time (ms) = " + btti.getStartTime());
+			log.info("Start time = " + btti.getStartTime());
 			log.info("Total transactions = " + btti.getTotalTransactions());
 			log.info("Effective periods = " + btti.getEffectivePeriods());
 			log.info("Current throughput = " + btti.getCurrentThroughput());
@@ -137,12 +138,12 @@ public class TransactionThroughputControl
 	 * Stop control.
 	 */
 	public synchronized void stopControl(){
-		btti.setStopTime(System.currentTimeMillis());
-		btti.setTotalDurationTime(btti.getStopTime() - btti.getStartTime() + 1);
+		btti.setStopTime(Instant.now());
+		btti.setTotalDuration(Duration.between(btti.getStartTime(), btti.getStopTime()));
 
 		if (log.isInfoEnabled()) {
-			log.info("Stop time (ms) = " + btti.getStopTime());
-			log.info("Total duration time (ms) = " + btti.getTotalDurationTime());
+			log.info("Stop time = " + btti.getStopTime());
+			log.info("Total duration = " + btti.getTotalDuration());
 		}
 
 		if ((btti.getTotalTransactions() > 0) || (btti.getCurrentTransactionsPerPeriod() > 0)) {
@@ -170,12 +171,13 @@ public class TransactionThroughputControl
 
 			btti.setEffectiveAverageTransactionsPerPeriod(Math.round(((double)btti.getTotalTransactions() / btti.getEffectivePeriods()) * 100.0) / 100.0);
 			btti.setAverageTransactionsPerPeriod(Math
-			        .round((btti.getTotalTransactions() / ((double)btti.getTotalDurationTime() / btti.getTransactionPeriodTime())) * 100.0) / 100.0);
+			        .round((btti.getTotalTransactions() / ((double)btti.getTotalDuration().toMillis() / btti.getTransactionPeriodTime().toMillis())) * 100.0)
+			        / 100.0);
 		}
 
 		if (log.isInfoEnabled()) {
 			log.info("Throughput                                = " + btti.getThroughput());
-			log.info("Transaction period time (ms)              = " + btti.getTransactionPeriodTime());
+			log.info("Transaction period time                   = " + btti.getTransactionPeriodTime());
 			log.info("Max transactions per period               = " + btti.getMaxTransactionsPerPeriod());
 			log.info("Total transactions                        = " + btti.getTotalTransactions());
 			log.info("Effective periods                         = " + btti.getEffectivePeriods());
@@ -192,14 +194,14 @@ public class TransactionThroughputControl
 	 * @param time
 	 *        long, in milliseconds. "-1" mean current time.
 	 */
-	private void setCurrentPeriodStartTime(long time){
-		btti.setCurrentPeriodStartTime((time >= 0) ? time : System.currentTimeMillis());
-		btti.setCurrentPeriodStopTime(btti.getCurrentPeriodStartTime() + btti.getTransactionPeriodTime() - 1);
+	private void setCurrentPeriodStartTime(Instant time){
+		btti.setCurrentPeriodStartTime((time != null) ? time : Instant.now());
+		btti.setCurrentPeriodStopTime(btti.getCurrentPeriodStartTime().plus(btti.getTransactionPeriodTime().toMillis() - 1, ChronoUnit.MILLIS));
 		btti.setCurrentTransactionsPerPeriod(0);
 
 		if (log.isTraceEnabled()) {
-			log.trace("Current period start time (ms) = " + btti.getCurrentPeriodStartTime());
-			log.trace("Current period stop time (ms)  = " + btti.getCurrentPeriodStopTime());
+			log.trace("Current period start time = " + btti.getCurrentPeriodStartTime());
+			log.trace("Current period stop time  = " + btti.getCurrentPeriodStopTime());
 			log.trace("Current transactions per period (0) = " + btti.getCurrentTransactionsPerPeriod() + " / " + btti.getMaxTransactionsPerPeriod());
 		}
 	}
@@ -207,21 +209,22 @@ public class TransactionThroughputControl
 	/**
 	 * Get current period remain time.
 	 *
-	 * @return long - Current period remain time in milliseconds.
+	 * @return Duration - Current period remain time.
 	 */
-	public synchronized long getCurrentPeriodRemainTime(){
-		return btti.getCurrentPeriodStopTime() - System.currentTimeMillis();
+	public synchronized Duration getCurrentPeriodRemainTime(){
+		return Duration.between(Instant.now(), btti.getCurrentPeriodStopTime());
 	}
 
 	/**
 	 * Check if transaction is in current period.
 	 *
 	 * @param transactionStartTime
-	 *        long, in milliseconds.
+	 *        Instant.
 	 * @return boolean - true = yes.
 	 */
-	private boolean isTransactionInCurrentPeriod(long transactionStartTime){
-		return (transactionStartTime >= btti.getCurrentPeriodStartTime()) && (transactionStartTime <= btti.getCurrentPeriodStopTime());
+	private boolean isTransactionInCurrentPeriod(Instant transactionStartTime){
+		return (transactionStartTime.compareTo(btti.getCurrentPeriodStartTime()) >= 0)
+		        && (transactionStartTime.compareTo(btti.getCurrentPeriodStopTime()) <= 0);
 	}
 
 	/**
@@ -239,11 +242,11 @@ public class TransactionThroughputControl
 	 * @throws RuntimeException
 	 *         Unexpected error.
 	 */
-	public synchronized TransactionToken getTransactionToken(BasicTransactionThroughputInfo bttiDst) throws RuntimeException{
+	public synchronized TransactionToken getTransactionToken(BasicTransactionThroughputInfo bttiDst){
 		TransactionToken token = TransactionToken.INVALID;
-		long checkTime = System.currentTimeMillis();
+		Instant checkTime = Instant.now();
 
-		if (checkTime < btti.getCurrentPeriodStartTime()) {
+		if (checkTime.isBefore(btti.getCurrentPeriodStartTime())) {
 			throw new RuntimeException("Transaction start time is < current period start time. It is impossible.");
 		}
 
@@ -278,8 +281,8 @@ public class TransactionThroughputControl
 			}
 
 			// Reset info.
-			long passedTimeForNewPeriod = (checkTime - btti.getCurrentPeriodStopTime()) % btti.getTransactionPeriodTime();
-			setCurrentPeriodStartTime(checkTime - passedTimeForNewPeriod + 1);
+			long passedTimeForNewPeriod = Duration.between(btti.getCurrentPeriodStopTime(), checkTime).toMillis() % btti.getTransactionPeriodTime().toMillis();
+			setCurrentPeriodStartTime(checkTime.minus(passedTimeForNewPeriod - 1, ChronoUnit.MILLIS));
 		}
 
 		// Token is available when transactions per period does not exceed max value and there is free throughput slot.

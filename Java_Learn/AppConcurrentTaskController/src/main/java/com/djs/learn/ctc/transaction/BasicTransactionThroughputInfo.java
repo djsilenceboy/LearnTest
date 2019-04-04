@@ -1,6 +1,9 @@
 
 package com.djs.learn.ctc.transaction;
 
+import java.time.Duration;
+import java.time.Instant;
+
 /**
  * Basic transaction throughput info.
  */
@@ -11,26 +14,26 @@ public class BasicTransactionThroughputInfo implements Cloneable
 	 */
 	private int throughput;
 	/**
-	 * Transaction period time in millisecond.
+	 * Transaction period time.
 	 */
-	private long transactionPeriodTime;
+	private Duration transactionPeriodTime;
 	/**
 	 * Max transactions per period.
 	 */
 	private int maxTransactionsPerPeriod;
 
 	/**
-	 * Start time in millisecond.
+	 * Start time.
 	 */
-	private long startTime;
+	private Instant startTime;
 	/**
-	 * Stop time in millisecond.
+	 * Stop time.
 	 */
-	private long stopTime;
+	private Instant stopTime;
 	/**
-	 * Total duration in millisecond.
+	 * Total duration.
 	 */
-	private long totalDurationTime;
+	private Duration totalDuration;
 	/**
 	 * Total transactions for all periods.
 	 */
@@ -59,11 +62,11 @@ public class BasicTransactionThroughputInfo implements Cloneable
 	/**
 	 * Current period start time.
 	 */
-	private long currentPeriodStartTime;
+	private Instant currentPeriodStartTime;
 	/**
 	 * Current period stop time.
 	 */
-	private long currentPeriodStopTime;
+	private Instant currentPeriodStopTime;
 
 	/**
 	 * Current throughput.
@@ -86,19 +89,19 @@ public class BasicTransactionThroughputInfo implements Cloneable
 	 */
 	public void reset(){
 		throughput = -1;
-		transactionPeriodTime = -1;
+		transactionPeriodTime = null;
 		maxTransactionsPerPeriod = -1;
-		startTime = -1;
-		stopTime = -1;
-		totalDurationTime = -1;
+		startTime = null;
+		stopTime = null;
+		totalDuration = null;
 		totalTransactions = -1;
 		effectivePeriods = -1;
 		effectiveMinTransactionsPerPeriod = 10000;
 		effectiveMaxTransactionsPerPeriod = 0;
 		effectiveAverageTransactionsPerPeriod = 0.0;
 		averageTransactionsPerPeriod = 0.0;
-		currentPeriodStartTime = -1;
-		currentPeriodStopTime = -1;
+		currentPeriodStartTime = null;
+		currentPeriodStopTime = null;
 		currentThroughput = -1;
 		currentTransactionsPerPeriod = -1;
 	}
@@ -129,7 +132,7 @@ public class BasicTransactionThroughputInfo implements Cloneable
 		destination.maxTransactionsPerPeriod = maxTransactionsPerPeriod;
 		destination.startTime = startTime;
 		destination.stopTime = stopTime;
-		destination.totalDurationTime = totalDurationTime;
+		destination.totalDuration = totalDuration;
 		destination.totalTransactions = totalTransactions;
 		destination.effectivePeriods = effectivePeriods;
 		destination.effectiveMinTransactionsPerPeriod = effectiveMinTransactionsPerPeriod;
@@ -161,7 +164,7 @@ public class BasicTransactionThroughputInfo implements Cloneable
 		line.append(", Stop time:");
 		line.append(stopTime);
 		line.append(", Total duration time:");
-		line.append(totalDurationTime);
+		line.append(totalDuration);
 		line.append(", Total transactions:");
 		line.append(totalTransactions);
 		line.append(", Effective periods:");
@@ -204,7 +207,7 @@ public class BasicTransactionThroughputInfo implements Cloneable
 		line.append(",");
 		line.append(stopTime);
 		line.append(",");
-		line.append(totalDurationTime);
+		line.append(totalDuration);
 		line.append(",");
 		line.append(totalTransactions);
 		line.append(",");
@@ -237,11 +240,11 @@ public class BasicTransactionThroughputInfo implements Cloneable
 		this.throughput = throughput;
 	}
 
-	public long getTransactionPeriodTime(){
+	public Duration getTransactionPeriodTime(){
 		return transactionPeriodTime;
 	}
 
-	public void setTransactionPeriodTime(long transactionPeriodTime){
+	public void setTransactionPeriodTime(Duration transactionPeriodTime){
 		this.transactionPeriodTime = transactionPeriodTime;
 	}
 
@@ -253,28 +256,28 @@ public class BasicTransactionThroughputInfo implements Cloneable
 		this.maxTransactionsPerPeriod = maxTransactionsPerPeriod;
 	}
 
-	public long getStartTime(){
+	public Instant getStartTime(){
 		return startTime;
 	}
 
-	public void setStartTime(long startTime){
+	public void setStartTime(Instant startTime){
 		this.startTime = startTime;
 	}
 
-	public long getStopTime(){
+	public Instant getStopTime(){
 		return stopTime;
 	}
 
-	public void setStopTime(long stopTime){
+	public void setStopTime(Instant stopTime){
 		this.stopTime = stopTime;
 	}
 
-	public long getTotalDurationTime(){
-		return totalDurationTime;
+	public Duration getTotalDuration(){
+		return totalDuration;
 	}
 
-	public void setTotalDurationTime(long totalDurationTime){
-		this.totalDurationTime = totalDurationTime;
+	public void setTotalDuration(Duration totalDuration){
+		this.totalDuration = totalDuration;
 	}
 
 	public long getTotalTransactions(){
@@ -325,19 +328,19 @@ public class BasicTransactionThroughputInfo implements Cloneable
 		this.averageTransactionsPerPeriod = averageTransactionsPerPeriod;
 	}
 
-	public long getCurrentPeriodStartTime(){
+	public Instant getCurrentPeriodStartTime(){
 		return currentPeriodStartTime;
 	}
 
-	public void setCurrentPeriodStartTime(long currentPeriodStartTime){
+	public void setCurrentPeriodStartTime(Instant currentPeriodStartTime){
 		this.currentPeriodStartTime = currentPeriodStartTime;
 	}
 
-	public long getCurrentPeriodStopTime(){
+	public Instant getCurrentPeriodStopTime(){
 		return currentPeriodStopTime;
 	}
 
-	public void setCurrentPeriodStopTime(long currentPeriodStopTime){
+	public void setCurrentPeriodStopTime(Instant currentPeriodStopTime){
 		this.currentPeriodStopTime = currentPeriodStopTime;
 	}
 

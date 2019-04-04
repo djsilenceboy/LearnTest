@@ -4,9 +4,8 @@ package com.djs.learn.ctc.transaction;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -42,7 +41,6 @@ public class BasicTransactionInfoTest
 
 		assertNull(bti.getTransactionStartTime());
 		bti.setTransactionStartTime(null);
-		log.debug("Start time = " + bti.getTransactionStartTime());
 		assertNotNull(bti.getTransactionStartTime());
 
 		try {
@@ -57,10 +55,7 @@ public class BasicTransactionInfoTest
 		} catch (Exception e) {
 			log.error("Failed: " + e);
 		}
-		log.debug("Stop time = " + bti.getTransactionStopTime());
 		assertNotNull(bti.getTransactionStopTime());
-
-		assertTrue(bti.getTransactionDuration().toMillis() >= 1000);
 	}
 
 	@Test(expected = Exception.class)
@@ -77,7 +72,7 @@ public class BasicTransactionInfoTest
 		bti.setTransactionId(10);
 
 		bti.setTransactionStartTime(null);
-		bti.setTransactionStopTime(LocalDateTime.now().minusSeconds(5));
+		bti.setTransactionStopTime(Instant.now().minusSeconds(5));
 	}
 
 	@Test

@@ -2,7 +2,7 @@
 package com.djs.learn.ctc.transaction;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,11 +26,11 @@ public class BasicTransactionInfo
 	/**
 	 * Transaction start time.
 	 */
-	private LocalDateTime transactionStartTime;
+	private Instant transactionStartTime;
 	/**
 	 * Transaction stop time.
 	 */
-	private LocalDateTime transactionStopTime;
+	private Instant transactionStopTime;
 	/**
 	 * Transaction duration.
 	 */
@@ -81,10 +81,10 @@ public class BasicTransactionInfo
 	 * Set transaction start time.
 	 *
 	 * @param time
-	 *        LocalDateTime, null means current time.
+	 *        Instant, null means current time.
 	 */
-	public synchronized void setTransactionStartTime(LocalDateTime time){
-		transactionStartTime = (time != null) ? time : LocalDateTime.now();
+	public synchronized void setTransactionStartTime(Instant time){
+		transactionStartTime = (time != null) ? time : Instant.now();
 
 		if (log.isTraceEnabled()) {
 			log.trace("Transaction ID " + transactionId + ": Transaction start time = " + transactionStartTime);
@@ -94,9 +94,9 @@ public class BasicTransactionInfo
 	/**
 	 * Get transaction start time.
 	 *
-	 * @return LocalDateTime - Transaction start time.
+	 * @return Instant - Transaction start time.
 	 */
-	public LocalDateTime getTransactionStartTime(){
+	public Instant getTransactionStartTime(){
 		return transactionStartTime;
 	}
 
@@ -104,19 +104,19 @@ public class BasicTransactionInfo
 	 * Set transaction stop time.
 	 *
 	 * @param time
-	 *        LocalDateTime, null means current time.
+	 *        Instant, null means current time.
 	 */
-	public synchronized void setTransactionStopTime(LocalDateTime time) throws Exception{
+	public synchronized void setTransactionStopTime(Instant time) throws Exception{
 		if (transactionStartTime == null) {
 			throw new Exception("Transaction must have start time first.");
 		}
 
-		transactionStopTime = (time != null) ? time : LocalDateTime.now();
+		transactionStopTime = (time != null) ? time : Instant.now();
 		transactionDuration = Duration.between(transactionStartTime, transactionStopTime);
 
 		if (log.isTraceEnabled()) {
 			log.trace("Transaction ID " + transactionId + ": Transaction stop time = " + transactionStopTime);
-			log.trace("Transaction ID " + transactionId + ": Transaction duration (ms) = " + transactionDuration.toMillis());
+			log.trace("Transaction ID " + transactionId + ": Transaction duration = " + transactionDuration);
 		}
 
 		if (transactionDuration.isNegative()) {
@@ -127,9 +127,9 @@ public class BasicTransactionInfo
 	/**
 	 * Get transaction stop time.
 	 *
-	 * @return LocalDateTime - Transaction stop time.
+	 * @return Instant - Transaction stop time.
 	 */
-	public LocalDateTime getTransactionStopTime(){
+	public Instant getTransactionStopTime(){
 		return transactionStopTime;
 	}
 
@@ -194,7 +194,7 @@ public class BasicTransactionInfo
 		line.append(", Transaction stop time:");
 		line.append(transactionStopTime);
 		line.append(", Transaction duration:");
-		line.append((transactionDuration == null) ? -1 : transactionDuration.toMillis());
+		line.append(transactionDuration);
 		line.append(", Transaction status:");
 		line.append(transactionStatus);
 		line.append("<");
@@ -218,7 +218,7 @@ public class BasicTransactionInfo
 		line.append(",");
 		line.append(transactionStopTime);
 		line.append(",");
-		line.append((transactionDuration == null) ? -1 : transactionDuration.toMillis());
+		line.append(transactionDuration);
 		line.append(",");
 		line.append(transactionStatus);
 		line.append("<");
