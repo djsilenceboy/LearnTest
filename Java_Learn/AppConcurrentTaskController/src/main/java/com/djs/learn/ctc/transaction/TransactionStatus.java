@@ -6,16 +6,13 @@ package com.djs.learn.ctc.transaction;
  * <p>
  * <ul>
  * <li>INVALID: Initial status for internal usage.</li>
- * <li>WAITING: Waiting for process.</li>
- * <li>PROCESSING: Processing.</li>
- * <li>SUCCEEDED: Process succeeded.</li>
- * <li>FAILED: Process failed.</li>
- * <li>CLOSED: Closed.</li>
+ * <li>START: Start.</li>
+ * <li>STOP: Stop.</li>
  * </ul>
  */
 public enum TransactionStatus
 {
-	INVALID("Invalid"), WAITING("Waiting"), PROCESSING("Processing"), SUCCEEDED("Succeeded"), FAILED("Failed"), CLOSED("Closed");
+	INVALID("Invalid"), START("Start"), STOP("Stop");
 
 	private final String description;
 

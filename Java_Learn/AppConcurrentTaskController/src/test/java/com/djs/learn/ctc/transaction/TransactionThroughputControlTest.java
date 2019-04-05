@@ -8,6 +8,8 @@ import java.time.Duration;
 
 import org.junit.Test;
 
+import com.djs.learn.ctc.thread.BasicSleepHelper;
+
 public class TransactionThroughputControlTest
 {
 	@Test
@@ -47,7 +49,7 @@ public class TransactionThroughputControlTest
 		TransactionThroughputControl ttc = new TransactionThroughputControl();
 		ttc.setTransactionPeriodTime(Duration.ofMillis(1000));
 		ttc.startControl();
-		Thread.sleep(1000);
+		BasicSleepHelper.normalSleep(1000);
 		ttc.stopControl();
 	}
 }
