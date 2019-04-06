@@ -1,0 +1,130 @@
+================================================================================
+OpenShift
+================================================================================
+Portal
+
+https://www.openshift.com/
+------------------------------------------------------------
+Release
+
+https://github.com/openshift/origin/releases
+------------------------------------------------------------
+Doc
+
+https://www.mankier.com/1/oc-cluster-up
+================================================================================
+Install
+------------------------------------------------------------
+curl -L -o /tmp/oc.tar.gz https://github.com/openshift/origin/releases/download/v3.11.0/openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit.tar.gz
+cd /tmp
+tar xzvf oc.tar.gz -C .
+rm oc.tar.gz
+find . -name kubectl -exec mv {} /usr/local/bin \;
+find . -name oc -exec mv {} /usr/local/bin \;
+cd /usr/local/bin
+chmod +x kubectl oc
+
+sudo sed -i "s/^Defaults.*:\/usr\/bin$/&:\/usr\/local\/bin/g" /etc/sudoers
+================================================================================
+Check version.
+
+$ oc version
+------------------------------------------------------------
+Check global options for all commands.
+
+$ oc options
+================================================================================
+Cluster
+------------------------------------------------------------
+Start, stop and status.
+
+$ sudo oc cluster up --help
+$ sudo oc cluster up --base-dir="/opt/openshift" --public-hostname="192.168.10.18" --skip-registry-check=true
+$ sudo oc cluster down
+$ sudo oc cluster status
+----------------------------------------
+Login to server ...
+Creating initial project "myproject" ...
+Server Information ...
+OpenShift server started.
+
+The server is accessible via web console at:
+    https://192.168.10.18:8443
+
+You are logged in as:
+    User:     developer
+    Password: <any value>
+
+To login as administrator:
+    oc login -u system:admin
+----------------------------------------
+Main portal link.
+
+https://192.168.10.18:8443/console
+================================================================================
+Start as Service
+------------------------------------------------------------
+Create file.
+
+sudo vi /etc/systemd/system/openshift.service
+----------------------------------------
+[Unit]
+Description=OpenShift oc cluster up Service
+After=docker.service
+Requires=docker.service
+
+[Service]
+ExecStart=/usr/local/bin/oc cluster up --base-dir="/opt/openshift" --public-hostname="192.168.10.18" --skip-registry-check=true
+ExecStop=/usr/local/bin/oc cluster down
+WorkingDirectory=/opt/openshift
+Restart=no
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=occlusterup
+User=root
+Type=oneshot
+RemainAfterExit=yes
+TimeoutSec=300
+
+[Install]
+WantedBy=multi-user.target
+------------------------------------------------------------
+$ sudo systemctl enable openshift
+$ sudo systemctl start openshift
+$ sudo systemctl status openshift
+$ sudo systemctl stop openshift
+================================================================================
+Login.
+
+$ sudo oc login -u developer
+$ sudo oc login -u system:admin
+================================================================================
+Check nodes.
+(Require login with "system" user.)
+
+$ sudo oc get nodes
+------------------------------------------------------------
+Check service.
+
+$ oc get service
+================================================================================
+Expose service.
+
+$ sudo oc expose svc <Service>
+------------------------------------------------------------
+Check route.
+
+$ sudo oc get route
+================================================================================
+Project
+------------------------------------------------------------
+App portal link.
+(Default project is "myproject".)
+
+http://<AppName>-myproject.192.168.10.18.nip.io
+http://<AppName>-myproject.192.168.10.18.xip.io
+------------------------------------------------------------
+Check project status.
+
+$ sudo oc status
+================================================================================

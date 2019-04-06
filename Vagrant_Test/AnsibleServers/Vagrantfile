@@ -137,4 +137,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansibleDockerServer2.vm.hostname = "docker2.djsilenceboy.com"
     ansibleDockerServer2.vm.network "private_network", ip: "192.168.10.17"
   end
+
+
+  config.vm.define "ansibleOpenShiftServer" do |ansibleOpenShiftServer|
+    ansibleOpenShiftServer.vm.provider "virtualbox" do |vb|
+      vb.name = "Vagrant_ansibleOpenShiftServer"
+      # Default is 1024M.
+      vb.memory = 4096
+      # Default is 1 CPU.
+      vb.cpus = 2
+    end
+
+    ansibleOpenShiftServer.vm.hostname = "openshift.djsilenceboy.com"
+    ansibleOpenShiftServer.vm.network "private_network", ip: "192.168.10.18"
+  end
 end

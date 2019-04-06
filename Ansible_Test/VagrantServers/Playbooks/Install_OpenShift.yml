@@ -1,0 +1,39 @@
+---
+- name: Install OpenShift
+  hosts: all
+  become: True
+  vars:
+    oc_version: "v3.11.0"
+    oc_full_version: "{{ oc_version }}-0cbc58b"
+    oc_installation_source_file: "openshift-origin-client-tools-{{ oc_full_version }}-linux-64bit.tar.gz"
+    oc_installation_file: "oc.tar.gz"
+    remote_temp_path: /tmp
+    installation_folder: /usr/local/bin
+  tasks:
+    - name: Download OpenShift client tool
+      get_url:
+        url: "https://github.com/openshift/origin/releases/download/{{ oc_version }}/{{ oc_installation_source_file }}"
+        dest: "{{ remote_temp_path }}/{{ oc_installation_file }}"
+
+    - name: Unpack installation file
+      shell: tar xzvf {{ remote_temp_path }}/{{ oc_installation_file }} -C {{ remote_temp_path }}
+
+    - name: Copy files
+      shell: find {{ remote_temp_path }} -name {{ item }} -exec mv {} {{ installation_folder }} \;
+      with_items:
+        - kubectl
+        - oc
+
+    - name: Change mode of files
+      shell: chmod +x {{ installation_folder }}/{{ item }}
+      with_items:
+        - kubectl
+        - oc
+
+    - name: Add tool path to sudo
+      shell: sed -i "s/^Defaults.*:\/usr\/bin$/&:\/usr\/local\/bin/g" /etc/sudoers
+
+    - name: Remove installation file
+      file:
+        path: "{{ remote_temp_path }}/{{ oc_installation_file }}"
+        state: absent

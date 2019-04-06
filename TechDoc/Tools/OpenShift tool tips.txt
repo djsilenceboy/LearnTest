@@ -1,0 +1,69 @@
+================================================================================
+Minishift (Setup local cluster)
+------------------------------------------------------------
+https://docs.okd.io/latest/minishift/index.html
+https://github.com/minishift/minishift/
+(Require such as VirtulBox.)
+------------------------------------------------------------
+Download (for Windows).
+
+Must create following folder in driver C!
+> md c:\Minishift
+
+Download
+https://github.com/minishift/minishift/releases/download/v1.33.0/minishift-1.33.0-windows-amd64.zip
+
+Copy both "minishift.exe" into "c:\Minishift".
+================================================================================
+Config to use virtualbox.
+
+$ minishift config set vm-driver virtualbox
+------------------------------------------------------------
+Start local cluster.
+
+$ minishift start
+----------------------------------------
+Creating initial project "myproject" ...
+Server Information ...
+OpenShift server started.
+
+The server is accessible via web console at:
+    https://192.168.99.100:8443/console
+
+You are logged in as:
+    User:     developer
+    Password: <any value>
+
+To login as administrator:
+    oc login -u system:admin
+================================================================================
+Minishift manage local cluster.
+
+$ minishift start
+$ minishift status
+$ minishift stop
+$ minishift delete
+------------------------------------------------------------
+Get IP.
+
+$ minishift ip
+(Default is 192.168.99.100)
+------------------------------------------------------------
+Login.
+
+$ minishift ssh
+------------------------------------------------------------
+Show console/dashboard.
+
+$ minishift console
+$ minishift dashboard
+------------------------------------------------------------
+Add-on functions.
+
+$ minishift addons list
+$ minishift addons enable <Function>
+------------------------------------------------------------
+Check oc-env (Require VM).
+
+$ minishift oc-env
+================================================================================

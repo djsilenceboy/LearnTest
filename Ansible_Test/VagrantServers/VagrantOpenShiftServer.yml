@@ -1,3 +1,4 @@
 ---
 - include: VagrantDockerServerBasic.yml
 - include: Playbooks/Enable_Docker_RemoteAccess.yml
+- include: Playbooks/Install_OpenShift.yml

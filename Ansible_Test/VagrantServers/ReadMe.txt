@@ -14,6 +14,8 @@ ansible-playbook -l VagrantDockerApplicationServer VagrantDockerApplicationServe
 
 ansible-playbook -l VagrantDockerServer VagrantDockerServer.yml -vvv
 ansible-playbook -l VagrantDockerServer2 VagrantDockerServer2.yml -vvv
+
+ansible-playbook -l VagrantOpenShiftServer VagrantOpenShiftServer.yml -vvv
 ================================================================================
 Step by step installations for each server. (For debugging)
 ------------------------------------------------------------
@@ -72,6 +74,12 @@ VagrantDockerServer2
 
 ansible-playbook -l VagrantDockerServer2 VagrantDockerServerBasic.yml -vvv
 ansible-playbook -l VagrantDockerServer2 Playbooks/Enable_Docker_RemoteAccess.yml -vvv
+------------------------------------------------------------
+VagrantOpenShiftServer
+
+ansible-playbook -l VagrantOpenShiftServer VagrantDockerServerBasic.yml -vvv
+ansible-playbook -l VagrantOpenShiftServer Playbooks/Enable_Docker_RemoteAccess.yml -vvv
+ansible-playbook -l VagrantOpenShiftServer Playbooks/Install_OpenShift.yml -vvv
 ================================================================================
 There is "files" for configuration and script files.
 

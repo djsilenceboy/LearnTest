@@ -9,6 +9,7 @@ vagrant up ansibleDockerDbServer
 vagrant up ansibleDockerApplicationServer
 vagrant up ansibleDockerServer
 vagrant up ansibleDockerServer2
+vagrant up ansibleOpenShiftServer
 ================================================================================
 This config file:
 

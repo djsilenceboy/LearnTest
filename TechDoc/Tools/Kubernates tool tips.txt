@@ -42,10 +42,16 @@ Get IP.
 $ minikube ip
 (Default is 192.168.99.100)
 ------------------------------------------------------------
+Login.
+
+$ minikube ssh
+------------------------------------------------------------
 Show dashboard.
 
 $ minikube dashboard
 ------------------------------------------------------------
+Add-on functions.
+
 $ minikube addons list
 $ minikube addons enable ingress
 $ minikube addons enable heapster

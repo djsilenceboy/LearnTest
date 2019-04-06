@@ -7,6 +7,7 @@ VagrantDockerDbServer ansible_ssh_host=192.168.10.14 ansible_ssh_port=22
 VagrantDockerApplicationServer ansible_ssh_host=192.168.10.15 ansible_ssh_port=22
 VagrantDockerServer ansible_ssh_host=192.168.10.16 ansible_ssh_port=22
 VagrantDockerServer2 ansible_ssh_host=192.168.10.17 ansible_ssh_port=22
+VagrantOpenShiftServer ansible_ssh_host=192.168.10.18 ansible_ssh_port=22
 
 [VagrantServers]
 VagrantDbServer
@@ -16,3 +17,4 @@ VagrantDockerDbServer
 VagrantDockerApplicationServer
 VagrantDockerServer
 VagrantDockerServer2
+VagrantOpenShiftServer
