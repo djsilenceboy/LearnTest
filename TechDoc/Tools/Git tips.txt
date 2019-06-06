@@ -519,10 +519,22 @@ Clean all reference log.
 
 > git reflog expire --expire=now --all
 ================================================================================
-Clean memory
+https://git-scm.com/book/en/v2/Git-Internals-Maintenance-and-Data-Recovery
 ------------------------------------------------------------
+Check object status
+
+> git count-objects -Hv
+------------------------------------------------------------
+Prune object
+
+> git prune -v --progress
+> git prune -v --progress -n
+------------------------------------------------------------
+Memory garbage collection
+
 > git gc
-------------------------------------------------------------
+
+> git gc --prune
 > git gc --prune=now
 ================================================================================
 Rewrite branch and history

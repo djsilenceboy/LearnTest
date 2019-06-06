@@ -91,6 +91,8 @@ List added private keys.
 ]# ssh-add -L
 ================================================================================
 Redirect
+
+https://askubuntu.com/questions/420981/how-do-i-save-terminal-output-to-a-file
 ------------------------------------------------------------
 Output stderr to file.
 
@@ -146,9 +148,14 @@ DELIMITER
 
 "DELIMITER" can be other string.
 ------------------------------------------------------------
-Tee output.
+Redirect and tee output to file.
 
+]$ Some.sh |& tee Some.log
+=
 ]$ Some.sh 2>&1 | tee Some.log
+
+Append to file.
+]$ Some.sh 2>&1 | tee -a Some.log
 ================================================================================
 Cron job
 ------------------------------------------------------------

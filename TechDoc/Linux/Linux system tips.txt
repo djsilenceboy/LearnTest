@@ -196,6 +196,28 @@ Show static top.
 To sort by size, in app, press F or O, then select "o" and press any key.
 
 ]$ top -p <PID>
+
+Show active process.
+
+]$ top -i
+
+Change refresh time (second).
+
+]$ top -d 5
+or press "d".
+
+Sort by CPU.
+
+]$ top -o %CPU
+or press "SHIFT+p".
+
+Sort by memory.
+
+]$ top -o %MEM
+or press "SHIFT+m".
+
+Toggle on/off irix mode.
+press "SHIFT+i".
 ------------------------------------------------------------
 Check CPU info.
 
