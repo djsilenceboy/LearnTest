@@ -563,3 +563,15 @@ Save git user/password
 Username for 'https://github.com':
 Password for 'https://xxx@github.com':
 ================================================================================
+Show all ref points
+
+> git show-ref
+
+Show all ref points including PR
+
+> git ls-remote
+
+PR ref like:
+refs/pull-requests/*/from
+refs/pull-requests/*/merge
+================================================================================
