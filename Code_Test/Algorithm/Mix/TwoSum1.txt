@@ -1,0 +1,26 @@
+================================================================================
+https://leetcode.com/problems/two-sum/
+================================================================================
+Test
+------------------------------------------------------------
+Java
+Accepted.
+
+class Solution {
+	public int[] twoSum(int[] nums, int target){
+		boolean found = false;
+		int i, j = 1;
+		for (i = 0; i < nums.length - 1; i++) {
+			int num2 = target - nums[i];
+			for (j = i + 1; j < nums.length; j++) {
+				if (num2 == nums[j]) {
+					found = true;
+					break;
+				}
+			}
+			if (found) break;
+		}
+		return new int[]{i, j};
+	}
+}
+================================================================================
