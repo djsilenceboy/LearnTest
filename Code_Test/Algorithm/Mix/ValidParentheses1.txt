@@ -1,0 +1,41 @@
+================================================================================
+https://leetcode.com/problems/valid-parentheses/
+================================================================================
+Test
+------------------------------------------------------------
+Java
+Accepted.
+
+class Solution {
+    public boolean isValid(String s) {
+        boolean valid = true;
+		char[] chars = s.toCharArray();
+		Map<Character, Character> parentheses = new HashMap<>();
+		parentheses.put('(', ')');
+		parentheses.put('[', ']');
+		parentheses.put('{', '}');
+		Set<Character> left = parentheses.keySet();
+
+		Deque<Character> stack = new ArrayDeque<>();
+		for (char ch : chars) {
+			if (left.contains(ch)) {
+				stack.push(ch);
+			} else if (stack.isEmpty()) {
+				valid = false;
+				break;
+			} else if (parentheses.get(stack.peek()) == ch) {
+				stack.pop();
+			} else {
+				valid = false;
+				break;
+			}
+		}
+
+		if (valid && !stack.isEmpty()) {
+			valid = false;
+		}
+
+		return valid;
+    }
+}
+================================================================================

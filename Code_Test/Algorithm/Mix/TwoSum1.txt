@@ -4,6 +4,55 @@ https://leetcode.com/problems/two-sum/
 Test
 ------------------------------------------------------------
 Java
+Accepted. Good.
+
+class Solution {
+    private int[] sort(int[] data){
+		int[] indexes = new int[data.length];
+		int i, j;
+		int temp;
+
+		for (i = 0; i < indexes.length; i++) {
+			indexes[i] = i;
+		}
+
+		for (i = 1; i < indexes.length; i++) {
+			// Temporarily keep the top/new element in sub-list, which will be inserted into proper position.
+			temp = indexes[i];
+
+			for (j = i; (j > 0) && (data[indexes[j - 1]] > data[temp]); j--) {
+				indexes[j] = indexes[j - 1];
+			}
+
+			if (j != i) {
+				indexes[j] = temp;
+			}
+		}
+
+		return indexes;
+	}
+
+	private int search(int[] data, int[] indexes, int from, int to, int key){
+		if (from > to) return -1;
+		int index = (from + to) / 2;
+		if (data[indexes[index]] == key) return index;
+		else if (data[indexes[index]] < key) return search(data, indexes, index + 1, to, key);
+		else return search(data, indexes, from, index - 1, key);
+	}
+
+	public int[] twoSum_2(int[] nums, int target){
+		int[] indexes = sort(nums);
+		int i, j = 1;
+		for (i = 0; i < nums.length - 1; i++) {
+			int num2 = target - nums[indexes[i]];
+			j = search(nums, indexes, i + 1, nums.length - 1, num2);
+			if (j > i) break;
+		}
+		return new int[]{indexes[i], indexes[j]};
+	}
+}
+------------------------------------------------------------
+Java
 Accepted.
 
 class Solution {
