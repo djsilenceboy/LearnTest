@@ -34,7 +34,6 @@ from time import localtime, strftime, sleep, time
 import requests
 from selenium import webdriver
 
-
 # Global variables.
 # The value can be updated by command line options.
 __data_type = None
@@ -152,7 +151,7 @@ def check_url(url):
     try:
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0"}
-        response = requests.get(url, headers=headers)
+        response = requests.get(url, headers = headers)
         # print("response =", response)
         print("response.status_code =", response.status_code)
 
@@ -182,7 +181,7 @@ def check_page_loaded(browser):
                 target_section = browser.find_element_by_id("factsheet")
             else:  # __data_type == 1:
                 target_section = browser.find_element_by_class_name(
-                    "converterresult-unitConversion")
+                    "converterresult-flexCon")
 
             print("target_section =", target_section)
 
@@ -412,30 +411,19 @@ def parse_get_data_xe_currency(browser, results):
     try:
         # ration section.
 
-        ''''
         try:
-            ratio_section = browser.find_element_by_class_name(
-                "converterresult-unitConversion")
-            print("ratio_section =", ratio_section)
+            converterResult_section = browser.find_element_by_id("converterResult")
+            print("converterResult_section =", converterResult_section)
         except Exception:
-            raise Exception("Cannot find ratio_section.")
-
-        ratio = ratio_section.text.split()
-        print("ratio =", ratio)
-
-        results[__Constants.SECTION_CURRENCY_INFO] = {}
-        results[__Constants.SECTION_EXCHANGE_INFO] = {}
-
-        if len(ratio) == 5:
-            results[__Constants.SECTION_CURRENCY_INFO][__Constants.CURRENCY_INFO_FROM_SYMBOL] = ratio[1]
-            results[__Constants.SECTION_CURRENCY_INFO][__Constants.CURRENCY_INFO_TO_SYMBOL] = ratio[4]
-            results[__Constants.SECTION_EXCHANGE_INFO][__Constants.EXCHANGE_INFO_VALUE] = ratio[3]
-        '''
+            raise Exception("Cannot find converterResult_section.")
 
         try:
-            fromCurrency = browser.find_element_by_class_name(
-                "converterresult-fromCurrency")
+            fromCurrency = converterResult_section.find_element_by_class_name(
+                "converterresult-conversionFrom")
             print("fromCurrency =", fromCurrency.text)
+
+            fromSymbol = fromCurrency.text[1:4]
+            print("fromSymbol =", fromSymbol)
         except Exception:
             raise Exception("Cannot find fromCurrency.")
 
@@ -456,7 +444,7 @@ def parse_get_data_xe_currency(browser, results):
         results[__Constants.SECTION_CURRENCY_INFO] = {}
         results[__Constants.SECTION_EXCHANGE_INFO] = {}
 
-        results[__Constants.SECTION_CURRENCY_INFO][__Constants.CURRENCY_INFO_FROM_SYMBOL] = fromCurrency.text
+        results[__Constants.SECTION_CURRENCY_INFO][__Constants.CURRENCY_INFO_FROM_SYMBOL] = fromSymbol
         results[__Constants.SECTION_CURRENCY_INFO][__Constants.CURRENCY_INFO_TO_SYMBOL] = toCurrency.text
         results[__Constants.SECTION_EXCHANGE_INFO][__Constants.EXCHANGE_INFO_VALUE] = toAmount.text
 
@@ -479,7 +467,7 @@ def inspect_inventory(record):
     '''
     Inspect inventory info page.
 
-    @param record: [Fund name, Fund ID], [Stock name, Exchange, Ticker], [Currency from_symbol, To symbol] 
+    @param record: [Fund name, Fund ID], [Stock name, Exchange, Ticker], [Currency from_symbol, To symbol]
     @return : Dict with return results.
     '''
 
@@ -539,14 +527,14 @@ def inspect_inventory(record):
 
         if __web_driver_type == 0:  # PhantomJS.
             browser = webdriver.PhantomJS(
-                executable_path=__web_driver_file_path, service_log_path=__web_driver_log_file_path)
+                executable_path = __web_driver_file_path, service_log_path = __web_driver_log_file_path)
         else:  # __web_driver_type == 1:  # FireFox.
             # Create profile.
             profile = webdriver.FirefoxProfile()
             profile.set_preference("general.useragent.override",
                                    "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0")
             browser = webdriver.Firefox(
-                profile, executable_path=__web_driver_file_path, log_path=__web_driver_log_file_path)
+                profile, executable_path = __web_driver_file_path, log_path = __web_driver_log_file_path)
 
         print("browser =", browser)
         print("-" * 60)
@@ -620,7 +608,7 @@ def process_inventory_list():
         print("-" * 80)
 
         # Inspect inventory concurrently.
-        with ThreadPoolExecutor(max_workers=__concurrent_max_workers) as executor:
+        with ThreadPoolExecutor(max_workers = __concurrent_max_workers) as executor:
             # Wait for result to return.
             for record, result in zip(records, executor.map(inspect_inventory, records)):
                 results[__Constants.INVENTORIES].update(result)
@@ -645,12 +633,12 @@ def process_inventory_list():
             with open(__result_output_file_path, "w") as result_file:
                 print('result_file =', result_file)
                 # Output file as JSON format.
-                json.dump(results, result_file, indent=4, sort_keys=True)
+                json.dump(results, result_file, indent = 4, sort_keys = True)
         except Exception as e:
             print("Output process results: Exception = {0}".format(e))
     else:
         # Output screen as JSON format.
-        print(json.dumps(results, indent=4, sort_keys=True))
+        print(json.dumps(results, indent = 4, sort_keys = True))
 
     print("-" * 100)
 
@@ -748,11 +736,11 @@ def main(argv):
                 elif opt == "-l":
                     __web_driver_log_file_path = arg
                 else:
-                    __show_usage, __exit_code, __error_message = True, - \
+                    __show_usage, __exit_code, __error_message = True, -\
                         2, "Unknown command line option."
         except Exception as e:
             print("Parse command options: Exception = {0}".format(e))
-            __show_usage, __exit_code, __error_message = True, - \
+            __show_usage, __exit_code, __error_message = True, -\
                 3, "Wrong value for command line option."
 
     print("show_usage =", __show_usage)
@@ -767,7 +755,7 @@ def main(argv):
     # Check options are valid.
     if not __show_usage:
         if (__data_type is None) or (__inventory_info_file_path is None) or (__web_driver_file_path is None):
-            __show_usage, __exit_code, __error_message = True, - \
+            __show_usage, __exit_code, __error_message = True, -\
                 4, "Missing compulsory command line option."
         elif (__data_type < 0) or (__data_type > 1):
             __show_usage, __exit_code, __error_message = True, -5, "Wrong value for -d."
