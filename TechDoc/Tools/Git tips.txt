@@ -465,6 +465,10 @@ Show details of tag.
 
 > git show <TagName>
 ------------------------------------------------------------
+Delete tag.
+
+> git tag -d <TagPattern>
+------------------------------------------------------------
 Push tags to remote repository.
 
 Push a new tag to specified remote repository.

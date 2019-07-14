@@ -20,7 +20,6 @@ import json
 import sys
 from time import localtime, strftime, time
 
-
 # Global variables.
 # The value can be updated by command line options.
 __data_type = None
@@ -107,7 +106,7 @@ def process_inventory_list():
         with open(__json_file_path) as input_file:
             print('input_file =', input_file)
             inventory_data = json.load(
-                input_file, object_pairs_hook=OrderedDict)
+                input_file, object_pairs_hook = OrderedDict)
             print('inventory_data =', inventory_data)
 
         print("-" * 80)
@@ -240,11 +239,11 @@ def process_inventory_list():
     if __csv_file_path:
         try:
             # Open output file.
-            with open(__csv_file_path, "wt") as output_file:
+            with open(__csv_file_path, "wt", encoding = "utf-8") as output_file:
                 print('output_file =', output_file)
                 # Output file as CSV format.
                 cout = csv.DictWriter(
-                    output_file, fieldnames=field_names, lineterminator="\n")
+                    output_file, fieldnames = field_names, lineterminator = "\n")
                 # Write header line.
                 cout.writeheader()
                 # Write record lines.
@@ -320,11 +319,11 @@ def main(argv):
                 elif opt == "-o":
                     __csv_file_path = arg
                 else:
-                    __show_usage, __exit_code, __error_message = True, - \
+                    __show_usage, __exit_code, __error_message = True, -\
                         2, "Unknown command line option."
         except Exception as e:
             print("Parse command options: Exception = {0}".format(e))
-            __show_usage, __exit_code, __error_message = True, - \
+            __show_usage, __exit_code, __error_message = True, -\
                 3, "Wrong value for command line option."
 
     print("show_usage =", __show_usage)
@@ -335,7 +334,7 @@ def main(argv):
     # Check options are valid.
     if not __show_usage:
         if (__data_type is None) or (__json_file_path is None):
-            __show_usage, __exit_code, __error_message = True, - \
+            __show_usage, __exit_code, __error_message = True, -\
                 4, "Missing compulsory command line option."
         elif not (__data_type in [0, 2, 3]):
             __show_usage, __exit_code, __error_message = True, -5, "Wrong value for -d."
