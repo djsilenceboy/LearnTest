@@ -17,6 +17,7 @@
 # For Eclipse, Cpp.
 /Cpp_Test/**/Debug/
 
+
 # For Eclipse, GoogleAE.
 /GoogleAE_Test
 /GoogleAE_Test/**/bin/
@@ -26,6 +27,7 @@
 /GoogleAE_Test/**/target/
 /GoogleAE_Test/**/ztest/log/
 /GoogleAE_Test/**/*.class
+
 
 # For Eclipse, Java.
 /Java_Learn/**/.metadata/
@@ -37,6 +39,7 @@
 /Java_Learn/**/ztest/log/
 /Java_Learn/**/*.class
 
+
 # For Eclipse, Java.
 /Java_Test/**/.metadata/
 /Java_Test/**/bin/
@@ -46,6 +49,11 @@
 /Java_Test/**/target/
 /Java_Test/**/ztest/log/
 /Java_Test/**/*.class
+
+
+# For Node.js.
+/Node_Test/**/node_modules/
+/Node_Test/**/package-lock.json
 
 
 # For Eclipse, Python.
