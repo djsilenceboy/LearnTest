@@ -27,4 +27,17 @@ Debugger.
 
 > node debug <JS_File>
 ================================================================================
-
+Module
+------------------------------------------------------------
+If required file with path, search specified path.
+If required file without path, search in order:
+core module
+./node_module/
+../node_module/
+../../node_module/
+<until disk root>
+NODE_PATH
+------------------------------------------------------------
+Module can be a single file or a folder.
+For folder, the default entry file name is "index.js".
+================================================================================

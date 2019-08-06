@@ -52,6 +52,7 @@
 
 
 # For Node.js.
+/Node_Test/**/.vscode
 /Node_Test/**/node_modules/
 /Node_Test/**/package-lock.json
 
