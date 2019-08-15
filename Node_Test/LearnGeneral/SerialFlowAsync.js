@@ -14,7 +14,7 @@ async.series([
         setTimeout(() => {
             console.log('The 2nd message.');
             callback(null, '2nd');
-        }, 100);
+        }, 1000);
     },
     callback => {
         setTimeout(() => {
@@ -26,7 +26,7 @@ async.series([
         setTimeout(() => {
             console.log('No more message.');
             callback(null, '4th');
-        }, 1000);
+        }, 100);
     },
 ], allDone);
 
