@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "babel": "..\\node_modules\\.bin\\babel.cmd HttpServerMessages.js -d ..\\Temp",
+    "uglify": "..\\node_modules\\.bin\\uglifyjs.cmd ..\\Temp\\HttpServerMessages.js -o ..\\Temp\\HttpServerMessages.min.js"
   },
   "keywords": [],
   "author": "",

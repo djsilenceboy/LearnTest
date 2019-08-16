@@ -8,3 +8,28 @@ Electron
 > npm install
 > npm start
 ================================================================================
+> npm install --save async
+> npm install --save express
+================================================================================
+Babel
+
+> npm install --save-dev @babel/core @babel/cli @babel/preset-env
+> npm install --save-dev babel-core 
+------------------------------------------------------------
+uglify-es
+
+> npm install --save-dev uglify-es
+------------------------------------------------------------
+.babelrc
+
+{
+  "presets": ["@babel/preset-env"]
+}
+------------------------------------------------------------
+package.json
+
+  "scripts": {
+    "babel": "..\\node_modules\\.bin\\babel.cmd HttpServerMessages.js -d ..\\Temp",
+    "uglify": "..\\node_modules\\.bin\\uglifyjs.cmd ..\\Temp\\HttpServerMessages.js -o ..\\Temp\\HttpServerMessages.min.js"
+  },
+================================================================================
