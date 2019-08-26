@@ -13,9 +13,15 @@ Rental Contracts of Private Residential Properties
 For "Private Residential Property Transactions", remain following fields.
 (Head line with 2 sample data lines.)
 ------------------------------------------------------------
-Street Name	Type	Postal District	Market Segment	Tenure	Type of Sale	No. of Units	Price ($)	Area (Sqm)	Type of Area	Floor Level	Unit Price ($psm)	Date of Sale
-BENCOOLEN STREET	Apartment	7	RCR	99 yrs lease commencing from 1996	Resale	1	1070000	77	Strata	06 to 10	13896	May-19
-BENCOOLEN STREET	Apartment	7	RCR	99 yrs lease commencing from 1996	Resale	1	1320000	99	Strata	16 to 20	13333	Jun-19
+Project Name,Street Name,Type,Postal District,Market Segment,Tenure,Type of Sale,No. of Units,Price ($),Area (Sqm),Type of Area,Floor Level,Unit Price ($psm),Date of Sale,Floor Area Lower (Sqm),Floor Area Upper (Sqm)
+BURLINGTON SQUARE,BENCOOLEN STREET,Apartment,7,RCR,99 yrs lease commencing from 1996,Resale,1,1070000,77,Strata,06 to 10,13896,May-19,70,80
+BURLINGTON SQUARE,BENCOOLEN STREET,Apartment,7,RCR,99 yrs lease commencing from 1996,Resale,1,1320000,99,Strata,16 to 20,13333,Jun-19,90,100
+------------------------------------------------------------
+Note that, following 3 fields are generated from other original fields by excel formula.
+
+J2                      = Area (Sqm)
+Floor Area Lower (Sqm)  =ROUNDDOWN(J2/10, 0)*10
+Floor Area Upper (Sqm)  =ROUNDUP(J2/10, 0)*10
 ================================================================================
 For "Rental Contracts of Private Residential Properties", remain following fields.
 (Head line with 3 sample data lines.)
