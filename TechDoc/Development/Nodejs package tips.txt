@@ -1,5 +1,5 @@
 ================================================================================
-Node.js packages
+Node.JS packages
 ================================================================================
 Electron
 
@@ -32,4 +32,8 @@ package.json
     "babel": "..\\node_modules\\.bin\\babel.cmd HttpServerMessages.js -d ..\\Temp",
     "uglify": "..\\node_modules\\.bin\\uglifyjs.cmd ..\\Temp\\HttpServerMessages.js -o ..\\Temp\\HttpServerMessages.min.js"
   },
+================================================================================
+Angular
+
+> npm install -g @angular/cli
 ================================================================================

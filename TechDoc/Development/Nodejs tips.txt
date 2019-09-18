@@ -1,31 +1,10 @@
 ================================================================================
-Node.js
+Node.JS
 ================================================================================
 Show version.
 
 > node -v
 > npm -v
-================================================================================
-Prepare a empty project with "package.json".
-
-> npm init -y
-------------------------------------------------------------
-Install all pacakges in "package.json".
-
-> npm install
-------------------------------------------------------------
-Install a package.
-
-> npm install <Pacakge>
-------------------------------------------------------------
-Install a package and save entry into "package.json".
-
-> npm install --save <Pacakge>
-> npm install --save express
-================================================================================
-Debugger.
-
-> node debug <JS_File>
 ================================================================================
 Module
 ------------------------------------------------------------
@@ -40,4 +19,37 @@ NODE_PATH
 ------------------------------------------------------------
 Module can be a single file or a folder.
 For folder, the default entry file name is "index.js".
+================================================================================
+Install newer version of npm locally.
+(.\node_modules\.bin)
+
+> npm install npm
+================================================================================
+Prepare a empty project with "package.json".
+
+> npm init -y
+------------------------------------------------------------
+Install all pacakges in "package.json".
+
+> npm install
+------------------------------------------------------------
+Install a package locally.
+
+> npm install <Pacakge>
+------------------------------------------------------------
+Install a package and save entry into "package.json" locally.
+
+> npm install --save <Pacakge>
+> npm install --save express
+
+> npm install --save-dev <Pacakge>
+> npm install --save-dev express
+================================================================================
+Debugger.
+
+> node debug <JS_File>
+================================================================================
+Use npm to run task defined in "package.json" script.
+
+> npm run <ScriptTask>
 ================================================================================
