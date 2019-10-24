@@ -1,0 +1,82 @@
+================================================================================
+https://leetcode.com/problems/merge-two-sorted-lists/
+================================================================================
+Test
+------------------------------------------------------------
+Java
+Accepted.
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode head = new ListNode(0);
+		ListNode currentPosition = head;
+
+		while ((l1 != null) && (l2 != null)) {
+			ListNode node;
+			if (l1.val < l2.val) {
+				node = l1;
+				l1 = l1.next;
+			} else {
+				node = l2;
+				l2 = l2.next;
+			}
+
+			node.next = null;
+			currentPosition.next = node;
+			currentPosition = node;
+		}
+
+		if (l1 != null) {
+			currentPosition.next = l1;
+		} else if (l2 != null) {
+			currentPosition.next = l2;
+		}
+
+		return head.next;
+    }
+}
+------------------------------------------------------------
+Java
+Accepted.
+
+class Solution {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode head = new ListNode(0);
+		ListNode temp = head;
+
+		temp.next = l1;
+		while (temp.next != null) {
+			temp = temp.next;
+		}
+		temp.next = l2;
+
+		List<Integer> allItems = new ArrayList<>();
+		temp = head.next;
+		while (temp != null) {
+			allItems.add(temp.val);
+			temp = temp.next;
+		}
+
+		Collections.sort(allItems);
+
+		temp = head.next;
+		for (Integer item : allItems) {
+			temp.val = item;
+			temp = temp.next;
+		}
+
+		return head.next;
+    }
+}
+================================================================================
+Other solutions
+------------------------------------------------------------
+================================================================================
