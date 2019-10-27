@@ -33,6 +33,11 @@ public class TestStreamV8
 
 		{
 			Stream<String> s = Stream.of("monkey", "gorilla", "bonobo");
+			System.out.println("Stream.collect(Collectors.counting()) = " + s.collect(Collectors.counting()));
+		}
+
+		{
+			Stream<String> s = Stream.of("monkey", "gorilla", "bonobo");
 			Optional<String> min = s.min((s1, s2) -> s1.length() - s2.length());
 			min.ifPresent(System.out::println);
 		}
@@ -356,6 +361,13 @@ public class TestStreamV8
 		list.stream().unordered().parallel().forEach(item -> System.out.println(item));
 	}
 
+	public void testSorted(){
+		List<Integer> list = Arrays.asList(1, 3, 4, 2, 9, 6, 8, 7, 5);
+
+		list.stream().sorted().forEach(item -> System.out.print(item));
+		System.out.println();
+	}
+
 	public void testReduce(){
 		{
 			List<String> list = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9");
@@ -381,6 +393,27 @@ public class TestStreamV8
 		{
 			List<String> list = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9");
 			System.out.println("Reduce = " + list.parallelStream().reduce("", (c, s1) -> c + s1, (s2, s3) -> s2 + s3));
+		}
+
+		System.out.println("--------------------");
+
+		{
+			List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+			System.out.println("Reduce = " + list.stream().reduce(0, (a, b) -> a + b));
+		}
+
+		System.out.println("--------------------");
+
+		{
+			List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+			System.out.println("Reduce = " + list.stream().reduce(0, Integer::sum));
+		}
+
+		System.out.println("--------------------");
+
+		{
+			List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+			System.out.println("Reduce = " + list.stream().reduce(Integer::sum));
 		}
 	}
 
@@ -467,6 +500,9 @@ public class TestStreamV8
 		System.out.println("============================================================");
 
 		testMain.testUnorder();
+		System.out.println("============================================================");
+
+		testMain.testSorted();
 		System.out.println("============================================================");
 
 		testMain.testReduce();
