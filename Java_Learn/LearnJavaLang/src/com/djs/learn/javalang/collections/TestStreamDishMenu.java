@@ -1,6 +1,7 @@
 
 package com.djs.learn.javalang.collections;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.IntSummaryStatistics;
@@ -94,6 +95,32 @@ public class TestStreamDishMenu
 		return groupedDishes;
 	}
 
+	private Map<Boolean, List<Dish>> partitioningby1(){
+		Map<Boolean, List<Dish>> partitionedDishes = menu.stream().collect(Collectors.partitioningBy(Dish::isVegetarian));
+		System.out.println("partitioning by vegetarian dishes = " + partitionedDishes);
+		return partitionedDishes;
+	}
+
+	private Map<Boolean, Map<DishType, List<Dish>>> partitioningby2a(){
+		Map<Boolean, Map<DishType, List<Dish>>> partitionedDishes = menu.stream()
+		        .collect(Collectors.partitioningBy(Dish::isVegetarian, Collectors.groupingBy(Dish::getType)));
+		System.out.println("partitioning by vegetarian and type dishes = " + partitionedDishes);
+		return partitionedDishes;
+	}
+
+	private Map<Boolean, Dish> partitioningby2b(){
+		Map<Boolean, Dish> partitionedDishes = menu.stream().collect(Collectors
+		        .partitioningBy(Dish::isVegetarian, Collectors.collectingAndThen(Collectors.maxBy(Comparator.comparingInt(Dish::getCalories)), Optional::get)));
+		System.out.println("partitioning by vegetarian and type dishes = " + partitionedDishes);
+		return partitionedDishes;
+	}
+
+	private List<Dish> collector1(){
+		List<Dish> dishes = menu.stream().collect(ArrayList::new, List::add, List::addAll);
+		System.out.println("steam to list dishes = " + dishes);
+		return dishes;
+	}
+
 	private void testFilter(Supplier s){
 		long startTime = System.currentTimeMillis();
 		s.get();
@@ -123,6 +150,10 @@ public class TestStreamDishMenu
 		app.testFilter(app::groupby4b);
 		app.testFilter(app::groupby5a);
 		app.testFilter(app::groupby5b);
+		app.testFilter(app::partitioningby1);
+		app.testFilter(app::partitioningby2a);
+		app.testFilter(app::partitioningby2b);
+		app.testFilter(app::collector1);
 	}
 
 	static class Dish
