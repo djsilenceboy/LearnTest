@@ -3,7 +3,10 @@ package com.djs.learn.javalang.collections;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -365,6 +368,22 @@ public class TestStreamV8
 		List<Integer> list = Arrays.asList(1, 3, 4, 2, 9, 6, 8, 7, 5);
 
 		list.stream().sorted().forEach(item -> System.out.print(item));
+
+		System.out.println();
+		System.out.println("--------------------");
+
+		Map<String, Integer> map = new HashMap<String, Integer>() {
+			{
+				put("Jack", 10);
+				put("Mary", 8);
+				put("Tom", 12);
+			}
+		};
+
+		map.entrySet().stream().sorted(Entry.comparingByKey()).forEachOrdered(item -> System.out.print(item + ", "));
+		System.out.println();
+
+		map.entrySet().stream().sorted(Entry.comparingByValue()).forEachOrdered(item -> System.out.print(item + ", "));
 		System.out.println();
 	}
 
