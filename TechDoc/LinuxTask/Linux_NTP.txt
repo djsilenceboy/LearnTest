@@ -1,0 +1,30 @@
+================================================================================
+Install NTP
+----------------------------------------------------------------------
+]# yum install -y ntp ntpdate ntp-doc
+]# ntpdate servertime.service.softlayer.com
+
+]# cp /etc/ntp.conf /etc/ntp.conf-orig
+]# echo "# Softlayer NTP" >> /etc/ntp.conf
+]# echo "server servertime.service.softlayer.com iburst" >> /etc/ntp.conf
+
+]# systemctl enable ntpd
+]# systemctl start ntpd
+================================================================================
+Verify NTP
+----------------------------------------------------------------------
+]# ntpstat
+
+synchronised to NTP server (10.0.77.54) at stratum 4
+   time correct to within 85 ms
+   polling server every 64 s
+
+]# ntpq -p
+     remote           refid      st t when poll reach   delay   offset  jitter
+==============================================================================
+ palpatine.steve .INIT.          16 u    -   64    0    0.000    0.000   0.000
+ time.devry.net  .INIT.          16 u    -   64    0    0.000    0.000   0.000
+ kvm1.websters-c .INIT.          16 u    -   64    0    0.000    0.000   0.000
+ zulu.frizzen.ne .INIT.          16 u    -   64    0    0.000    0.000   0.000
+*10.0.77.54      172.18.1.12      3 u    1   64    1    0.316   -1.138   0.177
+================================================================================

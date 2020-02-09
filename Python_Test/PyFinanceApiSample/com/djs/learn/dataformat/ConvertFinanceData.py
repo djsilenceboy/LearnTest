@@ -70,7 +70,7 @@ class Constants_YahooStock(Constants_Base):
     MARKET_INFO_FIELD_PE_OLD = "PE Ratio (TTM)"
     MARKET_INFO_FIELD_PE_NEW = "P/E"
 
-    MARKET_INFO_FIELD_BETA_OLD = "Beta (3Y Monthly)"
+    MARKET_INFO_FIELD_BETA_OLD = "Beta (5Y Monthly)"
     MARKET_INFO_FIELD_BETA_NEW = "Beta"
 
     MARKET_INFO_FILTER = ["52 week high", "52 week low",

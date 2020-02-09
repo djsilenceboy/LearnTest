@@ -121,6 +121,7 @@ Wrong:
 Output to stderr.
 
 > &2
+> $2 echo "Some error!"
 ------------------------------------------------------------
 Output to a file with date in file name.
 
@@ -155,6 +156,8 @@ Redirect and tee output to file.
 ]$ Some.sh 2>&1 | tee Some.log
 
 Append to file.
+]$ Some.sh |& tee -a Some.log
+=
 ]$ Some.sh 2>&1 | tee -a Some.log
 ================================================================================
 Cron job

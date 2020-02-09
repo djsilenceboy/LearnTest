@@ -183,7 +183,7 @@ Options:
 --expose [] : Expose a port or a range of ports. Exposed port may not be published.
 -h, --hostname <HostName> : Add host name to "/etc/hostname" and add entry to "/etc/hosts" inside container.
 -i, --interactive : Keep STDIN open even if not attached.
--m, --memory <MemSize> : Memory limit in "<Number><Unit>" format. Unit values [b, k, m, g]. The default value is same as host memory size. 
+-m, --memory <MemSize> : Memory limit in "<Number><Unit>" format. Unit values [b, k, m, g]. The default value is same as host memory size.
 --network : Network type for container. Values [bridge, host, none], the default value is bridge. It can be user-defined networks by "docker network create". It can be joined container by "container:<AnotherContainerName>". "--net" for old docker version.
 --pid : Use other PID namespace. Values [host, container:<AnotherContainerNameOrId>].
 -P, --publish-all : Publish all exposed ports (--expose) to random host ports [32768, 61000].
@@ -308,6 +308,8 @@ Check container statistics.
 Options:
 -a, --all : Show all containers (default shows just running).
 --no-stream : Disable streaming stats and only pull the first result.
+
+]# docker stats --format "table {{.Container}}\t{{.CPUPerc}}\t{{.MemPerc}}\t{{.MemUsage}}\t{{.NetIO}}\t{{.Name}}"
 ------------------------------------------------------------
 Check container log.
 
@@ -395,9 +397,9 @@ Get network type list.
 ]# docker network ls
 
 NETWORK ID          NAME                DRIVER              SCOPE
-d96c8b7c6017        bridge              bridge              local               
-ec9bebe55777        host                host                local               
-c09b728419ce        none                null                local        
+d96c8b7c6017        bridge              bridge              local
+ec9bebe55777        host                host                local
+c09b728419ce        none                null                local
 ------------------------------------------------------------
 Check network type info.
 
@@ -496,4 +498,35 @@ Options:
 --rm : Remove intermediate containers after a successful build. The default value is true.
 -t, --tag : Name and optionally a tag in the <Repository[:Tag]> format.
             Without tag, the default name is "<none>:<none>".
+================================================================================
+Exit codes
+------------------------------------------------------------
+https://medium.com/better-programming/understanding-docker-container-exit-codes-5ee79a1d58f6
+------------------------------------------------------------
+Common exit codes associated with docker containers are:
+Exit Code 0: Absence of an attached foreground process
+Exit Code 1: Indicates failure due to application error
+Exit Code 137: Indicates failure as container received SIGKILL (Manual intervention or ‘oom-killer’ [OUT-OF-MEMORY])
+Exit Code 139: Indicates failure as container received SIGSEGV
+Exit Code 143: Indicates failure as container received SIGTERM
+------------------------------------------------------------
+Exit Code 137
+
+This indicates that container received SIGKILL
+A common event that initiates a SIGKILL is a docker kill. This can be initiated either manually by user or by the docker daemon:
+docker kill <container-id>
+docker kill can be initiated manually by the user or by the host machine. If initiated by host machine, then it is generally due to being out of memory. To confirm if the container exited due to being out of memory, verify docker inspect against the container id for the section below and check if OOMKilled is true (which would indicate it is out of memory):
+"State": {
+ "Status": "exited",
+ "Running": false,
+ "Paused": false,
+ "Restarting": false,
+ "OOMKilled": true,
+ "Dead": false,
+ "Pid": 0,
+ "ExitCode": 137,
+ "Error": "",
+ "StartedAt": "2019-10-21T01:13:51.7340288Z",
+ "FinishedAt": "2019-10-21T01:13:51.7961614Z"
+}
 ================================================================================

@@ -1,0 +1,37 @@
+================================================================================
+(Do this after intalled Docker!!!)
+Add DTR
+
+]# vi /etc/hosts
+------------------------------------------------------------
+# For DTR server, port 443.
+
+10.148.211.52   dtr.sample.com
+------------------------------------------------------------
+Prepare certificate.
+
+(Only need to do it once. Need root privilege.)
+
+]$ sudo su -
+]# mkdir -p /etc/docker/certs.d/dtr.sample.com
+]# openssl s_client -connect dtr.sample.com:443 -showcerts </dev/null 2>/dev/null | openssl x509 -outform PEM  > /etc/docker/certs.d/dtr.sample.com/ca.crt
+================================================================================
+Login DTR
+------------------------------------------------------------
+]$ sudo docker login -u "ops-user" -p "opspassw0rd" -e "docker@docker.com" "dtr.sample.com"
+
+Optional, if still prompt for Email.
+Add option:
+-e "nobody@sample.com"
+----------------------------------------
+WARNING: login credentials saved in /root/.docker/config.json
+Login Succeeded
+================================================================================
+Pull image
+------------------------------------------------------------
+]$ sudo docker pull <Image>
+================================================================================
+Logout DTR
+------------------------------------------------------------
+]$ sudo docker logout "dtr.sample.com"
+================================================================================

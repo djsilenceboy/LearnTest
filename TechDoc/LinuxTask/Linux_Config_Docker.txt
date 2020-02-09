@@ -1,0 +1,44 @@
+================================================================================
+Check gateway info.
+
+]# docker network inspect bridge
+------------------------------------------------------------
+Stop Docker containers first!!!
+------------------------------------------------------------
+Stop Docker server.
+
+]# systemctl stop docker
+]# systemctl status docker
+================================================================================
+Update the Docker IP Setting
+------------------------------------------------------------
+Modify service config.
+
+]# mkdir -p /etc/systemd/system/docker.service.d
+]# vi /etc/systemd/system/docker.service.d/ccssd.conf
+----------------------------------------
+[Service]
+ExecStart=
+ExecStart=/usr/bin/docker daemon -H fd:// --bip=4.0.0.1/16
+------------------------------------------------------------
+]# cat << EOF > /etc/systemd/system/docker.service.d/ccssd.conf
+[Service]
+ExecStart=
+ExecStart=/usr/bin/docker daemon -H fd:// --bip=4.0.0.1/16
+EOF
+------------------------------------------------------------
+Or for existing:
+
+grep "ExecStart=/usr/bin/docker" /etc/systemd/system/docker.service.d/ccssd.conf
+sed -i "s/\(ExecStart=\/usr\/bin\/docker\).*$/\1 daemon -H fd:\/\/ --bip=4.0.0.1\/16/g" /etc/systemd/system/docker.service.d/ccssd.conf
+grep "ExecStart=/usr/bin/docker" /etc/systemd/system/docker.service.d/ccssd.conf
+================================================================================
+Restart Docker service.
+
+]# systemctl daemon-reload
+]# systemctl start docker
+------------------------------------------------------------
+Check gateway info.
+
+]# docker network inspect bridge
+================================================================================

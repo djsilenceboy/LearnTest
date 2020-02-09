@@ -4,6 +4,8 @@ Notes:
 "]#" means root user.
 "]$" means normal user.
 ================================================================================
+Ping issue
+------------------------------------------------------------
 Can ping with domain.
 
 [root@yyy ~]# ping xxx.company.com
@@ -29,9 +31,31 @@ Such as:
 
 ]# vim /etc/hosts
 10.168.0.1	xxx.company.com
-------------------------------------------------------------
+================================================================================
 File format.
-
+------------------------------------------------------------
 For Shell scripts and data text files, try to use UNIX EOL (End of line).
 That means only "LF" not "CRLF".
+================================================================================
+Su issue
+------------------------------------------------------------
+Issue:
+
+After changed root password, a normal user can only su once.
+----------------------------------------
+Fix:
+
+The workaround is to remove following line from "pam.d".
+auth        requisite    pam_succeed_if.so uid >= 1000 quiet_success
+
+Note that, reboot VM will refresh above config back.
+----------------------------------------
+cd /etc/pam.d
+grep "uid >= 1000" *
+
+password-auth:# auth        requisite    pam_succeed_if.so uid >= 1000 quiet_success
+system-auth:# auth        requisite    pam_succeed_if.so uid >= 1000 quiet_success
+
+vi password-auth
+vi system-auth
 ================================================================================

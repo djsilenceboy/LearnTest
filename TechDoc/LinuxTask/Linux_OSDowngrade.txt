@@ -1,0 +1,72 @@
+================================================================================
+Linux
+================================================================================
+Check installed kernel.
+
+]$ rpm -qa |grep kernel
+
+kernel-3.10.0-862.3.2.el7.x86_64
+kernel-tools-3.10.0-862.14.4.el7.x86_64
+kernel-tools-libs-3.10.0-862.14.4.el7.x86_64
+kernel-3.10.0-693.11.6.el7.x86_64
+kernel-3.10.0-514.26.2.el7.x86_64
+------------------------------------------------------------
+Install preferred kernel.
+
+]$ sudo yum install -y kernel-3.10.0-693.21.1.el7.x86_64
+------------------------------------------------------------
+Uninstall wrong kernel.
+
+]$ sudo rpm -e kernel-3.10.0-862.3.2.el7.x86_64
+================================================================================
+Make sure new kernel added in grub configuration.
+
+]$ sudo grep -i saved_entry /boot/grub2/grubenv
+
+saved_entry=Red Hat Enterprise Linux Server (3.10.0-693.21.1.el7.x86_64) 7.4 (Maipo)
+------------------------------------------------------------
+Reboot the system to the new kernel.
+
+]$ sudo reboot
+------------------------------------------------------------
+Yum update exclude kernel.
+
+]$ sudo yum update -y --security --exclude=kernel
+================================================================================
+Quick
+------------------------------------------------------------
+sudo yum install -y kernel-3.10.0-693.21.1.el7.x86_64
+sudo rpm -e kernel-3.10.0-862.3.2.el7.x86_64
+sudo grep -i saved_entry /boot/grub2/grubenv
+
+sudo reboot
+
+uname -r
+sudo yum update -y --security --exclude=kernel
+================================================================================
+
+================================================================================
+Change default boot entry to previous kernel and reboot.
+------------------------------------------------------------
+]$ uname -r
+3.10.0-862.el7.x86_64
+
+]$ sudo grep -i saved_entry /boot/grub2/grubenv
+saved_entry=Red Hat Enterprise Linux Server (3.10.0-862.el7.x86_64) 7.5 (Maipo)
+
+]$ sudo grub2-set-default 1
+(Index starts from 0.)
+
+]$ sudo grep -i saved_entry /boot/grub2/grubenv
+saved_entry=1
+
+]$ sudo reboot
+
+]$ uname -r
+3.10.0-693.17.1.el7.x86_64
+================================================================================
+Downgrade redhat-release
+------------------------------------------------------------
+]$ sudo yum downgrade initscripts
+]$ sudo yum downgrade redhat-release
+================================================================================

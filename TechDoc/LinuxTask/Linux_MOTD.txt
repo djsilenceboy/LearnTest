@@ -1,0 +1,14 @@
+================================================================================
+Replace the motd file
+(Note that ELK "deploy-filebeat.sh" will modify this!!!)
+------------------------------------------------------------
+]# vi /etc/motd
+or
+]# cat > /etc/motd << EOF
+**********************WARNING********************************
+            This is a restricted server.
+  Unauthorized access to this system is strictly prohibited.
+If you do not have proper authorization, log out immediately.
+*************************************************************
+EOF
+================================================================================

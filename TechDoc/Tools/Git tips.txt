@@ -482,6 +482,12 @@ Push all new tags to default remote repository.
 Push all new tags to specified remote repository.
 
 > git push <RemoteName> --tags
+------------------------------------------------------------
+Delete tags from remote repository.
+
+> git push --delete origin <TagName>
+or
+> git push origin :refs/tags/<TagName>
 ================================================================================
 Log
 ------------------------------------------------------------
@@ -578,4 +584,7 @@ Show all ref points including PR
 PR ref like:
 refs/pull-requests/*/from
 refs/pull-requests/*/merge
+================================================================================
+Git Internals - Maintenance and Data Recovery
+https://git-scm.com/book/en/v2/Git-Internals-Maintenance-and-Data-Recovery
 ================================================================================

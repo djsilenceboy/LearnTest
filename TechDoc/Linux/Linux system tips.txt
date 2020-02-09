@@ -209,11 +209,13 @@ or press "d".
 Sort by CPU.
 
 ]$ top -o %CPU
+]$ top -i -o %CPU
 or press "SHIFT+p".
 
 Sort by memory.
 
 ]$ top -o %MEM
+]$ top -i -o %MEM
 or press "SHIFT+m".
 
 Toggle on/off irix mode.

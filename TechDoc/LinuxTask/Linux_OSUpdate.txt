@@ -1,0 +1,49 @@
+================================================================================
+Linux
+================================================================================
+Stop all running applications / services / containers
+Upgrade OS
+Reboot VM
+------------------------------------------------------------
+Optional command after uname:
+
+sudo yum install -y yum-utils
+sudo package-cleanup --oldkernels --count=2 -y
+================================================================================
+Check the Selinux Status , Make sure it should enable in Permissive mode.
+
+]$ sestatus
+SELinux status:                 enabled
+SELinuxfs mount:                /sys/fs/selinux
+SELinux root directory:         /etc/selinux
+Loaded policy name:             targeted
+Current mode:                   permissive
+Mode from config file:          permissive
+Policy MLS status:              enabled
+Policy deny_unknown status:     allowed
+Max kernel policy version:      28
+----------------------------------------
+Steps to enable SELinux:
+
+]$ grep SELINUX /etc/sysconfig/selinux | grep -v "^#"
+SELINUX=permissive
+SELINUXTYPE=targeted
+
+]$ sudo vi /etc/sysconfig/selinux
+
+Otherwise stop, do not continue. Ask for help in the working story.
+================================================================================
+Fallback plan
+------------------------------------------------------------
+In case you encounter any problem upon update completion you should abort and revert back the changes you've made. You can do so by running:
+
+yum history undo last
+================================================================================
+Check yum repo
+------------------------------------------------------------
+grep hostname /etc/rhsm/rhsm.conf
+grep baseurl /etc/rhsm/rhsm.conf
+yum check-update | grep kernel
+rpm -qa | grep kernel
+uname -a
+================================================================================
