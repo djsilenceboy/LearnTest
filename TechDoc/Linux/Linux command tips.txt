@@ -383,3 +383,18 @@ With exec, run in same process.
 ------------------------------------------------------------
 "eval <String>" will expand String first, then run it as command.
 ================================================================================
+vmstat
+------------------------------------------------------------
+Show CPU/Memory in wide format.
+]$ vmstat -w
+
+Show CPU/Memory in wide format in MB every 30 seconds.
+]$ vmstat -w -Sm 30
+
+Show CPU/Memory in wide format in MB every 30 seconds for 10 times.
+]$ vmstat -w -Sm 30 10
+
+Show disk info in wide format.
+]$ vmstat -dw
+]$ vmstat -D
+================================================================================

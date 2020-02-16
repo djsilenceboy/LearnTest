@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bookmarks>
+   <site url="http://download.eclipse.org/releases/2019-12" selected="true" name="2019-12"/>
+   <site url="https://checkstyle.org/eclipse-cs/update" selected="true" name="Checkstyle"/>
+   <site url="http://www.genuitec.com/updates/devstyle/ci/" selected="true" name="DevStyle CI Update Site"/>
+   <site url="http://goclipse.github.io/releases" selected="true" name="GoClipse: Go IDE"/>
+   <site url="http://download.eclipse.org/releases/latest" selected="true" name="Latest Eclipse Release"/>
+   <site url="https://dl.bintray.com/pmd/pmd-eclipse-plugin/updates" selected="true" name="PMD (Static Code Analysis)"/>
+   <site url="http://www.pydev.org/updates" selected="true" name="PyDev: Python IDE"/>
+   <site url="http://download.eclipse.org/eclipse/updates/4.14" selected="true" name="The Eclipse Project Updates"/>
+   <site url="http://download.eclipse.org/webtools/repository/latest" selected="true" name="The Eclipse Web Tools Platform (WTP) software repository"/>
+</bookmarks>

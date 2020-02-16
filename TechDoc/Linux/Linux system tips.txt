@@ -351,3 +351,10 @@ Kill job.
 
 ]$ kill %<JobId>
 ================================================================================
+Find OOM/Killed
+
+]# dmesg | grep -i "killed/|oom-"
+
+]# grep -i "killed/|oom-" /var/log/message* | less
+]# grep -i "killed/|oom-" /var/log/* | less
+================================================================================
