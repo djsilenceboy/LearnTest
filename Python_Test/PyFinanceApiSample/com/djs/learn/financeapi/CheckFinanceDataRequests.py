@@ -233,7 +233,7 @@ def parse_get_data_yahoo_stock(parsed_http_response, results):
 
         try:
             price_section = parsed_http_response.find(
-                "span", {"data-reactid": 34, "class": "Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)"})
+                "span", {"data-reactid": 32, "class": "Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)"})
 
             if not price_section:
                 raise
