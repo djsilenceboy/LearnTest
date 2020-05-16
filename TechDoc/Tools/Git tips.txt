@@ -565,13 +565,20 @@ For Windows, use double quota.
 > git push origin --force --all
 > git push origin --force --tags
 ================================================================================
-Save git user/password
+For "git clone https://xxx/branch".
 ------------------------------------------------------------
-> git config credential.helper store
-> git push
+Ignore ssl verification.
 
-Username for 'https://github.com':
-Password for 'https://xxx@github.com':
+> git config --global http.sslVerify false
+------------------------------------------------------------
+Save git URL with user/password in "~/.git-credentials".
+
+> git config --global credential.helper store
+----------------------------------------
+Create "~/.git-credentials", add repo URLs:
+https://User:Password@xxx
+----------------------------------------
+If later user or password changed, modify "~/.git-credentials".
 ================================================================================
 Show all ref points
 
