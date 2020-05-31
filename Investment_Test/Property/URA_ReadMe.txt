@@ -3,10 +3,57 @@ URA property transaction / rental info
 
 https://www.ura.gov.sg
 https://www.ura.gov.sg/realEstateIIWeb/transaction/search.action
-================================================================================
+------------------------------------------------------------
 Downlaod following data as CSV with square meter:
 Private Residential Property Transactions
 Rental Contracts of Private Residential Properties
+------------------------------------------------------------
+For "Private Residential Property Transactions",
+Select any Property Type: "Apartments & Condominiums" and "Executive Condominiums"
+Select Type of Sale: "Resale"
+------------------------------------------------------------
+For "Rental Contracts of Private Residential Properties",
+Select any Property Type: "Non-Landed Housing Development" and "Executive Condominiums"
+================================================================================
+Downloaded file naming
+------------------------------------------------------------
+URA_CondoEcTrans_201705-202004_AB1.csv: Condo transaction (A) Batch 1 (B1)
+URA_CondoEcTrans_201705-202004_AB2.csv: Condo transaction (A) Batch 2 (B2)
+......
+URA_CondoEcTrans_201705-202004_BB1.csv: EC    transaction (B) Batch 1 (B1)
+URA_CondoEcTrans_201705-202004_BB2.csv: EC    transaction (B) Batch 2 (B2)
+......
+URA_CondoEcRent_201705-202004_AB1.csv: Condo rent (A) Batch 1 (B1)
+URA_CondoEcRent_201705-202004_AB2.csv: Condo rent (A) Batch 2 (B2)
+......
+URA_CondoEcRent_201705-202004_BB1.csv: EC    rent (B) Batch 1 (B1)
+URA_CondoEcRent_201705-202004_BB2.csv: EC    rent (B) Batch 2 (B2)
+......
+================================================================================
+
+================================================================================
+Pre-process downloaded files
+------------------------------------------------------------
+Generate header line files
+
+Extract header line from:
+URA_CondoEcTrans_201705-202004_AB1
+to:
+URA_CondoEcTrans_201705-202004_H.csv
+
+Extract header line from:
+URA_CondoEcRent_201705-202004_AB1
+to:
+URA_CondoEcRent_201705-202004_H.csv
+------------------------------------------------------------
+Meger all data files
+
+./URA_MergeData.sh URA_CondoEcTrans_201705-202004
+./URA_MergeData.sh URA_CondoEcRent_201705-202004
+
+Generated files:
+URA_CondoEcTrans_201705-202004.csv
+URA_CondoEcRent_201705-202004.csv
 ================================================================================
 
 ================================================================================
