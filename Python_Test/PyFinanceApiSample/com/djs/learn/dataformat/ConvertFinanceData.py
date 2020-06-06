@@ -87,12 +87,6 @@ class Constants_Currency(Constants_Base):
 
 
 def process_inventory_list():
-    '''
-    Get a list of inventory info from a config file.
-
-    @return: Dict with return results.
-    '''
-
     global __Constants
 
     print("-" * 100)

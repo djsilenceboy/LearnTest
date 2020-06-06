@@ -97,8 +97,7 @@ print("dict3 =", dict3)
 
 dict4 = dict((('A', 1), ('B', 2)))
 
-print("dict3 =", dict4)
-
+print("dict4 =", dict4)
 
 print("-" * 40)
 

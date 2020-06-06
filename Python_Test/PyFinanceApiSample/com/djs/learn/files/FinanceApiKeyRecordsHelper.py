@@ -11,7 +11,6 @@ Update log: (date / version / author : comments)
 from com.djs.learn.common import LoggingHelper
 from com.djs.learn.common.CsvRecordsHelper import CsvRecordsHelper
 
-
 FIELD_IDX_PROVIDER = 0
 FIELD_IDX_APIKEY = 1
 
@@ -26,7 +25,7 @@ class FinanceApiKeyRecordsHelper(CsvRecordsHelper):
 
     __logger = LoggingHelper.get_logger("FinanceApiKeyRecordsHelper")
 
-    def __init__(self, csv_filename, use_dict=False):
+    def __init__(self, csv_filename, use_dict = False):
         '''
         @param csv_filename: CSV file.
         @param use_dict: Boolean, whether to open CSV as dict. True: read records as a list of dict; False: read records as a list of list.
@@ -50,7 +49,7 @@ class FinanceApiKeyRecordsHelper(CsvRecordsHelper):
             # Check each item, and find matching one.
             for item in self._records:
                 if self._use_dict:
-                    if item[self._hearders[FIELD_IDX_PROVIDER]] == provider:
+                    if item[self._headers[FIELD_IDX_PROVIDER]] == provider:
                         record = item
                         break
                 else:

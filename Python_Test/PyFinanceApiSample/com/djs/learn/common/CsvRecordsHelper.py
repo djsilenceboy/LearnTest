@@ -19,14 +19,14 @@ class CsvRecordsHelper(object):
 
     __logger = LoggingHelper.get_logger("CsvRecordsHelper")
 
-    def __init__(self, csv_file_path, use_dict=False):
+    def __init__(self, csv_file_path, use_dict = False):
         '''
         @param csv_file_path: A string of CSV file path.
         @param use_dict: Boolean, whether to open CSV as dict. True: read records as a list of dict; False: read records as a list of list.
         '''
         self._csv_file_path = csv_file_path
         self._use_dict = use_dict
-        self._hearders = None
+        self._headers = None
         self._records = None
 
         self.__logger = CsvRecordsHelper.__logger
@@ -49,7 +49,7 @@ class CsvRecordsHelper(object):
                         # Read file as dict.
                         reader = csv.DictReader(file)
                         # Read header line.
-                        self._hearders = reader.fieldnames
+                        self._headers = reader.fieldnames
                         # Read records into a list of dict.
                         self._records = [line for line in reader]
                     else:
@@ -59,10 +59,10 @@ class CsvRecordsHelper(object):
                         self._records = [line for line in reader]
                         # Read header line, the first record.
                         # Also remove it from the rest of records.
-                        self._hearders = self._records.pop(0)
+                        self._headers = self._records.pop(0)
 
                     self.__logger.debug(
-                        "Headers (%s) = %s", len(self._hearders), self._hearders)
+                        "Headers (%s) = %s", len(self._headers), self._headers)
                     record_counter = len(self._records)
                     if record_counter <= 5:
                         self.__logger.debug(
@@ -74,7 +74,7 @@ class CsvRecordsHelper(object):
                 self.__logger.error("Retrieve failed: %s", repr(e))
                 raise Exception(repr(e)) from e
 
-        return self._hearders, self._records
+        return self._headers, self._records
 
     @property
     def use_dict(self):
@@ -92,7 +92,7 @@ class CsvRecordsHelper(object):
 
         @return: Header field list.
         '''
-        return self._hearders
+        return self._headers
 
     @property
     def records(self):

@@ -11,7 +11,6 @@ Update log: (date / version / author : comments)
 from com.djs.learn.common import LoggingHelper
 from com.djs.learn.common.CsvRecordsHelper import CsvRecordsHelper
 
-
 FIELD_IDX_FUND_NAME = 0
 FIELD_IDX_FUND_ID = 1
 
@@ -46,7 +45,7 @@ class FundsupermartRecordsHelper(CsvRecordsHelper):
             # Check each item, and find matching one.
             for item in self._records:
                 if self._use_dict:
-                    if item[self._hearders[FIELD_IDX_FUND_ID]] == fund_id:
+                    if item[self._headers[FIELD_IDX_FUND_ID]] == fund_id:
                         record = item
                         break
                 else:
