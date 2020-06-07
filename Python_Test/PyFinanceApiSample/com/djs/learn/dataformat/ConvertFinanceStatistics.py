@@ -172,7 +172,7 @@ Usage:
 Options:
 -h : Show help.
 -d <DataType> : Finance data type. Compulsory, Value [0: Yahoo Finance stock].
--i <FilePath> : Environment info file path (CSV). Compulsory.
+-i <FilePath> : Source data file path (CSV). Compulsory.
 -o <FilePath> : Result output file path (JSON). Optional, output to screen by default.
 ''')
 
@@ -232,7 +232,7 @@ def main(argv):
     print("show_usage =", __show_usage)
     print("data_type =", __data_type)
     print("json_file_path =", __json_file_path)
-    print("csv_file_path", __csv_file_path)
+    print("csv_file_path =", __csv_file_path)
 
     # Check options are valid.
     if not __show_usage:

@@ -1,0 +1,1 @@
+python F:\WorkDJS\RepositoryGit\LearnTest\Python_Test\PyDataMiningSample\com\djs\learn\ura\ProcessDataInDb.py -t ".\ProcessedData_201705_202004\URA_CondoEcTrans_201705-202004_MP.csv" -r ".\ProcessedData_201705_202004\URA_CondoEcRent_201705-202004_MP.csv" -d ".\ProcessedData_201705_202004\URA_CondoEcTransRent.db" -o ".\ProcessedData_201705_202004\URA_CondoEcResults_201705-202004_"

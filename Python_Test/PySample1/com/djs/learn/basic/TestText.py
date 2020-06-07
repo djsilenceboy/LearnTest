@@ -72,6 +72,23 @@ text4 = "123\tABCD\t12345\tABCDEF\t1"
 
 print("text4 =", text4)
 
+print("-" * 40)
+
+text5 = "12345\nABCDE\n67890\nFGHIJ"
+
+print("text5 =", text5)
+
+print("-" * 40)
+
+text6 = """12345
+ABCDE
+67890
+FGHIJ"""
+
+print("text6 =", text6)
+
+print("-" * 40)
+
 for i in range(8, 0, -1):
     print("text4.expandtabs({0}) = {1}".format(i, text4.expandtabs(i)))
 

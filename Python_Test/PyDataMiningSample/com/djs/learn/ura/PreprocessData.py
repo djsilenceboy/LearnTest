@@ -15,7 +15,7 @@ from time import localtime, strftime, time
 # Global variables.
 # The value can be updated by command line options.
 __data_type = None
-__input_file_path = None
+__input_file_path_transaction = None
 __output_file_path = None
 
 
@@ -27,7 +27,7 @@ def process_inventory_list():
     headers = []
     records = []
     try:
-        with open(__input_file_path, "r") as file:
+        with open(__input_file_path_transaction, "r") as file:
             # Read file as dict.
             reader = csv.DictReader(file)
             # Read header line.
@@ -35,39 +35,64 @@ def process_inventory_list():
             # Read records into a list of dict.
             records = [line for line in reader]
 
-        headers.remove("S/N")
-        for record in records:
-            del record["S/N"]
+        keySN = "S/N"
+        keyNettPrice = "Nett Price ($)"
+        keyTenure = "Tenure"
+        keyAreaSqm = "Area (Sqm)"
+        keyMonthlyGrossRent = "Monthly Gross Rent($)"
+        keyFloorAreaSqm = "Floor Area (sq m)"
+        keyDateOfSale = "Date of Sale"
+        keyLeaseCommencementDate = "Lease Commencement Date"
+
+        keyTenureYear = "Tenure Year"
+        keyTenureLength = "Tenure Length"
+        keyYearlyGrossRent = "Yearly Gross Rent($)"
+        keyFloorAreaLower = "Floor Area Lower (sq m)"
+        keyFloorAreaUpper = "Floor Area Upper (sq m)"
+        keySaleYear = "Sale Year"
+        keyLeaseYear = "Lease Year"
 
         if __data_type == 0:
-            keyTenureYear = "Tenure Year"
-            keyFloorAreaLower = "Floor Area Lower (Sqm)"
-            keyFloorAreaUpper = "Floor Area Upper (Sqm)"
-
+            headers.remove(keySN)
+            headers.remove(keyNettPrice)
             headers.append(keyTenureYear)
+            headers.append(keyTenureLength)
             headers.append(keyFloorAreaLower)
             headers.append(keyFloorAreaUpper)
+            headers.append(keySaleYear)
 
             for record in records:
-                if record["Tenure"] == "Freehold":
-                    tenureYear = "0"
-                else:
-                    tenureYear = record["Tenure"][-4:]
-                record[keyTenureYear] = tenureYear
-                record[keyFloorAreaLower] = math.floor(int(record["Area (Sqm)"]) / 10) * 10
-                record[keyFloorAreaUpper] = math.ceil(int(record["Area (Sqm)"]) / 10) * 10
-        else:  # __data_type == 1:
-            keyYearlyGrossRent = "Yearly Gross Rent($)"
-            keyFloorAreaLower = "Floor Area Lower (sq m)"
-            keyFloorAreaUpper = "Floor Area Upper (sq m)"
+                del record[keySN]
+                del record[keyNettPrice]
 
+                if record[keyTenure] == "Freehold":
+                    tenureYear = "0"
+                    tenureLength = "9999"
+                else:
+                    tenure = record[keyTenure]
+                    tenureYear = tenure[-4:]
+                    midIndex = tenure.find("yrs") - 1
+                    tenureLength = tenure[:midIndex]
+                record[keyTenureYear] = tenureYear
+                record[keyTenureLength] = tenureLength
+
+                record[keyFloorAreaLower] = math.floor(int(record[keyAreaSqm]) / 10) * 10
+                record[keyFloorAreaUpper] = math.ceil(int(record[keyAreaSqm]) / 10) * 10
+
+                record[keySaleYear] = record[keyDateOfSale][-4:]
+        else:  # __data_type == 1:
+            headers.remove(keySN)
             headers.append(keyYearlyGrossRent)
             headers.append(keyFloorAreaLower)
             headers.append(keyFloorAreaUpper)
+            headers.append(keyLeaseYear)
 
             for record in records:
-                record[keyYearlyGrossRent] = int(record["Monthly Gross Rent($)"]) * 12
-                floorAreaSqm = record["Floor Area (sq m)"]
+                del record[keySN]
+
+                record[keyYearlyGrossRent] = int(record[keyMonthlyGrossRent]) * 12
+
+                floorAreaSqm = record[keyFloorAreaSqm]
                 if floorAreaSqm[:1] == ">":
                     record[keyFloorAreaLower] = floorAreaSqm[1:]
                     record[keyFloorAreaUpper] = floorAreaSqm[1:]
@@ -76,8 +101,8 @@ def process_inventory_list():
                     record[keyFloorAreaLower] = floorAreaSqm[:midIndex]
                     midIndex = midIndex + 4
                     record[keyFloorAreaUpper] = floorAreaSqm[midIndex:]
-                # Floor Area Lower (sq m) =IF(LEFT(G2,1) <> ">", LEFT(G2, FIND("to", G2) -1), MID(G2,2,LEN(G2)))
-                # Floor Area Upper (sq m) =IF(LEFT(G2,1) <> ">", RIGHT(G2, LEN(G2) - FIND("to", G2) - 2), MID(G2,2,LEN(G2)))
+
+                record[keyLeaseYear] = record[keyLeaseCommencementDate][-4:]
 
         print("Process inventory list: ok.")
     except Exception as e:
@@ -102,6 +127,7 @@ def process_inventory_list():
                 cout.writeheader()
                 # Write record lines.
                 cout.writerows(records)
+            print("Output process results: ok")
         except Exception as e:
             print("Output process results: Exception = {0}".format(e))
     else:
@@ -125,8 +151,8 @@ Usage:
 Options:
 -h : Show help.
 -d <DataType> : Raw data type. Compulsory, Value [0: Transaction, 1: Rental].
--i <FilePath> : Environment info file path (CSV). Compulsory.
--o <FilePath> : Result output file path (JSON). Optional, output to screen by default.
+-i <FilePath> : Source data file path (CSV). Compulsory.
+-o <FilePath> : Result output file path (CSV). Optional, output to screen by default.
 ''')
 
 
@@ -138,7 +164,7 @@ def main(argv):
     '''
 
     global __data_type
-    global __input_file_path
+    global __input_file_path_transaction
     global __output_file_path
 
     print("argv =", argv)
@@ -171,7 +197,7 @@ def main(argv):
                 elif opt == "-d":
                     __data_type = int(arg)
                 elif opt == "-i":
-                    __input_file_path = arg
+                    __input_file_path_transaction = arg
                 elif opt == "-o":
                     __output_file_path = arg
                 else:
@@ -184,12 +210,12 @@ def main(argv):
 
     print("show_usage =", __show_usage)
     print("data_type =", __data_type)
-    print("input_file_path =", __input_file_path)
-    print("output_file_path", __output_file_path)
+    print("input_file_path =", __input_file_path_transaction)
+    print("output_file_path =", __output_file_path)
 
     # Check options are valid.
     if not __show_usage:
-        if (__data_type is None) or (__input_file_path is None):
+        if (__data_type is None) or (__input_file_path_transaction is None):
             __show_usage, __exit_code, __error_message = True, -\
                 4, "Missing compulsory command line option."
         elif not (__data_type in [0, 1]):

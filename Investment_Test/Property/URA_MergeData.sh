@@ -1,19 +1,22 @@
 #!/bin/bash
 
-FILE_PREFIX=$1
-NEW_FILE=${FILE_PREFIX}_M.csv
-HEADER_FILE=${FILE_PREFIX}_H.csv
+INPUT_FILE_PREFIX=$1
+OUTPUT_FILE_PREFIX=$2
 
-echo "FILE_PREFIX = "$FILE_PREFIX
-echo "NEW_FILE = "$NEW_FILE
+HEADER_FILE=${INPUT_FILE_PREFIX}_H.csv
+OUTPUT_FILE=${OUTPUT_FILE_PREFIX}_M.csv
+
+echo "INPUT_FILE_PREFIX = "$INPUT_FILE_PREFIX
 echo "HEADER_FILE = "$HEADER_FILE
+echo "OUTPUT_FILE_PREFIX = "$OUTPUT_FILE_PREFIX
+echo "OUTPUT_FILE = "$OUTPUT_FILE
 
-cat $HEADER_FILE > $NEW_FILE
+cat $HEADER_FILE > $OUTPUT_FILE
 
-for File in ${FILE_PREFIX}_A*.csv ${FILE_PREFIX}_B*.csv
+for File in ${INPUT_FILE_PREFIX}_A*.csv ${INPUT_FILE_PREFIX}_B*.csv
 do
 	echo "File = "$File
-    grep "^\"[0-9]" $File | grep -v "transacted\|transactions" >> $NEW_FILE
+    grep "^\"[0-9]" $File | grep -v "transacted\|transactions" >> $OUTPUT_FILE
 done
 
-sed -i -e "s/na\*/0/g" -e "s/\"-\"/\"\"/g" $NEW_FILE
+sed -i -e "s/na\*/0/g" -e "s/\"-\"/\"\"/g" $OUTPUT_FILE

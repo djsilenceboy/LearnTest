@@ -49,6 +49,7 @@ print("rows =", rows)
 
 print("-" * 40)
 
+cur.close()
 conn.close()
 
 if __name__ == '__main__':
