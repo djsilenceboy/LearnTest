@@ -15,6 +15,39 @@ Select Type of Sale: "Resale"
 For "Rental Contracts of Private Residential Properties",
 Select any Property Type: "Non-Landed Housing Development" and "Executive Condominiums"
 ================================================================================
+
+================================================================================
+Download HTML files
+================================================================================
+Update "URA_DownloadHtmlData_Run.sh" script with downloading parameters.
+
+Download all HTML files (use bash) by:
+./URA_DownloadHtmlData_Run.sh
+------------------------------------------------------------
+Generated files (sample):
+
+URA_CondoEcRent_201706-202005_A.sh
+URA_CondoEcRent_201706-202005_B.sh
+URA_CondoEcTrans_201706-202005_A.sh
+URA_CondoEcTrans_201706-202005_B.sh
+
+Downloaded files:
+
+URA_CondoEcRent_201706-202005_A1.html
+......
+URA_CondoEcRent_201706-202005_A6.html
+URA_CondoEcRent_201706-202005_B1.html
+......
+URA_CondoEcRent_201706-202005_B6.html
+URA_CondoEcTrans_201706-202005_A1.html
+......
+URA_CondoEcTrans_201706-202005_A6.html
+URA_CondoEcTrans_201706-202005_B1.html
+......
+URA_CondoEcTrans_201706-202005_B6.html
+================================================================================
+
+================================================================================
 Downloaded file naming
 ------------------------------------------------------------
 URA_CondoEcTrans_201705-202004_AB1.csv: Condo transaction (A) Batch 1 (B1)
