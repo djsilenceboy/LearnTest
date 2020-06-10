@@ -9,9 +9,9 @@ from com.djs.learn.ura import PreprocessData
 
 __data_type = 1
 __base_file_name = "URA_CondoEcRent_M"
-__input_file_path_transaction = "../../../../../Temp/{0}.csv".format(__base_file_name)
+__input_file_path = "../../../../../Temp/{0}.csv".format(__base_file_name)
 
-argv = ["-d", __data_type, "-i", __input_file_path_transaction]
+argv = ["-d", __data_type, "-i", __input_file_path]
 PreprocessData.main(argv)
 
 '''
