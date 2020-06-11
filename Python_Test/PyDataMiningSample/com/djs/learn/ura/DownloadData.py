@@ -4,18 +4,19 @@ Download URA data.
 Update log: (date / version / author : comments)
 2020-06-10 / 1.0.0 / Du Jiang : Creation
                                 Support Transaction and Rental data
+                                Currently, failed for requests. But API is working by curl.
 '''
 
 import csv
 import getopt
-import math
+import logging
 import sys
 from time import localtime, strftime, time
 from urllib import parse
 
-from bs4 import BeautifulSoup
-from lxml import html
 import requests
+
+import http.client as http_client
 
 # Global variables.
 # The value can be updated by command line options.
@@ -37,6 +38,13 @@ __sample_form_data = {"submissionType": "pd",
                       "postalDistrictList": 28,
                       "selectedPostalDistricts1": "05",
                       "__multiselect_selectedPostalDistricts1": ""}
+
+http_client.HTTPConnection.debuglevel = 1
+logging.basicConfig()
+logging.getLogger().setLevel(logging.DEBUG)
+requests_log = logging.getLogger("requests.packages.urllib3")
+requests_log.setLevel(logging.DEBUG)
+requests_log.propagate = True
 
 
 def get_jsessionid(url):
@@ -81,7 +89,9 @@ def download_transaction_data():
     sqf_url = __template_sqf_url.format("transaction", jSessionID)
     http_headers = {"Cookie": "JSESSIONID={0}".format(jSessionID),
                     "Content-Type": "application/x-www-form-urlencoded",
-                    "Accept-Encoding": "gzip, deflate"}
+                    # "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36",
+                    "Accept": "text/html,application/xhtml+xml,application/xml",
+                    "Accept-Encoding": "gzip, deflate, br"}
     get_sqf_data(sqf_url, http_headers, __sample_form_data)
 
     return headers, records
