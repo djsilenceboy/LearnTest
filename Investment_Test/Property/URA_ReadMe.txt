@@ -24,13 +24,17 @@ Update "URA_DownloadHtmlData_Run.sh" script with downloading parameters.
 Download all HTML files (use bash) by:
 ./URA_DownloadHtmlData_Run.sh
 ------------------------------------------------------------
-Generated files (sample):
+Downloaded file folder:
+
+.\HtmlData_201706_202005
+----------------------------------------
+Generated files:
 
 URA_CondoEcRent_201706-202005_A.sh
 URA_CondoEcRent_201706-202005_B.sh
 URA_CondoEcTrans_201706-202005_A.sh
 URA_CondoEcTrans_201706-202005_B.sh
-
+----------------------------------------
 Downloaded files:
 
 URA_CondoEcRent_201706-202005_A1.html
@@ -48,73 +52,46 @@ URA_CondoEcTrans_201706-202005_B6.html
 ================================================================================
 
 ================================================================================
-Downloaded file naming
-------------------------------------------------------------
-URA_CondoEcTrans_201705-202004_AB1.csv: Condo transaction (A) Batch 1 (B1)
-URA_CondoEcTrans_201705-202004_AB2.csv: Condo transaction (A) Batch 2 (B2)
-......
-URA_CondoEcTrans_201705-202004_BB1.csv: EC    transaction (B) Batch 1 (B1)
-URA_CondoEcTrans_201705-202004_BB2.csv: EC    transaction (B) Batch 2 (B2)
-......
-URA_CondoEcRent_201705-202004_AB1.csv: Condo rent (A) Batch 1 (B1)
-URA_CondoEcRent_201705-202004_AB2.csv: Condo rent (A) Batch 2 (B2)
-......
-URA_CondoEcRent_201705-202004_BB1.csv: EC    rent (B) Batch 1 (B1)
-URA_CondoEcRent_201705-202004_BB2.csv: EC    rent (B) Batch 2 (B2)
-......
+Convert HTML data to CSV
 ================================================================================
-
-================================================================================
-Process downloaded files
-================================================================================
-Copy all downladed files into folder
-
-.\RawData_201705_202004
-------------------------------------------------------------
-Generate header line files
-
-Extract header line from:
-URA_CondoEcTrans_201705-202004_AB1
-to:
-URA_CondoEcTrans_201705-202004_H.csv
-
-Extract header line from:
-URA_CondoEcRent_201705-202004_AB1
-to:
-URA_CondoEcRent_201705-202004_H.csv
-------------------------------------------------------------
-Merge all data files (use bash)
-
-./URA_MergeData.sh ./RawData_201705_202004/URA_CondoEcTrans_201705-202004 ./ProcessedData_201705_202004/URA_CondoEcTrans_201705-202004
-./URA_MergeData.sh ./RawData_201705_202004/URA_CondoEcRent_201705-202004 ./ProcessedData_201705_202004/URA_CondoEcRent_201705-202004
-
-Generated files:
-./ProcessedData_201705_202004/URA_CondoEcTrans_201705-202004_M.csv
-./ProcessedData_201705_202004/URA_CondoEcRent_201705-202004_M.csv
-------------------------------------------------------------
-Preprocess all data files
+Run:
 
 (\Python_Test\PyDataMiningSample\com\djs\learn\test\ura\)
-python PreprocessData.py -d 0 -i ".\ProcessedData_201705_202004\URA_CondoEcTrans_201705-202004_M.csv" -o ".\ProcessedData_201705_202004\URA_CondoEcTrans_201705-202004_MP.csv"
-python PreprocessData.py -d 1 -i ".\ProcessedData_201705_202004\URA_CondoEcRent_201705-202004_M.csv" -o ".\ProcessedData_201705_202004\URA_CondoEcRent_201705-202004_MP.csv"
-
+python ConvertHtmlToRawData.py -f ".\HtmlData_201706_202005" -i "URA_CondoEcTrans_201706-202005_" -o ".\ProcessedData_201706_202005\URA_CondoEcTrans_201706-202005_M.csv"
+python ConvertHtmlToRawData.py -f ".\HtmlData_201706_202005" -i "URA_CondoEcRent_201706-202005_" -o ".\ProcessedData_201706_202005\URA_CondoEcRent_201706-202005_M.csv"
+------------------------------------------------------------
 Generated files:
-.\ProcessedData_201705_202004\URA_CondoEcTrans_201705-202004_MP.csv
-.\ProcessedData_201705_202004\URA_CondoEcRent_201705-202004_MP.csv
+
+.\ProcessedData_201706_202005\URA_CondoEcTrans_201706-202005_M.csv
+.\ProcessedData_201706_202005\URA_CondoEcRent_201706-202005_M.csv
 ================================================================================
 
+================================================================================
+Preprocess CSV files
+================================================================================
+Run:
+
+(\Python_Test\PyDataMiningSample\com\djs\learn\test\ura\)
+python PreprocessData.py -d 0 -i ".\ProcessedData_201706_202005\URA_CondoEcTrans_201706-202005_M.csv" -o ".\ProcessedData_201706_202005\URA_CondoEcTrans_201706-202005_MP.csv"
+python PreprocessData.py -d 1 -i ".\ProcessedData_201706_202005\URA_CondoEcRent_201706-202005_M.csv" -o ".\ProcessedData_201706_202005\URA_CondoEcRent_201706-202005_MP.csv"
+------------------------------------------------------------
+Generated files:
+
+.\ProcessedData_201706_202005\URA_CondoEcTrans_201706-202005_MP.csv
+.\ProcessedData_201706_202005\URA_CondoEcRent_201706-202005_MP.csv
 ================================================================================
 During preprocess by Python
 ================================================================================
 For "Private Residential Property Transactions", remain following fields.
 (Head line with 5 sample data lines.)
 ------------------------------------------------------------
-Project Name,Street Name,Type,Postal District,Market Segment,Tenure,Type of Sale,No. of Units,Price ($),Area (Sqm),Type of Area,Floor Level,Unit Price ($psm),Date of Sale,Tenure Year,Tenure Length,Floor Area Lower (sq m),Floor Area Upper (sq m),Sale Year
-VICTORY HEIGHTS,KIM KEAT ROAD,Apartment,12,RCR,Freehold,Resale,1,998888,104,Strata,06 to 10,9605,Apr-2020,0,9999,100,110,2020
-PUBLIC MANSION,BALESTIER ROAD,Apartment,12,RCR,Freehold,Resale,1,1900000,235,Strata,06 to 10,8085,Apr-2020,0,9999,230,240,2020
-PARC SOMME,SOMME ROAD,Apartment,08,RCR,99 yrs lease commencing from 2008,Resale,1,518000,32,Strata,01 to 05,16188,Apr-2020,2008,99,30,40,2020
-PARC SOMME,SOMME ROAD,Apartment,08,RCR,99 yrs lease commencing from 2008,Resale,1,570000,33,Strata,06 to 10,17273,Apr-2020,2008,99,30,40,2020
-BEACON HEIGHTS,MAR THOMA ROAD,Condominium,12,RCR,999 yrs lease commencing from 1882,Resale,1,1330000,103,Strata,21 to 25,12913,Apr-2020,1882,999,100,110,2020
+Project Name,Street Name,Type,Postal District,Market Segment,Tenure,Type of Sale,No. of Units,Price ($),Nett Price ($),Area (Sqm),Type of Area,Floor Level,Unit Price ($psm),Date of Sale
+GARDENVILLE,WALSHE ROAD,Condominium,10,CCR,Freehold,Resale,1,4510000,,247,Strata,01 to 05,18259,May-20
+DUKES RESIDENCE,DUKE'S ROAD,Apartment,10,CCR,Freehold,Resale,1,2300000,,107,Strata,01 to 05,21495,May-20
+THE SIENA,TAN KIM CHENG ROAD,Apartment,10,CCR,99 yrs lease commencing from 2013,Resale,1,1280000,,73,Strata,01 to 05,17534,Apr-20
+VALLEY PARK,RIVER VALLEY ROAD,Condominium,10,CCR,999 yrs lease commencing from 1877,Resale,1,2750000,,158,Strata,16 to 20,17405,Apr-20
+SPRING GROVE,GRANGE ROAD,Condominium,10,CCR,99 yrs lease commencing from 1991,Resale,1,1550000,,94,Strata,06 to 10,16489,Apr-20
+DARBY PARK,ORANGE GROVE ROAD,Apartment,10,CCR,99 yrs lease commencing from 1993,Resale,55,92714566,,3373.4,Land,01 to 05,27484,Nov-18
 ------------------------------------------------------------
 Note that,
 1. Removed fields "S/N", "Nett Price ($)".
@@ -127,29 +104,29 @@ Tenure Year             =IF(A1 = "Freehold", "0", RIGHT(A1,4))
 Tenure Length           =IF(A1 = "Freehold", "9999", LEFT(A1, FIND("yrs", A1) -1))
 Floor Area Lower (Sqm)  =ROUNDDOWN(A2/10, 0)*10
 Floor Area Upper (Sqm)  =ROUNDUP(A2/10, 0)*10
-Sale Year               =RIGHT(A3,4)
+Sale Year               ="20" & RIGHT(A3,2)
 ================================================================================
 For "Rental Contracts of Private Residential Properties", remain following fields.
 (Head line with 5 sample data lines.)
 ------------------------------------------------------------
-Building/Project Name,Street Name,Postal District,Type,No. of Bedroom(for Non-Landed Only),Monthly Gross Rent($),Floor Area (sq m),Lease Commencement Date,Yearly Gross Rent($),Floor Area Lower (sq m),Floor Area Upper (sq m),Lease Year
-FORTE SUITES,MERGUI ROAD,08,Non-landed Properties,2,3100,100 to 110,Apr-2020,37200,100,110,2020
-BOTANNIA,WEST COAST PARK,05,Non-landed Properties,4,4500,140 to 150,Apr-2020,54000,140,150,2020
-PARC RIVIERA,WEST COAST VALE,05,Non-landed Properties,2,2450,60 to 70,Apr-2020,29400,60,70,2020
-ISLAND VIEW,JALAN MAT JAMBOL,05,Non-landed Properties,3,6000,>300,Apr-2020,72000,300,300,2020
-ISLAND VIEW,JALAN MAT JAMBOL,05,Non-landed Properties,3,8150,>300,Apr-2020,97800,300,300,2020
+Building/ Project Name,Street Name,Postal District,Type,No. of Bedroom (for Non-Landed Only),Monthly Rent ($),Floor Area (Sqm) 1,Lease Commencement Date
+DUCHESS CREST,DUCHESS AVENUE,10,Non-landed Properties,2,3300,90 to 100,Apr-20
+RIDGEWOOD,MOUNT SINAI DRIVE,10,Non-landed Properties,3,3100,120 to 130,Apr-20
+BISHOPSGATE RESIDENCES,BISHOPSGATE,10,Non-landed Properties,5,15000,290 to 300,Apr-20
+NASSIM PARK RESIDENCES,NASSIM ROAD,10,Non-landed Properties,4,30000,>300,Apr-20
+ORCHARD BEL AIR,ORCHARD BOULEVARD,10,Non-landed Properties,0,8800,>300,Apr-20
 ------------------------------------------------------------
 Note that,
 1. Removed fields "S/N".
 
 2. Add fields (excel formula):
-A1                      = Monthly Gross Rent($)
-A2                      = Floor Area (sq m)
+A1                      = Monthly Rent($)
+A2                      = Floor Area (Sqm) 1
 A3                      = Lease Commencement Date
 Yearly Gross Rent($)    = A1 * 12
 Floor Area Lower (sq m) =IF(LEFT(A2,1) <> ">", LEFT(A2, FIND("to", A2) -1), MID(A2,2,LEN(A2)))
 Floor Area Upper (sq m) =IF(LEFT(A2,1) <> ">", RIGHT(A2, LEN(A2) - FIND("to", A2) - 2), MID(A2,2,LEN(A2)))
-Lease Year              =RIGHT(A3,4)
+Lease Year              ="20" & RIGHT(A3,2)
 ================================================================================
 
 ================================================================================
@@ -166,16 +143,17 @@ Run query SQL scripts from "URA_mysql_scripts.txt".
 ================================================================================
 
 ================================================================================
-SQLite
+Process pre-processed data files by SQLite
 ================================================================================
-Process pre-processed data files
+Run:
 
 (\Python_Test\PyDataMiningSample\com\djs\learn\test\ura\)
-python ProcessDataInDb.py -t ".\ProcessedData_201705_202004\URA_CondoEcTrans_201705-202004_MP.csv" -r ".\ProcessedData_201705_202004\URA_CondoEcRent_201705-202004_MP.csv" -d ".\ProcessedData_201705_202004\URA_CondoEcTransRent.db" -o ".\ProcessedData_201705_202004\URA_CondoEcResults_201705-202004_"
-
+python ProcessDataInDb.py -t ".\ProcessedData_201706_202005\URA_CondoEcTrans_201706-202005_MP.csv" -r ".\ProcessedData_201706_202005\URA_CondoEcRent_201706-202005_MP.csv" -d ".\ProcessedData_201706_202005\URA_CondoEcTransRent.db" -o ".\ProcessedData_201706_202005\URA_CondoEcResults_201706-202005_"
+------------------------------------------------------------
 Generated files:
-.\ProcessedData_201705_202004\URA_CondoEcTransRent.db
-.\ProcessedData_201705_202004\URA_CondoEcResults_201705-202004_PriceRentRatio.csv
-.\ProcessedData_201705_202004\URA_CondoEcResults_201705-202004_RentYearlyPrice.csv
-.\ProcessedData_201705_202004\URA_CondoEcResults_201705-202004_TransYearlyPrice.csv
+
+.\ProcessedData_201706_202005\URA_CondoEcTransRent.db
+.\ProcessedData_201706_202005\URA_CondoEcResults_201706-202005_PriceRentRatio.csv
+.\ProcessedData_201706_202005\URA_CondoEcResults_201706-202005_RentYearlyPrice.csv
+.\ProcessedData_201706_202005\URA_CondoEcResults_201706-202005_TransYearlyPrice.csv
 ================================================================================

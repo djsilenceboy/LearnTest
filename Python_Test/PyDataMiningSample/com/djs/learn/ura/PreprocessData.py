@@ -34,26 +34,28 @@ def process_inventory_list():
             headers = reader.fieldnames
             # Read records into a list of dict.
             records = [line for line in reader]
+            print("Records =", len(records))
 
-        keySN = "S/N"
+        # Project Name,Street Name,Type,Postal District,Market Segment,Tenure,Type of Sale,No. of Units,Price ($),Nett Price ($),Area (Sqm),Type of Area,Floor Level,Unit Price ($psm),Date of Sale
+        # Building/ Project Name,Street Name,Postal District,Type,No. of Bedroom (for Non-Landed Only),Monthly Rent ($),Floor Area (Sqm) 1,Lease Commencement Date
+
         keyNettPrice = "Nett Price ($)"
         keyTenure = "Tenure"
         keyAreaSqm = "Area (Sqm)"
-        keyMonthlyGrossRent = "Monthly Gross Rent($)"
-        keyFloorAreaSqm = "Floor Area (sq m)"
+        keyMonthlyGrossRent = "Monthly Rent ($)"
+        keyFloorAreaSqm = "Floor Area (Sqm) 1"
         keyDateOfSale = "Date of Sale"
         keyLeaseCommencementDate = "Lease Commencement Date"
 
         keyTenureYear = "Tenure Year"
         keyTenureLength = "Tenure Length"
         keyYearlyGrossRent = "Yearly Gross Rent($)"
-        keyFloorAreaLower = "Floor Area Lower (sq m)"
-        keyFloorAreaUpper = "Floor Area Upper (sq m)"
+        keyFloorAreaLower = "Floor Area Lower (Sqm)"
+        keyFloorAreaUpper = "Floor Area Upper (Sqm)"
         keySaleYear = "Sale Year"
         keyLeaseYear = "Lease Year"
 
         if __data_type == 0:
-            headers.remove(keySN)
             headers.remove(keyNettPrice)
             headers.append(keyTenureYear)
             headers.append(keyTenureLength)
@@ -62,7 +64,6 @@ def process_inventory_list():
             headers.append(keySaleYear)
 
             for record in records:
-                del record[keySN]
                 del record[keyNettPrice]
 
                 if record[keyTenure] == "Freehold":
@@ -76,20 +77,22 @@ def process_inventory_list():
                 record[keyTenureYear] = tenureYear
                 record[keyTenureLength] = tenureLength
 
+                dotIndex = record[keyAreaSqm].find(".") - 1
+                if dotIndex >= 0:
+                    record[keyAreaSqm] = record[keyAreaSqm][:dotIndex]
+
                 record[keyFloorAreaLower] = math.floor(int(record[keyAreaSqm]) / 10) * 10
                 record[keyFloorAreaUpper] = math.ceil(int(record[keyAreaSqm]) / 10) * 10
 
-                record[keySaleYear] = record[keyDateOfSale][-4:]
+                record[keySaleYear] = "20" + record[keyDateOfSale][-2:]
+                record[keyDateOfSale] = record[keyDateOfSale][:4] + record[keySaleYear]
         else:  # __data_type == 1:
-            headers.remove(keySN)
             headers.append(keyYearlyGrossRent)
             headers.append(keyFloorAreaLower)
             headers.append(keyFloorAreaUpper)
             headers.append(keyLeaseYear)
 
             for record in records:
-                del record[keySN]
-
                 record[keyYearlyGrossRent] = int(record[keyMonthlyGrossRent]) * 12
 
                 floorAreaSqm = record[keyFloorAreaSqm]
@@ -102,7 +105,8 @@ def process_inventory_list():
                     midIndex = midIndex + 4
                     record[keyFloorAreaUpper] = floorAreaSqm[midIndex:]
 
-                record[keyLeaseYear] = record[keyLeaseCommencementDate][-4:]
+                record[keyLeaseYear] = "20" + record[keyLeaseCommencementDate][-2:]
+                record[keyLeaseCommencementDate] = record[keyLeaseCommencementDate][:4] + record[keyLeaseYear]
 
         print("Process inventory list: ok.")
     except Exception as e:
