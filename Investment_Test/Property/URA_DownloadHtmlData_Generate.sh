@@ -10,11 +10,11 @@ TO_PERIOD=$4
 OUTPUT_FOLDER=$5
 OUTPUT_FILE_PREFIX=$6
 
+echo "------------------------------------------------------------"
 echo "DATA_TYPE = "$DATA_TYPE
 echo "PROPERTY_TYPE = "$PROPERTY_TYPE
 echo "FROM_PERIOD = "$FROM_PERIOD
 echo "TO_PERIOD = "$TO_PERIOD
-echo "POSTAL_DISTRICT_LIST = "$POSTAL_DISTRICT_LIST
 echo "OUTPUT_FILE_PREFIX = "$OUTPUT_FILE_PREFIX
 
 if [ $DATA_TYPE != "transaction" ]; then
@@ -74,7 +74,7 @@ make_form_data_full()
 echo "#!/bin/bash" > ${OUTPUT_FOLDER}/${OUTPUT_FILE_PREFIX}.sh
 echo >> ${OUTPUT_FOLDER}/${OUTPUT_FILE_PREFIX}.sh
 N=1
-for postal_code_list in "1 2 3 4 5" "6 7 8 9 10" "11 12 13 14 15" "16 17 18 19 20" "21 22 23 24 25" "26 27 28"
+for postal_code_list in "01 02 03 04 05" "06 07 08 09 10" "11 12 13 14 15" "16 17 18 19 20" "21 22 23 24 25" "26 27 28"
 do
 	JSESSIONID=$(curl -sSI "https://www.ura.gov.sg/realEstateIIWeb/${DATA_TYPE}/search.action" --compressed | grep JSESSIONID | cut -d' ' -f2 | cut -d= -f2 | tr -d ';')
 	echo "JSESSIONID = "$JSESSIONID
@@ -103,3 +103,5 @@ do
 
 	N=$(($N + 1))
 done
+
+echo "------------------------------------------------------------"

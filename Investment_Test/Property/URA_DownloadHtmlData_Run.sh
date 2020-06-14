@@ -1,24 +1,38 @@
 #!/bin/bash
 
-DATE_RANGE_A="201706_202005"
-DATE_RANGE_B="201706-202005"
+FROM_DATE=$1
+TO_DATE=$2
+FROM_PERIOD=$3
+TO_PERIOD=$4
+
+DATE_RANGE_A="${FROM_DATE}_${TO_DATE}"
+DATE_RANGE_B="${FROM_DATE}_${TO_DATE}"
 BASE_FOLDER="./HtmlData_${DATE_RANGE_A}"
-FROM_PERIOD="JUN 2017"
-TO_PERIOD="MAY 2020"
 TRANS_FILE_PREFIX="URA_CondoEcTrans_${DATE_RANGE_B}_"
 RENT_FILE_PREFIX="URA_CondoEcRent_${DATE_RANGE_B}_"
 
+CURRENT_FOLDER=$(pwd)
+
+echo "================================================================================"
 # Generate download scripts.
 echo "Date: "$(date +"%FT%T%z")
+echo "DATE_RANGE_A = "$DATE_RANGE_A
+echo "DATE_RANGE_B = "$DATE_RANGE_B
+echo "TRANS_FILE_PREFIX = "$TRANS_FILE_PREFIX
+echo "RENT_FILE_PREFIX = "$RENT_FILE_PREFIX
+echo "CURRENT_FOLDER = "$CURRENT_FOLDER
+echo
 echo "Generate download scripts ..."
 
-./URA_DownloadHtmlData_Generate.sh transaction ac "${FROM_PERIOD}" "${TO_PERIOD}" ${BASE_FOLDER} "${TRANS_FILE_PREFIX}A" &
+mkdir -p ${BASE_FOLDER}
+
+${CURRENT_FOLDER}/URA_DownloadHtmlData_Generate.sh transaction ac "${FROM_PERIOD}" "${TO_PERIOD}" ${BASE_FOLDER} "${TRANS_FILE_PREFIX}A" &
 pids[1]=$!
-./URA_DownloadHtmlData_Generate.sh transaction ec "${FROM_PERIOD}" "${TO_PERIOD}" ${BASE_FOLDER} "${TRANS_FILE_PREFIX}B" &
+${CURRENT_FOLDER}/URA_DownloadHtmlData_Generate.sh transaction ec "${FROM_PERIOD}" "${TO_PERIOD}" ${BASE_FOLDER} "${TRANS_FILE_PREFIX}B" &
 pids[2]=$!
-./URA_DownloadHtmlData_Generate.sh resiRental ac "${FROM_PERIOD}" "${TO_PERIOD}" ${BASE_FOLDER} "${RENT_FILE_PREFIX}A" &
+${CURRENT_FOLDER}/URA_DownloadHtmlData_Generate.sh resiRental ac "${FROM_PERIOD}" "${TO_PERIOD}" ${BASE_FOLDER} "${RENT_FILE_PREFIX}A" &
 pids[3]=$!
-./URA_DownloadHtmlData_Generate.sh resiRental ec "${FROM_PERIOD}" "${TO_PERIOD}" ${BASE_FOLDER} "${RENT_FILE_PREFIX}B" &
+${CURRENT_FOLDER}/URA_DownloadHtmlData_Generate.sh resiRental ec "${FROM_PERIOD}" "${TO_PERIOD}" ${BASE_FOLDER} "${RENT_FILE_PREFIX}B" &
 pids[4]=$!
 
 # Wait for all pids.
@@ -31,12 +45,13 @@ echo "All PIDs completed."
 
 echo "All download scripts generated."
 
+echo "------------------------------------------------------------"
 # Run download scripts.
 echo "Date: "$(date +"%FT%T%z")
 echo "Run download scripts ..."
 
-CURRENT_FOLDER=$(pwd)
 cd ./${BASE_FOLDER}
+echo "CURRENT_FOLDER = "$(pwd)
 
 ./${TRANS_FILE_PREFIX}A.sh &
 pids[1]=$!
@@ -59,3 +74,4 @@ cd ${CURRENT_FOLDER}
 
 echo "All download scripts completed."
 echo "Date: "$(date +"%FT%T%z")
+echo "================================================================================"

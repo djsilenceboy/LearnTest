@@ -1,3 +1,25 @@
-python F:\WorkDJS\RepositoryGit\LearnTest\Python_Test\PyDataMiningSample\com\djs\learn\ura\PreprocessData.py -d 0 -i ".\ProcessedData_201706_202005\URA_CondoEcTrans_201706-202005_M.csv" -o ".\ProcessedData_201706_202005\URA_CondoEcTrans_201706-202005_MP.csv"
+set DATE_RANGE=%1_%2
+set APP_FOLDER=F:\WorkDJS\RepositoryGit\LearnTest\Python_Test\PyDataMiningSample\com\djs\learn\ura
+set DATA_FOLDER=.\ProcessedData_%DATE_RANGE%
 
-python F:\WorkDJS\RepositoryGit\LearnTest\Python_Test\PyDataMiningSample\com\djs\learn\ura\PreprocessData.py -d 1 -i ".\ProcessedData_201706_202005\URA_CondoEcRent_201706-202005_M.csv" -o ".\ProcessedData_201706_202005\URA_CondoEcRent_201706-202005_MP.csv"
+echo ================================================================================
+date /T
+time /T
+echo "DATE_RANGE = "%DATE_RANGE%
+echo "APP_FOLDER = "%APP_FOLDER%
+echo "DATA_FOLDER = "%DATA_FOLDER%
+echo
+
+md %OUTPUT_FOLDER%
+echo "Start preprocessing data ..."
+
+echo ------------------------------------------------------------
+python %APP_FOLDER%\PreprocessData.py -d 0 -i "%DATA_FOLDER%\URA_CondoEcTrans_%DATE_RANGE%_M.csv" -o "%DATA_FOLDER%\URA_CondoEcTrans_%DATE_RANGE%_MP.csv"
+echo ------------------------------------------------------------
+python %APP_FOLDER%\PreprocessData.py -d 1 -i "%DATA_FOLDER%\URA_CondoEcRent_%DATE_RANGE%_M.csv" -o "%DATA_FOLDER%\URA_CondoEcRent_%DATE_RANGE%_MP.csv"
+echo ------------------------------------------------------------
+
+date /T
+time /T
+echo "Preprocess data completed."
+echo ================================================================================

@@ -69,6 +69,9 @@ def process_inventory_list():
                 if record[keyTenure] == "Freehold":
                     tenureYear = "0"
                     tenureLength = "9999"
+                elif record[keyTenure] == "NA":
+                    tenureYear = "0"
+                    tenureLength = "99"
                 else:
                     tenure = record[keyTenure]
                     tenureYear = tenure[-4:]
