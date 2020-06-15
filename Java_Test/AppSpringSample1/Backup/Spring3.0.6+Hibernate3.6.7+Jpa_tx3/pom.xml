@@ -88,7 +88,7 @@
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
 			<!-- 3.1 is ok, just because we have already used 3.2. -->
-			<version>3.2</version>
+			<version>3.2.2</version>
 		</dependency>
 
 		<dependency>
