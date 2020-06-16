@@ -1,9 +1,8 @@
 '''
-Convert table data from html to CSV.
+Merge raw data in CSV.
 
 Update log: (date / version / author : comments)
-2020-06-13 / 1.0.0 / Du Jiang : Creation
-                                Support Transaction and Rental data
+2020-06-16 / 1.0.0 / Du Jiang : Creation
 '''
 
 import csv
@@ -11,8 +10,6 @@ import getopt
 import os
 import sys
 from time import localtime, strftime, time
-
-from bs4 import BeautifulSoup
 
 # Global variables.
 # The value can be updated by command line options.
@@ -25,7 +22,7 @@ def getDafaFileList():
     expected_file_list = []
     full_file_list = os.listdir(__input_folder_path)
     for file_name in full_file_list:
-        if file_name.startswith(__input_file_prefix) and file_name.endswith(".html"):
+        if file_name.startswith(__input_file_prefix) and file_name.endswith(".csv"):
             expected_file_list.append(file_name)
     print("expected_file_list =", expected_file_list)
     return expected_file_list
@@ -40,68 +37,25 @@ def process_inventory_list():
 
     headers = []
     records = []
-    field_count = -1
     try:
         print("-" * 80)
         for file_name in file_list:
             file_path = os.path.join(__input_folder_path, file_name)
-            print("HTML data file =", file_path)
+            print("Raw data file =", file_path)
             with open(file_path, "r") as file:
-                html_data = file.read()
-
-            print("HTML data size =", len(html_data))
-            document = BeautifulSoup(html_data, "html.parser")
-            print("HTML title =", document.title)
-
-            table = document.find("table")
-            if table is None:
-                raise Exception("Cannot find any table.")
-
-            # Only need to get hearders once from thr first file.
-            if len(headers) == 0:
-                thead = table.find("thead")
-                if thead is None:
-                    raise Exception("Cannot find any thead.")
-                tr = thead.find("tr")
-                if tr is None:
-                    raise Exception("Cannot find any thead.tr.")
-                th_list = tr.find_all("th")
-                if len(th_list) == 0:
-                    raise Exception("Cannot find any thead.tr.th.")
-                for th in th_list:
-                    field = th.find("span", {"class": "thHeading"})
-                    field_name = field.get_text().replace("\t", "").replace("\n", " ").strip()
-                    field_name = ' '.join(field_name.split())
-                    field_name = field_name.encode('ascii', errors = 'ignore').decode()
-                    headers.append(field_name)
-                field_count = len(headers)
-                print("field_count =", field_count)
-
-            tbody = table.find("tbody")
-            if tbody is None:
-                raise Exception("Cannot find any tbody.")
-            tr_list = tbody.find_all("tr")
-            if tr_list is not None:
-                temp_records = []
-                for tr in tr_list:
-                    td_list = tr.find_all("td")
-                    if len(td_list) < field_count:
-                        raise Exception("Cannot find enough tbody.tr.td.")
-                    record = []
-                    for td in td_list:
-                        field_value = td.get_text().replace("\t", "").replace("\n", " ").replace(",", "").strip()
-                        field_value = ' '.join(field_value.split())
-                        field_value = field_value.encode('ascii', errors = 'ignore').decode()
-                        if field_value == "-":
-                            field_value = ""
-                        elif  field_value == "na*":
-                            field_value = "0"
-                        record.append(field_value)
-                    temp_records.append(record)
-                print("Records from file =", len(temp_records))
+                # Read file as dict.
+                reader = csv.reader(file)
+                # Read header line.
+                if len(headers) == 0:
+                    headers = next(reader)
+                else:
+                    next(reader)
+                # Read records into a list of list.
+                temp_records = [line for line in reader]
+                print("Records =", len(temp_records))
                 records.extend(temp_records)
-            print("Total records =", len(records))
 
+            print("Total records =", len(records))
             print("-" * 80)
 
         print("Process inventory list: ok.")
@@ -144,7 +98,7 @@ def process_inventory_list():
 
 def usage():
     print('''
-Convert table data from html to CSV.
+Merge raw data in CSV.
 
 Usage:
 -h
@@ -153,7 +107,7 @@ Usage:
 Options:
 -h : Show help.
 -p <FilePath> : Source data file path. Compulsory.
--i <FileNamePrefix> : Source data file name prefix (HTML). Compulsory.
+-i <FileNamePrefix> : Source data file name prefix (CSV). Compulsory.
 -o <FilePath> : Result output file path (CSV). Optional, output to screen by default.
 ''')
 

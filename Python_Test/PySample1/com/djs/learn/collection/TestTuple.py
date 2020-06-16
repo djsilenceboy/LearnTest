@@ -35,9 +35,14 @@ print(apple, orange, bananas)
 
 print("-" * 40)
 
+fruits = ['avacados', 'bananas', 'oranges', 'grapes', 'managos']
+print("fruits =", fruits)
+fruits_tuple = tuple(fruits)
+print("fruits_tuple =", fruits_tuple)
+fruits_list = list(fruits_tuple)
+print("fruits_list =", fruits_list)
 
 print("-" * 40)
-
 
 if __name__ == '__main__':
     pass

@@ -52,6 +52,16 @@ print("letters2 =", letters2)
 letters2.add('Y')
 print("letters2 =", letters2)
 
+print("-" * 40)
+
+a_list_of_list = [[1, 2, 3], [1, 2, 3], [2, 3, 4], [2, 3, 4]]
+print("a_list_of_list =", a_list_of_list)
+# List cannot be hashed. Thus cannot be item of set.
+a_set_of_tuple = {tuple(item) for item in a_list_of_list}
+print("a_set_of_tuple =", a_set_of_tuple)
+an_unique_list_of_list = [list(item) for item in a_set_of_tuple]
+print("an_unique_list_of_list =", an_unique_list_of_list)
+
 print("-------------------- Dict --------------------")
 
 blank_dict1 = {}
@@ -63,9 +73,15 @@ print("blankDict 2 dict() =", blank_dict2)
 print("-" * 40)
 
 animals = {'Cat': 1, 'Dog': 2, 'Chicken': 3}
-animals2 = dict(Cat=1, Dog=2, Chicken=3)
+animals2 = dict(Cat = 1, Dog = 2, Chicken = 3)
 print("animals {} =", animals)
 print("animals2 dict() =", animals2)
+
+print("-" * 40)
+
+animal_unique = animals.copy()
+animal_unique.update(animals2)
+print("animal_unique {} =", animal_unique)
 
 print("-" * 40)
 
@@ -80,7 +96,6 @@ print("animals {} =", animals)
 animals_copy = animals
 animals_copy.update({"Lion": 6})
 print("animals {} =", animals)
-
 
 print("-" * 40)
 
