@@ -2,7 +2,8 @@
 
 # DATA_TYPE: [transaction, resiRental]
 DATA_TYPE=$1
-# PROPERTY_TYPE: [ac, ec]
+# PROPERTY_TYPE: [ac, ec, lp, sl]
+# "sl" only for transaction.
 PROPERTY_TYPE=$2
 # FROM_PERIOD / TO_PERIOD: Format like "JAN-2020"
 FROM_PERIOD=$3
@@ -17,21 +18,25 @@ echo "FROM_PERIOD = "$FROM_PERIOD
 echo "TO_PERIOD = "$TO_PERIOD
 echo "OUTPUT_FILE_PREFIX = "$OUTPUT_FILE_PREFIX
 
-if [ $DATA_TYPE != "transaction" ]; then
-	if [ $DATA_TYPE != "resiRental" ]; then
+if [ "$DATA_TYPE" != "transaction" ]; then
+	if [ "$DATA_TYPE" != "resiRental" ]; then
 		echo "Error: DATA_TYPE wrong!"
 		exit -1
 	fi
 fi
 
-if [ $PROPERTY_TYPE != "ac" ]; then
-	if [ $PROPERTY_TYPE != "ec" ]; then
-		echo "Error: PROPERTY_TYPE wrong!"
-		exit -1
+if [ "$PROPERTY_TYPE" != "ac" ]; then
+	if [ "$PROPERTY_TYPE" != "ec" ]; then
+		if [ "$PROPERTY_TYPE" != "lp" ]; then
+			if [ "$PROPERTY_TYPE" != "sl" ]; then
+				echo "Error: PROPERTY_TYPE wrong!"
+				exit -1
+			fi
+		fi
 	fi
 fi
 
-if [ $DATA_TYPE == "transaction" ]; then
+if [ "$DATA_TYPE" == "transaction" ]; then
 	FROM_PERIOD=${FROM_PERIOD// /+}
 	TO_PERIOD=${TO_PERIOD// /+}
 else
@@ -64,7 +69,7 @@ make_form_data_full()
 {
 	L_FORM_DATA_POSTAL_LIST=$1
 	if [ $DATA_TYPE == "transaction" ]; then
-		L_FORM_DATA_FULL="submissionType=pd&selectedFromPeriodProjectName=${FROM_PERIOD}&selectedToPeriodProjectName=${TO_PERIOD}&__multiselect_selectedProjects1=&selectedFromPeriodPostalDistrict=${FROM_PERIOD}&selectedToPeriodPostalDistrict=${TO_PERIOD}&propertyType=${PROPERTY_TYPE}&saleTypePD=3&postalDistrictList=28${L_FORM_DATA_POSTAL_LIST}&__multiselect_selectedPostalDistricts1="
+		L_FORM_DATA_FULL="submissionType=pd&selectedFromPeriodProjectName=${FROM_PERIOD}&selectedToPeriodProjectName=${TO_PERIOD}&__multiselect_selectedProjects1=&selectedFromPeriodPostalDistrict=${FROM_PERIOD}&selectedToPeriodPostalDistrict=${TO_PERIOD}&propertyType=${PROPERTY_TYPE}&saleTypePD=1&saleTypePD=2&saleTypePD=3&postalDistrictList=28${L_FORM_DATA_POSTAL_LIST}&__multiselect_selectedPostalDistricts1="
 	else
 		L_FORM_DATA_FULL="submissionType=pd&from_Date_Prj=${FROM_PERIOD}&to_Date_Prj=${TO_PERIOD}&__multiselect_selectedProjects=&from_Date=${FROM_PERIOD}&to_Date=${TO_PERIOD}&propertyType=${PROPERTY_TYPE}&postalDistrictList=28${L_FORM_DATA_POSTAL_LIST}&__multiselect_selectedPostalDistricts="
 	fi

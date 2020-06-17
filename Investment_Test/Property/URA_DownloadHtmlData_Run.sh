@@ -30,10 +30,16 @@ ${CURRENT_FOLDER}/URA_DownloadHtmlData_Generate.sh transaction ac "${FROM_PERIOD
 pids[1]=$!
 ${CURRENT_FOLDER}/URA_DownloadHtmlData_Generate.sh transaction ec "${FROM_PERIOD}" "${TO_PERIOD}" ${BASE_FOLDER} "${TRANS_FILE_PREFIX}B" &
 pids[2]=$!
-${CURRENT_FOLDER}/URA_DownloadHtmlData_Generate.sh resiRental ac "${FROM_PERIOD}" "${TO_PERIOD}" ${BASE_FOLDER} "${RENT_FILE_PREFIX}A" &
+${CURRENT_FOLDER}/URA_DownloadHtmlData_Generate.sh transaction lp "${FROM_PERIOD}" "${TO_PERIOD}" ${BASE_FOLDER} "${TRANS_FILE_PREFIX}C" &
 pids[3]=$!
-${CURRENT_FOLDER}/URA_DownloadHtmlData_Generate.sh resiRental ec "${FROM_PERIOD}" "${TO_PERIOD}" ${BASE_FOLDER} "${RENT_FILE_PREFIX}B" &
+${CURRENT_FOLDER}/URA_DownloadHtmlData_Generate.sh transaction sl "${FROM_PERIOD}" "${TO_PERIOD}" ${BASE_FOLDER} "${TRANS_FILE_PREFIX}D" &
 pids[4]=$!
+${CURRENT_FOLDER}/URA_DownloadHtmlData_Generate.sh resiRental ac "${FROM_PERIOD}" "${TO_PERIOD}" ${BASE_FOLDER} "${RENT_FILE_PREFIX}A" &
+pids[5]=$!
+${CURRENT_FOLDER}/URA_DownloadHtmlData_Generate.sh resiRental ec "${FROM_PERIOD}" "${TO_PERIOD}" ${BASE_FOLDER} "${RENT_FILE_PREFIX}B" &
+pids[6]=$!
+${CURRENT_FOLDER}/URA_DownloadHtmlData_Generate.sh resiRental lp "${FROM_PERIOD}" "${TO_PERIOD}" ${BASE_FOLDER} "${RENT_FILE_PREFIX}C" &
+pids[7]=$!
 
 # Wait for all pids.
 for pid in ${pids[*]}
@@ -57,10 +63,16 @@ echo "CURRENT_FOLDER = "$(pwd)
 pids[1]=$!
 ./${TRANS_FILE_PREFIX}B.sh &
 pids[2]=$!
-./${RENT_FILE_PREFIX}A.sh &
+./${TRANS_FILE_PREFIX}C.sh &
 pids[3]=$!
-./${RENT_FILE_PREFIX}B.sh &
+./${TRANS_FILE_PREFIX}D.sh &
 pids[4]=$!
+./${RENT_FILE_PREFIX}A.sh &
+pids[5]=$!
+./${RENT_FILE_PREFIX}B.sh &
+pids[6]=$!
+./${RENT_FILE_PREFIX}C.sh &
+pids[7]=$!
 
 # Wait for all pids.
 for pid in ${pids[*]}
