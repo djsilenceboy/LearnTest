@@ -16,6 +16,7 @@ echo "DATA_TYPE = "$DATA_TYPE
 echo "PROPERTY_TYPE = "$PROPERTY_TYPE
 echo "FROM_PERIOD = "$FROM_PERIOD
 echo "TO_PERIOD = "$TO_PERIOD
+echo "OUTPUT_FOLDER = "$OUTPUT_FOLDER
 echo "OUTPUT_FILE_PREFIX = "$OUTPUT_FILE_PREFIX
 
 if [ "$DATA_TYPE" != "transaction" ]; then
@@ -82,12 +83,12 @@ N=1
 for postal_code_list in "01 02 03 04 05" "06 07 08 09 10" "11 12 13 14 15" "16 17 18 19 20" "21 22 23 24 25" "26 27 28"
 do
 	JSESSIONID=$(curl -sSI "https://www.ura.gov.sg/realEstateIIWeb/${DATA_TYPE}/search.action" --compressed | grep JSESSIONID | cut -d' ' -f2 | cut -d= -f2 | tr -d ';')
-	echo "JSESSIONID = "$JSESSIONID
+	echo $N": JSESSIONID = "$JSESSIONID
 
 	ACTION_URL_SQF="https://www.ura.gov.sg/realEstateIIWeb/${DATA_TYPE}/submitSearch.action;jsessionid=${JSESSIONID}"
-	echo "ACTION_URL_SQF = "$ACTION_URL_SQF
+	echo $N": ACTION_URL_SQF = "$ACTION_URL_SQF
 	ACTION_URL_SQM="https://www.ura.gov.sg/realEstateIIWeb/${DATA_TYPE}/changeDisplayUnit.action"
-	echo "ACTION_URL_SQM = "$ACTION_URL_SQM
+	echo $N": ACTION_URL_SQM = "$ACTION_URL_SQM
 
 	FORM_DATA_POSTAL_LIST=$(make_form_data_postal_list ${postal_code_list})
 	echo $N": FORM_DATA_POSTAL_LIST = "$FORM_DATA_POSTAL_LIST

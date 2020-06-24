@@ -18,6 +18,7 @@ echo "==========================================================================
 echo "Date: "$(date +"%FT%T%z")
 echo "DATE_RANGE_A = "$DATE_RANGE_A
 echo "DATE_RANGE_B = "$DATE_RANGE_B
+echo "BASE_FOLDER = "$BASE_FOLDER
 echo "TRANS_FILE_PREFIX = "$TRANS_FILE_PREFIX
 echo "RENT_FILE_PREFIX = "$RENT_FILE_PREFIX
 echo "CURRENT_FOLDER = "$CURRENT_FOLDER
