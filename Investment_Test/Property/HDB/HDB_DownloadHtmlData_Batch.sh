@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DATE_RANGE=12
-DATE_TAG="201907_202006"
+DATE_TAG=$(date +"%Y%m%d")_${DATE_RANGE}m
 
 CURRENT_FOLDER=$(pwd)
 CURRENT_NAME=$(basename $0)

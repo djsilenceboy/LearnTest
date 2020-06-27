@@ -1,0 +1,10 @@
+================================================================================
+HDB_TRANS_HIST
+------------------------------------------------------------
+Find average price for same floor range in same project.
+
+SELECT STREET_NAME, BLOCK, LEASE_DATE, FLAT_MODEL, FLOOR_AREA_LOWER, CAST(ROUND(AVG(UNIT_PRICE)) AS INTEGER) AS UNIT_PRICE_AVG
+FROM HDB_TRANS_HIST
+GROUP BY STREET_NAME, BLOCK, LEASE_DATE, FLAT_MODEL, FLOOR_AREA_LOWER
+ORDER BY STREET_NAME, BLOCK, LEASE_DATE, FLAT_MODEL, FLOOR_AREA_LOWER, UNIT_PRICE_AVG;
+================================================================================

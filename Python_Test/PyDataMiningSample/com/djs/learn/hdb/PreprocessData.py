@@ -1,9 +1,9 @@
 '''
-Preprocess URA merged data.
+Preprocess HDB merged data.
 
 Update log: (date / version / author : comments)
-2020-06-06 / 1.0.0 / Du Jiang : Creation
-                                Support Transaction and Rental data
+2020-06-27 / 1.0.0 / Du Jiang : Creation
+                                Support Transaction
 '''
 
 import csv
@@ -36,77 +36,30 @@ def process_inventory_list():
             records = [line for line in reader]
             print("Records =", len(records))
 
-        keyNettPrice = "Nett Price ($)"
-        keyTenure = "Tenure"
-        keyAreaSqm = "Area (Sqm)"
-        keyMonthlyGrossRent = "Monthly Rent ($)"
-        keyFloorAreaSqm = "Floor Area (Sqm) 1"
-        keyDateOfSale = "Date of Sale"
-        keyLeaseCommencementDate = "Lease Commencement Date"
+        keyFloorAreaFlatModel = "Floor Area (sqm) /Flat Model"
+        keyResalePrice = "Resale Price"
+        keyResaleRegistrationDate = "Resale Registration Date"
 
-        keyTenureYear = "Tenure Year"
-        keyTenureLength = "Tenure Length"
-        keyYearlyGrossRent = "Yearly Gross Rent($)"
-        keyFloorAreaLower = "Floor Area Lower (Sqm)"
-        keyFloorAreaUpper = "Floor Area Upper (Sqm)"
-        keySaleYear = "Sale Year"
-        keyLeaseYear = "Lease Year"
+        keyFlatModel = "Flat Model"
+        keyFloorArea = "Floor Area (sqm)"
+        keyFloorAreaLower = "Floor Area Lower (sqm)"
+        keyUnitPrice = "Unit Price"
+        keyResaleYear = "Resale Year"
 
         if __data_type == 0:
-            headers.remove(keyNettPrice)
-            headers.append(keyTenureYear)
-            headers.append(keyTenureLength)
+            headers.append(keyFlatModel)
+            headers.append(keyFloorArea)
             headers.append(keyFloorAreaLower)
-            headers.append(keyFloorAreaUpper)
-            headers.append(keySaleYear)
+            headers.append(keyUnitPrice)
+            headers.append(keyResaleYear)
 
             for record in records:
-                del record[keyNettPrice]
-
-                if record[keyTenure] == "Freehold":
-                    tenureYear = "0"
-                    tenureLength = "9999"
-                elif record[keyTenure] == "NA":
-                    tenureYear = "0"
-                    tenureLength = "99"
-                else:
-                    tenure = record[keyTenure]
-                    tenureYear = tenure[-4:]
-                    midIndex = tenure.find("yrs") - 1
-                    tenureLength = tenure[:midIndex]
-                record[keyTenureYear] = tenureYear
-                record[keyTenureLength] = tenureLength
-
-                dotIndex = record[keyAreaSqm].find(".") - 1
-                if dotIndex >= 0:
-                    record[keyAreaSqm] = record[keyAreaSqm][:dotIndex]
-
-                record[keyFloorAreaLower] = math.floor(int(record[keyAreaSqm]) / 10) * 10
-                record[keyFloorAreaUpper] = math.ceil(int(record[keyAreaSqm]) / 10) * 10
-
-                record[keySaleYear] = "20" + record[keyDateOfSale][-2:]
-                record[keyDateOfSale] = record[keyDateOfSale][:4] + record[keySaleYear]
-        else:  # __data_type == 1:
-            headers.append(keyYearlyGrossRent)
-            headers.append(keyFloorAreaLower)
-            headers.append(keyFloorAreaUpper)
-            headers.append(keyLeaseYear)
-
-            for record in records:
-                record[keyYearlyGrossRent] = int(record[keyMonthlyGrossRent]) * 12
-
-                floorAreaSqm = record[keyFloorAreaSqm]
-                if floorAreaSqm[:1] == ">":
-                    record[keyFloorAreaLower] = floorAreaSqm[1:]
-                    record[keyFloorAreaUpper] = floorAreaSqm[1:]
-                else:
-                    midIndex = floorAreaSqm.find("to") - 1
-                    record[keyFloorAreaLower] = floorAreaSqm[:midIndex]
-                    midIndex = midIndex + 4
-                    record[keyFloorAreaUpper] = floorAreaSqm[midIndex:]
-
-                record[keyLeaseYear] = "20" + record[keyLeaseCommencementDate][-2:]
-                record[keyLeaseCommencementDate] = record[keyLeaseCommencementDate][:4] + record[keyLeaseYear]
+                temp = record[keyFloorAreaFlatModel].split("/")
+                record[keyFlatModel] = temp[1]
+                record[keyFloorArea] = temp[0]
+                record[keyFloorAreaLower] = math.floor(float(record[keyFloorArea]) / 10) * 10
+                record[keyUnitPrice] = math.floor(int(record[keyResalePrice]) / float(record[keyFloorArea]))
+                record[keyResaleYear] = record[keyResaleRegistrationDate][-4:]
 
         print("Process inventory list: ok.")
     except Exception as e:
@@ -146,7 +99,7 @@ def process_inventory_list():
 
 def usage():
     print('''
-Preprocess URA merged data.
+Preprocess HDB merged data.
 
 Usage:
 -h
@@ -154,7 +107,7 @@ Usage:
 
 Options:
 -h : Show help.
--d <DataType> : Raw data type. Compulsory, Value [0: Transaction, 1: Rental].
+-d <DataType> : Raw data type. Compulsory, Value [0: Transaction].
 -i <FilePath> : Source data file path (CSV). Compulsory.
 -o <FilePath> : Result output file path (CSV). Optional, output to screen by default.
 ''')
@@ -222,7 +175,7 @@ def main(argv):
         if (__data_type is None) or (__input_file_path is None):
             __show_usage, __exit_code, __error_message = True, -\
                 4, "Missing compulsory command line option."
-        elif not (__data_type in [0, 1]):
+        elif not (__data_type in [0]):
             __show_usage, __exit_code, __error_message = True, -5, "Wrong value for -d."
 
     if not __show_usage:

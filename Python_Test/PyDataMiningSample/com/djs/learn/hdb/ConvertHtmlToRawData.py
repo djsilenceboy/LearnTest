@@ -2,8 +2,8 @@
 Convert table data from html to CSV.
 
 Update log: (date / version / author : comments)
-2020-06-13 / 1.0.0 / Du Jiang : Creation
-                                Support Transaction and Rental data
+2020-06-27 / 1.0.0 / Du Jiang : Creation
+                                Support Transaction
 '''
 
 import csv
@@ -53,13 +53,14 @@ def process_inventory_list():
             document = BeautifulSoup(html_data, "html.parser")
             print("HTML title =", document.title)
 
-            table = document.find("table")
-            if table is None:
-                raise Exception("Cannot find any table.")
+            header_table_section = document.find("table", {"id": "forLandscape"})
+            if header_table_section is None:
+                print("Empty data, skip.")
+                continue
 
             # Only need to get hearders once from thr first file.
             if len(headers) == 0:
-                thead = table.find("thead")
+                thead = header_table_section.find("thead")
                 if thead is None:
                     raise Exception("Cannot find any thead.")
                 tr = thead.find("tr")
@@ -69,7 +70,7 @@ def process_inventory_list():
                 if len(th_list) == 0:
                     raise Exception("Cannot find any thead.tr.th.")
                 for th in th_list:
-                    field = th.find("span", {"class": "thHeading"})
+                    field = th.find("label")
                     field_name = field.get_text().replace("\t", "").replace("\n", " ").strip()
                     field_name = ' '.join(field_name.split())
                     field_name = field_name.encode('ascii', errors = 'ignore').decode()
@@ -77,7 +78,15 @@ def process_inventory_list():
                 field_count = len(headers)
                 print("field_count =", field_count)
 
-            tbody = table.find("tbody")
+            data_table_section = document.find("div", {"class": "row show-for-medium-up"})
+            if data_table_section is None:
+                raise Exception("Cannot find any data_table_section.")
+
+            data_table = data_table_section.find("table")
+            if data_table is None:
+                raise Exception("Cannot find any data_table.")
+
+            tbody = data_table.find("tbody")
             if tbody is None:
                 raise Exception("Cannot find any tbody.")
             tr_list = tbody.find_all("tr")
@@ -90,12 +99,14 @@ def process_inventory_list():
                     record = []
                     for td in td_list:
                         field_value = td.get_text().replace("\t", "").replace("\n", " ").replace(",", "").strip()
+                        dot_index = field_value.find(".")
+                        if (dot_index > 0):
+                            if field_value[0] == "$":
+                                field_value = field_value[:dot_index].replace("$", "")
+                            else:
+                                field_value = field_value[:dot_index] + "/" + field_value[dot_index + 3:]
                         field_value = ' '.join(field_value.split())
                         field_value = field_value.encode('ascii', errors = 'ignore').decode()
-                        if field_value == "-":
-                            field_value = ""
-                        elif field_value == "na*":
-                            field_value = "0"
                         record.append(field_value)
                     temp_records.append(record)
                 print("Records from file =", len(temp_records))
