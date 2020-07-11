@@ -16,11 +16,14 @@ import sys
 from time import localtime, strftime, time
 
 import requests
+from statsmodels.sandbox.distributions.sppatch import _fitstart_poisson
 
 # Global variables.
 # The value can be updated by command line options.
 __data_type = None
 __output_file_path = None
+
+__PAGE_SIZE = 99
 
 
 def check_url(url):
@@ -59,22 +62,35 @@ def check_url(url):
 def parse_data(json_data):
     '''
     @param json_data : JSON data.
-    @return Header, a list of strings.
     @return Records, a list of lists.
+    @return Count of raw records.
     '''
-    FIELD_CATEGORY = "Category"
-    FIELD_TYPE = "Type"
-    FIELD_COUNT = "Count"
-    headers = [FIELD_CATEGORY, FIELD_TYPE, FIELD_COUNT]
     records = []
-
     game_list = json_data["included"]
-    for game in game_list:
-            temp_field_value = value["name"].encode('ascii', errors = 'ignore').decode()
-            record = [facet["name"], temp_field_value, value["count"]]
+
+    for game_info in game_list:
+        if game_info["type"] == "game":
+            game_details = game_info["attributes"]
+            if "skus" not in game_details:
+                continue
+            game_skus = game_details["skus"]
+            if len(game_skus) == 0:
+                continue
+            game_subname = game_skus[0]["name"].encode('ascii', errors = 'ignore').decode()
+            game_prices = game_skus[0]["prices"]
+            game_prices_plus = game_prices["plus-user"]
+            game_name = game_details["name"].encode('ascii', errors = 'ignore').decode()
+            platforms = "/".join(game_details["platforms"]).encode('ascii', errors = 'ignore').decode()
+            genres = "/".join(game_details["genres"]).encode('ascii', errors = 'ignore').decode()
+
+            record = [ game_name, game_subname, game_details["provider-name"], genres, platforms, game_details["release-date"],
+                    game_prices_plus["actual-price"]["display"], game_prices_plus["actual-price"]["value"], game_prices_plus["discount-percentage"],
+                    game_prices_plus["availability"]["start-date"] if game_prices_plus["discount-percentage"] > 0 else "",
+                    game_prices_plus["availability"]["end-date"] if game_prices_plus["discount-percentage"] > 0 else "",
+                    game_details["game-content-type"], game_info["id"], game_details["thumbnail-url-base"]]
             records.append(record)
 
-    return headers, records
+    return records, len(game_list)
 
 
 def process():
@@ -85,14 +101,30 @@ def process():
     url = "https://store.playstation.com/valkyrie-api/en/SG/19/container/STORE-MSF86012-GAMESALL?game_content_type=games%2Cbundles&sort=name&direction=asc"
     if __data_type == 1:
         url = url + "&platform=ps4"
-    url = url + "size={0}&start={1}"
+    url = url + "&size={0}&start={1}"
 
-    headers = []
+    headers = ["Name", "SubName", "Provider", "Genres", "Platforms", "ReleaseDate",
+            "DisplayPrice", "PriceValue", "DiscountPercent", "DiscountFromDate", "DiscountToDate",
+            "GameContentType", "SkuId", "GamePost"]
+
+    start_position = 0
+
     records = []
-    status_code, json_data = check_url(url)
-    if status_code == HTTPStatus.OK:
-        headers, records = parse_data(json_data)
+    while True:
+        temp_url = url.format(__PAGE_SIZE, start_position)
+        status_code, json_data = check_url(temp_url)
+        if status_code != HTTPStatus.OK:
+            raise Exception("Retrieve data failed at position {0}.".format(start_position))
 
+        temp_records, raw_count = parse_data(json_data)
+        records.extend(temp_records)
+        print("Position {0}: Retrieved size = {1}".format(start_position, len(temp_records)))
+
+        if raw_count < __PAGE_SIZE:
+            break
+        start_position += __PAGE_SIZE
+
+    print("Total retrieved size =", len(records))
     print("-" * 100)
 
     # If given __output_file_path, output to file; otherwise, output to

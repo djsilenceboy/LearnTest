@@ -62,10 +62,7 @@ def parse_data(json_data):
     @return Header, a list of strings.
     @return Records, a list of lists.
     '''
-    FIELD_CATEGORY = "Category"
-    FIELD_TYPE = "Type"
-    FIELD_COUNT = "Count"
-    headers = [FIELD_CATEGORY, FIELD_TYPE, FIELD_COUNT]
+    headers = ["Category", "Type", "Count"]
     records = []
 
     record = ["Total", "Total", json_data["data"]["attributes"]["total-results"]]

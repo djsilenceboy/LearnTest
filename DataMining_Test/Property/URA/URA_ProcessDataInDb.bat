@@ -10,7 +10,7 @@ echo "APP_FOLDER = "%APP_FOLDER%
 echo "DATA_FOLDER = "%DATA_FOLDER%
 echo
 
-md %OUTPUT_FOLDER%
+md %DATA_FOLDER%
 echo "Start process data in DB ..."
 
 echo ------------------------------------------------------------
