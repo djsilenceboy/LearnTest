@@ -2,7 +2,7 @@
 Retrieve game list (by Requests).
 
 Update log: (date / version / author : comments)
-2020-07-10 / 1.0.0 / Du Jiang : Creation
+2020-07-11 / 1.0.0 / Du Jiang : Creation
 
 Notes:
 1. It requires 3rd parth python lib (at least): requests.
@@ -11,85 +11,91 @@ Notes:
 import csv
 import getopt
 from http import HTTPStatus
-import json
 import sys
-from time import localtime, strftime, time
+from time import localtime, strftime, time, sleep
 
-import requests
+from bs4 import BeautifulSoup
+from hyper import HTTPConnection
 
 # Global variables.
 # The value can be updated by command line options.
 __data_type = None
+__max_pages = None
 __output_file_path = None
 
-__PAGE_SIZE = 99
+__PAGE_SIZE = 100
+__RETRY_MAX = 30
 
 
-def check_url(url):
+def check_url(main_url, path_url):
     '''
     Use requests to get URL, and return HTTP status code.
 
-    @param url: A string of URL.
+    @param main_url: hostname with port.
+    @param path_url: path url.
     @return: HTTP response status code, or None if request failed.
     @return: Parsed HTTP response, or None if request failed.
     '''
 
-    print("url =", url)
+    print("main_url =", main_url)
+    print("path_url =", path_url)
     status_code = None
-    json_data = None
+    table_sections = None
 
-    try:
-        response = requests.get(url, timeout = 10)
-        # print("response =", response)
-        print("response.status_code =", response.status_code)
+    for i in range(0, __RETRY_MAX):
+        print("Check url count = {0}".format(i))
+        try:
+            connection = HTTPConnection(main_url)
+            connection_id = connection.request('GET', path_url)
+            response = connection.get_response(connection_id)
+            print("response.status =", response.status)
 
-        if response.history:
-            status_code = HTTPStatus.OK
-            print("response.status_code (Due to redirected) =", status_code)
-        else:
-            status_code = response.status_code
-            response.raise_for_status()
+            status_code = response.status
+            if status_code != HTTPStatus.OK:
+                raise Exception("Retrieve data failed.")
 
-        json_data = json.loads(response.text)
-    except Exception as e:
-        print("Check url failed. Exception = {0}".format(e))
-        raise e
+            html_data = BeautifulSoup(response.read(), "html.parser")
+            print("HTML title =", html_data.title)
+            table_sections = html_data.find_all("table", {"class": "clamp-list condensed"})
+            print("Find table_sections =", len(table_sections))
+            if len(table_sections) < 4:
+                raise Exception("Retrieve data failed.")
 
-    return status_code, json_data
+            break
+        except Exception as e:
+            print("Check url failed, Count = {0}, Exception = {1}".format(i, e))
+            if i + 1 == __RETRY_MAX:
+                raise e
+            else:
+                sleep((i + 1) * 10)
+
+    return status_code, table_sections
 
 
-def parse_data(json_data):
+def parse_data(table_sections):
     '''
-    @param json_data : JSON data.
+    @param table_sections : HTML data.
     @return Records, a list of lists.
     @return Count of raw records.
     '''
     records = []
-    game_list = json_data["included"]
 
-    for game_info in game_list:
-        if game_info["type"] == "game":
-            game_details = game_info["attributes"]
-            if "skus" not in game_details:
-                continue
-            game_skus = game_details["skus"]
-            if len(game_skus) == 0:
-                continue
-            game_subname = game_skus[0]["name"].encode('ascii', errors = 'ignore').decode()
-            game_prices = game_skus[0]["prices"]
-            game_prices_plus = game_prices["plus-user"]
-            game_name = game_details["name"].encode('ascii', errors = 'ignore').decode()
-            platforms = "/".join(game_details["platforms"]).encode('ascii', errors = 'ignore').decode()
-            genres = "/".join(game_details["genres"]).encode('ascii', errors = 'ignore').decode()
-
-            record = [ game_name, game_subname, game_details["provider-name"], genres, platforms, game_details["release-date"],
-                    game_prices_plus["actual-price"]["display"], game_prices_plus["actual-price"]["value"], game_prices_plus["discount-percentage"],
-                    game_prices_plus["availability"]["start-date"] if game_prices_plus["discount-percentage"] > 0 else "",
-                    game_prices_plus["availability"]["end-date"] if game_prices_plus["discount-percentage"] > 0 else "",
-                    game_details["game-content-type"], game_info["id"], game_details["thumbnail-url-base"]]
+    for table_section in table_sections:
+        game_items = table_section.find_all("tr")
+        print("Find game_items =", len(game_items))
+        for game_item in game_items:
+            game_score_section = game_item.find("td", {"class": "score"})
+            game_details_section = game_item.find("td", {"class": "details"})
+            game_title_section = game_details_section.find("a", {"class": "title"})
+            game_platform_section = game_details_section.find("div", {"class": "platform"})
+            game_platform_data_section = game_platform_section.find("span", {"class": "data"})
+            game_score2_section = game_details_section.find("div", {"class": "score title"})
+            game_info_link = "https://www.metacritic.com" + game_title_section["href"]
+            record = [game_title_section.h3.text, game_platform_data_section.text.strip(),
+                      game_score_section.a.div.text, game_score2_section.div.text, game_info_link]
             records.append(record)
 
-    return records, len(game_list)
+    return records
 
 
 def process():
@@ -97,30 +103,29 @@ def process():
     time_str = strftime("%Y-%m-%d %H:%M:%S", localtime(time()))
     print("Start time =", time_str)
 
-    url = "https://store.playstation.com/valkyrie-api/en/SG/19/container/STORE-MSF86012-GAMESALL?game_content_type=games%2Cbundles&sort=name&direction=asc"
+    platform = "all"
     if __data_type == 1:
-        url = url + "&platform=ps4"
-    url = url + "&size={0}&start={1}"
+        platform = "ps4"
 
-    headers = ["Name", "SubName", "Provider", "Genres", "Platforms", "ReleaseDate",
-            "DisplayPrice", "PriceValue", "DiscountPercent", "DiscountFromDate", "DiscountToDate",
-            "GameContentType", "SkuId", "GamePost"]
+    main_url = "www.metacritic.com:443"
+    path_url = "/browse/games/score/metascore/all/{0}?view=condensed&page={1}"
+
+    headers = ["Name", "Platform", "MetaScore", "UserScore", "GameInfoLink"]
 
     records = []
-    start_position = 0
-    while True:
-        temp_url = url.format(__PAGE_SIZE, start_position)
-        status_code, json_data = check_url(temp_url)
-        if status_code != HTTPStatus.OK:
-            raise Exception("Retrieve data failed at position {0}.".format(start_position))
+    page_number = 0
+    while page_number < __max_pages:
+        try:
+            temp_path_url = path_url.format(platform, page_number)
+            status_code, table_sections = check_url(main_url, temp_path_url)
 
-        temp_records, raw_count = parse_data(json_data)
-        records.extend(temp_records)
-        print("Position {0}: Retrieved records = {1}".format(start_position, len(temp_records)))
-
-        if raw_count < __PAGE_SIZE:
+            temp_records = parse_data(table_sections)
+            records.extend(temp_records)
+            print("Page {0}: Retrieved records = {1}".format(page_number, len(temp_records)))
+            page_number += 1
+        except Exception as e:
+            print("Page {0}: Retrieved records failed. Exception = {1}".format(page_number, e))
             break
-        start_position += __PAGE_SIZE
 
     print("Total records =", len(records))
     print("-" * 100)
@@ -166,6 +171,7 @@ Usage:
 Options:
 -h : Show help.
 -d <DataType> : Data type. Compulsory, Value [0: All, 1: PS4 only].
+-p <MaxPages> : Max pages. Compulsory, Value [1, ).
 -o <file path> : Result output file path (CSV). Optional, output to screen by default.
 ''')
 
@@ -178,6 +184,7 @@ def main(argv):
     '''
 
     global __data_type
+    global __max_pages
     global __output_file_path
 
     print("argv =", argv)
@@ -193,7 +200,7 @@ def main(argv):
     # Parse command line.
     if not __show_usage:
         try:
-            opts, args = getopt.getopt(argv, "hd:o:")
+            opts, args = getopt.getopt(argv, "hd:p:o:")
             print("opts =", opts)
             print("args =", args)
         except Exception as e:
@@ -209,6 +216,8 @@ def main(argv):
                     __show_usage, __exit_code = True, 0
                 elif opt == "-d":
                     __data_type = int(arg)
+                elif opt == "-p":
+                    __max_pages = int(arg)
                 elif opt == "-o":
                     __output_file_path = arg
                 else:
@@ -221,15 +230,18 @@ def main(argv):
 
     print("show_usage =", __show_usage)
     print("data_type =", __data_type)
+    print("__max_pages =", __max_pages)
     print("output_file_path", __output_file_path)
 
     # Check options are valid.
     if not __show_usage:
-        if (__data_type is None):
+        if (__data_type is None) or (__max_pages is None):
             __show_usage, __exit_code, __error_message = True, -\
                 4, "Missing compulsory command line option."
         elif (__data_type < 0) or (__data_type > 1):
             __show_usage, __exit_code, __error_message = True, -5, "Wrong value for -d."
+        elif __max_pages <= 0:
+            __show_usage, __exit_code, __error_message = True, -5, "Wrong value for -p."
 
     if not __show_usage:
         process()

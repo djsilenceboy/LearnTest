@@ -161,14 +161,12 @@ def check_url(url):
                 except Exception:
                     raise Exception("Cannot find currency_name_info_section.")
 
-            print("Check url: Count {0}: url = {1}".format(
-                i, url))
+            print("Check url: Count {0}: url = {1}".format(i, url))
 
             # It is ok, no need retry.
             break
         except Exception as e:
-            print("Check url: Count {0}: Exception = {1}".format(
-                i, e))
+            print("Check url: Count {0}: Exception = {1}".format(i, e))
             # If reach max try.
             if (i + 1) == __Constants.WAIT_PAGE_LOAD_MAX_TRY:
                 raise e

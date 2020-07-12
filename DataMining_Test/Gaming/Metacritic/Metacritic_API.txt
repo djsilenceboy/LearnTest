@@ -1,0 +1,61 @@
+================================================================================
+Metacritic Game Score List
+------------------------------------------------------------
+https://www.metacritic.com/browse/games/score
+================================================================================
+
+================================================================================
+Rest API
+------------------------------------------------------------
+Request URL: https://www.metacritic.com/browse/games/score/<ScoreType>/<TimeRange>/<Platform>?<QueryParams>
+             https://www.metacritic.com/browse/games/score/<ScoreType>/<TimeRange>/<Platform>/filtered?<QueryParams>
+Request Method: GET
+
+ScoreType: [metascore, userscore]
+TimeRange: [all, 90day]; only for metascore [year]
+Platform: [all, ps4, xboxone, switch, pc, (etc)]
+================================================================================
+Query parameters
+------------------------------------------------------------
+page: [0, ). Default value is "0".
+sort: [asc, desc]. Default value is "desc".
+view: [condensed, detailed]. Default value is "detailed".
+----------------------------------------
+Optional:
+
+year_selected: [yyyy]. Default value is current year. Only available for "year" TimeRange for "metascore" ScoreType.
+================================================================================
+Full Sample
+
+curl 'https://www.metacritic.com/browse/games/score/metascore/all/ps4?view=condensed' \
+  -H 'authority: www.metacritic.com' \
+  -H 'upgrade-insecure-requests: 1' \
+  -H 'user-agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36' \
+  -H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \
+  -H 'sec-fetch-site: none' \
+  -H 'sec-fetch-mode: navigate' \
+  -H 'sec-fetch-user: ?1' \
+  -H 'sec-fetch-dest: document' \
+  -H 'accept-language: en-US,en;q=0.9' \
+  -H 'cookie: mc_s_s=b_3; __utma=15671338.1131371712.1594518936.1594518936.1594518936.1; __utmc=15671338; __utmz=15671338.1594518936.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); _cb_ls=1; _cb=BrVBfQCDEjxJCp6Ek-; _cb_svref=null; AMCVS_10D31225525FF5790A490D4D%40AdobeOrg=1; s_ecid=MCMID%7C02921453583809582851119107288579218819; s_vnum=1597110937209%26vn%3D1; s_invisit=true; s_lv_undefined_s=First%20Visit; s_cc=true; trc_cookie_storage=taboola%2520global%253Auser-id%3D7c1aebab-da48-4c7e-8c64-94e51958b30e-tuct34fc9b9; XCLGFbrowser=XknwEV8KbZrEhUrq6vw; LDCLGFbrowser=f238bc3e-7163-44d4-a224-566dbf56a61c; aam_uuid=03136712478981015571139503988379179259; __gads=ID=6b28c56452890106:T=1594518938:S=ALNI_MZY3zdmke3QdoenCJO5vp5DpSITzQ; _ga=GA1.2.1131371712.1594518936; _gid=GA1.2.216714173.1594518938; OX_plg=pm; _v__chartbeat3=CvLjS_WCe7FC29ndW; AMCV_10D31225525FF5790A490D4D%40AdobeOrg=1585540135%7CMCIDTS%7C18456%7CMCMID%7C02921453583809582851119107288579218819%7CMCAAMLH-1595124758%7C3%7CMCAAMB-1595124758%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1594527158s%7CNONE%7CMCAID%7CNONE%7CvVersion%7C4.4.0; prevPageType=list_page; _tb_sess_r=https%3A//www.metacritic.com/browse/games/score/metascore/year/ps4/filtered%3Fyear_selected%3D2019%26distribution%3D%26sort%3Ddesc%26view%3Ddetailed; __utmt=1; GED_PLAYLIST_ACTIVITY=W3sidSI6InRBdlEiLCJ0c2wiOjE1OTQ1MjE1ODcsIm52IjowLCJ1cHQiOjE1OTQ1MTkxOTcsImx0IjoxNTk0NTE5MTk3fV0.; _v__cb_cp=DugwmRDEATJYBe5Ll3Dfb7uaD2o8vG,DCKwp8CWHuhhDNFXFOC-wETXf26l8,CIOW03OyP0WCdTsz8D6NCZvS_VC2; metapv=31; _BB.bs=b|3; _BB.d=1||; OptanonConsent=isIABGlobal=false&datestamp=Sun+Jul+12+2020+10%3A40%3A03+GMT%2B0800+(Singapore+Standard+Time)&version=6.1.0&consentId=35fe8579-2364-495c-b408-855b68826818&interactionCount=0&landingPath=NotLandingPage&groups=1%3A1%2C2%3A1%2C3%3A1%2C4%3A1%2C5%3A1&hosts=&legInt=&AwaitingReconsent=false&geolocation=SG%3B; OptanonAlertBoxClosed=2020-07-12T02:40:03.237Z; __utmb=15671338.31.10.1594518936; _chartbeat2=.1594518936755.1594521603723.1.zMzLsBhEv4yBBTipTCP37_DCHkZIK.31; _chartbeat5=; s_getNewRepeat=1594521604164-New; s_lv_undefined=1594521604164; _tb_t_ppg=https%3A//www.metacritic.com/browse/games/score/metascore/all/ps4/filtered%3Fview%3Dcondensed%26sort%3Ddesc; s_sq=%5B%5BB%5D%5D; _gat__pm_ga=1; utag_main=v_id:017340bc1c2a0010fbabe610d53b03072006106a00bd9$_sn:1$_ss:0$_pn:31%3Bexp-session$_st:1594523410615$ses_id:1594518936618%3Bexp-session$vapi_domain:metacritic.com; QSI_HistorySession=https%3A%2F%2Fwww.metacritic.com%2Fbrowse%2Fgames%2Fscore%2Fmetascore%2Fall%2Fps4%2Ffiltered%3Fsort%3Ddesc%26view%3Ddetailed~1594521599626%7Chttps%3A%2F%2Fwww.metacritic.com%2Fbrowse%2Fgames%2Fscore%2Fmetascore%2Fall%2Fps4%2Ffiltered%3Fview%3Dcondensed%26sort%3Ddesc~1594521611598; RT="z=1&dm=metacritic.com&si=cd3d8cd1-f9c5-4630-8dc0-c138d0e388a4&ss=kcifk6ok&sl=k&tt=8oyz&bcn=%2F%2F684fc53e.akstat.io%2F&obo=2&ld=1fqbo&ul=1g7v1"' \
+  --compressed
+------------------------------------------------------------
+Minimum required sample
+
+curl 'https://www.metacritic.com/browse/games/score/metascore/all/ps4?view=condensed' --compressed
+------------------------------------------------------------
+Parameters sample
+
+sort=desc&view=condensed
+sort=desc&view=condensed&page=1
+================================================================================
+
+================================================================================
+Test
+------------------------------------------------------------
+curl -sS 'https://www.metacritic.com/browse/games/score/metascore/all/all?view=condensed' --compressed -o Metacritic_Sample.html
+curl -sS 'https://www.metacritic.com/browse/games/score/metascore/all/all?view=condensed&page=0' --compressed -o Metacritic_Sample.html
+curl -sS 'https://www.metacritic.com/browse/games/score/metascore/all/all?view=condensed&page=1' --compressed -o Metacritic_Sample.html
+curl -sS 'https://www.metacritic.com/browse/games/score/metascore/all/all?view=condensed&page=175' --compressed -o Metacritic_Sample.html
+curl -sS 'https://www.metacritic.com/browse/games/score/metascore/all/all?view=condensed&page=176' --compressed -o Metacritic_Sample.html
+================================================================================
