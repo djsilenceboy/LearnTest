@@ -41,7 +41,7 @@ Update "HDB_ProcessData_Batch.bat" script with parameters.
 
 Run:
 
-HDB_ProcessData_Batch.sh
+HDB_ProcessData_Batch.bat
 ================================================================================
 Following are separated steps.
 ================================================================================

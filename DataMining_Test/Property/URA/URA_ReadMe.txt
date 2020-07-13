@@ -62,7 +62,7 @@ Update "URA_ProcessData_Batch.bat" script with parameters.
 
 Run:
 
-URA_ProcessData_Batch.sh
+URA_ProcessData_Batch.bat
 ================================================================================
 Following are separated steps.
 ================================================================================

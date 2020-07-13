@@ -1,0 +1,17 @@
+================================================================================
+Find PS4 games with metacritic scores.
+------------------------------------------------------------
+SELECT a.NAME, a.SUB_NAME, a.PROVIDER, a.GENRES, a.PLATFORMS, a.RELEASE_DATE,
+       a.DISPLAY_PRICE, a.PRICE_VALUE, a.DISCOUNT_PERCENT, b.META_SCORE, b.USER_SCORE,
+       a.DISCOUNT_FROM, a.DISCOUNT_TO, a.CONTENT_TYPE, b.GAME_INFO_LINK
+FROM
+  (SELECT *
+   FROM PSS_GAME_LIST
+   WHERE (PLATFORMS LIKE '%PS4%')) a
+  INNER JOIN
+  (SELECT *
+   FROM META_GAME_LIST
+   WHERE (PLATFORM = 'PlayStation 4')) b
+  ON (a.NAME LIKE b.NAME || '%')
+ORDER BY a.DISCOUNT_PERCENT DESC, b.META_SCORE DESC, b.USER_SCORE DESC, a.NAME;
+================================================================================
