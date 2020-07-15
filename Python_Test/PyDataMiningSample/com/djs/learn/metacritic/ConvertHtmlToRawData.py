@@ -38,7 +38,7 @@ def process_inventory_list():
 
     file_list = getDafaFileList()
 
-    headers = ["Name", "Platform", "MetaScore", "UserScore", "GameInfoLink"]
+    headers = ["Name", "Platform", "MetaScore", "UserScore", "GameInfoLink", "NormalizedName"]
     records = []
     try:
         print("-" * 80)
@@ -61,9 +61,13 @@ def process_inventory_list():
                     game_platform_section = game_details_section.find("div", {"class": "platform"})
                     game_platform_data_section = game_platform_section.find("span", {"class": "data"})
                     game_score2_section = game_details_section.find("div", {"class": "score title"})
+                    game_name = game_title_section.h3.text.encode('ascii', errors = 'ignore').decode()
+                    game_name_normalized = game_name + " "
+                    game_score = game_score_section.a.div.text.replace("tbd", "").strip()
+                    game_score2 = game_score2_section.div.text.replace("tbd", "").strip()
                     game_info_link = "https://www.metacritic.com" + game_title_section["href"]
-                    record = [game_title_section.h3.text, game_platform_data_section.text.strip(),
-                              game_score_section.a.div.text, game_score2_section.div.text, game_info_link]
+                    record = [game_name, game_platform_data_section.text.strip(),
+                              game_score, game_score2, game_info_link, game_name_normalized]
                     temp_records.append(record)
 
             print("Records from file =", len(temp_records))

@@ -40,12 +40,13 @@ CREATE TABLE PSS_GAME_LIST (
   DISCOUNT_TO                 TIMESTAMP,
   CONTENT_TYPE                VARCHAR(12),
   SKU_ID                      VARCHAR(50) NOT NULL,
-  GAME_POST                   VARCHAR(100)
+  GAME_POST                   VARCHAR(100),
+  NORMALIZED_NAME             VARCHAR(100) NOT NULL
 )
         """)
 
-    dbCursor.execute("CREATE INDEX PSS_GAME_LIST_1 ON PSS_GAME_LIST (NAME)")
-    dbCursor.execute("CREATE INDEX PSS_GAME_LIST_2 ON PSS_GAME_LIST (PLATFORMS, NAME)")
+    dbCursor.execute("CREATE INDEX PSS_GAME_LIST_1 ON PSS_GAME_LIST (NORMALIZED_NAME)")
+    dbCursor.execute("CREATE INDEX PSS_GAME_LIST_2 ON PSS_GAME_LIST (PLATFORMS, NORMALIZED_NAME)")
     dbCursor.execute("CREATE INDEX PSS_GAME_LIST_3 ON PSS_GAME_LIST (PLATFORMS, DISCOUNT_PERCENT, PRICE_VALUE)")
 
     dbCursor.execute("""
@@ -54,14 +55,15 @@ CREATE TABLE META_GAME_LIST (
   PLATFORM                    VARCHAR(20) NOT NULL,
   META_SCORE                  INT NOT NULL,
   USER_SCORE                  FLOAT NOT NULL,
-  GAME_INFO_LINK              VARCHAR(250)
+  GAME_INFO_LINK              VARCHAR(250),
+  NORMALIZED_NAME             VARCHAR(120) NOT NULL
 )
         """)
 
-    dbCursor.execute("CREATE INDEX META_GAME_LIST_1 ON META_GAME_LIST (NAME)")
-    dbCursor.execute("CREATE INDEX META_GAME_LIST_2 ON META_GAME_LIST (PLATFORM, NAME)")
-    dbCursor.execute("CREATE INDEX META_GAME_LIST_3 ON META_GAME_LIST (PLATFORM, META_SCORE, USER_SCORE, NAME)")
-    dbCursor.execute("CREATE INDEX META_GAME_LIST_4 ON META_GAME_LIST (PLATFORM, USER_SCORE, META_SCORE, NAME)")
+    dbCursor.execute("CREATE INDEX META_GAME_LIST_1 ON META_GAME_LIST (NORMALIZED_NAME)")
+    dbCursor.execute("CREATE INDEX META_GAME_LIST_2 ON META_GAME_LIST (PLATFORM, NORMALIZED_NAME)")
+    dbCursor.execute("CREATE INDEX META_GAME_LIST_3 ON META_GAME_LIST (PLATFORM, META_SCORE, USER_SCORE, NORMALIZED_NAME)")
+    dbCursor.execute("CREATE INDEX META_GAME_LIST_4 ON META_GAME_LIST (PLATFORM, USER_SCORE, META_SCORE, NORMALIZED_NAME)")
 
     dbConnection.commit()
 
@@ -81,7 +83,8 @@ def import_data(dbConnection):
 "DISCOUNT_TO",
 "CONTENT_TYPE",
 "SKU_ID",
-"GAME_POST"
+"GAME_POST",
+"NORMALIZED_NAME"
     ]
     dataFrame = pd.read_csv(__input_file_path_playstation_store, header = 0, names = transactionHeaders)
     dataFrame.to_sql("PSS_GAME_LIST", dbConnection, if_exists = 'replace', index = False)
@@ -91,7 +94,8 @@ def import_data(dbConnection):
 "PLATFORM",
 "META_SCORE",
 "USER_SCORE",
-"GAME_INFO_LINK"
+"GAME_INFO_LINK",
+"NORMALIZED_NAME"
     ]
     dataFrame = pd.read_csv(__input_file_path_metascritic, header = 0, names = transactionHeaders)
     dataFrame.to_sql("META_GAME_LIST", dbConnection, if_exists = 'replace', index = False)
@@ -99,18 +103,20 @@ def import_data(dbConnection):
 
 def process_ps4_game_with_score(dbConnection):
     dataFrame = pd.read_sql_query(con = dbConnection, sql = """
-SELECT a.NAME, a.SUB_NAME, a.PROVIDER, a.GENRES, a.PLATFORMS, a.RELEASE_DATE,
+SELECT DISTINCT a.NAME AS PSS_NAME, b.NAME AS METACRITIC_NAME, a.PROVIDER,
        a.DISPLAY_PRICE, a.PRICE_VALUE, a.DISCOUNT_PERCENT, b.META_SCORE, b.USER_SCORE,
-       a.DISCOUNT_FROM, a.DISCOUNT_TO, a.CONTENT_TYPE, b.GAME_INFO_LINK
+       a.GENRES, a.RELEASE_DATE, a.PLATFORMS, a.CONTENT_TYPE,
+       a.DISCOUNT_FROM, a.DISCOUNT_TO, b.GAME_INFO_LINK
 FROM
   (SELECT *
    FROM PSS_GAME_LIST
    WHERE (PLATFORMS LIKE '%PS4%')) a
-  INNER JOIN
+  LEFT JOIN
   (SELECT *
    FROM META_GAME_LIST
    WHERE (PLATFORM = 'PlayStation 4')) b
-  ON (a.NAME LIKE b.NAME || '%')
+  ON ((a.NORMALIZED_NAME LIKE b.NORMALIZED_NAME || '%')
+      OR (a.NORMALIZED_NAME LIKE '% ' || b.NORMALIZED_NAME || '%'))
 ORDER BY a.DISCOUNT_PERCENT DESC, b.META_SCORE DESC, b.USER_SCORE DESC, a.NAME;
     """)
     return dataFrame

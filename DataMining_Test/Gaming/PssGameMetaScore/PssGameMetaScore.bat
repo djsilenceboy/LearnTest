@@ -18,7 +18,7 @@ md %DATA_FOLDER%
 echo "Start process data in DB ..."
 
 echo ------------------------------------------------------------
-python %APP_FOLDER%\PssGameMetaScore.py -p "%DATA_FOLDER%\%INPUT_FILE_1%.csv" -m "%DATA_FOLDER%\%INPUT_FILE_2%.csv" -d "%DATA_FOLDER%\PssGameMetaScore.db" -o "%DATA_FOLDER%\PssGameMetaScore_%DATE_TAG%_"
+python %APP_FOLDER%\PssGameMetaScore.py -p "%DATA_FOLDER%\%INPUT_FILE_1%.csv" -m "%DATA_FOLDER%\%INPUT_FILE_2%.csv" -d "%DATA_FOLDER%\PssGameMetaScore_%DATE_TAG%.db" -o "%DATA_FOLDER%\PssGameMetaScore_%DATE_TAG%_"
 echo ------------------------------------------------------------
 
 date /T

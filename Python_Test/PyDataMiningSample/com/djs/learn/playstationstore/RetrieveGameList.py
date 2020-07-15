@@ -79,6 +79,7 @@ def parse_data(json_data):
             game_prices = game_skus[0]["prices"]
             game_prices_plus = game_prices["plus-user"]
             game_name = game_details["name"].encode('ascii', errors = 'ignore').decode()
+            game_name_normalized = game_name.replace(" -", ":").strip() + " "
             platforms = "/".join(game_details["platforms"]).encode('ascii', errors = 'ignore').decode()
             genres = "/".join(game_details["genres"]).encode('ascii', errors = 'ignore').decode()
 
@@ -86,7 +87,7 @@ def parse_data(json_data):
                     game_prices_plus["actual-price"]["display"], game_prices_plus["actual-price"]["value"], game_prices_plus["discount-percentage"],
                     game_prices_plus["availability"]["start-date"] if game_prices_plus["discount-percentage"] > 0 else "",
                     game_prices_plus["availability"]["end-date"] if game_prices_plus["discount-percentage"] > 0 else "",
-                    game_details["game-content-type"], game_info["id"], game_details["thumbnail-url-base"]]
+                    game_details["game-content-type"], game_info["id"], game_details["thumbnail-url-base"], game_name_normalized]
             records.append(record)
 
     return records, len(game_list)
@@ -104,7 +105,7 @@ def process():
 
     headers = ["Name", "SubName", "Provider", "Genres", "Platforms", "ReleaseDate",
             "DisplayPrice", "PriceValue", "DiscountPercent", "DiscountFromDate", "DiscountToDate",
-            "GameContentType", "SkuId", "GamePost"]
+            "GameContentType", "SkuId", "GamePost", "NormalizedName"]
 
     records = []
     start_position = 0
