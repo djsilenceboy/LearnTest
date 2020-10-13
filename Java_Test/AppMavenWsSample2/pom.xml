@@ -11,7 +11,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<junit.version>4.12</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<javax.ws.rs.version>2.1</javax.ws.rs.version>
 		<javax.json.version>1.1.2</javax.json.version>
 		<jersey.version>2.26</jersey.version>
