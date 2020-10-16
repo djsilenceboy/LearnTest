@@ -75,7 +75,10 @@ def parse_data(json_data):
             game_skus = game_details["skus"]
             if len(game_skus) == 0:
                 continue
-            game_subname = game_skus[0]["name"].encode('ascii', errors = 'ignore').decode()
+            if "name" in game_skus[0]:
+                game_subname = game_skus[0]["name"].encode('ascii', errors = 'ignore').decode()
+            else:
+                game_subname = ""
             game_prices = game_skus[0]["prices"]
             game_prices_plus = game_prices["plus-user"]
             game_name = game_details["name"].encode('ascii', errors = 'ignore').decode()
