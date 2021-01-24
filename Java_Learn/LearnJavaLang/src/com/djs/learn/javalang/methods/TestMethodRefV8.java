@@ -13,40 +13,61 @@ import java.util.function.Predicate;
 public class TestMethodRefV8
 {
 	void test1(){
-        // Class::StaticMethod
-		// Convert::addThem
-		// (String a, String b) -> Convert.addThem(a, b)
-		DoSomething<String, String> action = Convert::addThem;
+		{
+			// Class::StaticMethod
+			// Convert::addThem
+			// (String a, String b) -> Convert.addThem(a, b)
+			DoSomething<String, String> action = Convert::addThem;
 
-		action.doIt("Hello", "world");
-
-		System.out.println("------------------------------");
-
-        // Class::StaticMethod
-		// Swap::change
-		// (String a, String b) -> Swap.change(a, b)
-		action = Swap::change;
-		action.doIt("Hello", "world");
+			action.doIt("Hello", "world");
+		}
 
 		System.out.println("------------------------------");
 
-		Convert convert = new Convert();
-        // Object::InstanceMethod
-		// convert::addThem
-		// (String a, String b) -> convert.addThem(a, b)
-		action = convert::sumThem;
-		action.doIt("Hello", "world");
+		{
+			// Class::StaticMethod
+			// Swap::change
+			// (String a, String b) -> Swap.change(a, b)
+			DoSomething<String, String> action = Swap::change;
+			action.doIt("Hello", "world");
+		}
+
+		System.out.println("------------------------------");
+
+		{
+			// Object::InstanceMethod
+			// convert::addThem
+			// (String a, String b) -> convert.addThem(a, b)
+			Convert convert = new Convert();
+			DoSomething<String, String> action = convert::sumThem;
+			action.doIt("Hello", "world");
+		}
 	}
 
 	void test2(){
-        // Class::InstanceMethod
-		// Convert::concat
-		// (Convert c, String a) -> c.concat(a)
-		DoSomething<Convert, String> action = Convert::concat;
-		Convert convert = new Convert();
+		{
+			// Class::InstanceMethod
+			// Convert::concat
+			// (Convert c, String a) -> c.concat(a)
+			DoSomething<Convert, String> action = Convert::concat;
+			Convert convert = new Convert();
 
-		// It actually calls convert.concat("Hello").
-		action.doIt(convert, "Hello");
+			// It actually calls convert.concat("Hello").
+			action.doIt(convert, "Hello");
+		}
+
+		System.out.println("------------------------------");
+
+		{
+			// Class::InstanceMethod
+			// Convert::concat2
+			// (Convert c, String a, String b) -> c.concat(a, b)
+			DoSomething2<Convert, String, String> action = Convert::concat2;
+			Convert convert = new Convert();
+
+			// It actually calls convert.concat("Hello", "world").
+			action.doIt(convert, "Hello", "world");
+		}
 	}
 
 	<T> boolean checkFruit(T fruit, Predicate<T> p){
@@ -69,15 +90,6 @@ public class TestMethodRefV8
 		Apple apple = new Apple();
 
 		{
-            // Class::StaticMethod
-			// Apple::checkRed
-			// (Apple a) -> Apple.checkRed(a)
-			boolean results = checkFruit(apple, Apple::checkRed);
-			System.out.println("Apple results = " + results);
-		}
-
-		{
-            // Object::InstanceMethod
 			// this::checkRed
 			// (Apple a) -> this.checkRed(a)
 			boolean results = checkFruit(apple, this::checkRed);
@@ -85,7 +97,13 @@ public class TestMethodRefV8
 		}
 
 		{
-            // Class::InstanceMethod
+			// Apple::checkRed
+			// (Apple a) -> Apple.checkRed(a)
+			boolean results = checkFruit(apple, Apple::checkRed);
+			System.out.println("Apple results = " + results);
+		}
+
+		{
 			// Apple::isRed
 			// (Apple a) -> a.isRed()
 			boolean results = checkFruit(apple, Apple::isRed);
@@ -93,15 +111,6 @@ public class TestMethodRefV8
 		}
 
 		{
-            // Class::StaticMethod
-			// Apple::checkLarge
-			// (Apple a, Integer w) -> Apple.checkLarge(a, w)
-			boolean results = checkFruit2(apple, 1, Apple::checkLarge);
-			System.out.println("Apple results2 = " + results);
-		}
-
-		{
-            // Object::InstanceMethod
 			// this::checkLarge
 			// (Apple a, Integer w) -> this.checkLarge(a, w)
 			boolean results = checkFruit2(apple, 1, this::checkLarge);
@@ -109,7 +118,13 @@ public class TestMethodRefV8
 		}
 
 		{
-            // Class::InstanceMethod
+			// Apple::checkLarge
+			// (Apple a, Integer w) -> Apple.checkLarge(a, w)
+			boolean results = checkFruit2(apple, 1, Apple::checkLarge);
+			System.out.println("Apple results2 = " + results);
+		}
+
+		{
 			// Apple::isLarge
 			// (Apple a, Integer w) -> a.isLarge( w)
 			boolean results = checkFruit2(apple, 1, Apple::isLarge);
@@ -136,6 +151,11 @@ interface DoSomething<T, U>
 	void doIt(T t, U u);
 }
 
+interface DoSomething2<T, U, V>
+{
+	void doIt(T t, U u, V v);
+}
+
 class Convert
 {
 	static void addThem(String a, String b){
@@ -148,6 +168,10 @@ class Convert
 
 	void concat(String a){
 		System.out.println("Concat = " + a + "," + a);
+	}
+
+	void concat2(String a, String b){
+		System.out.println("Concat = " + a + "," + b);
 	}
 }
 
