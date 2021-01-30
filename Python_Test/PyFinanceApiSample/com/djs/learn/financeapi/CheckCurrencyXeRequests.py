@@ -1,14 +1,12 @@
 '''
-Check finance statistics by Requests.
+Check currency XE by Requests.
 
 Update log: (date / version / author : comments)
-2018-02-15 / 1.0.0 / Du Jiang : Creation
-                                Support Yahoo Finance stock
+2021-01-30 / 1.0.0 / Du Jiang : Creation
+                                Support https://free.currencyconverterapi.com/
 
 Notes:
 1. It requires 3rd parth python lib (at least): requests.
-2. When using Selenium, the webdriver.Firefox.get() does not return, always timeout.
-3. Those page load detection methods are all not working.
 '''
 
 from concurrent.futures import ThreadPoolExecutor
@@ -16,11 +14,8 @@ import csv
 import getopt
 from http import HTTPStatus
 import json
-import string
 import sys
 from time import localtime, strftime, time
-
-from bs4 import BeautifulSoup
 import requests
 
 # Global variables.
@@ -29,6 +24,7 @@ __data_type = None
 __inventory_info_file_path = None
 __result_output_file_path = None
 __concurrent_max_workers = 5
+__api_key = None
 
 __Constants = None
 
@@ -59,18 +55,19 @@ class Constants_Base(object):
 
 
 class Constants_YahooStock(Constants_Base):
-    API_URL = "https://finance.yahoo.com/quote/{0}/key-statistics"
+    API_URL = "https://free.currconv.com/api/v7/convert?apiKey={0}&q={1}_{2}&compact=y"
 
     COLUMN_NAME = "Name"
-    COLUMN_EXCHANGE = "Exchange"
-    COLUMN_TICKER = "Ticker"
+    COLUMN_FROM_SYMBOL = "From symbol"
+    COLUMN_TO_SYMBOL = "To symbol"
 
-    SECTION_STOCK_INFO = "Stock info"
-    STOCK_INFO_NAME = "Name"
-    STOCK_INFO_EXCHANGE = "Exchange"
-    STOCK_INFO_TICKER = "Ticker"
+    SECTION_CURRENCY_INFO = "Currency info"
+    CURRENCY_INFO_FROM_SYMBOL = "From symbol"
+    CURRENCY_INFO_TO_SYMBOL = "To symbol"
 
-    SECTION_MARKET_INFO = "Market info"
+    SECTION_EXCHANGE_INFO = "Exchange info"
+    EXCHANGE_INFO_VALUE = "Value"
+    EXCHANGE_INFO_TIME = "Time"
 
 
 def check_url(url):
@@ -84,39 +81,13 @@ def check_url(url):
 
     print("url =", url)
     status_code = None
-    parsed_data = None
 
     for i in range(0, __Constants.WAIT_PAGE_LOAD_MAX_TRY):
         try:
-            headers = {
-                "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0"}
-            response = requests.get(url, headers = headers, timeout = 5)
-            # print("response =", response)
-            print("response.status_code =", response.status_code)
-
-            if response.history:
-                status_code = HTTPStatus.OK
-                print("response.status_code (Due to redirected) =", status_code)
-            else:
-                status_code = response.status_code
-                response.raise_for_status()
-
-            # There is non-printable characters for Yahoo page.
-            # print("text_data =\n", ascii(http_response.text))
-            # There is error while parasing yahoo page.
-            # print("json_data =\n", http_response.json())
-
-            parsed_data = BeautifulSoup(response.text, "lxml-xml")
-            # print("parsed_data =\n", parsed_data)
-
-            if __data_type == 0:
-                try:
-                    stock_name_info_section = parsed_data.find(
-                        "h1", {"data-reactid": 7})
-                    if not stock_name_info_section:
-                        raise
-                except Exception:
-                    raise Exception("Cannot find stock_name_info_section.")
+            response = requests.get(url, timeout = 5)
+            status_code = response.status_code
+            # print("response.text =", response.text)
+            print("response.status_code =", status_code)
 
             print("Check url: Count {0}: url = {1}".format(
                 i, url))
@@ -130,139 +101,55 @@ def check_url(url):
             if (i + 1) == __Constants.WAIT_PAGE_LOAD_MAX_TRY:
                 raise e
 
-    return status_code, parsed_data
+    return status_code, response.text
 
 
-def parse_get_data_yahoo_stock(parsed_http_response, results):
-    '''
-    Analyse HTTP response data.
+def parse_data_currency_xe(response_text, results):
+    xe_obj = json.loads(response_text)
+    from_currency = results[__Constants.RECORD][__Constants.COLUMN_FROM_SYMBOL]
+    to_currency = results[__Constants.RECORD][__Constants.COLUMN_TO_SYMBOL]
+    item_key_1 = from_currency + "_" + to_currency
+    item_key_2 = "val"
 
-    @param parsed_http_response : Parsed HTTP response.
-    @param results : Dict with return results.
-    '''
+    # {"USD_SGD":{"val":1.32835}}
+    results[__Constants.INVENTORY_DATA] = {}
+    results[__Constants.INVENTORY_DATA][__Constants.SECTION_CURRENCY_INFO] = {}
+    results[__Constants.INVENTORY_DATA][__Constants.SECTION_EXCHANGE_INFO] = {}
 
-    try:
-        results[__Constants.SECTION_STOCK_INFO] = {}
-
-        # The return object from find() is class 'bs4.element.Tag'.
-        try:
-            stock_name_info_section = parsed_http_response.find(
-                "h1", {"data-reactid": 7})
-
-            if not stock_name_info_section:
-                raise
-
-            # The stock name may contain non-printable characters.
-            # print("stock_name_info_section =", stock_name_info_section)
-        except Exception:
-            raise Exception("Cannot find stock_name_info_section.")
-
-        # Remove possible non-printable characters.
-        stock_name_info_text = ''.join(
-            [x for x in stock_name_info_section.get_text().strip() if x in string.printable])
-
-        stock_name_info = stock_name_info_text.rsplit(" ", 1)
-        print("stock_name_info =", stock_name_info)
-        results[__Constants.SECTION_STOCK_INFO][__Constants.STOCK_INFO_NAME] = stock_name_info[0]
-        ticker_exchange_info = stock_name_info[1][1:-1].split(".")
-        print("ticker_exchange_info =", ticker_exchange_info)
-        results[__Constants.SECTION_STOCK_INFO][__Constants.STOCK_INFO_TICKER] = ticker_exchange_info[0]
-        if len(ticker_exchange_info) > 1:
-            results[__Constants.SECTION_STOCK_INFO][__Constants.STOCK_INFO_EXCHANGE] = ticker_exchange_info[1]
-        else:
-            results[__Constants.SECTION_STOCK_INFO][__Constants.STOCK_INFO_EXCHANGE] = ""
-
-        results[__Constants.SECTION_MARKET_INFO] = {}
-
-        try:
-            misc_info_section = parsed_http_response.find(
-                "div", {"id": "Main"})
-
-            if not misc_info_section:
-                raise
-
-            # print("misc_info_section =", misc_info_section)
-        except Exception:
-            raise Exception("Cannot find misc_info_section.")
-
-        try:
-            table_entry_sections = misc_info_section.find_all("tr")
-
-            if not table_entry_sections:
-                raise
-
-            # print("table_entry_sections =", table_entry_sections)
-            print("table_entry_sections[] =", len(table_entry_sections))
-        except Exception:
-            raise Exception("Cannot find table_entry_sections.")
-
-        for table_entry_section in table_entry_sections:
-            # print("table_entry_section =", table_entry_section.get_text())
-
-            try:
-                key_value_sections = table_entry_section.find_all("td")
-                # print("key_value_sections[] =", len(key_value_sections))
-
-                if key_value_sections:
-                    # key_section = key_value_sections[0].find("span")
-                    # key = key_section.get_text().strip()
-                    key = key_value_sections[0].get_text().strip()
-                    if key[-1].isdigit():
-                        key = key[:-2]
-                    value = None
-
-                    if len(key_value_sections) > 1:
-                        value = key_value_sections[1].get_text().strip()
-                        if (value == "-") or (value.startswith("N/A")):
-                            value = ""
-
-                        print("key, value = {0}, {1}".format(key, value))
-                        results[__Constants.SECTION_MARKET_INFO][key] = value
-            except Exception:
-                raise Exception("Cannot find key_value_sections.")
-
-        print("Get stock data: ok.")
-        print("-" * 40)
-    except Exception as e:
-        print("Get stock data: Exception = {0}".format(e))
-        raise e
+    results[__Constants.INVENTORY_DATA][__Constants.SECTION_CURRENCY_INFO][__Constants.CURRENCY_INFO_FROM_SYMBOL] = from_currency
+    results[__Constants.INVENTORY_DATA][__Constants.SECTION_CURRENCY_INFO][__Constants.CURRENCY_INFO_TO_SYMBOL] = to_currency
+    results[__Constants.INVENTORY_DATA][__Constants.SECTION_EXCHANGE_INFO][__Constants.EXCHANGE_INFO_VALUE] = xe_obj[item_key_1][item_key_2]
 
 
 def inspect_inventory(record):
     '''
     Inspect inventory info page.
 
-    @param record: [Stock name, Exchange, Ticker]
+    @param record: [Currency from_symbol, To symbol]
     @return : Dict with return results.
     '''
 
     results = {}
+    result = None
 
     if __data_type == 0:
-        parse_get_data = parse_get_data_yahoo_stock
+        parse_get_data = parse_data_currency_xe
 
-        stock_info_name, stock_info_exchange, stock_info_ticker = record
-        stock_info_name = stock_info_name.strip()
-        stock_info_exchange = stock_info_exchange.strip()
-        stock_info_ticker = stock_info_ticker.strip()
-        print("stock_info_name =", stock_info_name)
-        print("stock_info_exchange =", stock_info_exchange)
-        print("stock_info_ticker =", stock_info_ticker)
-        inventory_id = stock_info_ticker
+        currency_info_from_symbol, currency_info_to_symbol = record
+        currency_info_from_symbol = currency_info_from_symbol.strip()
+        currency_info_to_symbol = currency_info_to_symbol.strip()
+        print("currency_info_from_symbol =", currency_info_from_symbol)
+        print("currency_info_to_symbol =", currency_info_to_symbol)
+        inventory_id = currency_info_from_symbol + currency_info_to_symbol
 
-        results[stock_info_ticker] = {}
-        result = results[stock_info_ticker]
+        results[inventory_id] = {}
+        result = results[inventory_id]
 
         result[__Constants.RECORD] = {}
-        result[__Constants.RECORD][__Constants.COLUMN_NAME] = stock_info_name
-        result[__Constants.RECORD][__Constants.COLUMN_EXCHANGE] = stock_info_exchange
-        result[__Constants.RECORD][__Constants.COLUMN_TICKER] = stock_info_ticker
+        result[__Constants.RECORD][__Constants.COLUMN_FROM_SYMBOL] = currency_info_from_symbol
+        result[__Constants.RECORD][__Constants.COLUMN_TO_SYMBOL] = currency_info_to_symbol
 
-        if stock_info_exchange:
-            url = __Constants.API_URL.format("{0}.{1}".format(
-                stock_info_ticker, stock_info_exchange))
-        else:
-            url = __Constants.API_URL.format(stock_info_ticker)
+        url = __Constants.API_URL.format(__api_key, currency_info_from_symbol, currency_info_to_symbol)
 
     print("url =", url)
     result[__Constants.URL] = url
@@ -272,15 +159,14 @@ def inspect_inventory(record):
     result[__Constants.START_TIME] = time_str
 
     try:
-        status_code, parsed_http_response = check_url(url)
+        status_code, response_text = check_url(url)
         if status_code != HTTPStatus.OK:
             raise Exception("Get '{0}' failed with status code {1}.".format(url,
                                                                             status_code))
 
         # Parse and get data.
         result[__Constants.INVENTORY_DATA] = {}
-        parse_get_data(parsed_http_response,
-                       result[__Constants.INVENTORY_DATA])
+        parse_get_data(response_text, result)
         print("-" * 40)
 
         print("Inspect inventory <{0}>: ok.".format(inventory_id))
@@ -377,7 +263,7 @@ Check finance data by Requests.
 
 Usage:
 -h
--d <DataType> -i <file path> [-o <file path>] [-c <Number>]
+-d <DataType> -i <file path> [-o <file path>] [-c <Number>] [-k <API key>]
 
 Options:
 -h : Show help.
@@ -385,11 +271,12 @@ Options:
 -i <file path> : Environment info file path (CSV). Compulsory.
 -o <file path> : Result output file path (JSON). Optional, output to screen by default.
 -c <Number> : Concurrent max workers to process records. Optional, Value [1, 10], 5 by default.
+-k <API key> : API key for certain API. Optional.
 
 Notes:
 Inventory info file format sample (With header line):
-1. Yahoo stock
-Name,Exchange,Ticker
+1. Currency XE
+From symbol,To symbol
 ''')
 
 
@@ -404,6 +291,7 @@ def main(argv):
     global __inventory_info_file_path
     global __result_output_file_path
     global __concurrent_max_workers
+    global __api_key
 
     print("argv =", argv)
 
@@ -418,7 +306,7 @@ def main(argv):
     # Parse command line.
     if not __show_usage:
         try:
-            opts, args = getopt.getopt(argv, "hd:i:o:c:")
+            opts, args = getopt.getopt(argv, "hd:i:o:c:k:")
             print("opts =", opts)
             print("args =", args)
         except Exception as e:
@@ -440,6 +328,8 @@ def main(argv):
                     __result_output_file_path = arg
                 elif opt == "-c":
                     __concurrent_max_workers = int(arg)
+                elif opt == "-k":
+                    __api_key = arg
                 else:
                     __show_usage, __exit_code, __error_message = True, -\
                         2, "Unknown command line option."
@@ -453,6 +343,7 @@ def main(argv):
     print("inventory_info_file_path =", __inventory_info_file_path)
     print("result_output_file_path", __result_output_file_path)
     print("concurrent_max_workers =", __concurrent_max_workers)
+    print("api_key =", __api_key)
 
     # Check options are valid.
     if not __show_usage:
@@ -463,6 +354,8 @@ def main(argv):
             __show_usage, __exit_code, __error_message = True, -5, "Wrong value for -d."
         elif (__concurrent_max_workers < 1) or (__concurrent_max_workers > 10):
             __show_usage, __exit_code, __error_message = True, -6, "Wrong value for -c."
+        elif (__data_type == 0) and (__api_key is None):
+            __show_usage, __exit_code, __error_message = True, -7, "Wrong value for -k."
 
     if not __show_usage:
         process_inventory_list()
