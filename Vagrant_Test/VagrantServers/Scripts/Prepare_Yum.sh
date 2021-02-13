@@ -3,7 +3,6 @@
 echo "Yum update and install tools."
 
 # The default image already includes:
-#
 
 # Update.
 yum update -y

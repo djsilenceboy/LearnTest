@@ -3,18 +3,24 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Use the same SSH key for each VM.
   config.ssh.insert_key = false
-  config.vm.box = "centos/7"
+  config.vm.box = "centos/8"
 
   # This message will run when all other completed.
   config.vm.post_up_message = "Test environment for Ansible servers."
 
   # Adapter 2: Use private network Host-Only with fixed IP in same subnet.
-  # Netmask 192.168.10.0/24
+  # Netmask 192.168.18.0/24
   # Host can access them.
   # They can access each other, host and Internet.
 
   # This is default folder mapping.
   # config.vm.synced_folder "./Temp", "/vagrant", owner: "root", group: "root"
+
+  # To prevent auto upgrading  kernel-devel. That will cause following:
+  # Error: Unable to find a match: kernel-devel-4.18.0-240.1.1.el8_3.x86_64
+  config.vbguest.auto_update = false
+
+  config.vm.provision "shell", path: "Scripts/Prepare_OS.sh"
 
   # Global config.
   # Enable password login.
@@ -37,7 +43,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     ansibleCentOS.vm.hostname = "centos.djsilenceboy.com"
-    ansibleCentOS.vm.network "private_network", ip: "192.168.10.10"
+    ansibleCentOS.vm.network "private_network", ip: "192.168.18.10"
   end
 
 
@@ -51,7 +57,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     ansibleDbServer.vm.hostname = "db.djsilenceboy.com"
-    ansibleDbServer.vm.network "private_network", ip: "192.168.10.11"
+    ansibleDbServer.vm.network "private_network", ip: "192.168.18.11"
   end
 
 
@@ -65,7 +71,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     ansibleApplicationServer.vm.hostname = "appsvr.djsilenceboy.com"
-    ansibleApplicationServer.vm.network "private_network", ip: "192.168.10.12"
+    ansibleApplicationServer.vm.network "private_network", ip: "192.168.18.12"
   end
 
 
@@ -79,7 +85,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     ansibleJbossServer.vm.hostname = "jboss.djsilenceboy.com"
-    ansibleJbossServer.vm.network "private_network", ip: "192.168.10.13"
+    ansibleJbossServer.vm.network "private_network", ip: "192.168.18.13"
   end
 
 
@@ -93,7 +99,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     ansibleDockerDbServer.vm.hostname = "dockerdb.djsilenceboy.com"
-    ansibleDockerDbServer.vm.network "private_network", ip: "192.168.10.14"
+    ansibleDockerDbServer.vm.network "private_network", ip: "192.168.18.14"
   end
 
 
@@ -107,7 +113,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     ansibleDockerApplicationServer.vm.hostname = "dockerappsvr.djsilenceboy.com"
-    ansibleDockerApplicationServer.vm.network "private_network", ip: "192.168.10.15"
+    ansibleDockerApplicationServer.vm.network "private_network", ip: "192.168.18.15"
   end
 
 
@@ -121,7 +127,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     ansibleDockerServer.vm.hostname = "docker.djsilenceboy.com"
-    ansibleDockerServer.vm.network "private_network", ip: "192.168.10.16"
+    ansibleDockerServer.vm.network "private_network", ip: "192.168.18.16"
   end
 
 
@@ -135,7 +141,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     ansibleDockerServer2.vm.hostname = "docker2.djsilenceboy.com"
-    ansibleDockerServer2.vm.network "private_network", ip: "192.168.10.17"
+    ansibleDockerServer2.vm.network "private_network", ip: "192.168.18.17"
   end
 
 
@@ -149,6 +155,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     ansibleOpenShiftServer.vm.hostname = "openshift.djsilenceboy.com"
-    ansibleOpenShiftServer.vm.network "private_network", ip: "192.168.10.18"
+    ansibleOpenShiftServer.vm.network "private_network", ip: "192.168.18.18"
   end
 end

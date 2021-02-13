@@ -105,7 +105,7 @@ On VagrantDockerServer2.
 Add VagrantDockerServer host.
 
 ]$ sudo vi /etc/hosts
-192.168.10.16    docker.djsilenceboy.com
+192.168.18.16    docker.djsilenceboy.com
 ----------------------------------------
 Create cert file.
 
@@ -117,27 +117,27 @@ Create cert file.
 ================================================================================
 PostgreSQL v9.6 (Linux)
 
-Server: 192.168.10.11
+Server: 192.168.18.11
 Port: 5432
 User name / Password: postgres / <NotSet> (admin)
 User name / Password: tester / P@ssw0rd
 ------------------------------------------------------------
 Database: test
-JDBC: jdbc:postgresql://192.168.10.11:5432/test
+JDBC: jdbc:postgresql://192.168.18.11:5432/test
 ================================================================================
 MySQL v5.7 (Linux)
 
-Server: 192.168.10.11
+Server: 192.168.18.11
 Port: 3306
 User name / Password: root / P@ssw0rd (admin)
 User name / Password: tester / P@ssw0rd
 ------------------------------------------------------------
 Schema/Database: test
-JDBC: jdbc:mysql://192.168.10.11:3306/test
+JDBC: jdbc:mysql://192.168.18.11:3306/test
 ================================================================================
-MongoDB v4.0 (Linux)
+MongoDB v4.4 (Linux)
 
-Server: 192.168.10.11
+Server: 192.168.18.11
 Port: 27017
 ------------------------------------------------------------
 DB: admin
@@ -157,28 +157,28 @@ Roles: [{role: "dbOwner", db: "test"}]
 ================================================================================
 Apache httpd v2.4.x (Linux)
 
-Server: 192.168.10.12
+Server: 192.168.18.12
 Port: 80
-Web console: http://192.168.10.12
+Web console: http://192.168.18.12
 ================================================================================
 Apache Tomcat v9.0.x (Linux)
 
-Server: 192.168.10.12
+Server: 192.168.18.12
 HTTP/1.1 port: 8080
-Web console: http://192.168.10.12:8080
+Web console: http://192.168.18.12:8080
 
 Admin user / Password: admin / P@ssw0rd
 Roles: admin-gui,manager-gui
 ================================================================================
 Jenkins v2.x.x (Linux, for Tomcat)
 
-Server: 192.168.10.12
+Server: 192.168.18.12
 
-Web console: http://192.168.10.12:8080/jenkins
+Web console: http://192.168.18.12:8080/jenkins
 ================================================================================
 JBoss Enterprise Application Platform v7.x.x (Linux)
 
-Server: 192.168.10.13
+Server: 192.168.18.13
 
 Installation path: /opt/eap7
 Admin user / Password: admin / P@ssw0rd
@@ -192,32 +192,32 @@ management-https / 9993
 ------------------------------------------------------------
 Admin portal
 
-http://192.168.10.13:9990/console
+http://192.168.18.13:9990/console
 ================================================================================
 
 ================================================================================
 PostgreSQL v9.x (Linux, Docker)
 
-Server: 192.168.10.14
+Server: 192.168.18.14
 Port: 5432
 User name / Password: tester / P@ssw0rd (admin)
 ------------------------------------------------------------
 Database: test
-JDBC: jdbc:postgresql://192.168.10.14:5432/test
+JDBC: jdbc:postgresql://192.168.18.14:5432/test
 ================================================================================
 MySQL v5.7 (Linux, Docker)
 
-Server: 192.168.10.14
+Server: 192.168.18.14
 Port: 3306
 User name / Password: root / P@ssw0rd (admin)
 User name / Password: tester / P@ssw0rd
 ------------------------------------------------------------
 Schema/Database: test
-JDBC: jdbc:mysql://192.168.10.14:3306/test
+JDBC: jdbc:mysql://192.168.18.14:3306/test
 ================================================================================
 MongoDB (Linux, Docker)
 
-Server: 192.168.10.14
+Server: 192.168.18.14
 Port: 27017
 ------------------------------------------------------------
 DB: admin
@@ -227,44 +227,44 @@ Roles: [{role: "root", db: "admin"}]
 ------------------------------------------------------------
 Admin portal
 
-http://192.168.10.14:8081/
+http://192.168.18.14:8081/
 ================================================================================
 
 ================================================================================
 Nginx (Linux, Docker)
 
-Server: 192.168.10.15
+Server: 192.168.18.15
 Port: 8070
-Web console: http://192.168.10.15:8070
+Web console: http://192.168.18.15:8070
 ================================================================================
 Apache Tomcat v9.0.x (Linux, Docker)
 
-Server: 192.168.10.15
+Server: 192.168.18.15
 Port: 8080
 Port: 8082
-Web console: http://192.168.10.15:8080
-             http://192.168.10.15:8082
+Web console: http://192.168.18.15:8080
+             http://192.168.18.15:8082
 
 Admin user / Password: admin / P@ssw0rd
 Roles: admin-gui,manager-gui
 ================================================================================
 Jenkins v2.x.x (Linux, Docker)
 
-Server: 192.168.10.15
+Server: 192.168.18.15
 
-Web console: http://192.168.10.15:8090/jenkins
+Web console: http://192.168.18.15:8090/jenkins
 ================================================================================
 TeamCity (Linux, Docker)
 
-Server: 192.168.10.15
+Server: 192.168.18.15
 
-Web console: http://192.168.10.15:8111/
+Web console: http://192.168.18.15:8111/
 
 Admin user / Password: admin / P@ssw0rd
 ================================================================================
 JBoss Wildfly (Linux, Docker)
 
-Server: 192.168.10.15
+Server: 192.168.18.15
 
 Admin user / Password: admin / P@ssw0rd
 
@@ -274,5 +274,5 @@ management-http / 9990
 ------------------------------------------------------------
 Admin portal
 
-http://192.168.10.15:9990/console
+http://192.168.18.15:9990/console
 ================================================================================

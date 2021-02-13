@@ -13,7 +13,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Host cannot access them. They cannot access each other.
 
   # Adapter 2: Use private network Host-Only with manual config fixed IP.
-  # Netmask 192.168.10.0/24
+  # Netmask 192.168.18.0/24
   # Host cannot access them.
   # They cannot access each other, need to config more.
   # They can access host and Internet.
@@ -36,7 +36,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.name = "Vagrant_vagrantep3"
     end
     vagrantep3.vm.hostname = "vagrantep3.djsilenceboy.com"
-    vagrantep3.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.10.53 netmask 255.255.255.0 up"
+    vagrantep3.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.18.53 netmask 255.255.255.0 up"
     # Default host to guest SSH port localhost:2222.
   end
 
@@ -46,7 +46,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.name = "Vagrant_vagrantep4"
     end
     vagrantep4.vm.hostname = "vagrantep4.djsilenceboy.com"
-    vagrantep4.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.10.54 netmask 255.255.255.0 up"
+    vagrantep4.vm.provision "shell", run: "always", inline: "ifconfig eth1 192.168.18.54 netmask 255.255.255.0 up"
     # Default host to guest SSH port localhost:2200.
   end
 end

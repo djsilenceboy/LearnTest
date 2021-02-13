@@ -1,11 +1,11 @@
 ---
-- name: Install MongoDB v4.0
+- name: Install MongoDB v4.4
   hosts: all
   become: True
   vars:
     local_config_file_path: ../files
     remote_temp_path: /tmp
-    mongo_repo_file: mongodb-org-4.0.repo
+    mongo_repo_file: mongodb-org-4.4.repo
     mongo_config_file: Mongo_Create.sh
   tasks:
     - name: Copy Repo file to remote

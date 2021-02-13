@@ -29,7 +29,7 @@
         image: jetbrains/teamcity-agent
         state: started
         env:
-          SERVER_URL: http://192.168.10.15:8111/
+          SERVER_URL: http://192.168.18.15:8111/
         volumes:
           - /opt/teamcity_agent/conf:/data/teamcity_agent/conf
         restart_policy: always

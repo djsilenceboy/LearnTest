@@ -3,24 +3,29 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Use the same SSH key for each VM.
   config.ssh.insert_key = false
-  config.vm.box = "centos/7"
+  config.vm.box = "centos/8"
 
   # This message will run when all other completed.
   config.vm.post_up_message = "Test environment for vagrant servers."
 
   # Adapter 2: Use private network Host-Only with fixed IP in same subnet.
-  # Netmask 192.168.10.0/24
+  # Netmask 192.168.18.0/24
   # Host can access them.
   # They can access each other, host and Internet.
 
   # This is default folder mapping.
   # config.vm.synced_folder "./Temp", "/vagrant", owner: "root", group: "root"
 
+  # To prevent auto upgrading  kernel-devel. That will cause following:
+  # Error: Unable to find a match: kernel-devel-4.18.0-240.1.1.el8_3.x86_64
+  config.vbguest.auto_update = false
+
   # Install software.
   config.vm.provision "shell", path: "Scripts/Prepare_Yum.sh"
   config.vm.provision "shell", path: "Scripts/Prepare_Python.sh"
   config.vm.provision "shell", path: "Scripts/Prepare_System.sh"
 
+  # Global config.
   # Enable password login.
   config.vm.provision "shell", inline: <<-END
     # Testing: sudo sed "/^PasswordAuthentication.*$/d; /^#PasswordAuthentication.*$/a PasswordAuthentication yes" /etc/ssh/sshd_config
@@ -40,7 +45,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     vagrantDbServer.vm.hostname = "db.djsilenceboy.com"
-    vagrantDbServer.vm.network "private_network", ip: "192.168.10.61"
+    vagrantDbServer.vm.network "private_network", ip: "192.168.18.61"
 
     # Local provision will run after global provision.
     vagrantDbServer.vm.provision "shell", path: "Scripts/Install_PostgreSQL.sh"
@@ -62,7 +67,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     vagrantApplicationServer.vm.hostname = "appsvr.djsilenceboy.com"
-    vagrantApplicationServer.vm.network "private_network", ip: "192.168.10.62"
+    vagrantApplicationServer.vm.network "private_network", ip: "192.168.18.62"
 
     # Local provision will run after global provision.
     vagrantApplicationServer.vm.provision "shell", path: "Scripts/Prepare_Development.sh"
@@ -83,7 +88,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     vagrantJbossServer.vm.hostname = "jboss.djsilenceboy.com"
-    vagrantJbossServer.vm.network "private_network", ip: "192.168.10.63"
+    vagrantJbossServer.vm.network "private_network", ip: "192.168.18.63"
 
     # Local provision will run after global provision.
     vagrantJbossServer.vm.provision "shell", path: "Scripts/Prepare_Development.sh"

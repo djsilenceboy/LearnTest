@@ -1,13 +1,13 @@
-VagrantCentOS ansible_ssh_host=192.168.10.10 ansible_ssh_port=22
+VagrantCentOS ansible_ssh_host=192.168.18.10 ansible_ssh_port=22
 
-VagrantDbServer ansible_ssh_host=192.168.10.11 ansible_ssh_port=22
-VagrantApplicationServer ansible_ssh_host=192.168.10.12 ansible_ssh_port=22
-VagrantJbossServer ansible_ssh_host=192.168.10.13 ansible_ssh_port=22
-VagrantDockerDbServer ansible_ssh_host=192.168.10.14 ansible_ssh_port=22
-VagrantDockerApplicationServer ansible_ssh_host=192.168.10.15 ansible_ssh_port=22
-VagrantDockerServer ansible_ssh_host=192.168.10.16 ansible_ssh_port=22
-VagrantDockerServer2 ansible_ssh_host=192.168.10.17 ansible_ssh_port=22
-VagrantOpenShiftServer ansible_ssh_host=192.168.10.18 ansible_ssh_port=22
+VagrantDbServer ansible_ssh_host=192.168.18.11 ansible_ssh_port=22
+VagrantApplicationServer ansible_ssh_host=192.168.18.12 ansible_ssh_port=22
+VagrantJbossServer ansible_ssh_host=192.168.18.13 ansible_ssh_port=22
+VagrantDockerDbServer ansible_ssh_host=192.168.18.14 ansible_ssh_port=22
+VagrantDockerApplicationServer ansible_ssh_host=192.168.18.15 ansible_ssh_port=22
+VagrantDockerServer ansible_ssh_host=192.168.18.16 ansible_ssh_port=22
+VagrantDockerServer2 ansible_ssh_host=192.168.18.17 ansible_ssh_port=22
+VagrantOpenShiftServer ansible_ssh_host=192.168.18.18 ansible_ssh_port=22
 
 [VagrantServers]
 VagrantDbServer

@@ -7,7 +7,7 @@ This config file:
 
 1.
   # Adapter 2: Use private network Host-Only with fixed IP in same subnet.
-  # Netmask 192.168.10.0/24
+  # Netmask 192.168.18.0/24
   # Host can access them.
   # They can access each other, host and Internet.
 

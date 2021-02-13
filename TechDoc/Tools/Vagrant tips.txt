@@ -42,6 +42,7 @@ Repo and images
 ------------------------------------------------------------
 https://app.vagrantup.com/centos
 centos/7
+centos/8
 
 https://app.vagrantup.com/ubuntu
 ubuntu/xenial64
@@ -68,6 +69,7 @@ Update images.
 Delete image.
 
 > vagrant box remove <ImageId>
+> vagrant box remove <ImageId> --all
 > vagrant box remove <ImageId> --box-version <VersionNumber>
 ------------------------------------------------------------
 Build new image from existing image.

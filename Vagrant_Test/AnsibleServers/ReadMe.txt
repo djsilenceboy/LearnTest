@@ -1,5 +1,5 @@
 ================================================================================
-Use "centos/7"
+Use "centos/8"
 ================================================================================
 vagrant up ansibleCentOS
 vagrant up ansibleDbServer
@@ -14,7 +14,7 @@ vagrant up ansibleOpenShiftServer
 This config file:
 
 1. Use private network Host-Only with fixed IP in same subnet.
-   Netmask 192.168.10.0/24
+   Netmask 192.168.18.0/24
 
 2. Enable SSH password login.
   config.vm.provision "shell", inline: <<-END
@@ -24,5 +24,5 @@ This config file:
   END
 
 3. Configure IP manually.
-    xxx.vm.network "private_network", ip: "192.168.10.11"
+    xxx.vm.network "private_network", ip: "192.168.18.11"
 ================================================================================

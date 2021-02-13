@@ -11,7 +11,7 @@ Install_JBossEAP.sh
 This config file:
 
 1. Use private network Host-Only with fixed IP in same subnet.
-   Netmask 192.168.10.0/24
+   Netmask 192.168.18.0/24
 
 2. Install software.
   config.vm.provision "shell", path: "Scripts/Prepare_Yum.sh"
@@ -26,5 +26,5 @@ This config file:
   END
 
 4. Configure IP manually.
-    xxx.vm.network "private_network", ip: "192.168.10.11"
+    xxx.vm.network "private_network", ip: "192.168.18.11"
 ================================================================================
