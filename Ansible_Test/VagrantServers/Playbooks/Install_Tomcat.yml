@@ -3,7 +3,7 @@
   hosts: all
   become: True
   vars:
-    tomecat_version: 9.0.12
+    tomecat_version: 9.0.43
     local_config_file_path: ../files
     remote_temp_path: /tmp
     tomcat_installation_file: "apache-tomcat-{{ tomecat_version }}.zip"
@@ -28,15 +28,6 @@
         append: yes
         state: present
 
-    - name: Download files
-      get_url:
-        url: "https://www-us.apache.org/dist/tomcat/tomcat-9/v{{ tomecat_version }}/bin/{{ item }}"
-        dest: "{{ remote_temp_path }}"
-      with_items:
-        - "{{ tomcat_installation_file }}"
-        - extras/catalina-jmx-remote.jar
-        - extras/catalina-ws.jar
-
     - name: Unzip installation file
       unarchive:
         src: "{{ remote_temp_path }}/{{ tomcat_installation_file }}"
@@ -45,12 +36,6 @@
 
     - name: Rename installation folder
       shell: chdir="{{ tomcat_installation_parentfolder }}" mv "{{ tomcat_installation_tempfolder }}" "{{ tomcat_installation_folder }}"
-
-    - name: Move extra files to installation folder
-      command: mv "{{ remote_temp_path }}/{{ item }}" "{{ tomcat_installation_parentfolder }}/{{ tomcat_installation_folder }}/lib"
-      with_items:
-        - catalina-jmx-remote.jar
-        - catalina-ws.jar
 
     - name: Change installation folder privilege
       file:
@@ -72,6 +57,9 @@
 
     - name: Add admin user
       shell: sed -i '/<\/tomcat-users>/ i\  <user username="admin" password="P@ssw0rd" roles="manager-gui,manager-status,manager-script"/>' /etc/tomcat/tomcat-users.xml
+
+    - name: Enable default apps
+      shell: mv /opt/tomcat/webapps.dist/* /opt/tomcat/webapps/
 
     - name: Enable remote access console (from 192.168.0.0/16)
       shell: sed -i 's/\(^.*0:1\)\(.*$\)/\1|192\\.168\\.\\d+\\.\\d+\2/g' /opt/tomcat/webapps/manager/META-INF/context.xml

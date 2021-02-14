@@ -3,7 +3,6 @@
   hosts: all
   become: True
   vars:
-    tomecat_version: 9.0.14
     remote_temp_path: /tmp
     tomcat_installation_parentfolder: /opt
     tomcat_installation_folder: tomcat
@@ -22,22 +21,11 @@
           - "8089:8009"
         restart_policy: always
 
-    - name: Download files
-      get_url:
-        url: "https://www-us.apache.org/dist/tomcat/tomcat-9/v{{ tomecat_version }}/bin/extras/{{ item }}"
-        dest: "{{ remote_temp_path }}"
-      with_items:
-        - catalina-jmx-remote.jar
-        - catalina-ws.jar
-
-    - name: Upload files into container
-      shell: docker cp "{{ remote_temp_path }}/{{ item }}" tomcat:/usr/local/tomcat/lib
-      with_items:
-        - catalina-jmx-remote.jar
-        - catalina-ws.jar
-
     - name: Add admin user
       shell: docker exec -t tomcat bash -c 'sed -i '"'"'/<\/tomcat-users>/ i\  <user username="admin" password="P@ssw0rd" roles="manager-gui,manager-status,manager-script"/>'"'"' /usr/local/tomcat/conf/tomcat-users.xml'
+
+    - name: Enable default apps
+      shell: docker exec -t tomcat bash -c 'mv /usr/local/tomcat/webapps.dist/* /usr/local/tomcat/webapps/'
 
     - name: Enable remote access console (from 192.168.0.0/16)
       shell: docker exec -t tomcat bash -c 'sed -i '"'"'s/\(^.*0:1\)\(.*$\)/\1|192\\.168\\.\\d+\\.\\d+\2/g'"'"' /usr/local/tomcat/webapps/manager/META-INF/context.xml'

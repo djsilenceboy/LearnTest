@@ -8,45 +8,31 @@
         name: '*'
         state: latest
 
-    - name: Install tools 1
-      yum:
+    - name: Install tools
+      dnf:
         name: "{{ item }}"
         state: latest
-        update_cache: yes
       with_items:
-        - bind-utils
-        - bridge-utils
-        - cifs-utils
-        - git
-        - net-tools
+        # - bind-utils
+        # - cifs-utils
+        # - git
+        # - net-tools
         - nmap
         - openssl
         - openssl-devel
         - perl
-        - python
-        - python-devel
-        - screen
+        # - python3
         - tcpdump
-        - traceroute
-        - unzip
-        - whois
-        - yum-utils
-        - zip
+        # - traceroute
+        # - unzip
+        # - whois
+        # - yum-utils
+        # - zip
         - java-1.8.0-openjdk
         - java-1.8.0-openjdk-devel
-        # epel-release must be installed before python-pip.
-        - epel-release
 
-    - name: Install tools 2
-      yum:
-        name: "{{ item }}"
-        state: latest
-        update_cache: yes
-      with_items:
-        - python-pip
-
-    - name: Upgrade pip
-      shell: pip install --upgrade pip
+#    - name: Upgrade pip
+#      shell: python3 -m pip install --upgrade pip
 
     - name: Disable and stop firewall services
       service:

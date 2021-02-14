@@ -4,26 +4,23 @@
   become: True
   tasks:
     - name: Install repo
-      yum:
-        name: http://yum.postgresql.org/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
+      dnf:
+        name: http://yum.postgresql.org/9.6/redhat/rhel-latest-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 
     - name: Install DB 1
-      yum:
+      dnf:
         name: postgresql96
         state: latest
-        update_cache: yes
 
     - name: Install DB 2
-      yum:
+      dnf:
         name: postgresql96-server
         state: latest
-        update_cache: yes
 
     - name: Install DB 3
-      yum:
+      dnf:
         name: postgresql96-contrib
         state: latest
-        update_cache: yes
 
     - name: Initial DB
       shell: /usr/pgsql-9.6/bin/postgresql96-setup initdb

@@ -3,10 +3,10 @@
 echo "Install MySQL v5.7."
 
 # Add Repo.
-yum install -y https://repo.mysql.com/yum/mysql-5.7-community/el/7/x86_64/mysql57-community-release-el7-10.noarch.rpm
+dnf install -y https://repo.mysql.com/yum/mysql-5.7-community/el/7/x86_64/mysql57-community-release-el7-10.noarch.rpm
 
 # Install.
-yum install -y mysql-community-server
+dnf install -y mysql-community-server
 
 # Enable and start service.
 systemctl enable mysqld

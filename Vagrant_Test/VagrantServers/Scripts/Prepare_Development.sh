@@ -1,9 +1,9 @@
 #!/bin/bash
 
-echo "Yum install Development Tools."
+echo "Dnf install Development Tools."
 
 # Tool like gcc.
-yum groupinstall -y "Development Tools"
+dnf group install -y "Development Tools"
 
 # For some python module, ansible plugin.
-yum install -y python-devel openssl-devel
+dnf install -y python36-devel openssl-devel

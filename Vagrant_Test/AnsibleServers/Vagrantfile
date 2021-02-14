@@ -20,6 +20,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Error: Unable to find a match: kernel-devel-4.18.0-240.1.1.el8_3.x86_64
   config.vbguest.auto_update = false
 
+  # Upgrade and install some tools.
   config.vm.provision "shell", path: "Scripts/Prepare_OS.sh"
 
   # Global config.
@@ -100,6 +101,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     ansibleDockerDbServer.vm.hostname = "dockerdb.djsilenceboy.com"
     ansibleDockerDbServer.vm.network "private_network", ip: "192.168.18.14"
+    # ansibleDockerDbServer.disksize.size = "20GB"
   end
 
 
@@ -114,6 +116,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     ansibleDockerApplicationServer.vm.hostname = "dockerappsvr.djsilenceboy.com"
     ansibleDockerApplicationServer.vm.network "private_network", ip: "192.168.18.15"
+    # ansibleDockerApplicationServer.disksize.size = "20GB"
   end
 
 

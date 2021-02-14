@@ -9,17 +9,12 @@ usermod -a -G tomcat root
 
 # Download file.
 cd /tmp
-curl -L -o apache-tomcat-9.0.12.zip https://www-us.apache.org/dist/tomcat/tomcat-9/v9.0.12/bin/apache-tomcat-9.0.12.zip
-curl -L -o catalina-jmx-remote.jar https://www-us.apache.org/dist/tomcat/tomcat-9/v9.0.12/bin/extras/catalina-jmx-remote.jar
-curl -L -o catalina-ws.jar https://www-us.apache.org/dist/tomcat/tomcat-9/v9.0.12/bin/extras/catalina-ws.jar
+curl -L -o apache-tomcat-9.0.43.zip https://www-us.apache.org/dist/tomcat/tomcat-9/v9.0.43/bin/apache-tomcat-9.0.43.zip
 
 # Unzip/install Tomcat.
-unzip /tmp/apache-tomcat-9.0.12.zip -d /opt
+unzip /tmp/apache-tomcat-9.0.43.zip -d /opt
 cd /opt
-mv apache-tomcat-9.0.12 tomcat
-
-# Some extra.
-mv /tmp/catalina-jmx-remote.jar /tmp/catalina-ws.jar /opt/tomcat/lib
+mv apache-tomcat-9.0.43 tomcat
 
 # Change main folder privilege.
 cd /opt
@@ -31,6 +26,9 @@ chmod -R o+rx tomcat
 # Some useful links.
 ln -s /opt/tomcat/conf /etc/tomcat
 ln -s /opt/tomcat/logs /var/log/tomcat
+
+# Enable default apps
+mv /opt/tomcat/webapps.dist/* /opt/tomcat/webapps/
 
 # Add admin user.
 # User / Password: admin / P@ssw0rd

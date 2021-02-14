@@ -228,6 +228,20 @@ Roles: [{role: "root", db: "admin"}]
 Admin portal
 
 http://192.168.18.14:8081/
+------------------------------------------------------------
+MongoDB Compass
+
+Hostname: 192.168.18.14
+          dockerdb.djsilenceboy.com (if set in "C:\Windows\System32\drivers\etc\hosts")
+Port: <27017>
+Authentication: Username / Password
+Username: root
+Password: P@ssw0rd
+Authentication Database: <admin>
+Read Preference: Primary
+SSL: None
+SSH Tunnel: None
+Favorite Name: DockerDb_Root
 ================================================================================
 
 ================================================================================
@@ -243,7 +257,6 @@ Server: 192.168.18.15
 Port: 8080
 Port: 8082
 Web console: http://192.168.18.15:8080
-             http://192.168.18.15:8082
 
 Admin user / Password: admin / P@ssw0rd
 Roles: admin-gui,manager-gui
@@ -254,6 +267,7 @@ Server: 192.168.18.15
 
 Web console: http://192.168.18.15:8090/jenkins
 ================================================================================
+(Ignored due to no space to default CentOS 8 image)
 TeamCity (Linux, Docker)
 
 Server: 192.168.18.15

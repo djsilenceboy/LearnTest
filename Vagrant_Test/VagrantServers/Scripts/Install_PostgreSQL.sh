@@ -3,12 +3,12 @@
 echo "Install PostgreSQL v9.6."
 
 # Add Repo.
-yum install -y http://yum.postgresql.org/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
+dnf install -y http://yum.postgresql.org/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
 
 # Install.
-yum install -y postgresql96 postgresql96-server postgresql96-contrib
+dnf install -y postgresql96 postgresql96-server postgresql96-contrib
 # or
-# yum groupinstall -y "PostgreSQL Database Server 9.6 PGDG"
+# dnf group install -y "PostgreSQL Database Server 9.6 PGDG"
 
 # Initial DB.
 /usr/pgsql-9.6/bin/postgresql96-setup initdb

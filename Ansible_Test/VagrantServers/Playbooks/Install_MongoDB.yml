@@ -14,10 +14,9 @@
         dest: /etc/yum.repos.d
 
     - name: Install DB
-      yum:
+      dnf:
         name: mongodb-org
         state: latest
-        update_cache: yes
 
     - name: Enable remote access
       shell: sed -i "s/127\.0\.0\.1/0\.0\.0\.0/g" /etc/mongod.conf

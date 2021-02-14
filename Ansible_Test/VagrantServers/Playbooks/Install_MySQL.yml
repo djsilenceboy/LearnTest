@@ -7,14 +7,13 @@
     remote_temp_path: /tmp
   tasks:
     - name: Install repo
-      yum:
+      dnf:
         name: https://repo.mysql.com/yum/mysql-5.7-community/el/7/x86_64/mysql57-community-release-el7-10.noarch.rpm
 
     - name: Install DB
-      yum:
+      dnf:
         name: mysql-community-server
         state: latest
-        update_cache: yes
 
     - name: Enable and start service
       service:

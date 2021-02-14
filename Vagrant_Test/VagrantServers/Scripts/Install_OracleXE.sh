@@ -4,7 +4,7 @@ echo "Install Oracle XE."
 
 # Install.
 cd /vagrant
-yum localinstall -y oracle-xe-11.2.0-1.0.x86_64.rpm
+dnf install -y oracle-xe-11.2.0-1.0.x86_64.rpm
 
 # Config DB.
 # User / Password: SYS / system

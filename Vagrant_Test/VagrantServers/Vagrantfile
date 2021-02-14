@@ -21,8 +21,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vbguest.auto_update = false
 
   # Install software.
-  config.vm.provision "shell", path: "Scripts/Prepare_Yum.sh"
-  config.vm.provision "shell", path: "Scripts/Prepare_Python.sh"
+  config.vm.provision "shell", path: "Scripts/Prepare_OS.sh"
   config.vm.provision "shell", path: "Scripts/Prepare_System.sh"
 
   # Global config.
@@ -54,6 +53,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vagrantDbServer.vm.provision "shell", path: "Scripts/Install_MongoDB.sh"
     # It is not easy to install for Vagrant.
     # vagrantDbServer.vm.provision "shell", path: "Scripts/Install_OracleXE.sh"
+
+    # vagrantDbServer.disksize.size = "20GB"
   end
 
 
@@ -75,6 +76,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vagrantApplicationServer.vm.provision "shell", path: "Scripts/Install_httpd.sh"
     vagrantApplicationServer.vm.provision "shell", path: "Scripts/Install_Tomcat.sh"
     vagrantApplicationServer.vm.provision "shell", path: "Scripts/Install_Jenkins.sh"
+
+    # vagrantApplicationServer.disksize.size = "20GB"
   end
 
 

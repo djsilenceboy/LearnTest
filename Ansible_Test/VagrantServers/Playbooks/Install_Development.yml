@@ -4,16 +4,14 @@
   become: True
   tasks:
     - name: Install development group
-      yum:
-        name: "@Development Tools"
+      dnf:
+        name: "@Development tools"
         state: present
-        update_cache: yes
 
     - name: Install tools
-      yum:
+      dnf:
         name: "{{ item }}"
         state: latest
-        update_cache: yes
       with_items:
-        - python-devel
+        - python36-devel
         - openssl-devel
