@@ -358,3 +358,8 @@ Find OOM/Killed
 ]# grep -i "killed/|oom-" /var/log/message* | less
 ]# grep -i "killed/|oom-" /var/log/* | less
 ================================================================================
+Kernel module
+
+]# insmod <Module_FilePath>
+]# modprobe <ModuleName>
+================================================================================
