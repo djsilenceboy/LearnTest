@@ -115,7 +115,6 @@ HDB_ProcessDataInDb.bat 20200627_12m
 Generated files:
 
 .\ProcessedData_20200627_12m\HDB_TransRent.db
-.\ProcessedData_20200627_12m\HDB_CondoEcResults_20200627_12m_PriceRentRatio.csv
-.\ProcessedData_20200627_12m\HDB_CondoEcResults_20200627_12m_RentYearlyPrice.csv
-.\ProcessedData_20200627_12m\HDB_CondoEcResults_20200627_12m_TransYearlyPrice.csv
+.\ProcessedData_20200627_12m\HDB_Results_20200627_12m_TransPrice.csv
+.\ProcessedData_20200627_12m\HDB_Results_20200627_12m_TransPriceB.csv
 ================================================================================

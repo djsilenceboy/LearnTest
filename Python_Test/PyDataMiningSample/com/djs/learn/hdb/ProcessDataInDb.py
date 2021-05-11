@@ -69,10 +69,20 @@ def import_data(dbConnection):
 
 def process_transaction_avg_price(dbConnection):
     dataFrame = pd.read_sql_query(con = dbConnection, sql = """
-SELECT STREET_NAME, BLOCK, LEASE_DATE, FLAT_MODEL, FLOOR_AREA_LOWER, CAST(ROUND(AVG(UNIT_PRICE)) AS INTEGER) AS UNIT_PRICE_AVG
+SELECT STREET_NAME, BLOCK, LEASE_DATE, FLAT_MODEL, FLOOR_AREA_LOWER, RESALE_YEAR, CAST(ROUND(AVG(RESALE_PRICE)) AS INTEGER) AS RESALE_PRICE_AVG, CAST(ROUND(AVG(UNIT_PRICE)) AS INTEGER) AS UNIT_PRICE_AVG, COUNT(*) AS TRANSACTIONS
 FROM HDB_TRANS_HIST
-GROUP BY STREET_NAME, BLOCK, LEASE_DATE, FLAT_MODEL, FLOOR_AREA_LOWER
-ORDER BY STREET_NAME, BLOCK, LEASE_DATE, FLAT_MODEL, FLOOR_AREA_LOWER, UNIT_PRICE_AVG;
+GROUP BY STREET_NAME, BLOCK, LEASE_DATE, FLAT_MODEL, FLOOR_AREA_LOWER, RESALE_YEAR
+ORDER BY STREET_NAME, BLOCK, LEASE_DATE, FLAT_MODEL, FLOOR_AREA_LOWER, RESALE_YEAR, RESALE_PRICE_AVG;
+    """)
+    return dataFrame
+
+
+def process_transaction_avg_price_b(dbConnection):
+    dataFrame = pd.read_sql_query(con = dbConnection, sql = """
+SELECT STREET_NAME, BLOCK, LEASE_DATE, FLAT_MODEL, FLOOR_LEVEL_RANGE, FLOOR_AREA_LOWER, RESALE_YEAR, CAST(ROUND(AVG(RESALE_PRICE)) AS INTEGER) AS RESALE_PRICE_AVG, CAST(ROUND(AVG(UNIT_PRICE)) AS INTEGER) AS UNIT_PRICE_AVG, COUNT(*) AS TRANSACTIONS
+FROM HDB_TRANS_HIST
+GROUP BY STREET_NAME, BLOCK, LEASE_DATE, FLAT_MODEL, FLOOR_LEVEL_RANGE, FLOOR_AREA_LOWER, RESALE_YEAR
+ORDER BY STREET_NAME, BLOCK, LEASE_DATE, FLAT_MODEL, FLOOR_LEVEL_RANGE, FLOOR_AREA_LOWER, RESALE_YEAR, RESALE_PRICE_AVG;
     """)
     return dataFrame
 
@@ -114,6 +124,7 @@ def process_inventory_list():
         import_data(dbConnection)
 
         df_transaction_avg_price = process_transaction_avg_price(dbConnection)
+        df_transaction_avg_price_b = process_transaction_avg_price_b(dbConnection)
 
         print("Process inventory list: ok.")
     except Exception as e:
@@ -134,6 +145,7 @@ def process_inventory_list():
     if __output_file_prefix_path:
         try:
             df_transaction_avg_price.to_csv(__output_file_prefix_path + "TransPrice.csv", index = False)
+            df_transaction_avg_price_b.to_csv(__output_file_prefix_path + "TransPriceB.csv", index = False)
             print("Output process results: ok")
         except Exception as e:
             print("Output process results: Exception = {0}".format(e))
