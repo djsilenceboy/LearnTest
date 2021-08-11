@@ -63,17 +63,25 @@ def process_inventory_list():
             for record in records:
                 del record[keyNettPrice]
 
-                if record[keyTenure] == "Freehold":
+                record[keySaleYear] = "20" + record[keyDateOfSale][-2:]
+                record[keyDateOfSale] = record[keyDateOfSale][:4] + record[keySaleYear]
+
+                tenure = record[keyTenure].lower()
+                if tenure == "freehold":
                     tenureYear = "0"
                     tenureLength = "9999"
-                elif record[keyTenure] == "NA":
+                elif tenure == "na":
                     tenureYear = "0"
                     tenureLength = "99"
+                elif tenure.find("leasehold") > 0:
+                    tenureYear = record[keySaleYear]
+                    midIndex = tenure.find("years") - 1
+                    tenureLength = tenure[:midIndex]
                 else:
-                    tenure = record[keyTenure]
                     tenureYear = tenure[-4:]
                     midIndex = tenure.find("yrs") - 1
                     tenureLength = tenure[:midIndex]
+
                 record[keyTenureYear] = tenureYear
                 record[keyTenureLength] = tenureLength
 
@@ -83,9 +91,6 @@ def process_inventory_list():
 
                 record[keyFloorAreaLower] = math.floor(int(record[keyAreaSqm]) / 10) * 10
                 record[keyFloorAreaUpper] = math.ceil(int(record[keyAreaSqm]) / 10) * 10
-
-                record[keySaleYear] = "20" + record[keyDateOfSale][-2:]
-                record[keyDateOfSale] = record[keyDateOfSale][:4] + record[keySaleYear]
         else:  # __data_type == 1:
             headers.append(keyYearlyGrossRent)
             headers.append(keyFloorAreaLower)
@@ -99,6 +104,9 @@ def process_inventory_list():
                 if floorAreaSqm[:1] == ">":
                     record[keyFloorAreaLower] = floorAreaSqm[1:]
                     record[keyFloorAreaUpper] = floorAreaSqm[1:]
+                elif floorAreaSqm[:3] == "<= ":
+                    record[keyFloorAreaLower] = floorAreaSqm[3:]
+                    record[keyFloorAreaUpper] = floorAreaSqm[3:]
                 else:
                     midIndex = floorAreaSqm.find("to") - 1
                     record[keyFloorAreaLower] = floorAreaSqm[:midIndex]

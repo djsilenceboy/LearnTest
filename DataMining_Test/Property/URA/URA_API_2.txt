@@ -68,7 +68,7 @@ curl 'https://www.ura.gov.sg/realEstateIIWeb/resiRental/search.action' \
 ================================================================================
 API: Submit search (square feet)
 
-Request URL: https://www.ura.gov.sg/realEstateIIWeb/resiRental/submitSearch.action;jsessionid=apCTJ-HdVtnkT_7J7JpQqjWR_PvV_KfRzcOfcrXQyzuxL0MBkzsG!1950757503!322298518
+Request URL: https://www.ura.gov.sg/realEstateIIWeb/resiRental/submitSearch.action
 Request Method: POST
 
 For 2nd onward, can omit ";jsessionid=<JSESSIONID>".
@@ -78,7 +78,7 @@ Request Method: POST
 ================================================================================
 Request Headers
 ------------------------------------------------------------
-POST /realEstateIIWeb/resiRental/submitSearch.action;jsessionid=apCTJ-HdVtnkT_7J7JpQqjWR_PvV_KfRzcOfcrXQyzuxL0MBkzsG!1950757503!322298518 HTTP/1.1
+POST /realEstateIIWeb/resiRental/submitSearch.action
 Host: www.ura.gov.sg
 Connection: keep-alive
 Content-Length: 260
@@ -126,6 +126,8 @@ __multiselect_selectedPostalDistricts:
 propertyType: "lp" for "Landed Properties (Non-Strata)"
               "ac" for "Non-Landed Housing Development"
               "ec" for "Executive Condominiums"
+
+Period: Must upper case, such as: APR-2020
 ================================================================================
 Response Headers
 ------------------------------------------------------------
@@ -145,7 +147,7 @@ Content-Encoding: gzip
 ================================================================================
 Sample full curl command
 ------------------------------------------------------------
-curl $'https://www.ura.gov.sg/realEstateIIWeb/resiRental/submitSearch.action;jsessionid=apCTJ-HdVtnkT_7J7JpQqjWR_PvV_KfRzcOfcrXQyzuxL0MBkzsG\u00211950757503\u0021322298518' \
+curl $'https://www.ura.gov.sg/realEstateIIWeb/resiRental/submitSearch.action' \
   -H 'Connection: keep-alive' \
   -H 'Cache-Control: max-age=0' \
   -H 'Upgrade-Insecure-Requests: 1' \
@@ -186,7 +188,7 @@ Sec-Fetch-Site: same-origin
 Sec-Fetch-Mode: navigate
 Sec-Fetch-User: ?1
 Sec-Fetch-Dest: document
-Referer: https://www.ura.gov.sg/realEstateIIWeb/resiRental/submitSearch.action;jsessionid=apCTJ-HdVtnkT_7J7JpQqjWR_PvV_KfRzcOfcrXQyzuxL0MBkzsG!1950757503!322298518
+Referer: https://www.ura.gov.sg/realEstateIIWeb/resiRental/submitSearch.action
 Accept-Encoding: gzip, deflate, br
 Accept-Language: en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7
 Cookie: __utmz=217352402.1590909993.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); _ga=GA1.3.38720108.1590909993; SC_ANALYTICS_GLOBAL_COOKIE=723887fbc894443bb6af0b19d007ba9c|False; __zlcmid=yTjAtDlTZZnQDF; _gid=GA1.3.1121044625.1591580694; _sp_ses.d422=*; __utma=217352402.38720108.1590909993.1591599655.1591605235.6; JSESSIONID=apCTJ-HdVtnkT_7J7JpQqjWR_PvV_KfRzcOfcrXQyzuxL0MBkzsG!1950757503!322298518; BIGipServerIAPP-HTTPS_A83-WWW.URA.GOV.SG_V4.app~IAPP-HTTPS_A83-WWW.URA.GOV.SG_V4_pool=952674496.20480.0000; TS0117b822=01e0d9e46e3a5e1900dd4d80f60d4421a6f326334ae5e01e5a59b21f68144368f1888fb9e057a8c792faca5c9c1c6978634fbc856efc834ef433dbe8f6f17c3381c8e1e8dd84625609f91785ff826485be479b56ad; _nxqsession_jsessionid=sPSgKdMG2ZxYj7JPbd4oHSjJGzYrOS5AlAIWoWYtRq3vV4MrGoi6M6FM2bqv0qiKoMyRSQMamDkS1PboOEi+5tMpegfeII+yBg==; __utmc=217352402; __utmb=217352402.6.10.1591605235; AMCVS_DF38E5285913269B0A495E5A%40AdobeOrg=1; AMCV_DF38E5285913269B0A495E5A%40AdobeOrg=-1303530583%7CMCIDTS%7C18422%7CMCMID%7C51556601373344558983654905391678077681%7CMCAAMLH-1592211566%7C3%7CMCAAMB-1592211566%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1591613966s%7CNONE%7CvVersion%7C3.3.0; _sp_id.d422=e4816b9f-bdd3-4ce6-a275-6c8defa3ccef.1590909994.6.1591606903.1591600836.644cb227-0f5f-467a-aecb-22ce5739f843
@@ -234,7 +236,7 @@ curl 'https://www.ura.gov.sg/realEstateIIWeb/resiRental/changeDisplayUnit.action
   -H 'Sec-Fetch-Mode: navigate' \
   -H 'Sec-Fetch-User: ?1' \
   -H 'Sec-Fetch-Dest: document' \
-  -H $'Referer: https://www.ura.gov.sg/realEstateIIWeb/resiRental/submitSearch.action;jsessionid=apCTJ-HdVtnkT_7J7JpQqjWR_PvV_KfRzcOfcrXQyzuxL0MBkzsG\u00211950757503\u0021322298518' \
+  -H $'Referer: https://www.ura.gov.sg/realEstateIIWeb/resiRental/submitSearch.action' \
   -H 'Accept-Language: en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7' \
   -H $'Cookie: __utmz=217352402.1590909993.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); _ga=GA1.3.38720108.1590909993; SC_ANALYTICS_GLOBAL_COOKIE=723887fbc894443bb6af0b19d007ba9c|False; __zlcmid=yTjAtDlTZZnQDF; _gid=GA1.3.1121044625.1591580694; _sp_ses.d422=*; __utma=217352402.38720108.1590909993.1591599655.1591605235.6; JSESSIONID=apCTJ-HdVtnkT_7J7JpQqjWR_PvV_KfRzcOfcrXQyzuxL0MBkzsG\u00211950757503\u0021322298518; BIGipServerIAPP-HTTPS_A83-WWW.URA.GOV.SG_V4.app~IAPP-HTTPS_A83-WWW.URA.GOV.SG_V4_pool=952674496.20480.0000; TS0117b822=01e0d9e46e3a5e1900dd4d80f60d4421a6f326334ae5e01e5a59b21f68144368f1888fb9e057a8c792faca5c9c1c6978634fbc856efc834ef433dbe8f6f17c3381c8e1e8dd84625609f91785ff826485be479b56ad; _nxqsession_jsessionid=sPSgKdMG2ZxYj7JPbd4oHSjJGzYrOS5AlAIWoWYtRq3vV4MrGoi6M6FM2bqv0qiKoMyRSQMamDkS1PboOEi+5tMpegfeII+yBg==; __utmc=217352402; __utmb=217352402.6.10.1591605235; AMCVS_DF38E5285913269B0A495E5A%40AdobeOrg=1; AMCV_DF38E5285913269B0A495E5A%40AdobeOrg=-1303530583%7CMCIDTS%7C18422%7CMCMID%7C51556601373344558983654905391678077681%7CMCAAMLH-1592211566%7C3%7CMCAAMB-1592211566%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1591613966s%7CNONE%7CvVersion%7C3.3.0; _sp_id.d422=e4816b9f-bdd3-4ce6-a275-6c8defa3ccef.1590909994.6.1591606903.1591600836.644cb227-0f5f-467a-aecb-22ce5739f843' \
   --data-raw 'sortBy=' \
@@ -248,7 +250,7 @@ JSESSIONID=$(curl -sSI 'https://www.ura.gov.sg/realEstateIIWeb/resiRental/search
 
 echo "JSESSIONID = "$JSESSIONID
 
-curl -sS "https://www.ura.gov.sg/realEstateIIWeb/resiRental/submitSearch.action;jsessionid=${JSESSIONID}" -H "Cookie: JSESSIONID=${JSESSIONID}" -H 'Content-Type: application/x-www-form-urlencoded' -d 'submissionType=pd&from_Date_Prj=APR-2020&to_Date_Prj=APR-2020&__multiselect_selectedProjects=&from_Date=JAN-2020&to_Date=APR-2020&propertyType=ac&postalDistrictList=28&selectedPostalDistricts=14&selectedPostalDistricts=15&__multiselect_selectedPostalDistricts=' --compressed -o URA_Sample_Rent_Sqf.html
+curl -sS "https://www.ura.gov.sg/realEstateIIWeb/resiRental/submitSearch.action" -H "Cookie: JSESSIONID=${JSESSIONID}" -H 'Content-Type: application/x-www-form-urlencoded' -d 'submissionType=pd&from_Date_Prj=APR-2020&to_Date_Prj=APR-2020&__multiselect_selectedProjects=&from_Date=JAN-2020&to_Date=APR-2020&propertyType=ac&postalDistrictList=28&selectedPostalDistricts=14&selectedPostalDistricts=15&__multiselect_selectedPostalDistricts=' --compressed -o URA_Sample_Rent_Sqf.html
 
 curl -sS 'https://www.ura.gov.sg/realEstateIIWeb/resiRental/changeDisplayUnit.action' -H "Cookie: JSESSIONID=${JSESSIONID}" -H 'Content-Type: application/x-www-form-urlencoded' -d 'sortBy=' --compressed -o URA_Sample_Rent_Sqm.html
 ================================================================================

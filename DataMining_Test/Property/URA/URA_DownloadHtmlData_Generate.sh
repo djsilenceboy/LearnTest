@@ -85,7 +85,7 @@ do
 	JSESSIONID=$(curl -sSI "https://www.ura.gov.sg/realEstateIIWeb/${DATA_TYPE}/search.action" --compressed | grep JSESSIONID | cut -d' ' -f2 | cut -d= -f2 | tr -d ';')
 	echo $N": JSESSIONID = "$JSESSIONID
 
-	ACTION_URL_SQF="https://www.ura.gov.sg/realEstateIIWeb/${DATA_TYPE}/submitSearch.action;jsessionid=${JSESSIONID}"
+	ACTION_URL_SQF="https://www.ura.gov.sg/realEstateIIWeb/${DATA_TYPE}/submitSearch.action"
 	echo $N": ACTION_URL_SQF = "$ACTION_URL_SQF
 	ACTION_URL_SQM="https://www.ura.gov.sg/realEstateIIWeb/${DATA_TYPE}/changeDisplayUnit.action"
 	echo $N": ACTION_URL_SQM = "$ACTION_URL_SQM
