@@ -1,11 +1,12 @@
 '''
+Deprecated.
 Check Yahoo finance stock data helper.
 
 Update log: (date / version / author : comments)
 2017-12-08 / 1.0.0 / Du Jiang : Creation
 2017-12-13 / 2.0.0 / Du Jiang : Use new API
+2022-02-05 / Du Jiang : Deprecated.
 '''
-
 
 from com.djs.learn.financeapi import CheckFinanceDataRequests
 
