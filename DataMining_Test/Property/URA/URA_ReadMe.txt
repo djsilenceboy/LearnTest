@@ -19,14 +19,17 @@ Select any Property Type: "Non-Landed Housing Development" and "Executive Condom
 ================================================================================
 Download HTML files
 ================================================================================
-Update "URA_DownloadHtmlData_Batch.sh" script with downloading parameters.
+Download all HTML files (use bash) by "URA_DownloadHtmlData_Batch" scripts.
 
-Download all HTML files (use bash) by:
-./URA_DownloadHtmlData_Batch.sh
+Update downloading parameters.
+Run any:
+./URA_DownloadHtmlData_Batch_Year.sh
+./URA_DownloadHtmlData_Batch_Month.sh
+./URA_DownloadHtmlData_Batch_Temp.sh
 ------------------------------------------------------------
 Downloaded file folder (sample):
 
-.\HtmlData_201706_202005
+.\HtmlData\201706_202005
 ----------------------------------------
 Generated files:
 
@@ -58,11 +61,13 @@ Convert HTML data to CSV
 Preprocess CSV files
 Process pre-processed data files by SQLite
 ================================================================================
-Update "URA_ProcessData_Batch.bat" script with parameters.
+Update "URA_ProcessData_Batch" scripts with parameters.
 
-Run:
+Run any:
 
-URA_ProcessData_Batch.bat
+URA_ProcessData_Batch_Year.bat
+URA_ProcessData_Batch_Month.bat
+URA_ProcessData_Batch_Temp.bat
 ================================================================================
 Following are separated steps.
 ================================================================================
@@ -76,8 +81,8 @@ URA_ConvertHtmlToRawData.bat 201706 202005
 ------------------------------------------------------------
 Generated files:
 
-.\ProcessedData_201706_202005\URA_CondoEcTrans_201706_202005_M.csv
-.\ProcessedData_201706_202005\URA_CondoEcRent_201706_202005_M.csv
+.\ProcessedData\201706_202005\URA_CondoEcTrans_201706_202005_M.csv
+.\ProcessedData\201706_202005\URA_CondoEcRent_201706_202005_M.csv
 ================================================================================
 
 ================================================================================
@@ -89,8 +94,8 @@ URA_PreprocessData.bat 201706 202005
 ------------------------------------------------------------
 Generated files:
 
-.\ProcessedData_201706_202005\URA_CondoEcTrans_201706_202005_MP.csv
-.\ProcessedData_201706_202005\URA_CondoEcRent_201706_202005_MP.csv
+.\ProcessedData\201706_202005\URA_CondoEcTrans_201706_202005_MP.csv
+.\ProcessedData\201706_202005\URA_CondoEcRent_201706_202005_MP.csv
 ================================================================================
 During preprocess by Python
 ================================================================================
@@ -163,8 +168,8 @@ URA_ProcessDataInDb.bat 201706 202005
 ------------------------------------------------------------
 Generated files:
 
-.\ProcessedData_201706_202005\URA_CondoEcTransRent.db
-.\ProcessedData_201706_202005\URA_CondoEcResults_201706_202005_PriceRentRatio.csv
-.\ProcessedData_201706_202005\URA_CondoEcResults_201706_202005_RentYearlyPrice.csv
-.\ProcessedData_201706_202005\URA_CondoEcResults_201706_202005_TransYearlyPrice.csv
+.\ProcessedData\201706_202005\URA_CondoEcTransRent.db
+.\ProcessedData\201706_202005\URA_CondoEcResults_201706_202005_PriceRentRatio.csv
+.\ProcessedData\201706_202005\URA_CondoEcResults_201706_202005_RentYearlyPrice.csv
+.\ProcessedData\201706_202005\URA_CondoEcResults_201706_202005_TransYearlyPrice.csv
 ================================================================================

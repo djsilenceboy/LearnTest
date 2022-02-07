@@ -1,7 +1,7 @@
 set DATE_RANGE=%1_%2
 set APP_FOLDER=F:\WorkDJS\RepositoryGit\LearnTest\Python_Test\PyDataMiningSample\com\djs\learn\ura
-set INPUT_DATE_RANGE=.\HtmlData_%DATE_RANGE%
-set OUTPUT_FOLDER=.\ProcessedData_%DATE_RANGE%
+set INPUT_DATE_RANGE=.\HtmlData\%DATE_RANGE%
+set OUTPUT_FOLDER=.\ProcessedData\%DATE_RANGE%
 
 echo ================================================================================
 date /T

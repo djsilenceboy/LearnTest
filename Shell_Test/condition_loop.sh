@@ -74,3 +74,18 @@ for ((N=1; N<4; N++))
 do
 	echo $N
 done
+
+# Declare a associative array.
+declare -A VarArr
+
+VarArr[1]="JAN"
+VarArr[2]="FEB"
+VarArr[3]="MAR"
+
+for Year in {2017..2018}
+do
+	for n in ${!VarArr[@]}
+	do
+		echo $Year, $n, ${VarArr[$n]}
+	done
+done

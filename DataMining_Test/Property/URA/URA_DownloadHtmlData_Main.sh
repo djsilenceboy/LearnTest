@@ -1,9 +1,9 @@
 #!/bin/bash
 
-FROM_DATE=201706
-TO_DATE=202005
-FROM_PERIOD="JUN 2017"
-TO_PERIOD="MAY 2020"
+FROM_DATE=${1}${2}
+TO_DATE=${4}${5}
+FROM_PERIOD="${3} ${1}"
+TO_PERIOD="${6} ${4}"
 
 CURRENT_FOLDER=$(pwd)
 CURRENT_NAME=$(basename $0)
@@ -18,10 +18,14 @@ echo "==========================================================================
 echo "Date: "$(date +"%FT%T%z")
 echo "CURRENT_FOLDER = "$CURRENT_FOLDER
 echo "LOG_FILE = "${TMP_FOLDER}"/"${LOG_FILE}
+echo "FROM_DATE = "$FROM_DATE
+echo "TO_DATE = "$TO_DATE
+echo "FROM_PERIOD = "$FROM_PERIOD
+echo "TO_PERIOD = "$TO_PERIOD
 echo 
 echo "Start downloading ..."
 
-${CURRENT_FOLDER}/URA_DownloadHtmlData_Run.sh ${FROM_DATE} ${TO_DATE} "${FROM_PERIOD}" "${TO_PERIOD}" |& tee ${TMP_FOLDER}/${LOG_FILE}
+# ${CURRENT_FOLDER}/URA_DownloadHtmlData_Run.sh ${FROM_DATE} ${TO_DATE} "${FROM_PERIOD}" "${TO_PERIOD}" |& tee ${TMP_FOLDER}/${LOG_FILE}
 
 echo "Download completed."
 echo "Date: "$(date +"%FT%T%z")

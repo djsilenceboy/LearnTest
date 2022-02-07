@@ -5,13 +5,13 @@ TO_DATE=$2
 FROM_PERIOD=$3
 TO_PERIOD=$4
 
+CURRENT_FOLDER=$(pwd)
+
 DATE_RANGE_A="${FROM_DATE}_${TO_DATE}"
 DATE_RANGE_B="${FROM_DATE}_${TO_DATE}"
-BASE_FOLDER="./HtmlData_${DATE_RANGE_A}"
+BASE_FOLDER="${CURRENT_FOLDER}/HtmlData/${DATE_RANGE_A}"
 TRANS_FILE_PREFIX="URA_CondoEcTrans_${DATE_RANGE_B}_"
 RENT_FILE_PREFIX="URA_CondoEcRent_${DATE_RANGE_B}_"
-
-CURRENT_FOLDER=$(pwd)
 
 echo "================================================================================"
 # Generate download scripts.
@@ -57,7 +57,7 @@ echo "------------------------------------------------------------"
 echo "Date: "$(date +"%FT%T%z")
 echo "Run download scripts ..."
 
-cd ./${BASE_FOLDER}
+cd ${BASE_FOLDER}
 echo "CURRENT_FOLDER = "$(pwd)
 
 ./${TRANS_FILE_PREFIX}A.sh &

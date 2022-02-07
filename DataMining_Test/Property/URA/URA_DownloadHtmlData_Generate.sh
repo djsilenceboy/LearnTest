@@ -80,7 +80,7 @@ make_form_data_full()
 echo "#!/bin/bash" > ${OUTPUT_FOLDER}/${OUTPUT_FILE_PREFIX}.sh
 echo >> ${OUTPUT_FOLDER}/${OUTPUT_FILE_PREFIX}.sh
 N=1
-for postal_code_list in "01 02 03 04 05" "06 07 08 09 10" "11 12 13 14 15" "16 17 18 19 20" "21 22 23 24 25" "26 27 28"
+for postal_code_list in "01 02 03 04" "05 06 07 08" "09 10 11 12" "13 14 15 16" "17 18 19 20" "21 22 23 24" "25 26 27 28"
 do
 	JSESSIONID=$(curl -sSI "https://www.ura.gov.sg/realEstateIIWeb/${DATA_TYPE}/search.action" --compressed | grep JSESSIONID | cut -d' ' -f2 | cut -d= -f2 | tr -d ';')
 	echo $N": JSESSIONID = "$JSESSIONID
@@ -96,13 +96,13 @@ do
 	echo $N": FORM_DATA_FULL = "$FORM_DATA_FULL
 
     # Ignore SquareFeet data.
-	ACTION_COMMAND_SQF="curl -sS '${ACTION_URL_SQF}' -H 'Cookie: JSESSIONID=${JSESSIONID}' -H 'Content-Type: application/x-www-form-urlencoded' -d '${FORM_DATA_FULL}' --compressed > /dev/null"
+	ACTION_COMMAND_SQF="curl -sS '${ACTION_URL_SQF}' -H 'Cookie: JSESSIONID=${JSESSIONID}' -H 'Connection: keep-alive' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Accept-Encoding: gzip, deflate, br' -d '${FORM_DATA_FULL}' --compressed > /dev/null"
 	echo $N": ACTION_COMMAND_SQF = "$ACTION_COMMAND_SQF
 	echo $ACTION_COMMAND_SQF >> ${OUTPUT_FOLDER}/${OUTPUT_FILE_PREFIX}.sh
 	echo >> ${OUTPUT_FOLDER}/${OUTPUT_FILE_PREFIX}.sh
 
     # Save SquareMeter data.
-	ACTION_COMMAND_SQM="curl -sS '${ACTION_URL_SQM}' -H 'Cookie: JSESSIONID=${JSESSIONID}' -H 'Content-Type: application/x-www-form-urlencoded' -d 'sortBy=' --compressed -o '${OUTPUT_FILE_PREFIX}${N}.html' &"
+	ACTION_COMMAND_SQM="curl -sS '${ACTION_URL_SQM}' -H 'Cookie: JSESSIONID=${JSESSIONID}' -H 'Connection: keep-alive' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Accept-Encoding: gzip, deflate, br' -d 'sortBy=' --compressed -o '${OUTPUT_FILE_PREFIX}${N}.html' &"
 	echo $N": ACTION_COMMAND_SQM = "$ACTION_COMMAND_SQM
 	echo $ACTION_COMMAND_SQM >> ${OUTPUT_FOLDER}/${OUTPUT_FILE_PREFIX}.sh
 	echo >> ${OUTPUT_FOLDER}/${OUTPUT_FILE_PREFIX}.sh
