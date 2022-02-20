@@ -25,7 +25,7 @@ echo "TO_PERIOD = "$TO_PERIOD
 echo 
 echo "Start downloading ..."
 
-# ${CURRENT_FOLDER}/URA_DownloadHtmlData_Run.sh ${FROM_DATE} ${TO_DATE} "${FROM_PERIOD}" "${TO_PERIOD}" |& tee ${TMP_FOLDER}/${LOG_FILE}
+${CURRENT_FOLDER}/URA_DownloadHtmlData_Run.sh ${FROM_DATE} ${TO_DATE} "${FROM_PERIOD}" "${TO_PERIOD}" |& tee ${TMP_FOLDER}/${LOG_FILE}
 
 echo "Download completed."
 echo "Date: "$(date +"%FT%T%z")

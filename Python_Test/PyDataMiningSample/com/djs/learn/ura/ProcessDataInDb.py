@@ -158,6 +158,16 @@ ORDER BY a.SALE_YEAR, a.FLOOR_AREA_LOWER, PRICE_RENT_RATIO, a.PRICE_AVG;
     return dataFrame
 
 
+def process_transaction_per_month(dbConnection):
+    dataFrame = pd.read_sql_query(con = dbConnection, sql = """
+SELECT POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE, COUNT(*) AS TRANSACTIONS
+FROM URA_CONDOEC_TRANS_HIST
+GROUP BY POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE
+ORDER BY POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE;
+    """)
+    return dataFrame
+
+
 def usage():
     print('''
 Process URA data by SQLite.
@@ -198,6 +208,7 @@ def process_inventory_list():
         df_transaction_yearly_avg_price = process_transaction_yearly_avg_price(dbConnection)
         df_rental_yearly_avg_price = process_rental_yearly_avg_price(dbConnection)
         df_price_rental_ratio = process_price_rental_ratio(dbConnection)
+        df_transaction_per_month = process_transaction_per_month(dbConnection)
 
         print("Process inventory list: ok.")
     except Exception as e:
@@ -220,6 +231,7 @@ def process_inventory_list():
             df_transaction_yearly_avg_price.to_csv(__output_file_prefix_path + "TransYearlyPrice.csv", index = False)
             df_rental_yearly_avg_price.to_csv(__output_file_prefix_path + "RentYearlyPrice.csv", index = False)
             df_price_rental_ratio.to_csv(__output_file_prefix_path + "PriceRentRatio.csv", index = False)
+            df_transaction_per_month.to_csv(__output_file_prefix_path + "TransPerMonth.csv", index = False)
             print("Output process results: ok")
         except Exception as e:
             print("Output process results: Exception = {0}".format(e))
@@ -227,6 +239,7 @@ def process_inventory_list():
         print("transaction_yearly_avg_price.size =", df_transaction_yearly_avg_price.size)
         print("rental_yearly_avg_price.size =", df_rental_yearly_avg_price.size)
         print("price_rental_ratio.size =", df_price_rental_ratio.size)
+        print("transaction_per_month.size =", df_transaction_per_month.size)
         print("Output process results.")
 
     print("-" * 100)
