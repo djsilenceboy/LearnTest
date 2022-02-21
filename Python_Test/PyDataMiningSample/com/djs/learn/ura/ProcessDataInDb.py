@@ -168,6 +168,18 @@ ORDER BY POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE;
     return dataFrame
 
 
+def process_transaction_per_month_80sqm1m(dbConnection):
+    dataFrame = pd.read_sql_query(con = dbConnection, sql = """
+SELECT POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE, COUNT(*) AS TRANSACTIONS
+FROM URA_CONDOEC_TRANS_HIST
+WHERE (PRICE <= 1000000)
+      AND (FLOOR_AREA >= 80)
+GROUP BY POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE
+ORDER BY POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE;
+    """)
+    return dataFrame
+
+
 def usage():
     print('''
 Process URA data by SQLite.
@@ -209,6 +221,7 @@ def process_inventory_list():
         df_rental_yearly_avg_price = process_rental_yearly_avg_price(dbConnection)
         df_price_rental_ratio = process_price_rental_ratio(dbConnection)
         df_transaction_per_month = process_transaction_per_month(dbConnection)
+        df_transaction_per_month_80sqm1m = process_transaction_per_month_80sqm1m(dbConnection)
 
         print("Process inventory list: ok.")
     except Exception as e:
@@ -232,6 +245,7 @@ def process_inventory_list():
             df_rental_yearly_avg_price.to_csv(__output_file_prefix_path + "RentYearlyPrice.csv", index = False)
             df_price_rental_ratio.to_csv(__output_file_prefix_path + "PriceRentRatio.csv", index = False)
             df_transaction_per_month.to_csv(__output_file_prefix_path + "TransPerMonth.csv", index = False)
+            df_transaction_per_month_80sqm1m.to_csv(__output_file_prefix_path + "TransPerMonth_80sqm1m.csv", index = False)
             print("Output process results: ok")
         except Exception as e:
             print("Output process results: Exception = {0}".format(e))

@@ -60,17 +60,30 @@ FROM
       AND (b.YEARLY_GROSS_RENT_AVG IS NULL))
 ORDER BY a.POSTAL_DISTRICT, a.PROJECT_NAME, a.FLOOR_AREA_LOWER;
 ================================================================================
-Find: Transactions number per month for each project
+Find: Transactions per month for each project
 ------------------------------------------------------------
 SELECT POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE, COUNT(*) AS TRANSACTIONS
 FROM URA_CONDOEC_TRANS_HIST
 WHERE PROJECT_NAME in ("NORTHVALE", "CASABLANCA", "ROSEWOOD", "REGENT GROVE", "YEW MEI GREEN", "NORTHOAKS", "WOODSVALE", "EASTPOINT GREEN", "SIMEI GREEN CONDOMINIUM", "WOODGROVE CONDOMINIUM")
-      AND SALE_YEAR >= 2019
+      AND (SALE_YEAR >= 2019)
 GROUP BY POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE
 HAVING COUNT(*) >= 5
 ORDER BY POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE
 ================================================================================
-Find: Transactions number per month for all project
+Find transactions per month for each project, which
+------------------------------------------------------------
+1. PRICE is <= s$1,000,000,
+2. FLOOR_AREA is >= 80 sqm.
+
+SELECT POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE, COUNT(*) AS TRANSACTIONS
+FROM URA_CONDOEC_TRANS_HIST
+WHERE PROJECT_NAME in ("NORTHVALE", "CASABLANCA", "ROSEWOOD", "REGENT GROVE", "YEW MEI GREEN", "NORTHOAKS", "WOODSVALE", "EASTPOINT GREEN", "SIMEI GREEN CONDOMINIUM", "WOODGROVE CONDOMINIUM")
+      AND (PRICE <= 1000000)
+      AND (FLOOR_AREA >= 80)
+GROUP BY POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE
+ORDER BY POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE
+================================================================================
+Find: Transactions per month for all project
 ------------------------------------------------------------
 SELECT SALE_YEAR, SALE_DATE, COUNT(*) AS TRANSACTIONS
 FROM URA_CONDOEC_TRANS_HIST

@@ -59,10 +59,21 @@ ORDER BY a.SALE_YEAR, a.FLOOR_AREA_LOWER, PRICE_RENT_RATIO, a.PRICE_AVG;
 ================================================================================
 URA_CONDOEC_TRANS_HIST
 ------------------------------------------------------------
-Find transactions number per month for each project
+Find transactions per month for each project
 
 SELECT POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE, COUNT(*) AS TRANSACTIONS
 FROM URA_CONDOEC_TRANS_HIST
+GROUP BY POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE
+ORDER BY POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE
+------------------------------------------------------------
+Find transactions per month for each project, which
+1. PRICE is <= s$1,000,000,
+2. FLOOR_AREA is >= 80 sqm.
+
+SELECT POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE, COUNT(*) AS TRANSACTIONS
+FROM URA_CONDOEC_TRANS_HIST
+WHERE (PRICE <= 1000000)
+      AND (FLOOR_AREA >= 80)
 GROUP BY POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE
 ORDER BY POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE
 ================================================================================
