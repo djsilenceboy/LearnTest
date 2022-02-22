@@ -160,22 +160,33 @@ ORDER BY a.SALE_YEAR, a.FLOOR_AREA_LOWER, PRICE_RENT_RATIO, a.PRICE_AVG;
 
 def process_transaction_per_month(dbConnection):
     dataFrame = pd.read_sql_query(con = dbConnection, sql = """
-SELECT POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE, COUNT(*) AS TRANSACTIONS
-FROM URA_CONDOEC_TRANS_HIST
-GROUP BY POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE
-ORDER BY POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE;
-    """)
-    return dataFrame
-
-
-def process_transaction_per_month_80sqm1m(dbConnection):
-    dataFrame = pd.read_sql_query(con = dbConnection, sql = """
-SELECT POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE, COUNT(*) AS TRANSACTIONS
-FROM URA_CONDOEC_TRANS_HIST
-WHERE (PRICE <= 1000000)
-      AND (FLOOR_AREA >= 80)
-GROUP BY POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE
-ORDER BY POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE;
+SELECT a.POSTAL_DISTRICT, a.PROJECT_NAME, a.SALE_YEAR, a.SALE_DATE, a.TRANSACTIONS, b.TRANSACTIONS AS TRANSACTIONS2, c.TRANSACTIONS AS TRANSACTIONS3
+FROM
+  (SELECT POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE, COUNT(*) AS TRANSACTIONS
+   FROM URA_CONDOEC_TRANS_HIST
+   GROUP BY POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE) a
+  LEFT JOIN
+  (SELECT POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE, COUNT(*) AS TRANSACTIONS
+   FROM URA_CONDOEC_TRANS_HIST
+   WHERE (PRICE <= 1000000)
+         AND (FLOOR_AREA >= 80)
+   GROUP BY POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE) b
+  ON ((a.POSTAL_DISTRICT = b.POSTAL_DISTRICT)
+      AND (a.PROJECT_NAME = b.PROJECT_NAME)
+      AND (a.SALE_YEAR = b.SALE_YEAR)
+      AND (a.SALE_DATE = b.SALE_DATE))
+  LEFT JOIN
+  (SELECT POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE, COUNT(*) AS TRANSACTIONS
+   FROM URA_CONDOEC_TRANS_HIST
+   WHERE (PRICE <= 900000)
+         AND (FLOOR_AREA >= 60)
+         AND (FLOOR_AREA < 80)
+   GROUP BY POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE) c
+  ON ((a.POSTAL_DISTRICT = c.POSTAL_DISTRICT)
+      AND (a.PROJECT_NAME = c.PROJECT_NAME)
+      AND (a.SALE_YEAR = c.SALE_YEAR)
+      AND (a.SALE_DATE = c.SALE_DATE))
+ORDER BY a.POSTAL_DISTRICT, a.PROJECT_NAME, a.SALE_YEAR, a.SALE_DATE;
     """)
     return dataFrame
 
@@ -221,7 +232,6 @@ def process_inventory_list():
         df_rental_yearly_avg_price = process_rental_yearly_avg_price(dbConnection)
         df_price_rental_ratio = process_price_rental_ratio(dbConnection)
         df_transaction_per_month = process_transaction_per_month(dbConnection)
-        df_transaction_per_month_80sqm1m = process_transaction_per_month_80sqm1m(dbConnection)
 
         print("Process inventory list: ok.")
     except Exception as e:
@@ -245,7 +255,6 @@ def process_inventory_list():
             df_rental_yearly_avg_price.to_csv(__output_file_prefix_path + "RentYearlyPrice.csv", index = False)
             df_price_rental_ratio.to_csv(__output_file_prefix_path + "PriceRentRatio.csv", index = False)
             df_transaction_per_month.to_csv(__output_file_prefix_path + "TransPerMonth.csv", index = False)
-            df_transaction_per_month_80sqm1m.to_csv(__output_file_prefix_path + "TransPerMonth_80sqm1m.csv", index = False)
             print("Output process results: ok")
         except Exception as e:
             print("Output process results: Exception = {0}".format(e))
