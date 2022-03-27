@@ -191,6 +191,34 @@ ORDER BY a.POSTAL_DISTRICT, a.PROJECT_NAME, a.SALE_YEAR, a.SALE_DATE;
     return dataFrame
 
 
+def process_price_summary(dbConnection):
+    dataFrame = pd.read_sql_query(con = dbConnection, sql = """
+SELECT a.POSTAL_DISTRICT, a.PROJECT_NAME, a.FLOOR_AREA, a.TRANSACTIONS AS ALL_TRANS, a.MIN_PRICE AS ALL_MIN, a.AVG_PRICE AS ALL_AVG, a.MAX_PRICE AS ALL_MAX, b.TRANSACTIONS AS A2020_TRANS, b.MIN_PRICE AS A2020_MIN, b.AVG_PRICE AS A2020_AVG, b.MAX_PRICE AS A2020_MAX, c.TRANSACTIONS AS A2021_TRANS, c.MIN_PRICE AS A2021_MIN, c.AVG_PRICE AS A2021_AVG, c.MAX_PRICE AS A2021_MAX
+FROM
+  (SELECT POSTAL_DISTRICT, PROJECT_NAME, FLOOR_AREA, COUNT(*) AS TRANSACTIONS, MIN(PRICE) AS MIN_PRICE, CAST(ROUND(AVG(PRICE)) AS INTEGER) AS AVG_PRICE, MAX(PRICE) AS MAX_PRICE
+   FROM URA_CONDOEC_TRANS_HIST
+   GROUP BY POSTAL_DISTRICT, PROJECT_NAME, FLOOR_AREA) a
+  LEFT JOIN
+  (SELECT POSTAL_DISTRICT, PROJECT_NAME, FLOOR_AREA, COUNT(*) AS TRANSACTIONS, MIN(PRICE) AS MIN_PRICE, CAST(ROUND(AVG(PRICE)) AS INTEGER) AS AVG_PRICE, MAX(PRICE) AS MAX_PRICE
+   FROM URA_CONDOEC_TRANS_HIST
+   WHERE (SALE_YEAR >= 2020)
+   GROUP BY POSTAL_DISTRICT, PROJECT_NAME, FLOOR_AREA) b
+  ON ((a.POSTAL_DISTRICT = b.POSTAL_DISTRICT)
+      AND (a.PROJECT_NAME = b.PROJECT_NAME)
+      AND (a.FLOOR_AREA = b.FLOOR_AREA))
+  LEFT JOIN
+  (SELECT POSTAL_DISTRICT, PROJECT_NAME, FLOOR_AREA, COUNT(*) AS TRANSACTIONS, MIN(PRICE) AS MIN_PRICE, CAST(ROUND(AVG(PRICE)) AS INTEGER) AS AVG_PRICE, MAX(PRICE) AS MAX_PRICE
+   FROM URA_CONDOEC_TRANS_HIST
+   WHERE (SALE_YEAR >= 2021)
+   GROUP BY POSTAL_DISTRICT, PROJECT_NAME, FLOOR_AREA) c
+  ON ((a.POSTAL_DISTRICT = c.POSTAL_DISTRICT)
+      AND (a.PROJECT_NAME = c.PROJECT_NAME)
+      AND (a.FLOOR_AREA = c.FLOOR_AREA))
+ORDER BY a.POSTAL_DISTRICT, a.PROJECT_NAME, a.FLOOR_AREA;
+    """)
+    return dataFrame
+
+
 def usage():
     print('''
 Process URA data by SQLite.
@@ -232,6 +260,7 @@ def process_inventory_list():
         df_rental_yearly_avg_price = process_rental_yearly_avg_price(dbConnection)
         df_price_rental_ratio = process_price_rental_ratio(dbConnection)
         df_transaction_per_month = process_transaction_per_month(dbConnection)
+        df_process_price_summary = process_price_summary(dbConnection)
 
         print("Process inventory list: ok.")
     except Exception as e:
@@ -255,6 +284,7 @@ def process_inventory_list():
             df_rental_yearly_avg_price.to_csv(__output_file_prefix_path + "RentYearlyPrice.csv", index = False)
             df_price_rental_ratio.to_csv(__output_file_prefix_path + "PriceRentRatio.csv", index = False)
             df_transaction_per_month.to_csv(__output_file_prefix_path + "TransPerMonth.csv", index = False)
+            df_process_price_summary.to_csv(__output_file_prefix_path + "PriceSummary.csv", index = False)
             print("Output process results: ok")
         except Exception as e:
             print("Output process results: Exception = {0}".format(e))
@@ -263,6 +293,7 @@ def process_inventory_list():
         print("rental_yearly_avg_price.size =", df_rental_yearly_avg_price.size)
         print("price_rental_ratio.size =", df_price_rental_ratio.size)
         print("transaction_per_month.size =", df_transaction_per_month.size)
+        print("process_price_summary.size =", df_process_price_summary.size)
         print("Output process results.")
 
     print("-" * 100)
