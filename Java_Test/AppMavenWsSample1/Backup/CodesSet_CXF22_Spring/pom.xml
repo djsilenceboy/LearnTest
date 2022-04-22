@@ -13,7 +13,7 @@
 		<java-api.version>1.6</java-api.version>
 		<junit.version>4.10</junit.version>
 		<cxf.version>2.2.9</cxf.version>
-		<spring.version>3.0.6.RELEASE</spring.version>
+		<spring.version>5.3.19</spring.version>
 	</properties>
 
 	<build>
