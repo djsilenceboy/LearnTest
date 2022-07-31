@@ -1,0 +1,306 @@
+================================================================================
+Resale Flat Prices
+================================================================================
+
+================================================================================
+API: Start search and get session ID
+
+Request URL: https://services2.hdb.gov.sg/webapp/BB33RTIS/BB33PReslTrans.jsp
+Request Method: GET
+================================================================================
+Request Headers
+------------------------------------------------------------
+GET /webapp/BB33RTIS/BB33PReslTrans.jsp HTTP/1.1
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Cache-Control: max-age=0
+Connection: keep-alive
+Cookie: spcptrackingp1=1657416148105__8abe_26a97d2a9029; dtCookie=v_4_srv_1_sn_38B4E8D53940820BFBE4F53D82A0280F_perc_100000_ol_0_mul_1_app-3A7703e52476c3deab_1; HDB-RP-S-SESSION-ID=.2; rxVisitor=1657416147778CF6D3V785JFJ3A9HRNQR44INP69U0DI8; _ga=GA1.3.157402574.1657416148; _gid=GA1.3.1866342688.1657416148; _sp_ses.1902=*; _cs_c=1; info-msg-2183B92C5216FAED482585110032624D=true; JSESSIONIDP1=0000HDEF-zOHmd8zkwyzKaioUA-:19nr4sdtg; TS015ddc07=01e2ec192a4bd0c56fb49731deab8dd4f133275d00a6c4a237b2370e927efb6ae3881c863aade0dbad02fd4c82c0a9c00982d76c32; dtSa=-; _dc_gtm_UA-5554471-2=1; _cs_id=610ce037-6402-a16e-dc70-08fe9b1597d0.1657416148.1.1657419596.1657416148.1.1691580148106; _cs_s=14.0.0.1657421396435; _gat=1; rxvt=1657421396650|1657416147779; _sp_id.1902=a9f0aa77-7458-434c-9ca8-ab0985ace601.1657416148.1.1657419597.1657416148.c2c4c2a3-7f0a-4068-b5f9-2a7a88c41014; dtPC=1$219596015_971h-vTWFPFJCABHULTRNNEJHKKMNTFUFCTQKL-0e0; dtLatC=1; isg003=!9IkZf71CRLS6KD9b5yBM3SbESI54rgAyM6FNoTwMLqp/Jb0TvRm7Pj2hYAYvXqQlo4YvSf1+K/iVAb4=
+Host: services2.hdb.gov.sg
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36
+sec-ch-ua: ".Not/A)Brand";v="99", "Google Chrome";v="103", "Chromium";v="103"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+------------------------------------------------------------
+> GET /webapp/BB33RTIS/BB33PReslTrans.jsp HTTP/1.1
+> Host: services2.hdb.gov.sg
+> User-Agent: curl/7.82.0
+> Accept: */*
+> Accept-Encoding: deflate, gzip, br, zstd
+> Cookie: spcptrackingp1=1657431940981__t0a7_4p65c49bar33; JSESSIONIDP1=0000zcHGVmo0jkBNvEt4TJaqN1B:19nr4sdtg;
+------------------------------------------------------------
+The minumal required headers:
+
+-H "Cookie: spcptrackingp1=${SPCP_TRACKEING_P1}; JSESSIONIDP1=${JSESSION_ID_P1_A};"
+
+Need to generate SPCP_TRACKEING_P1 and JSESSION_ID_P1_A first.
+------------------------------------------------------------
+Format
+
+spcptrackingp1=<UTC_TIME_IN_MS>__<RandomChar_Lenght4>_<RandomChar_Lenght12>
+Random char set "a-z0-9".
+
+JSESSIONIDP1=0000<RandomChar_Lenght23>:19nr4sdtg
+Random char set "A-Za-z0-9" and optional "-_".
+================================================================================
+Response Headers
+------------------------------------------------------------
+HTTP/1.1 200 OK
+Date: Sun, 10 Jul 2022 02:20:03 GMT
+Content-Type: text/html;charset=ISO-8859-1
+Transfer-Encoding: chunked
+Connection: keep-alive
+Keep-Alive: timeout=20
+X-Frame-Options: SAMEORIGIN
+Strict-Transport-Security: max-age=600
+X-Content-Type-Options: nosniff
+X-OneAgent-JS-Injection: true
+X-Frame-Options: SAMEORIGIN
+Cache-Control: no-cache, no-store
+Server-Timing: dtSInfo;desc="0", dtRpid;desc="-1449238336"
+Content-Language: en-US
+X-XSS-Protection: 1; mode=block
+Set-Cookie: isg003=!6QYUhozsnG3IHHJb5yBM3SbESI54rtxW+7r9P9QE7dQl1fM7b67CvNKiKDfw8QN+htdgnJCMeq/TVM0=; expires=Sun, 10-Jul-2022 03:20:03 GMT; path=/; Httponly; Secure
+Strict-Transport-Security: max-age=-340453203; includeSubDomains
+Set-Cookie: TS015ddc07=01e2ec192a4bd0c56fb49731deab8dd4f133275d00a6c4a237b2370e927efb6ae3881c863aade0dbad02fd4c82c0a9c00982d76c32; Path=/; Domain=.services2.hdb.gov.sg; Secure; HTTPOnly
+Vary: Accept-Encoding
+Content-Encoding: gzip
+X-DIS-Request-ID: 508466c283b29070c503c89a0cfe237f
+Server: DOSarrest
+------------------------------------------------------------
+< HTTP/1.1 200 OK
+< Date: Sun, 10 Jul 2022 05:45:42 GMT
+< Content-Type: text/html;charset=ISO-8859-1
+< Transfer-Encoding: chunked
+< Connection: keep-alive
+< Keep-Alive: timeout=20
+< X-Frame-Options: SAMEORIGIN
+< Strict-Transport-Security: max-age=600
+< X-Content-Type-Options: nosniff
+< Expires: Thu, 01 Dec 1994 16:00:00 GMT
+< Cache-Control: no-cache, no-store
+< X-Frame-Options: SAMEORIGIN
+< Content-Language: en-US
+< Set-Cookie: JSESSIONIDP1=0000wFSdV9iYV89DzWLmbQzX6hc:19nr4sdtg; Path=/; Secure; HttpOnly
+< X-XSS-Protection: 1; mode=block
+< Set-Cookie: HDB-RP-S-SESSION-ID=.3; path=/
+< Set-Cookie: isg003=!6wV4v2G2SukU+NVb5yBM3SbESI54rtpjRwH1YoFGND4SwEbzmM3aJaa0gnLn9h78dlF3TRbIBjATIz4=; expires=Sun, 10-Jul-2022 06:45:42 GMT; path=/; Httponly; Secure
+< Strict-Transport-Security: max-age=-340465542; includeSubDomains
+< Set-Cookie: TS015ddc07=01e2ec192a99eae0f1f7f25660502fc5b8b9dd077357719fa8217634622b5e281e119f701f5b5a0b9b5a7a5a66cd56685cf678f55f; Path=/; Domain=.services2.hdb.gov.sg; Secure; HTTPOnly
+< Vary: Accept-Encoding
+< Content-Encoding: gzip
+< X-DIS-Request-ID: 2807e29eb7e8df189ecb9fae682d18c1
+< Server: DOSarrest
+------------------------------------------------------------
+Find "JSESSIONIDP1" from "Set-Cookie". It will be used for following API.
+This is a new "JSESSIONIDP1" (alias JSESSION_ID_P1_B), not the same "JSESSION_ID_P1_A" in request!!!
+
+JSESSIONIDP1=0000wFSdV9iYV89DzWLmbQzX6hc:19nr4sdtg
+================================================================================
+Sample full curl command
+------------------------------------------------------------
+curl 'https://services2.hdb.gov.sg/webapp/BB33RTIS/BB33PReslTrans.jsp' \
+  -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \
+  -H 'Accept-Language: en-US,en;q=0.9' \
+  -H 'Cache-Control: max-age=0' \
+  -H 'Connection: keep-alive' \
+  -H $'Cookie: spcptrackingp1=1657416148105__8abe_26a97d2a9029; dtCookie=v_4_srv_1_sn_38B4E8D53940820BFBE4F53D82A0280F_perc_100000_ol_0_mul_1_app-3A7703e52476c3deab_1; HDB-RP-S-SESSION-ID=.2; rxVisitor=1657416147778CF6D3V785JFJ3A9HRNQR44INP69U0DI8; _ga=GA1.3.157402574.1657416148; _gid=GA1.3.1866342688.1657416148; _sp_ses.1902=*; _cs_c=1; info-msg-2183B92C5216FAED482585110032624D=true; JSESSIONIDP1=0000HDEF-zOHmd8zkwyzKaioUA-:19nr4sdtg; TS015ddc07=01e2ec192a4bd0c56fb49731deab8dd4f133275d00a6c4a237b2370e927efb6ae3881c863aade0dbad02fd4c82c0a9c00982d76c32; dtSa=-; _dc_gtm_UA-5554471-2=1; _cs_id=610ce037-6402-a16e-dc70-08fe9b1597d0.1657416148.1.1657419596.1657416148.1.1691580148106; _cs_s=14.0.0.1657421396435; _gat=1; rxvt=1657421396650|1657416147779; _sp_id.1902=a9f0aa77-7458-434c-9ca8-ab0985ace601.1657416148.1.1657419597.1657416148.c2c4c2a3-7f0a-4068-b5f9-2a7a88c41014; dtPC=1$219596015_971h-vTWFPFJCABHULTRNNEJHKKMNTFUFCTQKL-0e0; dtLatC=1; isg003=\u00219IkZf71CRLS6KD9b5yBM3SbESI54rgAyM6FNoTwMLqp/Jb0TvRm7Pj2hYAYvXqQlo4YvSf1+K/iVAb4=' \
+  -H 'Sec-Fetch-Dest: document' \
+  -H 'Sec-Fetch-Mode: navigate' \
+  -H 'Sec-Fetch-Site: none' \
+  -H 'Sec-Fetch-User: ?1' \
+  -H 'Upgrade-Insecure-Requests: 1' \
+  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36' \
+  -H 'sec-ch-ua: ".Not/A)Brand";v="99", "Google Chrome";v="103", "Chromium";v="103"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "Windows"' \
+  --compressed
+================================================================================
+
+================================================================================
+API: Submit search (square feet)
+
+Request URL: https://services2.hdb.gov.sg/webapp/BB33RTIS/BB33SSearchWidget
+Request Method: POST
+================================================================================
+Request Headers
+------------------------------------------------------------
+POST /webapp/BB33RTIS/BB33SSearchWidget HTTP/1.1
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Cache-Control: max-age=0
+Connection: keep-alive
+Content-Length: 233
+Content-Type: application/x-www-form-urlencoded
+Cookie: spcptrackingp1=1657416148105__8abe_26a97d2a9029; dtCookie=v_4_srv_1_sn_38B4E8D53940820BFBE4F53D82A0280F_perc_100000_ol_0_mul_1_app-3A7703e52476c3deab_1; HDB-RP-S-SESSION-ID=.2; rxVisitor=1657416147778CF6D3V785JFJ3A9HRNQR44INP69U0DI8; _ga=GA1.3.157402574.1657416148; _gid=GA1.3.1866342688.1657416148; _sp_ses.1902=*; _cs_c=1; info-msg-2183B92C5216FAED482585110032624D=true; JSESSIONIDP1=0000HDEF-zOHmd8zkwyzKaioUA-:19nr4sdtg; TS015ddc07=01e2ec192a4bd0c56fb49731deab8dd4f133275d00a6c4a237b2370e927efb6ae3881c863aade0dbad02fd4c82c0a9c00982d76c32; _sp_id.1902=a9f0aa77-7458-434c-9ca8-ab0985ace601.1657416148.1.1657419603.1657416148.c2c4c2a3-7f0a-4068-b5f9-2a7a88c41014; _cs_id=610ce037-6402-a16e-dc70-08fe9b1597d0.1657416148.1.1657419602.1657416148.1.1691580148106; _cs_s=15.0.0.1657421402862; rxvt=1657421403084|1657416147779; dtPC=1$219602534_873h-vTWFPFJCABHULTRNNEJHKKMNTFUFCTQKL-0e0; dtLatC=1; isg003=!SqIghdZs9FOnP0db5yBM3SbESI54rtT8PoYzHX3e6xaAoubTeCv4Nht51tkzPdKnv0eANOruQzTFeg8=; dtSa=true%7CC%7C-1%7CAccept%7C-%7C1657419684731%7C219602534_873%7Chttps%3A%2F%2Fservices2.hdb.gov.sg%2Fwebapp%2FBB33RTIS%2FBB33PReslTrans.jsp%7C%7C%7C%7C
+Host: services2.hdb.gov.sg
+Origin: https://services2.hdb.gov.sg
+Referer: https://services2.hdb.gov.sg/webapp/BB33RTIS/BB33PReslTrans.jsp
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36
+sec-ch-ua: ".Not/A)Brand";v="99", "Google Chrome";v="103", "Chromium";v="103"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+------------------------------------------------------------
+The minumal required headers:
+
+-H 'Referer: https://services2.hdb.gov.sg/webapp/BB33RTIS/BB33PReslTrans.jsp' -H 'Content-Type: application/x-www-form-urlencoded' -H "Cookie: spcptrackingp1=${SPCP_TRACKEING_P1}; JSESSIONIDP1=${JSESSION_ID_P1_B};"
+
+This SPCP_TRACKEING_P1 is generated while requesting JSESSION_ID_P1_B!
+This JSESSION_ID_P1_B is response while requesting with JSESSION_ID_P1_A!
+================================================================================
+Form data
+
+-d '<EncodedFormData>'
+------------------------------------------------------------
+Source:
+
+USER_PROFILE=1&FLAT_TYPE=04&NME_NEWTOWN=JW++++++Jurong+West&NME_STREET=&NUM_BLK_FROM=&NUM_BLK_TO=&dteRange=12&DTE_APPROVAL_FROM=Jul+2020&DTE_APPROVAL_TO=Jul+2022+&AMT_RESALE_PRICE_FROM=&AMT_RESALE_PRICE_TO=&Process=continue&null=null
+------------------------------------------------------------
+URL encoded:
+
+USER_PROFILE: 1
+FLAT_TYPE: 04
+NME_NEWTOWN: JW++++++Jurong+West
+NME_STREET: 
+NUM_BLK_FROM: 
+NUM_BLK_TO: 
+dteRange: 12
+DTE_APPROVAL_FROM:
+DTE_APPROVAL_TO:
+AMT_RESALE_PRICE_FROM: 
+AMT_RESALE_PRICE_TO: 
+Process: continue
+null: null
+------------------------------------------------------------
+USER_PROFILE: "1" for "Seller"
+              "2" for "Buyer"
+
+FLAT_TYPE: "01" for "1-Room"
+           "02" for "2-Room"
+           "03" for "3-Room"
+           "04" for "4-Room"
+           "05" for "5-Room"
+           "06" for "Executive" (Adjoined Flat, Apartment, Maisonette, Premium Apartment)
+           "08" for "Multi-Generation"
+
+dteRange: "6" for "Last 6 month"
+          "12" for "Last 12 month"
+
+DTE_APPROVAL_FROM: <Can be ommitted, if use dteRange>, format like "Jun+2018", value is current month and two years ago.
+DTE_APPROVAL_TO: <Can be ommitted, if use dteRange>, format like "Jun+2020+", value is current month and year.
+
+NME_NEWTOWN: JW++++++Jurong+West
+(Town list, converted space to +.)
+----------------------------------------
+AMK+++++Ang+Mo+Kio
+BD++++++Bedok
+BH++++++Bishan
+BB++++++Bukit+Batok
+BM++++++Bukit+Merah
+BP++++++Bukit+Panjang
+BT++++++Bukit+Timah
+CT++++++Central+Area
+CCK+++++Choa+Chu+Kang
+CL++++++Clementi
+GL++++++Geylang
+HG++++++Hougang
+JE++++++Jurong+East
+JW++++++Jurong+West
+KWN+++++Kallang/Whampoa
+MP++++++Marine+Parade
+PRC+++++Pasir+Ris
+PG++++++Punggol
+QT++++++Queenstown
+SB++++++Sembawang
+SK++++++Sengkang
+SGN+++++Serangoon
+TAP+++++Tampines
+TG++++++Tengah
+TP++++++Toa+Payoh
+WL++++++Woodlands
+YS++++++Yishun
+================================================================================
+Response Headers
+------------------------------------------------------------
+HTTP/1.1 200 OK
+Date: Sun, 10 Jul 2022 02:21:28 GMT
+Content-Type: text/html;charset=ISO-8859-1
+Transfer-Encoding: chunked
+Connection: keep-alive
+Keep-Alive: timeout=20
+X-Frame-Options: SAMEORIGIN
+Strict-Transport-Security: max-age=600
+X-Content-Type-Options: nosniff
+X-OneAgent-JS-Injection: true
+X-Frame-Options: SAMEORIGIN
+Timing-Allow-Origin: *
+Server-Timing: dtSInfo;desc="0", dtRpid;desc="-1302875455", dtTao;desc="1"
+Content-Language: en-US
+X-XSS-Protection: 1; mode=block
+Set-Cookie: isg003=!jcv1essediFNbOhb5yBM3SbESI54roRwqpSZpYaNAAyxcv95SmdNjHVRyfQAPalCSOsYtt3X6b47UgE=; expires=Sun, 10-Jul-2022 03:21:28 GMT; path=/; Httponly; Secure
+Strict-Transport-Security: max-age=-340453288; includeSubDomains
+Set-Cookie: TS015ddc07=01e2ec192a4f7b308a8d9110ae75efda7d88f3637ba9ca3e3b735a33634a93caac56f8f6e9b5eb1b3982016f01ed0794b1468fd582; Path=/; Domain=.services2.hdb.gov.sg; Secure; HTTPOnly
+Vary: Accept-Encoding
+Content-Encoding: gzip
+X-DIS-Request-ID: e80c80ba9bf19fa0cbaa85fb7f87b714
+Server: DOSarrest
+================================================================================
+Sample full curl command
+------------------------------------------------------------
+curl 'https://services2.hdb.gov.sg/webapp/BB33RTIS/BB33SSearchWidget' \
+  -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \
+  -H 'Accept-Language: en-US,en;q=0.9' \
+  -H 'Cache-Control: max-age=0' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -H $'Cookie: spcptrackingp1=1657416148105__8abe_26a97d2a9029; dtCookie=v_4_srv_1_sn_38B4E8D53940820BFBE4F53D82A0280F_perc_100000_ol_0_mul_1_app-3A7703e52476c3deab_1; HDB-RP-S-SESSION-ID=.2; rxVisitor=1657416147778CF6D3V785JFJ3A9HRNQR44INP69U0DI8; _ga=GA1.3.157402574.1657416148; _gid=GA1.3.1866342688.1657416148; _sp_ses.1902=*; _cs_c=1; info-msg-2183B92C5216FAED482585110032624D=true; JSESSIONIDP1=0000HDEF-zOHmd8zkwyzKaioUA-:19nr4sdtg; TS015ddc07=01e2ec192a4bd0c56fb49731deab8dd4f133275d00a6c4a237b2370e927efb6ae3881c863aade0dbad02fd4c82c0a9c00982d76c32; _sp_id.1902=a9f0aa77-7458-434c-9ca8-ab0985ace601.1657416148.1.1657419603.1657416148.c2c4c2a3-7f0a-4068-b5f9-2a7a88c41014; _cs_id=610ce037-6402-a16e-dc70-08fe9b1597d0.1657416148.1.1657419602.1657416148.1.1691580148106; _cs_s=15.0.0.1657421402862; rxvt=1657421403084|1657416147779; dtPC=1$219602534_873h-vTWFPFJCABHULTRNNEJHKKMNTFUFCTQKL-0e0; dtLatC=1; isg003=\u0021SqIghdZs9FOnP0db5yBM3SbESI54rtT8PoYzHX3e6xaAoubTeCv4Nht51tkzPdKnv0eANOruQzTFeg8=; dtSa=true%7CC%7C-1%7CAccept%7C-%7C1657419684731%7C219602534_873%7Chttps%3A%2F%2Fservices2.hdb.gov.sg%2Fwebapp%2FBB33RTIS%2FBB33PReslTrans.jsp%7C%7C%7C%7C' \
+  -H 'Origin: https://services2.hdb.gov.sg' \
+  -H 'Referer: https://services2.hdb.gov.sg/webapp/BB33RTIS/BB33PReslTrans.jsp' \
+  -H 'Sec-Fetch-Dest: document' \
+  -H 'Sec-Fetch-Mode: navigate' \
+  -H 'Sec-Fetch-Site: same-origin' \
+  -H 'Sec-Fetch-User: ?1' \
+  -H 'Upgrade-Insecure-Requests: 1' \
+  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36' \
+  -H 'sec-ch-ua: ".Not/A)Brand";v="99", "Google Chrome";v="103", "Chromium";v="103"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "Windows"' \
+  --data-raw 'USER_PROFILE=1&FLAT_TYPE=04&NME_NEWTOWN=JW++++++Jurong+West&NME_STREET=&NUM_BLK_FROM=&NUM_BLK_TO=&dteRange=12&DTE_APPROVAL_FROM=Jul+2020&DTE_APPROVAL_TO=Jul+2022+&AMT_RESALE_PRICE_FROM=&AMT_RESALE_PRICE_TO=&Process=continue&null=null' \
+  --compressed
+================================================================================
+
+================================================================================
+Combined sample
+------------------------------------------------------------
+UTC_TIME_IN_MS=$(($(date +%s%N)/1000000))
+SPCP_TRACKEING_L4=$(tr -dc 'a-z0-9' </dev/urandom | head -c4)
+SPCP_TRACKEING_L12=$(tr -dc 'a-z0-9' </dev/urandom | head -c12)
+SPCP_TRACKEING_P1=${UTC_TIME_IN_MS}__${SPCP_TRACKEING_L4}_${SPCP_TRACKEING_L12}
+echo "SPCP_TRACKEING_P1 = "$SPCP_TRACKEING_P1
+
+JSESSION_ID_L23=$(tr -dc "A-Za-z0-9" </dev/urandom | head -c23)
+JSESSION_ID_P1_A="0000${JSESSION_ID_L23}:19nr4sdtg"
+echo "JSESSION_ID_P1_A = "$JSESSION_ID_P1_A
+
+JSESSION_ID_P1_B=$(curl -ksSv 'https://services2.hdb.gov.sg/webapp/BB33RTIS/BB33PReslTrans.jsp' -H "Cookie: spcptrackingp1=${SPCP_TRACKEING_P1}; JSESSIONIDP1=${JSESSION_ID_P1_A};" --compressed 2>&1 | grep '< Set-Cookie: JSESSIONIDP1' | cut -d' ' -f3 | cut -d= -f2 | tr -d ';')
+echo "JSESSION_ID_P1_B = "$JSESSION_ID_P1_B
+
+curl -ksS -X POST 'https://services2.hdb.gov.sg/webapp/BB33RTIS/BB33SSearchWidget' \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -H "Cookie: spcptrackingp1=${SPCP_TRACKEING_P1}; JSESSIONIDP1=${JSESSION_ID_P1_B};" \
+  -H 'Referer: https://services2.hdb.gov.sg/webapp/BB33RTIS/BB33PReslTrans.jsp' \
+  -d 'USER_PROFILE=1&FLAT_TYPE=04&NME_NEWTOWN=JW++++++Jurong+West&NME_STREET=&NUM_BLK_FROM=&NUM_BLK_TO=&dteRange=12&DTE_APPROVAL_FROM=&DTE_APPROVAL_TO=&AMT_RESALE_PRICE_FROM=&AMT_RESALE_PRICE_TO=&Process=continue&null=null' \
+  --compressed -o HDB_Sample_Trans.html
+================================================================================

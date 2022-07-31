@@ -101,19 +101,29 @@ REFERER_URL="https://services2.hdb.gov.sg/webapp/BB33RTIS/BB33PReslTrans.jsp"
 echo "ACTION_URL = "$ACTION_URL
 echo "REFERER_URL = "$REFERER_URL
 
+UTC_TIME_IN_MS=$(($(date +%s%N)/1000000))
+SPCP_TRACKEING_L4=$(tr -dc 'a-z0-9' </dev/urandom | head -c4)
+SPCP_TRACKEING_L12=$(tr -dc 'a-z0-9' </dev/urandom | head -c12)
+SPCP_TRACKEING_P1=${UTC_TIME_IN_MS}__${SPCP_TRACKEING_L4}_${SPCP_TRACKEING_L12}
+echo "SPCP_TRACKEING_P1 = "$SPCP_TRACKEING_P1
+
+JSESSION_ID_L23=$(tr -dc "A-Za-z0-9" </dev/urandom | head -c23)
+JSESSION_ID_P1_A="0000${JSESSION_ID_L23}:19nr4sdtg"
+echo "JSESSION_ID_P1_A = "$JSESSION_ID_P1_A
+
+JSESSION_ID_P1_B=$(curl -ksSv ${REFERER_URL} -H "Cookie: spcptrackingp1=${SPCP_TRACKEING_P1}; JSESSIONIDP1=${JSESSION_ID_P1_A};" --compressed 2>&1 | grep '< Set-Cookie: JSESSIONIDP1' | cut -d' ' -f3 | cut -d= -f2 | tr -d ';')
+echo "JSESSION_ID_P1_B = "$JSESSION_ID_P1_B
+
 N=1
 for TOWN_NAME in "${TOWN_LIST[@]}"
 do
 	echo $N": TOWN_NAME = "$TOWN_NAME
 
-	JSESSIONIDP1=$(curl -sSv --location "${REFERER_URL}" --compressed 2>&1 | grep JSESSIONIDP1 | cut -d' ' -f3 | cut -d= -f2 | tr -d ';')
-	echo $N": JSESSIONIDP1 = "$JSESSIONIDP1
-
 	FORM_DATA_FULL=$(make_form_data_full ${TOWN_NAME})
 	echo $N": FORM_DATA_FULL = "$FORM_DATA_FULL
 
     # Save data.
-	curl -sS --location "${ACTION_URL}" -H "Referer: ${REFERER_URL}" -H "Cookie: JSESSIONIDP1=${JSESSIONIDP1}" -H 'Content-Type: application/x-www-form-urlencoded' -d "${FORM_DATA_FULL}" --compressed -o "${OUTPUT_FOLDER}/${OUTPUT_FILE_PREFIX}_${N}.html" &
+	curl -ksS -X POST "${ACTION_URL}" -H "Referer: ${REFERER_URL}" -H "Cookie: spcptrackingp1=${SPCP_TRACKEING_P1}; JSESSIONIDP1=${JSESSION_ID_P1_B};" -H 'Content-Type: application/x-www-form-urlencoded' -d "${FORM_DATA_FULL}" --compressed -o "${OUTPUT_FOLDER}/${OUTPUT_FILE_PREFIX}_${N}.html" &
 	pids[$N]=$!
 	N=$(($N + 1))
 done

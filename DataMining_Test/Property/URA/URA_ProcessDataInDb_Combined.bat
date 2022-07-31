@@ -1,7 +1,6 @@
-set DATE_RANGE=%1
-rem %2 can be empty/ignored or "Combined".
-set APP_FOLDER=F:\WorkDJS\RepositoryGit\LearnTest\Python_Test\PyDataMiningSample\com\djs\learn\hdb
-set DATA_FOLDER=.\ProcessedData%2\%DATE_RANGE%
+set DATE_RANGE=%1_%2
+set APP_FOLDER=F:\WorkDJS\RepositoryGit\LearnTest\Python_Test\PyDataMiningSample\com\djs\learn\ura
+set DATA_FOLDER=.\ProcessedDataCombined\%DATE_RANGE%
 
 echo ================================================================================
 date /T
@@ -15,7 +14,7 @@ md %DATA_FOLDER%
 echo "Start process data in DB ..."
 
 echo ------------------------------------------------------------
-python %APP_FOLDER%\ProcessDataInDb.py -t "%DATA_FOLDER%\HDB_Trans_%DATE_RANGE%_MP.csv" -d "%DATA_FOLDER%\HDB_Trans.db" -o "%DATA_FOLDER%\HDB_Results_%DATE_RANGE%_"
+python %APP_FOLDER%\ProcessDataInDb.py -t "%DATA_FOLDER%\URA_CondoEcTrans_%DATE_RANGE%_MP.csv" -r "%DATA_FOLDER%\URA_CondoEcRent_%DATE_RANGE%_MP.csv" -d "%DATA_FOLDER%\URA_CondoEcTransRent.db" -o "%DATA_FOLDER%\URA_CondoEcResults_%DATE_RANGE%_"
 echo ------------------------------------------------------------
 
 date /T

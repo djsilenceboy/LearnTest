@@ -15,7 +15,7 @@ Download all HTML files (use bash) by:
 ------------------------------------------------------------
 Downloaded file folder (sample):
 
-.\HtmlData_20200627_12m
+.\HtmlData\20200627_12m
 ----------------------------------------
 Downloaded files:
 
@@ -55,7 +55,7 @@ HDB_ConvertHtmlToRawData.bat 20200627_12m
 ------------------------------------------------------------
 Generated files:
 
-.\ProcessedData_20200627_12m\HDB_Trans_20200627_12m_M.csv
+.\ProcessedData\20200627_12m\HDB_Trans_20200627_12m_M.csv
 ================================================================================
 
 ================================================================================
@@ -67,7 +67,7 @@ HDB_PreprocessData.bat 20200627_12m
 ------------------------------------------------------------
 Generated files:
 
-.\ProcessedData_20200627_12m\HDB_Trans_20200627_12m_MP.csv
+.\ProcessedData\20200627_12m\HDB_Trans_20200627_12m_MP.csv
 ================================================================================
 During preprocess by Python
 ================================================================================
@@ -114,7 +114,7 @@ HDB_ProcessDataInDb.bat 20200627_12m
 ------------------------------------------------------------
 Generated files:
 
-.\ProcessedData_20200627_12m\HDB_TransRent.db
-.\ProcessedData_20200627_12m\HDB_Results_20200627_12m_TransPrice.csv
-.\ProcessedData_20200627_12m\HDB_Results_20200627_12m_TransPriceB.csv
+.\ProcessedData\20200627_12m\HDB_TransRent.db
+.\ProcessedData\20200627_12m\HDB_Results_20200627_12m_TransPrice.csv
+.\ProcessedData\20200627_12m\HDB_Results_20200627_12m_TransPriceB.csv
 ================================================================================

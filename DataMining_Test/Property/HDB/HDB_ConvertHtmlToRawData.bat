@@ -1,7 +1,7 @@
 set DATE_TAG=%1
 set APP_FOLDER=F:\WorkDJS\RepositoryGit\LearnTest\Python_Test\PyDataMiningSample\com\djs\learn\hdb
-set INPUT_DATE_TAG=.\HtmlData_%DATE_TAG%
-set OUTPUT_FOLDER=.\ProcessedData_%DATE_TAG%
+set INPUT_DATE_TAG=.\HtmlData\%DATE_TAG%
+set OUTPUT_FOLDER=.\ProcessedData\%DATE_TAG%
 
 echo ================================================================================
 date /T
