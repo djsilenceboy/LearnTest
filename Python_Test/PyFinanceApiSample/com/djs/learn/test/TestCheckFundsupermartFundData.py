@@ -13,18 +13,14 @@ __inventory_info_file_path = "../../../../etc/Fundsupermart_FundInfo.csv"
 __result_output_file_path = "../../../../Temp/Fundsupermart_FundData.json"
 
 __web_driver_type = 0
-# The path must be absolute path.
-__web_driver_file_path = "D:\Download\Shared\phantomjs.exe"
-__web_driver_log_file_path = "../../../../Temp/phantomjs.log"
 
-argv = ["-d", __data_type, "-i", __inventory_info_file_path, "-o", __result_output_file_path, "-t", __web_driver_type,
-        "-w", __web_driver_file_path, "-l", __web_driver_log_file_path]
+argv = ["-d", __data_type, "-i", __inventory_info_file_path, "-o", __result_output_file_path, "-t", __web_driver_type]
 CheckFinanceDataSelenium.main(argv)
 
 '''
 Or run:
 
-python CheckFinanceDataSelenium.py -d 0 -i "../../../../etc/Fundsupermart_FundInfo.csv" -o "../../../../Temp/Fundsupermart_FundData.json" -t 0 -w "D:\Download\Shared\phantomjs.exe" -l "../../../../Temp/phantomjs.log"
+python CheckFinanceDataSelenium.py -d 0 -i "../../../../etc/Fundsupermart_FundInfo.csv" -o "../../../../Temp/Fundsupermart_FundData.json" -t 0
 '''
 
 if __name__ == '__main__':

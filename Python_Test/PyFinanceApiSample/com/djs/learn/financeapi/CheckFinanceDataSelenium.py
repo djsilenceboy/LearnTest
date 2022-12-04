@@ -22,6 +22,9 @@ Update log: (date / version / author : comments)
 2018-07-01 / 3.0.0 / Du Jiang : Remove Google Finance (Deprecated)
                                 Support XE currency
 2020-05-02 / 4.0.0 / Du Jiang : Support Chrome
+2022-12-04 / 5.0.0 / Du Jiang : New version Selenium and Webdriver.
+                                Python installed with webdriver-manager, no need extra exe.
+                                Only fix Firefox, not fix Chrome yet.
 '''
 
 from concurrent.futures import ThreadPoolExecutor
@@ -34,6 +37,7 @@ from time import localtime, strftime, sleep, time
 
 import requests
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 
 # Global variables.
 # The value can be updated by command line options.
@@ -42,8 +46,6 @@ __inventory_info_file_path = None
 __result_output_file_path = None
 __concurrent_max_workers = 5
 __web_driver_type = 1
-__web_driver_file_path = None
-__web_driver_log_file_path = None
 
 __Constants = None
 
@@ -179,9 +181,9 @@ def check_page_loaded(browser):
         sleep(__Constants.WAIT_TIME_LOAD_PAGE)
         try:
             if __data_type == 0:
-                target_section = browser.find_element_by_id("factsheet")
+                target_section = browser.find_element(By.ID, "factsheet")
             else:  # __data_type == 1:
-                target_section = browser.find_element_by_class_name(
+                target_section = browser.find_element(By.CLASS_NAME,
                     "converterresult-flexCon")
 
             print("target_section =", target_section)
@@ -212,14 +214,14 @@ def parse_get_data_fundsupoermart_fund(browser, results):
         # Find links to sub-portals.
 
         try:
-            factsheet_section = browser.find_element_by_id("factsheet")
+            factsheet_section = browser.find_element(By.ID, "factsheet")
             print("factsheet_section =", factsheet_section)
         except Exception:
             raise Exception("Cannot find factsheet_section.")
         results[__Constants.SECTION_BANNER_INFO] = {}
 
         try:
-            treasure_overlay_spinner_section = factsheet_section.find_element_by_tag_name(
+            treasure_overlay_spinner_section = factsheet_section.find_elements(By.TAG_NAME,
                 "treasure-overlay-spinner")
             print("treasure_overlay_spinner_section =",
                   treasure_overlay_spinner_section)
@@ -227,64 +229,57 @@ def parse_get_data_fundsupoermart_fund(browser, results):
             raise Exception("Cannot find treasure_overlay_spinner_section.")
 
         try:
-            banner_info_section = treasure_overlay_spinner_section.find_element_by_css_selector(
+            banner_info_section = treasure_overlay_spinner_section[0].find_element(By.CSS_SELECTOR,
                 "div[class='row m-t-md']")
             print("banner_info_section =", banner_info_section)
         except Exception:
             raise Exception("Cannot find banner_info_section.")
 
         try:
-            element_sections = banner_info_section.find_elements_by_css_selector(
-                "div[class*='col-md-3']")
-            # print("element_sections =", element_sections)
+            banner_info_data = banner_info_section.text.splitlines()
+            print("banner_info_data =", banner_info_data)
         except Exception:
-            raise Exception("Cannot find element_sections.")
+            raise Exception("Cannot parse banner_info_data.")
 
-        for element_section in element_sections:
-            # print("element_section.text =", element_section.text)
-            element_data = element_section.text.splitlines()
+        for element_data in banner_info_data:
             print("element_data =", element_data)
 
-            if len(element_data) > 1:
-                if "Risk Rating" in element_data[1]:
-                    item_data = element_data[1].split(":")
-                    item_key = item_data[0].strip()
-                    item_values = [item.strip()
-                                   for item in item_data[1].split("-")]
-                    results[__Constants.SECTION_BANNER_INFO][item_key] = item_values[0]
-                    results[__Constants.SECTION_BANNER_INFO][item_key +
-                                                             " Description"] = item_values[1]
-                elif "NAV Price" in element_data[1]:
-                    loc = element_data[1].find("(")
-                    item_key = element_data[1][:loc].strip()
-                    item_value = element_data[1][loc + 1:-1]
-                    results[__Constants.SECTION_BANNER_INFO][item_key] = element_data[0]
-                    results[__Constants.SECTION_BANNER_INFO][item_key +
-                                                             " Date"] = item_value
-                else:
-                    results[__Constants.SECTION_BANNER_INFO][element_data[1]
-                                                             ] = element_data[0]
-            else:
-                results[__Constants.SECTION_BANNER_INFO][element_data[0]
-                                                         ] = ""
+            if "Risk Rating" in element_data:
+                item_data = element_data.split(":")
+                item_key = item_data[0].strip()
+                item_values = [item.strip()
+                               for item in item_data[1].split("-")]
+                results[__Constants.SECTION_BANNER_INFO][item_key] = item_values[0]
+                results[__Constants.SECTION_BANNER_INFO][item_key +
+                                                         " Description"] = item_values[1]
+            elif "NAV Price" in element_data:
+                loc = element_data.find("(")
+                item_key = element_data[:loc].strip()
+                item_value = element_data[loc + 1:-1]
+                results[__Constants.SECTION_BANNER_INFO][item_key] = banner_info_data[0]
+                results[__Constants.SECTION_BANNER_INFO][item_key +
+                                                         " Date"] = item_value
+
+        results[__Constants.SECTION_BANNER_INFO][banner_info_data[5]] = banner_info_data[4]
+        results[__Constants.SECTION_BANNER_INFO][banner_info_data[7]] = banner_info_data[6]
 
         results[__Constants.SECTION_OFFER_TO_BID_INFO] = {}
 
         try:
-            offer_to_bid_info_section = factsheet_section.find_element_by_id(
+            offer_to_bid_info_section = factsheet_section.find_element(By.ID,
                 "offer-to-bid")
             print("offer_to_bid_info_section =", offer_to_bid_info_section)
         except Exception:
             raise Exception("Cannot find offer_to_bid_info_section.")
 
         try:
-            list_section = offer_to_bid_info_section.find_element_by_css_selector(
+            list_section = offer_to_bid_info_section.find_element(By.CSS_SELECTOR,
                 "div[class='tab-pane ng-scope active']")
         except Exception:
             raise Exception("Cannot find list_section.")
 
         try:
-            element_sections = list_section.find_elements_by_tag_name(
+            element_sections = list_section.find_elements(By.TAG_NAME,
                 "li")
             # print("element_sections =", element_sections)
         except Exception:
@@ -300,20 +295,20 @@ def parse_get_data_fundsupoermart_fund(browser, results):
         results[__Constants.SECTION_BID_TO_OFFER_INFO] = {}
 
         try:
-            bid_to_offer_info_section = factsheet_section.find_element_by_id(
+            bid_to_offer_info_section = factsheet_section.find_element(By.ID,
                 "bid-to-return")
             print("bid_to_offer_info_section =", bid_to_offer_info_section)
         except Exception:
             raise Exception("Cannot find bid_to_offer_info_section.")
 
         try:
-            list_section = bid_to_offer_info_section.find_element_by_css_selector(
+            list_section = bid_to_offer_info_section.find_element(By.CSS_SELECTOR,
                 "div[class='tab-pane ng-scope active']")
         except Exception:
             raise Exception("Cannot find list_section.")
 
         try:
-            element_sections = list_section.find_elements_by_tag_name(
+            element_sections = list_section.find_elements(By.TAG_NAME,
                 "li")
             # print("element_sections =", element_sections)
         except Exception:
@@ -329,7 +324,7 @@ def parse_get_data_fundsupoermart_fund(browser, results):
         results[__Constants.SECTION_HISTORICAL_PRICE_INFO] = {}
 
         try:
-            historical_price_info_section = factsheet_section.find_element_by_id(
+            historical_price_info_section = factsheet_section.find_element(By.ID,
                 "fund-historical-price")
             print("historical_price_info_section =",
                   historical_price_info_section)
@@ -337,13 +332,13 @@ def parse_get_data_fundsupoermart_fund(browser, results):
             raise Exception("Cannot find historical_price_info_section.")
 
         try:
-            list_section = historical_price_info_section.find_element_by_css_selector(
+            list_section = historical_price_info_section.find_element(By.CSS_SELECTOR,
                 "div[class='tab-pane ng-scope active']")
         except Exception:
             raise Exception("Cannot find list_section.")
 
         try:
-            element_sections = list_section.find_elements_by_tag_name(
+            element_sections = list_section.find_elements(By.TAG_NAME,
                 "li")
             # print("element_sections =", element_sections)
         except Exception:
@@ -359,20 +354,20 @@ def parse_get_data_fundsupoermart_fund(browser, results):
         results[__Constants.SECTION_RELEVANT_CHARGES] = {}
 
         try:
-            relevant_charges_section = factsheet_section.find_element_by_id(
+            relevant_charges_section = factsheet_section.find_element(By.ID,
                 "relevant-charges")
             print("relevant_charges_section =", relevant_charges_section)
         except Exception:
             raise Exception("Cannot find relevant_charges_section.")
 
         try:
-            list_section = relevant_charges_section.find_element_by_css_selector(
+            list_section = relevant_charges_section.find_element(By.CSS_SELECTOR,
                 "div[class='m-t-xs']")
         except Exception:
             raise Exception("Cannot find list_section.")
 
         try:
-            element_sections = list_section.find_elements_by_tag_name(
+            element_sections = list_section.find_elements(By.TAG_NAME,
                 "div")
             # print("element_sections =", element_sections)
         except Exception:
@@ -413,13 +408,13 @@ def parse_get_data_xe_currency(browser, results):
         # ration section.
 
         try:
-            converterResult_section = browser.find_element_by_id("converterResult")
+            converterResult_section = browser.find_element(By.ID, "converterResult")
             print("converterResult_section =", converterResult_section)
         except Exception:
             raise Exception("Cannot find converterResult_section.")
 
         try:
-            fromCurrency = converterResult_section.find_element_by_class_name(
+            fromCurrency = converterResult_section.find_element(By.CLASS_NAME,
                 "converterresult-conversionFrom")
             print("fromCurrency =", fromCurrency.text)
 
@@ -429,14 +424,14 @@ def parse_get_data_xe_currency(browser, results):
             raise Exception("Cannot find fromCurrency.")
 
         try:
-            toCurrency = browser.find_element_by_class_name(
+            toCurrency = browser.find_element(By.CLASS_NAME,
                 "converterresult-toCurrency")
             print("toCurrency =", toCurrency.text)
         except Exception:
             raise Exception("Cannot find toCurrency.")
 
         try:
-            toAmount = browser.find_element_by_class_name(
+            toAmount = browser.find_element(By.CLASS_NAME,
                 "converterresult-toAmount")
             print("toAmount =", toAmount.text)
         except Exception:
@@ -450,7 +445,7 @@ def parse_get_data_xe_currency(browser, results):
         results[__Constants.SECTION_EXCHANGE_INFO][__Constants.EXCHANGE_INFO_VALUE] = toAmount.text
 
         try:
-            time_section = browser.find_element_by_class_name("resultTime")
+            time_section = browser.find_element(By.CLASS_NAME, "resultTime")
             print("time_section =", time_section)
             print("time =", time_section.text)
             results[__Constants.SECTION_EXCHANGE_INFO][__Constants.EXCHANGE_INFO_TIME] = time_section.text
@@ -526,28 +521,23 @@ def inspect_inventory(record):
             raise Exception("Get '{0}' failed with status code {1}.".format(url,
                                                                             status_code))
 
-        if __web_driver_type == 0:  # PhantomJS.
-            browser = webdriver.PhantomJS(
-                executable_path = __web_driver_file_path, service_log_path = __web_driver_log_file_path)
+        if __web_driver_type == 0:  # PhantomJS, not supported now.
+            browser = webdriver.PhantomJS()
         elif __web_driver_type == 1:  # FireFox.
             # Create profile.
             options = webdriver.FirefoxOptions()
-            options.headless = True
-            profile = webdriver.FirefoxProfile()
-            profile.set_preference("general.useragent.override",
-                                   "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0")
-            browser = webdriver.Firefox(
-                 firefox_profile = profile, options = options, executable_path = __web_driver_file_path, service_log_path = __web_driver_log_file_path)
+            options.add_argument("--headless")
+            options.set_preference("general.useragent.override", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0")
+            browser = webdriver.Firefox(options = options)
         else:  # __web_driver_type == 2:  # Chrome.
             # Create profile.
             options = webdriver.ChromeOptions()
-            options.headless = True
+            options.add_argument("--headless")
             options.add_argument("--disable-gpu")
             options.add_argument("--no-sandbox")
             options.add_argument("--window-size=1920,1080")
             options.add_argument('user-agent={}'.format("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0"))
-            browser = webdriver.Chrome(
-                options = options, executable_path = __web_driver_file_path, service_log_path = __web_driver_log_file_path)
+            browser = webdriver.Chrome(options = options)
 
         print("browser =", browser)
         print("-" * 60)
@@ -672,7 +662,7 @@ Options:
 -i <FilePath> : Environment info file path (CSV). Compulsory.
 -o <FilePath> : Result output file path (JSON). Optional, output to screen by default.
 -c <Number> : Concurrent max workers to process records. Optional, Value [1, 10], 5 by default.
--t <DriverType> : Selenium web driver type. Optional, Value [0: PhantomJS, 1: Firefox, 2: Chrome], 1 by default.
+-t <DriverType> : Selenium web driver type. Optional, Value [1: Firefox, 2: Chrome], 1 by default.
 -w <FilePath> : Selenium web driver file path (absolute path). For example, geckodriver for Firefox. Compulsory.
 -l <FilePath> : Selenium web driver log file path. Optional, output to screen by default.
 
@@ -704,8 +694,6 @@ def main(argv):
     global __result_output_file_path
     global __concurrent_max_workers
     global __web_driver_type
-    global __web_driver_file_path
-    global __web_driver_log_file_path
 
     print("argv =", argv)
 
@@ -744,10 +732,6 @@ def main(argv):
                     __concurrent_max_workers = int(arg)
                 elif opt == "-t":
                     __web_driver_type = int(arg)
-                elif opt == "-w":
-                    __web_driver_file_path = arg
-                elif opt == "-l":
-                    __web_driver_log_file_path = arg
                 else:
                     __show_usage, __exit_code, __error_message = True, -\
                         2, "Unknown command line option."
@@ -762,19 +746,17 @@ def main(argv):
     print("result_output_file_path", __result_output_file_path)
     print("concurrent_max_workers =", __concurrent_max_workers)
     print("web_driver_type =", __web_driver_type)
-    print("web_driver_file_path =", __web_driver_file_path)
-    print("web_driver_log_file_path =", __web_driver_log_file_path)
 
     # Check options are valid.
     if not __show_usage:
-        if (__data_type is None) or (__inventory_info_file_path is None) or (__web_driver_file_path is None):
+        if (__data_type is None) or (__inventory_info_file_path is None):
             __show_usage, __exit_code, __error_message = True, -\
                 4, "Missing compulsory command line option."
         elif (__data_type < 0) or (__data_type > 1):
             __show_usage, __exit_code, __error_message = True, -5, "Wrong value for -d."
         elif (__concurrent_max_workers < 1) or (__concurrent_max_workers > 10):
             __show_usage, __exit_code, __error_message = True, -6, "Wrong value for -c."
-        elif (__web_driver_type < 0) or (__web_driver_type > 2):
+        elif (__web_driver_type < 1) or (__web_driver_type > 2):
             __show_usage, __exit_code, __error_message = True, -7, "Wrong value for -t."
 
     if not __show_usage:
