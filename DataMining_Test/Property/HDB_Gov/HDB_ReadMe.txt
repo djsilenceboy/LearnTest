@@ -1,95 +1,67 @@
 ================================================================================
 HDB info
 ------------------------------------------------------------
-https://services2.hdb.gov.sg/webapp/BB33RTIS/BB33PReslTrans.jsp
-https://services2.hdb.gov.sg/webapp/FI10AWESVCLIST/FI10SEServiceList
-================================================================================
-
-================================================================================
-Download HTML files
-================================================================================
-Update "HDB_DownloadHtmlData_Batch.sh" script with downloading parameters.
-
-Download all HTML files (use bash) by:
-./HDB_DownloadHtmlData_Batch.sh
+https://data.gov.sg/dataset/resale-flat-prices
 ------------------------------------------------------------
-Downloaded file folder (sample):
+Click "Download" to get all csv in zip.
+================================================================================
 
-.\HtmlData\20200627_12m
-----------------------------------------
-Downloaded files:
+================================================================================
+Combine needed CSV files to one file.
+------------------------------------------------------------
+Update "HDB_CombineCsvData.sh.sh".
 
-HDB_Trans_20200627_12m_01_1.html
-......
-HDB_Trans_20200627_12m_01_27.html
-HDB_Trans_20200627_12m_02_1.html
-......
-HDB_Trans_20200627_12m_02_27.html
-HDB_Trans_20200627_12m_03_1.html
-......
-HDB_Trans_20200627_12m_08_27.html
+In Git Bash, run:
+./HDB_CombineCsvData.sh.sh
+------------------------------------------------------------
+Generated files:
+
+.\ProcessedDataCombined\20221217\HDB_Trans_20221217_M.csv
 ================================================================================
 
 ================================================================================
 All steps in one batch
 ------------------------------------------------------------
-Convert HTML data to CSV
 Preprocess CSV files
 Process pre-processed data files by SQLite
 ================================================================================
 Update "HDB_ProcessData_Batch.bat" script with parameters.
 
-Run:
-
-HDB_ProcessData_Batch.bat
+In Windows Prompt, run:
+HDB_ProcessDataCombined_Batch.bat
 ================================================================================
 Following are separated steps.
 ================================================================================
 
 ================================================================================
-Convert HTML data to CSV
-================================================================================
-Run:
-
-HDB_ConvertHtmlToRawData.bat 20200627_12m
-------------------------------------------------------------
-Generated files:
-
-.\ProcessedData\20200627_12m\HDB_Trans_20200627_12m_M.csv
-================================================================================
-
-================================================================================
 Preprocess CSV files
 ================================================================================
-Run:
-
-HDB_PreprocessData.bat 20200627_12m
+In Windows Prompt, run:
+HDB_PreprocessData.bat 20221217 "Combined"
 ------------------------------------------------------------
 Generated files:
 
-.\ProcessedData\20200627_12m\HDB_Trans_20200627_12m_MP.csv
+.\ProcessedDataCombined\20221217\HDB_Trans_20221217_MP.csv
 ================================================================================
 During preprocess by Python
 ================================================================================
-For "Private Residential Property Transactions", remain following fields.
+Remain orginal fields.
 (Head line with 5 sample data lines.)
 ------------------------------------------------------------
-Block / Nearby Amenities,Street Name,Storey,Floor Area (sqm) /Flat Model,Lease Commence Date,Remaining Lease,Resale Price,Resale Registration Date,Flat Model,Floor Area (sqm),Floor Area Lower (sqm),Unit Price,Resale Year
-10,Jln Kukoh,10 to 12,53/Improved,1971,50 years 2 months,200000,Jun 2020,Improved,53,50,3773,2020
-9,Jln Kukoh,10 to 12,55/Improved,1982,60 years 10 months,222000,Mar 2020,Improved,55,50,4036,2020
-527B,Pasir Ris St 51,04 to 06,47/Model A,2015,94 years 3 months,250000,Jun 2020,Model A,47,40,5319,2020
-527B,Pasir Ris St 51,10 to 12,47/Model A,2015,94 years 3 months,265000,Jun 2020,Model A,47,40,5638,2020
+month,town,flat_type,block,street_name,storey_range,floor_area_sqm,flat_model,lease_commence_date,remaining_lease,resale_price,floor_area_lower_sqm,unit_price,resale_year
+2015-01,ANG MO KIO,3 ROOM,174,ANG MO KIO AVE 4,07 TO 09,60,Improved,1986,70,255000,60,4250,2015
+2015-01,ANG MO KIO,3 ROOM,541,ANG MO KIO AVE 10,01 TO 03,68,New Generation,1981,65,275000,60,4044,2015
+2015-01,ANG MO KIO,3 ROOM,163,ANG MO KIO AVE 4,01 TO 03,69,New Generation,1980,64,285000,60,4130,2015
+2015-01,ANG MO KIO,3 ROOM,446,ANG MO KIO AVE 10,01 TO 03,68,New Generation,1979,63,290000,60,4264,2015
+2015-01,ANG MO KIO,3 ROOM,557,ANG MO KIO AVE 10,07 TO 09,68,New Generation,1980,64,290000,60,4264,2015
 ------------------------------------------------------------
 Note that,
 1. Add fields (excel formula):
-A4                      = Floor Area (sqm) /Flat Model
-A6                      = Resale Price
-A7                      = Resale Registration Date
-Flat Model              =MID(A1, FIND("/", A1) +1)
-Floor Area (sqm)        =LEFT(A1, FIND("/", A1) -1)
-A9                      = Floor Area (sqm)
-Floor Area Lower (sqm)  =ROUNDDOWN(A9/10, 0)*10
-Unit Price              =ROUNDDOWN(A6/A9, 0)
+A1                      = Resale Date
+A7                      = Floor Area (sqm)
+A11                     = Resale Price
+Floor Area Lower (sqm)  =ROUNDDOWN(A7/10, 0)*10
+Unit Price              =ROUNDDOWN(A11/A7, 0)
 Resale Year             =RIGHT(A1, 4)
 ================================================================================
 
@@ -110,11 +82,13 @@ Process pre-processed data files by SQLite
 ================================================================================
 Run:
 
-HDB_ProcessDataInDb.bat 20200627_12m
+HDB_ProcessDataInDb.bat 20221217 "Combined"
 ------------------------------------------------------------
 Generated files:
 
-.\ProcessedData\20200627_12m\HDB_TransRent.db
-.\ProcessedData\20200627_12m\HDB_Results_20200627_12m_TransPrice.csv
-.\ProcessedData\20200627_12m\HDB_Results_20200627_12m_TransPriceB.csv
+.\ProcessedDataCombined\20221217\HDB_TransRent.db
+.\ProcessedDataCombined\20221217\HDB_Results_20221217_TransPriceA.csv
+.\ProcessedDataCombined\20221217\HDB_Results_20221217_TransPriceB.csv
+.\ProcessedDataCombined\20221217\HDB_Results_20221217_TransPriceC.csv
+.\ProcessedDataCombined\20221217\HDB_Results_20221217_TransPriceD.csv
 ================================================================================

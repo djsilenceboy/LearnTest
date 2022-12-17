@@ -1,0 +1,18 @@
+CREATE TABLE HDB_TRANS_HIST (
+  RESALE_DATE                 VARCHAR(20) NOT NULL,
+  TOWN                        VARCHAR(20) NOT NULL,
+  FLAT_TYPE                   VARCHAR(20) NOT NULL,
+  BLOCK                       VARCHAR(5) NOT NULL,
+  STREET_NAME                 VARCHAR(50) NOT NULL,
+  FLOOR_RANGE                 VARCHAR(10) NOT NULL,
+  FLOOR_AREA                  INT NOT NULL,
+  FLAT_MODEL                  VARCHAR(30) NOT NULL,
+  LEASE_DATE                  INT NOT NULL,
+  REMAIN_LEASE                VARCHAR(30) NOT NULL,
+  RESALE_PRICE                INT NOT NULL,
+  FLOOR_AREA_LOWER            INT NOT NULL,
+  UNIT_PRICE                  INT NOT NULL,
+  RESALE_YEAR                 INT NOT NULL
+);
+
+CREATE INDEX HDB_TRANS_HIST_1 ON HDB_TRANS_HIST (STREET_NAME, BLOCK, RESALE_YEAR, FLOOR_AREA_LOWER, UNIT_PRICE);
