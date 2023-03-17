@@ -1,0 +1,27 @@
+================================================================================
+2023-03
+
+Eclipse 2023-03 (4.27)
+================================================================================
+Release
+
+Plugin URL: http://download.eclipse.org/releases/2023-03
+            http://download.eclipse.org/releases/latest
+
+(
+Include
+"Programming Languages": C/C++ *, Eclipse XML Editors and Tools
+)
+================================================================================
+PyDev: Python IDE (Recommended)
+
+Plugin URL: http://www.pydev.org/updates
+
+(Include: All)
+------------------------------------------------------------
+Spring Tools 4 (Spring Tool Suite) (Recommended)
+
+Portal: https://marketplace.eclipse.org/content/spring-tools-4-aka-spring-tool-suite-4
+
+Installed from Eclipse Marketplace.
+================================================================================

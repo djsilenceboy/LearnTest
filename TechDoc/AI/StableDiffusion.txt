@@ -1,0 +1,36 @@
+================================================================================
+https://stable-diffusion-ui.github.io/docs/installation/
+https://github.com/cmdr2/stable-diffusion-ui/wiki/
+------------------------------------------------------------
+http://localhost:9000/
+================================================================================
+
+================================================================================
+https://github.com/AUTOMATIC1111/stable-diffusion-webui
+------------------------------------------------------------
+https://github.com/AUTOMATIC1111/stable-diffusion-webui/releases
+------------------------------------------------------------
+git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
+
+webui-user.bat
+
+http://127.0.0.1:7860/
+================================================================================
+webui-user.bat
+------------------------------------------------------------
+https://huggingface.co/spaces/stabilityai/stable-diffusion/discussions/13196
+pip install --upgrade fastapi==0.90
+
+https://github.com/AUTOMATIC1111/stable-diffusion-webui/discussions/5303
+set COMMANDLINE_ARGS= --reinstall-xformers --medvram --xformers
+================================================================================
+
+================================================================================
+https://en.wikipedia.org/wiki/Stable_Diffusion
+https://stability.ai/blog/stable-diffusion-public-release
+https://stablediffusionweb.com/
+================================================================================
+
+================================================================================
+https://civitai.com/
+================================================================================
