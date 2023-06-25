@@ -1,105 +1,39 @@
 ================================================================================
-Rental Contracts of Private Residential Properties
+Property Data / Private Residential / Rental / Rental Search
+2023-06
 ================================================================================
 
 ================================================================================
-API: Start search and get JSESSIONID
+API: Submit search (SQFT, SQM)
 
-Request URL: https://www.ura.gov.sg/realEstateIIWeb/resiRental/search.action
-Request Method: GET
+Request URL: https://www.ura.gov.sg/property-market-information/pmiResidentialRentalSearch
+Request Method: POST
 ================================================================================
 Request Headers
 ------------------------------------------------------------
-GET /realEstateIIWeb/resiRental/search.action HTTP/1.1
-Host: www.ura.gov.sg
-Connection: keep-alive
-Upgrade-Insecure-Requests: 1
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
-Sec-Fetch-Site: none
-Sec-Fetch-Mode: navigate
-Sec-Fetch-Dest: document
+POST /property-market-information/pmiResidentialRentalSearch HTTP/1.1
+Accept: */*
 Accept-Encoding: gzip, deflate, br
-Accept-Language: en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7
-Cookie: __utmz=217352402.1590909993.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); _ga=GA1.3.38720108.1590909993; SC_ANALYTICS_GLOBAL_COOKIE=723887fbc894443bb6af0b19d007ba9c|False; __zlcmid=yTjAtDlTZZnQDF; _gid=GA1.3.1121044625.1591580694; AMCV_DF38E5285913269B0A495E5A%40AdobeOrg=-1303530583%7CMCIDTS%7C18422%7CMCMID%7C51556601373344558983654905391678077681%7CMCAAMLH-1592205636%7C3%7CMCAAMB-1592205636%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1591608036s%7CNONE%7CvVersion%7C3.3.0; _sp_ses.d422=*; __utma=217352402.38720108.1590909993.1591599655.1591605235.6; __utmt=1; __utmb=217352402.5.10.1591605235; _sp_id.d422=e4816b9f-bdd3-4ce6-a275-6c8defa3ccef.1590909994.6.1591606295.1591600836.644cb227-0f5f-467a-aecb-22ce5739f843
-================================================================================
-Response Headers
-------------------------------------------------------------
-HTTP/1.1 200 OK
-Server: 2.0.0.8.8.1445293
-Date: Mon, 08 Jun 2020 08:59:27 GMT
-Content-Type: text/html;charset=UTF-8
-Cache-Control: no-cache, no-store, must-revalidate
-Pragma: no-cache
-Expires: -1
-Vary: *, Accept-Encoding
-X-Frame-Options: SAMEORIGIN
-Set-Cookie: JSESSIONID=apCTJ-HdVtnkT_7J7JpQqjWR_PvV_KfRzcOfcrXQyzuxL0MBkzsG!1950757503!322298518; path=/; HttpOnly; Secure
-Strict-Transport-Security: max-age=31536000; includeSubDomains
-Set-Cookie: BIGipServerIAPP-HTTPS_A83-WWW.URA.GOV.SG_V4.app~IAPP-HTTPS_A83-WWW.URA.GOV.SG_V4_pool=952674496.20480.0000; path=/; Httponly; Secure
-Set-Cookie: TS0117b822=01e0d9e46e3a5e1900dd4d80f60d4421a6f326334ae5e01e5a59b21f68144368f1888fb9e057a8c792faca5c9c1c6978634fbc856efc834ef433dbe8f6f17c3381c8e1e8dd84625609f91785ff826485be479b56ad; Path=/; Domain=.www.ura.gov.sg; Secure; HTTPOnly
-Set-Cookie: _nxqsession_jsessionid=sPSgKdMG2ZxYj7JPbd4oHSjJGzYrOS5AlAIWoWYtRq3vV4MrGoi6M6FM2bqv0qiKoMyRSQMamDkS1PboOEi+5tMpegfeII+yBg==; Path=/; Secure; HttpOnly
-Content-Encoding: gzip
-X-NXG: 14041453
-Age: 0
-Cache-stat: MISS
-Accept-Ranges: bytes
-Transfer-Encoding: chunked
-------------------------------------------------------------
-Find "JSESSIONID" from "Set-Cookie". It will be used for following API.
-
-JSESSIONID=apCTJ-HdVtnkT_7J7JpQqjWR_PvV_KfRzcOfcrXQyzuxL0MBkzsG!1950757503!322298518
-================================================================================
-Sample full curl command
-------------------------------------------------------------
-curl 'https://www.ura.gov.sg/realEstateIIWeb/resiRental/search.action' \
-  -H 'Connection: keep-alive' \
-  -H 'Upgrade-Insecure-Requests: 1' \
-  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36' \
-  -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \
-  -H 'Sec-Fetch-Site: none' \
-  -H 'Sec-Fetch-Mode: navigate' \
-  -H 'Sec-Fetch-Dest: document' \
-  -H 'Accept-Language: en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7' \
-  -H 'Cookie: __utmz=217352402.1590909993.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); _ga=GA1.3.38720108.1590909993; SC_ANALYTICS_GLOBAL_COOKIE=723887fbc894443bb6af0b19d007ba9c|False; __zlcmid=yTjAtDlTZZnQDF; _gid=GA1.3.1121044625.1591580694; AMCV_DF38E5285913269B0A495E5A%40AdobeOrg=-1303530583%7CMCIDTS%7C18422%7CMCMID%7C51556601373344558983654905391678077681%7CMCAAMLH-1592205636%7C3%7CMCAAMB-1592205636%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1591608036s%7CNONE%7CvVersion%7C3.3.0; _sp_ses.d422=*; __utma=217352402.38720108.1590909993.1591599655.1591605235.6; __utmt=1; __utmb=217352402.5.10.1591605235; _sp_id.d422=e4816b9f-bdd3-4ce6-a275-6c8defa3ccef.1590909994.6.1591606295.1591600836.644cb227-0f5f-467a-aecb-22ce5739f843' \
-  --compressed
-================================================================================
-
-================================================================================
-API: Submit search (square feet)
-
-Request URL: https://www.ura.gov.sg/realEstateIIWeb/resiRental/submitSearch.action
-Request Method: POST
-
-For 2nd onward, can omit ";jsessionid=<JSESSIONID>".
-
-Request URL: https://www.ura.gov.sg/realEstateIIWeb/resiRental/submitSearch.action
-Request Method: POST
-================================================================================
-Request Headers
-------------------------------------------------------------
-POST /realEstateIIWeb/resiRental/submitSearch.action
-Host: www.ura.gov.sg
+Accept-Language: en-US,en;q=0.9
 Connection: keep-alive
-Content-Length: 260
-Cache-Control: max-age=0
-Upgrade-Insecure-Requests: 1
+Content-Length: 453
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+Cookie: _gid=GA1.3.1068615016.1687593715; _ga_YK05YF0QS2=GS1.1.1687593697.2.1.1687593726.0.0.0; _ga=GA1.3.711181515.1687080015; _sp_ses.b186=*; _ga_KPV8HH8V5V=GS1.3.1687600588.4.1.1687600691.0.0.0; _ga_1G0BJMEQ9S=GS1.3.1687600588.4.1.1687600691.0.0.0; _sp_id.b186=80bac65c-a1e2-47ba-917b-364c2fab5113.1687080015.4.1687600808.1687598355.073583bf-e84c-4ba6-92ea-05b27656e4fc
+Host: www.ura.gov.sg
 Origin: https://www.ura.gov.sg
-Content-Type: application/x-www-form-urlencoded
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Referer: https://www.ura.gov.sg/property-market-information/pmiResidentialRentalSearch
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
 Sec-Fetch-Site: same-origin
-Sec-Fetch-Mode: navigate
-Sec-Fetch-User: ?1
-Sec-Fetch-Dest: document
-Referer: https://www.ura.gov.sg/realEstateIIWeb/resiRental/search.action
-Accept-Encoding: gzip, deflate, br
-Accept-Language: en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7
-Cookie: __utmz=217352402.1590909993.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); _ga=GA1.3.38720108.1590909993; SC_ANALYTICS_GLOBAL_COOKIE=723887fbc894443bb6af0b19d007ba9c|False; __zlcmid=yTjAtDlTZZnQDF; _gid=GA1.3.1121044625.1591580694; _sp_ses.d422=*; __utma=217352402.38720108.1590909993.1591599655.1591605235.6; JSESSIONID=apCTJ-HdVtnkT_7J7JpQqjWR_PvV_KfRzcOfcrXQyzuxL0MBkzsG!1950757503!322298518; BIGipServerIAPP-HTTPS_A83-WWW.URA.GOV.SG_V4.app~IAPP-HTTPS_A83-WWW.URA.GOV.SG_V4_pool=952674496.20480.0000; TS0117b822=01e0d9e46e3a5e1900dd4d80f60d4421a6f326334ae5e01e5a59b21f68144368f1888fb9e057a8c792faca5c9c1c6978634fbc856efc834ef433dbe8f6f17c3381c8e1e8dd84625609f91785ff826485be479b56ad; _nxqsession_jsessionid=sPSgKdMG2ZxYj7JPbd4oHSjJGzYrOS5AlAIWoWYtRq3vV4MrGoi6M6FM2bqv0qiKoMyRSQMamDkS1PboOEi+5tMpegfeII+yBg==; __utmc=217352402; __utmb=217352402.6.10.1591605235; AMCVS_DF38E5285913269B0A495E5A%40AdobeOrg=1; AMCV_DF38E5285913269B0A495E5A%40AdobeOrg=-1303530583%7CMCIDTS%7C18422%7CMCMID%7C51556601373344558983654905391678077681%7CMCAAMLH-1592211566%7C3%7CMCAAMB-1592211566%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1591613966s%7CNONE%7CvVersion%7C3.3.0; _sp_id.d422=e4816b9f-bdd3-4ce6-a275-6c8defa3ccef.1590909994.6.1591606850.1591600836.644cb227-0f5f-467a-aecb-22ce5739f843
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+X-Requested-With: XMLHttpRequest
+sec-ch-ua: "Not.A/Brand";v="8", "Chromium";v="114", "Google Chrome";v="114"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
 ------------------------------------------------------------
 The minumal required headers:
 
--H 'Content-Type: application/x-www-form-urlencoded' -H 'Cookie: JSESSIONID=<JSESSIONID>'
+-H 'Content-Type: application/x-www-form-urlencoded'
 ================================================================================
 Form data
 
@@ -107,95 +41,196 @@ Form data
 ------------------------------------------------------------
 Source:
 
-submissionType=pd&from_Date_Prj=APR-2020&to_Date_Prj=APR-2020&__multiselect_selectedProjects=&from_Date=JAN-2020&to_Date=APR-2020&propertyType=ac&postalDistrictList=28&selectedPostalDistricts=14&selectedPostalDistricts=15&__multiselect_selectedPostalDistricts=
+resultPerPage=20&displayResult=true&displayResultHeader=true&loadAnalysis=true&displayAnalysis=false&displayChart=true&displayAnalysisFilters=true&dashboardDisplay=false&locationDetails=%5B%22postalDistrict%22%2C%22D22+%2F+Jurong%22%2C%22D23+%2F+Hillview%2C+Dairy+Farm%2C+Bukit+Panjang%2C+Choa+Chu+Kang%22%5D&propertyTypeGroupNo=3&contractYearFrom=2023&contractMonthFrom=1&contractYearTo=2023&contractMonthTo=2&_csrf=03356a77-d821-49a1-b6c9-75f5fef49c11
 ------------------------------------------------------------
 URL encoded:
 
-submissionType: pd
-from_Date_Prj: APR-2020
-to_Date_Prj: APR-2020
-__multiselect_selectedProjects:
-from_Date: JAN-2020
-to_Date: APR-2020
-propertyType: ac
-postalDistrictList: 28
-selectedPostalDistricts: 14
-selectedPostalDistricts: 15
-__multiselect_selectedPostalDistricts:
+resultPerPage: 20
+displayResult: true
+displayResultHeader: true
+loadAnalysis: true
+displayAnalysis: false
+displayChart: true
+displayAnalysisFilters: true
+dashboardDisplay: false
+locationDetails: %5B%22postalDistrict%22%2C%22D22+%2F+Jurong%22%2C%22D23+%2F+Hillview%2C+Dairy+Farm%2C+Bukit+Panjang%2C+Choa+Chu+Kang%22%5D
+propertyTypeGroupNo: 3
+contractYearFrom: 2023
+contractMonthFrom: 1
+contractYearTo: 2023
+contractMonthTo: 2
+_csrf: 03356a77-d821-49a1-b6c9-75f5fef49c11
 ------------------------------------------------------------
-propertyType: "lp" for "Landed Properties (Non-Strata)"
-              "ac" for "Non-Landed Housing Development"
-              "ec" for "Executive Condominiums"
+URL decoded:
 
-Period: Must upper case, such as: APR-2020
+resultPerPage: 20
+displayResult: true
+displayResultHeader: true
+loadAnalysis: true
+displayAnalysis: false
+displayChart: true
+displayAnalysisFilters: true
+dashboardDisplay: false
+locationDetails: ["postalDistrict","D22 / Jurong","D23 / Hillview, Dairy Farm, Bukit Panjang, Choa Chu Kang"]
+propertyTypeGroupNo: 3
+contractYearFrom: 2023
+contractMonthFrom: 1
+contractYearTo: 2023
+contractMonthTo: 2
+_csrf: 03356a77-d821-49a1-b6c9-75f5fef49c11
+------------------------------------------------------------
+Property Type:
+propertyTypeGroupNo:
+1: Landed Properties
+2: Non-Landed Housing Development
+3: Executive Condominium
+
+Project or Location:
+locationDetails[postalDistrict]:
+(Note that, can only use "D01" part, no need " / xxx" part!)
+(Note that, locationDetails can be optional, means all postalDistrict.)
+D01 / Raffles Place, Cecil, Marina, People's Park
+D02 / Anson, Tanjong Pagar
+D03 / Queenstown, Tiong Bahru
+D04 / Telok Blangah, Harbourfront
+D05 / Pasir Panjang, Hong Leong Garden, Clementi New Town
+D06 / High Street, Beach Road (part)
+D07 / Middle Road, Golden Mile
+D08 / Little India
+D09 / Orchard, Cairnhill, River Valley
+D10 / Ardmore, Bukit Timah, Holland Road, Tanglin
+D11 / Watten Estate, Novena, Thomson
+D12 / Balestier, Toa Payoh, Serangoon
+D13 / Macpherson, Braddell
+D14 / Geylang, Eunos
+D15 / Katong, Joo Chiat, Amber Road
+D16 / Bedok, Upper East Coast, Eastwood, Kew Drive
+D17 / Loyang, Changi
+D18 / Tampines, Pasir Ris
+D19 / Serangoon Garden, Hougang, Punggol
+D20 / Bishan, Ang Mo Kio
+D21 / Upper Bukit Timah, Clementi Park, Ulu Pandan
+D22 / Jurong
+D23 / Hillview, Dairy Farm, Bukit Panjang, Choa Chu Kang
+D24 / Lim Chu Kang, Tengah
+D25 / Kranji, Woodgrove
+D26 / Upper Thomson, Springleaf
+D27 / Yishun, Sembawang
+D28 / Seletar
+
+Rental Date:
+contractYearFrom: 2023
+contractMonthFrom: 1
+contractYearTo: 2023
+contractMonthTo: 2
+
+resultPerPage: Set to a large number, such as 10000, to load all results in one page.
+------------------------------------------------------------
+The minumal required form data:
+
+resultPerPage: 20
+displayResult: true
+displayResultHeader: true
+locationDetails: %5B%22postalDistrict%22%2C%22D22+%2F+Jurong%22%2C%22D23+%2F+Hillview%2C+Dairy+Farm%2C+Bukit+Panjang%2C+Choa+Chu+Kang%22%5D
+propertyTypeGroupNo: 3
+contractYearFrom: 2023
+contractMonthFrom: 1
+contractYearTo: 2023
+contractMonthTo: 2
 ================================================================================
 Response Headers
 ------------------------------------------------------------
 HTTP/1.1 200 OK
-Server: 2.0.0.8.8.1445293
-Date: Mon, 08 Jun 2020 09:01:38 GMT
-Content-Type: text/html;charset=UTF-8
-Transfer-Encoding: chunked
-Cache-Control: no-cache, no-store, must-revalidate
-Pragma: no-cache
-Expires: -1
-Vary: *, Accept-Encoding
-X-Frame-Options: SAMEORIGIN
-Strict-Transport-Security: max-age=31536000; includeSubDomains
-Set-Cookie: TS0117b822=01e0d9e46e3a5e1900dd4d80f60d4421a6f326334ae5e01e5a59b21f68144368f1888fb9e057a8c792faca5c9c1c6978634fbc856efc834ef433dbe8f6f17c3381c8e1e8dd84625609f91785ff826485be479b56ad; Path=/; Domain=.www.ura.gov.sg; Secure; HTTPOnly
-Content-Encoding: gzip
+server: 2.0.0
+date: Sat, 24 Jun 2023 10:00:10 GMT
+content-type: text/html; charset=utf-8
+transfer-encoding: chunked
+cache-control: no-cache, no-store, max-age=0, must-revalidate
+pragma: no-cache
+content-language: en-US
+expires: 0
+content-security-policy: default-src 'self'; script-src 'self' blob: https://*.google-analytics.com https://www.googletagmanager.com assets.adobedtm.com *.wogaa.sg assets.dcube.cloud 'sha256-wygrCaLQX5ZGDLY6gkNnJ2DcxoZIExjHc01geh4xJMU=' 'sha256-BAp5+UojtCq0eUIDgCZVuNxkHDXjPKRh7nxhIACJ5wA=' 'sha256-4l1z6ztksLwdGC0xR2lLv0/XDhGvo5rrpr8QHmiWeOI=' ;connect-src 'self' *.onemap.sg *.google-analytics.com assets.adobedtm.com *.wogaa.sg *.dcube.cloud *.demdex.net ; style-src 'self' *.wogaa.sg *.dcube.cloud 'sha256-m8BcBrLKwErJiLI9IfJJuwLPB/TzRlWMEE1l59MCn+M=' 'sha256-CwE3Bg0VYQOIdNAkbB/Btdkhul49qZuwgNCMPgNY5zw=' 'sha256-MZKTI0Eg1N13tshpFaVW65co/LeICXq4hyVx6GWVlK0=' 'sha256-LpfmXS+4ZtL2uPRZgkoR29Ghbxcfime/CsD/4w5VujE=' 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=' 'sha256-OTeu7NEHDo6qutIWo0F2TmYrDhsKWCzrUgGoxxHGJ8o=' 'sha256-YJO/M9OgDKEBRKGqp4Zd07dzlagbB+qmKgThG52u/Mk='; font-src 'self'; img-src * data:; media-src *; frame-src 'self'; object-src 'self'; frame-ancestors 'self'; form-action 'self' *.ura.gov.sg *.ura.gov.sg *.enets.sg ;
+x-content-type-options: nosniff
+set-cookie: JSESSIONID=nJfs2NucnoE-ZU0w71qqxMjmhj-eUWDeOHugDtltFKJzCrT4-sMh!126098284!-1882525041; path=/pmi; secure; HttpOnly
+access-control-allow-origin: https://www.ura.gov.sg
+x-xss-protection: 1; mode=block
+x-frame-options: SAMEORIGIN
+allow: GET, POST
+access-control-allow-methods: GET, POST
+set-cookie: _nxqsession_jsessionid=v86FDqtl5JtglJkJY9QvICiyGhYiHhN/ozhNkmwxZJrafLkqPY6OFp595rigkLH85sWvZgMakzoS2vvtNUys6tEjcAfSKo+zCiY=; Path=/pmi; Secure; HttpOnly
+content-encoding: br
+strict-transport-security: max-age=31536000; includeSubDomains; preload
 ================================================================================
-Sample full curl command
+Sample full curl (bash) command
 ------------------------------------------------------------
-curl $'https://www.ura.gov.sg/realEstateIIWeb/resiRental/submitSearch.action' \
+curl 'https://www.ura.gov.sg/property-market-information/pmiResidentialRentalSearch' \
+  -H 'Accept: */*' \
+  -H 'Accept-Language: en-US,en;q=0.9' \
   -H 'Connection: keep-alive' \
-  -H 'Cache-Control: max-age=0' \
-  -H 'Upgrade-Insecure-Requests: 1' \
+  -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' \
+  -H 'Cookie: _gid=GA1.3.1068615016.1687593715; _ga_YK05YF0QS2=GS1.1.1687593697.2.1.1687593726.0.0.0; _ga=GA1.3.711181515.1687080015; _sp_ses.b186=*; _ga_KPV8HH8V5V=GS1.3.1687600588.4.1.1687600691.0.0.0; _ga_1G0BJMEQ9S=GS1.3.1687600588.4.1.1687600691.0.0.0; _sp_id.b186=80bac65c-a1e2-47ba-917b-364c2fab5113.1687080015.4.1687600808.1687598355.073583bf-e84c-4ba6-92ea-05b27656e4fc' \
   -H 'Origin: https://www.ura.gov.sg' \
-  -H 'Content-Type: application/x-www-form-urlencoded' \
-  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36' \
-  -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \
+  -H 'Referer: https://www.ura.gov.sg/property-market-information/pmiResidentialRentalSearch' \
+  -H 'Sec-Fetch-Dest: empty' \
+  -H 'Sec-Fetch-Mode: cors' \
   -H 'Sec-Fetch-Site: same-origin' \
-  -H 'Sec-Fetch-Mode: navigate' \
-  -H 'Sec-Fetch-User: ?1' \
-  -H 'Sec-Fetch-Dest: document' \
-  -H 'Referer: https://www.ura.gov.sg/realEstateIIWeb/resiRental/search.action' \
-  -H 'Accept-Language: en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7' \
-  -H $'Cookie: __utmz=217352402.1590909993.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); _ga=GA1.3.38720108.1590909993; SC_ANALYTICS_GLOBAL_COOKIE=723887fbc894443bb6af0b19d007ba9c|False; __zlcmid=yTjAtDlTZZnQDF; _gid=GA1.3.1121044625.1591580694; _sp_ses.d422=*; __utma=217352402.38720108.1590909993.1591599655.1591605235.6; JSESSIONID=apCTJ-HdVtnkT_7J7JpQqjWR_PvV_KfRzcOfcrXQyzuxL0MBkzsG\u00211950757503\u0021322298518; BIGipServerIAPP-HTTPS_A83-WWW.URA.GOV.SG_V4.app~IAPP-HTTPS_A83-WWW.URA.GOV.SG_V4_pool=952674496.20480.0000; TS0117b822=01e0d9e46e3a5e1900dd4d80f60d4421a6f326334ae5e01e5a59b21f68144368f1888fb9e057a8c792faca5c9c1c6978634fbc856efc834ef433dbe8f6f17c3381c8e1e8dd84625609f91785ff826485be479b56ad; _nxqsession_jsessionid=sPSgKdMG2ZxYj7JPbd4oHSjJGzYrOS5AlAIWoWYtRq3vV4MrGoi6M6FM2bqv0qiKoMyRSQMamDkS1PboOEi+5tMpegfeII+yBg==; __utmc=217352402; __utmb=217352402.6.10.1591605235; AMCVS_DF38E5285913269B0A495E5A%40AdobeOrg=1; AMCV_DF38E5285913269B0A495E5A%40AdobeOrg=-1303530583%7CMCIDTS%7C18422%7CMCMID%7C51556601373344558983654905391678077681%7CMCAAMLH-1592211566%7C3%7CMCAAMB-1592211566%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1591613966s%7CNONE%7CvVersion%7C3.3.0; _sp_id.d422=e4816b9f-bdd3-4ce6-a275-6c8defa3ccef.1590909994.6.1591606850.1591600836.644cb227-0f5f-467a-aecb-22ce5739f843' \
-  --data-raw 'submissionType=pd&from_Date_Prj=APR-2020&to_Date_Prj=APR-2020&__multiselect_selectedProjects=&from_Date=JAN-2020&to_Date=APR-2020&propertyType=ac&postalDistrictList=28&selectedPostalDistricts=14&selectedPostalDistricts=15&__multiselect_selectedPostalDistricts=' \
+  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36' \
+  -H 'X-Requested-With: XMLHttpRequest' \
+  -H 'sec-ch-ua: "Not.A/Brand";v="8", "Chromium";v="114", "Google Chrome";v="114"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "Windows"' \
+  --data-raw 'resultPerPage=20&displayResult=true&displayResultHeader=true&loadAnalysis=true&displayAnalysis=false&displayChart=true&displayAnalysisFilters=true&dashboardDisplay=false&locationDetails=%5B%22postalDistrict%22%2C%22D22+%2F+Jurong%22%2C%22D23+%2F+Hillview%2C+Dairy+Farm%2C+Bukit+Panjang%2C+Choa+Chu+Kang%22%5D&propertyTypeGroupNo=3&contractYearFrom=2023&contractMonthFrom=1&contractYearTo=2023&contractMonthTo=2&_csrf=03356a77-d821-49a1-b6c9-75f5fef49c11' \
   --compressed
 ================================================================================
+Sample minimum curl (bash) command
+------------------------------------------------------------
+curl 'https://www.ura.gov.sg/property-market-information/pmiResidentialRentalSearch' \
+  -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' \
+  --data-raw 'resultPerPage=20&displayResult=true&displayResultHeader=true&loadAnalysis=true&displayAnalysis=false&displayChart=true&displayAnalysisFilters=true&dashboardDisplay=false&locationDetails=%5B%22postalDistrict%22%2C%22D22+%2F+Jurong%22%2C%22D23+%2F+Hillview%2C+Dairy+Farm%2C+Bukit+Panjang%2C+Choa+Chu+Kang%22%5D&propertyTypeGroupNo=3&contractYearFrom=2023&contractMonthFrom=1&contractYearTo=2023&contractMonthTo=2&_csrf=03356a77-d821-49a1-b6c9-75f5fef49c11' \
+  --compressed
+================================================================================
+Test minimum curl (bash) command
+------------------------------------------------------------
+curl -ksS 'https://www.ura.gov.sg/property-market-information/pmiResidentialRentalSearch' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Accept-Encoding: gzip, deflate, br' -d 'resultPerPage=10000&displayResult=true&displayResultHeader=true&loadAnalysis=true&displayAnalysis=false&displayChart=true&displayAnalysisFilters=true&dashboardDisplay=false&locationDetails=%5B%22postalDistrict%22%2C%22D22%22%2C%22D23%22%5D&propertyTypeGroupNo=3&contractYearFrom=2023&contractMonthFrom=1&contractYearTo=2023&contractMonthTo=2' --compressed -o sample.html
+
+Download all Postal District:
+curl -ksS 'https://www.ura.gov.sg/property-market-information/pmiResidentialRentalSearch' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Accept-Encoding: gzip, deflate, br' -d 'resultPerPage=100000&displayResult=true&displayResultHeader=true&propertyTypeGroupNo=3&contractYearFrom=2022&contractMonthFrom=1&contractYearTo=2022&contractMonthTo=12' --compressed -o sample.html
+================================================================================
+
 
 ================================================================================
-API: ChangeDisplayUnit (square meter)
+API: Transaction Download (CSV, Excel)
 
-Request URL: https://www.ura.gov.sg/realEstateIIWeb/resiRental/changeDisplayUnit.action
+Request URL: https://www.ura.gov.sg/property-market-information/pmiSearchResidentialRentalDownload
 Request Method: POST
 ================================================================================
 Request Headers
 ------------------------------------------------------------
-POST /realEstateIIWeb/resiRental/changeDisplayUnit.action HTTP/1.1
-Host: www.ura.gov.sg
-Connection: keep-alive
-Content-Length: 7
-Cache-Control: max-age=0
-Upgrade-Insecure-Requests: 1
-Origin: https://www.ura.gov.sg
-Content-Type: application/x-www-form-urlencoded
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
-Sec-Fetch-Site: same-origin
-Sec-Fetch-Mode: navigate
-Sec-Fetch-User: ?1
-Sec-Fetch-Dest: document
-Referer: https://www.ura.gov.sg/realEstateIIWeb/resiRental/submitSearch.action
+POST /property-market-information/pmiSearchResidentialRentalDownload HTTP/1.1
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
 Accept-Encoding: gzip, deflate, br
-Accept-Language: en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7
-Cookie: __utmz=217352402.1590909993.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); _ga=GA1.3.38720108.1590909993; SC_ANALYTICS_GLOBAL_COOKIE=723887fbc894443bb6af0b19d007ba9c|False; __zlcmid=yTjAtDlTZZnQDF; _gid=GA1.3.1121044625.1591580694; _sp_ses.d422=*; __utma=217352402.38720108.1590909993.1591599655.1591605235.6; JSESSIONID=apCTJ-HdVtnkT_7J7JpQqjWR_PvV_KfRzcOfcrXQyzuxL0MBkzsG!1950757503!322298518; BIGipServerIAPP-HTTPS_A83-WWW.URA.GOV.SG_V4.app~IAPP-HTTPS_A83-WWW.URA.GOV.SG_V4_pool=952674496.20480.0000; TS0117b822=01e0d9e46e3a5e1900dd4d80f60d4421a6f326334ae5e01e5a59b21f68144368f1888fb9e057a8c792faca5c9c1c6978634fbc856efc834ef433dbe8f6f17c3381c8e1e8dd84625609f91785ff826485be479b56ad; _nxqsession_jsessionid=sPSgKdMG2ZxYj7JPbd4oHSjJGzYrOS5AlAIWoWYtRq3vV4MrGoi6M6FM2bqv0qiKoMyRSQMamDkS1PboOEi+5tMpegfeII+yBg==; __utmc=217352402; __utmb=217352402.6.10.1591605235; AMCVS_DF38E5285913269B0A495E5A%40AdobeOrg=1; AMCV_DF38E5285913269B0A495E5A%40AdobeOrg=-1303530583%7CMCIDTS%7C18422%7CMCMID%7C51556601373344558983654905391678077681%7CMCAAMLH-1592211566%7C3%7CMCAAMB-1592211566%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1591613966s%7CNONE%7CvVersion%7C3.3.0; _sp_id.d422=e4816b9f-bdd3-4ce6-a275-6c8defa3ccef.1590909994.6.1591606903.1591600836.644cb227-0f5f-467a-aecb-22ce5739f843
+Accept-Language: en-US,en;q=0.9
+Cache-Control: max-age=0
+Connection: keep-alive
+Content-Length: 816
+Content-Type: application/x-www-form-urlencoded
+Cookie: _gid=GA1.3.1068615016.1687593715; _ga_YK05YF0QS2=GS1.1.1687593697.2.1.1687593726.0.0.0; _ga=GA1.3.711181515.1687080015; _ga_KPV8HH8V5V=GS1.3.1687600588.4.1.1687600691.0.0.0; _ga_1G0BJMEQ9S=GS1.3.1687600588.4.1.1687600691.0.0.0; _sp_id.b186=80bac65c-a1e2-47ba-917b-364c2fab5113.1687080015.4.1687600809.1687598355.073583bf-e84c-4ba6-92ea-05b27656e4fc
+Host: www.ura.gov.sg
+Origin: https://www.ura.gov.sg
+Referer: https://www.ura.gov.sg/property-market-information/pmiResidentialRentalSearch
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+sec-ch-ua: "Not.A/Brand";v="8", "Chromium";v="114", "Google Chrome";v="114"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
 ------------------------------------------------------------
 The minumal required headers:
 
--H 'Content-Type: application/x-www-form-urlencoded' -H 'Cookie: JSESSIONID=<JSESSIONID>'
+-H 'Content-Type: application/x-www-form-urlencoded'
 ================================================================================
 Form data
 
@@ -203,54 +238,241 @@ Form data
 ------------------------------------------------------------
 Source:
 
-sortBy=
+resultPerPage=20&displayResult=true&displayResultHeader=1&loadAnalysis=true&displayAnalysis=0&displayChart=true&displayAnalysisFilters=true&dashboardDisplay=false&panelNo=&panelId=&panelName=&locationDetails=%5B%22postalDistrict%22%2C%22D22+%2F+Jurong%22%2C%22D23+%2F+Hillview%2C+Dairy+Farm%2C+Bukit+Panjang%2C+Choa+Chu+Kang%22%5D&contractYearFrom=2023&contractMonthFrom=1&contractYearTo=2023&contractMonthTo=2&propertyTypeGroupNo=3&monthlyRentFrom=&monthlyRentTo=&noofBedroomFrom=&noofBedroomTo=&page=0&gotoPage=1&tableDisplay=collapseColumn&sortBy=9&sortAsc=0&downloadType=downloadCSV&variableNo=&dataSet1No=&dataSet2No=&selectColumn=1&selectColumn=2&selectColumn=3&selectColumn=4&selectColumn=5&selectColumn=6&selectColumn=7&selectColumn=8&selectColumn=9&_selectColumn=1&_csrf=917c0ea5-412c-4922-9df3-eaf668c3e982
 ------------------------------------------------------------
 URL encoded:
 
-sortBy:
+resultPerPage: 20
+displayResult: true
+displayResultHeader: 1
+loadAnalysis: true
+displayAnalysis: 0
+displayChart: true
+displayAnalysisFilters: true
+dashboardDisplay: false
+panelNo: 
+panelId: 
+panelName: 
+locationDetails: %5B%22postalDistrict%22%2C%22D22+%2F+Jurong%22%2C%22D23+%2F+Hillview%2C+Dairy+Farm%2C+Bukit+Panjang%2C+Choa+Chu+Kang%22%5D
+contractYearFrom: 2023
+contractMonthFrom: 1
+contractYearTo: 2023
+contractMonthTo: 2
+propertyTypeGroupNo: 3
+monthlyRentFrom: 
+monthlyRentTo: 
+noofBedroomFrom: 
+noofBedroomTo: 
+page: 0
+gotoPage: 1
+tableDisplay: collapseColumn
+sortBy: 9
+sortAsc: 0
+downloadType: downloadCSV
+variableNo: 
+dataSet1No: 
+dataSet2No: 
+selectColumn: 1
+selectColumn: 2
+selectColumn: 3
+selectColumn: 4
+selectColumn: 5
+selectColumn: 6
+selectColumn: 7
+selectColumn: 8
+selectColumn: 9
+_selectColumn: 1
+_csrf: 917c0ea5-412c-4922-9df3-eaf668c3e982
+------------------------------------------------------------
+URL decoded:
+
+resultPerPage: 20
+displayResult: true
+displayResultHeader: 1
+loadAnalysis: true
+displayAnalysis: 0
+displayChart: true
+displayAnalysisFilters: true
+dashboardDisplay: false
+panelNo: 
+panelId: 
+panelName: 
+locationDetails: ["postalDistrict","D22 / Jurong","D23 / Hillview, Dairy Farm, Bukit Panjang, Choa Chu Kang"]
+contractYearFrom: 2023
+contractMonthFrom: 1
+contractYearTo: 2023
+contractMonthTo: 2
+propertyTypeGroupNo: 3
+monthlyRentFrom: 
+monthlyRentTo: 
+noofBedroomFrom: 
+noofBedroomTo: 
+page: 0
+gotoPage: 1
+tableDisplay: collapseColumn
+sortBy: 9
+sortAsc: 0
+downloadType: downloadCSV
+variableNo: 
+dataSet1No: 
+dataSet2No: 
+selectColumn: 1
+selectColumn: 2
+selectColumn: 3
+selectColumn: 4
+selectColumn: 5
+selectColumn: 6
+selectColumn: 7
+selectColumn: 8
+selectColumn: 9
+_selectColumn: 1
+_csrf: 917c0ea5-412c-4922-9df3-eaf668c3e982
+------------------------------------------------------------
+Property Type:
+propertyTypeGroupNo:
+1: Landed Properties
+2: Non-Landed Housing Development
+3: Executive Condominium
+
+Project or Location:
+locationDetails[postalDistrict]:
+(Note that, can only use "D01" part, no need " / xxx" part!)
+(Note that, locationDetails can be optional, means all postalDistrict.)
+D01 / Raffles Place, Cecil, Marina, People's Park
+D02 / Anson, Tanjong Pagar
+D03 / Queenstown, Tiong Bahru
+D04 / Telok Blangah, Harbourfront
+D05 / Pasir Panjang, Hong Leong Garden, Clementi New Town
+D06 / High Street, Beach Road (part)
+D07 / Middle Road, Golden Mile
+D08 / Little India
+D09 / Orchard, Cairnhill, River Valley
+D10 / Ardmore, Bukit Timah, Holland Road, Tanglin
+D11 / Watten Estate, Novena, Thomson
+D12 / Balestier, Toa Payoh, Serangoon
+D13 / Macpherson, Braddell
+D14 / Geylang, Eunos
+D15 / Katong, Joo Chiat, Amber Road
+D16 / Bedok, Upper East Coast, Eastwood, Kew Drive
+D17 / Loyang, Changi
+D18 / Tampines, Pasir Ris
+D19 / Serangoon Garden, Hougang, Punggol
+D20 / Bishan, Ang Mo Kio
+D21 / Upper Bukit Timah, Clementi Park, Ulu Pandan
+D22 / Jurong
+D23 / Hillview, Dairy Farm, Bukit Panjang, Choa Chu Kang
+D24 / Lim Chu Kang, Tengah
+D25 / Kranji, Woodgrove
+D26 / Upper Thomson, Springleaf
+D27 / Yishun, Sembawang
+D28 / Seletar
+
+Rental Date:
+contractYearFrom: 2023
+contractMonthFrom: 1
+contractYearTo: 2023
+contractMonthTo: 2
+
+gotoPage: [1, )
+Optional, means 1. The nth CSV file, if multiple. Each CVS has max 10000 records.
+
+sortBy: 9
+Column, 9 is "Lease Commencement Date".
+
+sortAsc: 0
+[0:Des, 1:Asc]
+
+selectColumn: [1, 9]
+(Note that, selectColumn can be selected columns.)
+1: Project Name
+2: Street Name
+3: Postal District
+4: Property Type
+5: No of Bedroom
+6: Monthly Rent ($)
+7: Floor Area (SQM)
+8: Floor Area (SQFT)
+9: Lease Commencement Date
+
+resultPerPage: Set to a large number, such as 10000, to load all results in one page.
+------------------------------------------------------------
+The minumal required form data:
+
+downloadType: downloadCSV
+locationDetails: %5B%22postalDistrict%22%2C%22D22+%2F+Jurong%22%2C%22D23+%2F+Hillview%2C+Dairy+Farm%2C+Bukit+Panjang%2C+Choa+Chu+Kang%22%5D
+contractYearFrom: 2023
+contractMonthFrom: 1
+contractYearTo: 2023
+contractMonthTo: 2
+propertyTypeGroupNo: 3
+gotoPage: 1
+sortBy: 9
+sortAsc: 0
+selectColumn: 1
+selectColumn: 2
+selectColumn: 3
+selectColumn: 4
+selectColumn: 5
+selectColumn: 6
+selectColumn: 7
+selectColumn: 8
+selectColumn: 9
 ================================================================================
 Response Headers
 ------------------------------------------------------------
 HTTP/1.1 200 OK
-Server: 2.0.0.8.8.1445293
-Date: Mon, 08 Jun 2020 09:04:39 GMT
-Content-Type: text/html;charset=UTF-8
-Transfer-Encoding: chunked
-X-Frame-Options: SAMEORIGIN
-Vary: Accept-Encoding
-Strict-Transport-Security: max-age=31536000; includeSubDomains
-Set-Cookie: TS0117b822=01e0d9e46e5e1c4f4708c6b11ecada3afc6930271b2d81f45e36a12338e86a024d019b757028a2b63e5ec27dcbeb01d6becee14f4bf9f4b97d7480834911fd568b8199a5d586bd11615be597f7a7cc64cc461f85c3; Path=/; Domain=.www.ura.gov.sg; Secure; HTTPOnly
-Content-Encoding: gzip
+server: 2.0.0
+date: Sat, 24 Jun 2023 14:16:36 GMT
+content-type: text/csv; charset=UTF-8
+transfer-encoding: chunked
+cache-control: no-cache, no-store, max-age=0, must-revalidate
+pragma: no-cache
+expires: 0
+content-disposition: attachment;filename=ResidentialRental20230624221641.csv
+content-security-policy: default-src 'self'; script-src 'self' blob: https://*.google-analytics.com https://www.googletagmanager.com assets.adobedtm.com *.wogaa.sg assets.dcube.cloud 'sha256-wygrCaLQX5ZGDLY6gkNnJ2DcxoZIExjHc01geh4xJMU=' 'sha256-BAp5+UojtCq0eUIDgCZVuNxkHDXjPKRh7nxhIACJ5wA=' 'sha256-4l1z6ztksLwdGC0xR2lLv0/XDhGvo5rrpr8QHmiWeOI=' ;connect-src 'self' *.onemap.sg *.google-analytics.com assets.adobedtm.com *.wogaa.sg *.dcube.cloud *.demdex.net ; style-src 'self' *.wogaa.sg *.dcube.cloud 'sha256-m8BcBrLKwErJiLI9IfJJuwLPB/TzRlWMEE1l59MCn+M=' 'sha256-CwE3Bg0VYQOIdNAkbB/Btdkhul49qZuwgNCMPgNY5zw=' 'sha256-MZKTI0Eg1N13tshpFaVW65co/LeICXq4hyVx6GWVlK0=' 'sha256-LpfmXS+4ZtL2uPRZgkoR29Ghbxcfime/CsD/4w5VujE=' 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=' 'sha256-OTeu7NEHDo6qutIWo0F2TmYrDhsKWCzrUgGoxxHGJ8o=' 'sha256-YJO/M9OgDKEBRKGqp4Zd07dzlagbB+qmKgThG52u/Mk='; font-src 'self'; img-src * data:; media-src *; frame-src 'self'; object-src 'self'; frame-ancestors 'self'; form-action 'self' *.ura.gov.sg *.ura.gov.sg *.enets.sg ;
+x-frame-options: SAMEORIGIN
+x-xss-protection: 1; mode=block
+x-content-type-options: nosniff
+access-control-allow-origin: https://www.ura.gov.sg
+allow: GET, POST
+access-control-allow-methods: GET, POST
+strict-transport-security: max-age=31536000; includeSubDomains; preload
 ================================================================================
-Sample full curl command
+Sample full curl (bash) command
 ------------------------------------------------------------
-curl 'https://www.ura.gov.sg/realEstateIIWeb/resiRental/changeDisplayUnit.action' \
-  -H 'Connection: keep-alive' \
+curl 'https://www.ura.gov.sg/property-market-information/pmiSearchResidentialRentalDownload' \
+  -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7' \
+  -H 'Accept-Language: en-US,en;q=0.9' \
   -H 'Cache-Control: max-age=0' \
-  -H 'Upgrade-Insecure-Requests: 1' \
-  -H 'Origin: https://www.ura.gov.sg' \
+  -H 'Connection: keep-alive' \
   -H 'Content-Type: application/x-www-form-urlencoded' \
-  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36' \
-  -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \
-  -H 'Sec-Fetch-Site: same-origin' \
-  -H 'Sec-Fetch-Mode: navigate' \
-  -H 'Sec-Fetch-User: ?1' \
+  -H 'Cookie: _gid=GA1.3.1068615016.1687593715; _ga_YK05YF0QS2=GS1.1.1687593697.2.1.1687593726.0.0.0; _ga=GA1.3.711181515.1687080015; _ga_KPV8HH8V5V=GS1.3.1687600588.4.1.1687600691.0.0.0; _ga_1G0BJMEQ9S=GS1.3.1687600588.4.1.1687600691.0.0.0; _sp_id.b186=80bac65c-a1e2-47ba-917b-364c2fab5113.1687080015.4.1687600809.1687598355.073583bf-e84c-4ba6-92ea-05b27656e4fc' \
+  -H 'Origin: https://www.ura.gov.sg' \
+  -H 'Referer: https://www.ura.gov.sg/property-market-information/pmiResidentialRentalSearch' \
   -H 'Sec-Fetch-Dest: document' \
-  -H $'Referer: https://www.ura.gov.sg/realEstateIIWeb/resiRental/submitSearch.action' \
-  -H 'Accept-Language: en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7' \
-  -H $'Cookie: __utmz=217352402.1590909993.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); _ga=GA1.3.38720108.1590909993; SC_ANALYTICS_GLOBAL_COOKIE=723887fbc894443bb6af0b19d007ba9c|False; __zlcmid=yTjAtDlTZZnQDF; _gid=GA1.3.1121044625.1591580694; _sp_ses.d422=*; __utma=217352402.38720108.1590909993.1591599655.1591605235.6; JSESSIONID=apCTJ-HdVtnkT_7J7JpQqjWR_PvV_KfRzcOfcrXQyzuxL0MBkzsG\u00211950757503\u0021322298518; BIGipServerIAPP-HTTPS_A83-WWW.URA.GOV.SG_V4.app~IAPP-HTTPS_A83-WWW.URA.GOV.SG_V4_pool=952674496.20480.0000; TS0117b822=01e0d9e46e3a5e1900dd4d80f60d4421a6f326334ae5e01e5a59b21f68144368f1888fb9e057a8c792faca5c9c1c6978634fbc856efc834ef433dbe8f6f17c3381c8e1e8dd84625609f91785ff826485be479b56ad; _nxqsession_jsessionid=sPSgKdMG2ZxYj7JPbd4oHSjJGzYrOS5AlAIWoWYtRq3vV4MrGoi6M6FM2bqv0qiKoMyRSQMamDkS1PboOEi+5tMpegfeII+yBg==; __utmc=217352402; __utmb=217352402.6.10.1591605235; AMCVS_DF38E5285913269B0A495E5A%40AdobeOrg=1; AMCV_DF38E5285913269B0A495E5A%40AdobeOrg=-1303530583%7CMCIDTS%7C18422%7CMCMID%7C51556601373344558983654905391678077681%7CMCAAMLH-1592211566%7C3%7CMCAAMB-1592211566%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1591613966s%7CNONE%7CvVersion%7C3.3.0; _sp_id.d422=e4816b9f-bdd3-4ce6-a275-6c8defa3ccef.1590909994.6.1591606903.1591600836.644cb227-0f5f-467a-aecb-22ce5739f843' \
-  --data-raw 'sortBy=' \
+  -H 'Sec-Fetch-Mode: navigate' \
+  -H 'Sec-Fetch-Site: same-origin' \
+  -H 'Sec-Fetch-User: ?1' \
+  -H 'Upgrade-Insecure-Requests: 1' \
+  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36' \
+  -H 'sec-ch-ua: "Not.A/Brand";v="8", "Chromium";v="114", "Google Chrome";v="114"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "Windows"' \
+  --data-raw 'resultPerPage=20&displayResult=true&displayResultHeader=1&loadAnalysis=true&displayAnalysis=0&displayChart=true&displayAnalysisFilters=true&dashboardDisplay=false&panelNo=&panelId=&panelName=&locationDetails=%5B%22postalDistrict%22%2C%22D22+%2F+Jurong%22%2C%22D23+%2F+Hillview%2C+Dairy+Farm%2C+Bukit+Panjang%2C+Choa+Chu+Kang%22%5D&contractYearFrom=2023&contractMonthFrom=1&contractYearTo=2023&contractMonthTo=2&propertyTypeGroupNo=3&monthlyRentFrom=&monthlyRentTo=&noofBedroomFrom=&noofBedroomTo=&page=0&gotoPage=1&tableDisplay=collapseColumn&sortBy=9&sortAsc=0&downloadType=downloadCSV&variableNo=&dataSet1No=&dataSet2No=&selectColumn=1&selectColumn=2&selectColumn=3&selectColumn=4&selectColumn=5&selectColumn=6&selectColumn=7&selectColumn=8&selectColumn=9&_selectColumn=1&_csrf=917c0ea5-412c-4922-9df3-eaf668c3e982' \
   --compressed
 ================================================================================
-
-================================================================================
-Combined sample
+Sample minimum curl (bash) command
 ------------------------------------------------------------
-JSESSIONID=$(curl -sSI 'https://www.ura.gov.sg/realEstateIIWeb/resiRental/search.action' --compressed | grep JSESSIONID | cut -d' ' -f2 | cut -d= -f2 | tr -d ';')
+curl 'https://www.ura.gov.sg/property-market-information/pmiSearchResidentialRentalDownload' \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  --data-raw 'resultPerPage=20&displayResult=true&displayResultHeader=1&loadAnalysis=true&displayAnalysis=0&displayChart=true&displayAnalysisFilters=true&dashboardDisplay=false&panelNo=&panelId=&panelName=&locationDetails=%5B%22postalDistrict%22%2C%22D22+%2F+Jurong%22%2C%22D23+%2F+Hillview%2C+Dairy+Farm%2C+Bukit+Panjang%2C+Choa+Chu+Kang%22%5D&contractYearFrom=2023&contractMonthFrom=1&contractYearTo=2023&contractMonthTo=2&propertyTypeGroupNo=3&monthlyRentFrom=&monthlyRentTo=&noofBedroomFrom=&noofBedroomTo=&page=0&gotoPage=1&tableDisplay=collapseColumn&sortBy=9&sortAsc=0&downloadType=downloadCSV&variableNo=&dataSet1No=&dataSet2No=&selectColumn=1&selectColumn=2&selectColumn=3&selectColumn=4&selectColumn=5&selectColumn=6&selectColumn=7&selectColumn=8&selectColumn=9&_selectColumn=1&_csrf=917c0ea5-412c-4922-9df3-eaf668c3e982' \
+  --compressed
+================================================================================
+Test minimum curl (bash) command
+------------------------------------------------------------
+Download CSV:
+curl -ksS 'https://www.ura.gov.sg/property-market-information/pmiSearchResidentialRentalDownload' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Accept-Encoding: gzip, deflate, br' -d 'locationDetails=%5B%22postalDistrict%22%2C%22D22%22%2C%22D23%22%5D&contractYearFrom=2023&contractMonthFrom=1&contractYearTo=2023&contractMonthTo=2&propertyTypeGroupNo=3&sortBy=9&sortAsc=1&downloadType=downloadCSV&selectColumn=1&selectColumn=2&selectColumn=3&selectColumn=4&selectColumn=5&selectColumn=6&selectColumn=7&selectColumn=8&selectColumn=9' --compressed -o sample.csv
 
-echo "JSESSIONID = "$JSESSIONID
-
-curl -sS "https://www.ura.gov.sg/realEstateIIWeb/resiRental/submitSearch.action" -H "Cookie: JSESSIONID=${JSESSIONID}" -H 'Content-Type: application/x-www-form-urlencoded' -d 'submissionType=pd&from_Date_Prj=APR-2020&to_Date_Prj=APR-2020&__multiselect_selectedProjects=&from_Date=JAN-2020&to_Date=APR-2020&propertyType=ac&postalDistrictList=28&selectedPostalDistricts=14&selectedPostalDistricts=15&__multiselect_selectedPostalDistricts=' --compressed -o URA_Sample_Rent_Sqf.html
-
-curl -sS 'https://www.ura.gov.sg/realEstateIIWeb/resiRental/changeDisplayUnit.action' -H "Cookie: JSESSIONID=${JSESSIONID}" -H 'Content-Type: application/x-www-form-urlencoded' -d 'sortBy=' --compressed -o URA_Sample_Rent_Sqm.html
+Download CSV for all Postal District: (Only max 10000)
+curl -ksS 'https://www.ura.gov.sg/property-market-information/pmiSearchResidentialRentalDownload' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Accept-Encoding: gzip, deflate, br' -d 'contractYearFrom=2022&contractMonthFrom=1&contractYearTo=2022&contractMonthTo=12&propertyTypeGroupNo=3&sortBy=9&sortAsc=1&downloadType=downloadCSV&selectColumn=1&selectColumn=2&selectColumn=3&selectColumn=4&selectColumn=5&selectColumn=6&selectColumn=7&selectColumn=9' --compressed -o sample.csv
 ================================================================================

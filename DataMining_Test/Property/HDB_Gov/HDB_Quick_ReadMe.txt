@@ -1,8 +1,8 @@
 ================================================================================
-Update "HDB_CombineCsvData.sh.sh".
+Update "HDB_CombineCsvData.sh".
 
 In Git Bash, run:
-./HDB_CombineCsvData.sh.sh
+./HDB_CombineCsvData.sh
 ------------------------------------------------------------
 Update "HDB_ProcessDataCombined_Batch_Temp.bat".
 
