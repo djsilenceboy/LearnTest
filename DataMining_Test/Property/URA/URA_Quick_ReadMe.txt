@@ -1,26 +1,21 @@
 ================================================================================
-Update "URA_DownloadHtmlData_Batch_Temp.sh".
+Update "URA_DownloadCsvData_Temp.sh".
 
 In Git Bash, run:
-./URA_DownloadHtmlData_Batch_Temp.sh
+./URA_DownloadCsvData_Temp.sh
 ------------------------------------------------------------
-Update "URA_ProcessData_Batch_Temp.bat".
+Update "URA_PreprocessCsvData_Temp.bat".
 
 In Windows Prompt, run:
-URA_ProcessData_Batch_Temp.bat
+URA_PreprocessCsvData_Temp.bat
 ------------------------------------------------------------
-Update "URA_CombineProcessedData.sh".
+Update "URA_CombinePreprocessedCsvData_Temp.sh".
 
 In Git Bash, run:
-URA_CombineProcessedData.sh
-----------------------------------------
-Alternative:
-Create \URA\ProcessedDataCombined\201608_202211,
-in Git Bash, run:
-./combine.sh
+./URA_CombinePreprocessedCsvData_Temp.sh
 ------------------------------------------------------------
-Update "URA_ProcessDataInDb_Combined_Temp.bat".
+Update "URA_ProcessCsvDataInDb_Temp.bat".
 
 In Windows Prompt, run:
-URA_ProcessDataInDb_Combined_Temp.bat
+URA_ProcessCsvDataInDb_Temp.bat
 ================================================================================

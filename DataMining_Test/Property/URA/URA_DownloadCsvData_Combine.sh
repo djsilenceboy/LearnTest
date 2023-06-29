@@ -21,7 +21,7 @@ echo 'Project Name,Transacted Price ($),Sale Date,Street Name,Type of Sale,Type 
 
 echo 'Project Name,Street Name,Postal District,Property Type,No of Bedroom,Monthly Rent ($),Floor Area (SQM),Floor Area (SQFT),Lease Commencement Date' > $CombinedRentFile
 
-grep -h -v 'Project Name' ${RawFileFolder}/${TransFileMainName}_*.csv >> $CombinedTransFile
-grep -h -v 'Project Name' ${RawFileFolder}/${RentFileMainName}_*.csv >> $CombinedRentFile
+grep -h -v 'Project Name' ${RawFileFolder}/${TransFileMainName}_*.csv | grep -v "matches" >> $CombinedTransFile
+grep -h -v 'Project Name' ${RawFileFolder}/${RentFileMainName}_*.csv | grep -v "matches" >> $CombinedRentFile
 
 echo "------------------------------------------------------------"

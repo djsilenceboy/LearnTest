@@ -8,7 +8,7 @@ ToMonth=$4
 CurrentFolder=$(pwd)
 DateRange="${FromYear}${FromMonth}_${ToYear}${ToMonth}"
 RawFileFolder="${CurrentFolder}/RawCsvData/${DateRange}"
-CombinedFileFolder="${CurrentFolder}/CombinedCsvData/${DateRange}"
+RawCombinedFileFolder="${CurrentFolder}/RawCsvDataCombined/${DateRange}"
 TransFileMainName="URA_CondoEcTrans_${DateRange}"
 RentFileMainName="URA_CondoEcRent_${DateRange}"
 
@@ -23,7 +23,7 @@ echo "ToYear = "$ToYear
 echo "ToMonth = "$ToMonth
 echo "DateRange = "$DateRange
 echo "RawFileFolder = "$RawFileFolder
-echo "CombinedFileFolder = "$CombinedFileFolder
+echo "RawCombinedFileFolder = "$RawCombinedFileFolder
 echo "TransFileMainName = "$TransFileMainName
 echo "RentFileMainName = "$RentFileMainName
 echo
@@ -71,9 +71,9 @@ echo "==========================================================================
 echo "Combine downloaded CSV files ..."
 echo "Date: "$(date +"%FT%T%z")
 
-mkdir -p ${CombinedFileFolder}
+mkdir -p ${RawCombinedFileFolder}
 
-${CurrentFolder}/URA_DownloadCsvData_Combine.sh "${RawFileFolder}" "${CombinedFileFolder}" "${TransFileMainName}" "${RentFileMainName}"
+${CurrentFolder}/URA_DownloadCsvData_Combine.sh "${RawFileFolder}" "${RawCombinedFileFolder}" "${TransFileMainName}" "${RentFileMainName}"
 
 echo "Combined downloaded CSV files."
 echo "Date: "$(date +"%FT%T%z")
