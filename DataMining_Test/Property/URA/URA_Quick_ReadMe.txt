@@ -18,4 +18,9 @@ Update "URA_ProcessCsvDataInDb_Temp.bat".
 
 In Windows Prompt, run:
 URA_ProcessCsvDataInDb_Temp.bat
+------------------------------------------------------------
+Update "URA_ProcessedCsvData_Filter_Temp.sh".
+
+In Git Bash, run:
+./URA_ProcessedCsvData_Filter_Temp.sh
 ================================================================================

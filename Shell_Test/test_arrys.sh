@@ -104,3 +104,30 @@ echo ${!VarArr3[@]}
 Var="Alert:Chris:Jack:Lily"
 IFS=: Names=($Var)
 echo "${Names[@]}"
+
+
+
+VarArr4=(
+Hello
+"Wor ld"
+)
+
+for v in ${VarArr4[*]}
+do
+	echo $v
+done
+
+for v in ${VarArr4[@]}
+do
+	echo $v
+done
+
+for v in "${VarArr4[*]}"
+do
+	echo $v
+done
+
+for v in "${VarArr4[@]}"
+do
+	echo $v
+done
