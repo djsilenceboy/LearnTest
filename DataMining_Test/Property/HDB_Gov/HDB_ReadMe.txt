@@ -1,9 +1,17 @@
 ================================================================================
 HDB info
 ------------------------------------------------------------
-https://data.gov.sg/dataset/resale-flat-prices
+https://beta.data.gov.sg/datasets?query=resale
 ------------------------------------------------------------
-Click "Download" to get all csv in zip.
+Find:
+Resale Flat Prices (Based on Approval Date), 1990 - 1999
+Resale Flat Prices (Based on Approval Date), 2000 - Feb 2012
+Resale Flat Prices (Based on Registration Date), From Mar 2012 to Dec 2014
+Resale Flat Prices (Based on Registration Date), From Jan 2015 to Dec 2016
+Resale flat prices based on registration date from Jan-2017 onwards
+
+Click "Download file".
+Later, only need to download "from Jan-2017 onwards" monthly.
 ================================================================================
 
 ================================================================================
