@@ -23,9 +23,8 @@ x2 = mu2 + sigma * np.random.randn(10000)
 figure = plot.figure()
 subplot = figure.add_subplot(1, 1, 1)
 
-n, bins, patches = subplot.hist(x1, bins=50, normed=False, color="darkgreen")
-n, bins, patches = subplot.hist(
-    x2, bins=50, normed=False, color="orange", alpha=0.5)
+n, bins, patches = subplot.hist(x1, bins=50, color="darkgreen")
+n, bins, patches = subplot.hist(x2, bins=50, color="orange", alpha=0.5)
 
 subplot.xaxis.set_ticks_position("bottom")
 subplot.yaxis.set_ticks_position("left")

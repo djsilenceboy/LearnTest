@@ -14,6 +14,11 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.We
 Upgrade
 
 choco upgrade -y chocolatey
+------------------------------------------------------------
+Force upgrade
+(If got error: Unable to load Chocolatey GUI assembly. The type initializer for 'ChocolateyGui.Common.Windows.Bootstrapper' threw an exception.)
+
+choco upgrade -f chocolatey
 ================================================================================
 Chocolatey GUI
 https://chocolatey.org/packages/ChocolateyGUI

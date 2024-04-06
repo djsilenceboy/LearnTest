@@ -1,0 +1,48 @@
+================================================================================
+find . -type f -exec md5sum {} \; | md5sum
+================================================================================
+./CheckSum_Log.sh "/e/HomeMedia" HomeMedia_e.log
+./CheckSum_Log.sh "/o/HomeMedia" HomeMedia_o.log
+./CheckSum_Log.sh "/r/HomeMedia" HomeMedia_r.log
+
+./CheckSum.sh "/e/HomeMedia"
+./CheckSum.sh "/o/HomeMedia"
+./CheckSum.sh "/r/HomeMedia"
+------------------------------------------------------------
+./CheckSum_Log.sh "/d/ADPersonal_Backup" ADPersonal_d.log
+./CheckSum_Log.sh "/m/ADPersonal" ADPersonal_m.log
+./CheckSum_Log.sh "/n/ADPersonal" ADPersonal_n.log
+
+./CheckSum.sh "/d/ADPersonal_Backup"
+./CheckSum.sh "/m/ADPersonal"
+./CheckSum.sh "/n/ADPersonal"
+------------------------------------------------------------
+./CheckSum_Log.sh "/h" Collection_h.log
+./CheckSum_Log.sh "/p" Collection_p.log
+./CheckSum_Log.sh "/s" Collection_s.log
+
+./CheckSum.sh "/h"
+./CheckSum.sh "/p"
+./CheckSum.sh "/s"
+------------------------------------------------------------
+./CheckSum_Log.sh "/q" MediaMixA_q.log
+./CheckSum_Log.sh "/t" MediaMixA_t.log
+
+./CheckSum.sh "/q"
+./CheckSum.sh "/t"
+================================================================================
+
+================================================================================
+/e/HomeMediaNew/2024
+ad52c22f9b04763dc3ded98f25520599 *-
+
+/o/HomeMediaNew/2024
+ad52c22f9b04763dc3ded98f25520599 *-
+
+/r/HomeMediaNew/2024
+ad52c22f9b04763dc3ded98f25520599 *-
+================================================================================
+
+================================================================================
+dir /s /a:h
+================================================================================
