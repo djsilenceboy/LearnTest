@@ -1,6 +1,6 @@
 from typing import Final
 
-a:Final = 1
+a: Final = 1
 print("a =", a)
 
 a = 2

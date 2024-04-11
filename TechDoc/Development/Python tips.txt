@@ -35,9 +35,13 @@ Install devel for compiling module.
 
 ]# yum install -y python-devel openssl-devel
 ================================================================================
-List installed module
+List installed modules
 
 ]$ pip list
+
+List installed but outdate modules
+
+]$ pip list --outdated
 ------------------------------------------------------------
 Upgrade all installed modules
 
@@ -47,6 +51,14 @@ Upgrade all installed modules
 Upgrade all installed modules
 
 ]$ pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+------------------------------------------------------------
+Upgrade all installed modules
+
+]$ pip freeze > requirements.txt
+
+Edit requirements.txt, and replace all ‘==’ with ‘>=’.
+
+]$ pip install -r requirements.txt --upgrade
 ================================================================================
 If having following error, while installing/upgrading:
 

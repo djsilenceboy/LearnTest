@@ -196,4 +196,45 @@ Python client for Docker.
 (depend on six, ipaddress, backports.ssl-match-hostname, certifi, chardet, docker-pycreds, requests, urllib3, websocket-client)
 
 ]$ pip install docker-py
+------------------------------------------------------------
+(Recommended)
+mypy
+https://mypy-lang.org/
+Static type checker
+
+]$ pip install mypy
+
+]$ mypy -h
+]$ mypy test.py
+
+Start daemon.
+
+]$ dmypy -h
+]$ dmypy run test.py
+------------------------------------------------------------
+pyright
+https://microsoft.github.io/pyright/
+Static type checker
+Pyright can be run as either a VS Code extension or as a node-based command-line tool. 
+
+]$ pip install pyright
+
+]$ pyright -h
+------------------------------------------------------------
+pyre-check
+https://pyre-check.org/docs/installation/
+Static type checker
+
+]$ pip install pyre-check
+
+]$ pyre -h
+------------------------------------------------------------
+pytype
+https://github.com/google/pytype
+Static type checker
+Windows is currently not supported unless you use WSL.
+
+]$ pip install pytype
+
+]$ pyre test.py
 ================================================================================

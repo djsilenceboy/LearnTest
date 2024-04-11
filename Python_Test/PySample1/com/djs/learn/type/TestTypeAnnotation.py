@@ -9,10 +9,10 @@ print("a =", a)
 def do_sum_1(a, b):
     return a + b
 
-def do_sum_2(a:int, b:int) -> int:
+def do_sum_2(a: int, b: int) -> int:
     return a + b
 
-def do_sum_3(a:int, b:int) -> int:
+def do_sum_3(a: int, b: int) -> int:
     return str(a + b)
 
 print("do_sum_1 =", do_sum_1(1, 2))

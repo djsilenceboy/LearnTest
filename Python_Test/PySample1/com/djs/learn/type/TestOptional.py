@@ -2,18 +2,18 @@ from typing import Optional
 
 a = None
 b = 1
-c:Optional[int] = None
-d:Optional[int] = 1
+c: Optional[int] = None
+d: Optional[int] = 1
 
 print("type(a) =", type(a))
 print("type(b) =", type(b))
 print("type(c) =", type(c))
 print("type(d) =", type(d))
 
-def checkNum_1(i:int) -> int:
+def checkNu m_1(i: int) -> int:
    return i
 
-def checkNum_2(i:Optional[int]) -> Optional[int]:
+def checkNum_2(i: Optional[int]) -> Optional[int]:
    return i
 
 print("checkNum_1 (", a, ") =", checkNum_1(a))

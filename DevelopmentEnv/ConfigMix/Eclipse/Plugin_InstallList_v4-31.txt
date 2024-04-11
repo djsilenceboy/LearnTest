@@ -1,0 +1,30 @@
+================================================================================
+2024-03
+
+Eclipse 2024-03 (4.31)
+================================================================================
+Release
+
+Plugin URL: http://download.eclipse.org/releases/2024-03
+            http://download.eclipse.org/releases/latest
+
+(
+Include
+"Programming Languages": C/C++ *, Eclipse XML Editors and Tools, Wilde Web Developer...
+)
+================================================================================
+PyDev: Python IDE (Recommended)
+
+Plugin URL: http://www.pydev.org/updates
+
+(Include: All)
+------------------------------------------------------------
+Spring Tools 4 (aka Spring Tool Suite 4) (Recommended)
+
+Install from Eclipse Marketplace.
+================================================================================
+Lombok
+https://projectlombok.org/download
+
+$ java -jar lombok-1.18.32.jar
+================================================================================
