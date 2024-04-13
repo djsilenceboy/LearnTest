@@ -1,0 +1,26 @@
+================================================================================
+$ sudo su -
+================================================================================
+$ ifconfig
+
+eth1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.8.167  netmask 255.255.255.0  broadcast 192.168.8.255
+        inet6 fe80::3710:9d2d:5e2e:bc2a  prefixlen 64  scopeid 0x20<link>
+        ether 08:00:27:5a:73:60  txqueuelen 1000  (Ethernet)
+        RX packets 139  bytes 19070 (18.6 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 52  bytes 12868 (12.5 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+------------------------------------------------------------
+$ ifconfig eth1 down
+$ iwconfig eth1 mode Monitor
+
+Error for wireless request "Set Mode" (8B06) :
+    SET failed on device eth1 ; Operation not supported.
+================================================================================
+$ sudo airodump-ng eth1
+------------------------------------------------------------
+$ sudo airmon-ng
+$ sudo airmon-ng check kill
+$ sudo airmon-ng start eth1
+================================================================================

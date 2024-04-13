@@ -10,19 +10,20 @@ class Product(object):
     def __init__(self, name):
         self.name = name
         self.internal_name = "_" + name
-        print("class, name, internal_name = {0}, {1}, {2}".format(
-            self.__class__.__name__, self.name, self.internal_name))
+        print("__init__: self, name, internal_name = {0}, {1}, {2}".format(
+            self, self.name, self.internal_name))
+            # self.__class__.__name__
 
     def __get__(self, instance, instance_type):
-        print("__get__: internal_name, instance, instance_type = {0}, {1}, {2}".format(
-            self.internal_name, instance, instance_type))
+        print("__get__: self, instance, instance_type, internal_name = {0}, {1}, {2}, {3}".format(
+            self, instance, instance_type, self.internal_name))
         if instance is None:
             return self
         return getattr(instance, self.internal_name, "")
 
     def __set__(self, instance, value):
-        print("__set__: internal_name, instance, value = {0}, {1}, {2}".format(
-            self.internal_name, instance, value))
+        print("__set__: self, instance, value, internal_name = {0}, {1}, {2}, {3}".format(
+            self, instance, value, self.internal_name))
         setattr(instance, self.internal_name, value)
 
 
