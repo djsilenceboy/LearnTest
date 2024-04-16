@@ -8,6 +8,15 @@ from contextlib import contextmanager
 
 
 @contextmanager
+def get_mobilephones():
+    mobilePhoneList = ["Samsung", "Apple", "Huawei"]
+    try:
+        print("get_mobilephones: mobilePhoneList =", mobilePhoneList)
+        yield mobilePhoneList
+    except Exception as e:
+        pass
+
+@contextmanager
 def exception_handler(error_message=None):
     '''Define different error message.'''
     print("Enter exception_handler.")
@@ -22,6 +31,11 @@ def exception_handler(error_message=None):
 
 
 def main():
+    print("-" * 40)
+
+    with get_mobilephones() as mobilePhoneList:
+        print("main: mobilePhoneList =", mobilePhoneList)
+
     print("-" * 40)
 
     with exception_handler():
