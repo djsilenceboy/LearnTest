@@ -7,7 +7,7 @@ Created on Apr 8, 2016
 import dis
 from math import sin
 import math
-from timeit import timeit, repeat
+from timeit import timeit
 
 
 def testA1():

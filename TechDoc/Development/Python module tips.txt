@@ -237,4 +237,18 @@ Windows is currently not supported unless you use WSL.
 ]$ pip install pytype
 
 ]$ pyre test.py
+------------------------------------------------------------
+pydeps
+Visualize packages
+
+]$ pip install pydeps
+
+]$ pydeps --show-deps <SourceCode_Path> -T png -o deps.png
+------------------------------------------------------------
+pydeps
+Visualize function calls
+
+]$ pip install pyan3
+
+]$ pyan3 <SourceCode_Path> --grouped --annotated --html > deps.html
 ================================================================================
