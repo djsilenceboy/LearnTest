@@ -34,10 +34,16 @@ def decoratorTypeE2(decorated):
 
 @decoratorTypeE2
 def foo():
+    print("Inside foo.")
     return 2 + 2
 
 
 def main():
+    print("-" * 40)
+
+    # Run __call__
+    foo()
+
     print("-" * 40)
 
     # foo is an instance of class TaskEx.
@@ -45,8 +51,9 @@ def main():
 
     print("-" * 40)
 
-    # Run __call__
-    foo()
+    print(foo.run())
+
+    print("-" * 40)
 
     print(foo.identify())
 

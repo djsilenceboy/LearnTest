@@ -239,16 +239,30 @@ Windows is currently not supported unless you use WSL.
 ]$ pyre test.py
 ------------------------------------------------------------
 pydeps
-Visualize packages
+https://pydeps.readthedocs.io
+Visualize packages. Require GraphViz.
 
 ]$ pip install pydeps
 
-]$ pydeps --show-deps <SourceCode_Path> -T png -o deps.png
+]$ pydeps --show-deps -T png -o deps.png <SourceCode_Path>
 ------------------------------------------------------------
-pydeps
+pyan3
+https://github.com/Technologicat/pyan
 Visualize function calls
 
 ]$ pip install pyan3
 
 ]$ pyan3 <SourceCode_Path> --grouped --annotated --html > deps.html
+------------------------------------------------------------
+backoff
+https://pypi.org/project/backoff
+Decorators which can be used to wrap a function such that it will be retried until some condition is met.
+
+]$ pip install backoff
+------------------------------------------------------------
+pypubsub
+https://pypubsub.readthedocs.io
+Provide publish-subscribe API
+
+]$ pip install pypubsub
 ================================================================================

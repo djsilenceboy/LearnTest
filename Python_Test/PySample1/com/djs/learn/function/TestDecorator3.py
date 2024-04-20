@@ -31,6 +31,7 @@ def decoratorTypeE1(decorated):
 
 @decoratorTypeE1
 def foo():
+    print("Inside foo.")
     return 2 + 2
 
 
@@ -39,6 +40,8 @@ def main():
 
     # foo becomes a class TaskEx.
     print("foo = ", foo)
+
+    print("-" * 40)
 
     # f is an instance of class TaskEx.
     f = foo()
