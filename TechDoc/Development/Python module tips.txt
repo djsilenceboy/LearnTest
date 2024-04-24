@@ -187,6 +187,7 @@ A package which provides cryptographic recipes and primitives to Python develope
 
 ]$ pip install cryptography
 ------------------------------------------------------------
+docker
 A Python library for the Docker Engine API.
 (depend on six, idna, ipaddress, backports.ssl-match-hostname, certifi, chardet, docker-pycreds, requests, urllib3, websocket-client)
 
@@ -198,8 +199,32 @@ Python client for Docker.
 ]$ pip install docker-py
 ------------------------------------------------------------
 (Recommended)
+pytest
+Unit test.
+https://docs.pytest.org
+
+]$ pip install pylint
+------------------------------------------------------------
+hypothesis
+https://hypothesis.readthedocs.io
+Property based testing
+
+]$ pip install hypothesis
+------------------------------------------------------------
+(Recommended)
+pylint
+https://pypi.org/project/pylint
+Static code analyser
+
+]$ pip install pylint
+
+]$ pylint test.py
+
+]$ pytest file_or_dir
+------------------------------------------------------------
+(Recommended)
 mypy
-https://mypy-lang.org/
+https://mypy-lang.org
 Static type checker
 
 ]$ pip install mypy
@@ -212,8 +237,28 @@ Start daemon.
 ]$ dmypy -h
 ]$ dmypy run test.py
 ------------------------------------------------------------
+(Recommended)
+bandit
+https://bandit.readthedocs.io
+A tool designed to find common security issues.
+
+]$ pip install bandit
+
+]$ bandit -r path/to/your/code
+------------------------------------------------------------
+(Recommended)
+coverage
+https://coverage.readthedocs.io
+Measuring code coverage
+
+]$ pip install coverage
+
+]$ coverage run -m pytest path/to/your/code
+]$ coverage run -m unittest path/to/your/code
+]$ coverage report -m
+------------------------------------------------------------
 pyright
-https://microsoft.github.io/pyright/
+https://microsoft.github.io/pyright
 Static type checker
 Pyright can be run as either a VS Code extension or as a node-based command-line tool. 
 
@@ -222,7 +267,7 @@ Pyright can be run as either a VS Code extension or as a node-based command-line
 ]$ pyright -h
 ------------------------------------------------------------
 pyre-check
-https://pyre-check.org/docs/installation/
+https://pyre-check.org
 Static type checker
 
 ]$ pip install pyre-check
@@ -265,4 +310,18 @@ https://pypubsub.readthedocs.io
 Provide publish-subscribe API
 
 ]$ pip install pypubsub
+------------------------------------------------------------
+behave
+https://behave.readthedocs.io
+Behavior Driven Development
+
+]$ pip install behave
+------------------------------------------------------------
+mutmut
+https://pypi.org/project/mutmut
+Mutation testing
+
+]$ pip install mutmut
+
+]$ mutmut run --paths-to-mutate <PATH>
 ================================================================================

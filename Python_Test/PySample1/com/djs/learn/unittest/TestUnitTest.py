@@ -5,7 +5,7 @@ Created on Apr 8, 2016
 '''
 
 import unittest
-from com.djs.learn.unittest import TestSample as cap
+import TestSample as cap
 
 
 MULTIPLE_WORDS_SOURCE = "this is a good day"

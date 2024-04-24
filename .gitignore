@@ -59,13 +59,14 @@
 
 # For Eclipse, Python.
 /Python_Test/**/__pycache__/
+/Python_Test/**/.hypothesis
 /Python_Test/**/.mypy_cache
+/Python_Test/**/.pytest_cache
 /Python_Test/**/*.pyc
 /Python_Test/**/*.pyo
 /Python_Test/**/*.pyd
 /Python_Test/**/*$py.class
 /Python_Test/**/*.log
-
 
 # For Eclipse, Ruby.
 /Ruby_Test/**/bin/
