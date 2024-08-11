@@ -121,8 +121,12 @@ def process_inventory_list():
                 record[keyFloorAreaSqm] = record[keyFloorAreaSqm].replace("\"", "").replace(",", "")
                 floorAreaSqm = record[keyFloorAreaSqm]
                 midIndex = floorAreaSqm.find("-") - 1
+                SeparatorLengh = 3
+                if (midIndex < 0):
+                  midIndex = floorAreaSqm.find("to") - 1
+                  SeparatorLengh = 4
                 record[keyFloorAreaLower] = floorAreaSqm[:midIndex]
-                midIndex = midIndex + 3
+                midIndex = midIndex + SeparatorLengh
                 record[keyFloorAreaUpper] = floorAreaSqm[midIndex:]
 
                 if record[keyNoOfBedroom] == "NA":
