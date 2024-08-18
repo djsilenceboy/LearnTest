@@ -10,6 +10,9 @@ ProcessedCsvFileFolder="${CurrentFolder}/ProcessedCsvData/${DateRange}"
 PriceSummaryFileName="${ProcessedCsvFileFolder}/URA_CondoEcResults_${DateRange}_PriceSummary.csv"
 PriceSummaryFilteredFileName="${ProcessedCsvFileFolder}/URA_CondoEcResults_${DateRange}_PriceSummary_F.csv"
 
+PriceSummaryChangeFileName="${ProcessedCsvFileFolder}/URA_CondoEcResults_${DateRange}_PriceSummaryChange.csv"
+PriceSummaryChangeFilteredFileName="${ProcessedCsvFileFolder}/URA_CondoEcResults_${DateRange}_PriceSummaryChange_F.csv"
+
 PriceRentRatioFileName="${ProcessedCsvFileFolder}/URA_CondoEcResults_${DateRange}_PriceRentRatio.csv"
 PriceRentRatioFilteredFileName="${ProcessedCsvFileFolder}/URA_CondoEcResults_${DateRange}_PriceRentRatio_F.csv"
 
@@ -24,79 +27,46 @@ echo "DateRange = "$DateRange
 echo "ProcessedCsvFileFolder = "$ProcessedCsvFileFolder
 echo "PriceSummaryFileName = "$PriceSummaryFileName
 echo "PriceSummaryFilteredFileName = "$PriceSummaryFilteredFileName
+echo "PriceSummaryChangeFileName = "$PriceSummaryChangeFileName
+echo "PriceSummaryChangeFilteredFileName = "$PriceSummaryChangeFilteredFileName
 echo "PriceRentRatioFileName = "$PriceRentRatioFileName
 echo "PriceRentRatioFilteredFileName = "$PriceRentRatioFilteredFileName
 echo
 
 grep -h 'POSTAL_DISTRICT' $PriceSummaryFileName > $PriceSummaryFilteredFileName
+grep -h 'POSTAL_DISTRICT' $PriceSummaryChangeFileName > $PriceSummaryChangeFilteredFileName
 grep -h 'POSTAL_DISTRICT' $PriceRentRatioFileName > $PriceRentRatioFilteredFileName
 
 condoNameList=(
-",Astoria Park,"
 ",Casablanca,"
-",Caspian,"
-",Central View,"
-",Chiltern Park,"
-",Coco Palms,"
-",Compass Heights,"
-",d'Nest,"
-",Double Bay Residences,"
-",Eastpoint Green,"
-",Eastvale,"
-",Esparina Residences,"
-",Heritage View,"
-",Kerrisdale,"
-",Kovan Melody,"
-",Kovan Residences,"
-",Livia,"
+",eCO,"
+",La Casa,"
 ",Maysprings,"
 ",Melville Park,"
-",Mi Casa,"
 ",Millage,"
-",Northoaks,"
+",My Manhattan,"
 ",Northvale,"
-",Oleander Towers,"
 ",Orchid Park Condominium,"
-",Palm Gardens,"
-",Parc Oasis,"
-",Parc Vista,"
-",Prive,"
-",Rafflesia Condominium,"
+",Parc Rosewood,"
 ",Regent Grove,"
 ",Rivervale Crest,"
-",Rosewood,"
-",Sea Horizon,"
-",Simei Green Condominium,"
-",Stratum,"
-",Summerdale,"
-",Sun Plaza,"
-",Sunglade,"
+",Seastrand,"
+",Symphony Suites,"
 ",Tanamera Crest,"
-",The Centris,"
-",The Dew,"
-",The Eden at Tampines,"
-",The Esparis,"
-",The Estuary,"
-",The Jade,"
-",The Lakeshore,"
 ",The Mayfair,"
-",The Minton,"
 ",The Nautical,"
-",The Quartz,"
-",The Warren,"
+",The Tennery,"
 ",The Woodgrove,"
-",Watercolours,"
-",White Water,"
-",Windermere,"
-",Woodgrove Condominium,"
-",Woodsvale,"
-",Yew Mei Green,"
+",Urban Vista,"
+",Wing Fong Court,"
+",Woodhaven,"
 )
 
 for condoName in "${condoNameList[@]}"
 do
 	echo $condoName
     grep -ih "$condoName" $PriceSummaryFileName >> $PriceSummaryFilteredFileName
+    grep -ih "$condoName" $PriceSummaryChangeFileName >> $PriceSummaryChangeFilteredFileName
     grep -ih "$condoName" $PriceRentRatioFileName >> $PriceRentRatioFilteredFileName
 done
 

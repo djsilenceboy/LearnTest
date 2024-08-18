@@ -298,6 +298,89 @@ ORDER BY a.PROJECT_NAME, a.FLOOR_AREA;
     return dataFrame
 
 
+def process_price_summary_change(dbConnection):
+    dataFrame = pd.read_sql_query(con = dbConnection, sql = """
+SELECT a.POSTAL_DISTRICT, a.PROJECT_NAME, a.PROPERTY_TYPE, a.TENURE_YEAR, a.FLOOR_AREA,
+  a.TRANSACTIONS AS ALL_TRANS, a.AVG_PRICE AS ALL_AVG,
+  g.TRANSACTIONS AS F2024_TRANS, g.AVG_PRICE AS F2024_AVG,
+  CAST(ROUND(g.AVG_PRICE * 100.0 / c.AVG_PRICE - 100) AS INTEGER) AS PERCENT_2024_2020, CAST(ROUND(b.AVG_PRICE * 1.21) AS INTEGER) AS PREDICT_2024_2020,
+  CAST(ROUND(g.AVG_PRICE * 100.0 / b.AVG_PRICE - 100) AS INTEGER) AS PERCENT_2024_2019, CAST(ROUND(b.AVG_PRICE * 1.27) AS INTEGER) AS PREDICT_2024_2019,
+  f.TRANSACTIONS AS F2023_TRANS, f.AVG_PRICE AS F2023_AVG,
+  CAST(ROUND(f.AVG_PRICE * 100.0 / c.AVG_PRICE - 100) AS INTEGER) AS PERCENT_2023_2020, CAST(ROUND(b.AVG_PRICE * 1.21) AS INTEGER) AS PREDICT_2023_2020,
+  CAST(ROUND(f.AVG_PRICE * 100.0 / b.AVG_PRICE - 100) AS INTEGER) AS PERCENT_2023_2019, CAST(ROUND(b.AVG_PRICE * 1.16) AS INTEGER) AS PREDICT_2023_2019,
+  e.TRANSACTIONS AS F2022_TRANS, e.AVG_PRICE AS F2022_AVG,
+  d.TRANSACTIONS AS F2021_TRANS, d.AVG_PRICE AS F2021_AVG,
+  c.TRANSACTIONS AS F2020_TRANS, c.AVG_PRICE AS F2020_AVG,
+  b.TRANSACTIONS AS F2019_TRANS, b.AVG_PRICE AS F2019_AVG
+FROM
+  (SELECT POSTAL_DISTRICT, PROJECT_NAME, PROPERTY_TYPE, TENURE_YEAR, FLOOR_AREA, COUNT(*) AS TRANSACTIONS, CAST(ROUND(AVG(PRICE)) AS INTEGER) AS AVG_PRICE
+   FROM URA_CONDOEC_TRANS_HIST
+   GROUP BY POSTAL_DISTRICT, PROJECT_NAME, PROPERTY_TYPE, TENURE_YEAR, FLOOR_AREA) a
+  LEFT JOIN
+  (SELECT POSTAL_DISTRICT, PROJECT_NAME, PROPERTY_TYPE, TENURE_YEAR, FLOOR_AREA, COUNT(*) AS TRANSACTIONS, CAST(ROUND(AVG(PRICE)) AS INTEGER) AS AVG_PRICE
+   FROM URA_CONDOEC_TRANS_HIST
+   WHERE (SALE_YEAR = 2019)
+   GROUP BY POSTAL_DISTRICT, PROJECT_NAME, PROPERTY_TYPE, TENURE_YEAR, FLOOR_AREA) b
+  ON ((a.POSTAL_DISTRICT = b.POSTAL_DISTRICT)
+      AND (a.PROJECT_NAME = b.PROJECT_NAME)
+      AND (a.PROPERTY_TYPE = b.PROPERTY_TYPE)
+      AND (a.TENURE_YEAR = b.TENURE_YEAR)
+      AND (a.FLOOR_AREA = b.FLOOR_AREA))
+  LEFT JOIN
+  (SELECT POSTAL_DISTRICT, PROJECT_NAME, PROPERTY_TYPE, TENURE_YEAR, FLOOR_AREA, COUNT(*) AS TRANSACTIONS, CAST(ROUND(AVG(PRICE)) AS INTEGER) AS AVG_PRICE
+   FROM URA_CONDOEC_TRANS_HIST
+   WHERE (SALE_YEAR = 2020)
+   GROUP BY POSTAL_DISTRICT, PROJECT_NAME, PROPERTY_TYPE, TENURE_YEAR, FLOOR_AREA) c
+  ON ((a.POSTAL_DISTRICT = c.POSTAL_DISTRICT)
+      AND (a.PROJECT_NAME = c.PROJECT_NAME)
+      AND (a.PROPERTY_TYPE = c.PROPERTY_TYPE)
+      AND (a.TENURE_YEAR = c.TENURE_YEAR)
+      AND (a.FLOOR_AREA = c.FLOOR_AREA))
+  LEFT JOIN
+  (SELECT POSTAL_DISTRICT, PROJECT_NAME, PROPERTY_TYPE, TENURE_YEAR, FLOOR_AREA, COUNT(*) AS TRANSACTIONS, CAST(ROUND(AVG(PRICE)) AS INTEGER) AS AVG_PRICE
+   FROM URA_CONDOEC_TRANS_HIST
+   WHERE (SALE_YEAR = 2021)
+   GROUP BY POSTAL_DISTRICT, PROJECT_NAME, PROPERTY_TYPE, TENURE_YEAR, FLOOR_AREA) d
+  ON ((a.POSTAL_DISTRICT = d.POSTAL_DISTRICT)
+      AND (a.PROJECT_NAME = d.PROJECT_NAME)
+      AND (a.PROPERTY_TYPE = d.PROPERTY_TYPE)
+      AND (a.TENURE_YEAR = d.TENURE_YEAR)
+      AND (a.FLOOR_AREA = d.FLOOR_AREA))
+  LEFT JOIN
+  (SELECT POSTAL_DISTRICT, PROJECT_NAME, PROPERTY_TYPE, TENURE_YEAR, FLOOR_AREA, COUNT(*) AS TRANSACTIONS, CAST(ROUND(AVG(PRICE)) AS INTEGER) AS AVG_PRICE
+   FROM URA_CONDOEC_TRANS_HIST
+   WHERE (SALE_YEAR = 2022)
+   GROUP BY POSTAL_DISTRICT, PROJECT_NAME, PROPERTY_TYPE, TENURE_YEAR, FLOOR_AREA) e
+  ON ((a.POSTAL_DISTRICT = e.POSTAL_DISTRICT)
+      AND (a.PROJECT_NAME = e.PROJECT_NAME)
+      AND (a.PROPERTY_TYPE = e.PROPERTY_TYPE)
+      AND (a.TENURE_YEAR = e.TENURE_YEAR)
+      AND (a.FLOOR_AREA = e.FLOOR_AREA))
+  LEFT JOIN
+  (SELECT POSTAL_DISTRICT, PROJECT_NAME, PROPERTY_TYPE, TENURE_YEAR, FLOOR_AREA, COUNT(*) AS TRANSACTIONS, CAST(ROUND(AVG(PRICE)) AS INTEGER) AS AVG_PRICE
+   FROM URA_CONDOEC_TRANS_HIST
+   WHERE (SALE_YEAR = 2023)
+   GROUP BY POSTAL_DISTRICT, PROJECT_NAME, PROPERTY_TYPE, TENURE_YEAR, FLOOR_AREA) f
+  ON ((a.POSTAL_DISTRICT = f.POSTAL_DISTRICT)
+      AND (a.PROJECT_NAME = f.PROJECT_NAME)
+      AND (a.PROPERTY_TYPE = f.PROPERTY_TYPE)
+      AND (a.TENURE_YEAR = f.TENURE_YEAR)
+      AND (a.FLOOR_AREA = f.FLOOR_AREA))
+  LEFT JOIN
+  (SELECT POSTAL_DISTRICT, PROJECT_NAME, PROPERTY_TYPE, TENURE_YEAR, FLOOR_AREA, COUNT(*) AS TRANSACTIONS, CAST(ROUND(AVG(PRICE)) AS INTEGER) AS AVG_PRICE
+   FROM URA_CONDOEC_TRANS_HIST
+   WHERE (SALE_YEAR = 2024)
+   GROUP BY POSTAL_DISTRICT, PROJECT_NAME, PROPERTY_TYPE, TENURE_YEAR, FLOOR_AREA) g
+  ON ((a.POSTAL_DISTRICT = g.POSTAL_DISTRICT)
+      AND (a.PROJECT_NAME = g.PROJECT_NAME)
+      AND (a.PROPERTY_TYPE = g.PROPERTY_TYPE)
+      AND (a.TENURE_YEAR = g.TENURE_YEAR)
+      AND (a.FLOOR_AREA = g.FLOOR_AREA))
+ORDER BY a.PROJECT_NAME, a.FLOOR_AREA;
+    """)
+    return dataFrame
+
+
 def usage():
     print('''
 Process URA data by SQLite.
@@ -339,7 +422,8 @@ def process_inventory_list():
         df_rental_yearly_avg_price = process_rental_yearly_avg_price(dbConnection)
         df_price_rental_ratio = process_price_rental_ratio(dbConnection)
         df_price_rental_ratio_all = process_price_rental_ratio_all(dbConnection)
-        df_process_price_summary = process_price_summary(dbConnection)
+        df_price_summary = process_price_summary(dbConnection)
+        df_price_summary_change = process_price_summary_change(dbConnection)
 
         print("Process inventory list: ok.")
     except Exception as e:
@@ -363,7 +447,8 @@ def process_inventory_list():
             df_rental_yearly_avg_price.to_csv(__output_file_prefix_path + "_RentYearlyPrice.csv", index = False)
             df_price_rental_ratio.to_csv(__output_file_prefix_path + "_PriceRentRatio.csv", index = False)
             df_price_rental_ratio_all.to_csv(__output_file_prefix_path + "_PriceRentRatioAll.csv", index = False)
-            df_process_price_summary.to_csv(__output_file_prefix_path + "_PriceSummary.csv", index = False)
+            df_price_summary.to_csv(__output_file_prefix_path + "_PriceSummary.csv", index = False)
+            df_price_summary_change.to_csv(__output_file_prefix_path + "_PriceSummaryChange.csv", index = False)
             print("Output process results: ok")
         except Exception as e:
             print("Output process results: Exception = {0}".format(e))
@@ -371,8 +456,9 @@ def process_inventory_list():
         print("transaction_yearly_avg_price.size =", df_transaction_yearly_avg_price.size)
         print("rental_yearly_avg_price.size =", df_rental_yearly_avg_price.size)
         print("price_rental_ratio.size =", df_price_rental_ratio.size)
-        print("df_price_rental_ratio_all.size =", df_price_rental_ratio_all.size)
-        print("process_price_summary.size =", df_process_price_summary.size)
+        print("price_rental_ratio_all.size =", df_price_rental_ratio_all.size)
+        print("price_summary.size =", df_price_summary.size)
+        print("price_summary_change.size =", df_price_summary_change.size)
         print("Output process results.")
 
     print("-" * 100)
