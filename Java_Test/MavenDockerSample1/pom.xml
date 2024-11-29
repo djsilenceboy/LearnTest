@@ -7,7 +7,7 @@
 	<name>maven-docker-sample</name>
 
 	<properties>
-		<log4j.version>2.11.1</log4j.version>
+		<log4j.version>2.13.3</log4j.version>
 		<junit.version>4.12</junit.version>
 		<baseimage.name>centos</baseimage.name>
 		<baseimage.version>7</baseimage.version>
