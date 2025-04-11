@@ -15,7 +15,7 @@ echo "SaleMonthTo = "$SaleMonthTo
 echo "OutputFolder = "$OutputFolder
 echo "OutputFileMainName = "$OutputFileMainName
 
-MainServiceUrl="https://www.ura.gov.sg/property-market-information/pmiSearchResidentialTransactionDownload"
+MainServiceUrl="https://eservice.ura.gov.sg/property-market-information/pmiSearchResidentialTransactionDownload"
 echo "MainServiceUrl = "$MainServiceUrl
 
 make_form_data_postal_list()
