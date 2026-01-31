@@ -1,2 +1,2 @@
 
-URA_ProcessCsvDataInDb.bat 201806 202305
+URA_ProcessCsvDataInDb.bat 201806 202512
