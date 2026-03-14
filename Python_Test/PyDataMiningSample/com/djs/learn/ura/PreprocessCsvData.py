@@ -85,6 +85,10 @@ def process_inventory_list():
                     tenureYear = record[keySaleYear]
                     midIndex = tenure.find("years") - 1
                     tenureLength = tenure[:midIndex]
+                elif tenure.find("years") > 0:
+                    tenureYear = tenure[-4:]
+                    midIndex = tenure.find("years") - 1
+                    tenureLength = tenure[:midIndex]
                 else:
                     tenureYear = tenure[-4:]
                     midIndex = tenure.find("yrs") - 1
