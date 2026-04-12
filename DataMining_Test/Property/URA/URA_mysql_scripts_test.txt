@@ -42,6 +42,8 @@ FROM
 WHERE (CAST(((b.PRICE_AVG - a.PRICE_AVG) * 100 / a.PRICE_AVG) AS FLOAT) >= 5.0)
 ORDER BY a.POSTAL_DISTRICT, a.PROJECT_NAME, a.FLOOR_AREA_LOWER;
 ================================================================================
+
+================================================================================
 Find: No rent house
 ------------------------------------------------------------
 SELECT a.POSTAL_DISTRICT, a.PROJECT_NAME, a.STREET_NAME, a.PROPERTY_TYPE, a.SALE_TYPE, a.TENURE_YEAR, a.SALE_YEAR, a.FLOOR_AREA_LOWER, a.PRICE_AVG
@@ -60,6 +62,8 @@ FROM
       AND (b.YEARLY_RENT_AVG IS NULL))
 ORDER BY a.POSTAL_DISTRICT, a.PROJECT_NAME, a.FLOOR_AREA_LOWER;
 ================================================================================
+
+================================================================================
 Find: Transactions per month for each project
 ------------------------------------------------------------
 SELECT POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE, COUNT(*) AS TRANSACTIONS
@@ -69,6 +73,8 @@ WHERE PROJECT_NAME in ("NORTHVALE", "CASABLANCA", "ROSEWOOD", "REGENT GROVE", "Y
 GROUP BY POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE
 HAVING COUNT(*) >= 5
 ORDER BY POSTAL_DISTRICT, PROJECT_NAME, SALE_YEAR, SALE_DATE
+================================================================================
+
 ================================================================================
 Find transactions per month for each project, which
 ------------------------------------------------------------
@@ -89,4 +95,40 @@ SELECT SALE_YEAR, SALE_DATE, COUNT(*) AS TRANSACTIONS
 FROM URA_CONDOEC_TRANS_HIST
 GROUP BY SALE_YEAR, SALE_DATE
 ORDER BY SALE_YEAR, SALE_DATE
+================================================================================
+
+================================================================================
+Find average price per year, which
+------------------------------------------------------------
+1. Price 2021 Years vs Price 2025 Years
+2. Price 102%^4 = 108 %
+2. Price 105%^4 = 121 %
+
+SELECT a.POSTAL_DISTRICT, a.PROJECT_NAME, a.PROPERTY_TYPE, a.TENURE_YEAR, a.FLOOR_AREA,
+  a.TRANSACTIONS AS Y2021_TRANS, a.AVG_PRICE AS Y2021_AVG,
+  b.TRANSACTIONS AS Y2025_TRANS, b.AVG_PRICE AS Y2025_AVG,
+  CAST(ROUND(b.AVG_PRICE * 100.0 / a.AVG_PRICE - 100) AS INTEGER) AS CHG_PER
+FROM
+  (SELECT POSTAL_DISTRICT, PROJECT_NAME, PROPERTY_TYPE, TENURE_YEAR, FLOOR_AREA, COUNT(*) AS TRANSACTIONS, CAST(ROUND(AVG(PRICE)) AS INTEGER) AS AVG_PRICE
+   FROM URA_CONDOEC_TRANS_HIST
+   WHERE (SALE_YEAR = 2021)
+   GROUP BY POSTAL_DISTRICT, PROJECT_NAME, PROPERTY_TYPE, TENURE_YEAR, FLOOR_AREA) a
+  LEFT JOIN
+  (SELECT POSTAL_DISTRICT, PROJECT_NAME, PROPERTY_TYPE, TENURE_YEAR, FLOOR_AREA, COUNT(*) AS TRANSACTIONS, CAST(ROUND(AVG(PRICE)) AS INTEGER) AS AVG_PRICE
+   FROM URA_CONDOEC_TRANS_HIST
+   WHERE (SALE_YEAR = 2025)
+   GROUP BY POSTAL_DISTRICT, PROJECT_NAME, PROPERTY_TYPE, TENURE_YEAR, FLOOR_AREA) b
+  ON ((a.POSTAL_DISTRICT = b.POSTAL_DISTRICT)
+      AND (a.PROJECT_NAME = b.PROJECT_NAME)
+      AND (a.PROPERTY_TYPE = b.PROPERTY_TYPE)
+      AND (a.TENURE_YEAR = b.TENURE_YEAR)
+      AND (a.FLOOR_AREA = b.FLOOR_AREA))
+WHERE ((CHG_PER IS NOT NULL)
+       AND ((a.TENURE_YEAR = 0)
+	        OR (a.TENURE_YEAR >= 1997))
+       AND (a.FLOOR_AREA >= 50)
+       AND (Y2025_AVG < 1000000)
+	   AND (CHG_PER >= 8)
+	   AND (CHG_PER <= 25))
+ORDER BY a.PROJECT_NAME, a.FLOOR_AREA;
 ================================================================================
