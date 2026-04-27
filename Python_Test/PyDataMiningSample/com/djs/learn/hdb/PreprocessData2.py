@@ -10,6 +10,7 @@ import csv
 import getopt
 import math
 import sys
+from datetime import date
 from time import localtime, strftime, time
 
 # Global variables.
@@ -39,17 +40,29 @@ def process_inventory_list():
         keyResaleDate = "month"
         keyFloorArea = "floor_area_sqm"
         keyResalePrice = "resale_price"
+        keyLeaseCommenceDate = "lease_commence_date"
+        keyRemainingLease = "remaining_lease"
 
         keyFloorAreaLower = "floor_area_lower_sqm"
         keyUnitPrice = "unit_price"
         keyResaleYear = "resale_year"
 
         if __data_type == 0:
+            hasRemainingLeaseField = True
+            currentYear = date.today().year
+
+            if keyRemainingLease not in headers:
+                hasRemainingLeaseField = False
+                headers.insert(len(headers) - 1, keyRemainingLease)
             headers.append(keyFloorAreaLower)
             headers.append(keyUnitPrice)
             headers.append(keyResaleYear)
 
             for record in records:
+                if not hasRemainingLeaseField:
+                    record[keyRemainingLease] = int(record[keyLeaseCommenceDate]) + 99 - currentYear
+                elif len(record[keyRemainingLease]) > 2:
+                    record[keyRemainingLease] = record[keyRemainingLease][:2]
                 record[keyFloorAreaLower] = math.floor(float(record[keyFloorArea]) / 10) * 10
                 record[keyUnitPrice] = math.floor(float(record[keyResalePrice]) / float(record[keyFloorArea]))
                 record[keyResaleYear] = record[keyResaleDate][:4]
