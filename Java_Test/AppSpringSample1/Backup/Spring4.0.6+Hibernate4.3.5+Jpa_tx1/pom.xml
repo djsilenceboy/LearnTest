@@ -11,7 +11,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java-api.version>1.6</java-api.version>
 		<junit.version>4.11</junit.version>
-		<spring.version>4.0.6.RELEASE</spring.version>
+		<spring.version>5.2.22.RELEASE</spring.version>
 		<hibernate.version>4.3.5.Final</hibernate.version>
 	</properties>
 
