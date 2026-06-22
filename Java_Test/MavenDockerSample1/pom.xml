@@ -8,7 +8,7 @@
 
 	<properties>
 		<log4j.version>2.11.1</log4j.version>
-		<junit.version>4.12</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<baseimage.name>centos</baseimage.name>
 		<baseimage.version>7</baseimage.version>
 		
