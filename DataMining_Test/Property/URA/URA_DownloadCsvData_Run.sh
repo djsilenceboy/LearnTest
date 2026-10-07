@@ -11,6 +11,8 @@ RawFileFolder="${CurrentFolder}/RawCsvData/${DateRange}"
 RawCombinedFileFolder="${CurrentFolder}/RawCsvDataCombined/${DateRange}"
 TransFileMainName="URA_CondoEcTrans_${DateRange}"
 RentFileMainName="URA_CondoEcRent_${DateRange}"
+Cookie=JSESSIONID=PIAW3NMEjFM3OVUqJTld5P-74GWuzmUDz-DCcZKuEKBt2PHAOsPK!-526713347!1486920979
+Csrf=5eed1fd1-8d09-4a2a-9ad3-e4225c704296
 
 echo "================================================================================"
 echo "Generate download scripts ..."
@@ -26,13 +28,15 @@ echo "RawFileFolder = "$RawFileFolder
 echo "RawCombinedFileFolder = "$RawCombinedFileFolder
 echo "TransFileMainName = "$TransFileMainName
 echo "RentFileMainName = "$RentFileMainName
+echo "Cookie = "$Cookie
+echo "Csrf = "$Csrf
 echo
 
 mkdir -p ${RawFileFolder}
 
-${CurrentFolder}/URA_DownloadCsvData_Generate_Transaction.sh $FromYear $FromMonth $ToYear $ToMonth "${RawFileFolder}" "${TransFileMainName}"
+${CurrentFolder}/URA_DownloadCsvData_Generate_Transaction.sh $FromYear $FromMonth $ToYear $ToMonth "${RawFileFolder}" "${TransFileMainName}" "${Cookie}" "${Csrf}"
 
-${CurrentFolder}/URA_DownloadCsvData_Generate_Rental.sh $FromYear $FromMonth $ToYear $ToMonth "${RawFileFolder}" "${RentFileMainName}"
+${CurrentFolder}/URA_DownloadCsvData_Generate_Rental.sh $FromYear $FromMonth $ToYear $ToMonth "${RawFileFolder}" "${RentFileMainName}" "${Cookie}" "${Csrf}"
 
 echo "Generated download scripts."
 

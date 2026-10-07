@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DateRange=$1_$2
-AppFolder=/f/WorkDJS/RepositoryGit/LearnTest/Python_Test/PyDataMiningSample/com/djs/learn/ura
+AppFolder=/g/WorkDJS/RepositoryGit/LearnTest/Python_Test/PyDataMiningSample/com/djs/learn/ura
 DataFolder=./RawCsvDataCombined/$DateRange
 
 echo "================================================================================"

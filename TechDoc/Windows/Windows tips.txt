@@ -1,0 +1,22 @@
+================================================================================
+Run as hidden administrator
+
+Open Command Prompt as administrator. Type:
+
+# net user administrator /active:yes
+
+Now, log into the hidden Administrator account!
+Run some command blocked by UAC or Administrator.
+
+To disable:
+
+# net user administrator /active:no
+================================================================================
+
+================================================================================
+Windows RegEdit Disable LUA
+https://www.youtube.com/watch?v=Gjf0PxhGU0U
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+"EnableLUA"=dword:00000000
+================================================================================

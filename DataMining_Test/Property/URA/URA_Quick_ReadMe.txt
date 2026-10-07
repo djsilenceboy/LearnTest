@@ -1,4 +1,24 @@
 ================================================================================
+All in one sh.
+------------------------------------------------------------
+From following page,
+https://eservice.ura.gov.sg/property-market-information/pmiResidentialTransactionSearch
+https://eservice.ura.gov.sg/property-market-information/pmiResidentialRentalSearch
+find latest "JSESSIONID" and "Csrf".
+------------------------------------------------------------
+Update "URA_DownloadCsvData_Run.sh":
+
+Cookie=JSESSIONID=xxx
+Csrf=yyy
+------------------------------------------------------------
+In Git Bash, run:
+./URA_Quick.sh YYYY MM
+
+Such as:
+./URA_Quick.sh 2026 09
+================================================================================
+
+================================================================================
 Update "URA_DownloadCsvData_Temp.sh".
 
 In Git Bash, run:
@@ -29,9 +49,4 @@ Update "URA_ProcessedCsvData_Filter_Temp.sh".
 
 In Git Bash, run:
 ./URA_ProcessedCsvData_Filter_Temp.sh 2026 02
-================================================================================
-Update above all sh.
-
-In Git Bash, run:
-./URA_Quick.sh 2026 02
 ================================================================================

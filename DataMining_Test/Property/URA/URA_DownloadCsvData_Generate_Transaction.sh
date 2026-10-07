@@ -6,6 +6,8 @@ SaleYearTo=$3
 SaleMonthTo=$4
 OutputFolder=$5
 OutputFileMainName=$6
+Cookie=$7
+Csrf=$8
 
 echo "------------------------------------------------------------"
 echo "SaleYearFrom = "$SaleYearFrom
@@ -14,6 +16,8 @@ echo "SaleYearTo = "$SaleYearTo
 echo "SaleMonthTo = "$SaleMonthTo
 echo "OutputFolder = "$OutputFolder
 echo "OutputFileMainName = "$OutputFileMainName
+echo "Cookie = "$Cookie
+echo "Csrf = "$Csrf
 
 MainServiceUrl="https://eservice.ura.gov.sg/property-market-information/pmiSearchResidentialTransactionDownload"
 echo "MainServiceUrl = "$MainServiceUrl
@@ -21,6 +25,7 @@ echo "MainServiceUrl = "$MainServiceUrl
 make_form_data_postal_list()
 {
     postalDistrictList=$*
+    # ["postalDistrict","D01","D02","D03","D04"]
     postalDistrictListResults="%5B%22postalDistrict%22"
 
     for postalDistrict in ${postalDistrictList}
@@ -38,7 +43,7 @@ make_form_data_full()
     postalDistrictListPart=$1
     propertyTypeGroupNo=$2
 
-    fullFormDataResults="downloadType=downloadCSV&locationDetails=${postalDistrictListPart}&saleYearFrom=${SaleYearFrom}&saleMonthFrom=${SaleMonthFrom}&saleYearTo=${SaleYearTo}&saleMonthTo=${SaleMonthTo}&propertyTypeGroupNo=${propertyTypeGroupNo}&saleType%5B0%5D=1&saleType%5B1%5D=2&saleType%5B2%5D=3&sortBy=5&sortAsc=1&selectColumn=1&selectColumn=2&selectColumn=5&selectColumn=6&selectColumn=7&selectColumn=8&selectColumn=9&selectColumn=10&selectColumn=11&selectColumn=12&selectColumn=13&selectColumn=14&selectColumn=15&selectColumn=16&selectColumn=17"
+    fullFormDataResults="downloadType=downloadCSV&locationDetails=${postalDistrictListPart}&saleYearFrom=${SaleYearFrom}&saleMonthFrom=${SaleMonthFrom}&saleYearTo=${SaleYearTo}&saleMonthTo=${SaleMonthTo}&propertyTypeGroupNo=${propertyTypeGroupNo}&saleType%5B0%5D=1&saleType%5B1%5D=2&saleType%5B2%5D=3&sortBy=5&sortAsc=1&selectColumn=1&selectColumn=2&selectColumn=5&selectColumn=6&selectColumn=7&selectColumn=8&selectColumn=9&selectColumn=10&selectColumn=11&selectColumn=12&selectColumn=13&selectColumn=14&selectColumn=15&selectColumn=16&selectColumn=17&_csrf=${Csrf}"
 
     echo  $fullFormDataResults
 }
@@ -63,7 +68,7 @@ do
         fullFormData=$(make_form_data_full ${formDataPostalDistrictList} ${propertyTypeGroupNo})
         echo $M"-"$N": fullFormData = "$fullFormData
 
-        actionCommand="curl -ksS '${MainServiceUrl}' -H 'Connection: keep-alive' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Accept-Encoding: gzip, deflate, br' -d '${fullFormData}' --compressed -o '${csvDataFile}'"
+        actionCommand="curl -ksS '${MainServiceUrl}' -H 'Connection: keep-alive' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Accept-Encoding: gzip, deflate, br' -b '${Cookie}' -d '${fullFormData}' --compressed -o '${csvDataFile}'"
         echo $M"-"$N": actionCommand = "$actionCommand
         echo $actionCommand >> $actualShFile
         echo >> $actualShFile
